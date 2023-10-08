@@ -1,7 +1,7 @@
 <template>
-  <ConfigProvider theme="light">
+  <!-- <ConfigProvider theme="light">
   </ConfigProvider>
-  <Popup v-model:show="showTop" position="top" >
+  <Popup v-model:show="showTop" position="top">
     <van-cell-group>
       <van-cell title="软件名称" value="HAH推广游戏" label="推荐好友加盟游戏" />
       <van-cell title="版本" :value="config.version" label="Copyright ©2022~2023 HAH" />
@@ -19,7 +19,10 @@
     <TabbarItem name="static" icon="balance-o" to="/static">配套</TabbarItem>
     <TabbarItem name="trends" icon="chart-trending-o" to="/trends">收益</TabbarItem>
     <TabbarItem name="user" icon="user-o" to="/user">我的</TabbarItem>
-  </Tabbar>
+  </Tabbar> -->
+  <div class="h-screen bg-red-400 color-red-400">
+    1111
+  </div>
 </template>
  
 <script setup>
@@ -44,9 +47,9 @@ watch([() => router.currentRoute.value.name], (R) => {
 
 </script>
 
-<style>
+<!-- <style>
 body {
   color: var(--van-text-color);
   background-color: var(--van-background-2);
 }
-</style>
+</style> -->

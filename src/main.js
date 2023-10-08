@@ -1,12 +1,29 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import './assets/tailwind.css'
 
 import App from './App.vue'
 import router from './router'
 
 import {
-    Button, Image, Tag, Cell, CellGroup, Switch, Tab, Tabs, PullRefresh, Empty, BackTop, TreeSelect, Divider, Icon,
-    Badge, NoticeBar, Card, NavBar
+  Button,
+  Image,
+  Tag,
+  Cell,
+  CellGroup,
+  Switch,
+  Tab,
+  Tabs,
+  PullRefresh,
+  Empty,
+  BackTop,
+  TreeSelect,
+  Divider,
+  Icon,
+  Badge,
+  NoticeBar,
+  Card,
+  NavBar
 } from 'vant'
 
 import 'vant/lib/index.css'
