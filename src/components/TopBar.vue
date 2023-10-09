@@ -14,7 +14,7 @@
                     @click="showMenu = !showMenu"></div>
             </div>
         </div>
-        <div v-show="showMenu" class="p-4 pb-0 absolute z-50 w-full bg-black">
+        <div v-show="showMenu" class="p-4 pb-0 absolute z-50 h-screen w-full bg-black">
             <div class="router-item border-b" @click="toHome">
                 <div>
                     朋友
@@ -108,7 +108,7 @@ export default {
 
 <style scoped>
 .router-item {
-    @apply flex justify-between items-center py-3 border-gray-700 text-sm;
+    @apply flex justify-between items-center py-4 text-primary-color border-gray-700 text-sm;
 }
 
 .close {

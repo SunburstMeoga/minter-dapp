@@ -1,8 +1,7 @@
 <template>
-    <van-tabs sticky animated swipeable>
+    <van-tabs class="pt-2" sticky animated swipeable color="#eaae36" title-inactive-color="#A3A0BA" title-active-color="#eaae36" background="#000">
         <van-tab title="新增朋友">
-            <van-pull-refresh v-model="loading" @refresh="load">
-                <!-- <van-empty description="新增朋友" /> -->
+            <!-- <van-pull-refresh v-model="loading" @refresh="load">
                 <template v-for="key in 2" :key="key">
                     <van-cell-group inset>
                         <van-cell title="朋友地址:" value="0x1234...7890">
@@ -17,8 +16,12 @@
                         </van-cell>
                     </van-cell-group>
                 </template>
-
-            </van-pull-refresh>
+            </van-pull-refresh> -->
+           <div class="pt-4 h-auto">
+            <div class="mr-auto ml-auto mb-4 w-11/12" v-for="key in 2" :key="key">
+                <new-friend-card />
+            </div>
+           </div>
         </van-tab>
         <van-tab title="朋友信息">
             <van-pull-refresh v-model="loading" @refresh="load">
@@ -43,6 +46,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import newFriendCard from '../components/newFriendCard.vue';
 import { showSuccessToast } from 'vant'
 const loading = ref(false)
 function load() {

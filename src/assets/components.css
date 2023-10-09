@@ -1,0 +1,5 @@
+.operating-button {
+    background: rgb(234, 174, 54);
+    background: linear-gradient(90deg, rgba(234, 174, 54, 1) 0%, rgba(75, 43, 122, 1) 89%);
+    color: #000;
+}

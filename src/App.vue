@@ -1,9 +1,11 @@
 <template>
-  <div class="bg-black">
+  <div class="bg-black h-screen">
     <div class="static top-0 left-0">
       <top-bar :pageTitle="pageTitle" showLogo></top-bar>
     </div>
-    <router-view></router-view>
+    <div class="">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -25,4 +27,5 @@
         height: 100%;
         object-fit: cover;
     }
+   
 </style>
