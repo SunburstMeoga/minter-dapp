@@ -1,104 +1,107 @@
 @font-face {
-    font-family: "iconfont"; /* Project id 4089165 */
-    src: url('//at.alicdn.com/t/c/font_4089165_jkvn85z8ufo.woff2?t=1692698014906') format('woff2'),
-         url('//at.alicdn.com/t/c/font_4089165_jkvn85z8ufo.woff?t=1692698014906') format('woff'),
-         url('//at.alicdn.com/t/c/font_4089165_jkvn85z8ufo.ttf?t=1692698014906') format('truetype'),
-         url('//at.alicdn.com/t/c/font_4089165_jkvn85z8ufo.svg?t=1692698014906#iconfont') format('svg');
-  }
-  
-  .iconfont {
-    font-family: "iconfont" !important;
-    font-size: 16px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  
-  .icon-time:before {
-    content: "\e60a";
-  }
-  
-  .icon-language:before {
-    content: "\e693";
-  }
-  
-  .icon-top:before {
-    content: "\e607";
-  }
-  
-  .icon-tumblr1:before {
-    content: "\e64e";
-  }
-  
-  .icon-tumblr2:before {
-    content: "\eb27";
-  }
-  
-  .icon-whatsapp:before {
-    content: "\eb92";
-  }
-  
-  .icon-facebook-fill:before {
-    content: "\e88d";
-  }
-  
-  .icon-twitter-fill:before {
-    content: "\e63d";
-  }
-  
-  .icon-tumblr:before {
-    content: "\e63e";
-  }
-  
-  .icon-Instagram:before {
-    content: "\e61a";
-  }
-  
-  .icon-view:before {
-    content: "\e69e";
-  }
-  
-  .icon-share:before {
-    content: "\e619";
-  }
-  
-  .icon-heart:before {
-    content: "\e645";
-  }
-  
-  .icon-hamburgermenu:before {
-    content: "\e654";
-  }
-  
-  .icon-menu-hamburger:before {
-    content: "\e8f2";
-  }
-  
-  .icon-close:before {
-    content: "\e602";
-  }
-  
-  .icon-menu:before {
-    content: "\e609";
-  }
-  
-  .icon-Search:before {
-    content: "\e62c";
-  }
-  
-  .icon-left:before {
-    content: "\e85c";
-  }
-  
-  .icon-right:before {
-    content: "\e877";
-  }
-  
-  .icon-guizeguanli:before {
-    content: "\e663";
-  }
-  
-  .icon-message-language:before {
-    content: "\e82e";
-  }
-  
+  font-family: "iconfont"; /* Project id 4089165 */
+  src: url('//at.alicdn.com/t/c/font_4089165_9rm33un9lld.woff2?t=1696845503664') format('woff2'),
+       url('//at.alicdn.com/t/c/font_4089165_9rm33un9lld.woff?t=1696845503664') format('woff'),
+       url('//at.alicdn.com/t/c/font_4089165_9rm33un9lld.ttf?t=1696845503664') format('truetype'),
+       url('//at.alicdn.com/t/c/font_4089165_9rm33un9lld.svg?t=1696845503664#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-close1:before {
+  content: "\e615";
+}
+
+.icon-time:before {
+  content: "\e60a";
+}
+
+.icon-language:before {
+  content: "\e693";
+}
+
+.icon-top:before {
+  content: "\e607";
+}
+
+.icon-tumblr1:before {
+  content: "\e64e";
+}
+
+.icon-tumblr2:before {
+  content: "\eb27";
+}
+
+.icon-whatsapp:before {
+  content: "\eb92";
+}
+
+.icon-facebook-fill:before {
+  content: "\e88d";
+}
+
+.icon-twitter-fill:before {
+  content: "\e63d";
+}
+
+.icon-tumblr:before {
+  content: "\e63e";
+}
+
+.icon-Instagram:before {
+  content: "\e61a";
+}
+
+.icon-view:before {
+  content: "\e69e";
+}
+
+.icon-share:before {
+  content: "\e619";
+}
+
+.icon-heart:before {
+  content: "\e645";
+}
+
+.icon-hamburgermenu:before {
+  content: "\e654";
+}
+
+.icon-menu-hamburger:before {
+  content: "\e8f2";
+}
+
+.icon-close:before {
+  content: "\e602";
+}
+
+.icon-menu:before {
+  content: "\e609";
+}
+
+.icon-Search:before {
+  content: "\e62c";
+}
+
+.icon-left:before {
+  content: "\e85c";
+}
+
+.icon-right:before {
+  content: "\e877";
+}
+
+.icon-guizeguanli:before {
+  content: "\e663";
+}
+
+.icon-message-language:before {
+  content: "\e82e";
+}
