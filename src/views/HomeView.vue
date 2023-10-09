@@ -19,7 +19,7 @@
             </van-pull-refresh> -->
            <div class="pt-4 h-auto">
             <div class="mr-auto ml-auto mb-4 w-11/12" v-for="key in 2" :key="key">
-                <new-friend-card />
+                <new-friend-card :isPurchased="key == 1 ? true : false"/>
             </div>
            </div>
         </van-tab>
