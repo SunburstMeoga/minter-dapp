@@ -1,32 +1,33 @@
 <template>
-    <div>
+    <div class="pt-14">
         <div class="border-b border-secondary-color">
+            
             <van-tabs  class="pt-2" sticky animated swipeable color="#eaae36" title-inactive-color="#A3A0BA"
                 title-active-color="#eaae36" background="#000">
                 <van-tab title="配套1">
                    <div class="w-11/12 mr-auto ml-auto pt-12">
-                    <static-card />
+                    <static-card staticName="配套1"/>
                    </div>
                 </van-tab>
                 <van-tab title="配套2">
-                    <div class="tabs-content">
-                        配套2
-                    </div>
+                    <div class="w-11/12 mr-auto ml-auto pt-12">
+                    <static-card staticName="配套2"/>
+                   </div>
                 </van-tab>
                 <van-tab title="配套3">
-                    <div class="tabs-content">
-                        配套3
-                    </div>
+                    <div class="w-11/12 mr-auto ml-auto pt-12">
+                    <static-card staticName="配套3"/>
+                   </div>
                 </van-tab>
                 <van-tab title="配套4">
-                    <div class="tabs-content">
-                        配套4
-                    </div>
+                    <div class="w-11/12 mr-auto ml-auto pt-12">
+                    <static-card staticName="配套4"/>
+                   </div>
                 </van-tab>
                 <van-tab title="配套5">
-                    <div class="tabs-content">
-                        配套5
-                    </div>
+                    <div class="w-11/12 mr-auto ml-auto pt-12">
+                    <static-card staticName="配套5"/>
+                   </div>
                 </van-tab>
 
 
@@ -49,7 +50,7 @@
 </template>
 
 <script>
-import StaticCard from '../components/staticCard.vue'
+import StaticCard from '@/components/StaticCard.vue'
 export default {
     components: {StaticCard}
 }

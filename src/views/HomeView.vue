@@ -1,5 +1,5 @@
 <template>
-    <van-tabs class="pt-2" sticky animated swipeable color="#eaae36" title-inactive-color="#A3A0BA" title-active-color="#eaae36" background="#000">
+    <van-tabs class="pt-20" sticky animated swipeable color="#eaae36" title-inactive-color="#A3A0BA" title-active-color="#eaae36" background="#000">
         <van-tab title="新增朋友">
             <!-- <van-pull-refresh v-model="loading" @refresh="load">
                 <template v-for="key in 2" :key="key">
@@ -46,7 +46,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import newFriendCard from '../components/newFriendCard.vue';
+import NewFriendCard from '@/components/NewFriendCard.vue';
 import { showSuccessToast } from 'vant'
 const loading = ref(false)
 function load() {

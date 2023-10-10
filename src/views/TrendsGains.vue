@@ -1,8 +1,66 @@
 <template>
-    <van-tabs sticky animated swipeable>
+    <div class="bg-black pt-20">
+        <div class="mb-4">
+            <module-title titleWord="我的收益" />
+        </div>
+        <div>
+            <div
+                class="bonuses-item" @click="toReward">
+                <div class="">静态奖金</div>
+                <div class="flex justify-end items-center">
+                    <div class="flex flex-col items-end justify-center text-sm">
+                        <div class="text-red-500">400</div>
+                        <div>MUSDT</div>
+                    </div>
+                    <div class="icon iconfont icon-right ml-2" style="font-size: 20px;">
+
+                    </div>
+                </div>
+            </div>
+            <div
+                class="bonuses-item" @click="toReward">
+                <div class="">直推奖金</div>
+                <div class="flex justify-end items-center">
+                    <div class="flex flex-col items-end justify-center text-sm">
+                        <div class="text-red-500">100</div>
+                        <div>MUSDT</div>
+                    </div>
+                    <div class="icon iconfont icon-right ml-2" style="font-size: 20px;">
+
+                    </div>
+                </div>
+            </div>
+            <div
+                class="bonuses-item" @click="toReward">
+                <div class="">对碰奖金</div>
+                <div class="flex justify-end items-center">
+                    <div class="flex flex-col items-end justify-center text-sm">
+                        <div class="text-red-500">200</div>
+                        <div>MUSDT</div>
+                    </div>
+                    <div class="icon iconfont icon-right ml-2" style="font-size: 20px;">
+
+                    </div>
+                </div>
+            </div>
+            <div
+                class="bonuses-item" @click="toReward">
+                <div class="">代数奖金</div>
+                <div class="flex justify-end items-center">
+                    <div class="flex flex-col items-end justify-center text-sm">
+                        <div class="text-red-500">300</div>
+                        <div>MUSDT</div>
+                    </div>
+                    <div class="icon iconfont icon-right ml-2" style="font-size: 20px;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <van-tabs sticky animated swipeable>
         <van-tab title="我的收益">
             <van-pull-refresh v-model="loading" @refresh="load">
-                <!-- <van-empty description="直推奖金" /> -->
                 <van-cell-group inset>
                     <van-cell title="静态奖金" value="400" is-link to="reward" label="MUSDT" />
                     <van-cell title="直推奖金" value="100" is-link to="reward" label="MUSDT" />
@@ -11,7 +69,7 @@
                 </van-cell-group>
             </van-pull-refresh>
         </van-tab>
-<!-- 
+ 
         <van-tab title="直推">
             <van-pull-refresh v-model="loading" @refresh="load">
                 <van-empty description="代数奖金" />
@@ -29,14 +87,25 @@
             <van-pull-refresh v-model="loading" @refresh="load">
                 <van-empty description="代数奖金" />
             </van-pull-refresh>
-        </van-tab> -->
+        </van-tab> 
 
-    </van-tabs>
+    </van-tabs>-->
 </template>
-<script setup>
-import { ref } from 'vue'
-const loading = ref(false)
-function load() {
-    loading.value = false
+<script>
+import ModuleTitle from '@/components/ModuleTitle.vue';
+export default {
+    components: { ModuleTitle },
+    methods: {
+        toReward() {
+            this.$router.push({
+                path: '/reward'
+            })
+        }
+    }
 }
 </script>
+<style scoped>
+    .bonuses-item {
+        @apply flex justify-between items-center w-11/12 mr-auto ml-auto rounded p-2 mb-3 bg-card-content text-card-word;
+    }
+</style>

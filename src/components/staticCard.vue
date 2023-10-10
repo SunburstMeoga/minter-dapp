@@ -5,7 +5,7 @@
         </div>
         <div>
             <div class="mb-1 font-bold text-xl">
-                配套1 
+                {{ staticName }}
             </div>
             <div class="mb-1">
                 配套等级奖励率：10%
@@ -19,10 +19,10 @@
             
             <div class="text-lg mb-2">
                 <div class="text-white font-bold">200 USDT</div>
-                <div class="text-xs">≈ 20 MUSDT</div>
+                <!-- <div class="text-xs">≈ 20 MUSDT</div> -->
             </div>
 
-            <div class="operating-button rounded-full py-2 text-center mb-2">购买</div>
+            <div class="operating-button rounded-full py-1 text-center mb-4">购买</div>
 
             <div class="text-xs text-red-700">
                * 若用户W购买了配套1（即200USDT的配套）则用户每日可获取的对碰奖金上限为200USDT；若用户W购买了配套1+配套2（即200USDT和600USDT）则用户每日可获取的对碰奖金上限为200+600USDT=800；以此类推
@@ -33,7 +33,12 @@
 
 <script>
     export default {
-        
+        props: {
+            staticName: {
+                type: String,
+                default: ''
+            }
+        }
     }
 </script>
 
