@@ -1,5 +1,5 @@
 <template>
-    <div class="pt-14">
+    <div class="pt-20">
         <div class="border-b border-secondary-color">
             
             <van-tabs  class="pt-2" sticky animated swipeable color="#eaae36" title-inactive-color="#A3A0BA"
