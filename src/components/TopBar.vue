@@ -15,41 +15,48 @@
             </div>
         </div>
         <div v-show="showMenu" class="p-4 pb-0 absolute z-50 h-screen w-full bg-black">
-            <div class="router-item border-b" @click="toPage('/home')">
-                <div>
-                    推荐关系
+            <div class="router-item border-b" @click="toPage('/')">
+                <div class="flex justify-start items-center">
+                    <div class="icon iconfont icon-_shangxiaguanxi"></div>
+                    <div class="ml-2">推荐关系</div>
                 </div>
                 <div>
                     <div class="icon iconfont icon-right"></div>
                 </div>
             </div>
-            <div class="router-item border-b" @click="toPage('/static')">
-                <div>
-                    配套信息
+            <div class="router-item border-b" @click="toPage('/coherent')">
+               
+                <div class="flex justify-start items-center">
+                    <div class="icon iconfont icon-dapeitaocan"></div>
+                    <div class="ml-2">购买配套</div>
                 </div>
                 <div>
                     <div class="icon iconfont icon-right"></div>
                 </div>
             </div>
-            <div class="router-item border-b" @click="toPage('/static')">
-                <div>
-                    购买NFT
+            <div class="router-item border-b" @click="toPage('/coherent')">
+              
+                <div class="flex justify-start items-center">
+                    <div class="icon iconfont icon-yingyongshichang"></div>
+                    <div class="ml-2">NFT市场</div>
                 </div>
                 <div>
                     <div class="icon iconfont icon-right"></div>
                 </div>
             </div>
-            <div class="router-item border-b" @click="toPage('/trends')">
-                <div>
-                    收益
+            <div class="router-item border-b" @click="toPage('/earnings')">
+                <div class="flex justify-start items-center">
+                    <div class="icon iconfont icon-shouyi"></div>
+                    <div class="ml-2">收益</div>
                 </div>
                 <div>
                     <div class="icon iconfont icon-right"></div>
                 </div>
             </div>
-            <div class="router-item" @click="toPage('/user')">
-                <div>
-                    个人中心
+            <div class="router-item" @click="toPage('/personal')">
+                <div class="flex justify-start items-center">
+                    <div class="icon iconfont icon-iconfuzhi"></div>
+                    <div class="ml-2">个人中心</div>
                 </div>
                 <div>
                     <div class="icon iconfont icon-right"></div>
@@ -62,7 +69,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import { toRefs } from 'vue'
 import { useRouter } from "vue-router";
 const router = useRouter()
 const showMenu = ref(false)
