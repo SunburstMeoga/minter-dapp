@@ -1,7 +1,12 @@
+<script setup>
+// import { ref } from 'vue'
+defineProps: ({
+    staticName: String
+})
+</script>
 <template>
     <div class="bg-card-content text-secondary-icon rounded px-4 py-2 overflow-hidden">
         <div class="mb-2">
-            <!-- <img src="./public/200.png" alt=""> -->
         </div>
         <div>
             <div class="mb-1 font-bold text-xl">
@@ -30,18 +35,6 @@
         </div>
     </div>
 </template>
-
-<script>
-    export default {
-        props: {
-            staticName: {
-                type: String,
-                default: ''
-            }
-        }
-    }
-</script>
-
 <style scoped>
 
 </style>

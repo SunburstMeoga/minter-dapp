@@ -17,7 +17,7 @@
         <div v-show="showMenu" class="p-4 pb-0 absolute z-50 h-screen w-full bg-black">
             <div class="router-item border-b" @click="toHome">
                 <div>
-                    朋友
+                    推荐关系
                 </div>
                 <div>
                     <div class="icon iconfont icon-right"></div>
@@ -25,7 +25,15 @@
             </div>
             <div class="router-item border-b" @click="toStatic">
                 <div>
-                    配套
+                    配套信息
+                </div>
+                <div>
+                    <div class="icon iconfont icon-right"></div>
+                </div>
+            </div>
+            <div class="router-item border-b" @click="toTrends">
+                <div>
+                    购买NFT
                 </div>
                 <div>
                     <div class="icon iconfont icon-right"></div>
@@ -41,7 +49,7 @@
             </div>
             <div class="router-item" @click="toUser">
                 <div>
-                    我的
+                    个人中心
                 </div>
                 <div>
                     <div class="icon iconfont icon-right"></div>
