@@ -11,11 +11,11 @@
             </div>
             <div>
                 <div class="icon iconfont menu" :class="showMenu ? 'icon-close1' : 'icon-menu-hamburger'"
-                    @click="showMenu = !showMenu"></div>
+                    @click="toggleMenu"></div>
             </div>
         </div>
         <div v-show="showMenu" class="p-4 pb-0 absolute z-50 h-screen w-full bg-black">
-            <div class="router-item border-b" @click="toHome">
+            <div class="router-item border-b" @click="toPage('/home')">
                 <div>
                     推荐关系
                 </div>
@@ -23,7 +23,7 @@
                     <div class="icon iconfont icon-right"></div>
                 </div>
             </div>
-            <div class="router-item border-b" @click="toStatic">
+            <div class="router-item border-b" @click="toPage('/static')">
                 <div>
                     配套信息
                 </div>
@@ -31,7 +31,7 @@
                     <div class="icon iconfont icon-right"></div>
                 </div>
             </div>
-            <div class="router-item border-b" @click="toTrends">
+            <div class="router-item border-b" @click="toPage('/static')">
                 <div>
                     购买NFT
                 </div>
@@ -39,7 +39,7 @@
                     <div class="icon iconfont icon-right"></div>
                 </div>
             </div>
-            <div class="router-item border-b" @click="toTrends">
+            <div class="router-item border-b" @click="toPage('/trends')">
                 <div>
                     收益
                 </div>
@@ -47,7 +47,7 @@
                     <div class="icon iconfont icon-right"></div>
                 </div>
             </div>
-            <div class="router-item" @click="toUser">
+            <div class="router-item" @click="toPage('/user')">
                 <div>
                     个人中心
                 </div>
@@ -60,58 +60,38 @@
     </div>
 </template>
 
-<script>
-import { Divider } from 'vant'
-export default {
-    components: { [Divider.name]: Divider },
-    data() {
-        return {
-            showMenu: false
-        }
-    },
-    props: {
-        pageTitle: {
-            type: String,
-            default: ''
-        },
-        showBack: {
-            type: Boolean,
-            default: false
-        },
-        showLogo: {
-            type: Boolean,
-            default: false
-        }
-    },
-    methods: {
-        toHome() {
-            this.$router.push({
-                path: '/home'
-            })
-            this.showMenu = false
-        },
-        toStatic() {
-            this.$router.push({
-                path: '/static'
-            })
-            this.showMenu = false
-        },
-        toTrends() {
-            this.$router.push({
-                path: '/trends'
-            })
-            this.showMenu = false
-
-        },
-        toUser() {
-            this.$router.push({
-                path: '/user'
-            })
-            this.showMenu = false
-
-        }
-    }
+<script setup>
+import { ref } from 'vue'
+import { toRefs } from 'vue'
+import { useRouter } from "vue-router";
+const router = useRouter()
+const showMenu = ref(false)
+function toggleMenu() {
+    showMenu.value = !showMenu.value
 }
+
+function toPage(page) {
+    router.push({
+        path: page
+    })
+    showMenu.value = false
+}
+
+defineProps({
+    pageTitle: {
+        type: String,
+        default: ''
+    },
+    showBack: {
+        type: Boolean,
+        default: false
+    },
+    showLogo: {
+        type: Boolean,
+        default: false
+    }
+})
+// const { pageTitle, showBack, showLogo } = toRefs(props)
 </script>
 
 <style scoped>

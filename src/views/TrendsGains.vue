@@ -4,8 +4,7 @@
             <module-title titleWord="我的收益" />
         </div>
         <div>
-            <div
-                class="bonuses-item" @click="toReward">
+            <div class="bonuses-item" @click="toReward">
                 <div class="">静态奖金</div>
                 <div class="flex justify-end items-center">
                     <div class="flex flex-col items-end justify-center text-sm">
@@ -17,8 +16,7 @@
                     </div>
                 </div>
             </div>
-            <div
-                class="bonuses-item" @click="toReward">
+            <div class="bonuses-item" @click="toReward">
                 <div class="">直推奖金</div>
                 <div class="flex justify-end items-center">
                     <div class="flex flex-col items-end justify-center text-sm">
@@ -30,8 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div
-                class="bonuses-item" @click="toReward">
+            <div class="bonuses-item" @click="toReward">
                 <div class="">对碰奖金</div>
                 <div class="flex justify-end items-center">
                     <div class="flex flex-col items-end justify-center text-sm">
@@ -43,8 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div
-                class="bonuses-item" @click="toReward">
+            <div class="bonuses-item" @click="toReward">
                 <div class="">代数奖金</div>
                 <div class="flex justify-end items-center">
                     <div class="flex flex-col items-end justify-center text-sm">
@@ -91,21 +87,18 @@
 
     </van-tabs>-->
 </template>
-<script>
+<script setup>
+import { useRouter } from "vue-router";
 import ModuleTitle from '@/components/ModuleTitle.vue';
-export default {
-    components: { ModuleTitle },
-    methods: {
-        toReward() {
-            this.$router.push({
-                path: '/reward'
-            })
-        }
-    }
+const router = useRouter()
+function toReward() {
+    router.push({
+        path: '/reward'
+    })
 }
 </script>
 <style scoped>
-    .bonuses-item {
-        @apply flex justify-between items-center w-11/12 mr-auto ml-auto rounded p-2 mb-3 bg-card-content text-card-word;
-    }
+.bonuses-item {
+    @apply flex justify-between items-center w-11/12 mr-auto ml-auto rounded p-2 mb-3 bg-card-content text-card-word;
+}
 </style>
