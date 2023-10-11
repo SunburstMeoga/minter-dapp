@@ -1,5 +1,5 @@
 <template>
-    <div class="py-3 w-full text-primary-color relative">
+    <div class="h-12 w-full text-primary-color relative">
         <div class="flex justify-between items-center px-2">
             
             <div>

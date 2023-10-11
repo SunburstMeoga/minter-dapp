@@ -7,9 +7,10 @@
       <top-back-bar :pageTitle="this.$route.meta.pageTitle"/>
     </div>
     <div class="">
-      <router-view></router-view>
+      <router-view />
     </div>
   </div>
+ 
 </template>
 
 <script>
@@ -31,5 +32,4 @@
         height: 100%;
         object-fit: cover;
     }
-   
 </style>

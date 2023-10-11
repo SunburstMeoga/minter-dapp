@@ -56,5 +56,4 @@ app.use(Badge)
 app.use(NoticeBar)
 app.use(Card)
 app.use(NavBar)
-
 app.mount('#app')
