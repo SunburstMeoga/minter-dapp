@@ -6,8 +6,8 @@ import StaticCard from '@/components/staticCard.vue';
     <div class="pt-20">
         <div class="border-b border-secondary-color">
 
-            <van-tabs class="pt-2" sticky animated swipeable color="#eaae36" title-inactive-color="#A3A0BA"
-                title-active-color="#eaae36" background="#000">
+            <van-tabs class="pt-2" sticky animated swipeable color="#e149ed" title-inactive-color="#A3A0BA"
+                title-active-color="#e149ed" background="#000">
                 <van-tab title="配套1">
                     <div class="w-11/12 mr-auto ml-auto pt-12">
                         <static-card staticName="配套1" />

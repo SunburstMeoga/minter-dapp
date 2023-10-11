@@ -1,17 +1,13 @@
 <template>
-    <div class="py-3 w-full text-secondary-icon relative">
+    <div class="py-3 w-full text-primary-color relative">
         <div class="flex justify-between items-center px-2">
-            <div>
-                <div class="icon iconfont icon-left text-lg back" v-if="showBack">
-
-                </div>
-                <div class="w-40" v-if="showLogo">
-                    <img src="../assets/HAHLogo.png" alt="">
-                </div>
-            </div>
+            
             <div>
                 <div class="icon iconfont menu" :class="showMenu ? 'icon-close1' : 'icon-menu-hamburger'"
                     @click="toggleMenu"></div>
+            </div>
+            <div class="px-3 py-0.5  bg-primary-color rounded text-white text-sm">
+                链接钱包
             </div>
         </div>
         <div v-show="showMenu" class="p-4 pb-0 absolute z-50 h-screen w-full bg-black">

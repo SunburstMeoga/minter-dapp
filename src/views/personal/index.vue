@@ -1,7 +1,15 @@
 <template>
-    <van-tabs sticky animated swipeable color="#eaae36" title-inactive-color="#A3A0BA" title-active-color="#eaae36"
+    <van-tabs sticky animated swipeable color="#e149ed" title-inactive-color="#A3A0BA" title-active-color="#e149ed"
         background="#000" class="pt-20">
         <van-tab title="账户资金" class="pt-4">
+            <div class="p-10 bg-test-one"></div>
+            <div class="p-10 bg-test-two"></div>
+            <div class="p-10 bg-test-three"></div>
+            <div class="p-10 bg-test-four"></div>
+            <div class="p-10 bg-test-five"></div>
+            <div class="p-10 bg-test-seven"></div>
+
+
             <div class="px-2 w-11/12 mr-auto ml-auto bg-card-content rounded-md">
                 <div class="border-b border-gray-700 py-3 text-secondary-icon">
                     <div class="flex justify-between items-center">
@@ -93,7 +101,7 @@
                         <div class="">200配套</div>
                     </div>
                 </div>
-                <div class="border-b py-2 border-gray-700 text-secondary-icon">
+                <div class="py-2 border-gray-700 text-secondary-icon">
                     <div class="text-sm flex justify-between items-center">
                         <div class="text-white">卡片类型</div>
                         <div class="">加速业绩卡</div>
