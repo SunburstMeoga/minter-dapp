@@ -46,7 +46,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import NewFriendCard from '@/components/NewFriendCard.vue';
+// import NewFriendCard from '@/components/NewFriendCard.vue';
 import { showSuccessToast } from 'vant'
 const loading = ref(false)
 function load() {
