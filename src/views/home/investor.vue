@@ -14,7 +14,7 @@
         <div class="h-24 w-full bg-gray-bottom">
             <div class="flex justify-between w-11/12 ml-auto mr-auto h-full items-center text-white">
                 <div class="font-bold ">Minter</div>
-                <div class="text-sm">© 2023 MINTER(明德). 版權所有</div>
+                <div class="text-sm">© 2023 MINTER. 版權所有</div>
             </div>
             <!-- <div class="flex justify-between w-11/12 h-full items-center text-white">
                 <div class="font-bold ">联系我们</div>

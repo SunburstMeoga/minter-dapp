@@ -43,14 +43,9 @@
 </template>
 
 <script setup>
-import ModuleTitle from '@/components/ModuleTitle.vue';
 </script>
 
 <style  scoped>
-.title {
-    text-shadow: 1px -1px #fff, -1px 1px #999, -10 10px 5px #808080;
-}
-
 img {
     object-fit: cover;
     width: 100%;

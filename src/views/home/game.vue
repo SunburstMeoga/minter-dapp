@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import ModuleTitle from '@/components/ModuleTitle.vue';
+import ModuleTitle from '@/components/ModuleTitle.vue'
 </script>
 
 <style  scoped>

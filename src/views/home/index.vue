@@ -42,23 +42,23 @@
 <script setup>
 import { ref } from 'vue'
 import Home from './home.vue';
-import Present from './present.vue';
+import Present from './present.vue'
 import Game from './game.vue'
 import News from './news.vue'
 import Collaborative from './collaborative.vue'
 import Investor from './investor.vue'
 
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
+import 'swiper/css'
+import 'swiper/css/pagination'
+import { Pagination } from 'swiper/modules'
 const modules = ref[Pagination]
 let swiperRef = ref(null)
 
 function setSwiperRef(swiper) {
   console.log(swiper)
-  swiperRef = swiper;
-};
+  swiperRef = swiper
+}
 
 function changeSwiper(index) {
   console.log(swiperRef)

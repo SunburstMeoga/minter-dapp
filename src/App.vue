@@ -15,7 +15,7 @@
 
 <script>
   import TopBar from '@/components/TopBar.vue'
-  import TopBackBar from './components/TopBackBar.vue';
+  import TopBackBar from './components/TopBackBar.vue'
   export default {
     components: { TopBar, TopBackBar},
     data() {

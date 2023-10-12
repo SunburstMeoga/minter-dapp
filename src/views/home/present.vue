@@ -93,7 +93,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import ModuleTitle from '@/components/ModuleTitle.vue';
+import ModuleTitle from '@/components/ModuleTitle.vue'
 const showDetails = ref(false)
 const detailsInfo = ref('')
 const detailsTitle = ref('')
