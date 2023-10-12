@@ -3,7 +3,7 @@
         <div class="w-11/12 mb-8">
             <module-title titleWord="游戏" />
         </div>
-        <div class="font-black text-2xl w-11/12 mb-8 title">
+        <div class="font-black text-2xl w-11/12 mb-8 title text-white">
            正在开发，敬请期待
         </div>
        

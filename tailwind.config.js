@@ -12,6 +12,7 @@ module.exports = {
         'card-word': '#a3a3a3',
         'gray-700': '#334155',
         'gray-card': '#171b29',
+        'gray-bottom': '#2f323f',
         'test-one': '#CC6DED',
         'test-two': '#48A7FA',
         'test-three': '#2C4FB0',

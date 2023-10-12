@@ -27,12 +27,12 @@
           <swiper-slide>
             <investor />
           </swiper-slide>
-          <swiper-slide>Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide
+          <!-- <swiper-slide>Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide
             7</swiper-slide>
           <swiper-slide>Slide 8Slide 8Slide 8Slide 8Slide 8Slide 8Slide 8Slide 8Slide 8Slide 8Slide 8Slide 8Slide 8Slide
             8Slide 8Slide 8Slide 8</swiper-slide>
           <swiper-slide>Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide
-            9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9</swiper-slide>
+            9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9</swiper-slide> -->
         </swiper>
       </div>
     </div>

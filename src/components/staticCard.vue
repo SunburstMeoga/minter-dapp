@@ -2,7 +2,7 @@
     defineProps({
         staticName: {
             type: String,
-            default: '配套'
+            default: 'Minter'
         }
     })
 </script>
@@ -15,7 +15,7 @@
                 {{ staticName }}
             </div>
             <div class="mb-1">
-                配套等级奖励率：10%
+                Minter等级奖励率：10%
             </div>
             <div class="mb-1">
                 对碰奖金上限值：200
@@ -33,7 +33,7 @@
 
             <div class="text-xs text-red-700">
                 *
-                若用户W购买了配套1（即200USDT的配套）则用户每日可获取的对碰奖金上限为200USDT；若用户W购买了配套1+配套2（即200USDT和600USDT）则用户每日可获取的对碰奖金上限为200+600USDT=800；以此类推
+                若用户W购买了Minter1（即200USDT的Minter）则用户每日可获取的对碰奖金上限为200USDT；若用户W购买了Minter1+Minter2（即200USDT和600USDT）则用户每日可获取的对碰奖金上限为200+600USDT=800；以此类推
             </div>
         </div>
     </div>

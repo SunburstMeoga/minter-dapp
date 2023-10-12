@@ -26,7 +26,7 @@
                         <div class="text-red-400">100.00</div>
                     </div>
                     <div class="text-xs">
-                        当用户购买配套后释放
+                        当用户购买Minter后释放
                     </div>
                 </div>
                 <div class="border-b border-gray-700 py-3 text-secondary-icon">
@@ -70,7 +70,7 @@
             <!-- <van-pull-refresh v-model="loading" @refresh="load">
                 <van-cell-group inset >
                     <van-cell class="bg-card-content" title="HAH" value="100.00" label="平台燃料币" />
-                    <van-cell title="PMT" value="1000.00" label="当用户购买配套后释放" />
+                    <van-cell title="PMT" value="1000.00" label="当用户购买Minter后释放" />
                     <van-cell title="MT" value="2000.00" label="项目中可交易的NFT" />
                     <van-cell title="RT" value="12.12" label="初始资金凭证" />
                     <van-cell title="MUSDT" value="1534.67" label="平台稳定币" />
@@ -98,7 +98,7 @@
                 <div class="border-b py-2 border-gray-700 text-secondary-icon">
                     <div class="text-sm flex justify-between items-center">
                         <div class="text-white">发放来源</div>
-                        <div class="">200配套</div>
+                        <div class="">200Minter</div>
                     </div>
                 </div>
                 <div class="py-2 border-gray-700 text-secondary-icon">
@@ -112,7 +112,7 @@
                 <van-cell-group inset v-for="k in 2" :key="k">
                     <van-cell title="奖励金额" value="100.00" label="MUSDT" />
                     <van-cell title="发放时间" value="2023-09-30 16:01:12" />
-                    <van-cell title="发放来源" value="200配套" />
+                    <van-cell title="发放来源" value="200Minter" />
                     <van-cell title="卡片类型" value="加速业绩卡" />
                 </van-cell-group>
             </van-pull-refresh> -->
@@ -138,7 +138,7 @@
                 <div class="border-b py-2 border-gray-700 text-secondary-icon">
                     <div class="text-sm flex justify-between items-center">
                         <div class="text-white">发放来源</div>
-                        <div class="">200配套</div>
+                        <div class="">200Minter</div>
                     </div>
                 </div>
                 <div class="border-b py-2 border-gray-700 text-secondary-icon">

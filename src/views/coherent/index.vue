@@ -8,29 +8,29 @@ import StaticCard from '@/components/staticCard.vue';
 
             <van-tabs class="pt-2" sticky animated swipeable color="#e149ed" title-inactive-color="#A3A0BA"
                 title-active-color="#e149ed" background="#000">
-                <van-tab title="配套1">
+                <van-tab title="Minter1">
                     <div class="w-11/12 mr-auto ml-auto pt-12">
-                        <static-card staticName="配套1" />
+                        <static-card staticName="Minter1" />
                     </div>
                 </van-tab>
-                <van-tab title="配套2">
+                <van-tab title="Minter2">
                     <div class="w-11/12 mr-auto ml-auto pt-12">
-                        <static-card staticName="配套2" />
+                        <static-card staticName="Minter2" />
                     </div>
                 </van-tab>
-                <van-tab title="配套3">
+                <van-tab title="Minter3">
                     <div class="w-11/12 mr-auto ml-auto pt-12">
-                        <static-card staticName="配套3" />
+                        <static-card staticName="Minter3" />
                     </div>
                 </van-tab>
-                <van-tab title="配套4">
+                <van-tab title="Minter4">
                     <div class="w-11/12 mr-auto ml-auto pt-12">
-                        <static-card staticName="配套4" />
+                        <static-card staticName="Minter4" />
                     </div>
                 </van-tab>
-                <van-tab title="配套5">
+                <van-tab title="Minter5">
                     <div class="w-11/12 mr-auto ml-auto pt-12">
-                        <static-card staticName="配套5" />
+                        <static-card staticName="Minter5" />
                     </div>
                 </van-tab>
 

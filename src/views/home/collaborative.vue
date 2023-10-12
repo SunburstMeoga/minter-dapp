@@ -17,7 +17,7 @@
                 <img src="https://assets.starsharks.com/images/home/np_img_partner3.png" alt="">
             </div>
         </div>
-        <div class="w-11/12 mb-2">
+        <div class="w-11/12 mb-4">
             <img src="https://assets.starsharks.com/images/home/np_partners_ygg_m.png" alt="">
         </div>
         <div class="w-11/12">

@@ -5,7 +5,7 @@
                 <span class="absolute inline-flex h-full w-full rounded-full opacity-75" :class="isPurchased ? 'bg-green-600 animate-ping' : 'bg-red-600'"></span>
                 <span class="relative inline-flex rounded-full h-3 w-3"  :class="isPurchased ? 'bg-green-600' : 'bg-red-600'"></span>
             </span>
-            <div class="ml-2" :class="isPurchased ? 'text-green-600' : 'text-red-600'">{{isPurchased?'已购买配套':'未购买配套'}}</div>
+            <div class="ml-2" :class="isPurchased ? 'text-green-600' : 'text-red-600'">{{isPurchased?'已购买Minter':'未购买Minter'}}</div>
         </div>
         <div class="card-item">
             <div>朋友地址</div>

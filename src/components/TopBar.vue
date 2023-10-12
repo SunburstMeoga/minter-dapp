@@ -2,9 +2,10 @@
     <div class="h-12 w-full text-primary-color">
         <div class="flex justify-between items-center px-4 h-full">
             <div>
-                <div class="icon iconfont menu icon-menu-hamburger" @click="toggleMenu"></div>
+                <!-- <div class="icon iconfont menu icon-menu-hamburger" @click="toggleMenu"></div> -->
+                <div class="icon iconfont menu icon-menu-hamburger"></div>
             </div>
-            <div class="px-6 py-1 bg-primary-color rounded text-white text-base">
+            <div class="px-6 py-1 bg-primary-color rounded text-white text-base operating-button">
                 链接钱包
             </div>
         </div>
@@ -24,22 +25,22 @@
                         <div class="py-1.5" @click="handleHomeChild('homeChild', 1)">
                             主页
                         </div>
-                        <div class="py-1.5">
+                        <div class="py-1.5" @click="handleHomeChild('homeChild', 2)">
                             介绍
                         </div>
-                        <div class="py-1.5">
+                        <div class="py-1.5" @click="handleHomeChild('homeChild', 3)">
                             游戏
                         </div>
-                        <div class="py-1.5">
+                        <div class="py-1.5" @click="handleHomeChild('homeChild', 4)">
                             新闻
                         </div>
-                        <div class="py-1.5">
+                        <div class="py-1.5" @click="handleHomeChild('homeChild', 5)">
                             合作伙伴
                         </div>
-                        <div class="py-1.5">
+                        <div class="py-1.5" @click="handleHomeChild('homeChild', 6)">
                             投资人
                         </div>
-                        <div class="py-1.5">
+                        <div class="py-1.5" @click="handleHomeChild('homeChild', 7)">
                             反馈
                         </div>
                     </div>
@@ -106,7 +107,7 @@
                
                 <div class="flex justify-start items-center">
                     <div class="icon iconfont icon-dapeitaocan"></div>
-                    <div class="ml-2">购买配套</div>
+                    <div class="ml-2">购买Minter</div>
                 </div>
                 <div>
                     <div class="icon iconfont icon-right"></div>
@@ -146,12 +147,15 @@
 
 <script setup>
 import { ref } from 'vue'
+
 import { useRouter } from "vue-router";
 const router = useRouter()
 const showLeftMenu = ref(false)
 const showMoreHome = ref(false)
 const showMoreMarket = ref(false)
 const currentMenuItem = ref('')
+
+let $emit = defineEmits(['handleHomeChild'])
 
 function toggleMenu() {
     showLeftMenu.value = !showLeftMenu.value
@@ -163,6 +167,10 @@ function toggleMoreHome(value) {
     console.log(currentMenuItem.value)
 }
 
+function handleHomeChild(menuItem, index) {
+    $emit(menuItem,index)
+}
+
 function toggleMoreMarket() {
     showMoreMarket.value = !showMoreMarket.value
 }
@@ -170,6 +178,7 @@ function toggleMoreMarket() {
 function changeMenuItem(currentMenuItem) {
     currentMenuItem.value = value
 }
+
 
 function toPage(page) {
     router.push({
