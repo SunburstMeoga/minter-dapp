@@ -16,8 +16,8 @@ module.exports = {
         'test-three': '#2C4FB0',
         'test-four': '#944CE0',
         'test-five': '#e149ed',
-        'test-seven': '#e149ed'
-
+        'test-seven': '#e149ed',
+        'slate-600': '#475569'
       }
     }
   },

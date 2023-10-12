@@ -25,7 +25,9 @@ import {
   Badge,
   NoticeBar,
   Card,
-  NavBar
+  NavBar,
+
+  Popup,
 } from 'vant'
 
 import 'vant/lib/index.css'
@@ -56,4 +58,5 @@ app.use(Badge)
 app.use(NoticeBar)
 app.use(Card)
 app.use(NavBar)
+app.use(Popup)
 app.mount('#app')

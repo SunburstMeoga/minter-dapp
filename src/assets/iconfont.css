@@ -1,9 +1,9 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4089165 */
-  src: url('//at.alicdn.com/t/c/font_4089165_f58f4ofizzs.woff2?t=1696945848738') format('woff2'),
-       url('//at.alicdn.com/t/c/font_4089165_f58f4ofizzs.woff?t=1696945848738') format('woff'),
-       url('//at.alicdn.com/t/c/font_4089165_f58f4ofizzs.ttf?t=1696945848738') format('truetype'),
-       url('//at.alicdn.com/t/c/font_4089165_f58f4ofizzs.svg?t=1696945848738#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/c/font_4089165_ppxmecq0nfm.woff2?t=1697073388791') format('woff2'),
+       url('//at.alicdn.com/t/c/font_4089165_ppxmecq0nfm.woff?t=1697073388791') format('woff'),
+       url('//at.alicdn.com/t/c/font_4089165_ppxmecq0nfm.ttf?t=1697073388791') format('truetype'),
+       url('//at.alicdn.com/t/c/font_4089165_ppxmecq0nfm.svg?t=1697073388791#iconfont') format('svg');
 }
 
 .iconfont {
@@ -12,6 +12,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-caret-right:before {
+  content: "\e8ec";
 }
 
 .icon-yingyongshichang:before {
