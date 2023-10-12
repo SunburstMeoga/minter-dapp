@@ -1,8 +1,15 @@
 .operating-button {
-    background: rgb(234, 174, 54);
-    background: linear-gradient(90deg, rgba(234, 174, 54, 1) 0%, rgba(75, 43, 122, 1) 89%);
-    color: #000;
+    background: rgb(156,109,237);
+    background: linear-gradient(315deg, rgba(156,109,237,1) 0%, rgba(242,83,255,1) 52%, rgba(211,212,138,1) 100%);
 }
 .card-content {
     background: linear-gradient(116deg,var(--token-85846c91-51ea-42e0-9240-e9a835b52b31, #e149ed) 0%,var(--token-fa993d76-a5ae-46c8-831c-7bc48e3bf73a, rgb(75, 43, 122)) 100%);;
+}
+.circle-module {
+    background: rgb(156,109,237);
+    background: linear-gradient(0deg, rgba(156,109,237,1) 0%, rgba(242,83,255,1) 50%, rgba(236,241,211,1) 100%);
+}
+.news-card {
+    background: rgb(156,109,237);
+background: linear-gradient(0deg, rgba(156,109,237,1) 0%, rgba(242,83,255,1) 50%, rgba(198,161,203,1) 100%);
 }

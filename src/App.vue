@@ -1,6 +1,6 @@
 <template>
   <div class="bg-black h-screen">
-    <div class="fixed bg-black w-full top-0 left-0 z-50 shadow-xl" v-if="this.$route.meta.showLogo">
+    <div class="fixed w-full top-0 left-0 z-50 shadow-xl" v-if="this.$route.meta.showLogo">
       <top-bar :pageTitle="pageTitle" showLogo></top-bar>
     </div>
     <div class="fixed bg-black w-full top-0 left-0 z-50 shadow-xl" v-if="this.$route.meta.showBack">

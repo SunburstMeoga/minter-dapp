@@ -1,0 +1,59 @@
+<template>
+    <div class="w-full h-full flex flex-col items-center justify-center text-primary-color">
+
+        <div class="relative h-full">
+            <div class="absolute top-0 left-0 w-full">
+                <!-- <img src="../../assets/collaborative.png" alt=""> -->
+            </div>
+            <div class="absolute top-0 left-0 w-full h-full bg-black opacity-60" />
+            <div class="relative w-full h-full flex flex-col justify-center items-center">
+                <div class="w-11/12 mb-8 px-3 py-10 flex flex-col justify-between items-center z-10">
+                    <div class="w-60">
+                        <img src="../../assets/HAHLogo.png" alt="">
+                    </div>
+                    <div class="w-12 mb-4 animate-spin">
+                        <img src="../../assets/investors.png" alt="">
+                    </div>
+                    <div class="text-xl font-bold flex justify-start items-center">
+                       <div class="w-20">
+                        <img src="../../assets/minter.png" alt="">
+                       </div>
+                       <div class="ml-1">Minter</div>
+                    </div>
+                </div>
+                <!-- <div class="w-11/12 flex justify-center items-center mb-4">
+                    <module-title titleWord="新闻" />
+                </div> -->
+                <div class="flex flex-col justify-center items-center font-bold text-2xl text-white mb-2">
+                    <div>HashAhead(HAH)</div>
+                    <div>對明德進行了戰略性投資，</div>
+                    <div>雙方達成了</div>
+                    <div>戰略性合作</div>
+                </div>
+                <div class="text-sm w-8/12 mr-auto ml-auto text-white text-center mb-8">
+                    HAH風投部門和市場部門今日宣佈對 Minter 進行戰略投資，這是一個以社區為載體的NFT平台。
+                </div>
+                <div class="flex justify-center items-center w-full fixed bottom-6">
+                    <div class="w-11/12 py-3 text-center operating-button text-white rounded" >探索</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</template>
+
+<script setup>
+import ModuleTitle from '@/components/ModuleTitle.vue';
+</script>
+
+<style  scoped>
+.title {
+    text-shadow: 1px -1px #fff, -1px 1px #999, -10 10px 5px #808080;
+}
+
+img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+</style>

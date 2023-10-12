@@ -1,9 +1,9 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4089165 */
-  src: url('//at.alicdn.com/t/c/font_4089165_ppxmecq0nfm.woff2?t=1697073388791') format('woff2'),
-       url('//at.alicdn.com/t/c/font_4089165_ppxmecq0nfm.woff?t=1697073388791') format('woff'),
-       url('//at.alicdn.com/t/c/font_4089165_ppxmecq0nfm.ttf?t=1697073388791') format('truetype'),
-       url('//at.alicdn.com/t/c/font_4089165_ppxmecq0nfm.svg?t=1697073388791#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/c/font_4089165_hyrfuw3a1yf.woff2?t=1697094825328') format('woff2'),
+       url('//at.alicdn.com/t/c/font_4089165_hyrfuw3a1yf.woff?t=1697094825328') format('woff'),
+       url('//at.alicdn.com/t/c/font_4089165_hyrfuw3a1yf.ttf?t=1697094825328') format('truetype'),
+       url('//at.alicdn.com/t/c/font_4089165_hyrfuw3a1yf.svg?t=1697094825328#iconfont') format('svg');
 }
 
 .iconfont {
@@ -12,6 +12,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-down-circle-fill:before {
+  content: "\e844";
 }
 
 .icon-caret-right:before {

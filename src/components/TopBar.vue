@@ -1,10 +1,10 @@
 <template>
-    <div class="h-12 w-full text-primary-color relative">
-        <div class="flex justify-between items-center px-2">
+    <div class="h-12 w-full text-primary-color">
+        <div class="flex justify-between items-center px-4 h-full">
             <div>
                 <div class="icon iconfont menu icon-menu-hamburger" @click="toggleMenu"></div>
             </div>
-            <div class="px-3 py-0.5 bg-primary-color rounded text-white text-sm">
+            <div class="px-6 py-1 bg-primary-color rounded text-white text-base">
                 链接钱包
             </div>
         </div>
