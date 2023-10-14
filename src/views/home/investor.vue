@@ -1,17 +1,17 @@
 <template>
-    <div class="w-full h-full flex flex-col items-center justify-between pt-20 bg-gray-card">
+    <div class="w-full h-full flex flex-col items-center justify-start pt-16 bg-gray-card">
         <div class="w-11/12">
             <div class="flex justify-center items-center mb-4">
                 <module-title titleWord="投資人" />
             </div>
             <div class="flex justify-between items-center flex-wrap">
-                <div style="width: 23.6%;" class="mb-2 overflow-hidden rounded" v-for="(item, index) in 36" :key="index">
+                <div style="width: 23.6%;" class="mb-2 overflow-hidden rounded" v-for="(item, index) in 24" :key="index">
                     <img src="https://assets.starsharks.com/images/home/np_partners_bnfc.png" alt="">
                 </div>
 
             </div>
         </div>
-        <div class="h-24 w-full bg-gray-bottom">
+        <div class="h-24 w-full bg-gray-bottom fixed bottom-24">
             <div class="flex justify-between w-11/12 ml-auto mr-auto h-full items-center text-white">
                 <div class="font-bold ">Minter</div>
                 <div class="text-sm">© 2023 MINTER. 版權所有</div>

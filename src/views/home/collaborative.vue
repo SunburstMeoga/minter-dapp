@@ -1,6 +1,6 @@
 <template>
-    <div class="w-full h-full flex flex-col items-center justify-center bg-gray-card">
-        <div class="w-11/12 flex justify-center items-center mb-8">
+    <div class="w-full h-full flex flex-col items-center justify-start bg-gray-card pt-16">
+        <div class="w-11/12 flex justify-center items-center mb-2">
             <module-title titleWord="合作夥伴" />
         </div>
         <div class="flex justify-between items-center flex-wrap w-11/12 ">
