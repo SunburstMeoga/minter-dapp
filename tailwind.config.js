@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       colors: {
         'primary-color': '#e149ed',
-        // 粉紫CC6DED 蓝48A7FA 蓝紫2C4FB0 紫944CE0 深紫e149ed #e149ed 
+        // 粉紫CC6DED 蓝48A7FA 蓝紫2C4FB0 紫944CE0 深紫e149ed #e149ed
         'secondary-color': '#944CE0',
         'secondary-icon': '#2C4FB0',
         'card-content': '#2a3035',
@@ -13,6 +13,8 @@ module.exports = {
         'gray-700': '#334155',
         'gray-card': '#171b29',
         'gray-bottom': '#2f323f',
+        'menu-word': '#afafaf',
+        'page-content': '#0F131C',
         'test-one': '#CC6DED',
         'test-two': '#48A7FA',
         'test-three': '#2C4FB0',

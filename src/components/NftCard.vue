@@ -1,13 +1,12 @@
 <template>
+  <div>
     <div class="text-primary-color">
-      nft  card
+
     </div>
+  </div>
 </template>
 
 <script setup>
-
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

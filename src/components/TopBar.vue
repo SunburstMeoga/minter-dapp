@@ -1,146 +1,118 @@
 <template>
-    <div class="h-12 w-full text-primary-color">
+    <div class="h-14 w-full text-primary-color border-b border-gray-700 bg-black blur-lg">
         <div class="flex justify-between items-center px-4 h-full">
+
+            <div class="w-16 bg-primary-color rounded text-white text-base operating-button">
+                <img src="../assets/minter.png" alt="">
+            </div>
             <div>
                 <div class="icon iconfont menu icon-menu-hamburger" @click="toggleMenu"></div>
             </div>
-            <div class="px-6 py-1 bg-primary-color rounded text-white text-base operating-button">
-                链接钱包
-            </div>
         </div>
-        <van-popup v-model:show="showLeftMenu" position="left" :style="{ width: '76%', height: '100%' }">
-            <div class="w-full h-full bg-black text-white">
+        <van-popup v-model:show="showLeftMenu" position="right" :style="{ width: '75%', height: '100%' }">
+            <div class="w-full h-full bg-page-content text-white flex flex-col relative">
                 <div class="flex justify-end items-center pt-2 pr-2">
                     <div class="icon iconfont icon-close1 close" @click="toggleMenu"></div>
                 </div>
-                <div class="pl-10">
-                    <div :class="currentMenuItem == 'home' || currentMenuItem == 'homeChild' ? 'text-primary-color' : 'text-white'" class="menu-item" @click="toggleMoreHome('home')">
-                        <div>Minter</div>
-                        <div class="pl-2">
-                            <div class="icon iconfont icon-caret-right transition ease-in-out duration-300" :class="showMoreHome ? 'rotate-90' : ' '"></div>
+                <div class="overflow-scroll pb-20">
+                    <div class="pl-10">
+                        <div :class="currentMenuItem == 'home' || currentMenuItem == 'homeChild' ? 'text-primary-color' : 'text-white'"
+                            class="menu-item" @click="toggleMoreHome('home')">
+                            <div>Minter</div>
+                            <div class="pl-2">
+                                <div class="icon iconfont icon-caret-right transform ease-in-out duration-300"
+                                    :class="showMoreHome ? 'rotate-90' : ' '"></div>
+                            </div>
+                        </div>
+                        <div v-show="showMoreHome" class="pl-4">
+                            <div class="py-1.5 text-menu-word" @click="handleHomeChild('homeChild', 1)"
+                                v-for="(item, index) in homeChilds" :key="index">
+                                {{ item.title }}
+                            </div>
                         </div>
                     </div>
-                    <div v-show="showMoreHome" class="pl-4">
-                        <div class="py-1.5" @click="handleHomeChild('homeChild', 1)">
-                            主页
+                    <div class="pl-10">
+                        <div class="menu-item" :class="currentMenuItem == 'market' ? 'text-primary-color' : 'text-white'"
+                            @click="toggleMoreMarket('market')">
+                            <div>市场</div>
+                            <div class="pl-2">
+                                <div class="icon iconfont icon-caret-right transform ease-in-out duration-300"
+                                    :class="showMoreMarket ? 'rotate-90' : ''"></div>
+                            </div>
                         </div>
-                        <div class="py-1.5" @click="handleHomeChild('homeChild', 2)">
-                            介绍
+                        <div v-show="showMoreMarket" class="pl-4">
+                            <div class="py-1.5 text-menu-word" @click="toMarket(1)" v-for="(item, index) in marketChilds"
+                                :key="index">
+                                {{ item.title }}
+                            </div>
+
                         </div>
-                        <div class="py-1.5" @click="handleHomeChild('homeChild', 3)">
-                            游戏
+
+                    </div>
+                    <div class="pl-10">
+                        <div class="menu-item" @click="toggleMoreMarket">
+                            <div>质押</div>
                         </div>
-                        <div class="py-1.5" @click="handleHomeChild('homeChild', 4)">
-                            新闻
+                    </div>
+                    <div class="pl-10">
+                        <div class="menu-item" @click="toggleMoreMarket">
+                            <div>合伙人</div>
                         </div>
-                        <div class="py-1.5" @click="handleHomeChild('homeChild', 5)">
-                            合作伙伴
+                    </div>
+                    <div class="pl-10">
+                        <div class="menu-item" @click="toggleMoreMarket">
+                            <div>排行榜</div>
                         </div>
-                        <div class="py-1.5" @click="handleHomeChild('homeChild', 6)">
-                            投资人
+                    </div>
+                    <div class="pl-10">
+                        <div class="menu-item" @click="toggleMoreMarket">
+                            <div>铸造</div>
                         </div>
-                        <div class="py-1.5" @click="handleHomeChild('homeChild', 7)">
-                            反馈
+                    </div>
+                    <div class="pl-10">
+                        <div class="menu-item" @click="toggleMoreMarket">
+                            <div>游戏</div>
+                        </div>
+                    </div>
+                    <div class="pl-10">
+                        <div :class="currentMenuItem == 'personal' ? 'text-primary-color' : 'text-white'" class="menu-item"
+                            @click="toggleMorePersonal('personal')">
+                            <div>用户中心</div>
+                            <div class="pl-2">
+                                <div class="icon iconfont icon-caret-right transform ease-in-out duration-300"
+                                    :class="showMorePersonal ? 'rotate-90' : ' '"></div>
+                            </div>
+                        </div>
+                        <div v-show="showMorePersonal" class="pl-4">
+                            <div class="py-1.5 text-menu-word" @click="handleMenuItem(item)"
+                                v-for="(item, index) in personalChilds" :key="index">
+                                {{ item.title }}
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="pl-10">
-                    <div class="menu-item" @click="toggleMoreMarket">
-                        <div>市场</div>
-                        <div class="pl-2">
-                            <div class="icon iconfont icon-caret-right transition ease-in-out duration-300" :class="showMoreMarket ? 'rotate-90' : ''"></div>
-                        </div>
-                    </div>
-                    <div v-show="showMoreMarket" class="pl-4">
-                        <div class="py-1.5" @click="toMarket(1)">
-                            NFTS
-                        </div>
-                        <div class="py-1.5" @click="toMarket(2)">
-                            荣誉积分
-                        </div>
-                        <div class="py-1.5" @click="toMarket(3)">
-                            物品
-                        </div>
-                       
-                    </div>
-                        
-                </div>
-                <div class="pl-10">
-                    <div class="menu-item" @click="toggleMoreMarket">
-                        <div>质押</div>
-                    </div>
-                </div>
-                <div class="pl-10">
-                    <div class="menu-item" @click="toggleMoreMarket">
-                        <div>合伙人</div>
-                    </div>
-                </div>
-                <div class="pl-10">
-                    <div class="menu-item" @click="toggleMoreMarket">
-                        <div>排行榜</div>
-                    </div>
-                </div>
-                <div class="pl-10">
-                    <div class="menu-item" @click="toggleMoreMarket">
-                        <div>铸造</div>
-                    </div>
-                </div>
-                <div class="pl-10">
-                    <div class="menu-item" @click="toggleMoreMarket">
-                        <div>游戏</div>
+                <div class="flex justify-center items-center absolute bottom-0 pb-6 bg-page-content w-full">
+                    <div class="operating-button text-center mr-auto ml-auto w-11/12 rounded py-2" @click="handleLogin">
+                        登錄
                     </div>
                 </div>
             </div>
         </van-popup>
-        <!-- <div v-show="showMenu" class="p-4 pb-0 absolute z-50 h-screen w-full bg-black">
-            <div class="router-item border-b" @click="toPage('/')">
-                <div class="flex justify-start items-center">
-                    <div class="icon iconfont icon-_shangxiaguanxi"></div>
-                    <div class="ml-2">推荐关系</div>
+
+        <van-popup v-model:show="showLoginPopup" round position="bottom" :style="{ height: '28%' }">
+            <div class="bg-page-content w-full h-full flex flex-col justify-center items-center">
+                <div class="flex justify-center items-center p-2 border border-primary-color rounded w-11/12 h-12 mb-8"
+                    @click="toggleLoginPopup">
+                    <div class="icon iconfont icon-metamask"></div>
+                    <div class="pl-2 word-clip">連接MetaMask</div>
                 </div>
-                <div>
-                    <div class="icon iconfont icon-right"></div>
-                </div>
-            </div>
-            <div class="router-item border-b" @click="toPage('/coherent')">
-               
-                <div class="flex justify-start items-center">
-                    <div class="icon iconfont icon-dapeitaocan"></div>
-                    <div class="ml-2">购买Minter</div>
-                </div>
-                <div>
-                    <div class="icon iconfont icon-right"></div>
+                <div class="flex justify-center items-center p-2 py-2.5 operating-button text-white rounded w-11/12"
+                    @click="toggleLoginPopup">
+                    <div class="icon iconfont icon-email "></div>
+                    <div class="pl-2">使用郵箱登錄</div>
                 </div>
             </div>
-            <div class="router-item border-b" @click="toPage('/coherent')">
-              
-                <div class="flex justify-start items-center">
-                    <div class="icon iconfont icon-yingyongshichang"></div>
-                    <div class="ml-2">NFT市场</div>
-                </div>
-                <div>
-                    <div class="icon iconfont icon-right"></div>
-                </div>
-            </div>
-            <div class="router-item border-b" @click="toPage('/earnings')">
-                <div class="flex justify-start items-center">
-                    <div class="icon iconfont icon-shouyi"></div>
-                    <div class="ml-2">收益</div>
-                </div>
-                <div>
-                    <div class="icon iconfont icon-right"></div>
-                </div>
-            </div>
-            <div class="router-item" @click="toPage('/personal')">
-                <div class="flex justify-start items-center">
-                    <div class="icon iconfont icon-iconfuzhi"></div>
-                    <div class="ml-2">个人中心</div>
-                </div>
-                <div>
-                    <div class="icon iconfont icon-right"></div>
-                </div>
-            </div>
-        </div> -->
+        </van-popup>
     </div>
 </template>
 
@@ -151,7 +123,12 @@ const router = useRouter()
 const showLeftMenu = ref(false)
 const showMoreHome = ref(false)
 const showMoreMarket = ref(false)
+const showMorePersonal = ref(false)
+const showLoginPopup = ref(false)
 const currentMenuItem = ref('')
+const personalChilds = ref([{ title: '錢包', router: '/personal/wallet' }, { title: '存錢罐' }, { title: '託管' }, { title: '大獎賽' }, { title: '邀請獎勵' }, { title: '我的背包' }, { title: '合成' }, { title: '操作記錄' }, { title: '助力' }, { title: '設置' }])
+const homeChilds = ref([{ title: '主頁' }, { title: '介紹' }, { title: '遊戲' }, { title: '新聞' }, { title: '合作夥伴' }, { title: '投資人' }, { title: '反饋' }])
+const marketChilds = ref([{ title: 'NFTs' }, { title: '榮譽積分' }, { title: '物品' }])
 
 let $emit = defineEmits(['handleHomeChild'])
 
@@ -159,20 +136,58 @@ function toggleMenu() {
     showLeftMenu.value = !showLeftMenu.value
 }
 
-function toggleMoreHome(value) {
-    currentMenuItem.value = value
-    showMoreHome.value = !showMoreHome.value
-    showMoreMarket.value = false
-    console.log(currentMenuItem.value)
+function toggleLoginPopup() {
+    showLoginPopup.value = !showLoginPopup.value
+}
+
+function handleLogin() {
+    toggleLoginPopup()
+    toggleMenu()
 }
 
 function handleHomeChild(menuItem, index) {
-    $emit(menuItem,index)
+    $emit(menuItem, index)
 }
 
-function toggleMoreMarket() {
+function handleMenuItem(item) {
+    router.push({
+        path: item.router
+    })
+    showLeftMenu.value = false
+}
+
+function toggleMoreHome(value) {
+    showMoreHome.value = !showMoreHome.value
+    if (showMoreHome.value) {
+        currentMenuItem.value = value
+    } else {
+        currentMenuItem.value = ''
+    }
+    showMoreMarket.value = false
+    showMorePersonal.value = false
+
+}
+
+function toggleMoreMarket(value) {
     showMoreMarket.value = !showMoreMarket.value
+    if (showMoreMarket.value) {
+        currentMenuItem.value = value
+    } else {
+        currentMenuItem.value = ''
+    }
     showMoreHome.value = false
+    showMorePersonal.value = false
+}
+
+function toggleMorePersonal(value) {
+    showMorePersonal.value = !showMorePersonal.value
+    if (showMorePersonal.value) {
+        currentMenuItem.value = value
+    } else {
+        currentMenuItem.value = ''
+    }
+    showMoreHome.value = false
+    showMoreMarket.value = false
 }
 
 function changeMenuItem(currentMenuItem) {
@@ -214,6 +229,22 @@ defineProps({
 <style scoped>
 .menu-item {
     @apply flex justify-start items-center py-2 text-lg;
+}
+
+.word-clip {
+    background: linear-gradient(315deg, rgba(156, 109, 237, 1) 0%, rgba(242, 83, 255, 1) 52%, rgba(211, 212, 138, 1) 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.border-clip {
+    border: 0.01rem solid transparent;
+    border-radius: 0.11rem;
+    position: relative;
+    background-image: linear-gradient(#fff, #fff),
+        linear-gradient(315deg, rgba(156, 109, 237, 1) 0%, rgba(242, 83, 255, 1) 52%, rgba(211, 212, 138, 1) 100%);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
 }
 
 .close {
