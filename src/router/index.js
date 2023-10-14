@@ -4,7 +4,7 @@ import recommend from './recommend'
 import coherent from './coherent'
 import earnings from './earnings'
 import personal from './personal'
-
+import market from './market'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -12,7 +12,8 @@ const router = createRouter({
     ...recommend,
     ...coherent,
     ...earnings,
-    ...personal
+    ...personal,
+    ...market
   ]
 })
 

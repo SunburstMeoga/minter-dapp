@@ -2,8 +2,7 @@
     <div class="h-12 w-full text-primary-color">
         <div class="flex justify-between items-center px-4 h-full">
             <div>
-                <!-- <div class="icon iconfont menu icon-menu-hamburger" @click="toggleMenu"></div> -->
-                <div class="icon iconfont menu icon-menu-hamburger"></div>
+                <div class="icon iconfont menu icon-menu-hamburger" @click="toggleMenu"></div>
             </div>
             <div class="px-6 py-1 bg-primary-color rounded text-white text-base operating-button">
                 链接钱包
@@ -14,14 +13,14 @@
                 <div class="flex justify-end items-center pt-2 pr-2">
                     <div class="icon iconfont icon-close1 close" @click="toggleMenu"></div>
                 </div>
-                <div class="pl-4">
+                <div class="pl-10">
                     <div :class="currentMenuItem == 'home' || currentMenuItem == 'homeChild' ? 'text-primary-color' : 'text-white'" class="menu-item" @click="toggleMoreHome('home')">
-                        <div>明德</div>
+                        <div>Minter</div>
                         <div class="pl-2">
                             <div class="icon iconfont icon-caret-right transition ease-in-out duration-300" :class="showMoreHome ? 'rotate-90' : ' '"></div>
                         </div>
                     </div>
-                    <div v-show="showMoreHome" class="pl-4 text-sm">
+                    <div v-show="showMoreHome" class="pl-4">
                         <div class="py-1.5" @click="handleHomeChild('homeChild', 1)">
                             主页
                         </div>
@@ -45,48 +44,48 @@
                         </div>
                     </div>
                 </div>
-                <div class="pl-4">
+                <div class="pl-10">
                     <div class="menu-item" @click="toggleMoreMarket">
                         <div>市场</div>
                         <div class="pl-2">
                             <div class="icon iconfont icon-caret-right transition ease-in-out duration-300" :class="showMoreMarket ? 'rotate-90' : ''"></div>
                         </div>
                     </div>
-                    <div v-show="showMoreMarket" class="pl-4 text-sm">
-                        <div class="py-1.5">
+                    <div v-show="showMoreMarket" class="pl-4">
+                        <div class="py-1.5" @click="toMarket(1)">
                             NFTS
                         </div>
-                        <div class="py-1.5">
+                        <div class="py-1.5" @click="toMarket(2)">
                             荣誉积分
                         </div>
-                        <div class="py-1.5">
+                        <div class="py-1.5" @click="toMarket(3)">
                             物品
                         </div>
                        
                     </div>
                         
                 </div>
-                <div class="pl-4">
+                <div class="pl-10">
                     <div class="menu-item" @click="toggleMoreMarket">
                         <div>质押</div>
                     </div>
                 </div>
-                <div class="pl-4">
+                <div class="pl-10">
                     <div class="menu-item" @click="toggleMoreMarket">
                         <div>合伙人</div>
                     </div>
                 </div>
-                <div class="pl-4">
+                <div class="pl-10">
                     <div class="menu-item" @click="toggleMoreMarket">
                         <div>排行榜</div>
                     </div>
                 </div>
-                <div class="pl-4">
+                <div class="pl-10">
                     <div class="menu-item" @click="toggleMoreMarket">
                         <div>铸造</div>
                     </div>
                 </div>
-                <div class="pl-4">
+                <div class="pl-10">
                     <div class="menu-item" @click="toggleMoreMarket">
                         <div>游戏</div>
                     </div>
@@ -147,7 +146,6 @@
 
 <script setup>
 import { ref } from 'vue'
-
 import { useRouter } from "vue-router";
 const router = useRouter()
 const showLeftMenu = ref(false)
@@ -164,6 +162,7 @@ function toggleMenu() {
 function toggleMoreHome(value) {
     currentMenuItem.value = value
     showMoreHome.value = !showMoreHome.value
+    showMoreMarket.value = false
     console.log(currentMenuItem.value)
 }
 
@@ -173,12 +172,20 @@ function handleHomeChild(menuItem, index) {
 
 function toggleMoreMarket() {
     showMoreMarket.value = !showMoreMarket.value
+    showMoreHome.value = false
 }
 
 function changeMenuItem(currentMenuItem) {
     currentMenuItem.value = value
 }
 
+function toMarket(target) {
+    router.push({
+        path: '/market',
+        query: { target: target }
+    })
+    showLeftMenu.value = false
+}
 
 function toPage(page) {
     router.push({
@@ -206,7 +213,7 @@ defineProps({
 
 <style scoped>
 .menu-item {
-    @apply flex justify-start items-center py-2;
+    @apply flex justify-start items-center py-2 text-lg;
 }
 
 .close {
