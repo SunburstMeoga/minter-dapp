@@ -1,5 +1,5 @@
 <template>
-    <div class="h-14 w-full text-primary-color border-b border-gray-700 bg-black blur-lg">
+    <div class="h-14 w-full text-primary-color bg-black blur-lg">
         <div class="flex justify-between items-center px-4 h-full">
 
             <div class="w-16 bg-primary-color rounded text-white text-base operating-button">
