@@ -1,9 +1,9 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4089165 */
-  src: url('//at.alicdn.com/t/c/font_4089165_omcw9hcv1ch.woff2?t=1697297051511') format('woff2'),
-       url('//at.alicdn.com/t/c/font_4089165_omcw9hcv1ch.woff?t=1697297051511') format('woff'),
-       url('//at.alicdn.com/t/c/font_4089165_omcw9hcv1ch.ttf?t=1697297051511') format('truetype'),
-       url('//at.alicdn.com/t/c/font_4089165_omcw9hcv1ch.svg?t=1697297051511#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/c/font_4089165_fz5kn9xlxv.woff2?t=1697379554533') format('woff2'),
+       url('//at.alicdn.com/t/c/font_4089165_fz5kn9xlxv.woff?t=1697379554533') format('woff'),
+       url('//at.alicdn.com/t/c/font_4089165_fz5kn9xlxv.ttf?t=1697379554533') format('truetype'),
+       url('//at.alicdn.com/t/c/font_4089165_fz5kn9xlxv.svg?t=1697379554533#iconfont') format('svg');
 }
 
 .iconfont {
@@ -12,6 +12,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-caozuo:before {
+  content: "\e664";
 }
 
 .icon-email:before {
