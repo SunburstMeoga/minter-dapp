@@ -93,7 +93,7 @@
                 </div>
                 <div class="flex justify-center items-center absolute bottom-0 pb-6 bg-page-content w-full">
                     <div class="operating-button text-center mr-auto ml-auto w-11/12 rounded py-2" @click="handleLogin">
-                        连接钱包
+                        {{ $t('wallet') }}
                     </div>
                 </div>
             </div>
@@ -104,7 +104,7 @@
                 <div class="flex justify-center items-center p-2 border border-primary-color rounded w-11/12 h-12"
                     @click="toggleLoginPopup">
                     <div class="icon iconfont icon-metamask"></div>
-                    <div class="pl-2 word-clip">連接MetaMask</div>
+                    <div class="pl-2 word-clip">{{ $t('connect') }}</div>
                 </div>
                 <!-- <div class="flex justify-center items-center p-2 py-2.5 operating-button text-white rounded w-11/12"
                     @click="toggleLoginPopup">

@@ -51,5 +51,7 @@ export default {
   footBar: {
     copyright: '©2023 Minter.',
     connectUS: 'Contact Us'
-  }
+  },
+  wallet: 'Connect',
+  connect: 'Connect MetaMask'
 }

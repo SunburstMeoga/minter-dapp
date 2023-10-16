@@ -46,5 +46,7 @@ export default {
   footBar: {
     copyright: '©2023 Minter. 版權所有',
     connectUS: '聯繫我們'
-  }
+  },
+  wallet: '连接钱包',
+  connnct: '连接MetaMask'
 }
