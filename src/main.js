@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 import './assets/tailwind.css'
 import './assets/iconfont.css'
 import './assets/components.css'
+import i18n from './language/index.js'
 
 import App from './App.vue'
 import router from './router'
@@ -28,7 +29,9 @@ import {
   NavBar,
   Popup,
   Popover,
-  Checkbox
+  Checkbox,
+  Swipe,
+  SwipeItem
 } from 'vant'
 
 import 'vant/lib/index.css'
@@ -62,4 +65,8 @@ app.use(NavBar)
 app.use(Popup)
 app.use(Popover)
 app.use(Checkbox)
+app.use(Swipe)
+app.use(SwipeItem)
+app.use(i18n)
+
 app.mount('#app')

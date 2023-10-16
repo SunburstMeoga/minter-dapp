@@ -1,7 +1,7 @@
 <template>
-    <div class="w-full h-full flex flex-col items-center justify-start bg-gray-card pt-16">
+    <div class="w-full h-full flex flex-col items-center justify-start pt-16">
         <div class="w-11/12 flex justify-center items-center mb-2">
-            <module-title titleWord="合作夥伴" />
+            <module-title :titleWord="$t('menu.partners')" />
         </div>
         <div class="flex justify-between items-center flex-wrap w-11/12 ">
             <div style="width: 48%;" class="mb-4 overflow-hidden rounded">

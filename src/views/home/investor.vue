@@ -1,8 +1,8 @@
 <template>
-    <div class="w-full h-full flex flex-col items-center justify-start pt-16 bg-gray-card overflow-auto">
+    <div class="w-full h-full flex flex-col items-center justify-between pt-16 overflow-scroll">
         <div class="w-11/12">
             <div class="flex justify-center items-center mb-4">
-                <module-title titleWord="投資人" />
+                <module-title :titleWord="$t('menu.home')" />
             </div>
             <div class="flex justify-between items-center flex-wrap">
                 <div style="width: 23.6%;" class="mb-2 overflow-hidden rounded" v-for="(item, index) in 24" :key="index">
@@ -11,20 +11,14 @@
 
             </div>
         </div>
-        <div class="h-24 w-full bg-gray-bottom">
-            <div class="flex justify-between w-11/12 ml-auto mr-auto h-full items-center text-white">
-                <div class="font-bold ">Minter</div>
-                <div class="text-sm">© 2023 MINTER. 版權所有</div>
-            </div>
-            <!-- <div class="flex justify-between w-11/12 h-full items-center text-white">
-                <div class="font-bold ">联系我们</div>
-                <div class="text-sm">反馈</div>
-            </div> -->
+        <div class="w-full">
+            <footer-bar />
         </div>
     </div>
 </template>
 
 <script setup>
+import FooterBar from '../../components/FooterBar.vue';
 import ModuleTitle from '@/components/ModuleTitle.vue';
 </script>
 

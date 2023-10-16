@@ -10,7 +10,7 @@
           clickable: true,
         }" :modules="modules" class="mySwiper">
           <swiper-slide>
-            <home />
+            <welcome />
           </swiper-slide>
           <swiper-slide>
             <present />
@@ -25,14 +25,12 @@
             <collaborative />
           </swiper-slide>
           <swiper-slide>
+            <future />
+          </swiper-slide>
+          <swiper-slide>
             <investor />
           </swiper-slide>
-          <!-- <swiper-slide>Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide 7Slide
-            7</swiper-slide>
-          <swiper-slide>Slide 8Slide 8Slide 8Slide 8Slide 8Slide 8Slide 8Slide 8Slide 8Slide 8Slide 8Slide 8Slide 8Slide
-            8Slide 8Slide 8Slide 8</swiper-slide>
-          <swiper-slide>Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide
-            9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9Slide 9</swiper-slide> -->
+
         </swiper>
       </div>
     </div>
@@ -41,12 +39,13 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import Home from './welcome.vue';
+import Welcome from './welcome.vue';
 import Present from './present.vue'
 import Game from './game.vue'
 import News from './news.vue'
 import Collaborative from './collaborative.vue'
 import Investor from './investor.vue'
+import Future from './future.vue'
 
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'

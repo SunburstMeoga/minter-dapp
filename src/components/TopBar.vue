@@ -2,8 +2,8 @@
     <div class="h-14 w-full text-primary-color bg-black blur-lg">
         <div class="flex justify-between items-center px-4 h-full">
 
-            <div class="w-16 bg-primary-color rounded text-white text-base operating-button">
-                <img src="../assets/minter.png" alt="">
+            <div class="w-32">
+                <img src="../assets/minter-logo-cro.png" alt="">
             </div>
             <div>
                 <div class="icon iconfont menu icon-menu-hamburger" @click="toggleMenu"></div>
@@ -34,7 +34,7 @@
                     <div class="pl-10">
                         <div class="menu-item" :class="currentMenuItem == 'market' ? 'text-primary-color' : 'text-white'"
                             @click="toggleMoreMarket('market')">
-                            <div>市场</div>
+                            <div>{{ $t('menu.market') }}</div>
                             <div class="pl-2">
                                 <div class="icon iconfont icon-caret-right transform ease-in-out duration-300"
                                     :class="showMoreMarket ? 'rotate-90' : ''"></div>
@@ -51,33 +51,33 @@
                     </div>
                     <div class="pl-10">
                         <div class="menu-item" @click="toggleMoreMarket">
-                            <div>质押</div>
+                            <div>{{ $t('menu.pledge') }}</div>
                         </div>
                     </div>
                     <div class="pl-10">
                         <div class="menu-item" @click="toggleMoreMarket">
-                            <div>合伙人</div>
+                            <div>{{ $t('menu.partnership') }}</div>
                         </div>
                     </div>
                     <div class="pl-10">
                         <div class="menu-item" @click="toggleMoreMarket">
-                            <div>排行榜</div>
+                            <div>{{ $t('menu.rank') }}</div>
                         </div>
                     </div>
                     <div class="pl-10">
                         <div class="menu-item" @click="toggleMoreMarket">
-                            <div>铸造</div>
+                            <div>{{ $t('menu.casting') }}</div>
                         </div>
                     </div>
                     <div class="pl-10">
                         <div class="menu-item" @click="toggleMoreMarket">
-                            <div>游戏</div>
+                            <div>{{ $t('menu.game') }}</div>
                         </div>
                     </div>
                     <div class="pl-10">
                         <div :class="currentMenuItem == 'personal' ? 'text-primary-color' : 'text-white'" class="menu-item"
                             @click="toggleMorePersonal('personal')">
-                            <div>用户中心</div>
+                            <div>{{ $t('menu.userCenter') }}</div>
                             <div class="pl-2">
                                 <div class="icon iconfont icon-caret-right transform ease-in-out duration-300"
                                     :class="showMorePersonal ? 'rotate-90' : ' '"></div>
@@ -119,15 +119,19 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from "vue-router";
+import { useI18n } from 'vue-i18n'
 const router = useRouter()
+const { t } = useI18n()
 const showLeftMenu = ref(false)
 const showMoreHome = ref(false)
 const showMoreMarket = ref(false)
 const showMorePersonal = ref(false)
 const showLoginPopup = ref(false)
 const currentMenuItem = ref('')
-const personalChilds = ref([{ title: '錢包', router: '/personal/wallet' }, { title: '存錢罐' }, { title: '託管' }, { title: '大獎賽' }, { title: '邀請獎勵' }, { title: '我的背包' }, { title: '合成' }, { title: '操作記錄' }, { title: '助力' }, { title: '設置' }])
-const homeChilds = ref([{ title: '主頁' }, { title: '介紹' }, { title: '遊戲' }, { title: '新聞' }, { title: '合作夥伴' }, { title: '投資人' }, { title: '反饋' }])
+// const personalChilds = ref([{ title: '錢包', router: '/personal/wallet' }, { title: '存錢罐' }, { title: '託管' }, { title: '大獎賽' }, { title: '邀請獎勵' }, { title: '我的背包' }, { title: '合成' }, { title: '操作記錄' }, { title: '助力' }, { title: '設置' }])
+const personalChilds = ref([{ title: t('menu.wallet'), router: '/personal/wallet' }])
+
+const homeChilds = ref([{ title: t('menu.home') }, { title: t('menu.introduction') }, { title: t('menu.game') }, { title: t('menu.news') }, { title: t('menu.partners') }, { title: t('menu.investor') }, { title: t('menu.feedback') }])
 const marketChilds = ref([{ title: '200' }, { title: '200' }, { title: '2000' }, { title: '6000' }, { title: '20000' },])
 
 let $emit = defineEmits(['handleHomeChild'])

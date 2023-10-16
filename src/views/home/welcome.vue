@@ -1,23 +1,25 @@
 <template>
-    <div class="text-primary-color h-full w-full text-center flex flex-col justify-center items-center">
+    <div class="text-primary-color h-full w-full text-center flex flex-col justify-start items-center pt-20">
         <div class="w-8/12 mb-8">
-            <img src="../../assets/minter.png" alt="">
+            <img src="../../assets/minter-logo-ver.png" alt="">
         </div>
         <div class="text-5xl font-extrabold mb-4 italic text-white">
             <div>
-                WELCOME TO
+                {{ $t('home.title') }}
             </div>
             <div>
                 Minter
             </div>
         </div>
-        <div class="mb-1 text-sm text-white">
-            Minter欢迎所有对NFT感兴趣的朋友加入我们
+        <div class="text-sm text-white mb-12 w-9/12">
+            {{ $t('home.contentOne') }}
+            {{ $t('home.contentTwo') }}
+
         </div>
-        <div class="text-sm mb-12 text-white">
-            与我们共同创造一个充满无限可能性的新世界</div>
-            <div class="border border-primary-color text-white px-8 py-3 rounded-md font-bold mb-20">
-            Documentation
+        <!-- <div class="text-sm mb-12 text-white">
+            </div> -->
+        <div class="border border-primary-color text-white px-8 py-3 rounded-md font-bold mb-10">
+            {{ $t('home.documentation') }}
         </div>
         <div class="animate-bounce">
             <div class="icon iconfont icon-down-circle-fill" style="font-size: 30px;"></div>
