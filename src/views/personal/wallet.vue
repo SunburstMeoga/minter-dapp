@@ -28,7 +28,7 @@
                         <div class="text-white">NFTs</div>
                     </div>
                 </div>
-                <div @click="toggleOperator">
+                <!-- <div @click="toggleOperator">
                     <div class="flex justify-end items-center" v-show="!showOperator">
                         <div class="text-white icon iconfont icon-caozuo" style="font-size: 20px;">
 
@@ -40,12 +40,13 @@
                     <div v-show="showOperator">
                         完成
                     </div>
-                </div>
+                </div> -->
             </div>
-            <div v-show="showOperator" class="w-11/12 mr-auto ml-auto">
+            <div class="w-11/12 mr-auto ml-auto">
                 <div class="flex justify-between items-center pt-2">
-                    <div class="px-2 py-0.5 text-sm rounded  mb-2">
-                        全選/取消全選
+                    <div class="px-2 py-0.5 text-sm flex justify-start items-center mb-2">
+                        <van-checkbox v-model="isUnanimous" checked-color="#e149ed" icon-size="18px"></van-checkbox>
+                        <div class="pl-2" :class="isUnanimous ? 'text-primary-color' : 'text-white'">全選</div>
                     </div>
                     <div class="px-2.5 py-1 text-base rounded  mb-2 operating-button text-white"
                         v-for="(item, index) in operatorList" :key="index" @click="handleOperatorItem(item, index)">
@@ -56,11 +57,17 @@
 
                 </div>
             </div>
-            <div class="flex justify-start items-center  mr-auto ml-auto flex-wrap">
+            <div class="flex justify-start items-center  mr-auto ml-auto flex-wrap mb-2">
                 <div class="ml-4 px-2 py-0.5 text-xs border  rounded  mb-2"
                     :class="currentCoherent == index ? 'border-primary-color text-primary-color' : 'border-menu-word text-menu-word'"
                     v-for="(item, index) in coherentList" :key="index" @click="handleCoherentItem(item, index)">
                     {{ item.title }}
+                </div>
+            </div>
+
+            <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap">
+                <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in 9" :key="index">
+                    <nft-card />
                 </div>
             </div>
         </div>
@@ -70,12 +77,14 @@
 <script setup>
 import { ref } from 'vue'
 import WalletCard from '@/components/WalletCard.vue';
-const coherentList = ref([{ title: '全部' }, { title: '200' }, { title: '600' }, { title: '2000' }, { title: '6000' }, { title: '20000' }, { title: '承诺卡' }, { title: '在售中' }, { title: 'NFTs' }])
+import NftCard from '@/components/NftCard.vue'
+const coherentList = ref([{ title: '全部' }, { title: '200' }, { title: '600' }, { title: '2000' }, { title: '6000' }, { title: '20000' }, { title: '承诺卡' }, { title: '在售中' }])
 const operatorList = ref([{ title: '掛單' }, { title: '撤銷掛單' }, { title: '贈送' }])
 
 let currentCoherent = ref(null)
 let currentOperator = ref(null)
 let showOperator = ref(false)
+let isUnanimous = ref(false)
 
 function toggleOperator() {
     showOperator.value = !showOperator.value
@@ -83,6 +92,13 @@ function toggleOperator() {
 
 function handleCoherentItem(item, index) {
     currentCoherent.value = index
+    if (index == 7) {
+        operatorList.value = [{ title: '撤銷掛單' }]
+    } else if (index == 6) {
+        operatorList.value = [{ title: '贈送' }]
+    } else if (index !== 6 || index !== 7) {
+        operatorList.value = [{ title: '掛單' }, { title: '撤銷掛單' }, { title: '贈送' }]
+    }
 }
 
 function handleOperatorItem(item, index) {

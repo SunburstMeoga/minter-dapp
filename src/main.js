@@ -26,9 +26,9 @@ import {
   NoticeBar,
   Card,
   NavBar,
-
   Popup,
-  Popover
+  Popover,
+  Checkbox
 } from 'vant'
 
 import 'vant/lib/index.css'
@@ -61,4 +61,5 @@ app.use(Card)
 app.use(NavBar)
 app.use(Popup)
 app.use(Popover)
+app.use(Checkbox)
 app.mount('#app')

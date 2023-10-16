@@ -40,8 +40,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import Home from './home.vue';
+import { ref, onMounted } from 'vue'
+import Home from './welcome.vue';
 import Present from './present.vue'
 import Game from './game.vue'
 import News from './news.vue'
@@ -54,6 +54,10 @@ import 'swiper/css/pagination'
 import { Pagination } from 'swiper/modules'
 const modules = ref[Pagination]
 let swiperRef = ref(null)
+
+onMounted(() => {
+  // changeSwiper()
+})
 
 function setSwiperRef(swiper) {
   console.log(swiper)
@@ -104,6 +108,4 @@ body {
   align-items: center;
   @apply text-white;
 } */
-
-
 </style>
