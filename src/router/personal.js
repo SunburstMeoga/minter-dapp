@@ -16,6 +16,15 @@ let personal = [
       showLogo: true,
       showBack: false
     }
+  },
+  {
+    path: '/personal/coherents',
+    name: 'personal-coherents',
+    component: () => import('@/views/personal/coherents.vue'),
+    meta: {
+      showLogo: true,
+      showBack: false
+    }
   }
 ]
 

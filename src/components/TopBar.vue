@@ -142,7 +142,7 @@ const currentMenuItem = ref('')
 // const personalChilds = ref([{ title: t('menu.wallet'), router: '/personal/wallet' }])
 
 // const homeChilds = ref([{ title: t('menu.home') }, { title: t('menu.introduction') }, { title: t('menu.game') }, { title: t('menu.news') }, { title: t('menu.partners') }, { title: t('menu.investor') }, { title: t('menu.feedback') }])
-const marketChilds = ref([{ title: '200' }, { title: '200' }, { title: '2000' }, { title: '6000' }, { title: '20000' },])
+const marketChilds = ref([{ title: 'R' }, { title: 'SR' }, { title: 'SSR' }, { title: 'UR' }, { title: 'USR' }])
 
 let homeChilds = computed(() => {
     return [{ title: t('menu.home') }, { title: t('menu.introduction') }, { title: t('menu.game') }, { title: t('menu.news') }, { title: t('menu.partners') }, { title: t('menu.investor') }, { title: t('menu.feedback') }]
@@ -234,12 +234,12 @@ function changeMenuItem(currentMenuItem) {
 }
 
 function notYetOpen() {
-    showToast('暂未开放');
+    showToast(t('toast.notYetOpen'));
     return;
 }
 
 function toMarket(target) {
-    showToast('暂未开放');
+    showToast(t('toast.notYetOpen'));
     return;
     router.push({
         path: '/market',

@@ -18,29 +18,22 @@
             </div>
             <div class="border-b border-gray-800 w-11/12 mr-auto ml-auto mb-3"></div>
             <div class="flex justify-between items-center w-11/12 mr-auto ml-auto mb-2">
-                <div class="flex justify-start items-center">
-                    <div class="flex justify-start items-center pr-10">
-                        <div class="pr-1 font-bold text-lg">0</div>
-                        <div class="text-white">{{ $t('wallet.coherent') }}</div>
+                <div class="w-full">
+                    <div class="w-full flex justify-between items-center px-2 py-1.5 bg-gray-800 rounded mb-2">
+                        <div class="flex justify-start items-center">
+                            <div class="pr-1 font-bold text-lg">0</div>
+                            <div class="text-white">{{ $t('wallet.coherent') }}</div>
+                        </div>
+                        <div class="flex justify-end items-center text-white" @click="viewCoherents">
+                            <div class="pr-1 text-sm">查看详情</div>
+                            <div class="icon iconfont icon-right"></div>
+                        </div>
                     </div>
-                    <div class="flex justify-start items-center ">
+                    <div class="w-full flex justify-start items-center px-2 py-1.5 bg-gray-800 rounded">
                         <div class="pr-1 font-bold text-lg">0</div>
                         <div class="text-white">NFTs</div>
                     </div>
                 </div>
-                <!-- <div @click="toggleOperator">
-                    <div class="flex justify-end items-center" v-show="!showOperator">
-                        <div class="text-white icon iconfont icon-caozuo" style="font-size: 20px;">
-
-                        </div>
-                        <div class="text-base text-white pl-2">
-                            批量操作
-                        </div>
-                    </div>
-                    <div v-show="showOperator">
-                        完成
-                    </div>
-                </div> -->
             </div>
             <div class="w-11/12 mr-auto ml-auto">
                 <div class="flex justify-between items-center pt-2">
@@ -77,11 +70,12 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { useRouter } from "vue-router";
 import WalletCard from '@/components/WalletCard.vue';
 import NftCard from '@/components/NftCard.vue'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
-
+const router = useRouter()
 let coherentList = computed(() => {
     return [{ title: t('wallet.all') }, { title: '200' }, { title: '600' }, { title: '2000' }, { title: '6000' }, { title: '20000' }, { title: t('wallet.promiseCard') }, { title: t('wallet.onSale') }]
 })
@@ -94,6 +88,12 @@ let currentCoherent = ref(null)
 let currentOperator = ref(null)
 let showOperator = ref(false)
 let isUnanimous = ref(false)
+
+function viewCoherents() {
+    router.push({
+        path: '/personal/coherents'
+    })
+}
 
 function toggleOperator() {
     showOperator.value = !showOperator.value

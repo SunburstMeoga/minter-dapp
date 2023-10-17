@@ -71,5 +71,19 @@ export default {
     cancleSale: 'Cancel',
     gift: 'Gift',
     coherent: 'Coherent'
+  },
+  coherents: {
+    title: 'Matching Transaction Information',
+    earningsCap: 'NFT Earnings Cap',
+    incentiveRate: 'Tier 1 Invitation Incentive Rate',
+    bonusLevel: 'Bonus Level',
+    level: 'Level 1, Level 3',
+    releaseTime: '40PM Release Time',
+    secondReleaseTime: 'Second Release Time',
+    thirdReleaseTime: 'Third Release Time',
+    buy: 'BUY',
+    released: 'Released',
+    toBeReleased: 'To Be Released',
+    tips: 'If a user purchases Minter1 (i.e., a 200USDT Minter), then the maximum daily match bonus a user can earn is 200USDT; if user W purchases Minter1+Minter2 (i.e., 200USDT and 600USDT), then the maximum daily match bonus a user can earn is 200+600USDT=800; and so on.'
   }
 }

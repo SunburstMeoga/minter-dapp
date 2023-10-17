@@ -66,5 +66,19 @@ export default {
     cancleSale: '取消掛單',
     gift: '贈送',
     coherent: '配套'
+  },
+  coherents: {
+    title: '配套交易信息',
+    earningsCap: 'NFT收益上限',
+    incentiveRate: '一級邀請獎勵利率',
+    bonusLevel: '獎金等級',
+    level: '一級、三級',
+    releaseTime: '40PM釋放時間',
+    secondReleaseTime: '第二次釋放時間',
+    thirdReleaseTime: '第三次釋放時間',
+    buy: '購買',
+    released: '已釋放',
+    toBeReleased: '待釋放',
+    tips: '若用户购买了Minter1（即200USDT的Minter）则用户每日可获取的对碰奖金上限为200USDT；若用户W购买了Minter1+Minter2（即200USDT和600USDT）则用户每日可获取的对碰奖金上限为200+600USDT=800；以此类推'
   }
 }
