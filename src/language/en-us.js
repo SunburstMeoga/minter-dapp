@@ -52,6 +52,9 @@ export default {
     copyright: '©2023 Minter.',
     connectUS: 'Contact Us'
   },
+  toast: {
+    notYetOpen: 'Not yet open'
+  },
   wallet: 'Connect',
   connect: 'Connect MetaMask'
 }

@@ -47,6 +47,9 @@ export default {
     copyright: '©2023 Minter. 版權所有',
     connectUS: '聯繫我們'
   },
-  wallet: '连接钱包',
-  connnct: '连接MetaMask'
+  toast: {
+    notYetOpen: '暫未開放'
+  },
+  wallet: '連接錢包',
+  connnct: '連接MetaMask'
 }

@@ -50,27 +50,27 @@
 
                     </div>
                     <div class="pl-10">
-                        <div class="menu-item" @click="toggleMoreMarket">
+                        <div class="menu-item" @click="notYetOpen">
                             <div>{{ $t('menu.pledge') }}</div>
                         </div>
                     </div>
                     <div class="pl-10">
-                        <div class="menu-item" @click="toggleMoreMarket">
+                        <div class="menu-item" @click="notYetOpen">
                             <div>{{ $t('menu.partnership') }}</div>
                         </div>
                     </div>
                     <div class="pl-10">
-                        <div class="menu-item" @click="toggleMoreMarket">
+                        <div class="menu-item" @click="notYetOpen">
                             <div>{{ $t('menu.rank') }}</div>
                         </div>
                     </div>
                     <div class="pl-10">
-                        <div class="menu-item" @click="toggleMoreMarket">
+                        <div class="menu-item" @click="notYetOpen">
                             <div>{{ $t('menu.casting') }}</div>
                         </div>
                     </div>
                     <div class="pl-10">
-                        <div class="menu-item" @click="toggleMoreMarket">
+                        <div class="menu-item" @click="notYetOpen">
                             <div>{{ $t('menu.game') }}</div>
                         </div>
                     </div>
@@ -117,9 +117,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from "vue-router";
 import { useI18n } from 'vue-i18n'
+import { showToast } from 'vant';
 const router = useRouter()
 const { t } = useI18n()
 const showLeftMenu = ref(false)
@@ -129,10 +130,18 @@ const showMorePersonal = ref(false)
 const showLoginPopup = ref(false)
 const currentMenuItem = ref('')
 // const personalChilds = ref([{ title: '錢包', router: '/personal/wallet' }, { title: '存錢罐' }, { title: '託管' }, { title: '大獎賽' }, { title: '邀請獎勵' }, { title: '我的背包' }, { title: '合成' }, { title: '操作記錄' }, { title: '助力' }, { title: '設置' }])
-const personalChilds = ref([{ title: t('menu.wallet'), router: '/personal/wallet' }])
+// const personalChilds = ref([{ title: t('menu.wallet'), router: '/personal/wallet' }])
 
-const homeChilds = ref([{ title: t('menu.home') }, { title: t('menu.introduction') }, { title: t('menu.game') }, { title: t('menu.news') }, { title: t('menu.partners') }, { title: t('menu.investor') }, { title: t('menu.feedback') }])
+// const homeChilds = ref([{ title: t('menu.home') }, { title: t('menu.introduction') }, { title: t('menu.game') }, { title: t('menu.news') }, { title: t('menu.partners') }, { title: t('menu.investor') }, { title: t('menu.feedback') }])
 const marketChilds = ref([{ title: '200' }, { title: '200' }, { title: '2000' }, { title: '6000' }, { title: '20000' },])
+
+let homeChilds = computed(() => {
+    return [{ title: t('menu.home') }, { title: t('menu.introduction') }, { title: t('menu.game') }, { title: t('menu.news') }, { title: t('menu.partners') }, { title: t('menu.investor') }, { title: t('menu.feedback') }]
+})
+
+let personalChilds = computed(() => {
+    return [{ title: t('menu.wallet'), router: '/personal/wallet' }]
+})
 
 let $emit = defineEmits(['handleHomeChild'])
 
@@ -202,7 +211,14 @@ function changeMenuItem(currentMenuItem) {
     currentMenuItem.value = value
 }
 
+function notYetOpen() {
+    showToast('暂未开放');
+    return;
+}
+
 function toMarket(target) {
+    showToast('暂未开放');
+    return;
     router.push({
         path: '/market',
         query: { target: target }
