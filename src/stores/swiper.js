@@ -1,3 +1,14 @@
 import { defineStore } from 'pinia'
 
-// const eh
+export const useStore = defineStore('swiperStore', {
+  state: () => {
+    return {
+      index: 0
+    }
+  },
+  actions: {
+    changeIndex(index) {
+      this.index = index
+    }
+  }
+})

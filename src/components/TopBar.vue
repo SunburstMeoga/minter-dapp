@@ -90,6 +90,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="pl-10 mt-2 text-menu-word">
+                        <div class="flex justify-start items-center">
+                            <div class="icon iconfont icon-duoyuyan" style="font-size:14px;"></div>
+                            <div class="pl-2" @click="changeLanguage">{{ $t('language') }}</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="flex justify-center items-center absolute bottom-0 pb-6 bg-page-content w-full">
                     <div class="operating-button text-center mr-auto ml-auto w-11/12 rounded py-2" @click="handleLogin">
@@ -117,10 +123,13 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, getCurrentInstance } from 'vue'
+
 import { useRouter } from "vue-router";
 import { useI18n } from 'vue-i18n'
 import { showToast } from 'vant';
+import { useStore } from "@/stores/swiper";
+const swiperStore = useStore();
 const router = useRouter()
 const { t } = useI18n()
 const showLeftMenu = ref(false)
@@ -143,8 +152,17 @@ let personalChilds = computed(() => {
     return [{ title: t('menu.wallet'), router: '/personal/wallet' }]
 })
 
-let $emit = defineEmits(['handleHomeChild'])
-
+// let $emit = defineEmits(['handleHomeChild'])
+const { proxy } = getCurrentInstance()
+function changeLanguage() {
+    console.log(proxy.$i18n.locale)
+    if (proxy.$i18n.locale == "zh-hk") {
+        proxy.$i18n.locale = "en-us";
+    } else if (proxy.$i18n.locale == "en-us") {
+        proxy.$i18n.locale = "zh-hk"
+    }
+    console.log(proxy);
+};
 function toggleMenu() {
     showLeftMenu.value = !showLeftMenu.value
 }
@@ -159,11 +177,14 @@ function handleLogin() {
 }
 
 function handleHomeChild(menuItem, item, index) {
+    console.log(menuItem, item, index)
+    swiperStore.changeIndex(index)
+    console.log(swiperStore.index)
     // $emit(menuItem, item, index)
-    router.push({
-        path: '/'
-    })
-    showLeftMenu.value = false
+    // router.push({
+    //     path: '/'
+    // })
+    // showLeftMenu.value = false
 }
 
 function handleMenuItem(item) {

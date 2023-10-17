@@ -51,5 +51,5 @@ export default {
     notYetOpen: '暫未開放'
   },
   wallet: '連接錢包',
-  connnct: '連接MetaMask'
+  connect: '連接MetaMask'
 }

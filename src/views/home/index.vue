@@ -6,7 +6,7 @@
       </div>
       <div class="absolute top-0 left-0 w-full h-full bg-black opacity-60" />
       <div>
-        <swiper :direction="'vertical'" @swiper="setSwiperRef" :pagination="{
+        <swiper :direction="'vertical'" @swiper="setSwiperRef" @change="swiperChange" :pagination="{
           clickable: true,
         }" :modules="modules" class="mySwiper">
           <swiper-slide>
@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import Welcome from './welcome.vue';
 import Present from './present.vue'
 import Game from './game.vue'
@@ -51,12 +51,35 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import { Pagination } from 'swiper/modules'
+
+import { useStore } from "@/stores/swiper";
+const swiperStore = useStore();
 const modules = ref[Pagination]
 let swiperRef = ref(null)
 
 onMounted(() => {
   // changeSwiper()
+  console.log(swiperStore.index)
 })
+
+watch(
+  () => swiperStore.index,
+  (newValue, oldValue) => {
+    // console.log("新值:" + newValue + "旧值:" + oldValue)
+    if (newValue == 5) {
+      changeSwiper(6)
+      return
+    }
+    changeSwiper(newValue)
+  },
+  {
+    deep: true
+  }
+)
+
+function swiperChange(index) {
+  console.log('發生了變化', index)
+}
 
 function setSwiperRef(swiper) {
   console.log(swiper)
@@ -65,7 +88,7 @@ function setSwiperRef(swiper) {
 
 function changeSwiper(index) {
   console.log(swiperRef)
-  swiperRef.slideTo(3, 1000, false)
+  swiperRef.slideTo(index, 1000, false)
 }
 </script>
 

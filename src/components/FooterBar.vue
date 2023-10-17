@@ -5,15 +5,15 @@
         <div class="w-20">
           <img src="../assets/minter-logo-ver.png" alt="">
         </div>
-        <div class="flex justify-between items-center">
-          <div v-for="(item, index) in officialMedias" class="w-10" :key="index">
+        <div class="flex justify-end items-center">
+          <div v-for="(item, index) in officialMedias" class="ml-3" :key="index">
             <div class="icon iconfont" style="font-size: 24px;" :class="item.icon"></div>
           </div>
         </div>
-        <div class="w-20 py-0.5 flex justify-center text-xs text-gray-500 rounded border border-gray-500">
+        <!-- <div class="w-20 py-0.5 flex justify-center text-xs text-gray-500 rounded border border-gray-500">
           <div class="icon iconfont icon-duoyuyan" style="font-size:14px;"></div>
           <div class="pl-2" @click="changeLanguage">{{ $t('language') }}</div>
-        </div>
+        </div> -->
       </div>
       <div class="w-11/12 ml-auto mr-auto flex justify-between items-center text-xs text-gray-500 ">
         <div>{{ $t('footBar.copyright') }}</div>
