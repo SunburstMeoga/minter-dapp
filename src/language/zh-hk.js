@@ -50,6 +50,21 @@ export default {
   toast: {
     notYetOpen: '暫未開放'
   },
-  wallet: '連接錢包',
-  connect: '連接MetaMask'
+  wallet: {
+    connectWallet: '連接錢包',
+    connect: '連接MetaMask',
+    recharge: '充值',
+    withdraw: '提現',
+    address: '地址',
+    balance: '餘額',
+    contract: '合約',
+    unanimous: '全選',
+    promiseCard: '承諾卡',
+    onSale: '在售中',
+    all: '全部',
+    sale: '掛單',
+    cancleSale: '取消掛單',
+    gift: '贈送',
+    coherent: '配套'
+  }
 }

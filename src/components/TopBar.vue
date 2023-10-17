@@ -99,7 +99,7 @@
                 </div>
                 <div class="flex justify-center items-center absolute bottom-0 pb-6 bg-page-content w-full">
                     <div class="operating-button text-center mr-auto ml-auto w-11/12 rounded py-2" @click="handleLogin">
-                        {{ $t('wallet') }}
+                        {{ $t('wallet.connectWallet') }}
                     </div>
                 </div>
             </div>
@@ -110,7 +110,7 @@
                 <div class="flex justify-center items-center p-2 border border-primary-color rounded w-11/12 h-12"
                     @click="toggleLoginPopup">
                     <div class="icon iconfont icon-metamask"></div>
-                    <div class="pl-2 word-clip">{{ $t('connect') }}</div>
+                    <div class="pl-2 word-clip">{{ $t('wallet.connect') }}</div>
                 </div>
                 <!-- <div class="flex justify-center items-center p-2 py-2.5 operating-button text-white rounded w-11/12"
                     @click="toggleLoginPopup">
@@ -177,14 +177,15 @@ function handleLogin() {
 }
 
 function handleHomeChild(menuItem, item, index) {
+    router.push({
+        path: '/'
+    })
     console.log(menuItem, item, index)
     swiperStore.changeIndex(index)
     console.log(swiperStore.index)
     // $emit(menuItem, item, index)
-    // router.push({
-    //     path: '/'
-    // })
-    // showLeftMenu.value = false
+
+    showLeftMenu.value = false
 }
 
 function handleMenuItem(item) {

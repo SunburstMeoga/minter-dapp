@@ -21,7 +21,7 @@
                 <div class="flex justify-start items-center">
                     <div class="flex justify-start items-center pr-10">
                         <div class="pr-1 font-bold text-lg">0</div>
-                        <div class="text-white">配套</div>
+                        <div class="text-white">{{ $t('wallet.coherent') }}</div>
                     </div>
                     <div class="flex justify-start items-center ">
                         <div class="pr-1 font-bold text-lg">0</div>
@@ -46,7 +46,8 @@
                 <div class="flex justify-between items-center pt-2">
                     <div class="px-2 py-0.5 text-sm flex justify-start items-center mb-2">
                         <van-checkbox v-model="isUnanimous" checked-color="#e149ed" icon-size="18px"></van-checkbox>
-                        <div class="pl-2" :class="isUnanimous ? 'text-primary-color' : 'text-white'">全選</div>
+                        <div class="pl-2" :class="isUnanimous ? 'text-primary-color' : 'text-white'">{{
+                            $t('wallet.unanimous') }}</div>
                     </div>
                     <div class="px-2.5 py-1 text-base rounded  mb-2 operating-button text-white"
                         v-for="(item, index) in operatorList" :key="index" @click="handleOperatorItem(item, index)">
@@ -75,11 +76,19 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import WalletCard from '@/components/WalletCard.vue';
 import NftCard from '@/components/NftCard.vue'
-const coherentList = ref([{ title: '全部' }, { title: '200' }, { title: '600' }, { title: '2000' }, { title: '6000' }, { title: '20000' }, { title: '承诺卡' }, { title: '在售中' }])
-const operatorList = ref([{ title: '掛單' }, { title: '撤銷掛單' }, { title: '贈送' }])
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+
+let coherentList = computed(() => {
+    return [{ title: t('wallet.all') }, { title: '200' }, { title: '600' }, { title: '2000' }, { title: '6000' }, { title: '20000' }, { title: t('wallet.promiseCard') }, { title: t('wallet.onSale') }]
+})
+
+let operatorList = computed(() => {
+    return [{ title: t('wallet.sale') }, { title: t('wallet.cancleSale') }, { title: t('wallet.gift') }]
+})
 
 let currentCoherent = ref(null)
 let currentOperator = ref(null)
@@ -93,11 +102,11 @@ function toggleOperator() {
 function handleCoherentItem(item, index) {
     currentCoherent.value = index
     if (index == 7) {
-        operatorList.value = [{ title: '撤銷掛單' }]
+        operatorList.value = [{ title: t('wallet.cancleSale') }]
     } else if (index == 6) {
-        operatorList.value = [{ title: '贈送' }]
+        operatorList.value = [{ title: t('wallet.gift') }]
     } else if (index !== 6 || index !== 7) {
-        operatorList.value = [{ title: '掛單' }, { title: '撤銷掛單' }, { title: '贈送' }]
+        operatorList.value = [[{ title: t('wallet.sale') }, { title: t('wallet.cancleSale') }, { title: t('wallet.gift') }]]
     }
 }
 

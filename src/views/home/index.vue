@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="relative">
-      <div class="absolute top-0 left-0 h-full">
+      <div class="absolute top-0 w-full left-0 h-full">
         <img src="../../assets/home-bg.png" alt="">
       </div>
       <div class="absolute top-0 left-0 w-full h-full bg-black opacity-60" />
       <div>
-        <swiper :direction="'vertical'" @swiper="setSwiperRef" @change="swiperChange" :pagination="{
+        <swiper :direction="'vertical'" @swiper="setSwiperRef" @slideChange="swiperChange" :pagination="{
           clickable: true,
         }" :modules="modules" class="mySwiper">
           <swiper-slide>
@@ -89,6 +89,7 @@ function setSwiperRef(swiper) {
 function changeSwiper(index) {
   console.log(swiperRef)
   swiperRef.slideTo(index, 1000, false)
+  window.scroll(0, 0);
 }
 </script>
 
@@ -96,6 +97,7 @@ function changeSwiper(index) {
 img {
   object-fit: cover;
   height: 100%;
+  width: 100%;
 }
 
 #app {

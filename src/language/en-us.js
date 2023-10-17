@@ -11,7 +11,7 @@ export default {
     market: 'Market',
     pledge: 'Pledge',
     partnership: 'Partnership',
-    rank: 'Table Of Ranking',
+    rank: 'Ranking',
     casting: 'Casting',
     userCenter: 'User Center',
     wallet: 'Wallet'
@@ -55,6 +55,21 @@ export default {
   toast: {
     notYetOpen: 'Not yet open'
   },
-  wallet: 'Connect',
-  connect: 'Connect MetaMask'
+  wallet: {
+    connectWallet: 'Connect',
+    connect: 'Connect MetaMask',
+    recharge: 'Recharge',
+    withdraw: 'Withdraw',
+    address: 'Address',
+    balance: 'Balance',
+    contract: 'Contract',
+    unanimous: 'Unanimous',
+    promiseCard: 'Commitment Card',
+    onSale: 'on sale',
+    all: 'All',
+    sale: 'Selling',
+    cancleSale: 'Cancel',
+    gift: 'Gift',
+    coherent: 'Coherent'
+  }
 }
