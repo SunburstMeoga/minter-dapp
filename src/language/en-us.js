@@ -14,7 +14,15 @@ export default {
     rank: 'Ranking',
     casting: 'Casting',
     userCenter: 'User Center',
-    wallet: 'Wallet'
+    wallet: 'Wallet',
+    coinBank: 'CoinBank',
+    custodianship: 'Custodianship',
+    grandPrix: 'Grand Prix',
+    bag: 'My Bag',
+    synthesize: 'Synthesize',
+    operationRecord: 'Operation Record',
+    helpHand: 'Help Hand',
+    setting: 'Setting'
   },
   home: {
     title: 'WELCOME TO',

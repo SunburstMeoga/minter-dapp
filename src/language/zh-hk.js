@@ -14,7 +14,15 @@ export default {
     rank: '排行榜',
     casting: '鑄造',
     userCenter: '用戶中心',
-    wallet: '錢包'
+    wallet: '錢包',
+    coinBank: '存錢罐',
+    custodianship: '託管',
+    grandPrix: '大獎賽',
+    bag: '我的背包',
+    synthesize: '合成',
+    operationRecord: '操作記錄',
+    helpHand: '助力',
+    setting: '設置'
   },
   home: {
     title: '歡迎來到',

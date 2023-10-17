@@ -3,9 +3,9 @@
         <div class="w-11/12 mb-2">
             <module-title :titleWord="$t('coherents.title')" />
         </div>
-        <div class="w-11/12 text-xs text-red-700 mb-5">
+        <!-- <div class="w-11/12 text-xs text-red-700 mb-5">
             {{ $t('coherents.tips') }}
-        </div>
+        </div> -->
         <div class="w-11/12">
             <div class="mb-2" v-for="(item, index) in coherentsList" :key="index">
                 <coherent-card :staticName="item.name" />

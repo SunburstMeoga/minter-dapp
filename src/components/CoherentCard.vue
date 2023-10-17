@@ -50,8 +50,8 @@ function notYetOpen() {
                 <div class="text-white font-bold"> 200 MT</div>
             </div> -->
 
-            <div @click="notYetOpen" class="operating-button rounded-full py-2  text-center text-white mb-4">{{
-                $t('coherents.buy') }}</div>
+            <!-- <div @click="notYetOpen" class="operating-button rounded-full py-2  text-center text-white mb-4">{{
+                $t('coherents.buy') }}</div> -->
 
 
         </div>

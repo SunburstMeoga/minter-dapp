@@ -74,7 +74,7 @@
                             <div>{{ $t('menu.game') }}</div>
                         </div>
                     </div>
-                    <div class="pl-10">
+                    <div class="pl-10" v-if="userInfo.address">
                         <div :class="currentMenuItem == 'personal' ? 'text-primary-color' : 'text-white'" class="menu-item"
                             @click="toggleMorePersonal('personal')">
                             <div>{{ $t('menu.userCenter') }}</div>
@@ -99,7 +99,7 @@
                 </div>
                 <div class="flex justify-center items-center absolute bottom-0 pb-6 bg-page-content w-full">
                     <div class="operating-button text-center mr-auto ml-auto w-11/12 rounded py-2" @click="handleLogin">
-                        {{ $t('wallet.connectWallet') }}
+                        {{ !userInfo.address ? $t('wallet.connectWallet') : addressFilter(userInfo.address) }}
                     </div>
                 </div>
             </div>
@@ -108,9 +108,10 @@
         <van-popup v-model:show="showLoginPopup" round position="bottom" :style="{ height: '16%' }">
             <div class="bg-page-content w-full h-full flex flex-col justify-center items-center">
                 <div class="flex justify-center items-center p-2 border border-primary-color rounded w-11/12 h-12"
-                    @click="toggleLoginPopup">
+                    @click="connectMetaMask">
                     <div class="icon iconfont icon-metamask"></div>
                     <div class="pl-2 word-clip">{{ $t('wallet.connect') }}</div>
+                    <!-- <div>{{ addressFilter(userInfo.address) }}</div> -->
                 </div>
                 <!-- <div class="flex justify-center items-center p-2 py-2.5 operating-button text-white rounded w-11/12"
                     @click="toggleLoginPopup">
@@ -123,13 +124,16 @@
 </template>
 
 <script setup>
-import { ref, computed, getCurrentInstance } from 'vue'
-
+import { ref, computed, getCurrentInstance, onMounted } from 'vue'
+// import ethereum from 'ethers'
 import { useRouter } from "vue-router";
 import { useI18n } from 'vue-i18n'
 import { showToast } from 'vant';
 import { useStore } from "@/stores/swiper";
+import { userStore } from "@/stores/user";
+
 const swiperStore = useStore();
+const userInfo = userStore()
 const router = useRouter()
 const { t } = useI18n()
 const showLeftMenu = ref(false)
@@ -149,8 +153,53 @@ let homeChilds = computed(() => {
 })
 
 let personalChilds = computed(() => {
-    return [{ title: t('menu.wallet'), router: '/personal/wallet' }]
+    return [{ title: t('menu.wallet'), router: '/personal/wallet' }, { title: t('menu.coinBank') }, { title: t('menu.custodianship') }, { title: t('menu.grandPrix') }, { title: t('menu.bag') }, { title: t('menu.synthesize') }, { title: t('menu.operationRecord') }, { title: t('menu.helpHand') }, { title: t('menu.setting') }]
 })
+
+onMounted(() => {
+    console.log(localStorage.getItem('address'))
+    if (localStorage.getItem('address')) {
+        userInfo.changeAddress(localStorage.getItem('address'))
+        // personalChilds = computed(() => {
+        //     return [{ title: '錢包', router: '/personal/wallet' }, { title: '存錢罐' }, { title: '託管' }, { title: '大獎賽' }, { title: '邀請獎勵' }, { title: '我的背包' }, { title: '合成' }, { title: '操作記錄' }, { title: '助力' }, { title: '設置' }]
+        // })
+
+    } else {
+        // personalChilds = computed(() => {
+        //     return [{ title: t('menu.wallet'), router: '/personal/wallet' }]
+        // })
+
+    }
+})
+
+function addressFilter(value) {
+    if (value === undefined || value === null) return
+    let arr = value.split('')
+    let targetStr
+    let targetArr = []
+    arr.map((item, index) => {
+        if (index <= 10 || index >= arr.length - 11) {
+            targetArr.push(item)
+        }
+    })
+    targetArr.splice(11, 0, '...')
+    targetStr = targetArr.join('')
+    return targetStr
+}
+
+async function connectMetaMask() {
+    // if (localStorage.getItem('address')) {
+    //     userStore.changeAddress(localStorage.getItem('address'))
+    // }
+    const newAccounts = await ethereum.request({
+        method: 'eth_requestAccounts',
+    })
+    localStorage.setItem('address', newAccounts[0])
+    userInfo.changeAddress(newAccounts[0])
+    showLoginPopup.value = false
+    console.log(userInfo.address)
+    showToast('Success')
+}
 
 // let $emit = defineEmits(['handleHomeChild'])
 const { proxy } = getCurrentInstance()
@@ -172,8 +221,11 @@ function toggleLoginPopup() {
 }
 
 function handleLogin() {
-    toggleLoginPopup()
-    toggleMenu()
+    if (!userInfo.address) {
+        toggleLoginPopup()
+        toggleMenu()
+    }
+
 }
 
 function handleHomeChild(menuItem, item, index) {
@@ -189,6 +241,10 @@ function handleHomeChild(menuItem, item, index) {
 }
 
 function handleMenuItem(item) {
+    if (!item.router) {
+        notYetOpen()
+        return
+    }
     router.push({
         path: item.router
     })
