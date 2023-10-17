@@ -149,7 +149,7 @@ const currentMenuItem = ref('')
 const marketChilds = ref([{ title: 'R' }, { title: 'SR' }, { title: 'SSR' }, { title: 'UR' }, { title: 'USR' }])
 
 let homeChilds = computed(() => {
-    return [{ title: t('menu.home') }, { title: t('menu.introduction') }, { title: t('menu.game') }, { title: t('menu.news') }, { title: t('menu.partners') }, { title: t('menu.investor') }, { title: t('menu.feedback') }]
+    return [{ title: t('menu.home') }, { title: t('menu.introduction') }, { title: t('menu.game') }, { title: t('menu.news') }, { title: t('menu.partners') }, { title: t('game.title') }, { title: t('menu.investor') }, { title: t('menu.feedback') }]
 })
 
 let personalChilds = computed(() => {

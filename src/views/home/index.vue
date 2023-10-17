@@ -65,11 +65,11 @@ onMounted(() => {
 watch(
   () => swiperStore.index,
   (newValue, oldValue) => {
-    // console.log("新值:" + newValue + "旧值:" + oldValue)
-    if (newValue == 5) {
-      changeSwiper(6)
-      return
-    }
+    console.log("新值:" + newValue + "旧值:" + oldValue)
+    // if (newValue == 5) {
+    //   changeSwiper(6)
+    //   return
+    // }
     changeSwiper(newValue)
   },
   {
