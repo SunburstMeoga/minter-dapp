@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-full pt-16">
+    <div class="w-full h-full pt-2">
         <div class="h-full">
             <div class="w-full h-full flex flex-col items-center justify-start">
                 <div class="w-11/12 mb-2">

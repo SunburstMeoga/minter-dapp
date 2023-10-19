@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-full flex flex-col items-center justify-start text-primary-color pt-20">
+    <div class="w-full h-full flex flex-col items-center justify-start text-primary-color pt-2">
         <div class="w-11/12 mb-8">
             <module-title :titleWord="$t('menu.introduction')" />
         </div>

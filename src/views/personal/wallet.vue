@@ -1,6 +1,6 @@
 <template>
     <div class="text-primary-color">
-        <div class="py-20 bg-black">
+        <div class="pb-20 pt-2 bg-black">
             <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card isMUSDT currency="MUSDT" />
             </div>

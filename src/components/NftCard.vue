@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="text-white rounded overflow-hidden border" :class="checked ? ' border-primary-color' : ' border-black'">
+    <div class="text-white rounded-lg overflow-hidden border"
+      :class="checked ? ' border-primary-color' : ' border-black'">
       <div>
         <img src="https://dmdc5rs64g5fy.cloudfront.net/nftPres/800/0x6543CAC7EeD0bEe28b58fF75f406cd297208b497/5771.png"
           alt="">

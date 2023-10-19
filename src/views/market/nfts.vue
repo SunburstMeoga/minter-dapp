@@ -1,41 +1,41 @@
 <template>
     <div class="text-primary-color bg-black">
-        <div class="pt-16 bg-black">
-            <div class="w-11/12 mr-auto ml-auto mb-2">
+        <div class="pt-2 bg-black">
+            <div class="w-11/12 mr-auto ml-auto mt-4">
                 <module-title titleWord="NFTs" />
             </div>
             <div class="border-b border-gray-700">
-                <van-tabs class="pt-2" v-model:active="active" sticky animated swipeable color="#e149ed"
+                <van-tabs class="pt-2 bg-black" v-model:active="active" animated swipeable color="#e149ed"
                     title-inactive-color="#fff" title-active-color="#e149ed" background="#000">
-                    <van-tab title="N" class="bg-black pb-20">
+                    <van-tab title="N">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in 9" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :showCheckbox="false" />
                             </div>
                         </div>
                     </van-tab>
-                    <van-tab title="R" class="bg-black pb-20">
+                    <van-tab title="R">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in 9" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :showCheckbox="false" />
                             </div>
                         </div>
                     </van-tab>
-                    <van-tab title="SR" class="bg-black pb-20">
+                    <van-tab title="SR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in 9" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :showCheckbox="false" />
                             </div>
                         </div>
                     </van-tab>
-                    <van-tab title="SSR" class="bg-black pb-20">
+                    <van-tab title="SSR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in 9" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :showCheckbox="false" />
                             </div>
                         </div>
                     </van-tab>
-                    <van-tab title="UR" class="bg-black pb-20">
+                    <van-tab title="UR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in 9" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :showCheckbox="false" />
@@ -81,5 +81,11 @@ onMounted(() => {
 .van-tabs,
 .van-tabs--line {
     height: 52px;
+}
+
+.van-tab__panel {
+    background: #000;
+    padding-bottom: 20px;
+    margin-top: 0.5px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-    <div class="flex flex-col justify-start items-center pt-16 bg-black pb-20">
-        <div class="w-11/12 mb-4">
+    <div class="flex flex-col justify-start items-center bg-black pb-20">
+        <div class="w-11/12 mb-4 mt-4">
             <module-title titleWord="配套信息" />
         </div>
         <div class="w-11/12">

@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-full flex flex-col items-center justify-between pt-16 overflow-scroll">
+    <div class="w-full h-full flex flex-col items-center justify-between pt-2 overflow-scroll">
         <div class="w-11/12">
             <div class="flex justify-center items-center mb-4">
                 <module-title :titleWord="$t('menu.investor')" />

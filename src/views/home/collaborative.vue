@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-full flex flex-col items-center justify-start pt-16">
+    <div class="w-full h-full flex flex-col items-center justify-start pt-2">
         <div class="w-11/12 flex justify-center items-center mb-2">
             <module-title :titleWord="$t('menu.partners')" />
         </div>

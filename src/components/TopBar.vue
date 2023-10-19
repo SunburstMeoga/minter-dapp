@@ -1,7 +1,6 @@
 <template>
     <div class="h-14 w-full text-primary-color bg-black">
         <div class="flex justify-between items-center px-4 h-full">
-
             <div class="w-32">
                 <img src="../assets/images/minter-logo-cro.png" alt="">
             </div>
