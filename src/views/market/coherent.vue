@@ -52,7 +52,7 @@ import { ref } from 'vue'
 import ModuleTitle from "../../components/ModuleTitle.vue";
 import coherentInfoCard from "./coherentInfoCard.vue";
 import levelN from '@/assets/images/coherent-n.png';
-import levelR from '@/assets/images/coherent-R.png';
+import levelR from '@/assets/images/coherent-r.png';
 import levelSR from '@/assets/images/coherent-sr.png';
 import levelSSR from '@/assets/images/coherent-ssr.png';
 import levelUR from '@/assets/images/coherent-ur.png';
