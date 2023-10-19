@@ -3,7 +3,7 @@
     <div class="py-2 w-full bg-gray-bottom ">
       <div class="flex justify-between w-11/12 ml-auto mr-auto items-center text-white">
         <div class="w-20">
-          <img src="../assets/minter-logo-ver.png" alt="">
+          <img src="../assets/images/minter-logo-ver.png" alt="">
         </div>
         <div class="flex justify-end items-center">
           <div v-for="(item, index) in officialMedias" class="ml-3" :key="index">

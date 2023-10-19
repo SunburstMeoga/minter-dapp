@@ -18,7 +18,7 @@
 import { ref } from 'vue'
 import ModuleTitle from "../../components/ModuleTitle.vue";
 import CoherentCard from "../../components/CoherentCard.vue";
-const coherentsList = ref([{ name: 'R' }, { name: 'SR' }, { name: 'SSR' }, { name: 'UR' }, { name: 'USR' }])
+const coherentsList = ref([{ name: 'N' }, { name: 'R' }, { name: 'SR' }, { name: 'SSR' }, { name: 'UR' }])
 </script>
 
 <style></style>

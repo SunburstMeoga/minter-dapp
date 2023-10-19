@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import './assets/tailwind.css'
-import './assets/iconfont.css'
-import './assets/components.css'
+import './assets/css/tailwind.css'
+import './assets/css/iconfont.css'
+import './assets/css/components.css'
 import i18n from './language/index.js'
 
 import App from './App.vue'

@@ -2,7 +2,7 @@
   <div>
     <div class="relative">
       <div class="absolute top-0 w-full left-0 h-full">
-        <img src="../../assets/home-bg.png" alt="">
+        <img src="../../assets/images/home-bg.png" alt="">
       </div>
       <div class="absolute top-0 left-0 w-full h-full bg-black opacity-60" />
       <div>

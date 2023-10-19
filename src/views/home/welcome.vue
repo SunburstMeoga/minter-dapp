@@ -1,7 +1,7 @@
 <template>
     <div class="text-primary-color h-full w-full text-center flex flex-col justify-start items-center pt-20">
         <div class="w-8/12 mb-8">
-            <img src="../../assets/minter-logo-ver.png" alt="">
+            <img src="../../assets/images/minter-logo-ver.png" alt="">
         </div>
         <div class="text-5xl font-extrabold mb-4 italic text-white">
             <div>

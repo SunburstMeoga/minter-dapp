@@ -3,7 +3,7 @@
         <div class="flex justify-between items-center px-4 h-full">
 
             <div class="w-32">
-                <img src="../assets/minter-logo-cro.png" alt="">
+                <img src="../assets/images/minter-logo-cro.png" alt="">
             </div>
             <div>
                 <div class="icon iconfont menu icon-menu-hamburger" @click="toggleMenu"></div>
@@ -41,8 +41,8 @@
                             </div>
                         </div>
                         <div v-show="showMoreMarket" class="pl-4">
-                            <div class="py-1.5 text-menu-word" @click="toMarket(1)" v-for="(item, index) in marketChilds"
-                                :key="index">
+                            <div class="py-1.5 text-menu-word" @click="toMarket(index)"
+                                v-for="(item, index) in marketChilds" :key="index">
                                 {{ item.title }}
                             </div>
 
@@ -146,7 +146,9 @@ const currentMenuItem = ref('')
 // const personalChilds = ref([{ title: t('menu.wallet'), router: '/personal/wallet' }])
 
 // const homeChilds = ref([{ title: t('menu.home') }, { title: t('menu.introduction') }, { title: t('menu.game') }, { title: t('menu.news') }, { title: t('menu.partners') }, { title: t('menu.investor') }, { title: t('menu.feedback') }])
-const marketChilds = ref([{ title: 'R' }, { title: 'SR' }, { title: 'SSR' }, { title: 'UR' }, { title: 'USR' }])
+// const marketChilds = ref([{ title: 'R' }, { title: 'SR' }, { title: 'SSR' }, { title: 'UR' }, { title: 'USR' }])
+const marketChilds = ref([{ title: 'NFTs' }, { title: '配套' }])
+
 
 let homeChilds = computed(() => {
     return [{ title: t('menu.home') }, { title: t('menu.introduction') }, { title: t('menu.game') }, { title: t('menu.news') }, { title: t('menu.partners') }, { title: t('game.title') }, { title: t('menu.investor') }, { title: t('menu.feedback') }]
@@ -294,12 +296,11 @@ function notYetOpen() {
     return;
 }
 
-function toMarket(target) {
-    showToast(t('toast.notYetOpen'));
-    return;
+function toMarket(index) {
+    // showToast(t('toast.notYetOpen'));
+    // return;
     router.push({
-        path: '/market',
-        query: { target: target }
+        path: index == 0 ? '/market/nfts' : '/market/coherent',
     })
     showLeftMenu.value = false
 }
