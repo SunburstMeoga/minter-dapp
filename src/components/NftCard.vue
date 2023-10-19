@@ -12,7 +12,7 @@
         </div>
         <div class="flex justify-between items-center">
           <div>4.000 MT</div>
-          <van-checkbox icon-size="18px" v-model="checked" checked-color="#e149ed" shape="square" />
+          <van-checkbox v-show="showCheckbox" icon-size="18px" v-model="checked" checked-color="#e149ed" shape="square" />
         </div>
       </div>
 
@@ -22,6 +22,12 @@
 
 <script setup>
 import { ref } from 'vue'
+defineProps({
+  showCheckbox: {
+    type: Boolean,
+    default: true
+  }
+})
 let checked = ref(false)
 </script>
 

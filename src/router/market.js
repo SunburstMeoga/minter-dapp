@@ -16,6 +16,15 @@ let market = [
       showLogo: true,
       showBack: false
     }
+  },
+  {
+    path: '/market/nfts',
+    name: 'market-nfts',
+    component: () => import('@/views/market/nfts.vue'),
+    meta: {
+      showLogo: true,
+      showBack: false
+    }
   }
 ]
 

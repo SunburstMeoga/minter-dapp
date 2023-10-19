@@ -9,28 +9,28 @@
                     <van-swipe :loop="false" class="my-swipe" :width="300" indicator-color="#e149ed">
                         <van-swipe-item>
                             <div class="w-full h-full bg-red-300">
-                                <img src="../../assets/swiper-one.png" alt="">
+                                <img src="../../assets/images/swiper-one.png" alt="">
                             </div>
                         </van-swipe-item>
                         <van-swipe-item>
                             <div class="w-full h-full bg-green-300">
-                                <img src="../../assets/swiper-two.png" alt="">
+                                <img src="../../assets/images/swiper-two.png" alt="">
                             </div>
                         </van-swipe-item>
                         <van-swipe-item>
                             <div class="w-full h-full bg-blue-300">
-                                <img src="../../assets/swiper-three.png" alt="">
+                                <img src="../../assets/images/swiper-three.png" alt="">
                             </div>
                         </van-swipe-item>
                         <van-swipe-item>
                             <div class="w-full h-full bg-gray-300">
-                                <img src="../../assets/swiper-four.png" alt="">
+                                <img src="../../assets/images/swiper-four.png" alt="">
                             </div>
                         </van-swipe-item>
                     </van-swipe>
                 </div>
                 <div class="w-11/12 h-32 mb-2 rounded overflow-hidden">
-                    <img src="../../assets/touch.png" alt="">
+                    <img src="../../assets/images/touch.png" alt="">
                 </div>
                 <div class="flex flex-col justify-center items-center font-bold text-2xl text-white mb-1 italic">
                     <div class="italic">HashAhead</div>

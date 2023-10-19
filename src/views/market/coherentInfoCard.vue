@@ -10,17 +10,17 @@
                 <img :src="levelImg" alt="">
             </div>
         </div>
-        <div class="w-full text-white text-sm mb-2">
+        <div class="w-full text-gray-400 text-sm mb-2">
             <div class="flex justify-between items-center mb-1">
                 <div>售价</div>
-                <div class="font-bold">$ {{ price }}</div>
+                <div class="font-bold text-red-500">$ {{ price }}</div>
             </div>
             <div class="flex justify-between items-center ">
                 <div>收益上限</div>
                 <div>$ {{ limit }}</div>
             </div>
         </div>
-        <div class="operating-button text-center text-white rounded-full">购买</div>
+        <div class="operating-button text-center py-1 text-sm text-white rounded-full" @click="$emit('handleBuy')">购买</div>
     </div>
 </template>
 
