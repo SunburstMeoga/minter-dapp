@@ -77,7 +77,7 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 const router = useRouter()
 let coherentList = computed(() => {
-    return [{ title: t('wallet.all') }, { title: 'R' }, { title: 'SR' }, { title: 'SSR' }, { title: 'UR' }, { title: 'USR' }, { title: t('wallet.promiseCard') }, { title: t('wallet.onSale') }]
+    return [{ title: t('wallet.all') }, { title: 'N' }, { title: 'R' }, { title: 'SR' }, { title: 'SSR' }, { title: 'UR' }, { title: t('wallet.promiseCard') }, { title: t('wallet.onSale') }]
 })
 
 let operatorList = computed(() => {

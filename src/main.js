@@ -4,6 +4,8 @@ import './assets/css/tailwind.css'
 import './assets/css/iconfont.css'
 import './assets/css/components.css'
 import i18n from './language/index.js'
+import loading from '@/components/loading'
+import confirm from '@/components/confirm'
 
 import App from './App.vue'
 import router from './router'
@@ -67,6 +69,8 @@ app.use(Popover)
 app.use(Checkbox)
 app.use(Swipe)
 app.use(SwipeItem)
+app.use(loading)
+app.use(confirm)
 app.use(i18n)
 
 app.mount('#app')

@@ -11,13 +11,18 @@
           <div class="text-primary-color">Minter</div>
           <div class="font-bold">#1024</div>
         </div>
-        <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center mb-2">
           <div>4.000 MT</div>
           <van-checkbox v-show="showCheckbox" icon-size="18px" v-model="checked" checked-color="#e149ed" shape="square" />
         </div>
+        <div class="flex justify-center items-center" v-show="showBuyButton" @click="$emit('handleBuyButton')">
+          <div class="operating-button w-full py-1 rounded-full text-center">
+            购买
+          </div>
+        </div>
       </div>
-
     </div>
+
   </div>
 </template>
 
@@ -27,6 +32,10 @@ defineProps({
   showCheckbox: {
     type: Boolean,
     default: true
+  },
+  showBuyButton: {
+    type: Boolean,
+    default: false
   }
 })
 let checked = ref(false)
