@@ -6,6 +6,7 @@ import './assets/css/components.css'
 import i18n from './language/index.js'
 import loading from '@/components/loading'
 import confirm from '@/components/confirm'
+import VueLuckyCanvas from '@lucky-canvas/vue'
 
 import App from './App.vue'
 import router from './router'
@@ -72,5 +73,6 @@ app.use(SwipeItem)
 app.use(loading)
 app.use(confirm)
 app.use(i18n)
+app.use(VueLuckyCanvas)
 
 app.mount('#app')

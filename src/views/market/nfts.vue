@@ -46,35 +46,9 @@
             </div>
         </div>
         <van-popup v-model:show="showPrizePopup" round>
-            <div class="bg-black border border-black flex flex-col items-center w-full pb-4 text-white">
-                <div class="w-full px-24 py-4 border-b border-gray-600 mb-4">
-                    <img alt="">
-                </div>
-                <div class="flex justify-between items-center w-11/12 mb-2">
-                    <div>售价</div>
-                    <div class="font-bold text-red-500">$ 200</div>
-                </div>
-                <div class="flex justify-between items-center w-11/12 mb-2">
-                    <div>收益上限</div>
-                    <div>$ 200</div>
-                </div>
-                <div class="flex justify-between items-center w-11/12 mb-2">
-                    <div>可获取token数量</div>
-                    <div>2</div>
-                </div>
-                <div class="flex justify-between items-center w-11/12 mb-2">
-                    <div>配套等级奖励率</div>
-                    <div>10%</div>
-                </div>
-                <div class="flex justify-between items-center w-11/12 mb-2">
-                    <div>卡池中NFT金额区间</div>
-                    <div>[25, 100]</div>
-                </div>
-                <div class="flex justify-between items-center w-11/12 mb-4">
-                    <div>卡池中NFT数量区间</div>
-                    <div>[10000, 20000]</div>
-                </div>
-                <div class="w-11/12 operating-button text-center py-2 rounded-full" @click="togglePrizePopup">确认购买</div>
+            <div class="bg-black border border-black flex flex-col items-center w-full p-10 text-white">
+                <LuckyWheel ref="myLucky" width="300px" height="300px" :prizes="prizes" :blocks="blocks" :buttons="buttons"
+                    @start="startCallback" @end="endCallback" />
             </div>
         </van-popup>
     </div>
@@ -88,12 +62,43 @@ import { ref, onMounted, getCurrentInstance } from 'vue'
 import { useRoute } from 'vue-router';
 
 const route = useRoute()
+const myLucky = ref()
 let active = ref('2')
 let showPrizePopup = ref(false)
 
 const { proxy } = getCurrentInstance()
+const blocks = ref([{ padding: '13px', background: '#617df2' }])
+const prizes = ref([
+    { fonts: [{ text: '0', top: '10%' }], background: '#e9e8fe' },
+    { fonts: [{ text: '1', top: '10%' }], background: '#b8c5f2' },
+    { fonts: [{ text: '2', top: '10%' }], background: '#e9e8fe' },
+    { fonts: [{ text: '3', top: '10%' }], background: '#b8c5f2' },
+    { fonts: [{ text: '4', top: '10%' }], background: '#e9e8fe' },
+    { fonts: [{ text: '5', top: '10%' }], background: '#b8c5f2' },
+])
+const buttons = ref([{
+    radius: '35%',
+    background: '#8a9bf3',
+    pointer: true,
+    fonts: [{ text: '开始', top: '-10px' }]
+}])
 
-
+function startCallback() {
+    // 调用抽奖组件的play方法开始游戏
+    // console.log(myLucky)
+    myLucky.value.play()
+    // 模拟调用接口异步抽奖
+    setTimeout(() => {
+        // 假设后端返回的中奖索引是0
+        const index = 0
+        // 调用stop停止旋转并传递中奖索引
+        myLucky.value.stop(index)
+    }, 3000)
+}
+// 抽奖结束会触发end回调
+function endCallback(prize) {
+    console.log(prize)
+}
 function togglePrizePopup() {
     showPrizePopup.value = !showPrizePopup.value
 }
