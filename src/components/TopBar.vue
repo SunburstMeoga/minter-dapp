@@ -154,7 +154,7 @@ let homeChilds = computed(() => {
 })
 
 let personalChilds = computed(() => {
-    return [{ title: t('menu.wallet'), router: '/personal/wallet' }, { title: t('menu.coinBank') }, { title: t('menu.custodianship') }, { title: t('menu.grandPrix') }, { title: t('menu.bag') }, { title: t('menu.synthesize') }, { title: t('menu.operationRecord') }, { title: t('menu.helpHand') }, { title: t('menu.setting') }]
+    return [{ title: t('menu.wallet'), router: '/personal/wallet' }, { title: t('menu.coinBank') }, { title: t('menu.custodianship') }, { title: t('menu.grandPrix') }, { title: t('menu.bag') }, { title: t('menu.synthesize') }, { title: t('menu.operationRecord'), router: '/earnings/list' }, { title: t('menu.helpHand') }, { title: t('menu.setting') }]
 })
 
 onMounted(() => {

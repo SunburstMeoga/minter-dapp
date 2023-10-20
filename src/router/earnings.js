@@ -13,11 +13,11 @@ let earnings = [
     name: 'earnings-list',
     component: () => import('@/views/earnings/list.vue'),
     meta: {
-      showLogo: false,
-      showBack: true,
-      pageTitle: '收益明细'
+      showLogo: true,
+      showBack: false,
+      pageTitle: '操作记录'
     }
-  },
+  }
 ]
 
 export default earnings

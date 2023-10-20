@@ -1,6 +1,10 @@
 <template>
-    <div class="bg-black py-20">
-        <div class="w-11/12 ml-auto mr-auto mb-3 rounded overflow-hidden p-2 bg-card-content text-card-word text-sm" v-for="(item, index) in 20" :key="index">
+    <div class="bg-black pb-20 pt-2">
+        <div class="w-11/12 mr-auto ml-auto mb-4">
+            <module-title :titleWord="$t('menu.operationRecord')" />
+        </div>
+        <div class="w-11/12 ml-auto mr-auto mb-3 rounded overflow-hidden p-2 bg-card-content text-card-word text-sm"
+            v-for="(item, index) in 20" :key="index">
             <div class="flex justify-between items-center mb-2">
                 <div>奖励金额</div>
                 <div class="text-red-400">100.00 MUSDT</div>
@@ -18,8 +22,6 @@
     </van-cell-group>
     <van-back-top right="60vw" bottom="10vh" /> -->
 </template>
-<script>
-    export default {
-
-    }
+<script setup>
+import ModuleTitle from "@/components/ModuleTitle.vue";
 </script>

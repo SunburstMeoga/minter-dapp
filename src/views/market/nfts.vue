@@ -46,9 +46,23 @@
             </div>
         </div>
         <van-popup v-model:show="showPrizePopup" round>
-            <div class="bg-black border border-black flex flex-col items-center w-full p-10 text-white">
-                <LuckyWheel ref="myLucky" width="300px" height="300px" :prizes="prizes" :blocks="blocks" :buttons="buttons"
-                    @start="startCallback" @end="endCallback" />
+            <div v-if="showPrizeDetails"
+                class="bg-black border border-black flex flex-col items-center w-full p-10 text-white">
+                <div class="">
+                    原始属性
+                </div>
+                <div class="">
+                    抽奖属性
+                </div>
+            </div>
+            <div v-else class="bg-black border border-black flex flex-col items-center w-full p-10 text-white">
+                <div>
+                    <LuckyWheel ref="myLucky" width="300px" height="300px" :prizes="prizes" :blocks="blocks"
+                        :buttons="buttons" @start="startCallback" @end="endCallback" />
+                </div>
+                <div v-if="isPrized" class="text-white mt-10">
+                    恭喜您抽中了{{ prizeName }} <span class="underline" @click="viewPrizeDetaisl">查看详情</span>
+                </div>
             </div>
         </van-popup>
     </div>
@@ -65,16 +79,17 @@ const route = useRoute()
 const myLucky = ref()
 let active = ref('2')
 let showPrizePopup = ref(false)
+let prizeName = ref('')
+let showPrizeDetails = ref(false)
 
 const { proxy } = getCurrentInstance()
+let isPrized = ref(false)
 const blocks = ref([{ padding: '13px', background: '#617df2' }])
 const prizes = ref([
-    { fonts: [{ text: '0', top: '10%' }], background: '#e9e8fe' },
-    { fonts: [{ text: '1', top: '10%' }], background: '#b8c5f2' },
-    { fonts: [{ text: '2', top: '10%' }], background: '#e9e8fe' },
-    { fonts: [{ text: '3', top: '10%' }], background: '#b8c5f2' },
-    { fonts: [{ text: '4', top: '10%' }], background: '#e9e8fe' },
-    { fonts: [{ text: '5', top: '10%' }], background: '#b8c5f2' },
+    { fonts: [{ text: '业绩承诺卡', top: '10%' }], background: '#e9e8fe' },
+    { fonts: [{ text: '每日收益', top: '10%' }], background: '#b8c5f2' },
+    { fonts: [{ text: '收益加速器', top: '10%' }], background: '#e9e8fe' },
+    { fonts: [{ text: '推荐福利', top: '10%' }], background: '#b8c5f2' },
 ])
 const buttons = ref([{
     radius: '35%',
@@ -83,21 +98,32 @@ const buttons = ref([{
     fonts: [{ text: '开始', top: '-10px' }]
 }])
 
+function viewPrizeDetaisl() {
+    showPrizeDetails.value = true
+}
+
 function startCallback() {
     // 调用抽奖组件的play方法开始游戏
-    // console.log(myLucky)
+    isPrized.value = false
+
     myLucky.value.play()
     // 模拟调用接口异步抽奖
+    const index = Math.floor(Math.random() * 4)
     setTimeout(() => {
         // 假设后端返回的中奖索引是0
-        const index = 0
+
         // 调用stop停止旋转并传递中奖索引
+        console.log('index', index)
         myLucky.value.stop(index)
-    }, 3000)
+        prizeName.value = prizes.value[index].fonts[0].text
+    }, 2000);
+
 }
 // 抽奖结束会触发end回调
 function endCallback(prize) {
     console.log(prize)
+    isPrized.value = true
+
 }
 function togglePrizePopup() {
     showPrizePopup.value = !showPrizePopup.value
@@ -113,6 +139,7 @@ function handleBuyButton() {
         confirmText: '确认抽奖',
         onConfirm: () => {
             proxy.$confirm.hide()
+            isPrized.value = false
             togglePrizePopup()
         },
     });
