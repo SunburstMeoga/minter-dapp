@@ -27,9 +27,9 @@ let personal = [
     }
   },
   {
-    path: '/personal/point',
-    name: 'personal-point',
-    component: () => import('@/views/personal/point.vue'),
+    path: '/personal/assistance',
+    name: 'personal-assistance',
+    component: () => import('@/views/personal/assistance.vue'),
     meta: {
       showLogo: true,
       showBack: false
