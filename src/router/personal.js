@@ -25,6 +25,15 @@ let personal = [
       showLogo: true,
       showBack: false
     }
+  },
+  {
+    path: '/personal/point',
+    name: 'personal-point',
+    component: () => import('@/views/personal/point.vue'),
+    meta: {
+      showLogo: true,
+      showBack: false
+    }
   }
 ]
 
