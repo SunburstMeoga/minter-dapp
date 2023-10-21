@@ -14,7 +14,10 @@
                 <wallet-card currency="BT" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="RT" />
+                <wallet-card currency="RT(已绑定)" />
+            </div>
+            <div class="w-11/12 mr-auto ml-auto mb-3">
+                <wallet-card currency="RT(未绑定)" />
             </div>
             <div class="border-b border-gray-800 w-11/12 mr-auto ml-auto mb-3"></div>
             <div class="flex justify-between items-center w-11/12 mr-auto ml-auto mb-2">

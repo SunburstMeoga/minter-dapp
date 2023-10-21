@@ -83,10 +83,18 @@
                             </div>
                         </div>
                         <div v-show="showMorePersonal" class="pl-4">
-                            <div class="py-1.5 text-menu-word" @click="handleMenuItem(item)"
-                                v-for="(item, index) in personalChilds" :key="index">
-                                {{ item.title }}
+                            <div>
+                                <div class="py-1.5 text-menu-word" @click="handleMenuItem(item)"
+                                    v-for="(item, index) in personalChilds" :key="index">
+                                    {{ item.title }}
+                                </div>
+                                <div class="py-1.5 text-menu-word" v-show="item.childs.lenght !== 0"
+                                    @click="handleMenuItem(_item)" v-for="(_item, _index) in item.childs" :key="_index">
+                                    {{ _item.title }}
+                                </div>
                             </div>
+
+
                         </div>
                     </div>
                     <div class="pl-10 mt-2 text-menu-word">
@@ -154,7 +162,7 @@ let homeChilds = computed(() => {
 })
 
 let personalChilds = computed(() => {
-    return [{ title: t('menu.wallet'), router: '/personal/wallet' }, { title: t('menu.coinBank') }, { title: t('menu.custodianship') }, { title: t('menu.grandPrix') }, { title: t('menu.bag') }, { title: t('menu.synthesize') }, { title: t('menu.operationRecord'), router: '/earnings/list' }, { title: t('menu.helpHand') }, { title: t('menu.setting') }]
+    return [{ title: t('menu.wallet'), router: '/personal/wallet' }, { title: t('menu.coinBank') }, { title: t('menu.custodianship') }, { title: t('menu.grandPrix') }, { title: t('menu.bag') }, { title: t('menu.synthesize') }, { title: t('menu.operationRecord'), router: '/earnings/list' }, { title: t('menu.helpHand'), childs: [{ title: '点位图' }, { title: '邀请关系' }] }, { title: t('menu.setting') }]
 })
 
 onMounted(() => {

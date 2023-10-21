@@ -46,22 +46,33 @@
             </div>
         </div>
         <van-popup v-model:show="showPrizePopup" round>
-            <div v-if="showPrizeDetails"
-                class="bg-black border border-black flex flex-col items-center w-full p-10 text-white">
-                <div class="">
-                    原始属性
-                </div>
-                <div class="">
-                    抽奖属性
-                </div>
-            </div>
-            <div v-else class="bg-black border border-black flex flex-col items-center w-full p-10 text-white">
-                <div>
+
+            <div class="bg-black border border-black flex flex-col items-center w-full py-4 px-2 text-white">
+                <div class="mb-4">
                     <LuckyWheel ref="myLucky" width="300px" height="300px" :prizes="prizes" :blocks="blocks"
                         :buttons="buttons" @start="startCallback" @end="endCallback" />
                 </div>
-                <div v-if="isPrized" class="text-white mt-10">
-                    恭喜您抽中了{{ prizeName }} <span class="underline" @click="viewPrizeDetaisl">查看详情</span>
+                <div v-if="isPrized" class="text-white">
+                    <div>
+                        <div class="">
+                            恭喜您抽中了{{ prizes[currentPrize].fonts[0].text }}
+                        </div>
+                        <div class="">
+                            币种: {{ prizes[currentPrize].fonts[0].currency }}
+                        </div>
+                        <div class="">
+                            收益率: <span>{{ prizes[currentPrize].fonts[0].corridor.join(',') }}</span>
+                        </div>
+                        <div v-show="currentPrize == 2">
+                            已开始加速
+                        </div>
+                        <div v-show="currentPrize == 0">
+                            卡价格由10.00升级为11.00
+                        </div>
+                        <div class="" v-show="currentPrize == 0 || currentPrize == 3">
+                            到期时间 <span>2023-11-12 22:23:02</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </van-popup>
@@ -84,12 +95,13 @@ let showPrizeDetails = ref(false)
 
 const { proxy } = getCurrentInstance()
 let isPrized = ref(false)
+let currentPrize = ref(null)
 const blocks = ref([{ padding: '13px', background: '#617df2' }])
 const prizes = ref([
-    { fonts: [{ text: '业绩承诺卡', top: '10%' }], background: '#e9e8fe' },
-    { fonts: [{ text: '每日收益', top: '10%' }], background: '#b8c5f2' },
-    { fonts: [{ text: '收益加速器', top: '10%' }], background: '#e9e8fe' },
-    { fonts: [{ text: '推荐福利', top: '10%' }], background: '#b8c5f2' },
+    { fonts: [{ text: '业绩承诺卡', top: '10%', currency: 'RT', corridor: ['0.5%', '1%', '2%', '3%', '4%', '5%', '6%',] }], background: '#e9e8fe' },
+    { fonts: [{ text: '每日收益', top: '10%', currency: 'MT', corridor: ['0.5%', '1%', '2%', '3%', '4%', '5%', '6%',] },], background: '#b8c5f2' },
+    { fonts: [{ text: '收益加速器', top: '10%', currency: 'PMT', corridor: ['0.5%', '1%', '2%', '3%', '4%', '5%', '6%',] }], background: '#e9e8fe' },
+    { fonts: [{ text: '推荐福利', top: '10%', currency: 'RT', corridor: ['0.5%', '1%', '2%', '3%', '4%', '5%', '6%',] }], background: '#b8c5f2' },
 ])
 const buttons = ref([{
     radius: '35%',
@@ -105,7 +117,6 @@ function viewPrizeDetaisl() {
 function startCallback() {
     // 调用抽奖组件的play方法开始游戏
     isPrized.value = false
-
     myLucky.value.play()
     // 模拟调用接口异步抽奖
     const index = Math.floor(Math.random() * 4)
@@ -113,9 +124,10 @@ function startCallback() {
         // 假设后端返回的中奖索引是0
 
         // 调用stop停止旋转并传递中奖索引
-        console.log('index', index)
         myLucky.value.stop(index)
-        prizeName.value = prizes.value[index].fonts[0].text
+        currentPrize.value = index
+        console.log('currentPrize', currentPrize, index)
+
     }, 2000);
 
 }
