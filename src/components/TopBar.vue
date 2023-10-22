@@ -158,17 +158,13 @@ let personalChilds = computed(() => {
 })
 
 onMounted(() => {
-    console.log(localStorage.getItem('address'))
+    if (localStorage.getItem('language')) {
+        proxy.$i18n.locale = localStorage.getItem('language')
+    }
     if (localStorage.getItem('address')) {
         userInfo.changeAddress(localStorage.getItem('address'))
-        // personalChilds = computed(() => {
-        //     return [{ title: '錢包', router: '/personal/wallet' }, { title: '存錢罐' }, { title: '託管' }, { title: '大獎賽' }, { title: '邀請獎勵' }, { title: '我的背包' }, { title: '合成' }, { title: '操作記錄' }, { title: '助力' }, { title: '設置' }]
-        // })
 
     } else {
-        // personalChilds = computed(() => {
-        //     return [{ title: t('menu.wallet'), router: '/personal/wallet' }]
-        // })
 
     }
 })
@@ -208,10 +204,11 @@ function changeLanguage() {
     console.log(proxy.$i18n.locale)
     if (proxy.$i18n.locale == "zh-hk") {
         proxy.$i18n.locale = "en-us";
+
     } else if (proxy.$i18n.locale == "en-us") {
         proxy.$i18n.locale = "zh-hk"
     }
-    console.log(proxy);
+    localStorage.setItem('language', proxy.$i18n.locale)
 };
 function toggleMenu() {
     showLeftMenu.value = !showLeftMenu.value

@@ -6,7 +6,7 @@
                 <point />
             </van-tab>
             <van-tab title="动态奖励">
-                动态奖励
+                <dynamic-rewards />
             </van-tab>
             <van-tab title="承诺卡">
                 承诺卡
@@ -17,6 +17,7 @@
 
 <script setup>
 import Point from './point.vue';
+import DynamicRewards from './DynamicRewards.vue';
 import { ref } from 'vue'
 let active = ref('2')
 
