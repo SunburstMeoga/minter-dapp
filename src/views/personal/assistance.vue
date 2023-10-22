@@ -9,7 +9,12 @@
                 <dynamic-rewards />
             </van-tab>
             <van-tab title="承诺卡">
-                承诺卡
+                <div class="flex flex-col justify-start items-center mt-4">
+                    <div class="w-11/12 mb-2" v-for="(item, index) in cardList" :key="index">
+                        <performance-commitment-card @toggleShowMore="toggleShowMore(item, index)"
+                            :showMore="item.showMore" />
+                    </div>
+                </div>
             </van-tab>
         </van-tabs>
     </div>
@@ -18,9 +23,14 @@
 <script setup>
 import Point from './point.vue';
 import DynamicRewards from './DynamicRewards.vue';
+import PerformanceCommitmentCard from './PerformanceCommitmentCard.vue'
 import { ref } from 'vue'
-let active = ref('2')
-
+let active = ref(0)
+let cardList = ref([{ showMore: false }, { showMore: false }, { showMore: false }, { showMore: false }, { showMore: false }, { showMore: false }])
+function toggleShowMore(item, index) {
+    item.showMore = !item.showMore
+    console.log(item, index)
+}
 </script>
 
 <style scoped>
