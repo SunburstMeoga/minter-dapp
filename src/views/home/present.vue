@@ -48,19 +48,19 @@
                 </div> -->
             </div>
         </div>
-        <div class="flex justify-between items-start w-11/12">
+        <div class="flex justify-around items-start w-11/12">
 
-            <div class="flex flex-col justify-center items-center animate-pulse"
+            <!-- <div class="flex flex-col justify-center items-center animate-pulse"
                 @click="handleCurrency($t('present.PVDetails'), 'PV')">
                 <div class="circle-module text-white p-2 rounded-full flex justify-center items-center mb-2">
                     <div class="w-20 h-20 font-bold flex justify-center items-center bg-black rounded-full text-white">
                         PV
                     </div>
                 </div>
-                <!-- <div class="text-sm w-16 text-center" style="color: #c972c3;">
+                <div class="text-sm w-16 text-center" style="color: #c972c3;">
                     业绩值
-                </div> -->
-            </div>
+                </div>
+            </div> -->
             <div class="flex flex-col justify-center items-center animate-pulse"
                 @click="handleCurrency($t('present.MUSDTDetails'), 'MUSDT')">
                 <div class="circle-module text-white p-2 rounded-full flex justify-center items-center mb-2">
