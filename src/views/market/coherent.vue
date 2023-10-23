@@ -63,7 +63,43 @@ const levelSRimg = ref(levelSR)
 const levelSSRimg = ref(levelSSR)
 const levelURimg = ref(levelUR)
 let showBuyPopup = ref(false)
-const coherentsList = ref([{ name: 'N', levelImg: levelNimg, price: '200', limit: '200' }, { name: 'R', levelImg: levelRimg, price: '200', limit: '200' }, { name: 'SR', levelImg: levelSRimg, price: '200', limit: '200' }, { name: 'SSR', levelImg: levelSSRimg, price: '200', limit: '200' }, { name: 'UR', levelImg: levelURimg, price: '200', limit: '200' }])
+const coherentsList = ref([
+    {
+        name: 'N',
+        levelImg: levelNimg,
+        price: '200',
+        limit: '200',
+        isSale: true
+    },
+    {
+        name: 'R',
+        levelImg: levelRimg,
+        price: '600',
+        limit: '200',
+        isSale: true
+    },
+    {
+        name: 'SR',
+        levelImg: levelSRimg,
+        price: '2000',
+        limit: '200',
+        isSale: true
+    },
+    {
+        name: 'SSR',
+        levelImg: levelSSRimg,
+        price: '6000',
+        limit: '200',
+        isSale: false
+    },
+    {
+        name: 'UR',
+        levelImg: levelURimg,
+        price: '20000',
+        limit: '200',
+        isSale: false
+    }
+])
 let coherentInfo = ref({})
 function toggleBuyPopup() {
     showBuyPopup.value = !showBuyPopup.value

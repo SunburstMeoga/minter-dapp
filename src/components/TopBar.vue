@@ -294,6 +294,7 @@ function notYetOpen() {
 
 function toMarket(index) {
     // showToast(t('toast.notYetOpen'));
+    console.log(index)
     // return;
     router.push({
         path: index == 0 ? '/market/nfts' : '/market/coherent',
