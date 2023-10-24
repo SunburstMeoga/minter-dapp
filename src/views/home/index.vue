@@ -10,23 +10,39 @@
           clickable: true,
         }" :modules="modules" class="mySwiper">
           <swiper-slide>
-            <welcome />
+            <welcome :hasChange="welcomeHasChange" />
           </swiper-slide>
+
+          <swiper-slide>
+            <news :hasChange="newsHasChange" />
+          </swiper-slide>
+
+          <swiper-slide>
+            <vision :hasChange="visionHasChange" />
+          </swiper-slide>
+
+          <swiper-slide>
+            <mission :hasChange="missionHasChange" />
+          </swiper-slide>
+
+
+
           <swiper-slide>
             <present />
           </swiper-slide>
+
           <swiper-slide>
             <game />
           </swiper-slide>
-          <swiper-slide>
-            <news />
-          </swiper-slide>
+
           <swiper-slide>
             <collaborative />
           </swiper-slide>
+
           <swiper-slide>
             <future />
           </swiper-slide>
+
           <swiper-slide>
             <investor />
           </swiper-slide>
@@ -40,9 +56,12 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 import Welcome from './welcome.vue';
+import News from './news.vue'
+import Vision from './vision.vue'
+import Mission from './mission.vue'
+
 import Present from './present.vue'
 import Game from './game.vue'
-import News from './news.vue'
 import Collaborative from './collaborative.vue'
 import Investor from './investor.vue'
 import Future from './future.vue'
@@ -56,10 +75,15 @@ import { useStore } from "@/stores/swiper";
 const swiperStore = useStore();
 const modules = ref[Pagination]
 let swiperRef = ref(null)
+let welcomeHasChange = ref(false)
+let visionHasChange = ref(false)
+let newsHasChange = ref(false)
+let missionHasChange = ref(false)
 
 onMounted(() => {
   // changeSwiper()
   console.log(swiperStore.index)
+  welcomeHasChange.value = true
 })
 
 watch(
@@ -70,6 +94,7 @@ watch(
     //   changeSwiper(6)
     //   return
     // }
+
     changeSwiper(newValue)
   },
   {
@@ -77,8 +102,29 @@ watch(
   }
 )
 
-function swiperChange(index) {
-  console.log('發生了變化', index)
+function swiperChange(swiper) {
+  console.log('發生了變化', swiper)
+  if (swiper.activeIndex == 0) {
+    welcomeHasChange.value = true
+    visionHasChange.value = false
+    newsHasChange.value = false
+    missionHasChange.value = false
+  } else if (swiper.activeIndex == 1) {
+    newsHasChange.value = true
+    visionHasChange.value = false
+    welcomeHasChange.value = false
+    missionHasChange.value = false
+  } else if (swiper.activeIndex == 2) {
+    visionHasChange.value = true
+    welcomeHasChange.value = false
+    newsHasChange.value = false
+    missionHasChange.value = false
+  } else if (swiper.activeIndex == 3) {
+    visionHasChange.value = false
+    welcomeHasChange.value = false
+    newsHasChange.value = false
+    missionHasChange.value = true
+  }
 }
 
 function setSwiperRef(swiper) {

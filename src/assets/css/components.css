@@ -2,6 +2,10 @@
     background: rgb(156,109,237);
     background: linear-gradient(315deg, rgba(156,109,237,1) 0%, rgba(242,83,255,1) 52%, rgba(211,212,138,1) 100%);
 }
+.module-content {
+    background: rgb(44,79,176);
+    background: linear-gradient(13deg, rgba(44,79,176,1) 22%, rgba(148,76,224,1) 60%, rgba(209,199,157,0.9374124649859944) 100%);
+}
 .card-content {
     background: linear-gradient(116deg,var(--token-85846c91-51ea-42e0-9240-e9a835b52b31, #e149ed) 0%,var(--token-fa993d76-a5ae-46c8-831c-7bc48e3bf73a, rgb(75, 43, 122)) 100%);;
 }
