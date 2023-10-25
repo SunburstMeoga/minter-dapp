@@ -7,7 +7,7 @@
                     <span class="relative inline-flex rounded-full h-4 w-4 bg-test-seven" />
                 </span>
             </div>
-            <div class="pl-2 text-xl">
+            <div class="pl-2 text-2xl">
                 {{ titleWord }}
             </div>
         </div>

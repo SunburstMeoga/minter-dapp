@@ -10,20 +10,29 @@
           clickable: true,
         }" :modules="modules" class="mySwiper">
           <swiper-slide>
-            <welcome :hasChange="welcomeHasChange" />
+            <welcome :hasChange="currentSwiper == 0" />
           </swiper-slide>
 
           <swiper-slide>
-            <news :hasChange="newsHasChange" />
+            <news :hasChange="currentSwiper == 1" />
           </swiper-slide>
 
           <swiper-slide>
-            <vision :hasChange="visionHasChange" />
+            <vision :hasChange="currentSwiper == 2" />
           </swiper-slide>
 
           <swiper-slide>
-            <mission :hasChange="missionHasChange" />
+            <mission :hasChange="currentSwiper == 3" />
           </swiper-slide>
+
+          <swiper-slide>
+            <cultures :hasChange="currentSwiper == 4" />
+          </swiper-slide>
+
+          <swiper-slide>
+            <project :hasChange="currentSwiper == 5" />
+          </swiper-slide>
+
 
 
 
@@ -59,6 +68,8 @@ import Welcome from './welcome.vue';
 import News from './news.vue'
 import Vision from './vision.vue'
 import Mission from './mission.vue'
+import Cultures from './cultures.vue'
+import Project from './project.vue'
 
 import Present from './present.vue'
 import Game from './game.vue'
@@ -75,15 +86,10 @@ import { useStore } from "@/stores/swiper";
 const swiperStore = useStore();
 const modules = ref[Pagination]
 let swiperRef = ref(null)
-let welcomeHasChange = ref(false)
-let visionHasChange = ref(false)
-let newsHasChange = ref(false)
-let missionHasChange = ref(false)
-
+let currentSwiper = ref(0)
 onMounted(() => {
   // changeSwiper()
   console.log(swiperStore.index)
-  welcomeHasChange.value = true
 })
 
 watch(
@@ -104,27 +110,7 @@ watch(
 
 function swiperChange(swiper) {
   console.log('發生了變化', swiper)
-  if (swiper.activeIndex == 0) {
-    welcomeHasChange.value = true
-    visionHasChange.value = false
-    newsHasChange.value = false
-    missionHasChange.value = false
-  } else if (swiper.activeIndex == 1) {
-    newsHasChange.value = true
-    visionHasChange.value = false
-    welcomeHasChange.value = false
-    missionHasChange.value = false
-  } else if (swiper.activeIndex == 2) {
-    visionHasChange.value = true
-    welcomeHasChange.value = false
-    newsHasChange.value = false
-    missionHasChange.value = false
-  } else if (swiper.activeIndex == 3) {
-    visionHasChange.value = false
-    welcomeHasChange.value = false
-    newsHasChange.value = false
-    missionHasChange.value = true
-  }
+  currentSwiper.value = swiper.activeIndex
 }
 
 function setSwiperRef(swiper) {
