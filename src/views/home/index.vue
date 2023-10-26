@@ -33,10 +33,14 @@
             <project :hasChange="currentSwiper == 5" />
           </swiper-slide>
 
-
-
-
           <swiper-slide>
+            <revolutionaries :hasChange="currentSwiper == 6" />
+          </swiper-slide>
+
+
+
+
+          <!-- <swiper-slide>
             <present />
           </swiper-slide>
 
@@ -54,7 +58,7 @@
 
           <swiper-slide>
             <investor />
-          </swiper-slide>
+          </swiper-slide> -->
 
         </swiper>
       </div>
@@ -70,6 +74,7 @@ import Vision from './vision.vue'
 import Mission from './mission.vue'
 import Cultures from './cultures.vue'
 import Project from './project.vue'
+import Revolutionaries from './revolutionaries.vue';
 
 import Present from './present.vue'
 import Game from './game.vue'
@@ -96,10 +101,6 @@ watch(
   () => swiperStore.index,
   (newValue, oldValue) => {
     console.log("新值:" + newValue + "旧值:" + oldValue)
-    // if (newValue == 5) {
-    //   changeSwiper(6)
-    //   return
-    // }
 
     changeSwiper(newValue)
   },
@@ -109,8 +110,10 @@ watch(
 )
 
 function swiperChange(swiper) {
-  console.log('發生了變化', swiper)
+  // console.log('發生了變化', swiper)
   currentSwiper.value = swiper.activeIndex
+  window.scroll(0, 0);
+
 }
 
 function setSwiperRef(swiper) {
@@ -119,7 +122,6 @@ function setSwiperRef(swiper) {
 }
 
 function changeSwiper(index) {
-  console.log(swiperRef)
   swiperRef.slideTo(index, 1000, false)
   window.scroll(0, 0);
 }

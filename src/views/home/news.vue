@@ -6,7 +6,7 @@
                     <module-title :titleWord="$t('menu.news')" />
                 </div>
                 <div class="w-11/12 mb-2 rounded overflow-hidden animate__animated "
-                    :class="hasChange ? 'animate__fadeInDown' : ''">
+                    :class="hasChange ? 'animate__bounceIn' : ''">
                     <van-swipe :loop="false" class="my-swipe" :width="300" indicator-color="#e149ed">
                         <van-swipe-item>
                             <div class="w-full h-full bg-red-300">

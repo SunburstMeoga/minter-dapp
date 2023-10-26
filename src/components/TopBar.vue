@@ -150,7 +150,7 @@ const marketChilds = ref([{ title: 'NFTs' }, { title: '配套' }])
 
 
 let homeChilds = computed(() => {
-    return [{ title: t('menu.home') }, { title: t('menu.introduction') }, { title: t('menu.game') }, { title: t('menu.news') }, { title: t('menu.partners') }, { title: t('game.title') }, { title: t('menu.investor') }, { title: t('menu.feedback') }]
+    return [{ title: '主頁' }, { title: '新聞' }, { title: '願景' }, { title: '使命' }, { title: '文化與精神' }, { title: '項目介紹' }, { title: 'NFT革命' }]
 })
 
 let personalChilds = computed(() => {

@@ -17,3 +17,6 @@
     background: rgb(156,109,237);
 background: linear-gradient(0deg, rgba(156,109,237,1) 0%, rgba(242,83,255,1) 50%, rgba(198,161,203,1) 100%);
 }
+.module-shadow{
+    -moz-box-shadow:0px 0px 10px #CC6DED; -webkit-box-shadow:0px 0px 10px #CC6DED; box-shadow:0px 0px 10px #CC6DED;
+}
