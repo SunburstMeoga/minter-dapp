@@ -75,19 +75,17 @@ import Mission from './mission.vue'
 import Cultures from './cultures.vue'
 import Project from './project.vue'
 import Revolutionaries from './revolutionaries.vue';
-
-import Present from './present.vue'
-import Game from './game.vue'
-import Collaborative from './collaborative.vue'
-import Investor from './investor.vue'
-import Future from './future.vue'
-
+// import Present from './present.vue'
+// import Game from './game.vue'
+// import Collaborative from './collaborative.vue'
+// import Investor from './investor.vue'
+// import Future from './future.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import { Pagination } from 'swiper/modules'
-
 import { useStore } from "@/stores/swiper";
+
 const swiperStore = useStore();
 const modules = ref[Pagination]
 let swiperRef = ref(null)

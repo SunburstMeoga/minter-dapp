@@ -70,7 +70,7 @@
                         {{ item.title }}
                     </div>
                 </div>
-                <div class="w-11/12 operating-button text-center py-2 rounded-full" @click="handleConfirmBuy">确认购买</div>
+                <div class="w-11/12 operating-button text-center py-2 rounded-full" @click="toggleBottomPopup">确认购买</div>
 
             </div>
         </van-popup>
@@ -78,7 +78,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, getCurrentInstance } from 'vue'
 
 import ModuleTitle from "../../components/ModuleTitle.vue";
 import coherentInfoCard from "./coherentInfoCard.vue";
@@ -88,6 +88,10 @@ import levelSR from '@/assets/images/coherent-sr.png';
 import levelSSR from '@/assets/images/coherent-ssr.png';
 import levelUR from '@/assets/images/coherent-ur.png';
 
+import { erc20ApproveState, erc20Approve, buyCoherent } from '@/request/contract.js'
+import { showToast } from 'vant';
+
+const { proxy } = getCurrentInstance()
 const levelNimg = ref(levelN)
 const levelRimg = ref(levelR)
 const levelSRimg = ref(levelSR)
@@ -135,6 +139,7 @@ const coherentsList = ref([
 let coherentInfo = ref({})
 let isNoEffectAddr = ref(false)
 let currentEnter = ref(null)
+let isRT = ref(false)
 const pointLsit = ref([{ title: '左' }, { title: '右' }])
 let addressList = computed(() => {
     return [{ title: '直推地址', placeholder: '請填寫直推地址' }, { title: '上級地址', placeholder: '請填寫上級地址' }]
@@ -156,10 +161,68 @@ function handleConfirmBuy() {
     toggleBottomPopup()
 }
 
-function handleBuy(item) {
+//检查erc20授权状态
+async function checkERC20ApproveState(walletAddress) {
+    let approveState = await erc20ApproveState(walletAddress)
+    console.log('授權狀態', approveState)
+    return approveState
+}
+
+async function handleBuy(item) {
     console.log('click button')
     coherentInfo.value = item
-    toggleBuyPopup()
+    console.log(window.ethereum.selectedAddress)
+    if (!currentPoint.value) {
+        showToast('請選擇點位')
+        return
+    }
+    let coherentInfoObj = {
+        coherentType: coherentInfo.value.price,
+        isRT: isRT.value,
+        directSuperior: directSuperior.value,
+        meetWithSuperiors: meetWithSuperiors.value,
+        isLeft: currentPoint.value == 0 ? true : false
+    }
+    // return
+    let approveState = await checkERC20ApproveState(window.ethereum.selectedAddress)
+    console.log(approveState)
+    if (approveState == 0) { //未授權
+        proxy.$confirm.show({
+            title: "未授權",
+            content: "未授权，请进行ERC20授权",
+            showCancelButton: false,
+            confirmText: '去授權',
+            onConfirm: () => {
+
+                erc20Approve.then(res => {
+                    console.log(res)
+                    proxy.$confirm.hide()
+                    showToast('已授權，請繼續購買')
+                })
+                    .catch(err => {
+                        proxy.$confirm.hide()
+                        console.log(err)
+
+                        showToast('授權失敗，請重新授權')
+                    })
+            },
+        });
+    } else if (approveState <= 3) { //授權金額不足
+        showToast('授權金額不足，請重新授權')
+    } else {
+        userBuyCoherent(coherentInfoObj)
+    }
+    // toggleBuyPopup()
+}
+
+function userBuyCoherent(buyAddress, coherentType, isRT, directSuperior, meetWithSuperiors, isLeft) { //用戶購買配套
+    buyCoherent(buyAddress, coherentType, isRT, directSuperior, meetWithSuperiors, isLeft)
+        .then(res => {
+            console.log('購買成功', res)
+        })
+        .catch(err => {
+            console.log('購買失敗', err)
+        })
 }
 </script>
 

@@ -1,25 +1,26 @@
 import { ethers } from 'ethers'
 import { config } from '@/const/config'
 
-const p = new ethers.JsonRpcApiProvider(config.rpc)
-const MUSDT = new ethers.Contract(config.musdt_addr)
+const p = new ethers.JsonRpcProvider(config.rpc)
+// console.log(config.musdt_addr, config.erc20, p)
+const MUSDT = new ethers.Contract(config.musdt_addr, config.erc20, p)
 
-provider = new ethers.BrowserProvider(window.ethereum)
-signer = await provider.getSigner()
+const provider = new ethers.BrowserProvider(window.ethereum)
+const signer = await provider.getSigner()
 
 const GAME = new ethers.Contract(config.game_addr, config.game_abi, provider)
 const GAMETRADE = new ethers.Contract(config.game_addr, config.game_abi, signer)
+
+//erc20授權狀態
+export async function erc20ApproveState(walletAddr) {
+  const result = await MUSDT.allowance(walletAddr, config.game_addr)
+  return result
+}
 
 //erc20授權
 export async function erc20Approve(contractAddr) {
   const value = ethers.constants.MaxUint256
   const result = await MUSDT.approve(contractAddr, value)
-  return result
-}
-
-//erc20授權狀態
-export async function erc20ApprouveState(walletAddr, contractAddr) {
-  const result = await MUSDT.allowance(walletAddr, contractAddr)
   return result
 }
 
@@ -61,7 +62,7 @@ export async function buyCoherent(
 ) {
   const tx = await GAMETRADE.buy(
     buyAddress,
-    coherentType,
+    ethers.parseEther(coherentType),
     isRT,
     directSuperior,
     meetWithSuperiors,

@@ -9,7 +9,7 @@
             </div>
         </div>
         <van-popup v-model:show="showLeftMenu" position="right" :style="{ width: '75%', height: '100%' }">
-            <div class="w-full h-full bg-page-content text-white flex flex-col relative">
+            <div class="w-full h-full bg-black text-white flex flex-col relative">
                 <div class="flex justify-end items-center pt-2 pr-2">
                     <div class="icon iconfont icon-close1 close" @click="toggleMenu"></div>
                 </div>
@@ -105,18 +105,44 @@
         </van-popup>
 
         <van-popup v-model:show="showLoginPopup" round position="bottom" :style="{ height: '16%' }">
-            <div class="bg-page-content w-full h-full flex flex-col justify-center items-center">
+            <div class="bg-black w-full h-full flex flex-col justify-center items-center">
                 <div class="flex justify-center items-center p-2 border border-primary-color rounded w-11/12 h-12"
                     @click="connectMetaMask">
                     <div class="icon iconfont icon-metamask"></div>
                     <div class="pl-2 word-clip">{{ $t('wallet.connect') }}</div>
-                    <!-- <div>{{ addressFilter(userInfo.address) }}</div> -->
                 </div>
                 <!-- <div class="flex justify-center items-center p-2 py-2.5 operating-button text-white rounded w-11/12"
-                    @click="toggleLoginPopup">
+                    @click="toggleLoginWay">
                     <div class="icon iconfont icon-email "></div>
                     <div class="pl-2">使用郵箱登錄</div>
                 </div> -->
+            </div>
+        </van-popup>
+        <van-popup v-model:show="showUserInfoPopup" position="right" :style="{ width: '75%', height: '100%' }">
+            <div class="bg-black w-full h-full relative flex text-white flex-col justify-center items-center">
+                <!-- <div class="flex justify-end items-center pt-2 pr-2">
+                    <div class="icon iconfont icon-close1 close" @click="toggleUserInfoPopup"></div>
+                </div> -->
+                <div class=" text-2xl mb-2">
+                    錢包地址QR碼
+                </div>
+                <div class="p-2 bg-white mb-1">
+                    <qrcode-vue :value="userInfo.address" :size="size" level="H" />
+                </div>
+                <div class="underline mb-6 text-sm">
+                    前往瀏覽器查看
+                </div>
+                <div class="mb-6 text-sm">
+                    賬戶: {{ addressFilter(userInfo.address) }}
+                </div>
+                <div class="w-10/12 py-1.5 text-white operating-button text-center rounded mb-8">
+                    斷開連接
+                </div>
+                <div class="absolute bottom-0 w-full flex justify-center items-center">
+                    <div class="w-4/12 ">
+                        <img src="../assets/images/minter-logo-ver.png" alt="">
+                    </div>
+                </div>
             </div>
         </van-popup>
     </div>
@@ -130,7 +156,7 @@ import { useI18n } from 'vue-i18n'
 import { showToast } from 'vant';
 import { useStore } from "@/stores/swiper";
 import { userStore } from "@/stores/user";
-
+import QrcodeVue from 'qrcode.vue'
 const swiperStore = useStore();
 const userInfo = userStore()
 const router = useRouter()
@@ -141,14 +167,12 @@ const showMoreMarket = ref(false)
 const showMorePersonal = ref(false)
 const showLoginPopup = ref(false)
 const currentMenuItem = ref('')
-// const personalChilds = ref([{ title: '錢包', router: '/personal/wallet' }, { title: '存錢罐' }, { title: '託管' }, { title: '大獎賽' }, { title: '邀請獎勵' }, { title: '我的背包' }, { title: '合成' }, { title: '操作記錄' }, { title: '助力' }, { title: '設置' }])
-// const personalChilds = ref([{ title: t('menu.wallet'), router: '/personal/wallet' }])
-
-// const homeChilds = ref([{ title: t('menu.home') }, { title: t('menu.introduction') }, { title: t('menu.game') }, { title: t('menu.news') }, { title: t('menu.partners') }, { title: t('menu.investor') }, { title: t('menu.feedback') }])
-// const marketChilds = ref([{ title: 'R' }, { title: 'SR' }, { title: 'SSR' }, { title: 'UR' }, { title: 'USR' }])
 const marketChilds = ref([{ title: 'NFTs' }, { title: '配套' }])
+const value = ref('http://baidu.com')
+const size = ref(240)
+const color = ref('#000000')
 
-
+let showUserInfoPopup = ref(false)
 let homeChilds = computed(() => {
     return [{ title: '主頁' }, { title: '新聞' }, { title: '願景' }, { title: '使命' }, { title: '文化與精神' }, { title: '項目介紹' }, { title: 'NFT革命' }]
 })
@@ -164,8 +188,6 @@ onMounted(() => {
     if (localStorage.getItem('address')) {
         userInfo.changeAddress(localStorage.getItem('address'))
 
-    } else {
-
     }
 })
 
@@ -175,11 +197,11 @@ function addressFilter(value) {
     let targetStr
     let targetArr = []
     arr.map((item, index) => {
-        if (index <= 10 || index >= arr.length - 11) {
+        if (index <= 6 || index >= arr.length - 7) {
             targetArr.push(item)
         }
     })
-    targetArr.splice(11, 0, '...')
+    targetArr.splice(7, 0, '...')
     targetStr = targetArr.join('')
     return targetStr
 }
@@ -214,13 +236,23 @@ function toggleMenu() {
     showLeftMenu.value = !showLeftMenu.value
 }
 
-function toggleLoginPopup() {
+function toggleLoginWay() {
     showLoginPopup.value = !showLoginPopup.value
 }
 
+function toggleUserInfoPopup() {
+    showUserInfoPopup.value = !showUserInfoPopup.value
+}
+
 function handleLogin() {
+    if (userInfo.address) {
+        console.log('已登录')
+        toggleMenu()
+        toggleUserInfoPopup()
+    }
     if (!userInfo.address) {
-        toggleLoginPopup()
+        console.log('未登录')
+        toggleLoginWay()
         toggleMenu()
     }
 
