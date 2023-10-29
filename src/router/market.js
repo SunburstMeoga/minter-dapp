@@ -24,7 +24,7 @@ let market = [
     meta: {
       showLogo: false,
       showBack: true,
-      pageTitle: '收银台'
+      pageTitle: '結賬'
     }
   },
   {

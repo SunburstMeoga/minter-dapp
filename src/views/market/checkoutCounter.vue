@@ -1,63 +1,156 @@
 <template>
-  <div class="text-white pt-16">
+  <div class="text-white pt-16 pb-20">
     <div class="bg-black flex flex-col items-center w-full pb-4 text-white">
-      <div class="flex w-11/12 py-10 px-16 justify-center mb-4 bg-page-content rounded-lg">
-        <img src="../../assets/images/coherent-ssr.png" alt="">
-      </div>
-      <div class="flex justify-between items-center w-11/12 mb-2">
-        <div>售价</div>
-        <div class="font-bold text-red-500">$ 99.00</div>
-      </div>
-      <div class="flex justify-between items-center w-11/12 mb-2">
-        <div>收益上限</div>
-        <div>$ {{ coherentInfo.limit }}</div>
-      </div>
-      <div class="flex justify-between items-center w-11/12 mb-2">
-        <div>可获取token数量</div>
-        <div>2</div>
-      </div>
-      <div class="flex justify-between items-center w-11/12 mb-2">
-        <div>配套等级奖励率</div>
-        <div>10%</div>
-      </div>
-      <div class="flex justify-between items-center w-11/12 mb-2">
-        <div>卡池中NFT金额区间</div>
-        <div>[25, 100]</div>
-      </div>
-      <div class="flex justify-between items-center w-11/12 mb-4">
-        <div>卡池中NFT数量区间</div>
-        <div>[10000, 20000]</div>
-      </div>
-      <div class="w-full border-b border-gray-800 mb-4"></div>
-      <div class="w-full">
-        <div class="w-full flex flex-col items-center mb-2" v-for="(  item, index  ) in   addressList  " :key="index">
-          <div class="text-gray-200 text-sm text-left w-11/12 mb-1">{{ item.title }}</div>
-          <div class="rounded-lg overflow-hidden w-11/12 h-11 border border-gray-500 mb-1 pl-2">
-            <input type="text" :placeholder="item.placeholder" v-model="item.content"
-              class="w-full h-full bg-black rounded-lg" @blur="directMarketing(index)">
+      <div class="flex justify-start items-center w-11/12 mb-4 border-b border-gray-900 pb-2">
+        <div class="flex w-30 p-2 justify-center bg-page-content rounded-lg shadow-xl">
+          <img src="../../assets/images/coherent-ssr.png" alt="">
+        </div>
+        <div class="text-gray-400 text-sm flex-1 ml-2 flex flex-col justify-start">
+          <div class="flex justify-between items-center">
+            <div>
+              售价:
+            </div>
+            <div class="text-red-500 font-bold">
+              $ {{ coherentInfo.type }}
+            </div>
           </div>
-          <div v-show="isNoEffectAddr && currentEnter == index"
-            class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated"
-            :class="isNoEffectAddr && currentEnter == index ? 'animate__shakeX' : ''">該地址為無效地址
+          <div class="flex justify-between items-center">
+            <div>
+              收益上限:
+            </div>
+            <div class="text-red-500 font-bold">
+              $ {{ coherentInfo.limit }}
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+              可獲取Token數量:
+            </div>
+            <div>
+              2
+            </div>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <div>
+              配套等级奖励率:
+            </div>
+            <div>
+              10%
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="text-gray-200 text-sm text-left w-11/12 mb-2">請選擇上級地址的左右點位</div>
-      <div class="w-11/12 flex justify-between items-center mb-6">
-        <div @click="currentPoint = index" class="w-5/12 rounded-lg py-1.5 text-center border border-primary-color"
-          :class="currentPoint == index ? 'operating-button text-white' : 'text-primary-color '"
-          v-for="(  item, index  ) in   pointLsit  " :key="index">
-          {{ item.title }}
+      <div class="w-11/12 border-b border-gray-900 pb-2">
+        <div class="flex justify-between text-gray-400 items-center py-1.5">
+          <div>卡池中NFT金额区间</div>
+          <div>≥25 且 ≤100</div>
+        </div>
+        <div class="flex justify-between text-gray-400 items-center  py-1.5">
+          <div>卡池中NFT数量区间</div>
+          <div>10000 至 20000</div>
+        </div>
+        <div class="flex justify-between text-gray-400 items-center py-1.5 rounded"
+          @click="handlePropertiesItem(item, index)" v-for="(item, index) in propertiesList" :key="index">
+          <div>{{ item.title }}</div>
+          <div class="flex justify-end items-center">
+            <div class="mr-0.5">{{ item.placeholder }}</div>
+            <div class=" icon iconfont icon-right"></div>
+          </div>
         </div>
       </div>
+
       <div class="w-full flex justify-center items-center fixed bottom-3" @click="handleConfirmBuy">
         <div class="w-11/12 operating-button text-center py-2.5 rounded-lg">
           确认购买
         </div>
       </div>
-
     </div>
+    <!-- 直推地址 -->
+    <van-popup v-model:show="showsDirectSuperiorPopup" round position="bottom">
+      <div class="bg-black text-white py-4 flex flex-col justify-center">
+        <div class="w-full mb-4">
+          <div class="text-center">{{ propertiesList[0].title }}</div>
+          <div class="w-full flex flex-col items-center mb-2">
+            <div class="text-gray-200 text-sm text-left w-11/12 mb-1">{{ propertiesList[0].title }}</div>
+            <div class="rounded-lg overflow-hidden w-11/12 h-11 border border-gray-500 mb-1 pl-2">
+              <input type="text" :placeholder="propertiesList[0].placeholder + propertiesList[0].title"
+                v-model="propertiesList[0].content" class="w-full h-full bg-black rounded-lg">
+            </div>
+            <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated"
+              :class="isNoEffectAddr && currentEnter == index ? 'animate__shakeX' : ''">該地址為無效地址
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full flex justify-center items-center">
+          <div class="w-11/12 operating-button text-center py-2.5 rounded-lg">
+            確認
+          </div>
+        </div>
+      </div>
+    </van-popup>
+    <!-- 上级地址 -->
+    <van-popup v-model:show="showPreAddressPopup" round position="bottom">
+      <div class="bg-black text-white py-4 flex flex-col justify-center">
+        <div class="w-full mb-4">
+          <div class="text-center">{{ propertiesList[1].title }}</div>
+          <div class="w-full flex flex-col items-center mb-2">
+            <div class="text-gray-200 text-sm text-left w-11/12 mb-1">{{ propertiesList[1].title }}</div>
+            <div class="rounded-lg overflow-hidden w-11/12 h-11 border border-gray-500 mb-1 pl-2">
+              <input type="text" :placeholder="propertiesList[1].placeholder + propertiesList[0].title"
+                v-model="propertiesList[0].content" class="w-full h-full bg-black rounded-lg">
+            </div>
+            <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated"
+              :class="isNoEffectAddr && currentEnter == index ? 'animate__shakeX' : ''">該地址為無效地址
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full flex justify-center items-center">
+          <div class="w-11/12 operating-button text-center py-2.5 rounded-lg">
+            確認
+          </div>
+        </div>
+      </div>
+    </van-popup>
+    <!-- 点位选择 -->
+    <van-popup v-model:show="showPrePointPopup" round position="bottom">
+      <div class="bg-black text-white py-4 flex flex-col justify-center">
+        <div class="text-center mb-2">上级地址点位选择</div>
+        <div class="w-full flex flex-col justify-center items-center mb-4">
+          <div v-for="(item, index) in pointLsit"
+            class="border border-primary-color rounded py-2 w-11/12 text-center mb-2 text-white">
+            {{ item.title }}
+          </div>
+        </div>
+
+        <div class="w-full flex justify-center items-center">
+          <div class="w-11/12 operating-button text-center py-2.5 rounded-lg">
+            確認
+          </div>
+        </div>
+      </div>
+    </van-popup>
+    <!-- 支付方式 -->
+    <van-popup v-model:show="showPayWayPopup" round position="bottom">
+      <div class="bg-black text-white py-4 flex flex-col justify-center">
+        <div class="text-center mb-2">请选择支付方式</div>
+        <div class="w-full flex flex-col justify-center items-center mb-4">
+          <div v-for="(item, index) in pointLsit"
+            class="border border-primary-color rounded py-2 w-11/12 text-center mb-2 text-white">
+            {{ item.title }}
+          </div>
+        </div>
+
+        <div class="w-full flex justify-center items-center">
+          <div class="w-11/12 operating-button text-center py-2.5 rounded-lg">
+            確認
+          </div>
+        </div>
+      </div>
+    </van-popup>
   </div>
 </template>
 
@@ -68,25 +161,65 @@ import { useRoute } from 'vue-router';
 import { showToast } from 'vant';
 
 import { erc20ApproveState, erc20Approve, buyCoherent } from '@/request/contract.js'
+import coherents_list from '@/datas/coherents_list'
 
 const route = useRoute()
 const { proxy } = getCurrentInstance()
 
-onMounted(() => {
-  console.log(route.params.type)
-})
-
 let coherentInfo = ref({})
 let isNoEffectAddr = ref(false)
 let currentEnter = ref(null)
+
 let isRT = ref(false)
 let directSuperior = ref(null) //直接上级
 let meetWithSuperiors = ref(null)//对碰上级
+let preAddressPoint = ref(null)
 const pointLsit = ref([{ title: '左' }, { title: '右' }])
-let addressList = computed(() => {
-  return [{ title: '直推地址', placeholder: '請填寫直推地址', content: directSuperior.value }, { title: '上級地址', placeholder: '請填寫上級地址', content: meetWithSuperiors.value }]
+let propertiesList = computed(() => {
+  return [
+    { title: '直推地址', placeholder: '請填寫', content: directSuperior.value },
+    { title: '上級地址', placeholder: '請填寫', content: meetWithSuperiors.value },
+    { title: '上級地址點位', placeholder: '請填寫', content: preAddressPoint.value },
+    { title: '支付方式', placeholder: '請選擇', content: preAddressPoint.value }
+
+
+  ]
 })
 let currentPoint = ref(null)
+let showsDirectSuperiorPopup = ref(false)
+let showPreAddressPopup = ref(false)
+let showPrePointPopup = ref(false)
+let showPayWayPopup = ref(false)
+
+function toggleDirectSuperiorPopup() {
+  showsDirectSuperiorPopup.value = !showsDirectSuperiorPopup.value
+}
+
+function togglePreAddressPopup() {
+  showPreAddressPopup.value = !showPreAddressPopup.value
+}
+
+function togglePrePointPopup() {
+  showPrePointPopup.value = !showPrePointPopup.value
+}
+
+function togglePayWayPopup() {
+  showPayWayPopup.value = !showPayWayPopup.value
+}
+
+function handlePropertiesItem(item, index) {
+  switch (index) {
+    case 0: toggleDirectSuperiorPopup()
+      break;
+    case 1: togglePreAddressPopup()
+      break;
+    case 2: togglePrePointPopup()
+      break;
+    case 3: togglePayWayPopup()
+      break;
+  }
+}
+
 function directMarketing(index) {
   isNoEffectAddr.value = true
   currentEnter.value = index
@@ -179,12 +312,22 @@ function userBuyCoherent(buyAddress, coherentType, isRT, directSuperior, meetWit
       console.log('購買失敗', err)
     })
 }
+
+onMounted(() => {
+  console.log(route.params.type)
+  console.log(coherents_list)
+  let targetCoherents = coherents_list.filter(item => {
+    return item.type == route.params.type
+  })
+  coherentInfo.value = targetCoherents[0]
+  console.log(coherentInfo.value)
+})
 </script>
 
 <style scoped>
 img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 </style>

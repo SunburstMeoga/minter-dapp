@@ -13,7 +13,7 @@
         <div class="w-full text-gray-400 text-sm mb-2">
             <div class="flex justify-between items-center mb-1">
                 <div>售价</div>
-                <div class="font-bold text-red-500">$ {{ price }}</div>
+                <div class="font-bold text-red-500">$ {{ type }}</div>
             </div>
             <div class="flex justify-between items-center ">
                 <div>收益上限</div>
@@ -34,7 +34,7 @@ defineProps({
         type: String,
         default: ''
     },
-    price: {
+    type: {
         type: String,
         default: ''
     },
