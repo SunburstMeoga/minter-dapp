@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray-800 rounded overflow-hidden p-2">
+    <div class="bg-gray-800 rounded-lg overflow-hidden p-2">
         <div class="relative flex justify-center items-center py-10 border-b border-gray-600 mb-2">
             <div class="absolute top-0 h-full left-0 flex justify-center items-center ">
                 <div class="w-8/12 animate-spin">

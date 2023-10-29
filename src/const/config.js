@@ -3,8 +3,8 @@ import erc721_abi from './erc721.json'
 import game_abi from './game.json'
 
 const config = {
-  erc20: erc20_abi,
-  erc721: erc721_abi,
+  erc20_abi: erc20_abi,
+  erc721_abi: erc721_abi,
   game_abi: game_abi,
   service_addr: '0xCD0a551A1D0BCD1e9b2BC7C0356c7dC020ef8bca',
   musdt_addr: '0xc7e05beB2e6Aa5BBc748f62bF70C9E1a7D8DF20d',

@@ -18,6 +18,16 @@ let market = [
     }
   },
   {
+    path: '/checkout-counter/:type',
+    name: 'checkout-counter',
+    component: () => import('@/views/market/checkoutCounter.vue'),
+    meta: {
+      showLogo: false,
+      showBack: true,
+      pageTitle: '收银台'
+    }
+  },
+  {
     path: '/market/nfts',
     name: 'market-nfts',
     component: () => import('@/views/market/nfts.vue'),

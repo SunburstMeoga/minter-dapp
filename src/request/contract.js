@@ -1,12 +1,15 @@
 import { ethers } from 'ethers'
 import { config } from '@/const/config'
 
-const p = new ethers.JsonRpcProvider(config.rpc)
-// console.log(config.musdt_addr, config.erc20, p)
-const MUSDT = new ethers.Contract(config.musdt_addr, config.erc20, p)
+// const p = new ethers.JsonRpcProvider(config.rpc)
+// const MUSDT = new ethers.Contract(config.musdt_addr, config.erc20, p)
 
 const provider = new ethers.BrowserProvider(window.ethereum)
+console.log(config.musdt_addr, config.erc20_abi, provider)
+
 const signer = await provider.getSigner()
+
+const MUSDT = new ethers.Contract(config.musdt_addr, config.erc20_abi, provider)
 
 const GAME = new ethers.Contract(config.game_addr, config.game_abi, provider)
 const GAMETRADE = new ethers.Contract(config.game_addr, config.game_abi, signer)
