@@ -225,12 +225,6 @@ function directMarketing(index) {
   currentEnter.value = index
   console.log('直推地址失去焦點', index)
 }
-function toggleBuyPopup() {
-  showBuyPopup.value = !showBuyPopup.value
-}
-function toggleBottomPopup() {
-  showBottomPopup.value = !showBottomPopup.value
-}
 async function handleConfirmBuy() {
   // toggleBuyPopup()
   // console.log(!addressList.value[0].content)
@@ -289,18 +283,6 @@ async function checkERC20ApproveState(walletAddress) {
   let approveState = await erc20ApproveState(walletAddress)
   console.log('授權狀態', approveState)
   return approveState
-}
-
-async function handleBuy(item) {
-  console.log('click button')
-  router.push({
-    path: `/checkout-counter/${item.price}`
-  })
-  return
-  coherentInfo.value = item
-  console.log(window.ethereum.selectedAddress)
-
-  toggleBottomPopup()
 }
 
 function userBuyCoherent(buyAddress, coherentType, isRT, directSuperior, meetWithSuperiors, isLeft) { //用戶購買配套
