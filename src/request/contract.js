@@ -5,7 +5,6 @@ import { config } from '@/const/config'
 // const MUSDT = new ethers.Contract(config.musdt_addr, config.erc20, p)
 
 const provider = new ethers.BrowserProvider(window.ethereum)
-console.log(config.musdt_addr, config.erc20_abi, provider)
 
 const signer = await provider.getSigner()
 

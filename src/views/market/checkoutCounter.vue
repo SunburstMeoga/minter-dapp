@@ -77,7 +77,7 @@
       </div>
     </div>
     <!-- 直接上級 -->
-    <van-popup v-model:show="showsDirectSuperiorPopup" round position="bottom" :close-on-click-overlay="false">
+    <van-popup v-model:show="showsDirectSuperiorPopup" round position="bottom">
       <div class="bg-black text-white py-4 flex flex-col justify-center">
         <div class="w-full mb-4">
           <div class="text-center">{{ propertiesList[0].title }}</div>
@@ -101,7 +101,7 @@
       </div>
     </van-popup>
     <!-- 對碰上級 -->
-    <van-popup v-model:show="showPreAddressPopup" round position="bottom" :close-on-click-overlay="false">
+    <van-popup v-model:show="showPreAddressPopup" round position="bottom">
       <div class="bg-black text-white py-4 flex flex-col justify-center">
         <div class="w-full mb-4">
           <div class="text-center">{{ propertiesList[1].title }}</div>
@@ -153,7 +153,7 @@
       </div>
     </van-popup> -->
     <!-- 支付方式 -->
-    <van-popup v-model:show="showPayWayPopup" round position="bottom" :close-on-click-overlay="false">
+    <van-popup v-model:show="showPayWayPopup" round position="bottom">
       <div class="bg-black text-white py-4 flex flex-col justify-center">
         <div class="text-center mb-4">请选择支付方式</div>
         <div class="w-full flex flex-col justify-center items-center mb-4">
@@ -298,7 +298,6 @@ function userMUSDTERC20Approve() {
       console.log(`${payWays.value[currentPayWay.value].title}授权失敗`, err)
     })
 }
-
 // 用户授权erc20
 function erc20Approve() {
   proxy.$loading.show()
@@ -311,8 +310,20 @@ function erc20Approve() {
 }
 
 async function handleConfirmBuy() {
+  if (directSuperior.value == null) {
+    showToast('請輸入直接上級地址')
+    return
+  }
+  if (meetWithSuperiors.value == null) {
+    showToast('請輸入對碰上級地址')
+    return
+  }
+  if (currentPayWay.value == null) {
+    showToast('請選擇支付方式')
+    return
+  }
   proxy.$loading.show()
-  // return
+
   let coherentInfoObj = {
     buyAddress: window.ethereum.selectedAddress,
     coherentType: coherentInfo.value.price,
@@ -328,8 +339,9 @@ async function handleConfirmBuy() {
     proxy.$confirm.show({
       title: "未授權",
       content: "当前账户未进行ERC20未授权，请进行ERC20授权",
-      showCancelButton: false,
+      showCancelButton: true,
       confirmText: '去授權',
+      cancelText: '暫不授權',
       onConfirm: () => {
         erc20Approve()
       },

@@ -21,12 +21,33 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
+
 import Point from './point.vue';
 import DynamicRewards from './DynamicRewards.vue';
 import PerformanceCommitmentCard from './PerformanceCommitmentCard.vue'
-import { ref } from 'vue'
+
+import { viewSpreads } from '@/request/contract'
+
 let active = ref(0)
 let cardList = ref([{ showMore: false }, { showMore: false }, { showMore: false }, { showMore: false }, { showMore: false }, { showMore: false }])
+
+onMounted(() => {
+    viewAddressPoint(window.ethereum.selectedAddress)
+})
+
+//查找當前地址點位圖
+function viewAddressPoint(walletAddress) {
+    viewSpreads(walletAddress)
+        .then(res => {
+            console.log('res', res)
+        })
+        .catch(err => {
+            console.log('err', err)
+        })
+}
+
+//顯示更多
 function toggleShowMore(item, index) {
     item.showMore = !item.showMore
     console.log(item, index)

@@ -10,10 +10,14 @@
                     </div>
                 </div>
                 <div class="bg-page-content w-9/12 h-full overflow-scroll pt-2">
-                    <div class="w-11/12 ml-auto mr-auto mb-3 rounded overflow-hidden p-2 bg-black text-card-word text-sm"
-                        v-for="(item, index) in 20" :key="index">
+                    <div v-show="dataList.length == 0">
+                        <van-empty description="暫無數據" />
+                    </div>
+                    <div v-show="dataList.length !== 0"
+                        class="w-11/12 ml-auto mr-auto mb-3 rounded overflow-hidden p-2 bg-black text-card-word text-sm"
+                        v-for="(item, index) in dataList" :key="index">
                         <div class="flex justify-between items-center mb-4">
-                            <div>{{ typeList[currentType].title }}奖励金额</div>
+                            <div>奖励金额</div>
                             <div class="text-green-500">+ 100.00</div>
                         </div>
                         <div class="flex justify-between items-center">
@@ -28,12 +32,41 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, getCurrentInstance } from 'vue'
+
+import { incomeList } from '@/request/api'
+
+const { proxy } = getCurrentInstance()
 const typeList = ref([{ title: '直推奖励' }, { title: '对碰奖励' }, { title: '代数奖励' }])
 let currentType = ref(0)
+let dataList = ref([])
+
+onMounted(() => {
+    getIncomeList(window.ethereum.selectedAddress, 1)
+})
+
+//查詢指定類型的收益流水數據
+function getIncomeList(walletAddress, type) {
+    proxy.$loading.show()
+    incomeList(walletAddress, type)
+        .then(res => {
+            console.log('收益流水', res)
+            dataList.value = res.data
+            proxy.$loading.hide()
+
+        })
+        .catch(err => {
+            console.log('err', err)
+            proxy.$loading.hide()
+
+        })
+}
+
+
 
 function handleType(item, index) {
     currentType.value = index
+    getIncomeList(window.ethereum.selectedAddress, index + 1)
 }
 </script>
 
