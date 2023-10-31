@@ -10,20 +10,36 @@ console.log(config.musdt_addr, config.erc20_abi, provider)
 const signer = await provider.getSigner()
 
 const MUSDT = new ethers.Contract(config.musdt_addr, config.erc20_abi, provider)
-
+const RT = new ethers.Contract(config.rt_addr, config.erc20_abi, provider)
 const GAME = new ethers.Contract(config.game_addr, config.game_abi, provider)
+
+const MUSDTTRADE = new ethers.Contract(config.musdt_addr, config.erc20_abi, signer)
+const RTTRADE = new ethers.Contract(config.rt_addr, config.erc20_abi, signer)
 const GAMETRADE = new ethers.Contract(config.game_addr, config.game_abi, signer)
 
-//erc20授權狀態
-export async function erc20ApproveState(walletAddr) {
+//MUSDT erc20授權狀態
+export async function MUSDTERC20AllowanceState(walletAddr) {
   const result = await MUSDT.allowance(walletAddr, config.game_addr)
   return result
 }
 
-//erc20授權
-export async function erc20Approve(contractAddr) {
-  const value = ethers.constants.MaxUint256
-  const result = await MUSDT.approve(contractAddr, value)
+//MUSDT erc20授權
+export async function MUSDTERC20Approve() {
+  const value = ethers.MaxUint256
+  const result = await MUSDTTRADE.approve(config.musdt_addr, value)
+  return result
+}
+
+//RT erc20授權狀態
+export async function RTERC20AllowanceState(walletAddr) {
+  const result = await RT.allowance(walletAddr, config.game_addr)
+  return result
+}
+
+//RT erc20授權
+export async function RTERC20Approve() {
+  const value = ethers.MaxUint256
+  const result = await RTTRADE.approve(config.rt_addr, value)
   return result
 }
 

@@ -3,21 +3,25 @@
     <div class="confirm-modal">
         <transition name="fade">
             <!-- @touchmove.prevent -->
-            <div class="modal-dialog" @click="clickMaskToClose ? handleCancel() : null" v-if="visible" @touchmove.prevent>
-                <div class="modal">
-                    <div class="modal-title" v-if="title">
+            <div class="w-full h-full flex justify-center items-center  fixed top-0 left-0 bottom-0 z-50 bg-black opacity-80"
+                @click="clickMaskToClose ? handleCancel() : null" v-if="visible" @touchmove.prevent>
+                <div class="bg-gray-800 p-2 py-4 rounded-lg w-9/12 flex flex-col items-center">
+                    <div class="text-gray-200 font-bold text-lg border-b text-center border-gray-500 w-full pb-2"
+                        v-if="title">
                         {{ title }}
                     </div>
-                    <div :class="['modal-content', title ? '' : 'no-title-content']">
+                    <div class="text-gray-300 text-sm p-2 text-center">
                         {{ content }}
                     </div>
-                    <div class="split-line-top"></div>
-                    <div class="modal-footer">
-                        <div class="btn-cancel" @click="handleCancel" v-if="showCancelButton">
+                    <!-- <div class="split-line-top"></div> -->
+                    <div class="w-full flex justify-between items-center py-2">
+                        <div class="rounded-full border border-primary-color py-1 text-primary-color w-5/12 text-center"
+                            @click="handleCancel" v-if="showCancelButton">
                             {{ cancelText }}
                         </div>
-                        <div class="split-line-center" v-if="showCancelButton"></div>
-                        <div class="btn-confirm" :style="{ color: confirmColor }" @click="handleConfirm">
+                        <!-- <div class="split-line-center" v-if="showCancelButton"></div> -->
+                        <div class="relative operating-button text-sm text-center py-1.5 rounded-full text-white"
+                            :class="showCancelButton ? 'w-5/12' : 'flex-1'" @click="handleConfirm">
                             <div>{{ confirmText }}</div>
                         </div>
                     </div>
@@ -181,7 +185,6 @@ export default defineComponent({
 
 .btn-cancel {
     flex: 1;
-    color: #696d76;
 }
 
 .btn-confirm {
