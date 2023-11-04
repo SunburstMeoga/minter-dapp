@@ -1,5 +1,5 @@
 <template>
-    <div id="main" style="height: 300px;"></div>
+    <div id="dynamicEarnings" style="height: 180px;"></div>
 </template>
 <script setup>
 import {
@@ -7,10 +7,10 @@ import {
 } from "vue";
 import * as echarts from 'echarts'
 onMounted(() => {
-    let myChart = echarts.init(document.getElementById("main"));
+    let myChart = echarts.init(document.getElementById("dynamicEarnings"));
     myChart.setOption({
         tooltip: {
-            formatter: '{a} <br/>{b} : {c}%'
+            // formatter: '{a} <br/>{b} : {c}%'
         },
         series: [
             {
@@ -26,18 +26,24 @@ onMounted(() => {
                 detail: {
                     valueAnimation: true,
                     formatter: '{value}%',
-                    borderColor: '#e149ed'
+                    fontSize: '14px',
+                    color: '#fff',
+                    borderColor: '#e149ed',
+                    width: 50,
+                    height: 10
                 },
                 data: [
                     {
-                        value: 70,
+                        value: 90,
                         name: '动态收益'
                     }
                 ],
-                radius: '100%',
-                offersetCenter: [
-
-                ],
+                radius: '90%',
+                title: {
+                    fontSize: '14px',
+                    color: '#fff',
+                    fontWeight: 'small'
+                },
                 color: '#e149ed',
             }
         ]

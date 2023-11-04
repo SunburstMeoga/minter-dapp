@@ -1,11 +1,13 @@
 <template>
     <div class="text-primary-color">
         <div class="pb-20 pt-2 bg-black">
-            <div class="w-11/12 mr-auto ml-auto mb-3">
-                <module-title titleWord="仪表盘"></module-title>
-            </div>
-            <div class="w-11/12 mr-auto ml-auto mb-3">
-                <remain-gauge :data="chartData"></remain-gauge>
+            <div class="flex justify-center items-center">
+                <div class="w-11/12 ">
+                    <static-earnings />
+                </div>
+                <div class="w-11/12 ">
+                    <dynamic-earnings />
+                </div>
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
                 <module-title titleWord="资产"></module-title>
@@ -87,6 +89,8 @@ import ModuleTitle from '../../components/ModuleTitle.vue';
 import WalletCard from '@/components/WalletCard.vue';
 import NftCard from '@/components/NftCard.vue'
 import remainGauge from './remainGauge.vue';
+import StaticEarnings from './staticEarnings.vue';
+import DynamicEarnings from './dynamicEarnings.vue';
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 const router = useRouter()
@@ -102,7 +106,7 @@ let currentCoherent = ref(null)
 let currentOperator = ref(null)
 let showOperator = ref(false)
 let isUnanimous = ref(false)
-const chartData = ref([1, 2, 3, 4, 5])
+// const chartData = ref([1, 2, 3, 4, 5])
 
 function viewCoherents() {
     router.push({
