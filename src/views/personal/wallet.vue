@@ -88,8 +88,7 @@ import { useRouter } from "vue-router";
 import ModuleTitle from '../../components/ModuleTitle.vue';
 import WalletCard from '@/components/WalletCard.vue';
 import NftCard from '@/components/NftCard.vue'
-import remainGauge from './remainGauge.vue';
-import StaticEarnings from './staticEarnings.vue';
+import StaticEarnings from './staticEarningsGauge.vue';
 import DynamicEarnings from './dynamicEarningsGauge.vue';
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
