@@ -35,7 +35,8 @@ import {
   Popover,
   Checkbox,
   Swipe,
-  SwipeItem
+  SwipeItem,
+  ShareSheet
 } from 'vant'
 
 import 'vant/lib/index.css'
@@ -71,6 +72,7 @@ app.use(Popover)
 app.use(Checkbox)
 app.use(Swipe)
 app.use(SwipeItem)
+app.use(ShareSheet)
 app.use(loading)
 app.use(confirm)
 app.use(i18n)

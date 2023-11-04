@@ -1,6 +1,6 @@
 <template>
     <div class="text-white bg-black">
-        <div class="w-full flex flex-col items-center justify-start mt-10">
+        <div class=" w-full h-full flex flex-col items-center justify-start mt-10">
             <!-- <div class="w-11/12 mr-auto ml-auto mt-4 mb-4">
                 <module-title titleWord="点位图" />
             </div> -->
@@ -88,8 +88,13 @@
                     <div class="flex w-full justify-start items-start">
                         <div class="w-6/12 flex flex-col items-center">
                             <div class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
-                                <div class="bg-black w-full h-full rounded-full overflow-hidden">
-                                    <img src="../../assets/images/avtor.gif" alt="">
+                                <div
+                                    class="bg-black w-full h-full rounded-full overflow-hidden flex justify-center items-center">
+                                    <!-- <img src="../../assets/images/avtor.gif" alt=""> -->
+                                    <div class="icon iconfont icon-a-Addpeople text-primary-color font-bold"
+                                        style="font-size: 24px" @click="$emit('toggleAttendPopup')">
+
+                                    </div>
                                 </div>
                             </div>
                             <van-popover v-model:show="showPopoverThree" theme="dark" :actions="actions" placement="bottom">
@@ -115,7 +120,10 @@
                 </div>
             </div>
         </div>
+
     </div>
+
+    <!-- <van-share-sheet v-model:show="showAttendPopup" title="立即分享给好友" :options="options" @select="selectAttendWay" /> -->
 </template>
 
 <script setup>
@@ -127,10 +135,27 @@ const actions = ref([
     { text: '500 - 100' },
     { text: '50 - 10' },
 ])
+const attendsWay = ref([
+    { title: '微信', icon: 'wechat', type: 'buy' },
+    { title: '微博', icon: 'weibo', type: 'link' },
+]);
 let showPopoverOne = ref(false)
 let showPopoverTwo = ref(false)
 let showPopoverThree = ref(false)
 let showPopoverFour = ref(false)
+let showAttendPopup = ref(false)
+let currentAttendsWay = ref(0)
+
+function selectAttendWay(index) {
+    currentAttendsWay.value = index
+}
+
+function toggleAttendPopup() {
+    showAttendPopup.value = !showAttendPopup.value
+}
+
+function attendUnderclass() {
+}
 
 </script>
 

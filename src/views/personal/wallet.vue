@@ -2,6 +2,15 @@
     <div class="text-primary-color">
         <div class="pb-20 pt-2 bg-black">
             <div class="w-11/12 mr-auto ml-auto mb-3">
+                <module-title titleWord="仪表盘"></module-title>
+            </div>
+            <div class="w-11/12 mr-auto ml-auto mb-3">
+                <remain-gauge :data="chartData"></remain-gauge>
+            </div>
+            <div class="w-11/12 mr-auto ml-auto mb-3">
+                <module-title titleWord="资产"></module-title>
+            </div>
+            <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card isMUSDT currency="MUSDT" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
@@ -74,8 +83,10 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter } from "vue-router";
+import ModuleTitle from '../../components/ModuleTitle.vue';
 import WalletCard from '@/components/WalletCard.vue';
 import NftCard from '@/components/NftCard.vue'
+import remainGauge from './remainGauge.vue';
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 const router = useRouter()
@@ -91,6 +102,7 @@ let currentCoherent = ref(null)
 let currentOperator = ref(null)
 let showOperator = ref(false)
 let isUnanimous = ref(false)
+const chartData = ref([1, 2, 3, 4, 5])
 
 function viewCoherents() {
     router.push({
