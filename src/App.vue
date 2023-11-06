@@ -15,11 +15,30 @@
 <script>
 import TopBar from '@/components/TopBar.vue'
 import TopBackBar from './components/TopBackBar.vue'
+import { MUSDTERC20AllowanceState } from '@/request/contract.js'
+
 export default {
   components: { TopBar, TopBackBar },
+  mounted() {
+    this.userMUSDTERC20Approve()
+  },
   data() {
     return {
       pageTitle: '页面标题'
+    }
+  },
+  methods: {
+    userMUSDTERC20Approve() {
+      console.log('safasfsdf')
+      MUSDTERC20AllowanceState(window.ethereum.selectedAddress)
+        .then(res => {
+          // // proxy.$loading.hide()
+          alert(res)
+        })
+        .catch(err => {
+          alert(err)
+
+        })
     }
   }
 }

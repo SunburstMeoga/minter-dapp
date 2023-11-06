@@ -92,7 +92,7 @@ let swiperRef = ref(null)
 let currentSwiper = ref(0)
 onMounted(() => {
   // changeSwiper()
-  console.log(swiperStore.index)
+  // console.log(swiperStore.index)
 })
 
 watch(
@@ -115,7 +115,7 @@ function swiperChange(swiper) {
 }
 
 function setSwiperRef(swiper) {
-  console.log(swiper)
+  // console.log(swiper)
   swiperRef = swiper
 }
 
