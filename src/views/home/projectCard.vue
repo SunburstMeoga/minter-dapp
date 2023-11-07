@@ -5,8 +5,7 @@
         </div>
         <div
             class="w-full h-full absolute bg-opacity-50 backdrop-filter !backdrop-blur-sm bg-black flex flex-col justify-center items-center">
-            <div class="w-11/12 flex justify-start items-center text-white mb-4 animate__animated"
-                :class="hasChange ? 'animate__lightSpeedInLeft' : ''">
+            <div class="w-11/12 flex justify-start items-center text-white mb-4">
                 <div class="flex flex-col items-end justify-start w-4/12">
                     <div class="border-b border-white h-1 w-3/12 mb-1"></div>
                     <div class="border-b border-white h-1 w-full mb-1"></div>
