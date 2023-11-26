@@ -16,8 +16,13 @@
                     <div class="text-sm">您抽中了以下奖励</div>
 
                 </div>
-                <div class="pl-2 py-6 font-bold text-3xl rounded-b-md text-white bg-gray-800 mb-4">
-                    1% 推荐福利
+                <div class="pl-2 py-6 rounded-b-md text-white bg-gray-800 mb-4">
+                    <div class="font-bold text-3xl mb-3">
+                        1% 推荐福利
+                    </div>
+                    <div class="text-sm pr-2 text-gray-500">
+                        您能在3天后出售NFT时获得对应的NFT价值*收益率的RT值
+                    </div>
                 </div>
                 <div class="rounded-full border border-gray-400 text-gray-400 text-center p-3 flex justify-center items-center w-0 h-0 text-sm mr-auto ml-auto"
                     @click="isPrized = false">
