@@ -3,14 +3,14 @@
     <div class="confirm-modal">
         <transition name="fade">
             <!-- @touchmove.prevent -->
-            <div class="w-full h-full flex justify-center items-center  fixed top-0 left-0 bottom-0 z-50 bg-black opacity-80"
+            <div class="w-full h-full flex justify-center items-center  fixed top-0 left-0 bottom-0 z-40 bg-popup-cover"
                 @click="clickMaskToClose ? handleCancel() : null" v-if="visible" @touchmove.prevent>
-                <div class="bg-gray-800 p-2 py-4 rounded-lg w-9/12 flex flex-col items-center">
+                <div class="bg-gray-bottom p-2 rounded-lg w-9/12 flex flex-col items-center z-50 relative">
                     <div class="text-gray-200 font-bold text-lg border-b text-center border-gray-500 w-full pb-2"
                         v-if="title">
                         {{ title }}
                     </div>
-                    <div class="text-gray-300 text-sm p-2 text-center">
+                    <div class="text-gray-300 text-sm px-2 py-4 text-center">
                         {{ content }}
                     </div>
                     <!-- <div class="split-line-top"></div> -->

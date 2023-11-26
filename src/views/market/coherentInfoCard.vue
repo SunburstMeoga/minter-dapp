@@ -20,7 +20,9 @@
                 <div>$ {{ limit }}</div>
             </div>
         </div>
-        <div class="operating-button text-center py-1 text-sm text-white rounded-full" @click="$emit('handleBuy')">购买</div>
+        <div class="text-center py-1 text-sm rounded-full"
+            :class="isSale ? 'operating-button text-white' : 'bg-gray-500 text-black'" @click="$emit('handleBuy')">{{ isSale
+                ? '购买' : '未发售' }}</div>
     </div>
 </template>
 
@@ -41,6 +43,10 @@ defineProps({
     limit: {
         type: String,
         default: ''
+    },
+    isSale: {
+        type: Boolean,
+        default: false
     }
 })
 

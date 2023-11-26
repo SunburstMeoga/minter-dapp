@@ -3,10 +3,9 @@
     <div class="text-white rounded-lg overflow-hidden border"
       :class="checked ? ' border-primary-color' : ' border-black'">
       <div>
-        <img src="https://dmdc5rs64g5fy.cloudfront.net/nftPres/800/0x6543CAC7EeD0bEe28b58fF75f406cd297208b497/5771.png"
-          alt="">
+        <img :src="nftImg" alt="">
       </div>
-      <div class="p-2 bg-gray-800">
+      <div class="p-2 bg-bottom-content">
         <div class="flex justify-between items-cente">
           <div class="text-primary-color">Minter</div>
           <div class="font-bold">#1024</div>
@@ -36,6 +35,10 @@ defineProps({
   showBuyButton: {
     type: Boolean,
     default: false
+  },
+  nftImg: {
+    type: String,
+    default: ''
   }
 })
 let checked = ref(false)

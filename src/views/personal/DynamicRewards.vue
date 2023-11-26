@@ -10,12 +10,11 @@
                     </div>
                 </div>
                 <div class="bg-page-content w-9/12 h-full overflow-scroll pt-2">
-                    <div v-show="dataList.length == 0">
+                    <!-- <div v-show="dataList.length == 0">
                         <van-empty description="暫無數據" />
-                    </div>
-                    <div v-show="dataList.length !== 0"
-                        class="w-11/12 ml-auto mr-auto mb-3 rounded overflow-hidden p-2 bg-black text-card-word text-sm"
-                        v-for="(item, index) in dataList" :key="index">
+                    </div> -->
+                    <div class="w-11/12 ml-auto mr-auto mb-3 rounded overflow-hidden p-2 bg-black text-card-word text-sm"
+                        v-for="(item, index) in 20" :key="index">
                         <div class="flex justify-between items-center mb-4">
                             <div>奖励金额</div>
                             <div class="text-green-500">+ 100.00</div>

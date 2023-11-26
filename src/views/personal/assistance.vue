@@ -68,7 +68,7 @@
                 <div class="w-full flex justify-center items-center mb-4">
                     <div class="w-11/12 flex justify-between items-center">
                         <div v-for="(item, index) in coherentsList" @click="currentCoherent = index"
-                            class="border border-primary-color rounded w-1/12 text-center mb-2 text-sm text-white"
+                            class="border border-primary-color rounded w-2/12 text-center mb-2 py-1 text-sm text-white"
                             :class="currentCoherent == index ? 'operating-button' : ''">
                             {{ item.name }}
                         </div>

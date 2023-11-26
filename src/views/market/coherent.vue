@@ -7,7 +7,7 @@
             <div class="flex justify-between items-center flex-wrap">
                 <div style="width: 48%;" class="mb-4" v-for="(item, index) in coherentsList" :key="index">
                     <coherent-info-card @handleBuy="handleBuy(item)" :levelImg="item.levelImg" :type="item.type"
-                        :limit="item.limit" />
+                        :isSale="item.isSale" :limit="item.limit" />
                 </div>
             </div>
         </div>
@@ -21,12 +21,17 @@ import { useRouter } from "vue-router";
 import ModuleTitle from "../../components/ModuleTitle.vue";
 import coherentInfoCard from "./coherentInfoCard.vue";
 import coherents_list from '@/datas/coherents_list'
+import { showToast } from 'vant';
 
 const router = useRouter()
 const coherentsList = ref(coherents_list)
 
 async function handleBuy(item) {
     console.log('click button')
+    if (!item.isSale) {
+        showToast('暂未开放发售')
+        return
+    }
     router.push({
         path: `/checkout-counter/${item.type}`
     })

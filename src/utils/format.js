@@ -15,3 +15,19 @@ export function formatAmount(value) {
     })
   return { pointPre: pointPre, pointOffside: pointOffside }
 }
+
+export function filterAddress(value, startIndex = 6, endIndex = 7) {
+  // console.log("value", value);
+  if (value === undefined || value === null) return
+  let arr = value.split('')
+  let targetStr
+  let targetArr = []
+  arr.map((item, index) => {
+    if (index <= startIndex || index >= arr.length - endIndex) {
+      targetArr.push(item)
+    }
+  })
+  targetArr.splice(endIndex, 0, '...')
+  targetStr = targetArr.join('')
+  return targetStr
+}

@@ -75,7 +75,7 @@
 
             <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap">
                 <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in 9" :key="index">
-                    <nft-card />
+                    <nft-card :nftImg="nftOne" />
                 </div>
             </div>
         </div>
@@ -89,6 +89,7 @@ import ModuleTitle from '../../components/ModuleTitle.vue';
 import WalletCard from '@/components/WalletCard.vue';
 import NftCard from '@/components/NftCard.vue'
 import StaticEarnings from './staticEarningsGauge.vue';
+import nftOne from '@/assets/images/nftOne.png'
 import DynamicEarnings from './dynamicEarningsGauge.vue';
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()

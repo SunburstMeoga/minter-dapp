@@ -1,7 +1,7 @@
 const coherents_list = [
   {
     name: 'N',
-    levelImg: '@/assets/images/coherent-n.png',
+    levelImg: '../../src/assets/images/coherent-n.png',
     type: '200',
     releasePMT: '120',
     limit: '200',
@@ -10,7 +10,7 @@ const coherents_list = [
   },
   {
     name: 'R',
-    levelImg: '@/assets/images/coherent-n.png',
+    levelImg: '../../src/assets/images/coherent-r.png',
     type: '600',
     releasePMT: '360',
     limit: '200',
@@ -19,7 +19,7 @@ const coherents_list = [
   },
   {
     name: 'SR',
-    levelImg: '@/assets/images/coherent-n.png',
+    levelImg: '../../src/assets/images/coherent-sr.png',
     type: '2000',
     releasePMT: '1200',
     limit: '200',
@@ -28,7 +28,7 @@ const coherents_list = [
   },
   {
     name: 'SSR',
-    levelImg: '@/assets/images/coherent-n.png',
+    levelImg: '../../src/assets/images/coherent-ssr.png',
     type: '6000',
     releasePMT: '3600',
     limit: '200',
@@ -38,7 +38,7 @@ const coherents_list = [
   },
   {
     name: 'UR',
-    levelImg: '@/assets/images/coherent-n.png',
+    levelImg: '../../src/assets/images/coherent-ur.png',
     type: '20000',
     releasePMT: '1200',
     limit: '200',

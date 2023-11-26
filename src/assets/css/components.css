@@ -1,6 +1,8 @@
 .operating-button {
-    background: rgb(156,109,237);
-    background: linear-gradient(315deg, rgba(156,109,237,1) 0%, rgba(242,83,255,1) 52%, rgba(211,212,138,1) 100%);
+    /* background: rgb(225,73,237);
+    background: linear-gradient(13deg, rgba(225,73,237,1) 15%, rgba(59,80,158,1) 63%, rgba(42,103,184,1) 93%, rgba(16,46,122,1) 100%); */
+    background: rgb(255,0,248);
+background: linear-gradient(13deg, rgba(255,0,248,1) 0%, rgba(31,174,187,1) 100%);
 }
 .module-content {
     background: rgb(44,79,176);
@@ -15,8 +17,12 @@
 }
 .news-card {
     background: rgb(156,109,237);
-background: linear-gradient(0deg, rgba(156,109,237,1) 0%, rgba(242,83,255,1) 50%, rgba(198,161,203,1) 100%);
+    background: linear-gradient(0deg, rgba(156,109,237,1) 0%, rgba(242,83,255,1) 50%, rgba(198,161,203,1) 100%);
 }
 .module-shadow{
     -moz-box-shadow:0px 0px 10px #CC6DED; -webkit-box-shadow:0px 0px 10px #CC6DED; box-shadow:0px 0px 10px #CC6DED;
+}
+.current-item {
+    background: rgb(225,73,237);
+background: linear-gradient(13deg, rgba(225,73,237,1) 0%, rgba(225,73,237,1) 100%);
 }

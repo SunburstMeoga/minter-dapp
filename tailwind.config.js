@@ -15,13 +15,15 @@ module.exports = {
         'gray-bottom': '#2f323f',
         'menu-word': '#afafaf',
         'page-content': '#0F131C',
+        'popup-cover': 'rgba(0, 0, 0, 0.8)',
         'test-one': '#CC6DED',
         'test-two': '#48A7FA',
         'test-three': '#2C4FB0',
         'test-four': '#944CE0',
         'test-five': '#e149ed',
         'test-seven': '#e149ed',
-        'slate-600': '#475569'
+        'slate-600': '#475569',
+        'bottom-content': '#27272A'
       }
     }
   },

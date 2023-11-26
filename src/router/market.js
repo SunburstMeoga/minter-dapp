@@ -35,6 +35,16 @@ let market = [
       showLogo: true,
       showBack: false
     }
+  },
+  {
+    path: '/market/raffle',
+    name: 'market-raffle',
+    component: () => import('@/views/market/raffle.vue'),
+    meta: {
+      showLogo: false,
+      showBack: true,
+      pageTitle: '抽奖'
+    }
   }
 ]
 

@@ -99,6 +99,7 @@ export async function buyNFT(tokenId, isPMT) {
 
 //分享樹查詢
 export async function viewSpreads(walletAddr) {
+  console.log('walletAddr', walletAddr)
   const result = await GAME.spreads(walletAddr)
   return result
 }
