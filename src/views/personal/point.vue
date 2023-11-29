@@ -92,7 +92,7 @@
                                     class="bg-black w-full h-full rounded-full overflow-hidden flex justify-center items-center">
                                     <!-- <img src="../../assets/images/avtor.gif" alt=""> -->
                                     <div class="icon iconfont icon-a-Addpeople text-primary-color font-bold"
-                                        style="font-size: 24px" @click="$emit('toggleAttendPopup')">
+                                        style="font-size: 24px" @click="$emit('clickPoint')">
 
                                     </div>
                                 </div>
@@ -148,10 +148,6 @@ let currentAttendsWay = ref(0)
 
 function selectAttendWay(index) {
     currentAttendsWay.value = index
-}
-
-function toggleAttendPopup() {
-    showAttendPopup.value = !showAttendPopup.value
 }
 
 function attendUnderclass() {
