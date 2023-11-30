@@ -5,7 +5,7 @@
                 <module-title titleWord="点位图" />
             </div> -->
             <div class="w-16 p-1 h-16 operating-button rounded-full overflow-hidden mb-2">
-                <div class="bg-black w-full h-full rounded-full overflow-hidden">
+                <div class="bg-black w-full h-full rounded-full overflow-hidden" @click="$emit('clickPoint', true)">
                     <img src="../../assets/images/avtor.gif" alt="">
                 </div>
             </div>
@@ -22,7 +22,8 @@
             <div class="w-6/12 h-10 border-t border-l border-r border-primary-color" />
             <div class="flex w-full justify-between items-start">
                 <div class="w-6/12 flex justify-start flex-col items-center">
-                    <div class="w-14 p-1 h-14 operating-button rounded-full overflow-hidden mb-2">
+                    <div class="w-14 p-1 h-14 operating-button rounded-full overflow-hidden mb-2"
+                        @click="$emit('clickPoint', true)">
                         <div class="bg-black w-full h-full rounded-full overflow-hidden">
                             <img src="../../assets/images/avtor.gif" alt="">
                         </div>
@@ -42,7 +43,7 @@
                         <div class="w-6/12 flex justify-start flex-col items-center">
                             <div class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
                                 <div class="bg-black w-full h-full rounded-full overflow-hidden">
-                                    <img src="../../assets/images/avtor.gif" alt="">
+                                    <img src="../../assets/images/avtor.gif" alt="" @click="$emit('clickPoint', true)">
                                 </div>
                             </div>
 
@@ -56,7 +57,7 @@
                         <div class="w-6/12 flex justify-start flex-col items-center">
                             <div class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
                                 <div class="bg-black w-full h-full rounded-full overflow-hidden">
-                                    <img src="../../assets/images/avtor.gif" alt="">
+                                    <img src="../../assets/images/avtor.gif" alt="" @click="$emit('clickPoint', true)">
                                 </div>
                             </div>
                             <van-popover v-model:show="showPopoverTwo" theme="dark" :actions="actions" placement="bottom">
@@ -70,7 +71,7 @@
                 </div>
                 <div class="w-6/12 flex flex-col justify-start items-center">
                     <div class="w-14 p-1 h-14 operating-button rounded-full overflow-hidden mb-2">
-                        <div class="bg-black w-full h-full rounded-full overflow-hidden">
+                        <div class="bg-black w-full h-full rounded-full overflow-hidden" @click="$emit('clickPoint', true)">
                             <img src="../../assets/images/avtor.gif" alt="">
                         </div>
                     </div>
@@ -92,7 +93,7 @@
                                     class="bg-black w-full h-full rounded-full overflow-hidden flex justify-center items-center">
                                     <!-- <img src="../../assets/images/avtor.gif" alt=""> -->
                                     <div class="icon iconfont icon-a-Addpeople text-primary-color font-bold"
-                                        style="font-size: 24px" @click="$emit('clickPoint')">
+                                        style="font-size: 24px" @click="$emit('clickPoint', false)">
 
                                     </div>
                                 </div>
@@ -105,7 +106,8 @@
                         </div>
                         <div class="w-6/12 flex flex-col justify-start items-center">
                             <div class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
-                                <div class="bg-black w-full h-full rounded-full overflow-hidden">
+                                <div class="bg-black w-full h-full rounded-full overflow-hidden"
+                                    @click="$emit('clickPoint', true)">
                                     <img src="../../assets/images/avtor.gif" alt="">
                                 </div>
                             </div>

@@ -44,27 +44,35 @@
         <!-- 直接购买弹窗 -->
         <van-popup v-model:show="showBuyPopup" round position="bottom">
             <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
-                <div class="text-center mb-6 text-white">请输入上级地址</div>
+                <!-- <div class="text-center mb-6 text-white">请输入上级地址</div> -->
                 <div class="w-full flex flex-col items-center mb-2">
-                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1">上级地址</div>
-                    <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-500 mb-1 pl-2">
-                        <input type="text" placeholder="请输入上级地址" class="w-full h-full bg-bottom-content rounded">
+                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1">请填写邀请人地址</div>
+                    <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-700 mb-1 pl-2">
+                        <input type="text" placeholder="请输入邀请人地址" class="w-full h-full bg-bottom-content rounded">
                     </div>
                     <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
                         該地址為無效地址
                     </div>
                 </div>
-                <div class="text-gray-200 text-sm  w-11/12 mb-1 ml-auto mr-auto">点位</div>
-                <div class="w-full flex justify-center items-center mb-4">
-                    <div class="w-11/12 flex justify-between items-center">
-                        <div v-for="(item, index) in pointLsit" @click="currentPoint = index"
-                            class="border border-primary-color rounded py-2 w-5/12 text-center mb-2 text-white"
-                            :class="currentPoint == index ? 'operating-button' : ''">
-                            {{ item.title }}
-                        </div>
+                <div class="w-full flex flex-col items-center mb-2">
+                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1">请填写上级地址</div>
+                    <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-700 mb-1 pl-2">
+                        <input type="text" placeholder="请填写上级地址" class="w-full h-full bg-bottom-content rounded">
+                    </div>
+                    <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
+                        該地址為無效地址
                     </div>
                 </div>
-                <div class="text-gray-200 text-sm w-11/12 mb-1 ml-auto mr-auto">购买的配套等级</div>
+                <div class="w-full flex flex-col items-center mb-2">
+                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1">请填写上级地址(选填)</div>
+                    <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-700 mb-1 pl-2">
+                        <input type="text" placeholder="请填写下级地址" class="w-full h-full bg-bottom-content rounded">
+                    </div>
+                    <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
+                        該地址為無效地址
+                    </div>
+                </div>
+                <div class="text-gray-200 text-sm w-11/12 mb-1 ml-auto mr-auto">选择配套购买(选填)</div>
                 <div class="w-full flex justify-center items-center mb-4">
                     <div class="w-11/12 flex justify-between items-center">
                         <div v-for="(item, index) in coherentsList" @click="currentCoherent = index"
@@ -74,9 +82,47 @@
                         </div>
                     </div>
                 </div>
-                <div class="w-full flex justify-center items-center">
-                    <div class="w-11/12 operating-button text-center py-2.5 rounded" @click="showBuyPopup = false">
+                <div class="flex justify-between items-center w-11/12 mr-auto ml-auto">
+                    <div class="w-5/12 operating-button text-center py-2.5 rounded" @click="showBuyPopup = false">
                         确认
+                    </div>
+                    <div class="w-5/12 border border-gray-700 text-center py-2.5 rounded" @click="showBuyPopup = false">
+                        取消
+                    </div>
+                </div>
+            </div>
+        </van-popup>
+        <!-- 生成链接弹窗 -->
+        <van-popup v-model:show="showInvitationLinksPopup" round position="bottom">
+            <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
+                <!-- <div class="text-center mb-6 text-white">请输入上级地址</div> -->
+                <div class="w-full flex flex-col items-center mb-2">
+                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1">请填写邀请人地址</div>
+                    <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-700 mb-1 pl-2">
+                        <input type="text" placeholder="请输入邀请人地址" class="w-full h-full bg-bottom-content rounded">
+                    </div>
+                    <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
+                        該地址為無效地址
+                    </div>
+                </div>
+                <div class="w-full flex flex-col items-center mb-2">
+                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1">请填写上级地址</div>
+                    <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-700 mb-1 pl-2">
+                        <input type="text" placeholder="请填写上级地址" class="w-full h-full bg-bottom-content rounded">
+                    </div>
+                    <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
+                        該地址為無效地址
+                    </div>
+                </div>
+
+                <div class="w-11/12 flex justify-between items-center mr-auto ml-auto">
+
+                    <div class="w-7/12 operating-button text-center py-2.5 rounded" @click="handleCreateInvitationLink">
+                        生成邀请链接
+                    </div>
+                    <div class="w-4/12 border border-gray-700 text-center py-2.5 rounded"
+                        @click="toggleInvitationLinksPopup">
+                        取消
                     </div>
                 </div>
             </div>
@@ -100,34 +146,24 @@
                 </div> -->
             </div>
         </van-popup>
+
         <!-- 点位操作弹窗 -->
         <van-popup v-model:show="showPointOperatingPopup" round position="bottom">
             <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
-                <!-- <div class="text-center mb-6 text-white"></div> -->
+                <div class="text-center mb-6 text-xs text-white">0x83906217A773022db1aDe203292B957961e67d1B</div>
                 <div class="flex justify-start items-center mb-6">
                     <div class="flex flex-col justify-start items-center mr-3 w-11/12" :key="index"
-                        @click="showPointCoherentInfo = true">
+                        v-for="(item, index) in addressOperating" @click="clickOperatingItem(item, index)">
                         <div class="flex justify-center items-center">
                             <div
                                 class="rounded-full w-14 h-14 flex justify-center items-center bg-primary-color text-white mb-1">
-                                <div class="icon iconfont icon-goumai" style="font-size: 26px;"></div>
+                                <div class="icon iconfont" :class="item.icon" style="font-size: 26px;"></div>
                             </div>
                         </div>
-                        <div class="text-white text-sm">查看当前地址信息</div>
-                    </div>
-                    <div class="flex flex-col justify-start items-center mr-3 w-11/12" :key="index"
-                        @click="showPointCoherentInfo = true">
-                        <div class="flex justify-center items-center">
-                            <div
-                                class="rounded-full w-14 h-14 flex justify-center items-center bg-primary-color text-white mb-1">
-                                <div class="icon iconfont icon-goumai" style="font-size: 26px;"></div>
-                            </div>
-                        </div>
-                        <div class="text-white text-sm">升级配套</div>
+                        <div class="text-white text-sm">{{ item.title }}</div>
                     </div>
 
                 </div>
-
                 <div class="w-full flex justify-center items-center">
                     <div class="w-11/12 operating-button text-center py-2.5 rounded" @click="showAttendPopup = false">
                         取消
@@ -138,41 +174,52 @@
         <!-- 点位配套信息弹窗 -->
         <van-popup v-model:show="showPointCoherentInfo" round position="bottom">
             <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
-                <div class="text-center mb-6 text-white">请输入上级地址</div>
+                <div class="text-center mb-6 text-white">购买配套</div>
                 <div class="w-full flex flex-col items-center mb-2">
-                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1">上级地址</div>
-                    <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-500 mb-1 pl-2">
-                        <input type="text" placeholder="请输入上级地址" class="w-full h-full bg-bottom-content rounded">
-                    </div>
-                    <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
-                        該地址為無效地址
+                    <div class="text-gray-300 text-sm text-left w-11/12 mb-1">当前点位地址</div>
+                    <div class="rounded w-11/12 h-11 border border-gray-700 mb-1 px-1 break-words leading-5">
+                        {{ currentPointInfo.address }}
                     </div>
                 </div>
-                <div class="text-gray-200 text-sm  w-11/12 mb-1 ml-auto mr-auto">点位</div>
-                <div class="w-full flex justify-center items-center mb-4">
-                    <div class="w-11/12 flex justify-between items-center">
-                        <div v-for="(item, index) in pointLsit" @click="currentPoint = index"
-                            class="border border-primary-color rounded py-2 w-5/12 text-center mb-2 text-white"
-                            :class="currentPoint == index ? 'operating-button' : ''">
-                            {{ item.title }}
-                        </div>
+                <div class="text-gray-300 text-sm  w-11/12 mb-1 ml-auto mr-auto">选择配套</div>
+                <div class="w-11/12 mr-auto ml-auto flex justify-between items-center mb-4">
+                    <div class="flex-1 pr-2">
+                        <van-popover v-model:show="showCoherentList" theme="dark" :actions="actions" placement="bottom">
+                            <template #reference>
+                                <div class="rounded w-full h-8 border border-gray-700 mb-1 px-10 break-words leading-7">
+                                    200
+                                </div>
+                            </template>
+                        </van-popover>
+                    </div>
+                    <div class="rounded operating-button h-8 leading-8 px-2">
+                        确认购买
                     </div>
                 </div>
-                <div class="text-gray-200 text-sm w-11/12 mb-1 ml-auto mr-auto">购买的配套等级</div>
-                <div class="w-full flex justify-center items-center mb-4">
-                    <div class="w-11/12 flex justify-between items-center">
-                        <div v-for="(item, index) in coherentsList" @click="currentCoherent = index"
-                            class="border border-primary-color rounded w-2/12 text-center mb-2 py-1 text-sm text-white"
-                            :class="currentCoherent == index ? 'operating-button' : ''">
-                            {{ item.name }}
-                        </div>
+                <div class="w-full flex flex-col items-center mb-2">
+                    <div class="text-gray-300 text-sm text-left w-11/12 mb-1">当前点位pv</div>
+                    <div class="rounded w-11/12 h-11 border border-gray-700 mb-1 px-1 break-words leading-10">
+                        100
                     </div>
                 </div>
-                <div class="w-full flex justify-center items-center">
+                <div class="w-full flex flex-col items-center mb-2">
+                    <div class="text-gray-300 text-sm text-left w-11/12 mb-1">当前下级左PV</div>
+                    <div class="rounded w-11/12 h-11 border border-gray-700 mb-1 px-1 break-words leading-10">
+                        1000PV
+                    </div>
+                </div>
+                <div class="w-full flex flex-col items-center mb-2">
+                    <div class="text-gray-300 text-sm text-left w-11/12 mb-1">当前下级右PV</div>
+                    <div class="rounded w-11/12 h-11 border border-gray-700 mb-1 px-1 break-words leading-10">
+                        1000PV
+                    </div>
+                </div>
+
+                <!-- <div class="w-full flex justify-center items-center">
                     <div class="w-11/12 operating-button text-center py-2.5 rounded" @click="showBuyPopup = false">
                         确认
                     </div>
-                </div>
+                </div> -->
             </div>
         </van-popup>
     </div>
@@ -187,6 +234,7 @@ import PerformanceCommitmentCard from './PerformanceCommitmentCard.vue'
 import coherents_list from '@/datas/coherents_list'
 import { viewSpreads } from '@/request/contract'
 
+
 let active = ref(0)
 let showAttendPopup = ref(false)
 let showBuyPopup = ref(false)
@@ -194,9 +242,21 @@ let showLinkQRCode = ref(false)
 let showPointAddressPopup = ref(false)
 let showPointCoherentInfo = ref(false)
 let showPointOperatingPopup = ref(false)
+let showInvitationLinksPopup = ref(false)
+let currentPointInfo = ref({ address: '0x83906217A773022db1aDe203292B957961e67d1B' })
 let size = ref(240)
 let cardList = ref([{ showMore: false }, { showMore: false }, { showMore: false }, { showMore: false }, { showMore: false }, { showMore: false }])
 let attendWays = ref([{ title: '直接购买', icon: 'icon-goumai' }, { title: '生成邀请链接', icon: 'icon-lianjie' }])
+let addressOperating = ref([{ title: '查看点位信息', icon: 'icon-Search' }, { title: '购买配套', icon: 'icon-shengji' }])
+let showCoherentList = ref(false)
+const actions = ref([
+    { text: '200' },
+    { text: '600' },
+    { text: '2000' },
+    { text: '6000' },
+    { text: '20000' },
+])
+
 const pointLsit = ref([{ title: '左' }, { title: '右' }])
 let currentPoint = ref(null)
 let currentCoherent = ref(null)
@@ -205,6 +265,25 @@ const coherentsList = ref(coherents_list)
 onMounted(() => {
     viewAddressPoint(window.ethereum.selectedAddress)
 })
+//点击生成邀请链接按钮
+function handleCreateInvitationLink() {
+    toggleInvitationLinksPopup()
+    toggleLinkPopup()
+}
+//显示隐藏生成邀请链接弹窗
+function toggleInvitationLinksPopup() {
+    showInvitationLinksPopup.value = !showInvitationLinksPopup.value
+}
+//点击地址操作面板操作按钮
+function clickOperatingItem(item, index) {
+    if (index == 0) {
+        toggleAddressOfPoint()
+        viewAddressPoint()
+    } else {
+        showPointCoherentInfo.value = !showPointCoherentInfo.value
+        toggleAddressOfPoint()
+    }
+}
 //显示隐藏当前点位配套信息
 function togglePointCoherentInfo() {
     showPointAddressPopup.value = !showPointAddressPopup.value
@@ -223,7 +302,7 @@ function handleAttendItem(item, index) {
     if (index == 0) {
         toggleBuyPopup()
     } else if (index == 1) {
-        toggleLinkPopup()
+        toggleInvitationLinksPopup()
     }
 }
 //显示隐藏邀请链接弹窗
@@ -235,10 +314,15 @@ function toggleBuyPopup() {
     showBuyPopup.value = !showBuyPopup.value
 }
 //点击点位图点位
-function clickPoint() {
+function clickPoint(haveAddress) {
     // toggleAttendPopup()
-    console.log('ssssss')
-    toggleAddressOfPoint()
+    console.log('是否拥有点位', haveAddress)
+    if (haveAddress) {
+        toggleAddressOfPoint()
+    } else {
+        toggleAttendPopup()
+    }
+
 }
 //显示隐藏邀请方式弹窗
 function toggleAttendPopup() {
