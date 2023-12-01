@@ -8,7 +8,8 @@
                 <div class="icon iconfont menu icon-menu-hamburger" @click="toggleMenu"></div>
             </div>
         </div>
-        <van-popup v-model:show="showLeftMenu" position="right" :style="{ width: '75%', height: '100%' }">
+        <van-popup v-model:show="showLeftMenu" position="right"
+            :style="{ width: '75%', height: '100%', 'background': '#000' }">
             <div class="w-full h-full bg-black text-white flex flex-col relative">
                 <div class="flex justify-end items-center pt-2 pr-2">
                     <div class="icon iconfont icon-close1 close" @click="toggleMenu"></div>
@@ -90,13 +91,19 @@
                         </div>
                     </div>
                     <div class="pl-10 mt-2 text-menu-word">
-                        <div class="flex justify-start items-center">
-                            <div class="icon iconfont icon-duoyuyan" style="font-size:14px;"></div>
-                            <div class="pl-2" @click="changeLanguage">{{ $t('language') }}</div>
-                        </div>
+
+                        <van-popover v-model:show="showLangePopover" theme="dark" :actions="actions"
+                            placement="bottom-start" @select="changeLanguage">
+                            <template #reference>
+                                <div class="flex justify-start items-center rounded bg-bottom-content px-3 p-2 text-sm">
+                                    <div class="icon iconfont icon-duoyuyan" style="font-size:14px;"></div>
+                                    <div class="pl-2">{{ $t('language') }}</div>
+                                </div>
+                            </template>
+                        </van-popover>
                     </div>
                 </div>
-                <div class="flex justify-center items-center absolute bottom-0 pb-6 bg-page-content w-full">
+                <div class="flex justify-center items-center absolute bottom-0 pb-6  w-full">
                     <div class="operating-button text-center mr-auto ml-auto w-11/12 rounded py-2" @click="handleLogin">
                         {{ !userInfo.address ? $t('wallet.connectWallet') : addressFilter(userInfo.address) }}
                     </div>
@@ -129,8 +136,10 @@
                 <div class="p-2 bg-white mb-1">
                     <qrcode-vue :value="userInfo.address" :size="size" level="H" />
                 </div>
-                <div class="underline mb-6 text-sm">
-                    前往瀏覽器查看
+                <div class="mb-6 text-sm">
+                    <span class="underline">前往瀏覽器查看</span> 或
+                    <span class="underline">复制钱包地址</span>
+
                 </div>
                 <div class="mb-6 text-sm">
                     賬戶: {{ addressFilter(userInfo.address) }}
@@ -170,7 +179,11 @@ const currentMenuItem = ref('')
 const marketChilds = ref([{ title: 'NFTs' }, { title: '配套' }])
 const value = ref('http://baidu.com')
 const size = ref(240)
-const color = ref('#000000')
+const actions = ref([
+    { text: '繁体中文', locale: 'zh-hk' },
+    { text: 'English', locale: 'en-us' }
+])
+let showLangePopover = ref(false)
 
 let showUserInfoPopup = ref(false)
 let homeChilds = computed(() => {
@@ -190,7 +203,6 @@ onMounted(() => {
 
     }
 })
-
 function addressFilter(value) {
     if (value === undefined || value === null) return
     let arr = value.split('')
@@ -222,15 +234,18 @@ async function connectMetaMask() {
 
 // let $emit = defineEmits(['handleHomeChild'])
 const { proxy } = getCurrentInstance()
-function changeLanguage() {
+function changeLanguage(actions) {
+    console.log(actions)
+    proxy.$i18n.locale = actions.locale
     console.log(proxy.$i18n.locale)
-    if (proxy.$i18n.locale == "zh-hk") {
-        proxy.$i18n.locale = "en-us";
-
-    } else if (proxy.$i18n.locale == "en-us") {
-        proxy.$i18n.locale = "zh-hk"
-    }
     localStorage.setItem('language', proxy.$i18n.locale)
+    // if (proxy.$i18n.locale == "zh-hk") {
+    //     proxy.$i18n.locale = "en-us";
+
+    // } else if (proxy.$i18n.locale == "en-us") {
+    //     proxy.$i18n.locale = "zh-hk"
+    // }
+    // localStorage.setItem('language', proxy.$i18n.locale)
 };
 function toggleMenu() {
     showLeftMenu.value = !showLeftMenu.value

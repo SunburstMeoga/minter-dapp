@@ -1,6 +1,6 @@
 <template>
     <div class="pt-2 text-primary-color">
-        <van-tabs class="pt-2 bg-black h-screen w-screen" v-model:active="active" shrink animated swipeable color="#e149ed"
+        <van-tabs class="pt-2 bg-black " v-model:active="active" sticky shrink animated swipeable color="#e149ed"
             title-inactive-color="#fff" title-active-color="#e149ed" background="#000">
             <van-tab title="点位图">
                 <point @clickPoint="clickPoint" />
@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <div class="w-full flex flex-col items-center mb-2">
-                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1">请填写上级地址(选填)</div>
+                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1">请填写下级地址</div>
                     <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-700 mb-1 pl-2">
                         <input type="text" placeholder="请填写下级地址" class="w-full h-full bg-bottom-content rounded">
                     </div>
@@ -72,7 +72,7 @@
                         該地址為無效地址
                     </div>
                 </div>
-                <div class="text-gray-200 text-sm w-11/12 mb-1 ml-auto mr-auto">选择配套购买(选填)</div>
+                <div class="text-gray-200 text-sm w-11/12 mb-1 ml-auto mr-auto">选择配套购买</div>
                 <div class="w-full flex justify-center items-center mb-4">
                     <div class="w-11/12 flex justify-between items-center">
                         <div v-for="(item, index) in coherentsList" @click="currentCoherent = index"
@@ -127,23 +127,27 @@
                 </div>
             </div>
         </van-popup>
-        <!-- 邀请链接二维码 -->
-        <van-popup v-model:show="showLinkQRCode" :style="{ padding: '6px' }">
-            <div class=" w-full h-full relative flex text-white flex-col justify-center items-center">
+        <!-- 邀请链接弹窗 -->
+        <van-popup v-model:show="showLinkQRCode" :style="{ padding: '10px', borderRadius: '10px' }">
+            <div class="rounded w-full h-full relative flex text-white flex-col justify-center items-center">
                 <!-- <div class="flex justify-end items-center pt-2 pr-2">
                     <div class="icon iconfont icon-close1 close" @click="toggleUserInfoPopup"></div>
                 </div> -->
                 <div class=" text-2xl mb-2 text-black">
-                    邀请链接QR碼
+                    邀请链接
                 </div>
-                <div class="p-2 bg-white">
-                    <qrcode-vue value="http://localhost:5173/personal/assistance" :size="size" level="H" />
+                <div class="mb-6 bg-white">
+                    <qrcode-vue value="http://localhost:5173/personal/assistance"
+                        logoSrc='../../assets/images/minter-logo-cro.png' :size="size" level="H" id="qrcode" margin="2" />
                 </div>
-                <!-- <div class="w-full flex justify-center items-center">
-                    <div class="w-11/12 operating-button text-center py-2.5 rounded" @click="showLinkQRCode = false">
-                        确认
+                <div class="w-full flex justify-between items-center text-sm">
+                    <div class="w-5/12 operating-button text-center py-2.5 rounded" @click="handleSaveQRCode">
+                        保存二维码
                     </div>
-                </div> -->
+                    <div class="w-5/12 operating-button text-center py-2.5 rounded" @click="handleCopyLink">
+                        复制邀请链接
+                    </div>
+                </div>
             </div>
         </van-popup>
 
@@ -233,7 +237,8 @@ import DynamicRewards from './DynamicRewards.vue';
 import PerformanceCommitmentCard from './PerformanceCommitmentCard.vue'
 import coherents_list from '@/datas/coherents_list'
 import { viewSpreads } from '@/request/contract'
-
+import { DownloadImage } from '@/utils/saveImg'
+import { CopyText } from '@/utils/copyText'
 
 let active = ref(0)
 let showAttendPopup = ref(false)
@@ -265,6 +270,22 @@ const coherentsList = ref(coherents_list)
 onMounted(() => {
     viewAddressPoint(window.ethereum.selectedAddress)
 })
+//点击保存二维码按钮
+function handleSaveQRCode() {
+    let qrcode = document.getElementById("qrcode")//获取到页面的元素
+    let imgBASE64 = qrcode.toDataURL('image/png')
+    console.log(qrcode.toDataURL('image/png'))
+    // canvas.toDataURL(type, encoderOptions);
+    DownloadImage(imgBASE64, '邀请链接QR码')
+    toggleLinkPopup()
+    // DownloadImage()
+}
+//复制二维码链接
+async function handleCopyLink() {
+    await CopyText('http://localhost:5173/personal/assistance')
+    toggleLinkPopup()
+
+}
 //点击生成邀请链接按钮
 function handleCreateInvitationLink() {
     toggleInvitationLinksPopup()

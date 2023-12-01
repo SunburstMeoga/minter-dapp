@@ -1,4 +1,4 @@
-export function formatAmount(value) {
+export function FormatAmount(value) {
   //   let value = '234234.9867879'
   if (!value) {
     value = '0'
@@ -16,7 +16,7 @@ export function formatAmount(value) {
   return { pointPre: pointPre, pointOffside: pointOffside }
 }
 
-export function filterAddress(value, startIndex = 6, endIndex = 7) {
+export function FilterAddress(value, startIndex = 6, endIndex = 7) {
   // console.log("value", value);
   if (value === undefined || value === null) return
   let arr = value.split('')

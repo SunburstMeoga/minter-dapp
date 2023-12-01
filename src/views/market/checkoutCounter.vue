@@ -11,8 +11,8 @@
               售价:
             </div>
             <div class="text-red-500 font-bold">
-              $ {{ formatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
-                formatAmount(coherentInfo.type).pointOffside }}</span>
+              $ {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
+                FormatAmount(coherentInfo.type).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
@@ -20,8 +20,8 @@
               收益上限:
             </div>
             <div class="text-red-500 font-bold">
-              $ {{ formatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-                formatAmount(coherentInfo.limit).pointOffside }}</span>
+              $ {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
+                FormatAmount(coherentInfo.limit).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
@@ -148,8 +148,8 @@
               {{ item.title }}
             </div>
             <div>
-              余额: {{ formatAmount(item.balance).pointPre }}.<span class="text-xs">{{
-                formatAmount(item.balance).pointOffside }}</span>
+              余额: {{ FormatAmount(item.balance).pointPre }}.<span class="text-xs">{{
+                FormatAmount(item.balance).pointOffside }}</span>
             </div>
           </div>
         </div>
@@ -173,7 +173,7 @@ import { showToast } from 'vant';
 
 import { MUSDTERC20AllowanceState, MUSDTERC20Approve, RTERC20AllowanceState, RTERC20Approve, buyCoherent, viewSpreads } from '@/request/contract.js'
 import coherents_list from '@/datas/coherents_list'
-import { formatAmount, filterAddress } from '@/utils/format'
+import { FormatAmount, FilterAddress } from '@/utils/format'
 
 const route = useRoute()
 const { proxy } = getCurrentInstance()
@@ -223,7 +223,7 @@ function handleConfirmDirectSuperior() {
     isErrDirectSuperior.value = true
     return
   }
-  propertiesList.value[0].placeholder = filterAddress(directSuperior.value)
+  propertiesList.value[0].placeholder = FilterAddress(directSuperior.value)
   toggleDirectSuperiorPopup()
 }
 //获取对碰上级地址可用点位
@@ -412,7 +412,7 @@ function userBuyCoherent(buyAddress, coherentType, isRT, directSuperior, meetWit
 }
 
 onMounted(() => {
-  // formatAmount()
+  // FormatAmount()
   console.log(route.params.type)
   console.log(coherents_list)
   let targetCoherents = coherents_list.filter(item => {
