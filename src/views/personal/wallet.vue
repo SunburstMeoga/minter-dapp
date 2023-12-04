@@ -28,7 +28,7 @@
                 <wallet-card currency="RT(绑定)" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="RT" />
+                <wallet-card currency="RT" @transfer="handleWalletCardTransfer" isRT isMUSDT />
             </div>
             <div class="border-b border-gray-800 w-11/12 mr-auto ml-auto mb-3"></div>
             <div class="flex justify-between items-center w-11/12 mr-auto ml-auto mb-2">
@@ -79,6 +79,44 @@
                 </div>
             </div>
         </div>
+        <van-popup v-model:show="showTransferPopup" round position="bottom">
+            <div class="bg-black text-white py-4 flex flex-col justify-center">
+                <div class="w-11/12 mr-auto ml-auto">
+                    <div class="text-center font-bold text-white mb-6">
+                        转账
+                    </div>
+
+                    <div class="text-white text-base flex justify-between items-center mb-3">
+                        <div>RT余额: </div>
+                        <div class="text-red-500 font-bold">0.0000 RT </div>
+                        <!-- <div class="text-primary-color text-xs pl-1"> (当前1USDT可兑换2RT)</div> -->
+                    </div>
+                    <div class="text-white text-xs flex justify-start items-baseline mb-1">
+                        <div class="text-base">转账地址 </div>
+                        <!-- <div class="text-primary-color text-xs pl-1"> (当前1USDT = 1RT)</div> -->
+                    </div>
+                    <div class="w-full mb-4 flex justify-between items-center">
+                        <div class="rounded border border-gray-700 flex-1 py-2">
+                            <input type="text" placeholder="请输入转账地址" class="w-full h-full bg-transparent pl-1">
+                        </div>
+                    </div>
+                    <div class="text-white text-xs flex justify-start items-baseline mb-1">
+                        <div class="text-base">转账金额 </div>
+                        <!-- <div class="text-primary-color text-xs pl-1"> (当前1USDT = 1RT)</div> -->
+                    </div>
+                    <div class="w-full mb-8 flex justify-between items-center">
+                        <div class="rounded mr-2 border border-gray-700 flex-1 py-2">
+                            <input type="text" placeholder="请输入转账金额" class="w-full h-full bg-transparent pl-1">
+                        </div>
+                        <div class="underline text-sm text-gray-200">全部</div>
+                    </div>
+                    <!--  -->
+                    <div class="operating-button rounded-full text-white font-bold text-center text-sm py-2">
+                        确认转账
+                    </div>
+                </div>
+            </div>
+        </van-popup>
     </div>
 </template>
 
@@ -106,6 +144,7 @@ let currentCoherent = ref(null)
 let currentOperator = ref(null)
 let showOperator = ref(false)
 let isUnanimous = ref(false)
+let showTransferPopup = ref(false)
 // const chartData = ref([1, 2, 3, 4, 5])
 
 function viewCoherents() {
@@ -113,7 +152,14 @@ function viewCoherents() {
         path: '/personal/coherents'
     })
 }
-
+//点击钱包卡片转账按钮
+function handleWalletCardTransfer() {
+    toggleTransferPopup()
+}
+//显示隐藏RT转账弹窗
+function toggleTransferPopup() {
+    showTransferPopup.value = !showTransferPopup.value
+}
 function toggleOperator() {
     showOperator.value = !showOperator.value
 }

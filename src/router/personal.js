@@ -22,8 +22,9 @@ let personal = [
     name: 'personal-coherents',
     component: () => import('@/views/personal/coherents.vue'),
     meta: {
-      showLogo: true,
-      showBack: false
+      showLogo: false,
+      showBack: true,
+      pageTitle: '拥有的配套'
     }
   },
   {
