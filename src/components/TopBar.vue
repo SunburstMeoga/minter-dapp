@@ -104,7 +104,7 @@
                     </div>
                 </div>
                 <div class="flex justify-center items-center absolute bottom-0 pb-6  w-full">
-                    <div class="operating-button text-center mr-auto ml-auto w-11/12 rounded py-2" @click="handleLogin">
+                    <div class="operating-button text-center mr-auto ml-auto w-11/12 rounded py-2" @click="initWallet">
                         {{ !userInfo.address ? $t('wallet.connectWallet') : addressFilter(userInfo.address) }}
                     </div>
                 </div>
@@ -114,7 +114,7 @@
         <van-popup v-model:show="showLoginPopup" round position="bottom" :style="{ height: '16%' }">
             <div class="bg-black w-full h-full flex flex-col justify-center items-center">
                 <div class="flex justify-center items-center p-2 border border-primary-color rounded w-11/12 h-12"
-                    @click="connectMetaMask">
+                    @click="initWallet">
                     <div class="icon iconfont icon-metamask"></div>
                     <div class="pl-2 word-clip">{{ $t('wallet.connect') }}</div>
                 </div>
@@ -144,7 +144,7 @@
                 <div class="mb-6 text-sm">
                     賬戶: {{ addressFilter(userInfo.address) }}
                 </div>
-                <div class="w-10/12 py-1.5 text-white operating-button text-center rounded mb-8">
+                <div class="w-10/12 py-1.5 text-white operating-button text-center rounded mb-8" @click="disconnectWallet">
                     斷開連接
                 </div>
                 <div class="absolute bottom-0 w-full flex justify-center items-center">
@@ -191,7 +191,7 @@ let homeChilds = computed(() => {
 })
 
 let personalChilds = computed(() => {
-    return [{ title: t('menu.wallet'), router: '/personal/wallet' }, { title: t('menu.coinBank') }, { title: t('menu.custodianship') }, { title: t('menu.grandPrix') }, { title: t('menu.bag') }, { title: t('menu.synthesize') }, { title: t('menu.operationRecord'), router: '/earnings/list' }, { title: t('menu.helpHand'), router: '/personal/assistance' }, { title: t('menu.setting') }]
+    return [{ title: t('menu.wallet'), router: '/personal/wallet' }, { title: '兑换', router: '/personal/exchange' }, { title: t('menu.coinBank') }, { title: t('menu.custodianship') }, { title: t('menu.grandPrix') }, { title: t('menu.bag') }, { title: t('menu.synthesize') }, { title: t('menu.operationRecord'), router: '/earnings/list' }, { title: t('menu.helpHand'), router: '/personal/assistance' }, { title: t('menu.setting') }]
 })
 
 onMounted(() => {
@@ -218,7 +218,7 @@ function addressFilter(value) {
     return targetStr
 }
 
-async function connectMetaMask() {
+async function initWallet() {
     // if (localStorage.getItem('address')) {
     //     userStore.changeAddress(localStorage.getItem('address'))
     // }
@@ -229,7 +229,15 @@ async function connectMetaMask() {
     userInfo.changeAddress(newAccounts[0])
     showLoginPopup.value = false
     console.log(userInfo.address)
+    toggleUserInfoPopup()
     showToast('Success')
+}
+
+async function disconnectWallet() {
+    await ethereum.on('disconnect', (err, payload) => {
+        console.log(err, payload)
+    })
+    console.log('已断开连接')
 }
 
 // let $emit = defineEmits(['handleHomeChild'])

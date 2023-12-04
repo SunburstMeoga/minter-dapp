@@ -34,6 +34,15 @@ let personal = [
       showLogo: true,
       showBack: false
     }
+  },
+  {
+    path: '/personal/exchange',
+    name: 'personal-exchange',
+    component: () => import('@/views/personal/exchange.vue'),
+    meta: {
+      showLogo: true,
+      showBack: false
+    }
   }
 ]
 

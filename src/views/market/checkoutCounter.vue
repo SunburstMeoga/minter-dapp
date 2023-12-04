@@ -47,9 +47,19 @@
       <div class="w-11/12 border-b border-gray-900 pb-2">
         <div class="flex justify-between text-gray-400 items-center mb-1.5">
           <div class="">
-            釋放PMT數量 <van-popover v-model:show="showPMTPopover" theme="dark" placement="right">
+            当日释放 <van-popover v-model:show="showPMTPopover" theme="dark" placement="bottom-start">
               <div class="text-xs p-2 text-left text-gray-400">
-                {{ PMTPresent }}
+                共释放{{ Number(coherentInfo.type) * (6 / 10) }}PMT
+              </div>
+              <div class="text-xs p-2 text-left text-gray-400">
+                <!-- 购买成功之后即时释放{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT -->
+                购买成功之后即时释放{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT
+              </div>
+              <div class="text-xs p-2 text-left text-gray-400">
+                24小时后释放{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT
+              </div>
+              <div class="text-xs p-2 text-left text-gray-400">
+                48小时后释放{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT
               </div>
               <template #reference>
                 <span class="icon iconfont icon-wenzishuoming_wenzishuoming"></span>
@@ -139,8 +149,8 @@
     <!-- 支付方式 -->
     <van-popup v-model:show="showPayWayPopup" round position="bottom">
       <div class="bg-black text-white py-4 flex flex-col justify-center">
-        <div class="text-center mb-4">请选择支付方式</div>
-        <div class="w-full flex flex-col justify-center items-center mb-4">
+        <!-- <div class="text-center mb-4 font-bold">2000</div> -->
+        <!-- <div class="w-full flex flex-col justify-center items-center mb-4">
           <div v-for="(item, index) in payWays" @click="currentPayWay = index"
             class="border border-primary-color rounded py-2.5 w-11/12 text-center mb-3 text-white flex justify-between px-2"
             :class="currentPayWay == index ? 'operating-button font-bold' : ''">
@@ -151,6 +161,54 @@
               余额: {{ FormatAmount(item.balance).pointPre }}.<span class="text-xs">{{
                 FormatAmount(item.balance).pointOffside }}</span>
             </div>
+          </div>
+        </div> -->
+        <div class="flex justify-start items-center w-11/12 mr-auto ml-auto mb-2 border-b border-gray-900 pb-4">
+          <div class="flex w-30 p-2 justify-center bg-page-content rounded shadow-xl">
+            <img src="../../assets/images/coherent-ssr.png" alt="">
+          </div>
+          <div class="text-gray-400 flex-1 ml-2 h-full flex flex-col justify-start">
+            <div class="flex justify-between items-center">
+              <div>
+                售价:
+              </div>
+              <div class="text-red-500 font-bold">
+                $ {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
+                  FormatAmount(coherentInfo.type).pointOffside }}</span>
+              </div>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                收益上限:
+              </div>
+              <div class="text-red-500 font-bold">
+                $ {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
+                  FormatAmount(coherentInfo.limit).pointOffside }}</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="w-11/12 mr-auto ml-auto mb-4">
+          <div class="text-white text-xs flex justify-start items-baseline mb-1">
+            <div class="text-base">RT </div>
+            <div class="text-primary-color text-xs pl-1"> (余额: 0.0000RT)</div>
+          </div>
+          <div class="w-full mb-4 flex justify-between items-center">
+            <div class="rounded mr-2 border border-gray-700 flex-1 py-1">
+              <input type="text" placeholder="请输入支付的RT数量" class="w-full h-full bg-transparent pl-1 text-sm">
+            </div>
+            <div class="underline text-sm text-gray-200">全部</div>
+          </div>
+          <div class="text-white text-xs flex justify-start items-baseline mb-1">
+            <div class="text-base">绑定RT </div>
+            <div class="text-primary-color text-xs pl-1"> (余额: 0.0000RT)</div>
+          </div>
+          <div class="w-full mb-4 flex justify-between items-center">
+            <div class="rounded mr-2 border border-gray-700 flex-1 py-1">
+              <input type="text" placeholder="请输入支付的绑定RT数量" class="w-full h-full bg-transparent pl-1 text-sm">
+            </div>
+            <div class="underline text-sm text-gray-200">全部</div>
           </div>
         </div>
 
@@ -202,7 +260,8 @@ let propertiesList = computed(() => {
   ]
 })
 let PMTPresent = computed(() => {
-  return '发放项目代币为PMT，发放数量为配套金额*60%，代币将会平均分为三批，分三天发放完毕。成功购买之后会发放第一批，购买24小时候发放第二批，购买48小时后发放第三批。'
+  // return '发放项目代币为PMT，发放数量为配套金额*60%，代币将会平均分为三批，分三天发放完毕。成功购买之后会发放第一批，购买24小时候发放第二批，购买48小时后发放第三批。'
+  return `购买成功之后即时释放${Number(coherentInfo.value.type) * (6 / 10) * (1 / 3)}PMT，24小时后释放${Number(coherentInfo.value.type) * (6 / 10) * (1 / 3)}PMT,48小时后释放${Number(coherentInfo.value.type) * (6 / 10) * (1 / 3)}PMT`
 })
 let currentPoint = ref(null)
 let showsDirectSuperiorPopup = ref(false)

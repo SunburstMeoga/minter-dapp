@@ -14,8 +14,12 @@ const config = {
   rt_addr: '0x4a80819D27Afc0E4f221d993099F4c2dc3f9dCE7',
   nft_addr: '0x2F376eC24EA6db0C55FdBb7A863c6b28701ba668',
   game_addr: '0x8fB6289810e15b8183f032bd33426A8C8A211e82',
-  rpc: 'https://rpc-testnet.hashahead.org',
-  api: 'https://app.dexduel.com/api'
+  // rpc: 'https://rpc-testnet.hashahead.org',
+  api: 'https://app.dexduel.com/api',
+  chainId: '1688288',
+  rpcUrls: ['https://rpc-testnet.hashahead.org'],
+  chainName: 'PGChain',
+  blockExplorerUrls: ['https://scan.pgchain.org/']
 }
 
 export { config }

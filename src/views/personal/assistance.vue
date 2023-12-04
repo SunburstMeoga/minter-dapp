@@ -2,8 +2,11 @@
     <div class="pt-2 text-primary-color">
         <van-tabs class="pt-2 bg-black " v-model:active="active" sticky shrink animated swipeable color="#e149ed"
             title-inactive-color="#fff" title-active-color="#e149ed" background="#000">
-            <van-tab title="点位图">
+            <van-tab title="点位图(双轨制)">
                 <point @clickPoint="clickPoint" />
+            </van-tab>
+            <van-tab title="架构图(直接推荐)">
+                <point-two @clickPoint="clickPoint" />
             </van-tab>
             <van-tab title="动态奖励">
                 <dynamic-rewards />
@@ -233,6 +236,8 @@
 import { ref, onMounted } from 'vue'
 import QrcodeVue from 'qrcode.vue'
 import Point from './point.vue';
+import PointTwo from './pointTwo.vue';
+
 import DynamicRewards from './DynamicRewards.vue';
 import PerformanceCommitmentCard from './PerformanceCommitmentCard.vue'
 import coherents_list from '@/datas/coherents_list'

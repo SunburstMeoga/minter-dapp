@@ -12,17 +12,13 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue'
+
 import TopBar from '@/components/TopBar.vue'
 import TopBackBar from './components/TopBackBar.vue'
-export default {
-  components: { TopBar, TopBackBar },
-  data() {
-    return {
-      pageTitle: '页面标题'
-    }
-  }
-}
+
+
 </script>
 
 <style  scoped>
