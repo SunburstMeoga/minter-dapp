@@ -251,9 +251,11 @@ async function addressSign() {
 
     try {
         let userInfo = await signLogin(params)
+        console.log(userInfo)
+        localstore.setItem('token', userInfo.access_token)
         proxy.$loading.hide()
         showToast('已登录')
-        console.log(userInfo)
+
     } catch (err) {
         proxy.$loading.hide()
         showToast('登录失败，请重试')
