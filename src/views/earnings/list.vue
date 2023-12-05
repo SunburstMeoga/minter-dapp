@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-black pt-2">
+    <div class="bg-black pt-12">
         <div class="w-11/12 mr-auto ml-auto mb-2">
             <module-title :titleWord="$t('menu.operationRecord')" />
         </div>

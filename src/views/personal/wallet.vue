@@ -1,6 +1,6 @@
 <template>
     <div class="text-primary-color">
-        <div class="pb-20 pt-2 bg-black">
+        <div class="pb-20 pt-12 bg-black">
             <div class="flex justify-center items-center">
                 <div class="w-11/12 ">
                     <static-earnings />

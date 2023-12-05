@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col justify-start items-center bg-black pb-20">
+    <div class="flex flex-col justify-start items-center bg-black pb-20 pt-12">
         <div class="w-11/12 mb-4 mt-4">
             <module-title titleWord="兑换RT" />
         </div>

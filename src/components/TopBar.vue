@@ -1,11 +1,13 @@
 <template>
-    <div class="h-14 w-full text-primary-color bg-black">
-        <div class="flex justify-between items-center px-4 h-full">
-            <div class="w-32">
-                <img src="../assets/images/minter-logo-cro.png" alt="">
-            </div>
-            <div>
-                <div class="icon iconfont menu icon-menu-hamburger" @click="toggleMenu"></div>
+    <div class="h-14 w-full  pt-4">
+        <div class="flex p-2 border border-top-content rounded-lg w-11/12 mr-auto ml-auto">
+            <div class="flex justify-between w-full items-center h-full bg-top-content rounded-lg p-2">
+                <div class="w-32">
+                    <img src="../assets/images/minter-logo-cro.png" alt="">
+                </div>
+                <div>
+                    <div class="icon iconfont menu icon-menu-hamburger text-white" @click="toggleMenu"></div>
+                </div>
             </div>
         </div>
         <van-popup v-model:show="showLeftMenu" position="right"

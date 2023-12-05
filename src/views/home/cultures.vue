@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-full flex flex-col items-center justify-start text-primary-color pt-2">
+    <div class="w-full h-full flex flex-col items-center justify-start text-primary-color pt-12">
         <div class="w-11/12 mb-8 animate__animated " :class="hasChange ? 'animate__fadeInLeft' : ''">
             <module-title titleWord="文化與精神" />
         </div>

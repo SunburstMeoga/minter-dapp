@@ -1,5 +1,5 @@
 <template>
-    <div class="text-primary-color h-full w-full text-center flex flex-col justify-start items-center pt-2">
+    <div class="text-primary-color h-full w-full text-center flex flex-col justify-start items-center pt-10">
         <div class="w-8/12 mb-8 animate__animated " :class="hasChange ? 'animate__fadeInDown' : ''">
             <img src="../../assets/images/minter-logo-ver.png" alt="">
         </div>

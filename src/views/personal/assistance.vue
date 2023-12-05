@@ -1,5 +1,5 @@
 <template>
-    <div class="pt-2 text-primary-color">
+    <div class="pt-12 text-primary-color">
         <van-tabs class="pt-2 bg-black " v-model:active="active" sticky shrink animated swipeable color="#e149ed"
             title-inactive-color="#fff" title-active-color="#e149ed" background="#000">
             <van-tab title="点位图(双轨制)">
@@ -241,7 +241,7 @@ import PointTwo from './pointTwo.vue';
 import DynamicRewards from './DynamicRewards.vue';
 import PerformanceCommitmentCard from './PerformanceCommitmentCard.vue'
 import coherents_list from '@/datas/coherents_list'
-import { viewSpreads } from '@/request/contract'
+// import { viewSpreads } from '@/request/contract'
 import { DownloadImage } from '@/utils/saveImg'
 import { CopyText } from '@/utils/copyText'
 
@@ -273,7 +273,7 @@ let currentCoherent = ref(null)
 const coherentsList = ref(coherents_list)
 
 onMounted(() => {
-    viewAddressPoint(window.ethereum.selectedAddress)
+    // viewAddressPoint(window.ethereum.selectedAddress)
 })
 //点击保存二维码按钮
 function handleSaveQRCode() {
@@ -304,7 +304,7 @@ function toggleInvitationLinksPopup() {
 function clickOperatingItem(item, index) {
     if (index == 0) {
         toggleAddressOfPoint()
-        viewAddressPoint()
+        // viewAddressPoint()
     } else {
         showPointCoherentInfo.value = !showPointCoherentInfo.value
         toggleAddressOfPoint()
@@ -355,15 +355,15 @@ function toggleAttendPopup() {
     showAttendPopup.value = !showAttendPopup.value
 }
 //查找當前地址點位圖
-function viewAddressPoint(walletAddress) {
-    viewSpreads(walletAddress)
-        .then(res => {
-            console.log('res', res)
-        })
-        .catch(err => {
-            console.log('err', err)
-        })
-}
+// function viewAddressPoint(walletAddress) {
+//     viewSpreads(walletAddress)
+//         .then(res => {
+//             console.log('res', res)
+//         })
+//         .catch(err => {
+//             console.log('err', err)
+//         })
+// }
 
 //顯示更多
 function toggleShowMore(item, index) {

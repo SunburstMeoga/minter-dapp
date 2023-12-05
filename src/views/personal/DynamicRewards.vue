@@ -42,14 +42,14 @@ let currentType = ref(0)
 let dataList = ref([])
 
 onMounted(() => {
-    getIncomeList(window.ethereum.selectedAddress, 1)
+    // getIncomeList(window.ethereum.selectedAddress, 1)
 })
 
 
 
 function handleType(item, index) {
     currentType.value = index
-    getIncomeList(window.ethereum.selectedAddress, index + 1)
+    // getIncomeList(window.ethereum.selectedAddress, index + 1)
 }
 </script>
 

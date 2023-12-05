@@ -1,5 +1,5 @@
 <template>
-    <div class="text-primary-color bg-black">
+    <div class="text-primary-color bg-black pt-12">
         <div class="pt-2 bg-black">
             <div class="w-11/12 mr-auto ml-auto mt-4">
                 <module-title titleWord="NFTs" />
