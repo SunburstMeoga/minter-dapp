@@ -36,8 +36,6 @@
 <script setup>
 import { ref, onMounted, getCurrentInstance } from 'vue'
 
-import { incomeList } from '@/request/api'
-
 const { proxy } = getCurrentInstance()
 const typeList = ref([{ title: '直推奖励' }, { title: '对碰奖励' }, { title: '代数奖励' }])
 let currentType = ref(0)
@@ -46,23 +44,6 @@ let dataList = ref([])
 onMounted(() => {
     getIncomeList(window.ethereum.selectedAddress, 1)
 })
-
-//查詢指定類型的收益流水數據
-function getIncomeList(walletAddress, type) {
-    proxy.$loading.show()
-    incomeList(walletAddress, type)
-        .then(res => {
-            console.log('收益流水', res)
-            dataList.value = res.data
-            proxy.$loading.hide()
-
-        })
-        .catch(err => {
-            console.log('err', err)
-            proxy.$loading.hide()
-
-        })
-}
 
 
 
