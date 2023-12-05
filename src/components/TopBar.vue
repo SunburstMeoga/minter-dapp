@@ -232,18 +232,31 @@ async function signLogin(params) {
 }
 //钱包地址签名
 async function addressSign() {
+    proxy.$loading.show()
     const web3 = new Web3(window.ethereum)
+    let params = {}
     const randomString =
         "Welcome to Minter\n\nPlease click to sign in and accept the Minter Terms of Service.\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nWallet address:\n" +
         '0xd8fAD3Fc2c619c75F54b42f68e10506bEbfe259C' +
         "\n\nNonece:\n" +
         generateNonce();
-    const signature = await web3.eth.personal.sign(randomString, '0xd8fAD3Fc2c619c75F54b42f68e10506bEbfe259C', '')
-    let params = { randomString: randomString, signature: signature }
+    try {
+        const signature = await web3.eth.personal.sign(randomString, '0xd8fAD3Fc2c619c75F54b42f68e10506bEbfe259C', '')
+        params = { randomString: randomString, signature: signature }
+    } catch (err) {
+        proxy.$loading.hide()
+        showToast('签名失败，请重试')
+        return
+    }
+
     try {
         let userInfo = await signLogin(params)
+        proxy.$loading.hide()
+        showToast('已登录')
         console.log(userInfo)
     } catch (err) {
+        proxy.$loading.hide()
+        showToast('登录失败，请重试')
         console.log(err)
     }
     // console.log(signature)
