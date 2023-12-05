@@ -181,7 +181,7 @@ const showMoreMarket = ref(false)
 const showMorePersonal = ref(false)
 const showLoginPopup = ref(false)
 const currentMenuItem = ref('')
-const marketChilds = ref([{ title: 'NFTs' }, { title: '配套' }])
+
 const value = ref('http://baidu.com')
 const size = ref(240)
 const actions = ref([
@@ -191,12 +191,16 @@ const actions = ref([
 let showLangePopover = ref(false)
 
 let showUserInfoPopup = ref(false)
+// let marketChilds = ref([{ title: 'NFTs' }, { title: '配套' }])
+let marketChilds = computed(() => {
+    return [{ title: 'NFTs' }, { title: t('wallet.coherent') }]
+})
 let homeChilds = computed(() => {
-    return [{ title: '主頁' }, { title: '新聞' }, { title: '願景' }, { title: '使命' }, { title: '文化與精神' }, { title: '項目介紹' }, { title: 'NFT革命' }]
+    return [{ title: t('menu.home') }, { title: t('menu.news') }, { title: t('menu.vision') }, { title: t('menu.mission') }, { title: t('menu.cultureAndSpirituality') }, { title: t('menu.projectIntroduction') }, { title: t('menu.NFTRevolution') }]
 })
 
 let personalChilds = computed(() => {
-    return [{ title: t('menu.wallet'), router: '/personal/wallet' }, { title: '兑换', router: '/personal/exchange' }, { title: t('menu.coinBank') }, { title: t('menu.custodianship') }, { title: t('menu.grandPrix') }, { title: t('menu.bag') }, { title: t('menu.synthesize') }, { title: t('menu.operationRecord'), router: '/earnings/list' }, { title: t('menu.helpHand'), router: '/personal/assistance' }, { title: t('menu.setting') }]
+    return [{ title: t('menu.wallet'), router: '/personal/wallet' }, { title: t('menu.exchange'), router: '/personal/exchange' }, { title: t('menu.coinBank') }, { title: t('menu.custodianship') }, { title: t('menu.grandPrix') }, { title: t('menu.bag') }, { title: t('menu.synthesize') }, { title: t('menu.operationRecord'), router: '/earnings/list' }, { title: t('menu.helpHand'), router: '/personal/assistance' }, { title: t('menu.setting') }]
 })
 
 onMounted(() => {

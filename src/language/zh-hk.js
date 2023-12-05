@@ -5,6 +5,11 @@ export default {
     introduction: '介紹',
     game: '遊戲',
     news: '新聞',
+    vision: '願景',
+    mission: '使命',
+    cultureAndSpirituality: '文化與精神',
+    projectIntroduction: '項目介紹',
+    NFTRevolution: 'NFT革命',
     partners: '合作夥伴',
     investor: '投資人',
     feedback: '反饋',
@@ -22,7 +27,8 @@ export default {
     synthesize: '合成',
     operationRecord: '操作記錄',
     helpHand: '助力',
-    setting: '設置'
+    setting: '設置',
+    exchange: '兌換'
   },
   home: {
     title: '歡迎來到',
@@ -41,6 +47,18 @@ export default {
     PVDetails: '業績值',
     MUSDTDetails: '平台穩定幣'
   },
+  vision: {
+    contentOne: '為NFT賦予真正的價值和意義',
+    contentTwo: '引領Web3.0賽道上的NFT革命',
+    weBelieveTitle: 'Minter對NFT的新定義',
+    weBelieveWord:
+      '我們相信，NFT不僅僅是一個數字代表的資產，它應該是價值、創新和文化的載體。Minter的目標就是打造一個真正為創作者和用戶服務的NFT平台，不僅僅關注資產的交易，更關註其背後的價值和意義。',
+    inMinterEyesTitleTop: '為NFT賦予真正的價值與意義，',
+    inMinterEyesTitleBottom: '引領Web3.0賽道上的NFT革命',
+    inMinterEyesWord:
+      '在Minter眼中，未來的NFT不僅是收藏品， 更是數字資產的重要代表，每一個NFT都應當 有其獨特的價值與權益，能夠為其持有者帶來 實際的權益和價值。'
+  },
+  mission: {},
   game: {
     title: '正在開發，敬請期待'
   },

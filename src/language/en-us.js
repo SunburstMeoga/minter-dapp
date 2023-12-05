@@ -5,6 +5,11 @@ export default {
     introduction: 'Introduction',
     game: 'Game',
     news: 'News',
+    vision: 'Vision',
+    mission: 'Mission',
+    cultureAndSpirituality: 'Culture and Spirituality',
+    projectIntroduction: 'Project Introduction',
+    NFTRevolution: 'The NFT Revolution',
     partners: 'Partners',
     investor: 'Investor',
     feedback: 'Feedback',
@@ -22,7 +27,8 @@ export default {
     synthesize: 'Synthesize',
     operationRecord: 'Operation Record',
     helpHand: 'Help Hand',
-    setting: 'Setting'
+    setting: 'Setting',
+    exchange: 'Exchange'
   },
   home: {
     title: 'WELCOME TO',
@@ -44,9 +50,21 @@ export default {
     PVDetails: 'Performance Value',
     MUSDTDetails: 'Platform Stable Coin'
   },
+  vision: {
+    contentOne: 'Giving real value and meaning to NFT',
+    contentTwo: 'Leading the NFT Revolution on the Web 3.0 Circuit',
+    weBelieveTitle: "Minter's new definition of NFT",
+    weBelieveWord:
+      "We believe that NFT is more than just a digital representation of an asset, it should be a carrier of value, innovation, and culture, and Minter's goal is to create an NFT platform that truly serves both creators and users, focusing not only on the transaction of the asset, but also on the value and meaning behind it.",
+    inMinterEyesTitleTop: 'To give real value and meaning to NFT.',
+    inMinterEyesTitleBottom: 'Leading the NFT Revolution on the Web 3.0 Circuit',
+    inMinterEyesWord:
+      "In Minter's eyes, the future NFTs are not only collectors' items, but also important representatives of digital assets, and each NFT should have its own unique value and interests, and be able to bring real interests and values to its holders."
+  },
   game: {
     title: 'In development, stay tuned'
   },
+
   news: {
     title: 'The best user experience, the fastest speeds',
     // secondTitle: "Minter's no-brainer choice",
