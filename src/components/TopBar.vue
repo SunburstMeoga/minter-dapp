@@ -222,13 +222,7 @@ function addressFilter(value) {
 }
 //签名之后请求login接口
 async function signLogin(params) {
-    login(params)
-        .then(res => {
-            console.log('登录成功', res)
-        })
-        .catch(err => {
-            console.log('失败', err)
-        })
+
 }
 //钱包地址签名
 async function addressSign() {
@@ -249,18 +243,19 @@ async function addressSign() {
         return
     }
 
-    try {
-        let userInfo = await signLogin(params)
-        console.log(userInfo)
-        localstore.setItem('token', userInfo.access_token)
-        proxy.$loading.hide()
-        showToast('已登录')
 
-    } catch (err) {
-        proxy.$loading.hide()
-        showToast('登录失败，请重试')
-        console.log(err)
-    }
+    login(params)
+        .then(res => {
+            console.log(res)
+            localStorage.setItem('token', res.access_token)
+            proxy.$loading.hide()
+            showToast('已登录')
+        })
+        .catch(err => {
+            proxy.$loading.hide()
+            showToast('登录失败，请重试')
+            console.log(err)
+        })
     // console.log(signature)
 
 }
