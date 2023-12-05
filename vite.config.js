@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import tailwindcss from 'tailwindcss'
 import polyfillNode from 'rollup-plugin-polyfill-node'
+import { spaLoading } from 'vite-plugin-spa-loading'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -21,6 +22,9 @@ export default defineConfig({
       promiseExportName: '__tla',
       // The function to generate import names of top-level await promise in each chunk module
       promiseImportName: (i) => `__tla_${i}`
+    }),
+    spaLoading('img', {
+      src: './src/assets/images/app_loading.gif'
     })
   ],
   resolve: {
