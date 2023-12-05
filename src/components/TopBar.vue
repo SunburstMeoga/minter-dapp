@@ -104,7 +104,7 @@
                     </div>
                 </div>
                 <div class="flex justify-center items-center absolute bottom-0 pb-6  w-full">
-                    <div class="operating-button text-center mr-auto ml-auto w-11/12 rounded py-2" @click="initWallet">
+                    <div class="operating-button text-center mr-auto ml-auto w-11/12 rounded py-2" @click="handleConnect">
                         {{ !userInfo.address ? $t('wallet.connectWallet') : addressFilter(userInfo.address) }}
                     </div>
                 </div>
@@ -159,6 +159,7 @@
 
 <script setup>
 import { ref, computed, getCurrentInstance, onMounted } from 'vue'
+import Web3 from "web3";
 // import ethereum from 'ethers'
 import { useRouter } from "vue-router";
 import { useI18n } from 'vue-i18n'
@@ -166,11 +167,13 @@ import { showToast } from 'vant';
 import { useStore } from "@/stores/swiper";
 import { userStore } from "@/stores/user";
 import QrcodeVue from 'qrcode.vue'
+import { login } from '@/request/api'
+import { generateNonce } from '@/utils/getNonce'
 const swiperStore = useStore();
 const userInfo = userStore()
 const router = useRouter()
 const { t } = useI18n()
-const showLeftMenu = ref(false)
+const showLeftMenu = ref(true)
 const showMoreHome = ref(false)
 const showMoreMarket = ref(false)
 const showMorePersonal = ref(false)
@@ -217,7 +220,39 @@ function addressFilter(value) {
     targetStr = targetArr.join('')
     return targetStr
 }
+//签名之后请求login接口
+async function signLogin(params) {
+    login(params)
+        .then(res => {
+            console.log('登录成功', res)
+        })
+        .catch(err => {
+            console.log('失败', err)
+        })
+}
+//钱包地址签名
+async function addressSign() {
+    const web3 = new Web3(window.ethereum)
+    const randomString =
+        "Welcome to Minter\n\nPlease click to sign in and accept the Minter Terms of Service.\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nWallet address:\n" +
+        '0xd8fAD3Fc2c619c75F54b42f68e10506bEbfe259C' +
+        "\n\nNonece:\n" +
+        generateNonce();
+    const signature = await web3.eth.personal.sign(randomString, '0xd8fAD3Fc2c619c75F54b42f68e10506bEbfe259C', '')
+    let params = { randomString: randomString, signature: signature }
+    try {
+        let userInfo = await signLogin(params)
+        console.log(userInfo)
+    } catch (err) {
+        console.log(err)
+    }
+    // console.log(signature)
 
+}
+//点击连接钱包按钮
+async function handleConnect() {
+    addressSign()
+}
 async function initWallet() {
     // if (localStorage.getItem('address')) {
     //     userStore.changeAddress(localStorage.getItem('address'))

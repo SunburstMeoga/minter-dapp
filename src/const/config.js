@@ -15,7 +15,7 @@ const config = {
   nft_addr: '0x2F376eC24EA6db0C55FdBb7A863c6b28701ba668',
   game_addr: '0x8fB6289810e15b8183f032bd33426A8C8A211e82',
   // rpc: 'https://rpc-testnet.hashahead.org',
-  api: 'https://app.dexduel.com/api',
+  api: 'http://13.228.135.184:8000/api',
   chainId: '1688288',
   rpcUrls: ['https://rpc-testnet.hashahead.org'],
   chainName: 'PGChain',

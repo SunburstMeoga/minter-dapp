@@ -1,6 +1,12 @@
 import { config } from '@/const/config'
 import axios from 'axios'
 
+//登录
+export async function login(params) {
+  const result = await axios.post(`${config.api}/players/login`, params)
+  return result
+}
+
 //操作記錄
 export async function incomeList(address, type) {
   //  type: 1.直推收益 2.對碰收益 3.代數收益 4.加速器收益 5.業績承諾卡收益 6.每日收益 7.推薦福利收益

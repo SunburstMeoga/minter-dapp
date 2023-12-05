@@ -16,6 +16,7 @@ module.exports = {
         'menu-word': '#afafaf',
         'page-content': '#0F131C',
         'popup-cover': 'rgba(0, 0, 0, 0.8)',
+        'top-content': '#1c1832',
         'test-one': '#CC6DED',
         'test-two': '#48A7FA',
         'test-three': '#2C4FB0',
