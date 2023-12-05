@@ -27,7 +27,7 @@ const router = useRouter()
 const coherentsList = ref(coherents_list)
 
 async function handleBuy(item) {
-    console.log('click button')
+    console.log('click button', item.type)
     if (!item.isSale) {
         showToast('暂未开放发售')
         return

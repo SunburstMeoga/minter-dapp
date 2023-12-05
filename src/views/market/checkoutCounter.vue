@@ -229,7 +229,7 @@ import { ZeroAddress, isAddress } from 'ethers'
 
 import { showToast } from 'vant';
 
-import { MUSDTERC20AllowanceState, MUSDTERC20Approve, RTERC20AllowanceState, RTERC20Approve, buyCoherent, viewSpreads } from '@/request/contract.js'
+// import { MUSDTERC20AllowanceState, MUSDTERC20Approve, RTERC20AllowanceState, RTERC20Approve, buyCoherent, viewSpreads } from '@/request/contract.js'
 import coherents_list from '@/datas/coherents_list'
 import { FormatAmount, FilterAddress } from '@/utils/format'
 
@@ -286,46 +286,46 @@ function handleConfirmDirectSuperior() {
   toggleDirectSuperiorPopup()
 }
 //获取对碰上级地址可用点位
-async function getMeetWithSuperiorsPoint(walletAddress) {
-  let result = await viewSpreads(walletAddress)
-  let isLeft = result.left == ZeroAddress
-  let isRight = result.right == ZeroAddress
-  if (isLeft && isRight) {
-    return 0 //该地址左右点位均可用
-  } else if (!isLeft && !isRight) {
-    return -1 //该地址左右点位均可用
-  } else if (isLeft && !isRight) {
-    return 1 //该地址左点位可用
-  } else if (!isLeft && isRight) {
-    return 2 //该地址右点位可用
-  }
-}
+// async function getMeetWithSuperiorsPoint(walletAddress) {
+//   let result = await viewSpreads(walletAddress)
+//   let isLeft = result.left == ZeroAddress
+//   let isRight = result.right == ZeroAddress
+//   if (isLeft && isRight) {
+//     return 0 //该地址左右点位均可用
+//   } else if (!isLeft && !isRight) {
+//     return -1 //该地址左右点位均可用
+//   } else if (isLeft && !isRight) {
+//     return 1 //该地址左点位可用
+//   } else if (!isLeft && isRight) {
+//     return 2 //该地址右点位可用
+//   }
+// }
 //点击填写对碰上级弹窗确认按钮
 async function handleConfirmMeetWithSuperiors() {
-  if (!meetWithSuperiors.value) {
-    showToast('请填写直接上级地址')
-    return
-  }
-  if (meetWithSuperiors.value == ZeroAddress || !isAddress(meetWithSuperiors.value)) {
-    console.log('无效地址')
+  // if (!meetWithSuperiors.value) {
+  //   showToast('请填写直接上级地址')
+  //   return
+  // }
+  // if (meetWithSuperiors.value == ZeroAddress || !isAddress(meetWithSuperiors.value)) {
+  //   console.log('无效地址')
 
-    // meetWithSuperiors.value = null
-    isErrMeetWithSuperiors.value = true
-    return
-  }
-  let availablePoints;
-  try {
-    showMeetWithSuperiorsPopup.value = false
-    proxy.$loading.show()
-    console.log(meetWithSuperiors.value)
-    availablePoints = await getMeetWithSuperiorsPoint(meetWithSuperiors.value)
-  } catch (err) {
-    showMeetWithSuperiorsPopup.value = true
-    showToast('获取对碰地址可用点位失败，请重试')
-    console.log(err)
-    proxy.$loading.hide()
-    return
-  }
+  //   // meetWithSuperiors.value = null
+  //   isErrMeetWithSuperiors.value = true
+  //   return
+  // }
+  // let availablePoints;
+  // try {
+  //   showMeetWithSuperiorsPopup.value = false
+  //   proxy.$loading.show()
+  //   console.log(meetWithSuperiors.value)
+  //   availablePoints = await getMeetWithSuperiorsPoint(meetWithSuperiors.value)
+  // } catch (err) {
+  //   showMeetWithSuperiorsPopup.value = true
+  //   showToast('获取对碰地址可用点位失败，请重试')
+  //   console.log(err)
+  //   proxy.$loading.hide()
+  //   return
+  // }
   showMeetWithSuperiorsPopup.value = true
   console.log('availablePoints', availablePoints)
 }
@@ -362,51 +362,51 @@ function handlePropertiesItem(item, index) {
 }
 //检查erc20授权状态
 async function checkERC20ApproveState(walletAddress) {
-  let approveState = currentPayWay == 1 ? await MUSDTERC20AllowanceState(walletAddress) : await RTERC20AllowanceState(walletAddress) //根据支付方式返回该币种erc20授权状态
-  console.log(`${payWays.value[currentPayWay.value].title}授权状态`, approveState)
-  return approveState
+  // let approveState = currentPayWay == 1 ? await MUSDTERC20AllowanceState(walletAddress) : await RTERC20AllowanceState(walletAddress) //根据支付方式返回该币种erc20授权状态
+  // console.log(`${payWays.value[currentPayWay.value].title}授权状态`, approveState)
+  return true
 }
 //RT授權erc20
-function userRTERC20Approve() {
-  RTERC20Approve()
-    .then(res => {
-      proxy.$loading.hide()
-      showToast(`${payWays.value[currentPayWay.value].title}授权成功`)
+// function userRTERC20Approve() {
+//   RTERC20Approve()
+//     .then(res => {
+//       proxy.$loading.hide()
+//       showToast(`${payWays.value[currentPayWay.value].title}授权成功`)
 
-      console.log(`${payWays.value[currentPayWay.value].title}授权成功`, res)
-    })
-    .catch(err => {
-      proxy.$loading.hide()
-      showToast(`${payWays.value[currentPayWay.value].title}授权失败`)
+//       console.log(`${payWays.value[currentPayWay.value].title}授权成功`, res)
+//     })
+//     .catch(err => {
+//       proxy.$loading.hide()
+//       showToast(`${payWays.value[currentPayWay.value].title}授权失败`)
 
-      console.log(`${payWays.value[currentPayWay.value].title}授权失敗`, err)
-    })
-}
+//       console.log(`${payWays.value[currentPayWay.value].title}授权失敗`, err)
+//     })
+// }
 //MUSDT授權erc20
-function userMUSDTERC20Approve() {
-  MUSDTERC20Approve()
-    .then(res => {
-      proxy.$loading.hide()
-      showToast(`${payWays.value[currentPayWay.value].title}授权成功`)
-      console.log(`${payWays.value[currentPayWay.value].title}授权成功`, res)
-    })
-    .catch(err => {
-      proxy.$loading.hide()
-      showToast(`${payWays.value[currentPayWay.value].title}授权失败`)
+// function userMUSDTERC20Approve() {
+//   MUSDTERC20Approve()
+//     .then(res => {
+//       proxy.$loading.hide()
+//       showToast(`${payWays.value[currentPayWay.value].title}授权成功`)
+//       console.log(`${payWays.value[currentPayWay.value].title}授权成功`, res)
+//     })
+//     .catch(err => {
+//       proxy.$loading.hide()
+//       showToast(`${payWays.value[currentPayWay.value].title}授权失败`)
 
-      console.log(`${payWays.value[currentPayWay.value].title}授权失敗`, err)
-    })
-}
+//       console.log(`${payWays.value[currentPayWay.value].title}授权失敗`, err)
+//     })
+// }
 // 用户授权erc20
-function erc20Approve() {
-  proxy.$loading.show()
-  switch (currentPayWay.value) {
-    case 0: userRTERC20Approve()
-      break;
-    case 1: userMUSDTERC20Approve()
-      break;
-  }
-}
+// function erc20Approve() {
+//   proxy.$loading.show()
+//   switch (currentPayWay.value) {
+//     case 0: userRTERC20Approve()
+//       break;
+//     case 1: userMUSDTERC20Approve()
+//       break;
+//   }
+// }
 
 async function handleConfirmBuy() {
   if (directSuperior.value == null) {
@@ -454,21 +454,21 @@ async function handleConfirmBuy() {
 }
 
 
-function userBuyCoherent(buyAddress, coherentType, isRT, directSuperior, meetWithSuperiors, isLeft) { //用戶購買配套
-  buyCoherent(buyAddress, coherentType, isRT, directSuperior, meetWithSuperiors, isLeft)
-    .then(res => {
-      proxy.$loading.hide()
+// function userBuyCoherent(buyAddress, coherentType, isRT, directSuperior, meetWithSuperiors, isLeft) { //用戶購買配套
+//   buyCoherent(buyAddress, coherentType, isRT, directSuperior, meetWithSuperiors, isLeft)
+//     .then(res => {
+//       proxy.$loading.hide()
 
-      showToast('購買成功')
-      console.log('購買成功', res)
-    })
-    .catch(err => {
-      proxy.$loading.hide()
+//       showToast('購買成功')
+//       console.log('購買成功', res)
+//     })
+//     .catch(err => {
+//       proxy.$loading.hide()
 
-      showToast('購買失敗')
-      console.log('購買失敗', err)
-    })
-}
+//       showToast('購買失敗')
+//       console.log('購買失敗', err)
+//     })
+// }
 
 onMounted(() => {
   // FormatAmount()
