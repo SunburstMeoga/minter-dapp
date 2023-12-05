@@ -104,7 +104,7 @@
                     </div>
                 </div>
                 <div class="flex justify-center items-center absolute bottom-0 pb-6  w-full">
-                    <div class="operating-button text-center mr-auto ml-auto w-11/12 rounded py-2" @click="handleConnect">
+                    <div class="operating-button text-center mr-auto ml-auto w-11/12 rounded py-2" @click="initWallet">
                         {{ !userInfo.address ? $t('wallet.connectWallet') : addressFilter(userInfo.address) }}
                     </div>
                 </div>
@@ -159,7 +159,7 @@
 
 <script setup>
 import { ref, computed, getCurrentInstance, onMounted } from 'vue'
-import Web3 from "web3";
+// import Web3 from "web3";
 // import ethereum from 'ethers'
 import { useRouter } from "vue-router";
 import { useI18n } from 'vue-i18n'
