@@ -24,7 +24,7 @@ let personal = [
     meta: {
       showLogo: false,
       showBack: true,
-      pageTitle: '拥有的配套'
+      pageTitle: '配套详情'
     }
   },
   {
