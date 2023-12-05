@@ -4,7 +4,7 @@ import axios from 'axios'
 // 创建新的axios实例
 const service = axios.create({
   // 环境变量，需要在.env文件中配置
-  baseURL: import.meta.env.VITE_APP_BASE_API,
+  baseURL: 'http://13.228.135.184:8000/api',
   // 超时时间暂定5s
   timeout: 5000
 })
