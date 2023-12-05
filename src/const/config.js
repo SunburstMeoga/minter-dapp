@@ -1,6 +1,6 @@
-import erc20_abi from './erc20.json'
-import erc721_abi from './erc721.json'
-import game_abi from './game.json'
+// import erc20_abi from './erc20.json'
+// import erc721_abi from './erc721.json'
+// import game_abi from './game.json'
 
 const config = {
   '3ATUSDToken_addr': '0x53Ffa33162b1E3dd5FeE57531a6708b85266F7e0',
