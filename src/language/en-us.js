@@ -147,7 +147,8 @@ export default {
     connectUS: 'Contact Us'
   },
   toast: {
-    notYetOpen: 'Not yet open'
+    notYetOpen: 'Not yet open',
+    copySuccess: 'Copy Success'
   },
   wallet: {
     connectWallet: 'Connect',
@@ -164,20 +165,70 @@ export default {
     sale: 'Selling',
     cancleSale: 'Cancel',
     gift: 'Gift',
-    coherent: 'Coherent'
+    coherent: 'Coherent',
+    staticIncome: 'Static income',
+    dynamicIncome: 'Dynamic income',
+    transfer: 'Transfer',
+    title: 'Assets',
+    details: 'View Details',
+    transferAddress: 'Transfer Address',
+    transferAmount: 'Transfer Amount',
+    rechargeAmount: 'Top-up Amount',
+    withdrawableAmount: 'Withdrawable Amount',
+    withdrawAddress: 'Withdrawal Address',
+    withdrawAmount: 'Withdrawal Amount'
   },
   coherents: {
+    MatchingLevelBonusRate: 'Bonus Rate',
+    contribution: 'Contribution',
     title: 'Matching Transaction Information',
+    price: 'Price',
+    coherentTitle: 'Coherent List',
     earningsCap: 'NFT Earnings Cap',
+    coherentCap: 'Cap',
     incentiveRate: 'Tier 1 Invitation Incentive Rate',
     bonusLevel: 'Bonus Level',
     level: 'Level 1, Level 3',
-    releaseTime: '40PM Release Time',
-    secondReleaseTime: 'Second Release Time',
-    thirdReleaseTime: 'Third Release Time',
+    releaseTime: 'First Release',
+    secondReleaseTime: 'Second Release',
+    thirdReleaseTime: 'Third Release',
     buy: 'BUY',
     released: 'Released',
-    toBeReleased: 'To Be Released',
+    toBeReleased: 'To Be Released ',
+    totalReleased: 'Common Release ',
+    buyAfterReleased: 'Instant Release ',
+    '24Released': 'Release after 24 hours ',
+    '48Released': 'Release after 48 hours ',
+    directAddress: 'Direct address',
+    collisionAddress: 'Confrontation Address',
+    paymenMethod: 'Payment Method',
+    pleaseEnter: 'Please fill in ',
+    invalidAddress: 'The address is invalid',
     tips: 'If a user purchases Minter1 (i.e., a 200USDT Minter), then the maximum daily match bonus a user can earn is 200USDT; if user W purchases Minter1+Minter2 (i.e., 200USDT and 600USDT), then the maximum daily match bonus a user can earn is 200+600USDT=800; and so on.'
+  },
+  modalConfirm: {
+    buySuccess: 'Purchase was successful',
+    luckyDraw: 'Successful purchase of NFT card, please go to the carousel for lucky draw!',
+    confirm: 'Confirm'
+  },
+  raffle: {
+    start: 'GO'
+  },
+  turntable: {
+    title: 'Raffle',
+    dailyEarnings: 'Daily Earnings',
+    recommendedBenefits: 'Recommended Benefits',
+    performancePledge: 'Performance Pledge',
+    earningsAcceleration: 'Earnings acceleration',
+    congratulations: 'Congratulations!',
+    rewardsTips: 'You have won the following prizes',
+    rewardsContent: '1% Recommended return',
+    rewardsDetails:
+      'You can get the RT value corresponding to the NFT value * yield when you sell the NFT after 3 days'
+  },
+  order: {
+    needPay: 'Payable',
+    bind: 'Bind',
+    balance: 'Balance'
   }
 }

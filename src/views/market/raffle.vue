@@ -1,7 +1,7 @@
 <template>
     <div class="text-primary-color bg-black pt-14">
         <div class="w-11/12 mb-4 mt-4 ml-auto mr-auto">
-            <module-title titleWord="抽奖" />
+            <module-title :titleWord="$t('turntable.title')" />
         </div>
         <div class="bg-black border border-black flex flex-col items-center w-full py-4 px-2 text-white">
             <div class="mb-4">
@@ -12,16 +12,16 @@
         <van-popup v-model:show="isPrized">
             <div class="bg-black text-white">
                 <div class="pl-2 py-2  pr-44 rounded-t-md bg-primary-color">
-                    <div class="font-bold text-lg">恭喜！</div>
-                    <div class="text-sm">您抽中了以下奖励</div>
+                    <div class="font-bold text-lg">{{ $t('turntable.congratulations') }}</div>
+                    <div class="text-sm">{{ $t('turntable.rewardsTips') }}</div>
 
                 </div>
                 <div class="pl-2 py-6 rounded-b-md text-white bg-gray-800 mb-4">
                     <div class="font-bold text-3xl mb-3">
-                        1% 推荐福利
+                        {{ $t('turntable.rewardsContent') }}
                     </div>
                     <div class="text-sm pr-2 text-gray-500">
-                        您能在3天后出售NFT时获得对应的NFT价值*收益率的RT值
+                        {{ $t('turntable.rewardsDetails') }}
                     </div>
                 </div>
                 <div class="rounded-full border border-gray-400 text-gray-400 text-center p-3 flex justify-center items-center w-0 h-0 text-sm mr-auto ml-auto"
@@ -35,9 +35,12 @@
 
 <script setup>
 
-import { ref, onMounted, getCurrentInstance } from 'vue'
+import { ref, onMounted, getCurrentInstance, computed } from 'vue'
 import { useRoute } from 'vue-router';
 import ModuleTitle from "../../components/ModuleTitle.vue";
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 
 const myLucky = ref()
@@ -48,61 +51,43 @@ let isPrized = ref(false)
 let currentPrize = ref(null)
 const blocks = ref([{ padding: '4px', background: '#617df2' }])
 const textFontSize = ref('10px')
-const prizes = ref([
-    // { fonts: [{ text: '收益加速12%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#CC6DED' },
-    // { fonts: [{ text: '收益加速24%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#CC6DED' },
-    // { fonts: [{ text: '收益加速36%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#CC6DED' },
-    // { fonts: [{ text: '业绩承诺 10%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#48A7FA' },
-    // { fonts: [{ text: '业绩承诺 10%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#48A7FA' },
-    // { fonts: [{ text: '业绩承诺 10%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#48A7FA' },
-    // { fonts: [{ text: '每日收益0.5%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#2C4FB0' },
-    // { fonts: [{ text: '每日收益 1%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#2C4FB0' },
-    // { fonts: [{ text: '每日收益 2%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#2C4FB0' },
-    // { fonts: [{ text: '每日收益 3%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#2C4FB0' },
-    // { fonts: [{ text: '每日收益 4%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#2C4FB0' },
-    // { fonts: [{ text: '每日收益 5%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#2C4FB0' },
-    // { fonts: [{ text: '每日收益 6%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#2C4FB0' },
-    // { fonts: [{ text: '推荐福利0.5%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#944CE0' },
-    // { fonts: [{ text: '推荐福利 1%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#944CE0' },
-    // { fonts: [{ text: '推荐福利 3%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#944CE0' },
-    // { fonts: [{ text: '推荐福利 6%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#944CE0' },
-    // { fonts: [{ text: '推荐福利 12%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#944CE0' },
-    { fonts: [{ text: '每日收益 2%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#2C4FB0' },
-    { fonts: [{ text: '收益加速24%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#CC6DED' },
+let prizes = computed(() => {
+    return [
+        { fonts: [{ text: t('turntable.dailyEarnings') + ' 2%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#2C4FB0' },
+        { fonts: [{ text: t('turntable.earningsAcceleration') + '24%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#CC6DED' },
+        { fonts: [{ text: t('turntable.dailyEarnings') + ' 5%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#2C4FB0' },
+        { fonts: [{ text: t('turntable.recommendedBenefits') + ' 12%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#944CE0' },
+        { fonts: [{ text: t('turntable.dailyEarnings') + '0.5%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#2C4FB0' },
+        { fonts: [{ text: t('turntable.recommendedBenefits') + ' 6%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#944CE0' },
+        { fonts: [{ text: t('turntable.performancePledge') + '10%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#48A7FA' },
+        { fonts: [{ text: t('turntable.dailyEarnings') + ' 3%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#2C4FB0' },
+        { fonts: [{ text: t('turntable.recommendedBenefits') + ' 1%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#944CE0' },
+        { fonts: [{ text: t('turntable.dailyEarnings') + ' 4%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#2C4FB0' },
+        { fonts: [{ text: t('turntable.performancePledge') + '10%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#48A7FA' },
+        { fonts: [{ text: t('turntable.dailyEarnings') + ' 6%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#2C4FB0' },
+        { fonts: [{ text: t('turntable.recommendedBenefits') + '0.5%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#944CE0' },
+        { fonts: [{ text: t('turntable.earningsAcceleration') + '36%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#CC6DED' },
+        { fonts: [{ text: t('turntable.performancePledge') + '10%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#48A7FA' },
+        { fonts: [{ text: t('turntable.recommendedBenefits') + ' 3%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#944CE0' },
+        { fonts: [{ text: t('turntable.dailyEarnings') + ' 1%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#2C4FB0' },
+        { fonts: [{ text: t('turntable.earningsAcceleration') + '12%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#CC6DED' },
+    ]
+})
 
-    { fonts: [{ text: '每日收益 5%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#2C4FB0' },
-
-
-
-    { fonts: [{ text: '推荐福利 12%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#944CE0' },
-    { fonts: [{ text: '每日收益0.5%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#2C4FB0' },
-    { fonts: [{ text: '推荐福利 6%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#944CE0' },
-
-
-
-    { fonts: [{ text: '业绩承诺 10%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#48A7FA' },
-    { fonts: [{ text: '每日收益 3%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#2C4FB0' },
-    { fonts: [{ text: '推荐福利 1%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#944CE0' },
-    { fonts: [{ text: '每日收益 4%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#2C4FB0' },
-    { fonts: [{ text: '业绩承诺 10%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#48A7FA' },
-
-    { fonts: [{ text: '每日收益 6%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#2C4FB0' },
-    { fonts: [{ text: '推荐福利0.5%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#944CE0' },
-    { fonts: [{ text: '收益加速36%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#CC6DED' },
-    { fonts: [{ text: '业绩承诺 10%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#48A7FA' },
-
-    { fonts: [{ text: '推荐福利 3%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#944CE0' },
-
-    { fonts: [{ text: '每日收益 1%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#2C4FB0' },
-    { fonts: [{ text: '收益加速12%', top: '10%', fontSize: '16px', fontColor: '#fff' }], background: '#CC6DED' },
-
-])
-const buttons = ref([{
-    radius: '25%',
-    background: '#e149ed',
-    pointer: true,
-    fonts: [{ text: '抽奖', top: '-10px', fontSize: '18', fontColor: '#fff' }],
-}])
+let buttons = computed(() => {
+    return [{
+        radius: '18%',
+        background: '#e149ed',
+        pointer: true,
+        fonts: [{ text: t('raffle.start'), top: '-10px', fontSize: '18', fontColor: '#fff' }],
+    }]
+})
+// const buttons = ref([{
+//     radius: '18%',
+//     background: '#e149ed',
+//     pointer: true,
+//     fonts: [{ text: '', top: '-10px', fontSize: '18', fontColor: '#fff' }],
+// }])
 
 function viewPrizeDetaisl() {
     showPrizeDetails.value = true

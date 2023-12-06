@@ -1,4 +1,5 @@
 <template>
+    <div class="text-gray-200 text-center text-sm">{{ $t('wallet.dynamicIncome') }}</div>
     <div id="dynamicEarnings" style="height: 180px;"></div>
 </template>
 <script setup>
@@ -26,7 +27,7 @@ onMounted(() => {
                 detail: {
                     valueAnimation: true,
                     formatter: '{value}%',
-                    fontSize: '14px',
+                    fontSize: '10px',
                     color: '#fff',
                     borderColor: '#e149ed',
                     width: 50,
@@ -35,7 +36,7 @@ onMounted(() => {
                 data: [
                     {
                         value: 89,
-                        name: '动态收益'
+                        // name: '动态收益'
                     }
                 ],
                 radius: '90%',

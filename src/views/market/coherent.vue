@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col justify-start items-center bg-black pb-20 pt-10">
         <div class="w-11/12 mb-4 mt-4">
-            <module-title titleWord="配套信息" />
+            <module-title :titleWord="$t('coherents.coherentTitle')" />
         </div>
         <div class="w-11/12">
             <div class="flex justify-between items-center flex-wrap">
@@ -22,14 +22,16 @@ import ModuleTitle from "../../components/ModuleTitle.vue";
 import coherentInfoCard from "./coherentInfoCard.vue";
 import coherents_list from '@/datas/coherents_list'
 import { showToast } from 'vant';
+import { useI18n } from 'vue-i18n';
 
 const router = useRouter()
+const { t } = useI18n()
 const coherentsList = ref(coherents_list)
 
 async function handleBuy(item) {
     console.log('click button', item.type)
     if (!item.isSale) {
-        showToast('暂未开放发售')
+        showToast(t('toast.notYetOpen'))
         return
     }
     router.push({

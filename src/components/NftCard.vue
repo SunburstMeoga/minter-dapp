@@ -16,7 +16,7 @@
         </div>
         <div class="flex justify-center items-center" v-show="showBuyButton" @click="$emit('handleBuyButton')">
           <div class="operating-button w-full py-1 rounded-full text-center">
-            购买
+            {{ $t('coherents.buy') }}
           </div>
         </div>
       </div>

@@ -8,17 +8,19 @@
         </div> -->
         <div class="w-11/12">
             <div class="mb-2" v-for="(item, index) in coherentsList" :key="index">
-                <coherent-card :staticName="item.name" />
+                <coherent-card :coherentInfo="item" />
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import ModuleTitle from "../../components/ModuleTitle.vue";
 import CoherentCard from "../../components/CoherentCard.vue";
-const coherentsList = ref([{ name: 'N' }, { name: 'R' }, { name: 'SR' }, { name: 'SSR' }, { name: 'UR' }])
+import coherents_list from '@/datas/coherents_list'
+
+const coherentsList = ref(coherents_list)
 </script>
 
 <style></style>

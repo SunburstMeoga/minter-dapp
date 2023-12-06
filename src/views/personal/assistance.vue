@@ -58,9 +58,9 @@
                     </div>
                 </div>
                 <div class="w-full flex flex-col items-center mb-2">
-                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1">请填写上级地址</div>
+                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1">上级地址</div>
                     <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-700 mb-1 pl-2">
-                        <input type="text" placeholder="请填写上级地址" class="w-full h-full bg-bottom-content rounded">
+                        <input type="text" disabled placeholder="上级地址" class="w-full h-full bg-bottom-content rounded">
                     </div>
                     <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
                         該地址為無效地址

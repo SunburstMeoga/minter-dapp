@@ -3,27 +3,27 @@
         <div class="w-11/12 mb-4 mt-4">
             <module-title titleWord="兑换RT" />
         </div>
-        <div class="w-11/12 rounded bg-bottom-content px-2 py-4">
+        <div class="w-11/12 rounded-lg bg-top-content px-2 py-4">
             <div class="text-center font-bold text-white mb-6">
                 兑换
             </div>
-            <div class="text-white text-base flex justify-between items-center mb-3">
+            <div class="text-white text-base flex justify-between items-center mb-6">
                 <div>USDT余额: </div>
                 <div>0.0000 USDT </div>
                 <!-- <div class="text-primary-color text-xs pl-1"> (当前1USDT可兑换2RT)</div> -->
             </div>
-            <div class="text-white text-base flex justify-between items-center mb-3">
+            <div class="text-white text-base flex justify-between items-center mb-6">
                 <div>RT余额: </div>
                 <div>0.0000 RT </div>
                 <!-- <div class="text-primary-color text-xs pl-1"> (当前1USDT可兑换2RT)</div> -->
             </div>
-            <div class="text-white text-xs flex justify-start items-baseline mb-1">
+            <div class="text-white text-xs flex justify-start items-baseline mb-2">
                 <div class="text-base">兑换数量 </div>
                 <div class="text-primary-color text-xs pl-1"> (当前1USDT = 1RT)</div>
             </div>
-            <div class="w-full mb-4 flex justify-between items-center">
+            <div class="w-full mb-4 flex justify-between items-center mb-10">
                 <div class="rounded mr-2 border border-gray-700 flex-1 py-1">
-                    <input type="text" placeholder="请输入需要兑换的RT数量" class="w-full h-full bg-transparent pl-1">
+                    <input type="text" placeholder="请输入需要兑换的RT数量" class="w-full h-full bg-transparent pl-1 text-gray-200">
                 </div>
                 <div class="underline text-sm text-gray-200">全部兑换</div>
             </div>

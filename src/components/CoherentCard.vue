@@ -1,8 +1,8 @@
 <script setup>
 defineProps({
-    staticName: {
-        type: String,
-        default: 'Minter'
+    coherentInfo: {
+        type: Object,
+        default: () => { }
     }
 })
 import { showToast } from 'vant';
@@ -22,28 +22,30 @@ function notYetOpen() {
         </div>
         <div>
             <div class="mb-1 font-bold text-xl">
-                {{ staticName }}
+                {{ coherentInfo.name }}
             </div>
             <div class="mb-1 text-sm text-menu-word">
-                {{ $t('coherents.earningsCap') }}:200
+                {{ $t('coherents.coherentCap') }}:{{ coherentInfo.limit }}
             </div>
             <div class="mb-1 text-sm text-menu-word">
-                {{ $t('coherents.incentiveRate') }}:10%
+                {{ $t('coherents.MatchingLevelBonusRate') }}:{{ coherentInfo.incentiveRate * 100 + '%' }}
             </div>
 
-            <div class="mb-1 text-sm text-menu-word">
+            <!-- <div class="mb-1 text-sm text-menu-word">
                 {{ $t('coherents.bonusLevel') }}: {{ $t('coherents.level') }}
-            </div>
+            </div> -->
             <div class="mb-1 text-sm text-menu-word flex justify-between items-center">
                 <div>
-                    {{ $t('coherents.releaseTime') }}: 2023-10-17 15:45:32
+                    {{ Number(coherentInfo.type) * 0.6 * (1 / 3) }}PMT{{ $t('coherents.releaseTime') }}: 2023-10-17 15:45:32
                 </div>
             </div>
             <div class="mb-1 text-sm text-menu-word flex justify-between items-center">
-                <div> {{ $t('coherents.releaseTime') }}: 2023-10-18 15:45:32</div>
+                <div> {{ Number(coherentInfo.type) * 0.6 * (1 / 3) }}PMT{{ $t('coherents.secondReleaseTime') }}: 2023-10-18
+                    15:45:32</div>
             </div>
             <div class="mb-6 text-sm text-menu-word flex justify-between items-center">
-                <div>{{ $t('coherents.thirdReleaseTime') }}: 2023-10-19 15:45:32</div>
+                <div>{{ Number(coherentInfo.type) * 0.6 * (1 / 3) }}PMT{{ $t('coherents.thirdReleaseTime') }}: 2023-10-19
+                    15:45:32</div>
             </div>
 
             <!-- <div class="text-lg mb-2">

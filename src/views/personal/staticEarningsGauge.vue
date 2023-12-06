@@ -1,4 +1,5 @@
 <template>
+    <div class="text-gray-200 text-center text-sm">{{ $t('wallet.staticIncome') }}</div>
     <div id="staticEarnings" style="height: 180px;"></div>
 </template>
 <script setup>
@@ -26,22 +27,23 @@ onMounted(() => {
                 detail: {
                     valueAnimation: true,
                     formatter: '{value}%',
-                    fontSize: '14px',
+                    fontSize: '10px',
                     color: '#fff',
                     borderColor: '#e149ed',
                     width: 50,
-                    height: 10
+                    height: 20
 
                 },
                 data: [
                     {
                         value: 23,
-                        name: '静态收益'
+                        // name: '靜態收益',
+                        // fontSize: '12px',
                     }
                 ],
                 radius: '90%',
                 title: {
-                    fontSize: '14px',
+                    fontSize: '10px',
                     color: '#fff',
                     fontWeight: 'small'
                 },

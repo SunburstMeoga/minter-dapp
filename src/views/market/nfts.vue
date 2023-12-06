@@ -59,6 +59,9 @@ import ModuleTitle from "@/components/ModuleTitle.vue";
 
 import { ref, onMounted, getCurrentInstance } from 'vue'
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 import nftOne from '@/assets/images/nftOne.png'
 import nftTwo from '@/assets/images/nftTwo.png'
@@ -74,10 +77,10 @@ const { proxy } = getCurrentInstance()
 function handleBuyButton() {
     // console.log(proxy.$confirm)
     proxy.$confirm.show({
-        title: "购买成功",
-        content: "已经购买NFT卡，请进行抽奖",
+        title: t('modalConfirm.buySuccess'),
+        content: t('modalConfirm.luckyDraw'),
         showCancelButton: false,
-        confirmText: '确认抽奖',
+        confirmText: t('modalConfirm.confirm'),
         onConfirm: () => {
             proxy.$confirm.hide()
             router.push({

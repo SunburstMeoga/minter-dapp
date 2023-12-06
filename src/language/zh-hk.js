@@ -137,7 +137,8 @@ export default {
     connectUS: '聯繫我們'
   },
   toast: {
-    notYetOpen: '暫未開放'
+    notYetOpen: '暫未開放',
+    copySuccess: '複製成功'
   },
   wallet: {
     connectWallet: '連接錢包',
@@ -154,20 +155,69 @@ export default {
     sale: '掛單',
     cancleSale: '取消掛單',
     gift: '贈送',
-    coherent: '配套'
+    coherent: '配套',
+    staticIncome: '靜態收益',
+    dynamicIncome: '動態收益',
+    transfer: '轉賬',
+    title: '資產',
+    details: '查看詳情',
+    transferAddress: '轉賬地址',
+    transferAmount: '轉賬金額',
+    rechargeAmount: '充值金額',
+    withdrawableAmount: '可提現金額',
+    withdrawAddress: '提現地址',
+    withdrawAmount: '提現金額'
   },
   coherents: {
+    MatchingLevelBonusRate: '配套等級獎勵率',
+    contribution: '可獲取貢獻值數量',
     title: '配套交易信息',
+    price: '售價',
+    coherentTitle: '配套列表',
     earningsCap: 'NFT收益上限',
+    coherentCap: '收益上限',
     incentiveRate: '一級邀請獎勵利率',
     bonusLevel: '獎金等級',
     level: '一級、三級',
-    releaseTime: '40PM釋放時間',
-    secondReleaseTime: '第二次釋放時間',
-    thirdReleaseTime: '第三次釋放時間',
+    releaseTime: '首次釋放',
+    secondReleaseTime: '第二次釋放',
+    thirdReleaseTime: '第三次釋放',
     buy: '購買',
     released: '已釋放',
     toBeReleased: '待釋放',
+    totalReleased: '共釋放',
+    buyAfterReleased: '購買成功之後即時釋放',
+    '24Released': '24小時後釋放',
+    '48Released': '48小時後釋放',
+    directAddress: '直接上級地址',
+    collisionAddress: '對碰上級地址',
+    paymenMethod: '支付方式',
+    pleaseEnter: '請填寫',
+    invalidAddress: '該地址為無效地址',
     tips: '若用户购买了Minter1（即200USDT的Minter）则用户每日可获取的对碰奖金上限为200USDT；若用户W购买了Minter1+Minter2（即200USDT和600USDT）则用户每日可获取的对碰奖金上限为200+600USDT=800；以此类推'
+  },
+  modalConfirm: {
+    buySuccess: '購買成功',
+    luckyDraw: '已經購買NFT卡，請前往轉盤抽獎',
+    confirm: '確認'
+  },
+  raffle: {
+    start: '開始'
+  },
+  turntable: {
+    title: '輪盤抽獎',
+    dailyEarnings: '每日收益',
+    recommendedBenefits: '推薦福利',
+    performancePledge: '業績承諾',
+    earningsAcceleration: '收益加速',
+    congratulations: '恭喜！',
+    rewardsTips: '您抽中了以下獎勵',
+    rewardsContent: '1% 推薦收益',
+    rewardsDetails: '您能在3天后出售NFT时獲得對應的NFT價值*收益率的RT值'
+  },
+  order: {
+    needPay: '需支付',
+    bind: '綁定',
+    balance: '餘額'
   }
 }

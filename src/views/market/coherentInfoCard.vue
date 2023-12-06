@@ -12,17 +12,17 @@
         </div>
         <div class="w-full text-gray-400 text-sm mb-2">
             <div class="flex justify-between items-center mb-1">
-                <div>售价</div>
+                <div>{{ $t('coherents.price') }}</div>
                 <div class="font-bold text-red-500">{{ type }} RT</div>
             </div>
             <div class="flex justify-between items-center ">
-                <div>收益上限</div>
+                <div>{{ $t('coherents.coherentCap') }}</div>
                 <div>{{ limit }} </div>
             </div>
         </div>
         <div class="text-center py-1 text-sm rounded-full"
             :class="isSale ? 'operating-button text-white' : 'bg-gray-500 text-black'" @click="$emit('handleBuy')">{{ isSale
-                ? '购买' : '未发售' }}</div>
+                ? $t('coherents.buy') : $t('toast.notYetOpen') }}</div>
     </div>
 </template>
 
