@@ -58,7 +58,70 @@ export default {
     inMinterEyesWord:
       '在Minter眼中，未來的NFT不僅是收藏品， 更是數字資產的重要代表，每一個NFT都應當 有其獨特的價值與權益，能夠為其持有者帶來 實際的權益和價值。'
   },
-  mission: {},
+  mission: {
+    affirmative: '確權',
+    empower: '賦能',
+    introduction: '通過創建全球最大的NFT交易量平台，為每一件NFT賦予確權和賦能。',
+    presentTop: 'Minter相信，只有真正的確權賦能，',
+    presentBottom: 'NFT才能從一個簡單的數字藝術品變成一種真實的資產，為用戶提供正常長期，穩定的價值'
+  },
+  cultureAndSpirituality: {
+    consensus: '共識',
+    loyalty: '忠誠度',
+    innovation: '創新',
+    popularize: '普及',
+    consensusDescription:
+      '我們相信NFT的未來，我們與全球NFT愛好者、創作者、用戶分享這一共識，共同打造一個更加繁榮、公平的NFT生態。',
+    loyaltyDescription:
+      '我們珍視每一個社區成員、合作夥伴和用戶，為他們提供最高品質的服務與支持，確保每一個人在Minter的世界中都能找到自己的位置',
+    innovationDescription:
+      '在技術、應用、經濟模型等各個方面，Minter都追求前沿的創新。我們相信，只有不斷創新，才能保持領先，引領整個行業的發展。',
+    popularizeDescription:
+      '我們致力於將NFT的概念、價值和應用推廣到更廣泛的人群中，使更多的人能夠了解、理解並參與到這一革命中來。'
+  },
+  projectIntroduction: {
+    noahTitle: '诺亚社区',
+    noahContentOne:
+      '諾亞（NOAH）社區，由全球范圍內的區塊鏈愛好者、技術專家和先驅者於2019年共同成立。',
+    noahContentTwo:
+      '諾亞社區氣出只是一個小型的討論與分享平台，但由於其高質量內容分享與深度的行業洞察，迅速吸引了大量行業內外關注者',
+    noahContentThree:
+      '社區目標是創建一個開放、共享、持續創新的全球化生態，致力於推動Web3.0時代的到來。',
+    leLouvre: '盧浮基金會',
+    leLouvreContentOne:
+      '盧浮基金會，總部設於美國，由一群熱衷於推動全球文化、藝術和技術融合的企業家，學者和藝術家於2018年共同成立',
+    leLouvreContentTwo:
+      '基金會的核心理念是，通過投資與支持跨界項目，推動全球文化和技術的創新融合。基金會過去五年的成功投資案例包括了AI藝術創作，虛擬現實博物館和數字藝術交易平台等。',
+    leLouvreContentThree:
+      '與Minter的合作是基金會對於NFT行業的重要佈局，盧浮基金會提供了資金支持、市場資源和戰略指導，全力幫助Minter成為全球NFT行業的領軍者。',
+    communityDevelopmentTitle: '社區發展',
+    communityDevelopmentContentOne:
+      '目標：諾亞社區致力於建立一個為全球用戶同最新技術信息、行業動態、交流與合作的平台。社區鼓勵創新、實驗和共享，使其成為區塊藍行業的風向標',
+    communityDevelopmentContentTwo:
+      '價值觀：開放、共享、創新、責任。諾亞社區相信，只有通過持續的創新與合作，才能推進行業的發展，為全球用戶帶來真正的價值。',
+    communityDevelopmentContentThree:
+      '全球影響力，諾亞社區已經與全球多個知名技術公司、高等教育機構和研究組織建立了深度合作關係，社區不僅僅是一個討論與分享的平台，更是全球區塊鏈行業的合作與創新的橋梁。'
+  },
+  NFTRevolution: {
+    contentTop: '在數字資產的浪潮中，NFT已經成為一個焦點話題',
+    contentTwo:
+      'Minter項目旨在徹底重新第一NFT的價值與意義，我們認為，一個未被認證或確權的NFt無異於一個簡單的數字“JPG”圖片',
+    contentThree:
+      'Minter的核心目標是確保每一個NFT都有其獨特的價值與權益，推動NFT在Web 3.0賽道上的進一步發展，並借助AI技術，利用大模型製作NFT',
+    challengeTitle: '當前市場的挑戰和問題',
+    marketTooHotTitle: '市場過熱',
+    marketTooHotContent: '大量投機者湧入，導致價格泡沫化',
+    highThresholdTitle: '門檻高',
+    highThresholdContent: '對於普通用戶，創建和交易NFT仍然存在一定的技術難度。',
+    homogenizationTitle: '同質化',
+    homogenizationContent: '由於缺乏審核制度，很多NFT的價值難以被辨識',
+
+    hahTitle: '通過HashAhead我們可以',
+    hahContentOne:
+      'Minter藉助HashAhead公鏈平台，為創作者提供更多的創作工具和平台，使NFT成為技術與藝術相結合的完美產物。',
+    hahContentTwo:
+      'HashAhead公鏈平台同時具有超快速和超穩定的特點，能夠做到為每一件NFT賦予真正的確權，確保其在任何場景下都能得到公正的利用和認可。'
+  },
   game: {
     title: '正在開發，敬請期待'
   },

@@ -1,19 +1,19 @@
 <template>
     <div class="w-full h-full flex flex-col items-center justify-start text-primary-color pt-12">
         <div class="w-11/12 mb-8 animate__animated " :class="hasChange ? 'animate__fadeInLeft' : ''">
-            <module-title titleWord="NFT革命" />
+            <module-title :titleWord="$t('menu.NFTRevolution')" />
         </div>
         <div class="w-11/12 text-white text-xs mb-2 animate__animated"
             :class="hasChange ? 'animate__lightSpeedInRight' : ''">
             <div class="mb-2">
-                在数字资产的浪潮中，NFT已经成为一个焦点话题。
+                {{ $t('NFTRevolution.contentTop') }}
             </div>
 
             <div class="mb-2">
-                Minter项目旨在彻底重新定义NFT的价值与意义。我们认为，一个未被认证或赋权的NFT无异于一个简单的数字“JPG”图片
+                {{ $t('NFTRevolution.contentTwo') }}
             </div>
             <div class="mb-2">
-                Minter的核心目标是确保每一个NFT都有其独特的价值与权益，推动NFT在Web 3.0赛道上的进一步发展，并借助AI技术，利用大模型制作NFT。
+                {{ $t('NFTRevolution.contentThree') }}
             </div>
         </div>
         <div class="w-11/12 flex justify-start items-center text-white mb-4 animate__animated"
@@ -23,7 +23,7 @@
                 <div class="border-b border-white h-1 w-full mb-1"></div>
                 <div class="border-b border-white h-1 w-3/12 mb-1"></div>
             </div>
-            <div class="font-bold text-xl italic ml-2">当前NFT市场的挑战和问题</div>
+            <div class="font-bold text-xl italic ml-2">{{ $t('NFTRevolution.challengeTitle') }}</div>
         </div>
 
         <div class="flex justify-between items-start w-11/12 text-white text-sm mb-4">
@@ -49,7 +49,7 @@
 
         <div class="w-11/12 flex justify-end items-center text-white mb-6 animate__animated"
             :class="hasChange ? 'animate__lightSpeedInRight' : ''">
-            <div class="font-bold text-xl italic mr-2">通过HashAhead我们可以</div>
+            <div class="font-bold text-xl italic mr-2">{{ $t('NFTRevolution.hahTitle') }}</div>
             <div class="flex flex-col items-start justify-start w-3/12">
                 <div class="border-b border-white h-1 w-3/12 mb-1"></div>
                 <div class="border-b border-white h-1 w-full mb-1"></div>
@@ -59,10 +59,10 @@
         </div>
 
         <div class="w-11/12 text-white text-xs mb-2">
-            Minter借助HashAhead公链平台，为创作者提供更多的创作工具和平台，使NFT成为技术与艺术相结合的完美产物。
+            {{ $t('NFTRevolution.hahContentOne') }}
         </div>
         <div class="w-11/12 text-white text-xs">
-            HashAhead公链平台同时具有超快速和超稳定的特点，能够做到为每一件NFT赋予真正的确权，确保其在任何场景下都能得到公正的利用和认可。
+            {{ $t('NFTRevolution.hahContentTwo') }}
 
         </div>
     </div>
@@ -71,6 +71,9 @@
 <script setup>
 import { ref, computed } from 'vue'
 import ModuleTitle from '@/components/ModuleTitle.vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+
 defineProps({
     hasChange: {
         type: Boolean,
@@ -79,9 +82,9 @@ defineProps({
 })
 let questionList = computed(() => {
     return [
-        { title: '市场过热', icon: 'icon-shujuzzhang', content: '大量投機者湧入，導致價格泡沫化' },
-        { title: '門檻高', icon: 'icon-logo', content: '對於普通用戶，創建和交易NFT仍然存在一定的技術難度。' },
-        { title: '同質化', icon: 'icon-chuanRanBingShangBaoSolid', content: '由於缺乏審核制度，很多NFT的價值難以被辨識' }
+        { title: t('NFTRevolution.marketTooHotTitle'), icon: 'icon-shujuzzhang', content: t('NFTRevolution.marketTooHotContent') },
+        { title: t('NFTRevolution.highThresholdTitle'), icon: 'icon-logo', content: t('NFTRevolution.highThresholdContent') },
+        { title: t('NFTRevolution.homogenizationTitle'), icon: 'icon-chuanRanBingShangBaoSolid', content: t('NFTRevolution.homogenizationContent') }
     ]
 })
 </script>
