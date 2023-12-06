@@ -21,11 +21,11 @@
                 <div class="text-base">兑换数量 </div>
                 <div class="text-primary-color text-xs pl-1"> (当前1USDT = 1RT)</div>
             </div>
-            <div class="w-full mb-4 flex justify-between items-center mb-10">
+            <div class="w-full flex justify-between items-center mb-10">
                 <div class="rounded mr-2 border border-gray-700 flex-1 py-1">
                     <input type="text" placeholder="请输入需要兑换的RT数量" class="w-full h-full bg-transparent pl-1 text-gray-200">
                 </div>
-                <div class="underline text-sm text-gray-200">全部兑换</div>
+                <div class="underline text-sm text-gray-200">{{ $t('wallet.all') }}</div>
             </div>
             <!--  -->
             <div class="operating-button rounded-full text-white font-bold text-center text-sm py-2">
