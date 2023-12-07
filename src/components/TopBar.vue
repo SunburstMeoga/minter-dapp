@@ -76,7 +76,7 @@
                             <div>{{ $t('menu.game') }}</div>
                         </div>
                     </div>
-                    <div class="pl-10" v-if="userInfo.address">
+                    <div class="pl-10">
                         <div :class="currentMenuItem == 'personal' ? 'text-primary-color' : 'text-white'" class="menu-item"
                             @click="toggleMorePersonal('personal')">
                             <div>{{ $t('menu.userCenter') }}</div>
@@ -197,14 +197,24 @@ let showLangePopover = ref(false)
 let showUserInfoPopup = ref(false)
 // let marketChilds = ref([{ title: 'NFTs' }, { title: '配套' }])
 let marketChilds = computed(() => {
-    return [{ title: 'NFTs' }, { title: t('wallet.coherent') }]
+    if (userInfo.address) {
+        return [{ title: 'NFTs' }, { title: t('wallet.coherent') }]
+    } else {
+        return [{ title: 'NFTs' }]
+    }
+
 })
 let homeChilds = computed(() => {
     return [{ title: t('menu.home') }, { title: t('menu.news') }, { title: t('menu.vision') }, { title: t('menu.mission') }, { title: t('menu.cultureAndSpirituality') }, { title: t('menu.projectIntroduction') }, { title: t('menu.NFTRevolution') }]
 })
 
 let personalChilds = computed(() => {
-    return [{ title: t('menu.wallet'), router: '/personal/wallet' }, { title: t('menu.exchange'), router: '/personal/exchange' }, { title: t('menu.coinBank') }, { title: t('menu.custodianship') }, { title: t('menu.grandPrix') }, { title: t('menu.bag') }, { title: t('menu.synthesize') }, { title: t('menu.operationRecord'), router: '/earnings/list' }, { title: t('menu.helpHand'), router: '/personal/assistance' }, { title: t('menu.setting') }]
+    if (userInfo.address) {
+        return [{ title: t('menu.wallet'), router: '/personal/wallet' }, { title: t('menu.exchange'), router: '/personal/exchange' }, { title: t('menu.coinBank') }, { title: t('menu.custodianship') }, { title: t('menu.grandPrix') }, { title: t('menu.bag') }, { title: t('menu.synthesize') }, { title: t('menu.operationRecord'), router: '/earnings/list' }, { title: t('menu.helpHand'), router: '/personal/assistance' }, { title: t('menu.setting') }]
+    } else {
+        return [{ title: t('menu.wallet'), router: '/personal/wallet' }]
+    }
+
 })
 
 onMounted(() => {
