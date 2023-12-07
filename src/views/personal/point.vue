@@ -10,13 +10,13 @@
                 </div>
             </div>
             <div class="text-center text-xs">
-                地址:0x17a...5796
+                {{ $t('wallet.address') }}:0x17a...5796
             </div>
             <div class="text-center text-xs">
-                全部pv: 500 - 100
+                {{ $t('wallet.all') }} PV: 500 - 100
             </div>
             <div class="text-center text-xs mb-1">
-                剩余pv: 50 - 10
+                {{ $t('assistance.remain') }} PV: 50 - 10
             </div>
             <div class="w-1 h-10 border-l border-primary-color" />
             <div class="w-6/12 h-10 border-t border-l border-r border-primary-color" />
@@ -29,13 +29,13 @@
                         </div>
                     </div>
                     <div class="text-center text-xs">
-                        地址:0x17a...5796
+                        {{ $t('wallet.address') }}:0x17a...5796
                     </div>
                     <div class="text-center text-xs">
-                        全部pv: 500 - 100
+                        {{ $t('wallet.all') }} PV: 500 - 100
                     </div>
                     <div class="text-center text-xs mb-1">
-                        剩余pv: 50 - 10
+                        {{ $t('wallet.remain') }} PV 50 - 10
                     </div>
                     <div class="w-1 h-8 border-l border-primary-color" />
                     <div class="w-6/12 h-6 border-t border-l border-r border-primary-color" />
@@ -50,7 +50,8 @@
                             <van-popover v-model:show="showPopoverOne" theme="dark" :actions="actions"
                                 placement="bottom-start">
                                 <template #reference>
-                                    <div class="operating-button text-center text-white rounded text-xs px-3">查看</div>
+                                    <div class="operating-button text-center text-white rounded text-xs px-3">{{
+                                        $t('assistance.view') }}</div>
                                 </template>
                             </van-popover>
                         </div>
@@ -62,7 +63,8 @@
                             </div>
                             <van-popover v-model:show="showPopoverTwo" theme="dark" :actions="actions" placement="bottom">
                                 <template #reference>
-                                    <div class="operating-button text-center text-white rounded text-xs px-3">查看</div>
+                                    <div class="operating-button text-center text-white rounded text-xs px-3">{{
+                                        $t('assistance.view') }}</div>
                                 </template>
                             </van-popover>
 
@@ -76,13 +78,13 @@
                         </div>
                     </div>
                     <div class="text-center text-xs">
-                        地址:0x17a...5796
+                        {{ $t('wallet.address') }}:0x17a...5796
                     </div>
                     <div class="text-center text-xs">
-                        全部pv: 500 - 100
+                        {{ $t('wallet.all') }} PV: 500 - 100
                     </div>
                     <div class="text-center text-xs mb-1">
-                        剩余pv: 50 - 10
+                        {{ $t('wallet.remain') }} PV 50 - 10
                     </div>
                     <div class="w-1 h-8 border-l border-primary-color" />
                     <div class="w-6/12 h-6 border-t border-l border-r border-primary-color" />
@@ -100,7 +102,8 @@
                             </div>
                             <van-popover v-model:show="showPopoverThree" theme="dark" :actions="actions" placement="bottom">
                                 <template #reference>
-                                    <div class="operating-button text-center text-white rounded text-xs px-3">查看</div>
+                                    <div class="operating-button text-center text-white rounded text-xs px-3">{{
+                                        $t('assistance.view') }}</div>
                                 </template>
                             </van-popover>
                         </div>
@@ -114,7 +117,8 @@
                             <van-popover v-model:show="showPopoverFour" theme="dark" :actions="actions"
                                 placement="bottom-end">
                                 <template #reference>
-                                    <div class="operating-button text-center text-white rounded text-xs px-3">查看</div>
+                                    <div class="operating-button text-center text-white rounded text-xs px-3">{{
+                                        $t('assistance.view') }}</div>
                                 </template>
                             </van-popover>
                         </div>

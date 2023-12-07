@@ -5,15 +5,15 @@
                 <div class="rounded bg-bottom-content text-gray-200 w-11/12 p-2 text-sm mb-2" v-for="(item, index) in 4"
                     :key="index">
                     <div class="flex justify-between items-center">
-                        <div>地址:</div>
+                        <div>{{ $t('wallet.address') }}:</div>
                         <div>0xd8fAD...fe259C</div>
                     </div>
                     <div class="flex justify-between items-center">
-                        <div>配套:</div>
+                        <div>{{ $t('wallet.coherent') }}:</div>
                         <div class="text-red-500">2000</div>
                     </div>
                     <div class="flex justify-between items-center">
-                        <div>购买时间:</div>
+                        <div>{{ $t('assistance.buyTime') }}:</div>
                         <div>2023-11-23 00:23:23</div>
                     </div>
                 </div>

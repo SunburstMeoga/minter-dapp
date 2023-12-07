@@ -106,7 +106,7 @@
                     </div>
                 </div>
                 <div class="flex justify-center items-center absolute bottom-0 pb-6  w-full">
-                    <div class="operating-button text-center mr-auto ml-auto w-11/12 rounded py-2" @click="addressSign">
+                    <div class="operating-button text-center mr-auto ml-auto w-11/12 rounded py-2" @click="handleConnect">
                         {{ !userInfo.address ? $t('wallet.connectWallet') : addressFilter(userInfo.address) }}
                     </div>
                 </div>
@@ -133,21 +133,21 @@
                     <div class="icon iconfont icon-close1 close" @click="toggleUserInfoPopup"></div>
                 </div> -->
                 <div class=" text-2xl mb-2">
-                    錢包地址QR碼
+                    {{ $t('wallet.qrCode') }}
                 </div>
                 <div class="p-2 bg-white mb-1">
                     <qrcode-vue :value="userInfo.address" :size="size" level="H" />
                 </div>
                 <div class="mb-6 text-sm">
-                    <span class="underline">前往瀏覽器查看</span> 或
-                    <span class="underline">复制钱包地址</span>
+                    <span class="underline">{{ $t('wallet.view') }}</span> {{ $t('wallet.or') }}
+                    <span class="underline" @click="handleCopy">{{ $t('wallet.copy') }}</span>
 
                 </div>
                 <div class="mb-6 text-sm">
-                    賬戶: {{ addressFilter(userInfo.address) }}
+                    {{ $t('wallet.account') }}: {{ addressFilter(userInfo.address) }}
                 </div>
                 <div class="w-10/12 py-1.5 text-white operating-button text-center rounded mb-8" @click="disconnectWallet">
-                    斷開連接
+                    {{ $t('wallet.disconnect') }}
                 </div>
                 <div class="absolute bottom-0 w-full flex justify-center items-center">
                     <div class="w-4/12 ">
@@ -161,7 +161,9 @@
 
 <script setup>
 import { ref, computed, getCurrentInstance, onMounted } from 'vue'
-// import Web3 from "web3";
+
+import { CopyText } from '@/utils/copyText'
+import Web3 from "web3";
 // import ethereum from 'ethers'
 import { useRouter } from "vue-router";
 import { useI18n } from 'vue-i18n'
@@ -188,6 +190,8 @@ const actions = ref([
     { text: '繁体中文', locale: 'zh-hk' },
     { text: 'English', locale: 'en-us' }
 ])
+
+
 let showLangePopover = ref(false)
 
 let showUserInfoPopup = ref(false)
@@ -212,6 +216,10 @@ onMounted(() => {
 
     }
 })
+async function handleCopy() {
+    await CopyText(userInfo.address)
+    showToast(t('toast.copySuccess'))
+}
 function addressFilter(value) {
     if (value === undefined || value === null) return
     let arr = value.split('')
@@ -226,10 +234,6 @@ function addressFilter(value) {
     targetStr = targetArr.join('')
     return targetStr
 }
-//签名之后请求login接口
-async function signLogin(params) {
-
-}
 //钱包地址签名
 async function addressSign() {
     proxy.$loading.show()
@@ -237,11 +241,11 @@ async function addressSign() {
     let params = {}
     const randomString =
         "Welcome to Minter\n\nPlease click to sign in and accept the Minter Terms of Service.\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nWallet address:\n" +
-        '0xd8fAD3Fc2c619c75F54b42f68e10506bEbfe259C' +
+        window.ethereum.selectedAddress +
         "\n\nNonece:\n" +
         generateNonce();
     try {
-        const signature = await web3.eth.personal.sign(randomString, '0xd8fAD3Fc2c619c75F54b42f68e10506bEbfe259C', '')
+        const signature = await web3.eth.personal.sign(randomString, window.ethereum.selectedAddress, '')
         params = { randomString: randomString, signature: signature }
     } catch (err) {
         proxy.$loading.hide()
@@ -254,8 +258,10 @@ async function addressSign() {
         .then(res => {
             console.log(res)
             localStorage.setItem('token', res.access_token)
+            localStorage.setItem('address', res.address)
+            userInfo.changeAddress(res.address)
             proxy.$loading.hide()
-            showToast('已登录')
+            // showToast('已登录')
         })
         .catch(err => {
             proxy.$loading.hide()
@@ -267,7 +273,12 @@ async function addressSign() {
 }
 //点击连接钱包按钮
 async function handleConnect() {
-    addressSign()
+    if (localStorage.getItem('address') && localStorage.getItem('token')) {
+        toggleUserInfoPopup()
+    } else {
+        addressSign()
+    }
+
 }
 async function initWallet() {
     // if (localStorage.getItem('address')) {
@@ -288,6 +299,10 @@ async function disconnectWallet() {
     await ethereum.on('disconnect', (err, payload) => {
         console.log(err, payload)
     })
+    localStorage.removeItem('address')
+    localStorage.removeItem('token')
+    userInfo.changeAddress('')
+    toggleUserInfoPopup()
     console.log('已断开连接')
 }
 
@@ -310,27 +325,11 @@ function toggleMenu() {
     showLeftMenu.value = !showLeftMenu.value
 }
 
-function toggleLoginWay() {
-    showLoginPopup.value = !showLoginPopup.value
-}
 
 function toggleUserInfoPopup() {
     showUserInfoPopup.value = !showUserInfoPopup.value
 }
 
-function handleLogin() {
-    if (userInfo.address) {
-        console.log('已登录')
-        toggleMenu()
-        toggleUserInfoPopup()
-    }
-    if (!userInfo.address) {
-        console.log('未登录')
-        toggleLoginWay()
-        toggleMenu()
-    }
-
-}
 
 function handleHomeChild(menuItem, item, index) {
     router.push({

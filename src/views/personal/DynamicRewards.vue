@@ -16,11 +16,11 @@
                     <div class="w-11/12 ml-auto mr-auto mb-3 rounded overflow-hidden p-2 bg-black text-card-word text-sm"
                         v-for="(item, index) in 20" :key="index">
                         <div class="flex justify-between items-center mb-2">
-                            <div>奖励金额</div>
+                            <div>{{ $t('assistance.awardAmount') }}</div>
                             <div class="text-green-500">+ 100.00</div>
                         </div>
                         <div class="flex justify-between items-center">
-                            <div>发放时间</div>
+                            <div>{{ $t('assistance.releaseTime') }}</div>
                             <div>2023-09-30 16:01:12</div>
                         </div>
                     </div>
@@ -34,10 +34,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, getCurrentInstance } from 'vue'
-
+import { ref, onMounted, getCurrentInstance, computed } from 'vue'
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n()
 const { proxy } = getCurrentInstance()
-const typeList = ref([{ title: '直推奖励' }, { title: '对碰奖励' }, { title: '代数奖励' }])
+// const typeList = ref([{ title: '直推奖励' }, { title: '对碰奖励' }, { title: '代数奖励' }])
+let typeList = computed(() => {
+    return [{ title: t('assistance.directMarketingAward') }, { title: t('assistance.matchReward') }, { title: t('assistance.generationIncentive') }]
+})
 let currentType = ref(0)
 let dataList = ref([])
 

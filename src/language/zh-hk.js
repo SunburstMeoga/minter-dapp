@@ -166,7 +166,49 @@ export default {
     rechargeAmount: '充值金額',
     withdrawableAmount: '可提現金額',
     withdrawAddress: '提現地址',
-    withdrawAmount: '提現金額'
+    withdrawAmount: '提現金額',
+    qrCode: '錢包地址QR碼',
+    view: '前往瀏覽器查看',
+    or: '或',
+    copy: '複製錢包地址',
+    account: '賬戶',
+    disconnect: '斷開連接'
+  },
+  assistance: {
+    pointMap: '點位圖(雙軌製)',
+    organisationChart: '架構圖(直接推薦)',
+    dynamicRewards: '動態獎勵',
+    commitmentCard: '承諾卡',
+    invitation: '邀請方式',
+    inviterAddress: '邀請人地址',
+    preAddress: '上級地址',
+    nextAddress: '下級地址',
+    chooseCoherentBuy: '選擇配套購買',
+    createInviterLink: '生成邀請鏈接',
+    inviterLink: '邀請鏈接',
+    saveQRcode: '保存二維碼',
+    copyLink: '複製邀請鏈接',
+    buyCoherent: '購買配套',
+    currentPointAddress: '當前點位地址',
+    chooseCoherent: '選擇配套',
+    left: '左',
+    right: '右',
+    remain: '剩餘',
+    view: '查看',
+    buyDirect: '直接購買',
+    pointInfo: '點位信息',
+    buyTime: '購買時間',
+    directMarketingAward: '直推獎勵',
+    matchReward: '對碰獎勵',
+    generationIncentive: '代數獎勵',
+    awardAmount: '獎勵金額',
+    releaseTime: '發放時間',
+    packageAmount: '配套金額',
+    proceed: '收益',
+    expiryTime: '到期時間',
+    acceleratorAward: '加速器',
+    dailyEarnings: '每日收益',
+    recommendedBenefits: '推薦福利'
   },
   exchange: {
     title: '兌換',
@@ -203,7 +245,8 @@ export default {
   modalConfirm: {
     buySuccess: '購買成功',
     luckyDraw: '已經購買NFT卡，請前往轉盤抽獎',
-    confirm: '確認'
+    confirm: '確認',
+    cancel: '取消'
   },
   raffle: {
     start: '開始'

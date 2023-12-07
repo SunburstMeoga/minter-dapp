@@ -2,16 +2,16 @@
     <div class="pt-12 text-primary-color">
         <van-tabs class="pt-2 bg-black " v-model:active="active" sticky shrink animated swipeable color="#e149ed"
             title-inactive-color="#fff" title-active-color="#e149ed" background="#000">
-            <van-tab title="点位图(双轨制)">
+            <van-tab :title="$t('assistance.pointMap')">
                 <point @clickPoint="clickPoint" />
             </van-tab>
-            <van-tab title="架构图(直接推荐)">
+            <van-tab :title="$t('assistance.organisationChart')">
                 <point-two @clickPoint="clickPoint" />
             </van-tab>
-            <van-tab title="动态奖励">
+            <van-tab :title="$t('assistance.dynamicRewards')">
                 <dynamic-rewards />
             </van-tab>
-            <van-tab title="承诺卡">
+            <van-tab :title="$t('assistance.commitmentCard')">
                 <div class="flex flex-col justify-start items-center mt-4">
                     <div class="w-11/12 mb-2" v-for="(item, index) in cardList" :key="index">
                         <performance-commitment-card @toggleShowMore="toggleShowMore(item, index)"
@@ -23,7 +23,7 @@
         <!-- 邀请方式弹窗 -->
         <van-popup v-model:show="showAttendPopup" round position="bottom">
             <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
-                <div class="text-center mb-6 text-white">请选择邀请方式</div>
+                <div class="text-center mb-6 text-white">{{ $t('assistance.invitation') }}</div>
                 <div class="flex justify-start items-center mb-6">
                     <div class="flex flex-col justify-start items-center mr-3 w-11/12" v-for="(item, index) in attendWays"
                         :key="index" @click="handleAttendItem(item, index)">
@@ -39,7 +39,7 @@
 
                 <div class="w-full flex justify-center items-center">
                     <div class="w-11/12 operating-button text-center py-2.5 rounded" @click="showAttendPopup = false">
-                        取消
+                        {{ $t('wallet.cancleSale') }}
                     </div>
                 </div>
             </div>
@@ -49,33 +49,37 @@
             <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
                 <!-- <div class="text-center mb-6 text-white">请输入上级地址</div> -->
                 <div class="w-full flex flex-col items-center mb-2">
-                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1">请填写邀请人地址</div>
+                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1">{{ $t('assistance.inviterAddress') }}</div>
                     <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-700 mb-1 pl-2">
-                        <input type="text" placeholder="请输入邀请人地址" class="w-full h-full bg-bottom-content rounded">
+                        <input type="text" :placeholder="$t('assistance.inviterAddress')"
+                            class="w-full h-full bg-bottom-content rounded">
                     </div>
                     <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
-                        該地址為無效地址
+                        {{ $t('coherents.invalidAddress') }}
                     </div>
                 </div>
                 <div class="w-full flex flex-col items-center mb-2">
-                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1">上级地址</div>
+                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1">{{ $t('assistance.preAddress') }}</div>
                     <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-700 mb-1 pl-2">
-                        <input type="text" disabled placeholder="上级地址" class="w-full h-full bg-bottom-content rounded">
+                        <input type="text" disabled :placeholder="$t('assistance.preAddress')"
+                            class="w-full h-full bg-bottom-content rounded">
                     </div>
                     <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
-                        該地址為無效地址
+                        {{ $t('coherents.invalidAddress') }}
                     </div>
                 </div>
                 <div class="w-full flex flex-col items-center mb-2">
-                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1">请填写下级地址</div>
+                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1">{{ $t('assistance.nextAddress') }}</div>
                     <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-700 mb-1 pl-2">
-                        <input type="text" placeholder="请填写下级地址" class="w-full h-full bg-bottom-content rounded">
+                        <input type="text" :placeholder="$t('assistance.nextAddress')"
+                            class="w-full h-full bg-bottom-content rounded">
                     </div>
                     <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
-                        該地址為無效地址
+                        {{ $t('coherents.invalidAddress') }}
                     </div>
                 </div>
-                <div class="text-gray-200 text-sm w-11/12 mb-1 ml-auto mr-auto">选择配套购买</div>
+                <div class="text-gray-200 text-sm w-11/12 mb-1 ml-auto mr-auto">{{ $t('modalConfirm.chooseCoherentBuy') }}
+                </div>
                 <div class="w-full flex justify-center items-center mb-4">
                     <div class="w-11/12 flex justify-between items-center">
                         <div v-for="(item, index) in coherentsList" @click="currentCoherent = index"
@@ -87,10 +91,10 @@
                 </div>
                 <div class="flex justify-between items-center w-11/12 mr-auto ml-auto">
                     <div class="w-5/12 operating-button text-center py-2.5 rounded" @click="showBuyPopup = false">
-                        确认
+                        {{ $t('modalConfirm.confirm') }}
                     </div>
                     <div class="w-5/12 border border-gray-700 text-center py-2.5 rounded" @click="showBuyPopup = false">
-                        取消
+                        {{ $t('modalConfirm.cancel') }}
                     </div>
                 </div>
             </div>
@@ -100,32 +104,33 @@
             <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
                 <!-- <div class="text-center mb-6 text-white">请输入上级地址</div> -->
                 <div class="w-full flex flex-col items-center mb-2">
-                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1">请填写邀请人地址</div>
+                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1"> {{ $t('assistance.inviterAddress') }}</div>
                     <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-700 mb-1 pl-2">
-                        <input type="text" placeholder="请输入邀请人地址" class="w-full h-full bg-bottom-content rounded">
+                        <input type="text" :placeholder="$t('assistance.inviterAddress')"
+                            class="w-full h-full bg-bottom-content rounded">
                     </div>
                     <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
-                        該地址為無效地址
+                        {{ $t('coherents.invalidAddress') }}
                     </div>
                 </div>
-                <div class="w-full flex flex-col items-center mb-2">
+                <!-- <div class="w-full flex flex-col items-center mb-2">
                     <div class="text-gray-200 text-sm text-left w-11/12 mb-1">请填写上级地址</div>
                     <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-700 mb-1 pl-2">
                         <input type="text" placeholder="请填写上级地址" class="w-full h-full bg-bottom-content rounded">
                     </div>
                     <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
-                        該地址為無效地址
+                        {{ $t('coherents.invalidAddress') }}
                     </div>
-                </div>
+                </div> -->
 
                 <div class="w-11/12 flex justify-between items-center mr-auto ml-auto">
 
                     <div class="w-7/12 operating-button text-center py-2.5 rounded" @click="handleCreateInvitationLink">
-                        生成邀请链接
+                        {{ $t('assistance.createInviterLink') }}
                     </div>
                     <div class="w-4/12 border border-gray-700 text-center py-2.5 rounded"
                         @click="toggleInvitationLinksPopup">
-                        取消
+                        {{ $t('modalConfirm.cancel') }}
                     </div>
                 </div>
             </div>
@@ -137,7 +142,7 @@
                     <div class="icon iconfont icon-close1 close" @click="toggleUserInfoPopup"></div>
                 </div> -->
                 <div class=" text-2xl mb-2 text-black">
-                    邀请链接
+                    {{ $t('assistance.inviterLink') }}
                 </div>
                 <div class="mb-6 bg-white">
                     <qrcode-vue value="http://localhost:5173/personal/assistance"
@@ -145,10 +150,10 @@
                 </div>
                 <div class="w-full flex justify-between items-center text-sm">
                     <div class="w-5/12 operating-button text-center py-2.5 rounded" @click="handleSaveQRCode">
-                        保存二维码
+                        {{ $t('assistance.saveQRcode') }}
                     </div>
                     <div class="w-5/12 operating-button text-center py-2.5 rounded" @click="handleCopyLink">
-                        复制邀请链接
+                        {{ $t('assistance.copyLink') }}
                     </div>
                 </div>
             </div>
@@ -173,7 +178,7 @@
                 </div>
                 <div class="w-full flex justify-center items-center">
                     <div class="w-11/12 operating-button text-center py-2.5 rounded" @click="showAttendPopup = false">
-                        取消
+                        {{ $t('wallet.cancleSale') }}
                     </div>
                 </div>
             </div>
@@ -181,14 +186,15 @@
         <!-- 点位配套信息弹窗 -->
         <van-popup v-model:show="showPointCoherentInfo" round position="bottom">
             <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
-                <div class="text-center mb-6 text-white">购买配套</div>
+                <div class="text-center mb-6 text-white">{{ $t('assistance.buyCoherent') }}</div>
                 <div class="w-full flex flex-col items-center mb-2">
-                    <div class="text-gray-300 text-sm text-left w-11/12 mb-1">当前点位地址</div>
+                    <div class="text-gray-300 text-sm text-left w-11/12 mb-1">{{ $t('assistance.currentPointAddress') }}
+                    </div>
                     <div class="rounded w-11/12 h-11 border border-gray-700 mb-1 px-1 break-words leading-5">
                         {{ currentPointInfo.address }}
                     </div>
                 </div>
-                <div class="text-gray-300 text-sm  w-11/12 mb-1 ml-auto mr-auto">选择配套</div>
+                <div class="text-gray-300 text-sm  w-11/12 mb-1 ml-auto mr-auto">{{ $t('assistance.chooseCoherent') }}</div>
                 <div class="w-11/12 mr-auto ml-auto flex justify-between items-center mb-4">
                     <div class="flex-1 pr-2">
                         <van-popover v-model:show="showCoherentList" theme="dark" :actions="actions" placement="bottom">
@@ -200,23 +206,23 @@
                         </van-popover>
                     </div>
                     <div class="rounded operating-button h-8 leading-8 px-2">
-                        确认购买
+                        {{ $t('modalConfirm.confirm') }}
                     </div>
                 </div>
                 <div class="w-full flex flex-col items-center mb-2">
-                    <div class="text-gray-300 text-sm text-left w-11/12 mb-1">当前点位pv</div>
+                    <div class="text-gray-300 text-sm text-left w-11/12 mb-1">PV</div>
                     <div class="rounded w-11/12 h-11 border border-gray-700 mb-1 px-1 break-words leading-10">
                         100
                     </div>
                 </div>
                 <div class="w-full flex flex-col items-center mb-2">
-                    <div class="text-gray-300 text-sm text-left w-11/12 mb-1">当前下级左PV</div>
+                    <div class="text-gray-300 text-sm text-left w-11/12 mb-1">{{ $t('assistance.left') }}PV</div>
                     <div class="rounded w-11/12 h-11 border border-gray-700 mb-1 px-1 break-words leading-10">
                         1000PV
                     </div>
                 </div>
                 <div class="w-full flex flex-col items-center mb-2">
-                    <div class="text-gray-300 text-sm text-left w-11/12 mb-1">当前下级右PV</div>
+                    <div class="text-gray-300 text-sm text-left w-11/12 mb-1">{{ $t('assistance.right') }}PV</div>
                     <div class="rounded w-11/12 h-11 border border-gray-700 mb-1 px-1 break-words leading-10">
                         1000PV
                     </div>
@@ -233,18 +239,19 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import QrcodeVue from 'qrcode.vue'
 import Point from './point.vue';
 import PointTwo from './pointTwo.vue';
-
 import DynamicRewards from './DynamicRewards.vue';
 import PerformanceCommitmentCard from './PerformanceCommitmentCard.vue'
 import coherents_list from '@/datas/coherents_list'
 // import { viewSpreads } from '@/request/contract'
 import { DownloadImage } from '@/utils/saveImg'
 import { CopyText } from '@/utils/copyText'
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n()
 let active = ref(0)
 let showAttendPopup = ref(false)
 let showBuyPopup = ref(false)
@@ -256,8 +263,12 @@ let showInvitationLinksPopup = ref(false)
 let currentPointInfo = ref({ address: '0x83906217A773022db1aDe203292B957961e67d1B' })
 let size = ref(240)
 let cardList = ref([{ showMore: false }, { showMore: false }, { showMore: false }, { showMore: false }, { showMore: false }, { showMore: false }])
-let attendWays = ref([{ title: '直接购买', icon: 'icon-goumai' }, { title: '生成邀请链接', icon: 'icon-lianjie' }])
-let addressOperating = ref([{ title: '查看点位信息', icon: 'icon-Search' }, { title: '购买配套', icon: 'icon-shengji' }])
+let attendWays = computed(() => {
+    return [{ title: t('assistance.buyDirect'), icon: 'icon-goumai' }, { title: t('assistance.createInviterLink'), icon: 'icon-lianjie' }]
+})
+let addressOperating = computed(() => {
+    return [{ title: t('assistance.pointInfo'), icon: 'icon-Search' }, { title: t('assistance.buyCoherent'), icon: 'icon-shengji' }]
+})
 let showCoherentList = ref(false)
 const actions = ref([
     { text: '200' },

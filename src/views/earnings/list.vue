@@ -6,49 +6,49 @@
         <div class="border-b border-gray-700">
             <van-tabs class="bg-black" v-model:active="active" animated swipeable color="#e149ed"
                 title-inactive-color="#fff" title-active-color="#e149ed" background="#000">
-                <van-tab title="直推收益">
+                <van-tab :title="$t('assistance.directMarketingAward')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
                         <div v-for="(item, index) in 9" class="mb-2" :key="index">
                             <earnings-card />
                         </div>
                     </div>
                 </van-tab>
-                <van-tab title="对碰收益">
+                <van-tab :title="$t('assistance.matchReward')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
                         <div v-for="(item, index) in 9" class="mb-2" :key="index">
                             <earnings-card />
                         </div>
                     </div>
                 </van-tab>
-                <van-tab title="代数收益">
+                <van-tab :title="$t('assistance.generationIncentive')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
                         <div v-for="(item, index) in 9" class="mb-2" :key="index">
                             <earnings-card />
                         </div>
                     </div>
                 </van-tab>
-                <van-tab title="加速器收益">
+                <van-tab :title="$t('assistance.acceleratorAward')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
                         <div v-for="(item, index) in 9" class="mb-2" :key="index">
                             <earnings-card />
                         </div>
                     </div>
                 </van-tab>
-                <van-tab title="业绩承诺卡收益">
+                <van-tab :title="$t('assistance.commitmentCard')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
                         <div v-for="(item, index) in 9" class="mb-2" :key="index">
                             <earnings-card />
                         </div>
                     </div>
                 </van-tab>
-                <van-tab title="每日收益">
+                <van-tab :title="$t('assistance.dailyEarnings')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
                         <div v-for="(item, index) in 9" class="mb-2" :key="index">
                             <earnings-card />
                         </div>
                     </div>
                 </van-tab>
-                <van-tab title="推荐福利收益">
+                <van-tab :title="$t('assistance.recommendedBenefits')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
                         <div v-for="(item, index) in 9" class="mb-2" :key="index">
                             <earnings-card />

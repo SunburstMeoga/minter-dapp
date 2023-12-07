@@ -88,7 +88,7 @@
                     </div>
 
                     <div class="text-white text-base flex justify-between items-center mb-3">
-                        <div>RT{{ $t('wallet.balance') }}: </div>
+                        <div>RT {{ $t('wallet.balance') }}: </div>
                         <div class="text-red-500 font-bold">0.0000 RT </div>
                         <!-- <div class="text-primary-color text-xs pl-1"> (当前1USDT可兑换2RT)</div> -->
                     </div>
@@ -108,7 +108,8 @@
                     </div>
                     <div class="w-full mb-8 flex justify-between items-center">
                         <div class="rounded mr-2 border border-gray-700 flex-1 py-2">
-                            <input type="text" placeholder="请输入转账金额" class="w-full h-full bg-transparent pl-1">
+                            <input type="text" :placeholder="$t('wallet.transferAmount')"
+                                class="w-full h-full bg-transparent pl-1">
                         </div>
                         <div class="underline text-sm text-gray-200">{{ $t('wallet.all') }}</div>
                     </div>
@@ -165,7 +166,7 @@
 
                     <div class="text-white text-base flex justify-between items-center mb-3">
                         <div>{{ $t('wallet.withdrawableAmount') }}: </div>
-                        <div class="text-red-500 font-bold">0.0000 RT </div>
+                        <div class="text-red-500 font-bold">0.0000 MUSDT </div>
                         <!-- <div class="text-primary-color text-xs pl-1"> (当前1USDT可兑换2RT)</div> -->
                     </div>
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">

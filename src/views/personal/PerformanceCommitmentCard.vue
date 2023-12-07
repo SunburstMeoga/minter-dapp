@@ -16,15 +16,15 @@
 
         <div v-show="showMore">
             <div class="flex justify-between items-center mb-3">
-                <div>配套金额</div>
+                <div>{{ $t('assistance.packageAmount') }}:</div>
                 <div class="text-red-500 font-bold">{{ Number(coherentAmount).toFixed(2) }}</div>
             </div>
             <div class="flex justify-between items-center mb-3 mt-3">
-                <div>收益:</div>
+                <div>{{ $t('assistance.proceed') }}:</div>
                 <div class="text-red-500 font-bold">{{ Number(coherentAmount * 0.1).toFixed(2) }}</div>
             </div>
             <div class="flex justify-between items-center mb-3">
-                <div>到期时间:</div>
+                <div>{{ $t('assistance.expiryTime') }}:</div>
                 <div class="">2023-09-30 16:01:12</div>
             </div>
             <!-- <div class="flex justify-between items-center mb-3">
