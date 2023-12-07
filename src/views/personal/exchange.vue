@@ -1,35 +1,36 @@
 <template>
     <div class="flex flex-col justify-start items-center bg-black pb-20 pt-12">
         <div class="w-11/12 mb-4 mt-4">
-            <module-title titleWord="兑换RT" />
+            <module-title :titleWord="$t('exchange.title') + ' RT'" />
         </div>
         <div class="w-11/12 rounded-lg bg-top-content px-2 py-4">
             <div class="text-center font-bold text-white mb-6">
-                兑换
+                {{ $t('exchange.title') }}
             </div>
             <div class="text-white text-base flex justify-between items-center mb-6">
-                <div>USDT余额: </div>
+                <div>USDT {{ $t('order.balance') }}: </div>
                 <div>0.0000 USDT </div>
                 <!-- <div class="text-primary-color text-xs pl-1"> (当前1USDT可兑换2RT)</div> -->
             </div>
             <div class="text-white text-base flex justify-between items-center mb-6">
-                <div>RT余额: </div>
+                <div>RT {{ $t('order.balance') }}: </div>
                 <div>0.0000 RT </div>
                 <!-- <div class="text-primary-color text-xs pl-1"> (当前1USDT可兑换2RT)</div> -->
             </div>
             <div class="text-white text-xs flex justify-start items-baseline mb-2">
-                <div class="text-base">兑换数量 </div>
-                <div class="text-primary-color text-xs pl-1"> (当前1USDT = 1RT)</div>
+                <div class="text-base">{{ $t('exchange.exchangeQuantity') }} </div>
+                <div class="text-primary-color text-xs pl-1"> (1USDT = 1RT)</div>
             </div>
             <div class="w-full flex justify-between items-center mb-10">
                 <div class="rounded mr-2 border border-gray-700 flex-1 py-1">
-                    <input type="text" placeholder="请输入需要兑换的RT数量" class="w-full h-full bg-transparent pl-1 text-gray-200">
+                    <input type="text" :placeholder="$t('exchange.exchangeQuantity')"
+                        class="w-full h-full bg-transparent pl-1 text-gray-200">
                 </div>
                 <div class="underline text-sm text-gray-200">{{ $t('wallet.all') }}</div>
             </div>
             <!--  -->
             <div class="operating-button rounded-full text-white font-bold text-center text-sm py-2">
-                确认兑换
+                {{ $t('modalConfirm.confirm') }}
             </div>
         </div>
     </div>

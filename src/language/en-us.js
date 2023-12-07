@@ -178,6 +178,10 @@ export default {
     withdrawAddress: 'Withdrawal Address',
     withdrawAmount: 'Withdrawal Amount'
   },
+  exchange: {
+    title: 'Exchange',
+    exchangeQuantity: 'Redemption Quantity'
+  },
   coherents: {
     MatchingLevelBonusRate: 'Bonus Rate',
     contribution: 'Contribution',

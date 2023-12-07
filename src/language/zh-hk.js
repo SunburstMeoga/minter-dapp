@@ -168,6 +168,10 @@ export default {
     withdrawAddress: '提現地址',
     withdrawAmount: '提現金額'
   },
+  exchange: {
+    title: '兌換',
+    exchangeQuantity: '兌換數量'
+  },
   coherents: {
     MatchingLevelBonusRate: '配套等級獎勵率',
     contribution: '可獲取貢獻值數量',
