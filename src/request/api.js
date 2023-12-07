@@ -7,3 +7,19 @@ export function login(params) {
     params: params
   })
 }
+
+//查看是否足夠rt餘額
+export function adequateBalance() {
+  return request('/players/login', {
+    method: 'GET',
+    params: params
+  })
+}
+
+//購買配套
+export function buyCoherent(params) {
+  return request('packages/check', {
+    method: 'POST',
+    params: params
+  })
+}
