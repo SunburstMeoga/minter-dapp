@@ -161,7 +161,7 @@
 
 <script setup>
 import { ref, computed, getCurrentInstance, onMounted } from 'vue'
-import Web3 from "web3";
+// import Web3 from "web3";
 // import ethereum from 'ethers'
 import { useRouter } from "vue-router";
 import { useI18n } from 'vue-i18n'
