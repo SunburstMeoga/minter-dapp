@@ -80,7 +80,7 @@ export default {
       '我們致力於將NFT的概念、價值和應用推廣到更廣泛的人群中，使更多的人能夠了解、理解並參與到這一革命中來。'
   },
   projectIntroduction: {
-    noahTitle: '诺亚社区',
+    noahTitle: '諾亞（NOAH）社區',
     noahContentOne:
       '諾亞（NOAH）社區，由全球范圍內的區塊鏈愛好者、技術專家和先驅者於2019年共同成立。',
     noahContentTwo:
