@@ -28,6 +28,16 @@ let personal = [
     }
   },
   {
+    path: '/personal/nfts',
+    name: 'personal-nfts',
+    component: () => import('@/views/personal/nfts.vue'),
+    meta: {
+      showLogo: false,
+      showBack: true,
+      pageTitle: 'NFTs'
+    }
+  },
+  {
     path: '/personal/assistance',
     name: 'personal-assistance',
     component: () => import('@/views/personal/assistance.vue'),

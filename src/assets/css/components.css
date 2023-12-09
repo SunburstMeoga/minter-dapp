@@ -2,7 +2,20 @@
     /* background: rgb(225,73,237);
     background: linear-gradient(13deg, rgba(225,73,237,1) 15%, rgba(59,80,158,1) 63%, rgba(42,103,184,1) 93%, rgba(16,46,122,1) 100%); */
     background: rgb(255,0,248);
-background: linear-gradient(13deg, rgba(255,0,248,1) 0%, rgba(31,174,187,1) 100%);
+    background: linear-gradient(13deg, rgba(255,0,248,1) 0%, rgba(31,174,187,1) 100%);
+    transition:all 1s ease-out;
+}
+.operating-button:active {
+    transform: scale(0.8, 0.8);   
+}
+.active-scale {
+    transition:all 1s ease-out;
+}
+.active-scale:active {
+    transform: scale(0.8, 0.8);   
+}
+.operating-button:active {
+    transform: scale(0.8, 0.8);   
 }
 .module-content {
     background: rgb(44,79,176);

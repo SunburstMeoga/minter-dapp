@@ -9,8 +9,8 @@ export function login(params) {
 }
 
 //查看是否足夠rt餘額
-export function adequateBalance() {
-  return request('/players/login', {
+export function adequateBalance(params) {
+  return request('/players/check', {
     method: 'GET',
     params: params
   })
@@ -18,7 +18,7 @@ export function adequateBalance() {
 
 //購買配套
 export function buyCoherent(params) {
-  return request('packages/check', {
+  return request('packages/buy', {
     method: 'POST',
     params: params
   })

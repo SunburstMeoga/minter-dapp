@@ -11,7 +11,7 @@
               {{ $t('coherents.price') }}:
             </div>
             <div class="text-red-500 font-bold">
-              $ {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
+              {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
                 FormatAmount(coherentInfo.type).pointOffside }}</span>
             </div>
           </div>
@@ -20,7 +20,7 @@
               {{ $t('coherents.coherentCap') }}:
             </div>
             <div class="text-red-500 font-bold">
-              $ {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
+              {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
                 FormatAmount(coherentInfo.limit).pointOffside }}</span>
             </div>
           </div>
@@ -75,7 +75,7 @@
           v-for="(item, index) in propertiesList" :key="index">
           <div>{{ item.title }}</div>
           <div class="flex justify-end items-center" @click="handlePropertiesItem(item, index)">
-            <div class="mr-0.5">{{ item.placeholder }}</div>
+            <div class="mr-0.5">{{ item.content }}</div>
             <div class=" icon iconfont icon-right"></div>
           </div>
         </div>
@@ -88,44 +88,44 @@
       </div>
     </div>
     <!-- 直接上級 -->
-    <van-popup v-model:show="showsDirectSuperiorPopup" round position="bottom">
+    <van-popup v-model:show="showReferrerAddressPopup" round position="bottom">
       <div class="bg-black text-white py-4 flex flex-col justify-center">
         <div class="w-full mb-4">
           <div class="text-center mb-4 font-bold">{{ propertiesList[0].title }}</div>
           <div class="w-full flex flex-col items-center mb-2">
             <div class="text-gray-200 text-sm text-left w-11/12 mb-1">{{ propertiesList[0].title }}</div>
             <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-500 mb-1 pl-2">
-              <input @focus="isErrDirectSuperior = false" type="text"
-                :placeholder="propertiesList[0].placeholder + propertiesList[0].title" v-model="directSuperior"
+              <input @focus="isErrReferrerAddress = false" type="text"
+                :placeholder="propertiesList[0].placeholder + propertiesList[0].title" v-model="referrerAddress"
                 class="w-full h-full bg-black rounded text-sm">
             </div>
-            <div v-show="isErrDirectSuperior" class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated"
-              :class="isErrDirectSuperior ? 'animate__shakeX' : ''">{{ $t('coherents.invalidAddress') }}
+            <div v-show="isErrReferrerAddress" class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated"
+              :class="isErrReferrerAddress ? 'animate__shakeX' : ''">{{ $t('coherents.invalidAddress') }}
             </div>
           </div>
         </div>
 
         <div class="w-full flex justify-center items-center">
-          <div class="w-11/12 operating-button text-center py-2.5 rounded" @click="handleConfirmDirectSuperior">
+          <div class="w-11/12 operating-button text-center py-2.5 rounded" @click="handleConfirmReferrerAddress">
             {{ $t('modalConfirm.confirm') }}
           </div>
         </div>
       </div>
     </van-popup>
     <!-- 對碰上級 -->
-    <van-popup v-model:show="showMeetWithSuperiorsPopup" round position="bottom">
+    <van-popup v-model:show="showLegAddressPopup" round position="bottom">
       <div class="bg-black text-white py-4 flex flex-col justify-center">
         <div class="w-full mb-4">
           <div class="text-center mb-4 font-bold">{{ propertiesList[1].title }}</div>
           <div class="w-full flex flex-col items-center mb-4">
             <div class="text-gray-200 text-sm text-left w-11/12 mb-1">{{ propertiesList[1].title }}</div>
             <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-500 mb-1 pl-2">
-              <input @focus="isErrMeetWithSuperiors = false" type="text"
-                :placeholder="propertiesList[1].placeholder + propertiesList[1].title" v-model="meetWithSuperiors"
+              <input @focus="isErrLeg = false" type="text"
+                :placeholder="propertiesList[1].placeholder + propertiesList[1].title" v-model="legAddress"
                 class="w-full h-full bg-black rounded text-sm">
             </div>
-            <div v-show="isErrMeetWithSuperiors" class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated"
-              :class="isErrMeetWithSuperiors ? 'animate__shakeX' : ''">{{ $t('coherent.invalidAddress') }}
+            <div v-show="isErrLeg" class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated"
+              :class="isErrLeg ? 'animate__shakeX' : ''">{{ $t('coherent.invalidAddress') }}
             </div>
           </div>
           <div class="w-full flex justify-center items-center">
@@ -146,23 +146,9 @@
         </div>
       </div>
     </van-popup>
-    <!-- 支付方式 -->
-    <van-popup v-model:show="showPayWayPopup" round position="bottom">
+    <!-- 確認支付彈窗 -->
+    <van-popup v-model:show="showConfirmPayPopup" round position="bottom">
       <div class="bg-black text-white py-4 flex flex-col justify-center">
-        <!-- <div class="text-center mb-4 font-bold">2000</div> -->
-        <!-- <div class="w-full flex flex-col justify-center items-center mb-4">
-          <div v-for="(item, index) in payWays" @click="currentPayWay = index"
-            class="border border-primary-color rounded py-2.5 w-11/12 text-center mb-3 text-white flex justify-between px-2"
-            :class="currentPayWay == index ? 'operating-button font-bold' : ''">
-            <div>
-              {{ item.title }}
-            </div>
-            <div>
-              余额: {{ FormatAmount(item.balance).pointPre }}.<span class="text-xs">{{
-                FormatAmount(item.balance).pointOffside }}</span>
-            </div>
-          </div>
-        </div> -->
         <div class="flex justify-start items-center w-11/12 mr-auto ml-auto mb-2 border-b border-gray-900 pb-4">
           <div class="flex w-30 p-2 justify-center bg-page-content rounded shadow-xl">
             <img src="../../assets/images/coherent-ssr.png" alt="">
@@ -173,7 +159,7 @@
                 {{ $t('coherents.price') }}:
               </div>
               <div class="text-red-500 font-bold">
-                $ {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
+                {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
                   FormatAmount(coherentInfo.type).pointOffside }}</span>
               </div>
             </div>
@@ -182,7 +168,7 @@
                 {{ $t('coherents.coherentCap') }}:
               </div>
               <div class="text-red-500 font-bold">
-                $ {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
+                {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
                   FormatAmount(coherentInfo.limit).pointOffside }}</span>
               </div>
             </div>
@@ -192,23 +178,21 @@
         <div class="w-11/12 mr-auto ml-auto mb-4">
           <div class="text-white text-xs flex justify-between items-baseline mb-1">
             <div class="text-base">RT </div>
-            <div class="text-primary-color font-bold pl-1"> {{ $t('order.balance') }}: 0.0000RT</div>
+            <div class="text-primary-color font-bold pl-1"> {{ $t('order.balance') }}: 0.0000 RT</div>
           </div>
           <div class="w-full mb-4 flex justify-between items-center">
             <div class="rounded pl-3 border border-gray-700 flex-1 py-1.5 text-sm ">
               {{ $t('order.needPay') }} 0.0000
             </div>
-            <!-- <div class="underline text-sm text-gray-200">全部</div> -->
           </div>
           <div class="text-white text-xs flex justify-between items-baseline mb-1">
             <div class="text-base">{{ $t('order.bind') }}RT </div>
-            <div class="text-primary-color font-bold pl-1"> {{ $t('order.balance') }}: 0.0000RT</div>
+            <div class="text-primary-color font-bold pl-1"> {{ $t('order.balance') }}: 0.0000 RT</div>
           </div>
           <div class="w-full mb-4 flex justify-between items-center">
             <div class="rounded pl-3 border border-gray-700 flex-1 py-1.5 text-sm ">
               {{ $t('order.needPay') }} 0.0000
             </div>
-            <!-- <div class="underline text-sm text-gray-200">全部</div> -->
           </div>
         </div>
 
@@ -231,117 +215,99 @@ import { showToast } from 'vant';
 import coherents_list from '@/datas/coherents_list'
 import { FormatAmount, FilterAddress } from '@/utils/format'
 import { useI18n } from 'vue-i18n';
+import { buyCoherent } from '@/request/api'
 
 const { t } = useI18n()
 const route = useRoute()
 const { proxy } = getCurrentInstance()
 
-let isErrDirectSuperior = ref(false) //直接上级是否为无效地址
-let isErrMeetWithSuperiors = ref(false) //对碰上级是否为无效地址
+let isErrReferrerAddress = ref(false) //直接上级是否为无效地址
+let isErrLeg = ref(false) //对碰上级是否为无效地址
 let coherentInfo = ref({})
-let currentPayWay = ref(null)
-let directSuperior = ref(null) //直接上级
-let meetWithSuperiors = ref(null)//对碰上级
-let preAddressPoint = ref(null)
+let referrerAddress = ref(null) //直接上级
+let legAddress = ref(null)//对碰上级
 const pointLsit = ref([{ title: '左点位', isUsability: false }, { title: '右点位', isUsability: false }])
-let payWays = computed(() => {
-  return [
-    { title: 'RT', balance: '9000' },
-    { title: 'MUSDT', balance: '100000' },
-
-  ]
-})
 let propertiesList = computed(() => {
   return [
-    { title: t('coherents.directAddress'), placeholder: t('coherents.pleaseEnter'), content: directSuperior.value },
-    { title: t('coherents.collisionAddress'), placeholder: t('coherents.pleaseEnter'), content: meetWithSuperiors.value },
-    // { title: t('coherents.paymenMethod'), placeholder: '請選擇', content: preAddressPoint.value }
+    { title: t('coherents.directAddress'), placeholder: t('coherents.pleaseEnter'), content: '' },
+    { title: t('coherents.collisionAddress'), placeholder: t('coherents.pleaseEnter'), content: '' },
   ]
 })
-let PMTPresent = computed(() => {
-  // return '发放项目代币为PMT，发放数量为配套金额*60%，代币将会平均分为三批，分三天发放完毕。成功购买之后会发放第一批，购买24小时候发放第二批，购买48小时后发放第三批。'
-  return `购买成功之后即时释放${Number(coherentInfo.value.type) * (6 / 10) * (1 / 3)}PMT，24小时后释放${Number(coherentInfo.value.type) * (6 / 10) * (1 / 3)}PMT,48小时后释放${Number(coherentInfo.value.type) * (6 / 10) * (1 / 3)}PMT`
-})
 let currentPoint = ref(null)
-let showsDirectSuperiorPopup = ref(false)
-let showMeetWithSuperiorsPopup = ref(false)
-let showPayWayPopup = ref(false)
+let showReferrerAddressPopup = ref(false)
+let showLegAddressPopup = ref(false)
+let showConfirmPayPopup = ref(false)
 let showPMTPopover = ref(false)
 
 //点击填写直接上级弹窗确认按钮
-function handleConfirmDirectSuperior() {
-  console.log(directSuperior.value, directSuperior.value == ZeroAddress, isAddress(directSuperior.value))
-  if (!directSuperior.value) {
+function handleConfirmReferrerAddress() {
+  console.log(referrerAddress.value, referrerAddress.value == ZeroAddress, isAddress(referrerAddress.value))
+  if (!referrerAddress.value) {
     showToast(t('coherents.pleaseEnter' + t('coherents.directAddress')))
     return
   }
-  if (directSuperior.value == ZeroAddress || !isAddress(directSuperior.value)) {
+  if (referrerAddress.value == ZeroAddress || !isAddress(referrerAddress.value)) {
     console.log('无效地址')
-    // directSuperior.value = null
-    isErrDirectSuperior.value = true
+    isErrReferrerAddress.value = true
     return
   }
-  propertiesList.value[0].placeholder = FilterAddress(directSuperior.value)
-  toggleDirectSuperiorPopup()
+  propertiesList.value[0].content = FilterAddress(referrerAddress.value)
+  toggleReferrerAddressPopup()
 }
-//获取对碰上级地址可用点位
-// async function getMeetWithSuperiorsPoint(walletAddress) {
-//   let result = await viewSpreads(walletAddress)
-//   let isLeft = result.left == ZeroAddress
-//   let isRight = result.right == ZeroAddress
-//   if (isLeft && isRight) {
-//     return 0 //该地址左右点位均可用
-//   } else if (!isLeft && !isRight) {
-//     return -1 //该地址左右点位均可用
-//   } else if (isLeft && !isRight) {
-//     return 1 //该地址左点位可用
-//   } else if (!isLeft && isRight) {
-//     return 2 //该地址右点位可用
-//   }
-// }
 //点击填写对碰上级弹窗确认按钮
 async function handleConfirmMeetWithSuperiors() {
-  if (!meetWithSuperiors.value) {
+  if (!legAddress.value) {
     showToast(t('coherents.pleaseEnter' + t('coherents.collisionAddress')))
     return
   }
-  if (meetWithSuperiors.value == ZeroAddress || !isAddress(meetWithSuperiors.value)) {
+  if (legAddress.value == ZeroAddress || !isAddress(legAddress.value)) {
     console.log('无效地址')
 
-    // meetWithSuperiors.value = null
-    isErrMeetWithSuperiors.value = true
+    isErrLeg.value = true
     return
   }
-  propertiesList.value[1].placeholder = FilterAddress(meetWithSuperiors.value)
-  toggleMeetWithSuperiorsPopup()
+  propertiesList.value[1].content = FilterAddress(legAddress.value)
+  toggleLegAdddressPopup()
   // console.log('availablePoints', availablePoints)
 }
 //切换直接上级弹窗
-function toggleDirectSuperiorPopup() {
-  showsDirectSuperiorPopup.value = !showsDirectSuperiorPopup.value
+function toggleReferrerAddressPopup() {
+  showReferrerAddressPopup.value = !showReferrerAddressPopup.value
 }
 //切换对碰上级弹窗
-function toggleMeetWithSuperiorsPopup() {
-  showMeetWithSuperiorsPopup.value = !showMeetWithSuperiorsPopup.value
+function toggleLegAdddressPopup() {
+  showLegAddressPopup.value = !showLegAddressPopup.value
 }
 
-function togglePayWayPopup() {
-  showPayWayPopup.value = !showPayWayPopup.value
+function toggleConfirmPayPopup() {
+  showConfirmPayPopup.value = !showConfirmPayPopup.value
 }
 
 function handleConfirmPayWay() {
+  toggleConfirmPayPopup()
+  proxy.$loading.show()
+  let params = { address: window.ethereum.selectedAddress, package_id: 1, referrer_addres: window.ethereum.selectedAddress, leg_address: legAddress.value, legSide: currentPoint.value == 0 ? 'left' : 'right' }
+  buyCoherent(params)
+    .then(res => {
+      console.log('購買成功', res)
+      proxy.$loading.hide()
+    })
+    .catch(err => {
+      proxy.$loading.hide()
+      console.log('購買失敗', err)
+      showToast('購買失敗')
+      toggleConfirmPayPopup()
 
-  propertiesList.value[2].placeholder = payWays.value[currentPayWay.value].title
-  togglePayWayPopup()
+    })
 }
 
 //選擇購買配套地址相應屬性
 function handlePropertiesItem(item, index) {
   console.log(item, index)
   switch (index) {
-    case 0: toggleDirectSuperiorPopup()
+    case 0: toggleReferrerAddressPopup()
       break;
-    case 1: toggleMeetWithSuperiorsPopup()
+    case 1: toggleLegAdddressPopup()
       break;
   }
 }
@@ -394,22 +360,22 @@ async function checkERC20ApproveState(walletAddress) {
 // }
 
 async function handleConfirmBuy() {
-  if (directSuperior.value == null) {
+  if (referrerAddress.value == null) {
     showToast(t('coherents.pleaseEnter') + t('coherents.directAddress'))
     return
   }
-  if (meetWithSuperiors.value == null) {
+  if (legAddress.value == null) {
     showToast(t('coherents.pleaseEnter') + t('coherents.collisionAddress'))
     return
   }
   // proxy.$loading.show()
 
-  togglePayWayPopup()
+  toggleConfirmPayPopup()
 }
 
 
-// function userBuyCoherent(buyAddress, coherentType, isRT, directSuperior, meetWithSuperiors, isLeft) { //用戶購買配套
-//   buyCoherent(buyAddress, coherentType, isRT, directSuperior, meetWithSuperiors, isLeft)
+// function userBuyCoherent(buyAddress, coherentType, isRT, referrerAddress, legAddress, isLeft) { //用戶購買配套
+//   buyCoherent(buyAddress, coherentType, isRT, referrerAddress, legAddress, isLeft)
 //     .then(res => {
 //       proxy.$loading.hide()
 

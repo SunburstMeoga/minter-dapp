@@ -45,6 +45,16 @@ let market = [
       showBack: true,
       pageTitle: '抽奖'
     }
+  },
+  {
+    path: '/market/invite-buy-package',
+    name: 'market-invite-buy-package',
+    component: () => import('@/views/market/inviteBuyPackage.vue'),
+    meta: {
+      showLogo: false,
+      showBack: true,
+      pageTitle: '購買配套'
+    }
   }
 ]
 
