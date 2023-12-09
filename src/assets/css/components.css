@@ -3,20 +3,38 @@
     background: linear-gradient(13deg, rgba(225,73,237,1) 15%, rgba(59,80,158,1) 63%, rgba(42,103,184,1) 93%, rgba(16,46,122,1) 100%); */
     background: rgb(255,0,248);
     background: linear-gradient(13deg, rgba(255,0,248,1) 0%, rgba(31,174,187,1) 100%);
-    transition:all 1s ease-out;
+    transition:all 0.1s ease-in;
 }
 .operating-button:active {
-    transform: scale(0.8, 0.8);   
+    transform: scale(0.95, 0.95);   
 }
-.active-scale {
-    transition:all 1s ease-out;
+.active-primary-color {
+    transition: all 0.1s ease-in;
+    /* border:1px solid red; */
 }
-.active-scale:active {
-    transform: scale(0.8, 0.8);   
+.active-primary-color:active {
+    /* transform: scale(0.9, 0.9);   */
+    color: #fff;
+    background: #CC6DED;
 }
-.operating-button:active {
-    transform: scale(0.8, 0.8);   
+.active-white-color {
+    transition: all 0.1s ease-in;
+    
 }
+.active-white-color:active {
+    color:#fff;
+    transform: scale(1.2, 1.2);   
+}
+input {		
+    /* border: 1px solid #000000; 				 */
+    /* text-align: center;	 */
+    text-indent: 3px;
+    }	
+    input:focus-within {		
+    border: 2px solid #e149ed;	
+    text-indent: 3px;
+    }
+
 .module-content {
     background: rgb(44,79,176);
     background: linear-gradient(13deg, rgba(44,79,176,1) 22%, rgba(148,76,224,1) 60%, rgba(209,199,157,0.9374124649859944) 100%);

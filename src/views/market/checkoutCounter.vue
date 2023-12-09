@@ -1,9 +1,9 @@
 <template>
   <div class="text-white pt-16 pb-20">
     <div class="bg-black flex flex-col items-center w-full pb-4 text-white">
-      <div class="flex justify-start items-center w-11/12 mb-2 border-b border-gray-900 pb-4">
+      <div class="flex justify-start items-center w-11/12 mb-4 bg-card-content p-2 rounded-md">
         <div class="flex w-30 p-2 justify-center bg-page-content rounded shadow-xl">
-          <img src="../../assets/images/coherent-ssr.png" alt="">
+          <img :src="coherentInfo.levelImg" alt="">
         </div>
         <div class="text-gray-400 flex-1 ml-2 h-full flex flex-col justify-start text-sm">
           <div class="flex justify-between items-center">
@@ -45,7 +45,7 @@
       </div>
 
       <div class="w-11/12 border-b border-gray-900 pb-2">
-        <div class="flex justify-between text-gray-400 items-center mb-1.5">
+        <div class="flex justify-between text-gray-400 items-center p-2 rounded">
           <div class="">
             {{ $t('coherents.totalReleased') }} <van-popover v-model:show="showPMTPopover" theme="dark"
               placement="bottom-start">
@@ -63,7 +63,7 @@
                 {{ $t('coherents.48Released') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT
               </div>
               <template #reference>
-                <span class="icon iconfont icon-wenzishuoming_wenzishuoming"></span>
+                <span class="icon iconfont icon-wenzishuoming_wenzishuoming active-primary-color"></span>
               </template>
             </van-popover>
 
@@ -71,10 +71,10 @@
           <div>{{ coherentInfo.releasePMT }}PMT</div>
         </div>
 
-        <div class="flex justify-between text-gray-400 items-center py-1.5 rounded"
-          v-for="(item, index) in propertiesList" :key="index">
+        <div class="flex justify-between text-gray-400 items-center p-2 rounded active-primary-color"
+          v-for="(item, index) in propertiesList" :key="index" @click="handlePropertiesItem(item, index)">
           <div>{{ item.title }}</div>
-          <div class="flex justify-end items-center" @click="handlePropertiesItem(item, index)">
+          <div class="flex justify-end items-center">
             <div class="mr-0.5">{{ item.content }}</div>
             <div class=" icon iconfont icon-right"></div>
           </div>
@@ -82,7 +82,7 @@
       </div>
 
       <div class="w-full flex justify-center items-center fixed bottom-3" @click="handleConfirmBuy">
-        <div class="w-11/12 operating-button text-center py-2.5 rounded">
+        <div class="w-11/12 operating-button text-center py-2.5 rounded-full">
           {{ $t('modalConfirm.confirm') }} {{ $t('coherents.buy') }}
         </div>
       </div>
@@ -106,7 +106,7 @@
         </div>
 
         <div class="w-full flex justify-center items-center">
-          <div class="w-11/12 operating-button text-center py-2.5 rounded" @click="handleConfirmReferrerAddress">
+          <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmReferrerAddress">
             {{ $t('modalConfirm.confirm') }}
           </div>
         </div>
@@ -140,7 +140,7 @@
         </div>
 
         <div class="w-full flex justify-center items-center">
-          <div class="w-11/12 operating-button text-center py-2.5 rounded" @click="handleConfirmMeetWithSuperiors">
+          <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmMeetWithSuperiors">
             {{ $t('modalConfirm.confirm') }}
           </div>
         </div>
@@ -151,7 +151,7 @@
       <div class="bg-black text-white py-4 flex flex-col justify-center">
         <div class="flex justify-start items-center w-11/12 mr-auto ml-auto mb-2 border-b border-gray-900 pb-4">
           <div class="flex w-30 p-2 justify-center bg-page-content rounded shadow-xl">
-            <img src="../../assets/images/coherent-ssr.png" alt="">
+            <img :src="coherentInfo.levelImg" alt="">
           </div>
           <div class="text-gray-400 flex-1 ml-2 h-full flex flex-col justify-start">
             <div class="flex justify-between items-center">
@@ -197,7 +197,7 @@
         </div>
 
         <div class="w-full flex justify-center items-center">
-          <div class="w-11/12 operating-button text-center py-2.5 rounded" @click="handleConfirmPayWay">
+          <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handlePopupConfirmBuy">
             {{ $t('modalConfirm.confirm') }}
           </div>
         </div>
@@ -283,11 +283,11 @@ function toggleConfirmPayPopup() {
   showConfirmPayPopup.value = !showConfirmPayPopup.value
 }
 
-function handleConfirmPayWay() {
+function handlePopupConfirmBuy() {
   toggleConfirmPayPopup()
-  proxy.$loading.show()
-  let params = { address: window.ethereum.selectedAddress, package_id: 1, referrer_addres: window.ethereum.selectedAddress, leg_address: legAddress.value, legSide: currentPoint.value == 0 ? 'left' : 'right' }
-  buyCoherent(params)
+  // proxy.$loading.show()
+  let data = { package_id: 1, referrer_address: window.ethereum.selectedAddress, leg_address: legAddress.value, legSide: currentPoint.value == 0 ? 'left' : 'right' }
+  buyCoherent(data)
     .then(res => {
       console.log('購買成功', res)
       proxy.$loading.hide()

@@ -34,32 +34,35 @@
             <div class="border-b border-gray-800 w-11/12 mr-auto ml-auto mb-3"></div>
             <div class="flex justify-between items-center w-11/12 mr-auto ml-auto mb-2">
                 <div class="w-full">
-                    <div class="w-full flex justify-between items-center px-2 py-2 bg-gray-800 rounded mb-4">
+                    <div class="w-full flex justify-between items-center px-2 py-2 bg-gray-800 rounded mb-4 active-primary-color"
+                        @click="viewCoherents">
                         <div class="flex justify-start items-center">
                             <div class="pr-1 font-bold text-lg">0</div>
                             <div class="text-white">{{ $t('wallet.coherent') }}</div>
                         </div>
-                        <div class="flex justify-end items-center text-white" @click="viewCoherents">
+                        <div class="flex justify-end items-center text-white ">
                             <div class="pr-1 text-sm">{{ $t('wallet.details') }}</div>
                             <div class="icon iconfont icon-right"></div>
                         </div>
                     </div>
-                    <div class="w-full flex justify-between items-center px-2 py-2 bg-gray-800 rounded mb-4">
+                    <div class="w-full flex justify-between items-center px-2 py-2 bg-gray-800 rounded mb-4 active-primary-color"
+                        @click="viewNFTs">
                         <div class="flex justify-start items-center">
                             <div class="pr-1 font-bold text-lg">0</div>
                             <div class="text-white">NFTs</div>
                         </div>
-                        <div class="flex justify-end items-center text-white" @click="viewNFTs">
+                        <div class="flex justify-end items-center text-white active-white-color">
                             <div class="pr-1 text-sm">{{ $t('wallet.details') }}</div>
                             <div class="icon iconfont icon-right"></div>
                         </div>
                     </div>
-                    <div class="w-full flex justify-between items-center px-2 py-2 bg-gray-800 rounded ">
+                    <div class="w-full flex justify-between items-center px-2 py-2 bg-gray-800 rounded active-primary-color"
+                        @click="viewCoherents">
                         <div class="flex justify-start items-center">
                             <div class="pr-1 font-bold text-lg">0</div>
                             <div class="text-white">承諾卡</div>
                         </div>
-                        <div class="flex justify-end items-center text-white" @click="viewCoherents">
+                        <div class="flex justify-end items-center text-white active-white-color">
                             <div class="pr-1 text-sm">{{ $t('wallet.details') }}</div>
                             <div class="icon iconfont icon-right"></div>
                         </div>
@@ -246,14 +249,20 @@ let showRechargePopup = ref(false)
 // const chartData = ref([1, 2, 3, 4, 5])
 
 function viewCoherents() {
-    router.push({
-        path: '/personal/coherents'
-    })
+    setTimeout(() => {
+        router.push({
+            path: '/personal/coherents'
+        })
+    }, 1000)
+
 }
 function viewNFTs() {
-    router.push({
-        path: '/personal/nfts'
-    })
+    setTimeout(() => {
+        router.push({
+            path: '/personal/nfts'
+        })
+    }, 1000)
+
 }
 //點擊錢包卡片充值按鈕
 function handleWalletCardRecharge() {
@@ -300,6 +309,4 @@ function handleOperatorItem(item, index) {
 
 </script>
 
-<style scoped>
-img {}
-</style>
+<style scoped>img {}</style>

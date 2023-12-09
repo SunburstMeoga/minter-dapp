@@ -1,7 +1,7 @@
 <template>
     <div class="h-14 w-full  pt-4">
-        <div class="flex p-2 border border-top-content rounded-lg w-11/12 mr-auto ml-auto">
-            <div class="flex justify-between w-full items-center h-full bg-top-content rounded-lg p-2">
+        <div class="flex p-2 border border-page-content rounded-lg w-11/12 mr-auto ml-auto">
+            <div class="flex justify-between w-full items-center h-full bg-gray-800 rounded-lg p-2">
                 <div class="w-32">
                     <img src="../assets/images/minter-logo-cro.png" alt="">
                 </div>
@@ -19,22 +19,24 @@
                 <div class="overflow-scroll pb-20">
                     <div class="pl-10">
                         <div :class="currentMenuItem == 'home' || currentMenuItem == 'homeChild' ? 'text-primary-color' : 'text-white'"
-                            class="menu-item" @click="toggleMoreHome('home')">
+                            class="menu-item active-primary-color" @click="toggleMoreHome('home')">
                             <div>Minter</div>
                             <div class="pl-2">
                                 <div class="icon iconfont icon-caret-right transform ease-in-out duration-300"
                                     :class="showMoreHome ? 'rotate-90' : ' '"></div>
                             </div>
                         </div>
-                        <div v-show="showMoreHome" class="pl-4">
-                            <div class="py-1.5 text-menu-word" @click="handleHomeChild('homeChild', item, index)"
-                                v-for="(item, index) in homeChilds" :key="index">
+                        <div v-show="showMoreHome" class="">
+                            <div class="py-1.5 pl-4 mr-4 rounded text-menu-word active-primary-color"
+                                @click="handleHomeChild('homeChild', item, index)" v-for="(item, index) in homeChilds"
+                                :key="index">
                                 {{ item.title }}
                             </div>
                         </div>
                     </div>
                     <div class="pl-10">
-                        <div class="menu-item" :class="currentMenuItem == 'market' ? 'text-primary-color' : 'text-white'"
+                        <div class="menu-item active-primary-color"
+                            :class="currentMenuItem == 'market' ? 'text-primary-color' : 'text-white'"
                             @click="toggleMoreMarket('market')">
                             <div>{{ $t('menu.market') }}</div>
                             <div class="pl-2">
@@ -42,9 +44,9 @@
                                     :class="showMoreMarket ? 'rotate-90' : ''"></div>
                             </div>
                         </div>
-                        <div v-show="showMoreMarket" class="pl-4">
-                            <div class="py-1.5 text-menu-word" @click="toMarket(index)"
-                                v-for="(item, index) in marketChilds" :key="index">
+                        <div v-show="showMoreMarket" class="">
+                            <div class="py-1.5 pl-4 mr-4 rounded text-menu-word active-primary-color"
+                                @click="toMarket(index)" v-for="(item, index) in marketChilds" :key="index">
                                 {{ item.title }}
                             </div>
 
@@ -52,42 +54,42 @@
 
                     </div>
                     <div class="pl-10">
-                        <div class="menu-item" @click="notYetOpen">
+                        <div class="menu-item active-primary-color" @click="notYetOpen">
                             <div>{{ $t('menu.pledge') }}</div>
                         </div>
                     </div>
                     <div class="pl-10">
-                        <div class="menu-item" @click="notYetOpen">
+                        <div class="menu-item active-primary-color" @click="notYetOpen">
                             <div>{{ $t('menu.partnership') }}</div>
                         </div>
                     </div>
                     <div class="pl-10">
-                        <div class="menu-item" @click="notYetOpen">
+                        <div class="menu-item active-primary-color" @click="notYetOpen">
                             <div>{{ $t('menu.rank') }}</div>
                         </div>
                     </div>
                     <div class="pl-10">
-                        <div class="menu-item" @click="notYetOpen">
+                        <div class="menu-item active-primary-color" @click="notYetOpen">
                             <div>{{ $t('menu.casting') }}</div>
                         </div>
                     </div>
                     <div class="pl-10">
-                        <div class="menu-item" @click="notYetOpen">
+                        <div class="menu-item active-primary-color" @click="notYetOpen">
                             <div>{{ $t('menu.game') }}</div>
                         </div>
                     </div>
                     <div class="pl-10">
-                        <div :class="currentMenuItem == 'personal' ? 'text-primary-color' : 'text-white'" class="menu-item"
-                            @click="toggleMorePersonal('personal')">
+                        <div :class="currentMenuItem == 'personal' ? 'text-primary-color' : 'text-white'"
+                            class="menu-item active-primary-color" @click="toggleMorePersonal('personal')">
                             <div>{{ $t('menu.userCenter') }}</div>
                             <div class="pl-2">
                                 <div class="icon iconfont icon-caret-right transform ease-in-out duration-300"
                                     :class="showMorePersonal ? 'rotate-90' : ' '"></div>
                             </div>
                         </div>
-                        <div v-show="showMorePersonal" class="pl-4">
-                            <div class="py-1.5 text-menu-word" @click="handleMenuItem(item)"
-                                v-for="(item, index) in personalChilds" :key="index">
+                        <div v-show="showMorePersonal" class="">
+                            <div class="py-1.5 pl-4 mr-4 rounded text-menu-word active-primary-color"
+                                @click="handleMenuItem(item)" v-for="(item, index) in personalChilds" :key="index">
                                 {{ item.title }}
                             </div>
                         </div>
@@ -347,7 +349,6 @@ function handleHomeChild(menuItem, item, index) {
     })
     console.log(menuItem, item, index)
     swiperStore.changeIndex(index)
-    console.log(swiperStore.index)
     // $emit(menuItem, item, index)
 
     showLeftMenu.value = false
@@ -443,7 +444,7 @@ defineProps({
 
 <style scoped>
 .menu-item {
-    @apply flex justify-start items-center py-2 text-lg;
+    @apply flex justify-start items-center p-2 text-lg rounded mr-8;
 }
 
 .word-clip {

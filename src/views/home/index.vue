@@ -99,7 +99,6 @@ watch(
   () => swiperStore.index,
   (newValue, oldValue) => {
     console.log("新值:" + newValue + "旧值:" + oldValue)
-
     changeSwiper(newValue)
   },
   {

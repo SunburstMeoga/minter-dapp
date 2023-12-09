@@ -29,7 +29,7 @@
                         <div class="icon iconfont icon-yingyongshichang text-primary-color" style="font-size: 24px;"></div>
                         <div class="font-bold text-lg pl-4">0.00 {{ currency }}</div>
                     </div>
-                    <div class="flex justify-end text-sm items-center text-test-two">
+                    <div class="flex justify-end text-sm items-center text-test-two active-color">
                         <div v-if="isRecharge" class="underline" @click="$emit('recharge')">{{ $t('wallet.recharge') }}
                         </div>
                         <div v-if="isWithdraw" class="pl-4 underline" @click="$emit('withdraw')">{{ $t('wallet.withdraw') }}
@@ -49,7 +49,7 @@
                 <div class="flex justify-between items-center text-menu-word text-sm">
                     <div class="">{{ $t('wallet.contract') }}</div>
                     <div class="flex justify-end items-center">0x839062...e67d1B <span @click="handleCopy"
-                            class="icon iconfont icon-copy ml-2">
+                            class="icon iconfont icon-copy ml-2 active-white-color">
                         </span></div>
                 </div>
             </div>

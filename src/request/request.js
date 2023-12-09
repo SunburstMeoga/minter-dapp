@@ -14,6 +14,7 @@ service.interceptors.request.use(
   (config) => {
     if (localStorage.getItem('token')) {
       config.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'))
+      config.headers.set('Content-Type', 'application/x-www-form-urlencoded')
     }
     return config
   },
@@ -55,6 +56,7 @@ service.interceptors.response.use(
 const Request = (url, options = {}) => {
   let method = options.method || 'get'
   let params = options.params || {}
+  let data = options.data || {}
 
   if (method === 'get' || method === 'GET') {
     return new Promise((resolve, reject) => {
@@ -74,9 +76,10 @@ const Request = (url, options = {}) => {
   } else {
     return new Promise((resolve, reject) => {
       service
-        .post(url, params)
+        .post(url, data)
         .then((res) => {
           if (res && res.data) {
+            console.log(res)
             resolve(res.data)
           }
         })
