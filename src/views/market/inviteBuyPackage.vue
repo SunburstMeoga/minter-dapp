@@ -5,7 +5,7 @@
                 <div class="mb-1">
                     直推地址
                 </div>
-                <div class="border border-gray-500 rounded p-1 mb-2 break-words">
+                <div class=" rounded p-1 mb-2 break-words">
                     {{ refferAddress }}
                 </div>
             </div>
@@ -13,7 +13,7 @@
                 <div class="mb-1">
                     上級地址
                 </div>
-                <div class="border border-gray-500 rounded p-1 mb-2 break-words">
+                <div class=" rounded p-1 mb-2 break-words">
                     {{ preAddress }}
                 </div>
             </div>
@@ -21,7 +21,7 @@
                 <div class="mb-1">
                     本人地址
                 </div>
-                <div class="border border-gray-500 rounded p-1 mb-2 break-words">
+                <div class=" rounded p-1 mb-2 break-words">
                     {{ selfAddress }}
                 </div>
             </div>
@@ -44,7 +44,7 @@
                         </div>
                         <div class="text-red-500 font-bold">
                             {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
-                                FormatAmount(coherentInfo.type).pointOffside }}</span>
+                                                            FormatAmount(coherentInfo.type).pointOffside }}</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
@@ -53,7 +53,7 @@
                         </div>
                         <div class="text-red-500 font-bold">
                             {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-                                FormatAmount(coherentInfo.limit).pointOffside }}</span>
+                                                            FormatAmount(coherentInfo.limit).pointOffside }}</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
@@ -74,7 +74,7 @@
                                 <div class="text-xs p-2 text-left text-gray-400">
                                     <!-- 购买成功之后即时释放{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT -->
                                     {{ $t('coherents.buyAfterReleased') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3)
-                                    }}PMT
+                                                                        }}PMT
                                 </div>
                                 <div class="text-xs p-2 text-left text-gray-400">
                                     {{ $t('coherents.24Released') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT

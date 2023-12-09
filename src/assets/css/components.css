@@ -26,13 +26,13 @@
     transform: scale(1.2, 1.2);   
 }
 input {		
-    /* border: 1px solid #000000; 				 */
+    border: 1px solid grey; 				
     /* text-align: center;	 */
-    text-indent: 3px;
+    padding-left: 2px;
     }	
     input:focus-within {		
-    border: 2px solid #e149ed;	
-    text-indent: 3px;
+    border: 1px solid #e149ed;	
+    padding-left: 2px;
     }
 
 .module-content {

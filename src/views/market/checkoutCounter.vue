@@ -63,7 +63,7 @@
                 {{ $t('coherents.48Released') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT
               </div>
               <template #reference>
-                <span class="icon iconfont icon-wenzishuoming_wenzishuoming active-primary-color"></span>
+                <span class="icon iconfont icon-wenzishuoming_wenzishuoming active-white-color"></span>
               </template>
             </van-popover>
 
@@ -94,7 +94,7 @@
           <div class="text-center mb-4 font-bold">{{ propertiesList[0].title }}</div>
           <div class="w-full flex flex-col items-center mb-2">
             <div class="text-gray-200 text-sm text-left w-11/12 mb-1">{{ propertiesList[0].title }}</div>
-            <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-500 mb-1 pl-2">
+            <div class="rounded overflow-hidden w-11/12 h-11  mb-1">
               <input @focus="isErrReferrerAddress = false" type="text"
                 :placeholder="propertiesList[0].placeholder + propertiesList[0].title" v-model="referrerAddress"
                 class="w-full h-full bg-black rounded text-sm">
@@ -119,7 +119,7 @@
           <div class="text-center mb-4 font-bold">{{ propertiesList[1].title }}</div>
           <div class="w-full flex flex-col items-center mb-4">
             <div class="text-gray-200 text-sm text-left w-11/12 mb-1">{{ propertiesList[1].title }}</div>
-            <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-500 mb-1 pl-2">
+            <div class="rounded overflow-hidden w-11/12 h-11  mb-1">
               <input @focus="isErrLeg = false" type="text"
                 :placeholder="propertiesList[1].placeholder + propertiesList[1].title" v-model="legAddress"
                 class="w-full h-full bg-black rounded text-sm">
@@ -140,7 +140,7 @@
         </div>
 
         <div class="w-full flex justify-center items-center">
-          <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmMeetWithSuperiors">
+          <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmLegAddress">
             {{ $t('modalConfirm.confirm') }}
           </div>
         </div>
@@ -215,7 +215,7 @@ import { showToast } from 'vant';
 import coherents_list from '@/datas/coherents_list'
 import { FormatAmount, FilterAddress } from '@/utils/format'
 import { useI18n } from 'vue-i18n';
-import { buyCoherent } from '@/request/api'
+import { buyCoherent, adequateBalance, addressLeg } from '@/request/api'
 
 const { t } = useI18n()
 const route = useRoute()
@@ -255,15 +255,39 @@ function handleConfirmReferrerAddress() {
   toggleReferrerAddressPopup()
 }
 //点击填写对碰上级弹窗确认按钮
-async function handleConfirmMeetWithSuperiors() {
+async function handleConfirmLegAddress() {
   if (!legAddress.value) {
     showToast(t('coherents.pleaseEnter' + t('coherents.collisionAddress')))
     return
   }
   if (legAddress.value == ZeroAddress || !isAddress(legAddress.value)) {
     console.log('无效地址')
-
     isErrLeg.value = true
+    return
+  }
+  let legAddressInfo
+  try {
+    console.log(addressLeg)
+    legAddressInfo = await addressLeg(legAddress.value)
+    // addressLeg(legAddress.value)
+    //   .then(res => {
+    //     proxy.$loading.show()
+    //     console.log(res)
+    //   })
+    //   .catch(err => {
+    //     proxy.$loading.show()
+    //     console.log(err)
+    //   })
+    // proxy.$loading.hide()
+  } catch (err) {
+    console.log(err)
+    proxy.$loading.hide()
+
+  }
+  console.log(legAddressInfo)
+  return
+  if (currentPoint.value == null) {
+    showToast('請選擇點位')
     return
   }
   propertiesList.value[1].content = FilterAddress(legAddress.value)
@@ -279,13 +303,26 @@ function toggleLegAdddressPopup() {
   showLegAddressPopup.value = !showLegAddressPopup.value
 }
 
+//獲取某個地址的左右點位和pv值
+// async function addressLeg(address) {
+//   addressLeg(address)
+// }
+
 function toggleConfirmPayPopup() {
   showConfirmPayPopup.value = !showConfirmPayPopup.value
 }
 
-function handlePopupConfirmBuy() {
+async function handlePopupConfirmBuy() {
   toggleConfirmPayPopup()
-  // proxy.$loading.show()
+  //判斷rt餘額是否充足
+  proxy.$loading.show()
+  let isAdequateBalance
+  try {
+    isAdequateBalance = await adequateBalance({ package_id: coherentInfo.value.id })
+  } catch (err) {
+    showToast('獲取餘額失敗，請重試')
+  }
+
   let data = { package_id: 1, referrer_address: window.ethereum.selectedAddress, leg_address: legAddress.value, legSide: currentPoint.value == 0 ? 'left' : 'right' }
   buyCoherent(data)
     .then(res => {

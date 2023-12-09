@@ -10,7 +10,7 @@
             <div class="icon iconfont" style="font-size: 24px;" :class="item.icon"></div>
           </div>
         </div>
-        <!-- <div class="w-20 py-0.5 flex justify-center text-xs text-gray-500 rounded border border-gray-500">
+        <!-- <div class="w-20 py-0.5 flex justify-center text-xs text-gray-500 rounded ">
           <div class="icon iconfont icon-duoyuyan" style="font-size:14px;"></div>
           <div class="pl-2" @click="changeLanguage">{{ $t('language') }}</div>
         </div> -->

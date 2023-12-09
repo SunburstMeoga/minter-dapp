@@ -10,9 +10,16 @@ export function login(data) {
 
 //查看是否足夠rt餘額
 export function adequateBalance(params) {
-  return request('/players/check', {
+  return request('/packages/check', {
     method: 'GET',
     params
+  })
+}
+
+//獲得某個地址的點位和pv值
+export function addressLeg(address) {
+  return request('/players/leg-tree/' + address, {
+    method: 'GET'
   })
 }
 

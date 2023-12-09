@@ -116,9 +116,9 @@
                         <!-- <div class="text-primary-color text-xs pl-1"> (当前1USDT = 1RT)</div> -->
                     </div>
                     <div class="w-full mb-4 flex justify-between items-center">
-                        <div class="rounded border border-gray-700 flex-1 py-2">
+                        <div class="rounded flex-1">
                             <input type="text" :placeholder="$t('wallet.transferAddress')"
-                                class="w-full h-full bg-transparent pl-1">
+                                class="w-full py-3 bg-transparent rounded">
                         </div>
                     </div>
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
@@ -126,9 +126,9 @@
                         <!-- <div class="text-primary-color text-xs pl-1"> (当前1USDT = 1RT)</div> -->
                     </div>
                     <div class="w-full mb-8 flex justify-between items-center">
-                        <div class="rounded mr-2 border border-gray-700 flex-1 py-2">
+                        <div class="rounded mr-2 flex-1">
                             <input type="text" :placeholder="$t('wallet.transferAmount')"
-                                class="w-full h-full bg-transparent pl-1">
+                                class="w-full py-3 bg-transparent rounded">
                         </div>
                         <div class="underline text-sm text-gray-200">{{ $t('wallet.all') }}</div>
                     </div>
@@ -156,9 +156,9 @@
                         <!-- <div class="text-primary-color text-xs pl-1"> (当前1USDT = 1RT)</div> -->
                     </div>
                     <div class="w-full mb-4 flex justify-between items-center">
-                        <div class="rounded border border-gray-700 flex-1 py-2">
+                        <div class="rounded flex-1 py-2">
                             <input type="text" :placeholder="$t('wallet.rechargeAmount')"
-                                class="w-full h-full bg-transparent pl-1">
+                                class="w-full h-full py-3 bg-transparent rounded pl-1">
                         </div>
                     </div>
                     <!-- <div class="text-white text-xs flex justify-start items-baseline mb-1">
@@ -166,7 +166,7 @@
                     </div>
                     <div class="w-full mb-8 flex justify-between items-center">
                         <div class="rounded mr-2 border border-gray-700 flex-1 py-2">
-                            <input type="text" placeholder="请输入转账金额" class="w-full h-full bg-transparent pl-1">
+                            <input type="text" placeholder="请输入转账金额" class="w-full h-full bg-transparent rounded pl-1">
                         </div>
                         <div class="underline text-sm text-gray-200">全部</div>
                     </div> -->
@@ -195,7 +195,7 @@
                     <div class="w-full mb-4 flex justify-between items-center">
                         <div class="rounded border border-gray-700 flex-1 py-2">
                             <input type="text" :placeholder="$t('wallet.withdrawAddress')"
-                                class="w-full h-full bg-transparent pl-1">
+                                class="w-full h-full bg-transparent rounded pl-1">
                         </div>
                     </div>
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
@@ -203,9 +203,9 @@
                         <!-- <div class="text-primary-color text-xs pl-1"> (当前1USDT = 1RT)</div> -->
                     </div>
                     <div class="w-full mb-8 flex justify-between items-center">
-                        <div class="rounded mr-2 border border-gray-700 flex-1 py-2">
+                        <div class="rounded mr-2 flex-1 ">
                             <input type="text" :placeholder="$t('wallet.withdrawAmount')"
-                                class="w-full h-full bg-transparent pl-1">
+                                class="w-full h-full bg-transparent rounded py-2">
                         </div>
                         <div class="underline text-sm text-gray-200">{{ $t('wallet.all') }}</div>
                     </div>
@@ -309,4 +309,6 @@ function handleOperatorItem(item, index) {
 
 </script>
 
-<style scoped>img {}</style>
+<style scoped>
+img {}
+</style>
