@@ -87,7 +87,7 @@
         </div>
       </div>
     </div>
-    <!-- 直接上級 -->
+    <!-- 直接上級彈窗 -->
     <van-popup v-model:show="showReferrerAddressPopup" round position="bottom">
       <div class="bg-page-content text-white py-4 flex flex-col justify-center">
         <div class="w-full mb-10">
@@ -119,7 +119,7 @@
         </div>
       </div>
     </van-popup>
-    <!-- 對碰上級 -->
+    <!-- 對碰上級彈窗 -->
     <van-popup v-model:show="showLegAddressPopup" round position="bottom">
       <div class="bg-page-content text-white py-4 flex flex-col justify-center">
         <div class="w-full mb-4">
@@ -131,9 +131,6 @@
                 :placeholder="propertiesList[1].placeholder + propertiesList[1].title" v-model="legAddress"
                 class="w-full h-full bg-page-content rounded text-sm">
             </div>
-
-
-
             <div class="flex justify-between items-center w-11/12">
               <div class="text-gray-200 underline text-sm active-white-color flex justify-end items-center">
                 <div class="w-4 mr-2" v-show="calibratingLeg">
@@ -142,14 +139,25 @@
                 <div @click="handleCalibrationLeg">校驗地址</div>
               </div>
               <div v-show="isErrLeg" class="text-sm text-left animate__animated text-red-500"
-                :class="isErrLeg ? 'animate__shakeX text-red-500' : ''">{{ $t('coherent.invalidAddress') }}
+                :class="isErrLeg ? 'animate__shakeX text-red-500' : ''">{{ $t('coherents.invalidAddress') }}
               </div>
             </div>
-
-
           </div>
+
+        </div>
+        <div class="w-full flex justify-center items-center" v-show="canUseLeg">
+          <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmLegAddress">
+            {{ $t('modalConfirm.confirm') }}
+          </div>
+        </div>
+      </div>
+    </van-popup>
+    <!-- 對碰上級點位彈窗 -->
+    <van-popup v-model:show="showPointPopup" round position="bottom">
+      <div class="bg-page-content text-white py-4 flex flex-col justify-center">
+        <div class="w-full mb-10">
+          <div class="text-center mb-4 font-bold">{{ propertiesList[2].title }}</div>
           <div class="w-full flex justify-center items-center">
-            <!-- 對碰上級點位 -->
             <div class="w-11/12 flex justify-between items-center">
               <div v-for="(item, index) in pointList" @click="handlePoint(item, index)" v-show="pointList.length !== 0"
                 class=" rounded py-2 w-5/12 text-center mb-2 "
@@ -159,9 +167,8 @@
             </div>
           </div>
         </div>
-
         <div class="w-full flex justify-center items-center">
-          <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmLegAddress">
+          <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmPoint">
             {{ $t('modalConfirm.confirm') }}
           </div>
         </div>
@@ -251,11 +258,13 @@ let calibratingReferrer = ref(false) //正在校驗直接上級地址
 let calibratingLeg = ref(false) //正在校驗直接上級地址
 let canUseReferrer = ref(false)
 let canUseLeg = ref(false)
+let showPointPopup = ref(false)
 const pointList = ref([])
 let propertiesList = computed(() => {
   return [
     { title: t('coherents.directAddress'), placeholder: t('coherents.pleaseEnter'), content: '' },
     { title: t('coherents.collisionAddress'), placeholder: t('coherents.pleaseEnter'), content: '' },
+    { title: t('對碰上級地址點位'), placeholder: '請選擇', content: '' },
   ]
 })
 let currentPoint = ref(null)
@@ -263,6 +272,15 @@ let showReferrerAddressPopup = ref(false)
 let showLegAddressPopup = ref(false)
 let showConfirmPayPopup = ref(false)
 let showPMTPopover = ref(false)
+function togglePointPopup() {
+  showPointPopup.value = !showPointPopup.value
+}
+//點解點位選擇彈窗確認按鈕
+function handleConfirmPoint() {
+  console.log(pointList.value[currentPoint.value])
+  propertiesList.value[2].content = pointList.value[currentPoint.value].title
+  togglePointPopup()
+}
 //點擊點位選擇
 function handlePoint(item, index) {
   if (!item.address) {
@@ -273,10 +291,12 @@ function handlePoint(item, index) {
 }
 //點擊校驗直接上級地址
 async function handleCalibrationReferrer() {
+  isErrLeg.value = false
   if (calibratingReferrer.value) {
     showToast('正在校驗，請稍後')
     return
   }
+
   calibratingReferrer.value = true
   if (!referrerAddress.value) {
     showToast(`${t('coherents.pleaseEnter')}${t('coherents.directAddress')}`)
@@ -308,15 +328,10 @@ async function handleCalibrationReferrer() {
     calibratingReferrer.value = false
     return
   }
-
-  // setTimeout(() => {
-  //   calibratingReferrer.value = false
-  //   propertiesList.value[0].content = FilterAddress(referrerAddress.value)
-  //   toggleReferrerAddressPopup()
-  // }, 2000);
 }
 //點擊校驗對碰上級地址
 async function handleCalibrationLeg() {
+  isErrReferrer.value = false
   if (calibratingLeg.value) {
     showToast('正在校驗，請稍後')
     return
@@ -371,23 +386,6 @@ async function handleConfirmLegAddress() {
     calibratingLeg.value = false
     return
   }
-  let legAddressInfo
-  // try {
-  //   console.log(addressLeg)
-  //   legAddressInfo = await addressLeg(legAddress.value)
-  //   pointList.value = [{ title: '左点位', address: null }, { title: '右点位', address: null }]
-  //   pointList.value[0].address = legAddressInfo.directReferrals.left_leg
-  //   pointList.value[1].address = legAddressInfo.directReferrals.right_leg
-  // } catch (err) {
-  //   console.log(err)
-  //   proxy.$loading.hide()
-
-  // }
-  console.log(legAddressInfo)
-  if (currentPoint.value == null) {
-    showToast('請選擇點位')
-    return
-  }
   propertiesList.value[1].content = FilterAddress(legAddress.value)
   toggleLegAdddressPopup()
 }
@@ -399,11 +397,6 @@ function toggleReferrerAddressPopup() {
 function toggleLegAdddressPopup() {
   showLegAddressPopup.value = !showLegAddressPopup.value
 }
-
-//獲取某個地址的左右點位和pv值
-// async function addressLeg(address) {
-//   addressLeg(address)
-// }
 
 function toggleConfirmPayPopup() {
   showConfirmPayPopup.value = !showConfirmPayPopup.value
@@ -438,21 +431,30 @@ async function handlePopupConfirmBuy() {
 //選擇購買配套地址相應屬性
 function handlePropertiesItem(item, index) {
   console.log(item, index)
-  // if (index == 0) {
-  //   toggleReferrerAddressPopup()
-  // } else {
-  //   if (!referrerAddress.value) {
-  //     showToast('請先填寫上級地址')
-  //     return
-  //   }
-  //   toggleLegAdddressPopup()
-  // }
-  switch (index) {
-    case 0: toggleReferrerAddressPopup()
-      break;
-    case 1: toggleLegAdddressPopup()
-      break;
+  if (index == 0) {
+    toggleReferrerAddressPopup()
+  } else if (index == 1) {
+    toggleLegAdddressPopup()
+  } else {
+    // pointList.value[0].address = legAddressInfo.directReferrals.left_leg
+    if (pointList.value[0].address && pointList.value[1].address) {
+      showToast('对碰上级左右点位均被占用，请重新输入对碰上级地址')
+      return
+    }
+    if (!legAddress.value) {
+      showToast('填入对碰地址再选择点位')
+      return
+    }
+    togglePointPopup()
   }
+  // switch (index) {
+  //   case 0: toggleReferrerAddressPopup()
+  //     break;
+  //   case 1: toggleLegAdddressPopup()
+  //     break;
+  //   case 2: togglePointPopup()
+  //     break;
+  // }
 }
 //检查erc20授权状态
 async function checkERC20ApproveState(walletAddress) {
@@ -460,48 +462,6 @@ async function checkERC20ApproveState(walletAddress) {
   // console.log(`${payWays.value[currentPayWay.value].title}授权状态`, approveState)
   return true
 }
-//RT授權erc20
-// function userRTERC20Approve() {
-//   RTERC20Approve()
-//     .then(res => {
-//       proxy.$loading.hide()
-//       showToast(`${payWays.value[currentPayWay.value].title}授权成功`)
-
-//       console.log(`${payWays.value[currentPayWay.value].title}授权成功`, res)
-//     })
-//     .catch(err => {
-//       proxy.$loading.hide()
-//       showToast(`${payWays.value[currentPayWay.value].title}授权失败`)
-
-//       console.log(`${payWays.value[currentPayWay.value].title}授权失敗`, err)
-//     })
-// }
-//MUSDT授權erc20
-// function userMUSDTERC20Approve() {
-//   MUSDTERC20Approve()
-//     .then(res => {
-//       proxy.$loading.hide()
-//       showToast(`${payWays.value[currentPayWay.value].title}授权成功`)
-//       console.log(`${payWays.value[currentPayWay.value].title}授权成功`, res)
-//     })
-//     .catch(err => {
-//       proxy.$loading.hide()
-//       showToast(`${payWays.value[currentPayWay.value].title}授权失败`)
-
-//       console.log(`${payWays.value[currentPayWay.value].title}授权失敗`, err)
-//     })
-// }
-// 用户授权erc20
-// function erc20Approve() {
-//   proxy.$loading.show()
-//   switch (currentPayWay.value) {
-//     case 0: userRTERC20Approve()
-//       break;
-//     case 1: userMUSDTERC20Approve()
-//       break;
-//   }
-// }
-
 async function handleConfirmBuy() {
   if (referrerAddress.value == null) {
     showToast(t('coherents.pleaseEnter') + t('coherents.directAddress'))
@@ -517,21 +477,6 @@ async function handleConfirmBuy() {
 }
 
 
-// function userBuyCoherent(buyAddress, coherentType, isRT, referrerAddress, legAddress, isLeft) { //用戶購買配套
-//   buyCoherent(buyAddress, coherentType, isRT, referrerAddress, legAddress, isLeft)
-//     .then(res => {
-//       proxy.$loading.hide()
-
-//       showToast('購買成功')
-//       console.log('購買成功', res)
-//     })
-//     .catch(err => {
-//       proxy.$loading.hide()
-
-//       showToast('購買失敗')
-//       console.log('購買失敗', err)
-//     })
-// }
 
 onMounted(() => {
   // FormatAmount()
