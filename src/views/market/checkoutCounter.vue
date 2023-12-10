@@ -89,24 +89,31 @@
     </div>
     <!-- 直接上級 -->
     <van-popup v-model:show="showReferrerAddressPopup" round position="bottom">
-      <div class="bg-black text-white py-4 flex flex-col justify-center">
-        <div class="w-full mb-4">
+      <div class="bg-page-content text-white py-4 flex flex-col justify-center">
+        <div class="w-full mb-10">
           <div class="text-center mb-4 font-bold">{{ propertiesList[0].title }}</div>
           <div class="w-full flex flex-col items-center mb-2">
             <div class="text-gray-200 text-sm text-left w-11/12 mb-1">{{ propertiesList[0].title }}</div>
             <div class="rounded overflow-hidden w-11/12 h-11  mb-1">
-              <input @focus="isErrReferrerAddress = false" type="text"
+              <input @focus="isErrReferrer = false" type="text"
                 :placeholder="propertiesList[0].placeholder + propertiesList[0].title" v-model="referrerAddress"
-                class="w-full h-full bg-black rounded text-sm">
+                class="w-full h-full bg-page-content rounded text-sm">
             </div>
-            <div v-show="isErrReferrerAddress" class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated"
-              :class="isErrReferrerAddress ? 'animate__shakeX' : ''">{{ $t('coherents.invalidAddress') }}
+            <div class="flex justify-between items-center w-11/12">
+              <div class="text-gray-200 underline text-sm active-white-color flex justify-end items-center">
+                <div class="w-4 mr-2" v-show="calibratingReferrer">
+                  <img src="@/assets/images/calibration-loading.gif" alt="">
+                </div>
+                <div @click="handleCalibrationReferrer">校驗地址</div>
+              </div>
+              <div class="text-sm text-left animate__animated text-red-500" v-show="isErrReferrer"
+                :class="isErrReferrer ? 'animate__shakeX text-red-500' : ''">{{ $t('coherents.invalidAddress') }}
+              </div>
             </div>
           </div>
         </div>
-
-        <div class="w-full flex justify-center items-center">
-          <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmReferrerAddress">
+        <div class="w-full flex justify-center items-center" v-show="canUseReferrer">
+          <div class="w-11/12 text-center py-2.5 rounded-full operating-button" @click="handleConfirmReferrerAddress">
             {{ $t('modalConfirm.confirm') }}
           </div>
         </div>
@@ -114,7 +121,7 @@
     </van-popup>
     <!-- 對碰上級 -->
     <van-popup v-model:show="showLegAddressPopup" round position="bottom">
-      <div class="bg-black text-white py-4 flex flex-col justify-center">
+      <div class="bg-page-content text-white py-4 flex flex-col justify-center">
         <div class="w-full mb-4">
           <div class="text-center mb-4 font-bold">{{ propertiesList[1].title }}</div>
           <div class="w-full flex flex-col items-center mb-4">
@@ -122,15 +129,29 @@
             <div class="rounded overflow-hidden w-11/12 h-11  mb-1">
               <input @focus="isErrLeg = false" type="text"
                 :placeholder="propertiesList[1].placeholder + propertiesList[1].title" v-model="legAddress"
-                class="w-full h-full bg-black rounded text-sm">
+                class="w-full h-full bg-page-content rounded text-sm">
             </div>
-            <div v-show="isErrLeg" class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated"
-              :class="isErrLeg ? 'animate__shakeX' : ''">{{ $t('coherent.invalidAddress') }}
+
+
+
+            <div class="flex justify-between items-center w-11/12">
+              <div class="text-gray-200 underline text-sm active-white-color flex justify-end items-center">
+                <div class="w-4 mr-2" v-show="calibratingLeg">
+                  <img src="@/assets/images/calibration-loading.gif" alt="">
+                </div>
+                <div @click="handleCalibrationLeg">校驗地址</div>
+              </div>
+              <div v-show="isErrLeg" class="text-sm text-left animate__animated text-red-500"
+                :class="isErrLeg ? 'animate__shakeX text-red-500' : ''">{{ $t('coherent.invalidAddress') }}
+              </div>
             </div>
+
+
           </div>
           <div class="w-full flex justify-center items-center">
+            <!-- 對碰上級點位 -->
             <div class="w-11/12 flex justify-between items-center">
-              <div v-for="(item, index) in pointLsit" @click="currentPoint = index"
+              <div v-for="(item, index) in pointList" @click="handlePoint(item, index)" v-show="pointList.length !== 0"
                 class=" rounded py-2 w-5/12 text-center mb-2 "
                 :class="currentPoint == index ? 'current-item text-text' : 'bg-bottom-content text-black'">
                 {{ item.title }}
@@ -215,18 +236,22 @@ import { showToast } from 'vant';
 import coherents_list from '@/datas/coherents_list'
 import { FormatAmount, FilterAddress } from '@/utils/format'
 import { useI18n } from 'vue-i18n';
-import { buyCoherent, adequateBalance, addressLeg } from '@/request/api'
+import { buyCoherent, adequateBalance, addressLeg, checkReferrerAddress } from '@/request/api'
 
 const { t } = useI18n()
 const route = useRoute()
 const { proxy } = getCurrentInstance()
 
-let isErrReferrerAddress = ref(false) //直接上级是否为无效地址
+let isErrReferrer = ref(false) //直接上级是否为无效地址
 let isErrLeg = ref(false) //对碰上级是否为无效地址
 let coherentInfo = ref({})
 let referrerAddress = ref(null) //直接上级
 let legAddress = ref(null)//对碰上级
-const pointLsit = ref([{ title: '左点位', isUsability: false }, { title: '右点位', isUsability: false }])
+let calibratingReferrer = ref(false) //正在校驗直接上級地址
+let calibratingLeg = ref(false) //正在校驗直接上級地址
+let canUseReferrer = ref(false)
+let canUseLeg = ref(false)
+const pointList = ref([])
 let propertiesList = computed(() => {
   return [
     { title: t('coherents.directAddress'), placeholder: t('coherents.pleaseEnter'), content: '' },
@@ -238,61 +263,133 @@ let showReferrerAddressPopup = ref(false)
 let showLegAddressPopup = ref(false)
 let showConfirmPayPopup = ref(false)
 let showPMTPopover = ref(false)
-
-//点击填写直接上级弹窗确认按钮
-function handleConfirmReferrerAddress() {
-  console.log(referrerAddress.value, referrerAddress.value == ZeroAddress, isAddress(referrerAddress.value))
+//點擊點位選擇
+function handlePoint(item, index) {
+  if (!item.address) {
+    currentPoint.value = index
+  } else {
+    showToast('該點位已有地址')
+  }
+}
+//點擊校驗直接上級地址
+async function handleCalibrationReferrer() {
+  if (calibratingReferrer.value) {
+    showToast('正在校驗，請稍後')
+    return
+  }
+  calibratingReferrer.value = true
   if (!referrerAddress.value) {
-    showToast(t('coherents.pleaseEnter' + t('coherents.directAddress')))
+    showToast(`${t('coherents.pleaseEnter')}${t('coherents.directAddress')}`)
+    calibratingReferrer.value = false
     return
   }
   if (referrerAddress.value == ZeroAddress || !isAddress(referrerAddress.value)) {
     console.log('无效地址')
-    isErrReferrerAddress.value = true
+    calibratingReferrer.value = false
+    isErrReferrer.value = true
     return
   }
-  propertiesList.value[0].content = FilterAddress(referrerAddress.value)
-  toggleReferrerAddressPopup()
+  let isValidAddress
+  try {
+    isValidAddress = await checkReferrerAddress(referrerAddress.value)
+    if (isValidAddress.message == '該地址是有效地址。') {
+      calibratingReferrer.value = false
+      canUseReferrer.value = true
+    } else {
+      canUseReferrer.value = false
+      isErrReferrer.value = true
+      calibratingReferrer.value = false
+    }
+    console.log('isValidAddress', isValidAddress)
+
+  } catch (err) {
+    console.log(err)
+    canUseReferrer.value = false
+    calibratingReferrer.value = false
+    return
+  }
+
+  // setTimeout(() => {
+  //   calibratingReferrer.value = false
+  //   propertiesList.value[0].content = FilterAddress(referrerAddress.value)
+  //   toggleReferrerAddressPopup()
+  // }, 2000);
 }
-//点击填写对碰上级弹窗确认按钮
-async function handleConfirmLegAddress() {
-  if (!legAddress.value) {
-    showToast(t('coherents.pleaseEnter' + t('coherents.collisionAddress')))
+//點擊校驗對碰上級地址
+async function handleCalibrationLeg() {
+  if (calibratingLeg.value) {
+    showToast('正在校驗，請稍後')
     return
   }
+  calibratingLeg.value = true
   if (legAddress.value == ZeroAddress || !isAddress(legAddress.value)) {
     console.log('无效地址')
     isErrLeg.value = true
+    calibratingLeg.value = false
     return
   }
-  let legAddressInfo
   try {
+    let legAddressInfo
     console.log(addressLeg)
     legAddressInfo = await addressLeg(legAddress.value)
-    // addressLeg(legAddress.value)
-    //   .then(res => {
-    //     proxy.$loading.show()
-    //     console.log(res)
-    //   })
-    //   .catch(err => {
-    //     proxy.$loading.show()
-    //     console.log(err)
-    //   })
-    // proxy.$loading.hide()
+    if (legAddressInfo.message == '該地址沒有購買配套記錄，不是有效地址。') {
+      isErrLeg.value = true
+      canUseLeg.value = false
+      calibratingLeg.value = false
+      return
+    }
+    canUseLeg.value = true
+    console.log(legAddressInfo)
+    pointList.value = [{ title: '左点位', address: null }, { title: '右点位', address: null }]
+    pointList.value[0].address = legAddressInfo.directReferrals.left_leg
+    pointList.value[1].address = legAddressInfo.directReferrals.right_leg
+    calibratingLeg.value = false
   } catch (err) {
     console.log(err)
     proxy.$loading.hide()
 
   }
+}
+//点击填写直接上级弹窗确认按钮
+function handleConfirmReferrerAddress() {
+  if (calibratingReferrer.value) {
+    showToast('正在校驗地址，請稍後')
+    return
+  }
+  if (!referrerAddress.value) {
+    showToast(`${t('coherents.pleaseEnter')}${t('coherents.directAddress')}`)
+    return
+  }
+  propertiesList.value[0].content = FilterAddress(referrerAddress.value)
+  toggleReferrerAddressPopup()
+}
+
+//点击填写对碰上级弹窗确认按钮
+async function handleConfirmLegAddress() {
+  if (!legAddress.value) {
+    showToast(t('coherents.pleaseEnter' + t('coherents.collisionAddress')))
+    calibratingLeg.value = false
+    return
+  }
+  let legAddressInfo
+  // try {
+  //   console.log(addressLeg)
+  //   legAddressInfo = await addressLeg(legAddress.value)
+  //   pointList.value = [{ title: '左点位', address: null }, { title: '右点位', address: null }]
+  //   pointList.value[0].address = legAddressInfo.directReferrals.left_leg
+  //   pointList.value[1].address = legAddressInfo.directReferrals.right_leg
+  // } catch (err) {
+  //   console.log(err)
+  //   proxy.$loading.hide()
+
+  // }
   console.log(legAddressInfo)
-  return
   if (currentPoint.value == null) {
     showToast('請選擇點位')
     return
   }
   propertiesList.value[1].content = FilterAddress(legAddress.value)
   toggleLegAdddressPopup()
-  // console.log('availablePoints', availablePoints)
 }
 //切换直接上级弹窗
 function toggleReferrerAddressPopup() {
@@ -323,7 +420,7 @@ async function handlePopupConfirmBuy() {
     showToast('獲取餘額失敗，請重試')
   }
 
-  let data = { package_id: 1, referrer_address: window.ethereum.selectedAddress, leg_address: legAddress.value, legSide: currentPoint.value == 0 ? 'left' : 'right' }
+  let data = { package_id: 1, referrer_address: referrerAddress.value, leg_address: legAddress.value, legSide: currentPoint.value == 0 ? 'left' : 'right' }
   buyCoherent(data)
     .then(res => {
       console.log('購買成功', res)
@@ -341,6 +438,15 @@ async function handlePopupConfirmBuy() {
 //選擇購買配套地址相應屬性
 function handlePropertiesItem(item, index) {
   console.log(item, index)
+  // if (index == 0) {
+  //   toggleReferrerAddressPopup()
+  // } else {
+  //   if (!referrerAddress.value) {
+  //     showToast('請先填寫上級地址')
+  //     return
+  //   }
+  //   toggleLegAdddressPopup()
+  // }
   switch (index) {
     case 0: toggleReferrerAddressPopup()
       break;

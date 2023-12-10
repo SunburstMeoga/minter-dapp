@@ -30,3 +30,10 @@ export function buyCoherent(data) {
     data
   })
 }
+
+//檢查地址是否為有效地址
+export function checkReferrerAddress(address) {
+  return request('/players/check-address/' + address, {
+    method: 'GET'
+  })
+}

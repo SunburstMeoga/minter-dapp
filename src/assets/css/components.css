@@ -35,6 +35,10 @@ input {
     padding-left: 2px;
     }
 
+.disable-button {
+    color: #000;
+    background: grey;
+}
 .module-content {
     background: rgb(44,79,176);
     background: linear-gradient(13deg, rgba(44,79,176,1) 22%, rgba(148,76,224,1) 60%, rgba(209,199,157,0.9374124649859944) 100%);
