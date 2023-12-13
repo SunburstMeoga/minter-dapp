@@ -14,9 +14,12 @@
             <van-tab :title="$t('assistance.commitmentCard')">
                 <div class="flex flex-col justify-start items-center mt-4">
                     <div class="w-11/12 mb-2" v-for="(item, index) in cardList" :key="index">
-                        <performance-commitment-card @toggleShowMore="toggleShowMore(item, index)"
-                            :showMore="item.showMore" />
+                        <performance-commitment-card @toggleShowMore="toggleShowMore(item, index)" :showMore="item.showMore"
+                            :time="item.updated_at" :tokenID="item.nft_token_id" :price="item.reward_amount" />
                     </div>
+                </div>
+                <div v-if="cardList.length == 0" class="text-white font-bold mt-16 text-center">
+                    暫無數據
                 </div>
             </van-tab>
         </van-tabs>
@@ -264,7 +267,7 @@ import coherents_list from '@/datas/coherents_list'
 import { DownloadImage } from '@/utils/saveImg'
 import { CopyText } from '@/utils/copyText'
 import { useI18n } from 'vue-i18n';
-import { addressLeg, upInferiorPackage } from '@/request/api'
+import { addressLeg, upInferiorPackage, staticRecords } from '@/request/api'
 
 const { t } = useI18n()
 const { proxy } = getCurrentInstance()
@@ -281,7 +284,7 @@ let shareLink = ref('')
 let currentPointInfo = ref()
 let clickPointInfo = ref({})
 let size = ref(240)
-let cardList = ref([{ showMore: false }, { showMore: false }, { showMore: false }, { showMore: false }, { showMore: false }, { showMore: false }])
+let cardList = ref([])
 let attendWays = computed(() => {
     return [{ title: t('assistance.buyDirect'), icon: 'icon-goumai' }, { title: t('assistance.createInviterLink'), icon: 'icon-lianjie' }]
 })
@@ -304,9 +307,28 @@ const coherentsList = ref(coherents_list)
 let directReferrals = ref({})
 onMounted(() => {
     // viewAddressPoint(window.ethereum.selectedAddress)
-    console.log('document.domain', document.domain)
+    // console.log('document.domain', document.domain)
     viewPointMap(localStorage.getItem('address'))
+    getStaticRecords()
 })
+function getStaticRecords() {
+    proxy.$loading.show()
+    let params = { prize_type_id: 3, perPage: 100000 }
+    staticRecords(params)
+        .then(res => {
+            console.log(res)
+            proxy.$loading.hide()
+            cardList.value = res.records
+            cardList.value.map(item => {
+                item.showMore = false
+            })
+        })
+        .catch(err => {
+            console.log(err)
+            proxy.$loading.hide()
+
+        })
+}
 //查看某個地址下的點位圖
 function viewPointMap(address) {
     proxy.$loading.show()

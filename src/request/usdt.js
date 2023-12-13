@@ -23,6 +23,10 @@ if (window.ethereum) {
       const value = ethers.MaxUint256
       const result = await USDTTRADE.approve(contractAddress, value)
       return result
+    },
+    balanceOf: async function (walletAddr) {
+      const result = await USDT.balanceOf(walletAddr)
+      return result
     }
   }
 }

@@ -42,16 +42,17 @@
                 </div>
                 <div class="flex justify-between items-center text-menu-word text-sm mb-2">
                     <div class="">{{ $t('wallet.balance') }}</div>
-                    <div class="flex justify-end items-center"><span class="text-white pr-1">0 </span> </div>
+                    <div class="flex justify-end items-center"><span class="text-white pr-1">{{ Number(balance).toFixed(4)
+                    }} {{ currency }}</span> </div>
                 </div>
                 <!-- <div class="flex justify-between items-center text-menu-word text-sm mb-2">
                     <div class="">可用</div>
                     <div class="flex justify-end items-center"><span class="text-white pr-1">0 </span> (≈ $ 0.00)</div>
                 </div> -->
-                <div class="flex justify-between items-center text-menu-word text-sm">
+                <div class="flex justify-between items-center text-menu-word text-sm" v-show="contranct">
                     <div class="">{{ $t('wallet.contract') }}</div>
-                    <div class="flex justify-end items-center">0x839062...e67d1B <span @click="handleCopy"
-                            class="icon iconfont icon-copy ml-2 active-white-color">
+                    <div class="flex justify-end items-center"> {{ FilterAddress(contranct) }} <span
+                            @click="handleCopy(contranct)" class="icon iconfont icon-copy ml-2 active-white-color">
                         </span></div>
                 </div>
             </div>
@@ -63,10 +64,18 @@
 import { CopyText } from '@/utils/copyText'
 import { showToast } from 'vant'
 import { useI18n } from 'vue-i18n';
+import { FilterAddress } from '@/utils/format'
 const { t } = useI18n()
 
 defineProps({
-
+    balance: {
+        type: String,
+        default: ''
+    },
+    contranct: {
+        type: String,
+        default: ''
+    },
     isRecharge: {
         type: Boolean,
         default: false
@@ -88,8 +97,8 @@ defineProps({
         default: ''
     }
 })
-async function handleCopy() {
-    await CopyText('http://localhost:5173/personal/assistance')
+async function handleCopy(contranct) {
+    await CopyText(contranct)
     showToast(t('toast.copySuccess'))
 }
 </script>

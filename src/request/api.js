@@ -89,8 +89,26 @@ export function playersInfo(address) {
     method: 'GET'
   })
 }
-// export function playersInfo(address) {
-//   return request('/players/' + address, {
-//     method: 'GET'
-//   })
-// }
+
+//動態收益種類
+export function dynamicEarningTypes() {
+  return request('/dynamic_earning_types', {
+    method: 'GET'
+  })
+}
+
+//動態收益記錄
+export function dynamicRecords(params) {
+  return request('/dynamic_records', {
+    method: 'GET',
+    params
+  })
+}
+
+//動態收益記錄
+export function staticRecords(params) {
+  return request('/static_records', {
+    method: 'GET',
+    params
+  })
+}

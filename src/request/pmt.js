@@ -17,6 +17,11 @@ if (window.ethereum) {
     purchasePackage: async function (packageId) {
       const result = await PMTTRADE.purchasePackage(packageId)
       return result
+    },
+    balanceOf: async function (walletAddr) {
+      const PMTERC20 = new ethers.Contract(config.pmt_addr, config.burnable_token_abi, signer)
+      const result = await PMTERC20.balanceOf(walletAddr)
+      return result
     }
   }
 }

@@ -13,14 +13,15 @@
                 <module-title :titleWord="$t('wallet.title')"></module-title>
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card isUSD3 currency="USD3" isRecharge isWithdraw @recharge="handleWalletCardRecharge"
-                    @withdraw="handleWalletCardWithdraw" />
+                <wallet-card isUSD3 currency="USD3" :balance="usdtBalance" :contranct="config.USDToken_addr" isWithdraw
+                    @recharge="handleWalletCardRecharge" @withdraw="handleWalletCardWithdraw" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="PMT" />
+                <wallet-card currency="PMT" :balance="pmtBalance" :contranct="config.pmt_addr" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="MT" isExchange @exchange="handleWalletCardExchange" />
+                <wallet-card currency="MT" :balance="mtBalance" :contranct="config.mt_addr" isExchange
+                    @exchange="handleWalletCardExchange" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card currency="BT" />
@@ -69,35 +70,7 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="w-11/12 mr-auto ml-auto">
-                <div class="flex justify-between items-center pt-2">
-                    <div class="px-2 py-0.5 text-sm flex justify-start items-center mb-2">
-                        <van-checkbox v-model="isUnanimous" checked-color="#e149ed" icon-size="18px"></van-checkbox>
-                        <div class="pl-2" :class="isUnanimous ? 'text-primary-color' : 'text-white'">{{
-                            $t('wallet.unanimous') }}</div>
-                    </div>
-                    <div class="px-2.5 py-1 text-base rounded  mb-2 operating-button text-white"
-                        v-for="(item, index) in operatorList" :key="index" @click="handleOperatorItem(item, index)">
-                        {{ item.title }}
-                    </div>
-                </div>
-                <div class="border-b border-gray-800 mb-2 ">
 
-                </div>
-            </div>
-            <div class="flex justify-start items-center  mr-auto ml-auto flex-wrap mb-2">
-                <div class="ml-4 px-2 py-0.5 text-xs border  rounded  mb-2"
-                    :class="currentCoherent == index ? 'border-primary-color text-primary-color' : 'border-menu-word text-menu-word'"
-                    v-for="(item, index) in coherentList" :key="index" @click="handleCoherentItem(item, index)">
-                    {{ item.title }}
-                </div>
-            </div>
-
-            <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap">
-                <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in 9" :key="index">
-                    <nft-card :nftImg="nftOne" />
-                </div>
-            </div> -->
         </div>
         <van-popup v-model:show="showTransferPopup" round position="bottom">
             <div class="bg-black text-white py-4 flex flex-col justify-center">
@@ -274,7 +247,7 @@
 </template>
 
 <script setup>
-import { ref, computed, getCurrentInstance } from 'vue'
+import { ref, computed, getCurrentInstance, onMounted } from 'vue'
 import { useRouter } from "vue-router";
 import ModuleTitle from '../../components/ModuleTitle.vue';
 import WalletCard from '@/components/WalletCard.vue';
@@ -286,11 +259,19 @@ import { useI18n } from 'vue-i18n'
 import swapContractApi from '@/request/swap'
 import minterContractApi from '@/request/minter'
 import usdtContractApi from '@/request/usdt'
+import pmtContractApi from '@/request/pmt'
+import mtContractApi from '@/request/mt'
+import mstContractApi from '@/request/mst'
+
+
 import { config } from '@/const/config'
 import { showToast } from 'vant';
 import { number } from 'echarts';
+import { userStore } from "@/stores/user";
 import Web3 from "web3";
 const { t } = useI18n()
+const userInfo = userStore()
+
 const { proxy } = getCurrentInstance()
 const router = useRouter()
 let coherentList = computed(() => {
@@ -300,7 +281,12 @@ let coherentList = computed(() => {
 let operatorList = computed(() => {
     return [{ title: t('wallet.sale') }, { title: t('wallet.cancleSale') }, { title: t('wallet.gift') }]
 })
-
+onMounted(() => {
+    getUSDTBalance()
+    getPMTBalance()
+    getMTBalance()
+    getMSTBalance()
+})
 let currentCoherent = ref(null)
 let currentOperator = ref(null)
 let showOperator = ref(false)
@@ -311,7 +297,53 @@ let showRechargePopup = ref(false)
 let exchangeAmount = ref('')
 let exhangeTypes = ref([{ title: 'MT 兌換 USDT', type: 0 }, { title: 'MT 兌換 RT', type: 1 }])
 let currentExchangeType = ref(0)
-// const chartData = ref([1, 2, 3, 4, 5])
+let usdtBalance = ref('')
+let pmtBalance = ref('')
+let mtBalance = ref('')
+let mstBalance = ref('')
+
+
+
+// const chartData = ref([1, 2, 3, 4, 5])   
+async function getMSTBalance() {
+    console.log('userInfo.address', userInfo.address)
+    let balance = await mstContractApi.balanceOf(userInfo.address)
+    let WEB3 = new Web3(window.ethereum)
+    let result = WEB3.utils.fromWei(balance.toString(), 'ether')
+    console.log('mst', result)
+    mstBalance.value = result
+    return balance
+}
+async function getUSDTBalance() {
+    console.log('userInfo.address', userInfo.address)
+    let balance = await usdtContractApi.balanceOf(userInfo.address)
+    let WEB3 = new Web3(window.ethereum)
+    let result = WEB3.utils.fromWei(balance.toString(), 'ether')
+    console.log('usdt', result)
+    usdtBalance.value = result
+    return balance
+}
+async function getPMTBalance() {
+    console.log('userInfo.address', userInfo.address)
+    let balance = await pmtContractApi.balanceOf(userInfo.address)
+    let WEB3 = new Web3(window.ethereum)
+    let result = WEB3.utils.fromWei(balance.toString(), 'ether')
+    console.log('pmt', result)
+    pmtBalance.value = result
+    return balance
+}
+async function getMTBalance() {
+    console.log('userInfo.address', userInfo.address)
+    let balance = await mtContractApi.balanceOf(userInfo.address)
+    let WEB3 = new Web3(window.ethereum)
+    let result = WEB3.utils.fromWei(balance.toString(), 'ether')
+    console.log('mt', result)
+    mtBalance.value = result
+    return balance
+}
+
+
+
 
 function viewCoherents() {
     setTimeout(() => {

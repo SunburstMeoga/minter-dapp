@@ -253,7 +253,7 @@ function getPlayersInfo(address) {
     playersInfo(address)
         .then(res => {
             console.log('res', res)
-            hasPackage.value = res.player.transactions.length !== 0
+            hasPackage.value = res.player.package_transactions.length !== 0
         })
         .catch(err => {
             console.log('err', err)

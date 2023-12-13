@@ -14,18 +14,18 @@
                         <van-empty description="暫無數據" />
                     </div> -->
                     <div class="w-11/12 ml-auto mr-auto mb-3 rounded overflow-hidden p-2 bg-black text-card-word text-sm"
-                        v-for="(item, index) in 20" :key="index">
+                        v-for="(item, index) in dataList" :key="index">
                         <div class="flex justify-between items-center mb-2">
                             <div>{{ $t('assistance.awardAmount') }}</div>
-                            <div class="text-green-500">+ 100.00</div>
+                            <div class="text-green-500">+ {{ Number(item.amount).toFixed(4) }}</div>
                         </div>
                         <div class="flex justify-between items-center">
                             <div>{{ $t('assistance.releaseTime') }}</div>
-                            <div>2023-09-30 16:01:12</div>
+                            <div>{{ FilterTime(item.updated_at) }}</div>
                         </div>
                     </div>
-                    <div v-if="isLoaing">
-
+                    <div v-if="dataList.length == 0" class="text-white font-bold mt-16 text-center">
+                        暫無數據
                     </div>
                 </div>
             </div>
@@ -36,6 +36,8 @@
 <script setup>
 import { ref, onMounted, getCurrentInstance, computed } from 'vue'
 import { useI18n } from 'vue-i18n';
+import { FilterTime } from '@/utils/format'
+import { dynamicEarningTypes, dynamicRecords } from '@/request/api'
 const { t } = useI18n()
 const { proxy } = getCurrentInstance()
 // const typeList = ref([{ title: '直推奖励' }, { title: '对碰奖励' }, { title: '代数奖励' }])
@@ -47,12 +49,46 @@ let dataList = ref([])
 
 onMounted(() => {
     // getIncomeList(window.ethereum.selectedAddress, 1)
+    getDynamicEarningTypes()
+    getDynamicRecords()
 })
 
+//獲取動態收益記錄
+function getDynamicRecords() {
+    proxy.$loading.show()
+    // dynamic_earning_type_id=1&sortBy=created_at&sortDesc=true&perPage=10&page=1
+    let params = { dynamic_earning_type_id: currentType.value + 1, perPage: 100000 }
+    console.log(params)
+    dynamicRecords(params)
+        .then(res => {
+            console.log('獲取動態收益記錄', res)
+            dataList.value = res.records
+            proxy.$loading.hide()
 
+        })
+        .catch(err => {
+            console.log(err)
+            proxy.$loading.hide()
+
+        })
+}
+
+//獲取動態收益種類
+function getDynamicEarningTypes() {
+
+    dynamicEarningTypes()
+        .then(res => {
+            console.log('動態收益種類', res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
 
 function handleType(item, index) {
     currentType.value = index
+    dataList.value = []
+    getDynamicRecords()
     // getIncomeList(window.ethereum.selectedAddress, index + 1)
 }
 </script>
