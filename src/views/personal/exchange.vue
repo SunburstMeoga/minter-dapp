@@ -23,13 +23,14 @@
             </div>
             <div class="w-full flex justify-between items-center mb-10">
                 <div class="rounded mr-2  flex-1 py-1">
-                    <input type="text" :placeholder="$t('exchange.exchangeQuantity')"
+                    <input type="text" :placeholder="$t('exchange.exchangeQuantity')" v-model="exchangeAmount"
                         class="w-full py-2 bg-transparent pl-1 text-gray-200">
                 </div>
-                <div class="underline text-sm text-gray-200">{{ $t('wallet.all') }}</div>
+                <!-- <div class="underline text-sm text-gray-200">{{ $t('wallet.all') }}</div> -->
             </div>
             <!--  -->
-            <div class="operating-button rounded-full text-white font-bold text-center text-sm py-2">
+            <div class="operating-button rounded-full text-white font-bold text-center text-sm py-2"
+                @click="handleExchange">
                 {{ $t('modalConfirm.confirm') }}
             </div>
         </div>
@@ -37,14 +38,70 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, getCurrentInstance } from 'vue'
 import { useRouter } from "vue-router";
-
+import { config } from '@/const/config'
 import ModuleTitle from "../../components/ModuleTitle.vue";
 import coherents_list from '@/datas/coherents_list'
 import { showToast } from 'vant';
-
+const { proxy } = getCurrentInstance()
+import usdtContractApi from '@/request/usdt'
+import swapContractApi from '@/request/swap'
+import Web3 from "web3";
+let exchangeAmount = ref('')
 const router = useRouter()
+async function handleExchange() {
+    proxy.$loading.show()
+    let allowance
+    try { //检查usdt对pmt_purchase的授权状态
+        allowance = await usdtContractApi.allowance(localStorage.getItem('address'), config.swap_abi)
+        proxy.$loading.hide()
+    } catch (err) {
+        proxy.$loading.hide()
+        showToast(t('toast.error'))
+        console.log(err)
+    }
+
+    if (Number(allowance) == 0) { //當前領取方式未授權
+        proxy.$loading.hide()
+        proxy.$confirm.show({
+            title: '請授權',
+            content: '該地址未進行授權，請完成授權',
+            showCancelButton: false,
+            confirmText: '確定',
+            onConfirm: () => {
+                proxy.$loading.show()
+                // usdt对pmt授權
+                usdtContractApi.approve(config.swap_abi)
+                    .then(res => {
+                        console.log(res)
+                        proxy.$loading.hide()
+                        showToast(t('toast.success'))
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        proxy.$loading.hide()
+                        showToast(t('toast.error'))
+                    })
+            },
+        });
+        return
+    }
+
+    try {
+
+        proxy.$loading.show()
+        const WEB3 = new Web3(window.ethereum)
+        let amount = WEB3.utils.toWei((exchangeAmount.value).toString(), ether)
+        await swapContractApi.swapUSDTForRT(amount)
+        proxy.$loading.hide()
+        showToast(t('toast.success'))
+    } catch (err) {
+        proxy.$loading.hide()
+        showToast(t('toast.error'))
+        console.log(err)
+    }
+}
 
 </script>
 

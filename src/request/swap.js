@@ -16,12 +16,17 @@ if (window.ethereum) {
   swapContractApi = {
     //mt兌換成USDT
     swapMTForUSDT: async function (mtAmount) {
-      const result = await SWAP.swapMTForUSDT(mtAmount)
+      const result = await SWAPTRADE.swapMTForUSDT(mtAmount)
       return result
     },
     //mt兌換成rt
     swapMTForRT: async function () {
-      const result = await SWAP.swapMTForRT(mtAmount)
+      const result = await SWAPTRADE.swapMTForRT(mtAmount)
+      return result
+    },
+    //mt兌換成rt
+    swapUSDTForRT: async function () {
+      const result = await SWAPTRADE.swapUSDTForRT(mtAmount)
       return result
     }
   }
