@@ -47,6 +47,9 @@ import { showToast } from 'vant';
 const { proxy } = getCurrentInstance()
 import usdtContractApi from '@/request/usdt'
 import swapContractApi from '@/request/swap'
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n()
+
 import Web3 from "web3";
 let exchangeAmount = ref('')
 const router = useRouter()
@@ -54,7 +57,7 @@ async function handleExchange() {
     proxy.$loading.show()
     let allowance
     try { //检查usdt对pmt_purchase的授权状态
-        allowance = await usdtContractApi.allowance(localStorage.getItem('address'), config.swap_abi)
+        allowance = await usdtContractApi.allowance(localStorage.getItem('address'), config.swap_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
@@ -72,7 +75,7 @@ async function handleExchange() {
             onConfirm: () => {
                 proxy.$loading.show()
                 // usdt对pmt授權
-                usdtContractApi.approve(config.swap_abi)
+                usdtContractApi.approve(config.swap_addr)
                     .then(res => {
                         console.log(res)
                         proxy.$loading.hide()
