@@ -27,7 +27,7 @@
                 <div class="flex justify-between items-center mb-2">
                     <div class="flex justify-start items-center">
                         <div class="icon iconfont icon-yingyongshichang text-primary-color" style="font-size: 24px;"></div>
-                        <div class="font-bold text-lg pl-4">0.00 {{ currency }}</div>
+                        <div class="font-bold text-lg pl-4">{{ currency }}</div>
                     </div>
                     <div class="flex justify-end text-sm items-center text-test-two active-color">
                         <div v-if="isRecharge" class="underline" @click="$emit('recharge')">{{ $t('wallet.recharge') }}
@@ -42,7 +42,8 @@
                 </div>
                 <div class="flex justify-between items-center text-menu-word text-sm mb-2">
                     <div class="">{{ $t('wallet.balance') }}</div>
-                    <div class="flex justify-end items-center"><span class="text-white pr-1">{{ Number(balance).toFixed(4)
+                    <div class="flex justify-end items-center"><span class="text-lg pr-1 font-bold text-red-500">{{
+                        Number(balance).toFixed(4)
                     }} {{ currency }}</span> </div>
                 </div>
                 <!-- <div class="flex justify-between items-center text-menu-word text-sm mb-2">
