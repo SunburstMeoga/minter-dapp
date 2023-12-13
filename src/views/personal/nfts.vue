@@ -24,7 +24,7 @@
         <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap" v-show="currentType == 1">
             <div class="px-2 py-0.5 text-sm flex justify-between items-center mb-2 w-full">
                 <div class=" justify-start items-center text-gray-200">
-                    <div class="rounded px-3 py-1.5 bg-card-content">取消掛單</div>
+                    <div class="rounded px-3 py-1.5 bg-card-content" @click="handleCancleList">取消掛單</div>
                 </div>
                 <div class="flex justify-end items-center">
                     <div class="pr-2 font-bold text-lg" :class="isAllListed ? 'text-primary-color' : 'text-white'">{{
@@ -53,7 +53,7 @@
             </div> -->
             <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in saleables" :key="index">
                 <nft-card :nftImg="item.nftImg" :checkedStatus="false" :showCheckbox="false" showListedButton
-                    @checkedStatusHasChange="saleablesHasChange(item, index)" />
+                    @handleListed="handleListed(item)" @checkedStatusHasChange="saleablesHasChange(item, index)" />
             </div>
         </div>
     </div>
@@ -64,7 +64,10 @@ import { ref, onMounted, computed, getCurrentInstance } from 'vue'
 import NftCard from '@/components/NftCard.vue'
 import nftOne from '@/assets/images/nftOne.png'
 import { userNFT } from '@/request/api'
+import nftContractApi from '@/request/nft'
+import { showToast } from 'vant'
 const { proxy } = getCurrentInstance()
+import { config } from '@/const/config'
 let nftsStatusList = computed(() => {
     return [{ title: '全部' }, { title: '正在掛單' }, { title: '可出售' }]
 })
@@ -95,6 +98,108 @@ function getUserNFTs() {
 
             console.log(err)
         })
+}
+//掛單
+async function handleListed(item) {
+    let allowance
+    try { //检查pmt对pmt_purchase的授权状态
+        allowance = await nftContractApi.allowance(localStorage.getItem('address'), config.nfts_marketplace_addr)
+        proxy.$loading.hide()
+    } catch (err) {
+        proxy.$loading.hide()
+        showToast(t('toast.error'))
+        console.log(err)
+    }
+    console.log('allowance', allowance)
+    if (Number(allowance) == 0) { //當前賬號未授權
+        proxy.$loading.hide()
+        proxy.$confirm.show({
+            title: '請授權',
+            content: '該地址未進行授權，請完成授權',
+            showCancelButton: false,
+            confirmText: '確定',
+            onConfirm: () => {
+                proxy.$loading.show()
+                // pmt对nft授權
+                nftContractApi.approve(config.nfts_marketplace_addr)
+                    .then(res => {
+                        console.log(res)
+                        proxy.$loading.hide()
+                        showToast(t('toast.success'))
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        proxy.$loading.hide()
+                        showToast(t('toast.error'))
+                    })
+            },
+        });
+        return
+    }
+
+    try { //listNFT
+        proxy.$loading.show()
+        await nftContractApi.listNFT(item.token_id)
+        proxy.$loading.hide()
+        showToast(t('toast.success'))
+        // showToast(t('toast.success'))
+    } catch (err) {
+        proxy.$loading.hide()
+        showToast(t('toast.error'))
+        console.log(err)
+    }
+}
+
+//取消掛單
+async function handleCancleList() {
+    let allowance
+    try { //检查pmt对pmt_purchase的授权状态
+        allowance = await nftContractApi.allowance(localStorage.getItem('address'), config.nfts_marketplace_addr)
+        proxy.$loading.hide()
+    } catch (err) {
+        proxy.$loading.hide()
+        showToast(t('toast.error'))
+        console.log(err)
+    }
+    console.log('allowance', allowance)
+
+    if (Number(allowance) == 0) { //當前賬號未授權
+        proxy.$loading.hide()
+        proxy.$confirm.show({
+            title: '請授權',
+            content: '該地址未進行授權，請完成授權',
+            showCancelButton: false,
+            confirmText: '確定',
+            onConfirm: () => {
+                proxy.$loading.show()
+                // pmt对nft授權
+                nftContractApi.approve(config.nfts_marketplace_addr)
+                    .then(res => {
+                        console.log(res)
+                        proxy.$loading.hide()
+                        showToast(t('toast.success'))
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        proxy.$loading.hide()
+                        showToast(t('toast.error'))
+                    })
+            },
+        });
+        return
+    }
+
+    try { //unlistNFT
+        proxy.$loading.show()
+        await nftContractApi.unlistNFT(item.token_id)
+        proxy.$loading.hide()
+        showToast(t('toast.success'))
+        // showToast(t('toast.success'))
+    } catch (err) {
+        proxy.$loading.hide()
+        showToast(t('toast.error'))
+        console.log(err)
+    }
 }
 
 //全選可售卖列表

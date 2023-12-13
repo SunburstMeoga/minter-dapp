@@ -35,7 +35,7 @@ onMounted(() => {
                 },
                 data: [
                     {
-                        value: 89,
+                        value: 0,
                         // name: '动态收益'
                     }
                 ],

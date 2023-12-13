@@ -83,8 +83,14 @@ export function userNFT() {
 }
 
 //獲取玩家資料
+
 export function playersInfo(address) {
   return request('/players/' + address, {
     method: 'GET'
   })
 }
+// export function playersInfo(address) {
+//   return request('/players/' + address, {
+//     method: 'GET'
+//   })
+// }

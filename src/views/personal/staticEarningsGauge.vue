@@ -36,7 +36,7 @@ onMounted(() => {
                 },
                 data: [
                     {
-                        value: 23,
+                        value: 0,
                         // name: '靜態收益',
                         // fontSize: '12px',
                     }

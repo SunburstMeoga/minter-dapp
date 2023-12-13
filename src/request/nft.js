@@ -43,6 +43,11 @@ if (window.ethereum) {
     unlistNFT: async function (nftID) {
       const result = await NFTTRADE.unlistNFT(nftID)
       return result
+    },
+    //獲取上市的所有nft
+    getAllListedNFTs: async function () {
+      const result = await NFT.getAllListedNFTs()
+      return result
     }
   }
 }

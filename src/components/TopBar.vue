@@ -185,7 +185,7 @@ const showMoreMarket = ref(false)
 const showMorePersonal = ref(false)
 const showLoginPopup = ref(false)
 const currentMenuItem = ref('')
-
+let hasPackage = ref(false)
 const value = ref('sfsdfsf')
 const size = ref(240)
 const actions = ref([
@@ -211,7 +211,7 @@ let homeChilds = computed(() => {
 })
 
 let personalChilds = computed(() => {
-    if (userInfo.address) {
+    if (userInfo.address && hasPackage.value) {
         return [{ title: t('menu.wallet'), router: '/personal/wallet' }, { title: t('menu.exchange'), router: '/personal/exchange' }, { title: t('menu.coinBank') }, { title: t('menu.custodianship') }, { title: t('menu.grandPrix') }, { title: t('menu.bag') }, { title: t('menu.synthesize') }, { title: t('menu.operationRecord'), router: '/earnings/list' }, { title: t('menu.helpHand'), router: '/personal/assistance' }, { title: t('menu.setting') }]
     } else {
         return [{ title: t('menu.wallet'), router: '/personal/wallet' }]
@@ -249,8 +249,9 @@ function addressFilter(value) {
 //獲取玩家信息
 function getPlayersInfo(address) {
     playersInfo(address)
-        .tnen(res => {
+        .then(res => {
             console.log('res', res)
+            hasPackage.value = res.player.transactions.length !== 0
         })
         .catch(err => {
             console.log('err', err)
