@@ -105,10 +105,17 @@ export function dynamicRecords(params) {
   })
 }
 
-//動態收益記錄
+//靜態收益記錄
 export function staticRecords(params) {
   return request('/static_records', {
     method: 'GET',
     params
+  })
+}
+
+//查看rt餘額
+export function rtBanalce() {
+  return request('players/rt-balance', {
+    method: 'GET'
   })
 }

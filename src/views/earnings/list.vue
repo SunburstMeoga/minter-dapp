@@ -68,6 +68,9 @@
 <script setup>
 import ModuleTitle from "@/components/ModuleTitle.vue";
 import EarningsCard from "./earningsCard.vue";
+import { dynamicRecords } from '@/request/api'
+
+
 </script>
 <style>
 .van-tabs,

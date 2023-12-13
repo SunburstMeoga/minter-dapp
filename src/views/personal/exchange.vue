@@ -47,7 +47,7 @@ import { showToast } from 'vant';
 import usdtContractApi from '@/request/usdt'
 import swapContractApi from '@/request/swap'
 import { userStore } from "@/stores/user";
-import { playersInfo } from '@/request/api'
+import { playersInfo, rtBanalce } from '@/request/api'
 import { useI18n } from 'vue-i18n';
 import Web3 from "web3";
 const userInfo = userStore()
@@ -64,7 +64,7 @@ onMounted(() => {
 })
 //獲取玩家信息
 function getPlayersInfo(address) {
-    playersInfo(address)
+    rtBanalce(address)
         .then(res => {
             console.log('res', res)
             playInfo.value = res
