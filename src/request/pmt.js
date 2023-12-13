@@ -22,6 +22,26 @@ if (window.ethereum) {
       const PMTERC20 = new ethers.Contract(config.pmt_addr, config.burnable_token_abi, signer)
       const result = await PMTERC20.balanceOf(walletAddr)
       return result
+    },
+    //已提現總數
+    getWithdrawalAmount: async function (walletAddr) {
+      const result = await PMT.getWithdrawalAmount(walletAddr)
+      return result
+    },
+    //可提現上限
+    getWithdrawalAmountLimit: async function (walletAddr) {
+      const result = await PMT.getWithdrawalAmountLimit(walletAddr)
+      return result
+    },
+    //現時收益總數
+    getRewardAmount: async function (walletAddr) {
+      const result = await PMT.getRewardAmount(walletAddr)
+      return result
+    },
+    //收益上限
+    getRewardAmountLimit: async function (walletAddr) {
+      const result = await PMT.getRewardAmountLimit(walletAddr)
+      return result
     }
   }
 }

@@ -24,13 +24,13 @@
                     @exchange="handleWalletCardExchange" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="BT" />
+                <wallet-card currency="BT" isExchange @exchange="handleWalletCardExchangeBT" :balance="palayBanalce.bt" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card :currency="'RT' + '(' + $t('order.bind') + ')'" />
+                <wallet-card :currency="'RT' + '(' + $t('order.bind') + ')'" :balance="palayBanalce.rtLocked" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="RT" @transfer="handleWalletCardTransfer" isTrasfer />
+                <wallet-card currency="RT" :balance="palayBanalce.rt" @transfer="handleWalletCardTransfer" isTrasfer />
             </div>
             <div class="border-b border-gray-800 w-11/12 mr-auto ml-auto mb-3"></div>
             <div class="flex justify-between items-center w-11/12 mr-auto ml-auto mb-2">
@@ -38,7 +38,7 @@
                     <div class="w-full flex justify-between items-center px-2 py-2 bg-gray-800 rounded mb-4 active-primary-color"
                         @click="viewCoherents">
                         <div class="flex justify-start items-center">
-                            <div class="pr-1 font-bold text-lg">{{ packageAmount }}</div>
+                            <div class="pr-1 font-bold text-lg">{{ packageCount }}</div>
                             <div class="text-white">{{ $t('wallet.coherent') }}</div>
                         </div>
                         <div class="flex justify-end items-center text-white ">
@@ -49,7 +49,7 @@
                     <div class="w-full flex justify-between items-center px-2 py-2 bg-gray-800 rounded mb-4 active-primary-color"
                         @click="viewNFTs">
                         <div class="flex justify-start items-center">
-                            <div class="pr-1 font-bold text-lg">0</div>
+                            <div class="pr-1 font-bold text-lg">{{ nftsCount }}</div>
                             <div class="text-white">NFTs</div>
                         </div>
                         <div class="flex justify-end items-center text-white active-white-color">
@@ -58,9 +58,9 @@
                         </div>
                     </div>
                     <div class="w-full flex justify-between items-center px-2 py-2 bg-gray-800 rounded active-primary-color"
-                        @click="viewCoherents">
+                        @click="viewPromiseCard">
                         <div class="flex justify-start items-center">
-                            <div class="pr-1 font-bold text-lg">0</div>
+                            <div class="pr-1 font-bold text-lg">{{ promiseCardCount }}</div>
                             <div class="text-white">承諾卡</div>
                         </div>
                         <div class="flex justify-end items-center text-white active-white-color">
@@ -72,6 +72,37 @@
             </div>
 
         </div>
+        <van-popup v-model:show="showExchangePopupBT" round position="bottom">
+            <div class="bg-black text-white py-4 flex flex-col justify-center">
+                <div class="w-11/12 mr-auto ml-auto">
+                    <div class="text-center font-bold text-white mb-6">
+                        兌換
+                    </div>
+                    <div class="flex justify-start items-center mb-10">
+                        <div class="border-b-4 border-transparent px-2 py-1.5 ml-4" v-for="(item, index) in exhangeTypesBT"
+                            :key="index"
+                            :class="currentExchangeTypeBT == index ? 'border-primary-color text-white font-bold' : 'text-gray-700'"
+                            @click="currentExchangeTypeBT = index">
+                            {{ item.title }}
+                        </div>
+                    </div>
+                    <div class="text-white text-xs flex justify-start items-baseline mb-1">
+                        <div class="text-base"> 請輸入兌換金額 </div>
+                        <!-- <div class="text-primary-color text-xs pl-1"> (当前1USD3 = 1RT)</div> -->
+                    </div>
+                    <div class="w-full flex justify-between items-center mb-10">
+                        <div class="rounded  flex-1 ">
+                            <input type="text" placeholder="兌換金額" class="w-full py-2 bg-transparent rounded pl-1"
+                                v-model="exchangeAmountBT">
+                        </div>
+                    </div>
+                    <div class="operating-button rounded-full text-white font-bold text-center text-sm py-2"
+                        @click="handleExchangeBT">
+                        {{ $t('modalConfirm.confirm') }}
+                    </div>
+                </div>
+            </div>
+        </van-popup>
         <van-popup v-model:show="showTransferPopup" round position="bottom">
             <div class="bg-black text-white py-4 flex flex-col justify-center">
                 <div class="w-11/12 mr-auto ml-auto">
@@ -262,7 +293,7 @@ import usdtContractApi from '@/request/usdt'
 import pmtContractApi from '@/request/pmt'
 import mtContractApi from '@/request/mt'
 import mstContractApi from '@/request/mst'
-import { playersInfo } from '@/request/api'
+import { playersInfo, userNFT, staticRecords, btToUsdt, btToRt } from '@/request/api'
 
 
 import { config } from '@/const/config'
@@ -288,6 +319,8 @@ onMounted(() => {
     getMTBalance()
     getMSTBalance()
     getPlayersInfo(localStorage.getItem('address'))
+    getUserNFTs()
+    getStaticRecords()
 })
 let currentCoherent = ref(null)
 let currentOperator = ref(null)
@@ -296,20 +329,31 @@ let showExchangePopup = ref(false)
 let showTransferPopup = ref(false)
 let showWithdrawPopup = ref(false)
 let showRechargePopup = ref(false)
+let showExchangePopupBT = ref(false)
 let exchangeAmount = ref('')
+let exchangeAmountBT = ref('')
 let exhangeTypes = ref([{ title: 'MT 兌換 USDT', type: 0 }, { title: 'MT 兌換 RT', type: 1 }])
+let exhangeTypesBT = ref([{ title: 'BT 兌換 USDT', type: 0 }, { title: 'BT 兌換 RT', type: 1 }])
 let currentExchangeType = ref(0)
+let currentExchangeTypeBT = ref(0)
 let usdtBalance = ref('')
 let pmtBalance = ref('')
 let mtBalance = ref('')
 let mstBalance = ref('')
-let packageAmount = ref(0)
+let packageCount = ref(0)
+let nftsCount = ref(0)
+let promiseCardCount = ref(0)
+let palayBanalce = ref({})
+
 //獲取玩家信息
 function getPlayersInfo(address) {
     playersInfo(address)
         .then(res => {
             console.log('res', res)
-            packageAmount.value = res.player.package_transactions.length
+            packageCount.value = res.player.package_transactions.length
+            palayBanalce.value.bt = res.player.bt
+            palayBanalce.value.rt = res.player.rt
+            palayBanalce.value.rtLocked = res.player.rt_locked
         })
         .catch(err => {
             console.log('err', err)
@@ -354,8 +398,35 @@ async function getMTBalance() {
     return balance
 }
 
+function getStaticRecords() {
+    proxy.$loading.show()
+    let params = { prize_type_id: 3, perPage: 100000 }
+    staticRecords(params)
+        .then(res => {
+            console.log(res)
+            promiseCardCount.value = res.records.length
+        })
+        .catch(err => {
+            console.log(err)
+            proxy.$loading.hide()
 
+        })
+}
 
+function getUserNFTs() {
+    proxy.$loading.show()
+    let params = { status: 1 }
+    userNFT(params)
+        .then(res => {
+            proxy.$loading.hide()
+            nftsCount.value = res.nft_token_ids.length
+            console.log('res', res)
+        })
+        .catch(err => {
+            proxy.$loading.hide()
+            console.log(err)
+        })
+}
 
 function viewCoherents() {
     setTimeout(() => {
@@ -371,6 +442,58 @@ function viewNFTs() {
             path: '/personal/nfts'
         })
     }, 1000)
+}
+function viewPromiseCard() {
+    setTimeout(() => {
+        router.push({
+            path: '/personal/promise-card'
+        })
+    }, 1000)
+}
+//兌換bt
+async function handleExchangeBT() {
+    if (!exchangeAmountBT.value) {
+        showToast('請輸入兌換金額')
+        return
+    }
+    toggleExchangePopupBT()
+    let data = {
+        amount: exchangeAmountBT.value
+    }
+    proxy.$loading.show()
+    if (currentExchangeTypeBT.value == 0) {
+        btToUsdt(data)
+            .then(res => {
+                proxy.$loading.hide()
+                if (res.error == 'Insufficient balance') {
+                    showToast('BT餘額不足')
+                    return
+                }
+                showToast(t('toast.success'))
+                console.log(res)
+            })
+            .catch(err => {
+                proxy.$loading.hide()
+                showToast(t('toast.error'))
+                console.log(err)
+            })
+    } else {
+        btToRt(data)
+            .then(res => {
+                proxy.$loading.hide()
+                if (res.error == 'Insufficient balance') {
+                    showToast('BT餘額不足')
+                    return
+                }
+                showToast(t('toast.success'))
+                console.log(res)
+            })
+            .catch(err => {
+                proxy.$loading.hide()
+                showToast(t('toast.error'))
+                console.log(err)
+            })
+    }
 }
 //點擊兌換彈窗兌換按鈕
 async function handleExchange() {
@@ -458,9 +581,9 @@ async function handleExchange() {
 
 
     }
-    return
-    let exchange = await swapContractApi.swapMTForUSDT('800000000000000')
-    console.log(exchange)
+    // return
+    // let exchange = await swapContractApi.swapMTForUSDT('800000000000000')
+    // console.log(exchange)
 }
 //點擊錢包卡片充值按鈕
 function handleWalletCardRecharge() {
@@ -474,6 +597,9 @@ function handleWalletCardWithdraw() {
 function handleWalletCardTransfer() {
     toggleTransferPopup()
 }
+function handleWalletCardExchangeBT() {
+    toggleExchangePopupBT()
+}
 //點擊錢包卡片兌換按鈕
 function handleWalletCardExchange() {
     toggleExchangePopup()
@@ -481,6 +607,9 @@ function handleWalletCardExchange() {
 //顯示隱藏兌換MT彈窗
 function toggleExchangePopup() {
     showExchangePopup.value = !showExchangePopup.value
+}
+function toggleExchangePopupBT() {
+    showExchangePopupBT.value = !showExchangePopupBT.value
 }
 //显示隐藏RT转账弹窗
 function toggleTransferPopup() {

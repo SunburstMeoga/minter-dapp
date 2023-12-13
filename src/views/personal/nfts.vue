@@ -14,11 +14,13 @@
         </div> -->
         <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap" v-show="currentType == 0">
             <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in nftsDatas" :key="index">
-                <nft-card :nftImg="nftOne" :showCheckbox="false" />
+                <nft-card :nftImg="nftOne" :showCheckbox="false" :tokenID="item.token_id" showListedButton
+                    @handleListed="handleListed(item)" />
             </div>
-            <div v-if="nftsDatas.length !== 0" class="text-white font-bold">
-                暫無數據
-            </div>
+        </div>
+
+        <div v-if="nftsDatas.length == 0" class="text-white font-bold mt-20 text-center">
+            暫無數據
         </div>
 
         <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap" v-show="currentType == 1">
@@ -66,6 +68,9 @@ import nftOne from '@/assets/images/nftOne.png'
 import { userNFT } from '@/request/api'
 import nftContractApi from '@/request/nft'
 import { showToast } from 'vant'
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n()
+
 const { proxy } = getCurrentInstance()
 import { config } from '@/const/config'
 let nftsStatusList = computed(() => {
@@ -87,10 +92,16 @@ onMounted(() => {
 
 function getUserNFTs() {
     proxy.$loading.show()
-    userNFT()
+    let params = { status: 0 }
+    userNFT(params)
         .then(res => {
             proxy.$loading.hide()
-            nftsDatas.value = res.nft_token_ids
+
+            res.nft_token_ids.map(item => {
+                let obj = {}
+                obj.token_id = item
+                nftsDatas.value.push(obj)
+            })
             console.log('res', res)
         })
         .catch(err => {
@@ -101,17 +112,18 @@ function getUserNFTs() {
 }
 //掛單
 async function handleListed(item) {
-    let allowance
+    proxy.$loading.show()
+    let isApprovedAll
     try { //检查pmt对pmt_purchase的授权状态
-        allowance = await nftContractApi.allowance(localStorage.getItem('address'), config.nfts_marketplace_addr)
+        isApprovedAll = await nftContractApi.isApprovedAll(localStorage.getItem('address'), config.nfts_marketplace_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
         showToast(t('toast.error'))
         console.log(err)
     }
-    console.log('allowance', allowance)
-    if (Number(allowance) == 0) { //當前賬號未授權
+    console.log('isApprovedAll', isApprovedAll)
+    if (Number(isApprovedAll) == 0) { //當前賬號未授權
         proxy.$loading.hide()
         proxy.$confirm.show({
             title: '請授權',
@@ -121,7 +133,7 @@ async function handleListed(item) {
             onConfirm: () => {
                 proxy.$loading.show()
                 // pmt对nft授權
-                nftContractApi.approve(config.nfts_marketplace_addr)
+                nftContractApi.setApprovalForAll(config.nfts_marketplace_addr)
                     .then(res => {
                         console.log(res)
                         proxy.$loading.hide()
@@ -139,6 +151,7 @@ async function handleListed(item) {
 
     try { //listNFT
         proxy.$loading.show()
+        console.log(item.token_id)
         await nftContractApi.listNFT(item.token_id)
         proxy.$loading.hide()
         showToast(t('toast.success'))
@@ -152,18 +165,18 @@ async function handleListed(item) {
 
 //取消掛單
 async function handleCancleList() {
-    let allowance
+    let isApprovedAll
     try { //检查pmt对pmt_purchase的授权状态
-        allowance = await nftContractApi.allowance(localStorage.getItem('address'), config.nfts_marketplace_addr)
+        isApprovedAll = await nftContractApi.isApprovedAll(localStorage.getItem('address'), config.nfts_marketplace_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
         showToast(t('toast.error'))
         console.log(err)
     }
-    console.log('allowance', allowance)
+    console.log('isApprovedAll', isApprovedAll)
 
-    if (Number(allowance) == 0) { //當前賬號未授權
+    if (Number(isApprovedAll) == 0) { //當前賬號未授權
         proxy.$loading.hide()
         proxy.$confirm.show({
             title: '請授權',
@@ -173,7 +186,7 @@ async function handleCancleList() {
             onConfirm: () => {
                 proxy.$loading.show()
                 // pmt对nft授權
-                nftContractApi.approve(config.nfts_marketplace_addr)
+                nftContractApi.setApprovalForAll(config.nfts_marketplace_addr)
                     .then(res => {
                         console.log(res)
                         proxy.$loading.hide()

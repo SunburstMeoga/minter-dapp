@@ -146,7 +146,7 @@
                     <div class="w-6/12 h-6 border-t border-l border-r border-primary-color" />
                     <div class="flex w-full justify-start items-start">
                         <div class="w-6/12 flex flex-col items-center">
-                            <div @click="clickPoint(directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.pv, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.pv_remain, directReferrals && directReferrals.right_leg.address, 'left')"
+                            <div @click="clickPoint(directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.pv, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.pv_remain, directReferrals && directReferrals.right_leg && directReferrals.right_leg.address, 'left')"
                                 class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
                                 <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address"
                                     class="bg-black w-full h-full rounded-full overflow-hidden">
@@ -171,7 +171,7 @@
                         </div>
                         <div class="w-6/12 flex flex-col justify-start items-center">
                             <div class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2"
-                                @click="clickPoint(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.pv, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.pv_remain, directReferrals && directReferrals.right_leg.address, 'right')">
+                                @click="clickPoint(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.pv, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.pv_remain, directReferrals && directReferrals.right_leg && directReferrals.right_leg.address, 'right')">
                                 <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address"
                                     class="bg-black w-full h-full rounded-full overflow-hidden">
                                     <img src="../../assets/images/avtor.gif" alt="">

@@ -15,7 +15,7 @@
                     title-inactive-color="#fff" title-active-color="#e149ed" background="#000">
                     <van-tab title="N">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
-                            <div v-for="(item, index) in 9" class="mb-2" style="width: 48%;" :key="index">
+                            <div v-for="(item, index) in nftsDatas" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :nftImg="nftOne" :showCheckbox="false" showBuyButton
                                     @handleBuyButton="handleBuyButton" />
                             </div>
@@ -23,7 +23,7 @@
                     </van-tab>
                     <van-tab title="R">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
-                            <div v-for="(item, index) in 9" class="mb-2" style="width: 48%;" :key="index">
+                            <div v-for="(item, index) in nftsDatas" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :nftImg="nftTwo" :showCheckbox="false" showBuyButton
                                     @handleBuyButton="handleBuyButton" />
                             </div>
@@ -31,7 +31,7 @@
                     </van-tab>
                     <van-tab title="SR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
-                            <div v-for="(item, index) in 9" class="mb-2" style="width: 48%;" :key="index">
+                            <div v-for="(item, index) in nftsDatas" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :nftImg="nftThree" :showCheckbox="false" showBuyButton
                                     @handleBuyButton="handleBuyButton" />
                             </div>
@@ -39,14 +39,14 @@
                     </van-tab>
                     <van-tab title="SSR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
-                            <div v-for="(item, index) in 9" class="mb-2" style="width: 48%;" :key="index">
+                            <div v-for="(item, index) in nftsDatas" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :nftImg="nftFour" :showCheckbox="false" @handleBuyButton="handleBuyButton" />
                             </div>
                         </div>
                     </van-tab>
                     <van-tab title="UR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
-                            <div v-for="(item, index) in 9" class="mb-2" style="width: 48%;" :key="index">
+                            <div v-for="(item, index) in nftsDatas" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :nftImg="nftFive" :showCheckbox="false" showBuyButton
                                     @handleBuyButton="handleBuyButton" />
                             </div>
@@ -88,8 +88,22 @@ onMounted(() => {
 //獲取可購買的nft列表
 function getMarketplace() {
     proxy.$loading.show()
-    marketplace()
+    marketplace({ perPage: 100000 })
         .then(res => {
+
+            if (res.message == '玩家沒有購買配套。') {
+                proxy.$loading.hide()
+                proxy.$confirm.show({
+                    title: '提示',
+                    content: '您當前沒有購買配套。',
+                    showCancelButton: false,
+                    confirmText: '確定',
+                    onConfirm: () => {
+                        proxy.$loading.show()
+                        window.history.go(-1);
+                    },
+                });
+            }
             console.log('nft列表', res)
             nftsDatas.value = res.market_places
             proxy.$loading.hide()
@@ -145,6 +159,8 @@ async function handleBuyButton(item) {
 
     try { //购买nft
         proxy.$loading.show()
+        // console.log('item', item)
+        // return
         await nftContractApi.purchaseNFT(item.token_id)
         proxy.$loading.hide()
         proxy.$confirm.show({ //nft购买成功进入抽奖
@@ -158,8 +174,8 @@ async function handleBuyButton(item) {
                     path: '/market/raffle',
                     query: {
                         address: item.address,
-                        nft_price: item.nft_price,
-                        nft_token_id: item.nft_token_id
+                        nft_price: item.price,
+                        nft_token_id: item.token_id
                     }
                 })
             },

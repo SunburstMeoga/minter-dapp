@@ -28,6 +28,16 @@ let personal = [
     }
   },
   {
+    path: '/personal/promise-card',
+    name: 'personal-promise-card',
+    component: () => import('@/views/personal/promiseCard.vue'),
+    meta: {
+      showLogo: false,
+      showBack: true,
+      pageTitle: '承諾卡'
+    }
+  },
+  {
     path: '/personal/nfts',
     name: 'personal-nfts',
     component: () => import('@/views/personal/nfts.vue'),

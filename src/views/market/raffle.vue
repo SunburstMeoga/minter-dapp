@@ -166,10 +166,6 @@ function togglePrizePopup() {
     showPrizePopup.value = !showPrizePopup.value
 }
 
-onMounted(() => {
-    // console.log(route.query.target)
-    // active.value = route.query.target
-})
 </script>
 
 <style scoped>

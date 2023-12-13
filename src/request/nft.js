@@ -8,6 +8,18 @@ let nftContractApi = {}
 if (window.ethereum) {
   provider = new ethers.BrowserProvider(window.ethereum)
   signer = await provider.getSigner()
+  const NFTOPERATING = new ethers.Contract(
+    config.nfts_marketplace_addr,
+    config.nfts_marketplace_abi,
+    signer
+  )
+  const NFTGET = new ethers.Contract(
+    config.nfts_marketplace_addr,
+    config.nfts_marketplace_abi,
+    provider
+  )
+
+  const erc721 = new ethers.Contract(config.minter_collection, config.minter_collection_abi, signer)
 
   const NFT = new ethers.Contract(config.nfts_marketplace_addr, config.burnable_token_abi, provider)
   const NFTTRADE = new ethers.Contract(
@@ -31,22 +43,32 @@ if (window.ethereum) {
     },
     //购买nft
     purchaseNFT: async function (nftID) {
-      const result = await NFTTRADE.purchaseNFT(nftID)
+      const result = await NFTOPERATING.purchaseNFT(nftID)
       return result
     },
     //nft掛單
     listNFT: async function (nftID) {
-      const result = await NFTTRADE.listNFT(nftID)
+      const result = await NFTOPERATING.listNFT(nftID)
       return result
     },
     //下架NFT
     unlistNFT: async function (nftID) {
-      const result = await NFTTRADE.unlistNFT(nftID)
+      const result = await NFTOPERATING.unlistNFT(nftID)
       return result
     },
     //獲取上市的所有nft
     getAllListedNFTs: async function () {
-      const result = await NFT.getAllListedNFTs()
+      const result = await NFTGET.getAllListedNFTs()
+      return result
+    },
+    isApprovedAll: async function (walletAddr, contractAddress) {
+      const result = await erc721.isApprovedForAll(walletAddr, contractAddress)
+      return result
+    },
+    setApprovalForAll: async function (contractAddress) {
+      const tx = await erc721.setApprovalForAll(contractAddress, true)
+      const result = await tx.wait()
+      // cnsole.log(result, "发起erc721授权");
       return result
     }
   }

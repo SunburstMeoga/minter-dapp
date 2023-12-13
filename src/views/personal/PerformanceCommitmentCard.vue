@@ -1,5 +1,5 @@
 <template>
-    <div class="rounded overflow-hidden p-2 bg-card-content text-card-word text-sm" :key="index">
+    <div class="rounded overflow-hidden p-2 bg-card-content text-card-word text-sm">
         <!-- <div class="flex justify-between items-center mb-3">
             <div>邀请地址:</div>
             <div class="">0x83...5796</div>

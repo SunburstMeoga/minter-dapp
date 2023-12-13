@@ -79,19 +79,19 @@
                         <input type="text" :placeholder="$t('assistance.inviterAddress')"
                             class="w-full h-full bg-bottom-content rounded">
                     </div>
-                    <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
+                    <!-- <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
                         {{ $t('coherents.invalidAddress') }}
-                    </div>
+                    </div> -->
                 </div>
                 <div class="w-full flex flex-col items-center mb-2">
                     <div class="text-gray-200 text-sm text-left w-11/12 mb-1">{{ $t('assistance.preAddress') }}</div>
                     <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-700 mb-1">
                         <input type="text" disabled :placeholder="$t('assistance.preAddress')"
-                            class="w-full h-full bg-bottom-content rounded">
+                            class="w-full h-full bg-bottom-content rounded" v-model="clickPointInfo.preAddress">
                     </div>
-                    <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
+                    <!-- <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
                         {{ $t('coherents.invalidAddress') }}
-                    </div>
+                    </div> -->
                 </div>
                 <div class="w-full flex flex-col items-center mb-2">
                     <div class="text-gray-200 text-sm text-left w-11/12 mb-1">{{ $t('assistance.nextAddress') }}</div>
@@ -99,11 +99,11 @@
                         <input type="text" :placeholder="$t('assistance.nextAddress')"
                             class="w-full h-full bg-bottom-content rounded">
                     </div>
-                    <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
+                    <!-- <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
                         {{ $t('coherents.invalidAddress') }}
-                    </div>
+                    </div> -->
                 </div>
-                <div class="text-gray-200 text-sm w-11/12 mb-1 ml-auto mr-auto">{{ $t('modalConfirm.chooseCoherentBuy') }}
+                <div class="text-gray-200 text-sm w-11/12 mb-1 ml-auto mr-auto">{{ $t('assistance.chooseCoherentBuy') }}
                 </div>
                 <div class="w-full flex justify-center items-center mb-4">
                     <div class="w-11/12 flex justify-between items-center">
@@ -115,10 +115,11 @@
                     </div>
                 </div>
                 <div class="flex justify-between items-center w-11/12 mr-auto ml-auto">
-                    <div class="w-5/12 operating-button text-center py-2.5 rounded" @click="showBuyPopup = false">
+                    <div class="w-5/12 operating-button text-center py-2.5 rounded" @click="handleConfirmBuyForUSDTPOPUP">
                         {{ $t('modalConfirm.confirm') }}
                     </div>
-                    <div class="w-5/12 border border-gray-700 text-center py-2.5 rounded" @click="showBuyPopup = false">
+                    <div class="w-5/12 border border-primary-color text-center py-2.5 rounded"
+                        @click="handleConfirmBuyForRTPOPUP">
                         {{ $t('modalConfirm.cancel') }}
                     </div>
                 </div>
@@ -293,7 +294,7 @@ import { useI18n } from 'vue-i18n';
 import { config } from '@/const/config'
 import usdtContractApi from '@/request/usdt'
 import pmtContractApi from '@/request/pmt'
-import { addressLeg, upInferiorPackage, staticRecords, buyCoherent } from '@/request/api'
+import { addressLeg, upInferiorPackage, staticRecords, buyCoherent, joinTheThree } from '@/request/api'
 import { showToast } from 'vant'
 const { t } = useI18n()
 const { proxy } = getCurrentInstance()
@@ -339,6 +340,32 @@ onMounted(() => {
     viewPointMap(localStorage.getItem('address'))
     getStaticRecords()
 })
+
+async function handleConfirmBuyForRTPOPUP() {
+    //   toggleConfirmPayPopup()
+    //判斷rt餘額是否充足
+    toggleBuyPopup()
+    proxy.$loading.show()
+
+
+    let data = { package_id: coherentsList.value[currentCoherent.value].id }
+    buyCoherent(data)
+        .then(res => {
+            console.log('購買成功', res)
+            proxy.$loading.hide()
+            if (res.message == 'RT餘額不足') {
+                showToast('RT餘額不足')
+            }
+        })
+        .catch(err => {
+            proxy.$loading.hide()
+            console.log('購買失敗', err)
+            showToast('購買失敗')
+            toggleBuyPopup()
+
+        })
+}
+
 async function handlePopupConfirmBuy() {
     //   toggleConfirmPayPopup()
     //判斷rt餘額是否充足
@@ -363,6 +390,64 @@ async function handlePopupConfirmBuy() {
 
         })
 }
+
+
+async function handleConfirmBuyForUSDTPOPUP() {
+    toggleBuyPopup()
+    proxy.$loading.show()
+    // let data = { package_id: coherentsList.value[currentCoherent.value].id }
+    let allowance
+    try { //检查usdt对pmt_purchase的授权状态
+        allowance = await usdtContractApi.allowance(localStorage.getItem('address'), config.pmt_purchase_addr)
+        proxy.$loading.hide()
+    } catch (err) {
+        proxy.$loading.hide()
+        showToast(t('toast.error'))
+        console.log(err)
+    }
+    console.log('allowance', allowance)
+
+    if (Number(allowance) == 0) { //當前領取方式未授權
+        proxy.$loading.hide()
+
+        proxy.$confirm.show({
+            title: '請授權',
+            content: '該地址未進行授權，請完成授權',
+            showCancelButton: false,
+            confirmText: '確定',
+            onConfirm: () => {
+                proxy.$loading.show()
+                // usdt对pmt授權
+                usdtContractApi.approve(config.pmt_purchase_addr)
+                    .then(res => {
+                        console.log(res)
+                        proxy.$loading.hide()
+                        showToast(t('toast.success'))
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        proxy.$loading.hide()
+                        showToast(t('toast.error'))
+                    })
+            },
+        });
+        return
+    }
+    try {
+        proxy.$loading.show()
+        await pmtContractApi.purchasePackage(coherentsList.value[currentCoherent.value].id - 1)
+
+        // await joinTheThree(data)
+        proxy.$loading.hide()
+        showToast(t('toast.success'))
+    } catch (err) {
+        proxy.$loading.hide()
+        showToast(t('toast.error'))
+        toggleBuyPackageSelf()
+        console.log(err)
+    }
+}
+
 async function handleConfirmBuyForUSDT() {
     toggleBuyPackageSelf()
     proxy.$loading.show()
@@ -406,7 +491,13 @@ async function handleConfirmBuyForUSDT() {
 
     try {
         proxy.$loading.show()
-        await pmtContractApi.purchasePackage(coherentsList.value[currentSelf.value].id)
+        await pmtContractApi.purchasePackage(coherentsList.value[currentSelf.value].id - 1)
+        // let data = {
+        //     address: inviterAddress.value,
+        //     leg_address: preAddress.value,
+        //     legSide: point.value
+        // }
+        // await joinTheThree(data)
         proxy.$loading.hide()
         showToast(t('toast.success'))
     } catch (err) {
@@ -553,6 +644,10 @@ function clickPoint(pointInfo) {
     // toggleAttendPopup()
     clickPointInfo.value = pointInfo
     console.log('點位信息', pointInfo)
+    if (!pointInfo.preAddress) {
+        showToast('請先將點位佈置在上一級')
+        return
+    }
     if (pointInfo.isSelf) {
         console.log('自己')
         toggleBuyPackageSelf()

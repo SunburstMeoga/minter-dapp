@@ -54,9 +54,10 @@ export function upInferiorPackage(data) {
 }
 
 //獲取nft列表市場
-export function marketplace() {
+export function marketplace(params) {
   return request('/marketplaces', {
-    method: 'GET'
+    method: 'GET',
+    params
   })
 }
 
@@ -76,9 +77,11 @@ export function luckyDraw(data) {
 }
 
 //獲取自己的nfts
-export function userNFT() {
+export function userNFT(params) {
+  console.log(params)
   return request('/nfts', {
-    method: 'GET'
+    method: 'GET',
+    params
   })
 }
 
@@ -117,5 +120,27 @@ export function staticRecords(params) {
 export function rtBanalce() {
   return request('players/rt-balance', {
     method: 'GET'
+  })
+}
+
+//邀請至樹狀圖
+export function joinTheThree(data) {
+  return request('/player/join-the-tree', {
+    method: 'POST',
+    data
+  })
+}
+//bt兌換usdt
+export function btToUsdt(data) {
+  return request('/exchanges/bt-to-usdt', {
+    method: 'POST',
+    data
+  })
+}
+//bt兌換rt
+export function btToRt(data) {
+  return request('/exchanges/bt-to-rt', {
+    method: 'POST',
+    data
   })
 }

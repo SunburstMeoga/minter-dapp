@@ -81,8 +81,8 @@
         </div>
       </div>
 
-      <div class="w-11/12 flex justify-between items-center fixed bottom-3" @click="handleConfirmBuyForRT">
-        <div class="w-5/12 operating-button text-center py-2.5 rounded-full">
+      <div class="w-11/12 flex justify-between items-center fixed bottom-3">
+        <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForRT">
           <!-- {{ $t('modalConfirm.confirm') }} {{ $t('coherents.buy') }} -->
           RT支付
         </div>
@@ -211,30 +211,32 @@
         <div class="w-11/12 mr-auto ml-auto mb-4">
           <div class="text-white text-xs flex justify-between items-baseline mb-1">
             <div class="text-base">RT </div>
-            <div class="text-primary-color font-bold pl-1"> {{ $t('order.balance') }}: 0.0000 RT</div>
+            <div class="text-primary-color font-bold pl-1"> {{ $t('order.balance') }}: {{ palayBanalce.rt }} RT</div>
           </div>
           <div class="w-full mb-4 flex justify-between items-center">
             <div class="rounded pl-3 border border-gray-700 flex-1 py-1.5 text-sm ">
-              {{ $t('order.needPay') }} 0.0000
+              {{ $t('order.needPay') }} {{ Number(palayBanalce.rt) - Number(coherentInfo.type) >= 0 ?
+                Number(coherentInfo.type) : Number(palayBanalce.rt) }}
             </div>
           </div>
           <div class="text-white text-xs flex justify-between items-baseline mb-1">
             <div class="text-base">{{ $t('order.bind') }}RT </div>
-            <div class="text-primary-color font-bold pl-1"> {{ $t('order.balance') }}: 0.0000 RT</div>
+            <div class="text-primary-color font-bold pl-1"> {{ $t('order.balance') }}: {{ palayBanalce.rtLocked }} RT
+            </div>
           </div>
           <div class="w-full mb-4 flex justify-between items-center">
             <div class="rounded pl-3 border border-gray-700 flex-1 py-1.5 text-sm ">
-              {{ $t('order.needPay') }} 0.0000
+              {{ $t('order.needPay') }} {{ Number(palayBanalce.rt) - Number(coherentInfo.type) < 0 ?
+                Number(coherentInfo.type) - Number(palayBanalce.rt) : '0.0000' }} </div>
+            </div>
+          </div>
+
+          <div class="w-full flex justify-center items-center">
+            <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handlePopupConfirmBuy">
+              {{ $t('modalConfirm.confirm') }}
             </div>
           </div>
         </div>
-
-        <div class="w-full flex justify-center items-center">
-          <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handlePopupConfirmBuy">
-            {{ $t('modalConfirm.confirm') }}
-          </div>
-        </div>
-      </div>
     </van-popup>
   </div>
 </template>
@@ -248,7 +250,7 @@ import { showToast } from 'vant';
 import coherents_list from '@/datas/coherents_list'
 import { FormatAmount, FilterAddress } from '@/utils/format'
 import { useI18n } from 'vue-i18n';
-import { buyCoherent, adequateBalance, addressLeg, checkReferrerAddress } from '@/request/api'
+import { buyCoherent, adequateBalance, addressLeg, checkReferrerAddress, joinTheThree, playersInfo } from '@/request/api'
 import pmtContractApi from '@/request/pmt'
 import usdtContractApi from '@/request/usdt'
 import { config } from '@/const/config'
@@ -279,6 +281,30 @@ let showReferrerAddressPopup = ref(false)
 let showLegAddressPopup = ref(false)
 let showConfirmPayPopup = ref(false)
 let showPMTPopover = ref(false)
+let palayBanalce = ref({})
+onMounted(() => {
+  // FormatAmount()
+  console.log(route.params.type)
+  console.log(coherents_list)
+  let targetCoherents = coherents_list.filter(item => {
+    return item.type == route.params.type
+  })
+  coherentInfo.value = targetCoherents[0]
+  console.log(coherentInfo.value)
+  getPlayersInfo(localStorage.getItem('address'))
+})
+//獲取玩家信息
+function getPlayersInfo(address) {
+  playersInfo(address)
+    .then(res => {
+      console.log('res', res)
+      palayBanalce.value.rt = res.player.rt
+      palayBanalce.value.rtLocked = res.player.rt_locked
+    })
+    .catch(err => {
+      console.log('err', err)
+    })
+}
 function togglePointPopup() {
   showPointPopup.value = !showPointPopup.value
 }
@@ -427,7 +453,16 @@ async function handleConfirmBuyForUSDT() {
 
   try {
     proxy.$loading.show()
-    await pmtContractApi.purchasePackage(Number(coherentInfo.value.id))
+    console.log(Number(coherentInfo.value.id))
+    // return
+    await pmtContractApi.purchasePackage(Number(coherentInfo.value.id - 1))
+    // referrerAddress.value, leg_address: legAddress.value, legSide: currentPoint.value == 0 ? 'left' : 'right'
+    let data = {
+      address: referrerAddress.value,
+      leg_address: legAddress.value,
+      legSide: currentPoint.value == 0 ? 'left' : 'right'
+    }
+    await joinTheThree(data)
     proxy.$loading.hide()
     showToast(t('toast.success'))
   } catch (err) {
@@ -534,19 +569,6 @@ async function handleConfirmBuyForRT() {
 
   toggleConfirmPayPopup()
 }
-
-
-
-onMounted(() => {
-  // FormatAmount()
-  console.log(route.params.type)
-  console.log(coherents_list)
-  let targetCoherents = coherents_list.filter(item => {
-    return item.type == route.params.type
-  })
-  coherentInfo.value = targetCoherents[0]
-  console.log(coherentInfo.value)
-})
 </script>
 
 <style scoped>

@@ -140,7 +140,7 @@ import { FormatAmount, FilterAddress } from '@/utils/format'
 import Web3 from "web3";
 import { generateNonce } from '@/utils/getNonce'
 import usdtContractApi from '@/request/usdt'
-import { buyCoherent } from '@/request/api'
+import { buyCoherent, joinTheThree } from '@/request/api'
 import { userStore } from "@/stores/user";
 import { showToast } from 'vant'
 import { useI18n } from 'vue-i18n';
@@ -254,7 +254,13 @@ async function handleConfirmBuyForUSDT() {
     try {
         console.log(coherentInfo.value.type)
         proxy.$loading.show()
-        await pmtContractApi.purchasePackage(Number(coherentInfo.value.id))
+        await pmtContractApi.purchasePackage(Number(coherentInfo.value.id - 1))
+        let data = {
+            address: inviterAddress.value,
+            leg_address: preAddress.value,
+            legSide: point.value
+        }
+        await joinTheThree(data)
         proxy.$loading.hide()
         showToast(t('toast.success'))
     } catch (err) {

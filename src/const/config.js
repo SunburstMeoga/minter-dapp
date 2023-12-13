@@ -27,7 +27,7 @@ const config = {
   nfts_collection_abi: nfts_collection_abi.abi,
   nfts_marketplace_abi: nfts_marketplace_abi.abi,
   swap_abi: swap_abi.abi,
-  minter_collection_abi: minter_collection_abi,
+  minter_collection_abi: minter_collection_abi.abi,
 
   api: 'http://13.228.135.184:8000/api',
   chainId: '1688288',
