@@ -427,7 +427,7 @@ async function handleConfirmBuyForUSDT() {
 
   try {
     proxy.$loading.show()
-    await pmtContractApi.purchasePackage(Number(coherentInfo.value.type))
+    await pmtContractApi.purchasePackage(Number(coherentInfo.value.id))
     proxy.$loading.hide()
     showToast(t('toast.success'))
   } catch (err) {
@@ -469,6 +469,7 @@ async function handlePopupConfirmBuy() {
     isAdequateBalance = await adequateBalance({ package_id: coherentInfo.value.id })
   } catch (err) {
     showToast('獲取餘額失敗，請重試')
+    proxy.$loading.hide()
   }
 
   let data = { package_id: 1, referrer_address: referrerAddress.value, leg_address: legAddress.value, legSide: currentPoint.value == 0 ? 'left' : 'right' }

@@ -117,7 +117,7 @@
         <van-popup v-model:show="showPackagePopup" round position="bottom">
             <div class="bg-black text-white py-4 flex flex-col justify-center">
                 <div class="text-center mb-4 font-bold">請選擇配套</div>
-                <div v-for="(item, index) in packageList" :key="index" @click="handlePackage(item.type)"
+                <div v-for="(item, index) in packageList" :key="index" @click="handlePackage(item)"
                     class="operating-button py-2 px-1 w-11/12 flex justify-between items-center mb-2 rounded mr-auto ml-auto">
                     <div>
                         {{ item.name }}
@@ -141,11 +141,17 @@ import Web3 from "web3";
 import { generateNonce } from '@/utils/getNonce'
 import usdtContractApi from '@/request/usdt'
 import { buyCoherent } from '@/request/api'
-
-
+import { userStore } from "@/stores/user";
+import { showToast } from 'vant'
+import { useI18n } from 'vue-i18n';
+import pmtContractApi from '@/request/pmt'
+import { config } from '@/const/config'
 // /market/invite-buy-package
 const route = useRoute()
+const { t } = useI18n()
+
 const { proxy } = getCurrentInstance()
+const userInfo = userStore()
 let inviterAddress = ref()
 let preAddress = ref()
 let point = ref('')
@@ -167,9 +173,13 @@ onMounted(() => {
     console.log(coherentInfo.value)
     addressSign()
 })
-function handlePackage(type) {
+function handlePackage(packageInfo) {
+    if (!packageInfo.isSale) {
+        showToast('toast.notYetOpen')
+        return
+    }
     let targetCoherents = coherents_list.filter(item => {
-        return item.type == type
+        return item.type == packageInfo.type
     })
     coherentInfo.value = targetCoherents[0]
     console.log(coherentInfo.value)
@@ -185,8 +195,12 @@ function handleConfirmBuyForRT() {
     let data = { package_id: coherentInfo.value.id, referrer_address: inviterAddress.value, leg_address: preAddress.value, legSide: point.value }
     buyCoherent(data)
         .then(res => {
-            console.log('購買成功', res)
             proxy.$loading.hide()
+            console.log('購買成功', res)
+            if (res.message == 'RT餘額不足') {
+                showToast('RT餘額不足')
+            }
+
         })
         .catch(err => {
             proxy.$loading.hide()
@@ -238,8 +252,9 @@ async function handleConfirmBuyForUSDT() {
     }
 
     try {
+        console.log(coherentInfo.value.type)
         proxy.$loading.show()
-        await pmtContractApi.purchasePackage(Number(coherentInfo.value.type))
+        await pmtContractApi.purchasePackage(Number(coherentInfo.value.id))
         proxy.$loading.hide()
         showToast(t('toast.success'))
     } catch (err) {
