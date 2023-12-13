@@ -199,7 +199,7 @@ let showLangePopover = ref(false)
 let showUserInfoPopup = ref(false)
 // let marketChilds = ref([{ title: 'NFTs' }, { title: '配套' }])
 let marketChilds = computed(() => {
-    if (userInfo.address) {
+    if (userInfo.address && hasPackage.value) {
         return [{ title: 'NFTs' }, { title: t('wallet.coherent') }]
     } else {
         return [{ title: 'NFTs' }]
@@ -213,8 +213,10 @@ let homeChilds = computed(() => {
 let personalChilds = computed(() => {
     if (userInfo.address && hasPackage.value) {
         return [{ title: t('menu.wallet'), router: '/personal/wallet' }, { title: t('menu.exchange'), router: '/personal/exchange' }, { title: t('menu.coinBank') }, { title: t('menu.custodianship') }, { title: t('menu.grandPrix') }, { title: t('menu.bag') }, { title: t('menu.synthesize') }, { title: t('menu.operationRecord'), router: '/earnings/list' }, { title: t('menu.helpHand'), router: '/personal/assistance' }, { title: t('menu.setting') }]
-    } else {
+    } else if (!userInfo.address && !hasPackage.value) {
         return [{ title: t('menu.wallet'), router: '/personal/wallet' }]
+    } else if (userInfo.address && !hasPackage.value) {
+        return [{ title: t('menu.wallet'), router: '/personal/wallet' }, { title: t('menu.exchange'), router: '/personal/exchange' }]
     }
 })
 
