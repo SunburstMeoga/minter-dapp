@@ -13,7 +13,7 @@
                 <module-title :titleWord="$t('wallet.title')"></module-title>
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card isMUSDT currency="MUSDT" isRecharge isWithdraw @recharge="handleWalletCardRecharge"
+                <wallet-card isUSD3 currency="USD3" isRecharge isWithdraw @recharge="handleWalletCardRecharge"
                     @withdraw="handleWalletCardWithdraw" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
@@ -147,8 +147,8 @@
                     </div>
 
                     <div class="text-white text-base flex justify-between items-center mb-3">
-                        <div>MUSDT {{ $t('wallet.balance') }}: </div>
-                        <div class="text-red-500 font-bold">0.0000 MUSDT </div>
+                        <div>USD3 {{ $t('wallet.balance') }}: </div>
+                        <div class="text-red-500 font-bold">0.0000 USD3 </div>
                         <!-- <div class="text-primary-color text-xs pl-1"> (当前1USDT可兑换2RT)</div> -->
                     </div>
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
@@ -185,7 +185,7 @@
 
                     <div class="text-white text-base flex justify-between items-center mb-3">
                         <div>{{ $t('wallet.withdrawableAmount') }}: </div>
-                        <div class="text-red-500 font-bold">0.0000 MUSDT </div>
+                        <div class="text-red-500 font-bold">0.0000 USD3 </div>
                         <!-- <div class="text-primary-color text-xs pl-1"> (当前1USDT可兑换2RT)</div> -->
                     </div>
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
@@ -242,7 +242,7 @@
                     </div>
                     <!-- <div class="text-white text-base flex justify-between items-center mb-3">
                         <div>{{ $t('wallet.withdrawableAmount') }}: </div>
-                        <div class="text-red-500 font-bold">0.0000 MUSDT </div>
+                        <div class="text-red-500 font-bold">0.0000 USD3 </div>
                     </div>
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
                         <div class="text-base">{{ $t('wallet.withdrawAddress') }} </div>

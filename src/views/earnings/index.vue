@@ -9,7 +9,7 @@
                 <div class="flex justify-end items-center">
                     <div class="flex flex-col items-end justify-center text-sm">
                         <div class="text-red-500">400</div>
-                        <div>MUSDT</div>
+                        <div>USD3</div>
                     </div>
                     <div class="icon iconfont icon-right ml-2" style="font-size: 20px;">
 
@@ -21,7 +21,7 @@
                 <div class="flex justify-end items-center">
                     <div class="flex flex-col items-end justify-center text-sm">
                         <div class="text-red-500">100</div>
-                        <div>MUSDT</div>
+                        <div>USD3</div>
                     </div>
                     <div class="icon iconfont icon-right ml-2" style="font-size: 20px;">
 
@@ -33,7 +33,7 @@
                 <div class="flex justify-end items-center">
                     <div class="flex flex-col items-end justify-center text-sm">
                         <div class="text-red-500">200</div>
-                        <div>MUSDT</div>
+                        <div>USD3</div>
                     </div>
                     <div class="icon iconfont icon-right ml-2" style="font-size: 20px;">
 
@@ -45,7 +45,7 @@
                 <div class="flex justify-end items-center">
                     <div class="flex flex-col items-end justify-center text-sm">
                         <div class="text-red-500">300</div>
-                        <div>MUSDT</div>
+                        <div>USD3</div>
                     </div>
                     <div class="icon iconfont icon-right ml-2" style="font-size: 20px;">
 
@@ -58,10 +58,10 @@
         <van-tab title="我的收益">
             <van-pull-refresh v-model="loading" @refresh="load">
                 <van-cell-group inset>
-                    <van-cell title="静态奖金" value="400" is-link to="reward" label="MUSDT" />
-                    <van-cell title="直推奖金" value="100" is-link to="reward" label="MUSDT" />
-                    <van-cell title="对碰奖金" value="200" is-link to="reward" label="MUSDT" />
-                    <van-cell title="代数奖金" value="300" is-link to="reward" label="MUSDT" />
+                    <van-cell title="静态奖金" value="400" is-link to="reward" label="USD3" />
+                    <van-cell title="直推奖金" value="100" is-link to="reward" label="USD3" />
+                    <van-cell title="对碰奖金" value="200" is-link to="reward" label="USD3" />
+                    <van-cell title="代数奖金" value="300" is-link to="reward" label="USD3" />
                 </van-cell-group>
             </van-pull-refresh>
         </van-tab>

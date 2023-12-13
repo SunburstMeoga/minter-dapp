@@ -62,10 +62,10 @@
                 </div>
             </div> -->
             <div class="flex flex-col justify-center items-center animate-pulse"
-                @click="handleCurrency($t('present.MUSDTDetails'), 'MUSDT')">
+                @click="handleCurrency($t('present.USD3Details'), 'USD3')">
                 <div class="circle-module text-white p-2 rounded-full flex justify-center items-center mb-2">
                     <div class="w-20 h-20 font-bold flex justify-center items-center bg-black rounded-full text-white">
-                        MUSDT
+                        USD3
                     </div>
                 </div>
                 <!-- <div class="text-sm w-16 text-center" style="color: #c972c3;">
