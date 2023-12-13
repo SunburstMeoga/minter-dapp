@@ -95,7 +95,7 @@ async function handleExchange() {
 
         proxy.$loading.show()
         const WEB3 = new Web3(window.ethereum)
-        let amount = WEB3.utils.toWei((exchangeAmount.value).toString(), ether)
+        let amount = WEB3.utils.toWei((exchangeAmount.value).toString(), 'ether')
         await swapContractApi.swapUSDTForRT(amount)
         proxy.$loading.hide()
         showToast(t('toast.success'))

@@ -389,7 +389,7 @@ async function handleExchange() {
     } else { //當前領取方式已授權，直接兌換
         proxy.$loading.show()
         const WEB3 = new Web3(window.ethereum)
-        let amount = WEB3.utils.toWei((exchangeAmount.value).toString(), ether)
+        let amount = WEB3.utils.toWei((exchangeAmount.value).toString(), 'ether')
         if (currentExchangeType.value == 0) {
             try {
                 await swapContractApi.swapMTForUSDT(amount)
