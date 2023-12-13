@@ -88,7 +88,7 @@
         </div>
         <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForUSDT">
           <!-- {{ $t('modalConfirm.confirm') }} {{ $t('coherents.buy') }} -->
-          USDT支付
+          USD3支付
         </div>
       </div>
     </div>
@@ -472,7 +472,7 @@ async function handlePopupConfirmBuy() {
     proxy.$loading.hide()
   }
 
-  let data = { package_id: 1, referrer_address: referrerAddress.value, leg_address: legAddress.value, legSide: currentPoint.value == 0 ? 'left' : 'right' }
+  let data = { package_id: coherentInfo.value.id, referrer_address: referrerAddress.value, leg_address: legAddress.value, legSide: currentPoint.value == 0 ? 'left' : 'right' }
   buyCoherent(data)
     .then(res => {
       console.log('購買成功', res)

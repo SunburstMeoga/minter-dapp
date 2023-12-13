@@ -4,7 +4,8 @@
             <!-- <div class="w-11/12 mr-auto ml-auto mt-4 mb-4">
                 <module-title titleWord="点位图" />
             </div> -->
-            <div class="w-16 p-1 h-16 operating-button rounded-full overflow-hidden mb-2">
+            <div class="w-16 p-1 h-16 operating-button rounded-full overflow-hidden mb-2"
+                @click="clickPoint(directReferrals.address, directReferrals.pv, directReferrals.pv_remain, null, null, true)">
                 <div class="bg-black w-full h-full rounded-full overflow-hidden">
                     <img src="../../assets/images/avtor.gif" alt="">
                 </div>
@@ -58,7 +59,7 @@
                     <div class="w-6/12 h-6 border-t border-l border-r border-primary-color" />
                     <div class="flex w-full  items-start">
                         <div class="w-6/12 flex justify-start flex-col items-center">
-                            <div @click="clickPoint(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.pv, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.pv_remain, directReferrals && directReferrals.left_leg && directReferrals.left_leg.address,'left')"
+                            <div @click="clickPoint(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.pv, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.pv_remain, directReferrals && directReferrals.left_leg && directReferrals.left_leg.address, 'left')"
                                 class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
                                 <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address"
                                     class="bg-black w-full h-full rounded-full overflow-hidden">
@@ -83,7 +84,7 @@
                             </van-popover>
                         </div>
                         <div class="w-6/12 flex justify-start flex-col items-center">
-                            <div @click="clickPoint(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.pv, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.pv_remain, directReferrals && directReferrals.left_leg && directReferrals.left_leg.address,'right')"
+                            <div @click="clickPoint(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.pv, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.pv_remain, directReferrals && directReferrals.left_leg && directReferrals.left_leg.address, 'right')"
                                 class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
                                 <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.address"
                                     class="bg-black w-full h-full rounded-full overflow-hidden">
@@ -110,7 +111,7 @@
                     </div>
                 </div>
                 <div class="w-6/12 flex flex-col justify-start items-center">
-                    <div @click="clickPoint(directReferrals && directReferrals.right_leg && directReferrals.right_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv, directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv_remain, directReferrals.address,'right')"
+                    <div @click="clickPoint(directReferrals && directReferrals.right_leg && directReferrals.right_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv, directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv_remain, directReferrals.address, 'right')"
                         class="w-14 p-1 h-14 operating-button rounded-full overflow-hidden mb-2">
                         <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.address"
                             class="bg-black w-full h-full rounded-full overflow-hidden">
@@ -170,7 +171,7 @@
                         </div>
                         <div class="w-6/12 flex flex-col justify-start items-center">
                             <div class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2"
-                                @click="clickPoint(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.pv, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.pv_remain, directReferrals && directReferrals.right_leg.address,'right')">
+                                @click="clickPoint(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.pv, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.pv_remain, directReferrals && directReferrals.right_leg.address, 'right')">
                                 <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address"
                                     class="bg-black w-full h-full rounded-full overflow-hidden">
                                     <img src="../../assets/images/avtor.gif" alt="">
@@ -236,7 +237,7 @@ let currentAttendsWay = ref(0)
 //查看某地址下的點位圖
 
 //點解點位
-function clickPoint(address, allPV, remainPV, preAddress, point) {
+function clickPoint(address, allPV, remainPV, preAddress, point, isSelf) {
     console.log('address', address)
     let pointInfo
     // pointInfo = {
@@ -247,6 +248,7 @@ function clickPoint(address, allPV, remainPV, preAddress, point) {
     //     right: 'rightPV',
     //     preAddress: preAddress
     // }
+
     if (address) {
         pointInfo = {
             address: address,
@@ -254,7 +256,7 @@ function clickPoint(address, allPV, remainPV, preAddress, point) {
             remainPV: remainPV,
             leftPV: 'leftPV',
             right: 'rightPV',
-
+            isSelf: isSelf
         }
     } else {
         pointInfo = {

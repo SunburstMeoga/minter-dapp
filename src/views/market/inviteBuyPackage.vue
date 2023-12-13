@@ -108,7 +108,7 @@
                 <div @click="togglePackagePopup"
                     class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">選擇配套</div>
                 <div @click="handleConfirmBuyForUSDT"
-                    class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">USDT支付</div>
+                    class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">USD3支付</div>
                 <div @click="handleConfirmBuyForRT"
                     class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">RT支付</div>
             </div>

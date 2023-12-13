@@ -23,6 +23,29 @@
                 </div>
             </van-tab>
         </van-tabs>
+        <!-- 帮自己购买package弹窗 -->
+        <van-popup v-model:show="showBuyPackageSelf" round position="bottom">
+            <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
+                <div class="text-center mb-6 text-white">购买配套</div>
+                <div class="flex w-11/12 ml-auto mr-auto flex-wrap justify-between items-center mb-6">
+                    <div v-for="(item, index) in coherentsList" :key="index"
+                        class="border border-primary-color rounded px-2 py-1"
+                        :class="currentSelf == index ? 'bg-primary-color text-white' : 'text-primary-color'"
+                        @click="handleBuyPackageSelf(item, index)">
+                        {{ item.type }}
+                    </div>
+                </div>
+                <div class="w-11/12 mr-auto ml-auto flex justify-between items-center">
+                    <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForUSDT">
+                        <!-- {{ $t('wallet.cancleSale') }} -->
+                        USD3支付
+                    </div>
+                    <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="handlePopupConfirmBuy">
+                        RT支付
+                    </div>
+                </div>
+            </div>
+        </van-popup>
         <!-- 邀请方式弹窗 -->
         <van-popup v-model:show="showAttendPopup" round position="bottom">
             <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
@@ -210,7 +233,7 @@
                     </div>
                     <div class="rounded-full operating-button text-sm px-2 py-1 mr-2" @click="handleConfirmUpPackage">
                         <!-- {{ $t('modalConfirm.confirm') }} -->
-                        USDT支付
+                        USD3支付
                     </div>
                     <div class="rounded-full operating-button text-sm py-1 px-2 " @click="handleConfirmUpPackage">
                         <!-- {{ $t('modalConfirm.confirm') }} -->
@@ -244,7 +267,7 @@
 
                 <!-- <div class="w-full flex justify-between items-center">
                     <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="showBuyPopup = false">
-                        USDT支付
+                        USD3支付
                     </div>
                     <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="showBuyPopup = false">
                         RT支付
@@ -267,8 +290,11 @@ import coherents_list from '@/datas/coherents_list'
 import { DownloadImage } from '@/utils/saveImg'
 import { CopyText } from '@/utils/copyText'
 import { useI18n } from 'vue-i18n';
-import { addressLeg, upInferiorPackage, staticRecords } from '@/request/api'
-
+import { config } from '@/const/config'
+import usdtContractApi from '@/request/usdt'
+import pmtContractApi from '@/request/pmt'
+import { addressLeg, upInferiorPackage, staticRecords, buyCoherent } from '@/request/api'
+import { showToast } from 'vant'
 const { t } = useI18n()
 const { proxy } = getCurrentInstance()
 let active = ref(0)
@@ -283,7 +309,9 @@ let invitationAddress = ref('')
 let shareLink = ref('')
 let currentPointInfo = ref()
 let clickPointInfo = ref({})
+let currentSelf = ref(0)
 let size = ref(240)
+let showBuyPackageSelf = ref(false)
 let cardList = ref([])
 let attendWays = computed(() => {
     return [{ title: t('assistance.buyDirect'), icon: 'icon-goumai' }, { title: t('assistance.createInviterLink'), icon: 'icon-lianjie' }]
@@ -311,6 +339,94 @@ onMounted(() => {
     viewPointMap(localStorage.getItem('address'))
     getStaticRecords()
 })
+async function handlePopupConfirmBuy() {
+    //   toggleConfirmPayPopup()
+    //判斷rt餘額是否充足
+    toggleBuyPackageSelf()
+    proxy.$loading.show()
+
+
+    let data = { package_id: coherentsList.value[currentSelf.value].id }
+    buyCoherent(data)
+        .then(res => {
+            console.log('購買成功', res)
+            proxy.$loading.hide()
+            if (res.message == 'RT餘額不足') {
+                showToast('RT餘額不足')
+            }
+        })
+        .catch(err => {
+            proxy.$loading.hide()
+            console.log('購買失敗', err)
+            showToast('購買失敗')
+            toggleBuyPackageSelf()
+
+        })
+}
+async function handleConfirmBuyForUSDT() {
+    toggleBuyPackageSelf()
+    proxy.$loading.show()
+    let allowance
+    try { //检查usdt对pmt_purchase的授权状态
+        allowance = await usdtContractApi.allowance(localStorage.getItem('address'), config.pmt_purchase_addr)
+        proxy.$loading.hide()
+    } catch (err) {
+        proxy.$loading.hide()
+        showToast(t('toast.error'))
+        console.log(err)
+    }
+    console.log('allowance', allowance)
+
+    if (Number(allowance) == 0) { //當前領取方式未授權
+        proxy.$loading.hide()
+
+        proxy.$confirm.show({
+            title: '請授權',
+            content: '該地址未進行授權，請完成授權',
+            showCancelButton: false,
+            confirmText: '確定',
+            onConfirm: () => {
+                proxy.$loading.show()
+                // usdt对pmt授權
+                usdtContractApi.approve(config.pmt_purchase_addr)
+                    .then(res => {
+                        console.log(res)
+                        proxy.$loading.hide()
+                        showToast(t('toast.success'))
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        proxy.$loading.hide()
+                        showToast(t('toast.error'))
+                    })
+            },
+        });
+        return
+    }
+
+    try {
+        proxy.$loading.show()
+        await pmtContractApi.purchasePackage(coherentsList.value[currentSelf.value].id)
+        proxy.$loading.hide()
+        showToast(t('toast.success'))
+    } catch (err) {
+        proxy.$loading.hide()
+        showToast(t('toast.error'))
+        toggleBuyPackageSelf()
+        console.log(err)
+    }
+}
+function handleBuyPackageSelf(item, index) {
+    if (!item.isSale) {
+        showToast(t('toast.notYetOpen'))
+        return
+    }
+    currentSelf.value = index
+}
+//显示隐藏自己购买package弹窗
+function toggleBuyPackageSelf() {
+    showBuyPackageSelf.value = !showBuyPackageSelf.value
+}
 function getStaticRecords() {
     proxy.$loading.show()
     let params = { prize_type_id: 3, perPage: 100000 }
@@ -437,6 +553,12 @@ function clickPoint(pointInfo) {
     // toggleAttendPopup()
     clickPointInfo.value = pointInfo
     console.log('點位信息', pointInfo)
+    if (pointInfo.isSelf) {
+        console.log('自己')
+        toggleBuyPackageSelf()
+        return
+    }
+
     if (pointInfo.address) {
         toggleAddressOfPoint()
     } else {
