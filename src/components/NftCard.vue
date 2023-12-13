@@ -8,10 +8,10 @@
       <div class="p-2 bg-bottom-content">
         <div class="flex justify-between items-cente mb-2">
           <div class="text-primary-color">Minter</div>
-          <div class="font-bold">#1024</div>
+          <div class="font-bold"># {{ tokenID }}</div>
         </div>
         <div class="flex justify-between items-center">
-          <div>4.000 MT</div>
+          <div>{{ Number(price).toFixed(4) }} MT</div>
           <div v-show="showCheckbox" class="border  rounded w-5 h-5 flex justify-center items-center"
             :class="checkedStatus ? 'border-primary-color bg-primary-color' : 'border-gray-200'"
             @click="$emit('checkedStatusHasChange')">
@@ -49,7 +49,14 @@ defineProps({
     type: Boolean,
     default: false
   },
-
+  price: {
+    type: String,
+    default: ''
+  },
+  tokenID: {
+    type: Number,
+    default: 0
+  },
   checkedStatus: {
     type: Boolean,
     default: false

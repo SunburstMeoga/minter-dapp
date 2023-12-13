@@ -20,7 +20,7 @@
                 <wallet-card currency="PMT" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="MT" />
+                <wallet-card currency="MT" isExchange @exchange="handleWalletCardExchange" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card currency="BT" />
@@ -193,9 +193,9 @@
                         <!-- <div class="text-primary-color text-xs pl-1"> (当前1USDT = 1RT)</div> -->
                     </div>
                     <div class="w-full mb-4 flex justify-between items-center">
-                        <div class="rounded border border-gray-700 flex-1 py-2">
+                        <div class="rounded  flex-1 ">
                             <input type="text" :placeholder="$t('wallet.withdrawAddress')"
-                                class="w-full h-full bg-transparent rounded pl-1">
+                                class="w-full py-2 bg-transparent rounded pl-1">
                         </div>
                     </div>
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
@@ -216,11 +216,65 @@
                 </div>
             </div>
         </van-popup>
+        <van-popup v-model:show="showExchangePopup" round position="bottom">
+            <div class="bg-black text-white py-4 flex flex-col justify-center">
+                <div class="w-11/12 mr-auto ml-auto">
+                    <div class="text-center font-bold text-white mb-6">
+                        兌換
+                    </div>
+                    <div class="flex justify-start items-center mb-10">
+                        <div class="border-b-4 border-transparent px-2 py-1.5 ml-4" v-for="(item, index) in exhangeTypes"
+                            :key="index"
+                            :class="currentExchangeType == index ? 'border-primary-color text-white font-bold' : 'text-gray-700'"
+                            @click="currentExchangeType = index">
+                            {{ item.title }}
+                        </div>
+                    </div>
+                    <div class="text-white text-xs flex justify-start items-baseline mb-1">
+                        <div class="text-base"> 請輸入兌換金額 </div>
+                        <!-- <div class="text-primary-color text-xs pl-1"> (当前1USDT = 1RT)</div> -->
+                    </div>
+                    <div class="w-full flex justify-between items-center mb-10">
+                        <div class="rounded  flex-1 ">
+                            <input type="text" placeholder="兌換金額" class="w-full py-2 bg-transparent rounded pl-1"
+                                v-model="exchangeAmount">
+                        </div>
+                    </div>
+                    <!-- <div class="text-white text-base flex justify-between items-center mb-3">
+                        <div>{{ $t('wallet.withdrawableAmount') }}: </div>
+                        <div class="text-red-500 font-bold">0.0000 MUSDT </div>
+                    </div>
+                    <div class="text-white text-xs flex justify-start items-baseline mb-1">
+                        <div class="text-base">{{ $t('wallet.withdrawAddress') }} </div>
+                    </div>
+                    <div class="w-full mb-4 flex justify-between items-center">
+                        <div class="rounded border border-gray-700 flex-1 py-2">
+                            <input type="text" :placeholder="$t('wallet.withdrawAddress')"
+                                class="w-full h-full bg-transparent rounded pl-1">
+                        </div>
+                    </div>
+                    <div class="text-white text-xs flex justify-start items-baseline mb-1">
+                        <div class="text-base">{{ $t('wallet.withdrawAmount') }} </div>
+                    </div>
+                    <div class="w-full mb-8 flex justify-between items-center">
+                        <div class="rounded mr-2 flex-1 ">
+                            <input type="text" :placeholder="$t('wallet.withdrawAmount')"
+                                class="w-full h-full bg-transparent rounded py-2">
+                        </div>
+                        <div class="underline text-sm text-gray-200">{{ $t('wallet.all') }}</div>
+                    </div> -->
+                    <div class="operating-button rounded-full text-white font-bold text-center text-sm py-2"
+                        @click="handleExchange">
+                        {{ $t('modalConfirm.confirm') }}
+                    </div>
+                </div>
+            </div>
+        </van-popup>
     </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, getCurrentInstance } from 'vue'
 import { useRouter } from "vue-router";
 import ModuleTitle from '../../components/ModuleTitle.vue';
 import WalletCard from '@/components/WalletCard.vue';
@@ -229,7 +283,15 @@ import StaticEarnings from './staticEarningsGauge.vue';
 import nftOne from '@/assets/images/nftOne.png'
 import DynamicEarnings from './dynamicEarningsGauge.vue';
 import { useI18n } from 'vue-i18n'
+import swapContractApi from '@/request/swap'
+import minterContractApi from '@/request/minter'
+import usdtContractApi from '@/request/usdt'
+import { config } from '@/const/config'
+import { showToast } from 'vant';
+import { number } from 'echarts';
+import Web3 from "web3";
 const { t } = useI18n()
+const { proxy } = getCurrentInstance()
 const router = useRouter()
 let coherentList = computed(() => {
     return [{ title: t('wallet.all') }, { title: 'N' }, { title: 'R' }, { title: 'SR' }, { title: 'SSR' }, { title: 'UR' }, { title: t('wallet.promiseCard') }, { title: t('wallet.onSale') }]
@@ -242,10 +304,13 @@ let operatorList = computed(() => {
 let currentCoherent = ref(null)
 let currentOperator = ref(null)
 let showOperator = ref(false)
-let isUnanimous = ref(false)
+let showExchangePopup = ref(false)
 let showTransferPopup = ref(false)
 let showWithdrawPopup = ref(false)
 let showRechargePopup = ref(false)
+let exchangeAmount = ref('')
+let exhangeTypes = ref([{ title: 'MT 兌換 USDT', type: 0 }, { title: 'MT 兌換 RT', type: 1 }])
+let currentExchangeType = ref(0)
 // const chartData = ref([1, 2, 3, 4, 5])
 
 function viewCoherents() {
@@ -262,19 +327,116 @@ function viewNFTs() {
             path: '/personal/nfts'
         })
     }, 1000)
+}
+//點擊兌換彈窗兌換按鈕
+async function handleExchange() {
+    if (!exchangeAmount.value) {
+        showToast('請輸入兌換金額')
+        return
+    }
+    toggleExchangePopup()
+    proxy.$loading.show()
+    console.log('點擊handleExchange', localStorage.getItem('address'), config.swap_addr)
+    // 检查mt或者usdt对swap的授权状态
+    let allowance
+    try {
+        allowance = currentExchangeType.value == 0 ? await usdtContractApi.allowance(localStorage.getItem('address'), config.swap_addr) : await minterContractApi.allowance(localStorage.getItem('address'), config.swap_addr)
+        proxy.$loading.hide()
+    } catch (err) {
+        showToast('錯誤，請重試')
+        proxy.$loading.hide()
+        toggleExchangePopup()
+    }
+    console.log('allowance', allowance)
+    if (Number(allowance) == 0) { //當前領取方式未授權
+        proxy.$loading.hide()
+        proxy.$confirm.show({
+            title: '請授權',
+            content: '該地址未進行授權，請完成授權',
+            showCancelButton: false,
+            confirmText: '確定',
+            onConfirm: () => {
+                proxy.$loading.show()
+                // usdt和mt授權
+                if (currentExchangeType.value == 0) {
+                    usdtContractApi.approve(config.swap_addr)
+                        .then(res => {
+                            console.log(res)
+                            proxy.$loading.hide()
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            proxy.$loading.hide()
+                            toggleExchangePopup()
+                            showToast('錯誤，請重試')
+                        })
+                } else {
+                    minterContractApi.approve(config.swap_addr)
+                        .then(res => {
+                            console.log(res)
+                            proxy.$loading.hide()
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            proxy.$loading.hide()
+                            toggleExchangePopup()
+                            showToast('錯誤，請重試')
+                        })
+                }
 
+            },
+        });
+    } else { //當前領取方式已授權，直接兌換
+        proxy.$loading.show()
+        const WEB3 = new Web3(window.ethereum)
+        let amount = WEB3.utils.toWei((exchangeAmount.value).toString(), ether)
+        if (currentExchangeType.value == 0) {
+            try {
+                await swapContractApi.swapMTForUSDT(amount)
+                proxy.$loading.hide()
+                showToast('操作成功')
+            } catch (err) {
+                console.log(err)
+                proxy.$loading.hide()
+                showToast('錯誤，請重試')
+            }
+        } else {
+            try {
+                await swapContractApi.swapMTForRT(amount)
+                proxy.$loading.hide()
+                showToast('操作成功')
+            } catch (err) {
+                console.log(err)
+                proxy.$loading.hide()
+                showToast('錯誤，請重試')
+            }
+        }
+
+
+    }
+    return
+    let exchange = await swapContractApi.swapMTForUSDT('800000000000000')
+    console.log(exchange)
 }
 //點擊錢包卡片充值按鈕
 function handleWalletCardRecharge() {
     toggleRechargePopup()
 }
-//點擊卡片體現按鈕
+//點擊卡片提現按鈕
 function handleWalletCardWithdraw() {
     toggleWithdrawPopup()
 }
 //点击钱包卡片转账按钮
 function handleWalletCardTransfer() {
     toggleTransferPopup()
+}
+//點擊錢包卡片兌換按鈕
+function handleWalletCardExchange() {
+    toggleExchangePopup()
+}
+//顯示隱藏兌換MT彈窗
+function toggleExchangePopup() {
+    showExchangePopup.value = !showExchangePopup.value
 }
 //显示隐藏RT转账弹窗
 function toggleTransferPopup() {

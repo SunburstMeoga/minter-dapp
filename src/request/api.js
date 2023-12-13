@@ -37,3 +37,54 @@ export function checkReferrerAddress(address) {
     method: 'GET'
   })
 }
+
+//取得直推关系图
+export function referrerMap(address) {
+  return request('/players/direct-referrals/' + address, {
+    method: 'GET'
+  })
+}
+
+//为下级升级配套
+export function upInferiorPackage(data) {
+  return request('/packages/upgrade-for-designated-address', {
+    method: 'POST',
+    data
+  })
+}
+
+//獲取nft列表市場
+export function marketplace() {
+  return request('/marketplaces', {
+    method: 'GET'
+  })
+}
+
+//獲取輪盤參數
+export function roulettes() {
+  return request('/roulettes', {
+    method: 'GET'
+  })
+}
+
+//抽獎
+export function luckyDraw(data) {
+  return request('/roulettes/lucky-draw', {
+    method: 'POST',
+    data
+  })
+}
+
+//獲取自己的nfts
+export function userNFT() {
+  return request('/nfts', {
+    method: 'GET'
+  })
+}
+
+//獲取玩家資料
+export function playersInfo(address) {
+  return request('/players/' + address, {
+    method: 'GET'
+  })
+}

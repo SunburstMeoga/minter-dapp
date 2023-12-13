@@ -1,5 +1,6 @@
 import { ethers } from 'ethers'
 import { config } from '@/const/config'
+console.log('config', config)
 
 // const p = new ethers.JsonRpcProvider(config.rpc)
 // const MUSDT = new ethers.Contract(config.musdt_addr, config.erc20, p)
@@ -8,7 +9,20 @@ const provider = new ethers.BrowserProvider(window.ethereum)
 
 const signer = await provider.getSigner()
 
-const MUSDT = new ethers.Contract(config.musdt_addr, config.erc20_abi, provider)
+// const PMT = new ethers.Contract(config.pmt_purchase_addr, config.pmt_purchase_abi, provider)
+const NFTS_COLLECTION = new ethers.Contract(
+  config.nfts_collection_addr,
+  config.nfts_collection_abi,
+  provider
+)
+const NFTS_MARKETPLACE = new ethers.Contract(
+  config.nfts_marketplace_addr,
+  config.nfts_marketplace_abi,
+  provider
+)
+const SWAP = new ethers.Contract(config.swap_addr, config.swap_abi, provider)
+const SWAPTRADE = new ethers.Contract(config.swap_addr, config.swap_abi, signer)
+
 const RT = new ethers.Contract(config.rt_addr, config.erc20_abi, provider)
 const GAME = new ethers.Contract(config.game_addr, config.game_abi, provider)
 
@@ -16,9 +30,15 @@ const MUSDTTRADE = new ethers.Contract(config.musdt_addr, config.erc20_abi, sign
 const RTTRADE = new ethers.Contract(config.rt_addr, config.erc20_abi, signer)
 const GAMETRADE = new ethers.Contract(config.game_addr, config.game_abi, signer)
 
+export async function swapMTForUSDT(mtAmount) {
+  const result = await SWAPTRADE.swapMTForUSDT(mtAmount)
+  return result
+}
+
 //MUSDT erc20授權狀態
 export async function MUSDTERC20AllowanceState(walletAddr) {
-  const result = await MUSDT.allowance(walletAddr, config.game_addr)
+  const MT = new ethers.Contract(config.mt_addr, config.mt_abi, provider)
+  const result = await MT.allowance(walletAddr, config.swap_addr)
   return result
 }
 

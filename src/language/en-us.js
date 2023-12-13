@@ -148,7 +148,9 @@ export default {
   },
   toast: {
     notYetOpen: 'Not yet open',
-    copySuccess: 'Copy Success'
+    copySuccess: 'Copy Success',
+    error: 'Error，Try Again',
+    success: 'Success'
   },
   wallet: {
     connectWallet: 'Connect',

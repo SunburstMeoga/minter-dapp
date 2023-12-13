@@ -49,7 +49,9 @@
 		},
 		"gasEstimates": null,
 		"methodIdentifiers": {
-			"getHighestPurchase(address)": "d491bab8"
+			"getHighestPurchase(address)": "d491bab8",
+			"getRewardAmount(address)": "44a040f5",
+			"getRewardAmountLimit(address)": "292afe23"
 		}
 	},
 	"abi": [
@@ -62,6 +64,44 @@
 				}
 			],
 			"name": "getHighestPurchase",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "_address",
+					"type": "address"
+				}
+			],
+			"name": "getRewardAmount",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "_address",
+					"type": "address"
+				}
+			],
+			"name": "getRewardAmountLimit",
 			"outputs": [
 				{
 					"internalType": "uint256",

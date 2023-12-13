@@ -138,7 +138,9 @@ export default {
   },
   toast: {
     notYetOpen: '暫未開放',
-    copySuccess: '複製成功'
+    copySuccess: '複製成功',
+    error: '錯誤，請重試',
+    success: '操作成功'
   },
   wallet: {
     connectWallet: '連接錢包',

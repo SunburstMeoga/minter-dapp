@@ -81,9 +81,14 @@
         </div>
       </div>
 
-      <div class="w-full flex justify-center items-center fixed bottom-3" @click="handleConfirmBuy">
-        <div class="w-11/12 operating-button text-center py-2.5 rounded-full">
-          {{ $t('modalConfirm.confirm') }} {{ $t('coherents.buy') }}
+      <div class="w-11/12 flex justify-between items-center fixed bottom-3" @click="handleConfirmBuyForRT">
+        <div class="w-5/12 operating-button text-center py-2.5 rounded-full">
+          <!-- {{ $t('modalConfirm.confirm') }} {{ $t('coherents.buy') }} -->
+          RT支付
+        </div>
+        <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForUSDT">
+          <!-- {{ $t('modalConfirm.confirm') }} {{ $t('coherents.buy') }} -->
+          USDT支付
         </div>
       </div>
     </div>
@@ -244,7 +249,9 @@ import coherents_list from '@/datas/coherents_list'
 import { FormatAmount, FilterAddress } from '@/utils/format'
 import { useI18n } from 'vue-i18n';
 import { buyCoherent, adequateBalance, addressLeg, checkReferrerAddress } from '@/request/api'
-
+import pmtContractApi from '@/request/pmt'
+import usdtContractApi from '@/request/usdt'
+import { config } from '@/const/config'
 const { t } = useI18n()
 const route = useRoute()
 const { proxy } = getCurrentInstance()
@@ -378,6 +385,57 @@ function handleConfirmReferrerAddress() {
   propertiesList.value[0].content = FilterAddress(referrerAddress.value)
   toggleReferrerAddressPopup()
 }
+//使用usdt購買package
+async function handleConfirmBuyForUSDT() {
+  proxy.$loading.show()
+  let allowance
+  try { //检查usdt对pmt_purchase的授权状态
+    allowance = await usdtContractApi.allowance(localStorage.getItem('address'), config.pmt_purchase_addr)
+    proxy.$loading.hide()
+  } catch (err) {
+    proxy.$loading.hide()
+    showToast(t('toast.error'))
+    console.log(err)
+  }
+  console.log('allowance', allowance)
+
+  if (Number(allowance) == 0) { //當前領取方式未授權
+    proxy.$loading.hide()
+    proxy.$confirm.show({
+      title: '請授權',
+      content: '該地址未進行授權，請完成授權',
+      showCancelButton: false,
+      confirmText: '確定',
+      onConfirm: () => {
+        proxy.$loading.show()
+        // usdt对pmt授權
+        usdtContractApi.approve(config.pmt_purchase_addr)
+          .then(res => {
+            console.log(res)
+            proxy.$loading.hide()
+            showToast(t('toast.success'))
+          })
+          .catch(err => {
+            console.log(err)
+            proxy.$loading.hide()
+            showToast(t('toast.error'))
+          })
+      },
+    });
+    return
+  }
+
+  try {
+    proxy.$loading.show()
+    await pmtContractApi.purchasePackage(Number(coherentInfo.value.type))
+    proxy.$loading.hide()
+    showToast(t('toast.success'))
+  } catch (err) {
+    proxy.$loading.hide()
+    showToast(t('toast.error'))
+    console.log(err)
+  }
+}
 
 //点击填写对碰上级弹窗确认按钮
 async function handleConfirmLegAddress() {
@@ -462,7 +520,7 @@ async function checkERC20ApproveState(walletAddress) {
   // console.log(`${payWays.value[currentPayWay.value].title}授权状态`, approveState)
   return true
 }
-async function handleConfirmBuy() {
+async function handleConfirmBuyForRT() {
   if (referrerAddress.value == null) {
     showToast(t('coherents.pleaseEnter') + t('coherents.directAddress'))
     return

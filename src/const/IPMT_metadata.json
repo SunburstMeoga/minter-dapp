@@ -41,6 +41,24 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "mintWithoutLockup",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -103,11 +121,11 @@
 			]
 		},
 		"contract/pmt_purchase.sol": {
-			"keccak256": "0xf3446aede3fa71ce28a17071e9580d9b48fddeceb5dc774a5121760d68e0cd1f",
+			"keccak256": "0xfdf59dd6faf3160883a9360dbe2959ccb00a123c7ac6d83d0aaabe0e7b79993e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f2fcfe0626722a4b775ac968e32308a357bbd8807a411ff377e60846112bf982",
-				"dweb:/ipfs/QmNvD9pLCQA6NABKxeV8inXzZeDjnf1HxpqKgzLWW8qjBk"
+				"bzz-raw://61c5aed2088943b7dfcf3dbf2352419256189fb64f4e61f26974fa359b33f813",
+				"dweb:/ipfs/QmaxGzLx4MMDakr875LMg4t1xX77N9f9geMsjiih4PNyDe"
 			]
 		}
 	},

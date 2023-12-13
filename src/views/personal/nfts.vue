@@ -13,8 +13,11 @@
             {{ $t('coherents.tips') }}
         </div> -->
         <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap" v-show="currentType == 0">
-            <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in 9" :key="index">
+            <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in nftsDatas" :key="index">
                 <nft-card :nftImg="nftOne" :showCheckbox="false" />
+            </div>
+            <div v-if="nftsDatas.length !== 0" class="text-white font-bold">
+                暫無數據
             </div>
         </div>
 
@@ -57,9 +60,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, getCurrentInstance } from 'vue'
 import NftCard from '@/components/NftCard.vue'
 import nftOne from '@/assets/images/nftOne.png'
+import { userNFT } from '@/request/api'
+const { proxy } = getCurrentInstance()
 let nftsStatusList = computed(() => {
     return [{ title: '全部' }, { title: '正在掛單' }, { title: '可出售' }]
 })
@@ -72,6 +77,26 @@ let checkedSaleables = ref([])
 let currentType = ref(0)
 let isAllListed = ref(false)
 let isAllSale = ref(false)
+let nftsDatas = ref([])
+onMounted(() => {
+    getUserNFTs()
+})
+
+function getUserNFTs() {
+    proxy.$loading.show()
+    userNFT()
+        .then(res => {
+            proxy.$loading.hide()
+            nftsDatas.value = res.nft_token_ids
+            console.log('res', res)
+        })
+        .catch(err => {
+            proxy.$loading.hide()
+
+            console.log(err)
+        })
+}
+
 //全選可售卖列表
 function checkedAllSaleables(isChecked) {
     saleables.value.map(item => {

@@ -36,6 +36,8 @@
                         </div>
                         <div v-if="isTrasfer" class="pl-4 underline" @click="$emit('transfer')">{{ $t('wallet.transfer') }}
                         </div>
+                        <div v-if="isExchange" class="pl-4 underline" @click="$emit('exchange')">兌換
+                        </div>
                     </div>
                 </div>
                 <div class="flex justify-between items-center text-menu-word text-sm mb-2">
@@ -74,6 +76,10 @@ defineProps({
         default: false
     },
     isTrasfer: {
+        type: Boolean,
+        default: false
+    },
+    isExchange: {
         type: Boolean,
         default: false
     },

@@ -1086,11 +1086,11 @@
 			]
 		},
 		"contract/minter_collection.sol": {
-			"keccak256": "0x657db369bbf73c2116ab5f36ecd9d3f1719fb58471f598db6d1fcf12aef47950",
+			"keccak256": "0xdd233b02d97c9dc489a1139e3fa14562dea2389c9a370423c5f16f931b57c255",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3d7ed3bba36c8a7689313bdfe60cfc59d219c32f6616dcf8cad9a9cdcbacbd8a",
-				"dweb:/ipfs/QmNnBsUG254dc94RKNfvSQvQYPXz16XQnDp6cuWX3Ag3ap"
+				"bzz-raw://275403d9c1e9fc0aca261d0ca09cbce0f0408b822e82ec3c40e2393849832ecc",
+				"dweb:/ipfs/QmQXnLzfXuiz1wWxgyhxTLSBHgUsEs3Ncx72HwG64VtV8J"
 			]
 		}
 	},

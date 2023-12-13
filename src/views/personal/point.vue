@@ -5,66 +5,104 @@
                 <module-title titleWord="点位图" />
             </div> -->
             <div class="w-16 p-1 h-16 operating-button rounded-full overflow-hidden mb-2">
-                <div class="bg-black w-full h-full rounded-full overflow-hidden" @click="$emit('clickPoint', true)">
+                <div class="bg-black w-full h-full rounded-full overflow-hidden">
                     <img src="../../assets/images/avtor.gif" alt="">
                 </div>
             </div>
             <div class="text-center text-xs">
-                {{ $t('wallet.address') }}:0x17a...5796
+                {{ $t('wallet.address') }}:{{ FilterAddress(directReferrals.address) }}
             </div>
             <div class="text-center text-xs">
-                {{ $t('wallet.all') }} PV: 500 - 100
+                {{ $t('wallet.all') }} PV: {{ directReferrals.pv }}
             </div>
             <div class="text-center text-xs mb-1">
-                {{ $t('assistance.remain') }} PV: 50 - 10
+                {{ $t('assistance.remain') }} PV: {{ directReferrals.pv_remain }}
             </div>
             <div class="w-1 h-10 border-l border-primary-color" />
             <div class="w-6/12 h-10 border-t border-l border-r border-primary-color" />
             <div class="flex w-full justify-between items-start">
                 <div class="w-6/12 flex justify-start flex-col items-center">
-                    <div class="w-14 p-1 h-14 operating-button rounded-full overflow-hidden mb-2"
-                        @click="$emit('clickPoint', true)">
-                        <div class="bg-black w-full h-full rounded-full overflow-hidden">
+                    <div @click="clickPoint(directReferrals && directReferrals.left_leg && directReferrals.left_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv, directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv_remain, directReferrals.address, 'left')"
+                        class="w-14 p-1 h-14 operating-button rounded-full overflow-hidden mb-2">
+                        <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.address"
+                            class="bg-black w-full h-full rounded-full overflow-hidden">
                             <img src="../../assets/images/avtor.gif" alt="">
                         </div>
+                        <div v-else
+                            class="bg-black w-full h-full rounded-full overflow-hidden flex justify-center items-center">
+                            <!-- <img src="../../assets/images/avtor.gif" alt=""> -->
+                            <div class="icon iconfont icon-a-Addpeople text-primary-color font-bold"
+                                style="font-size: 24px">
+
+                            </div>
+                        </div>
                     </div>
-                    <div class="text-center text-xs">
-                        {{ $t('wallet.address') }}:0x17a...5796
-                    </div>
-                    <div class="text-center text-xs">
-                        {{ $t('wallet.all') }} PV: 500 - 100
-                    </div>
-                    <div class="text-center text-xs mb-1">
-                        {{ $t('wallet.remain') }} PV 50 - 10
+
+                    <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.address">
+                        <div class="text-center text-xs">
+                            {{ $t('wallet.address') }}:{{
+                                FilterAddress(directReferrals && directReferrals.left_leg && directReferrals.left_leg.address)
+                            }}
+                        </div>
+                        <div class="text-center text-xs">
+                            {{ $t('wallet.all') }} PV:{{ directReferrals && directReferrals.left_leg &&
+                                directReferrals.left_leg.pv
+                            }}
+                        </div>
+                        <div class="text-center text-xs mb-1">
+                            {{ $t('assistance.remain') }} PV:{{
+                                directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv_remain }}
+                        </div>
                     </div>
                     <div class="w-1 h-8 border-l border-primary-color" />
                     <div class="w-6/12 h-6 border-t border-l border-r border-primary-color" />
                     <div class="flex w-full  items-start">
                         <div class="w-6/12 flex justify-start flex-col items-center">
-                            <div class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
-                                <div class="bg-black w-full h-full rounded-full overflow-hidden">
-                                    <img src="../../assets/images/avtor.gif" alt="" @click="$emit('clickPoint', true)">
+                            <div @click="clickPoint(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.pv, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.pv_remain, directReferrals && directReferrals.left_leg && directReferrals.left_leg.address,'left')"
+                                class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
+                                <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address"
+                                    class="bg-black w-full h-full rounded-full overflow-hidden">
+                                    <img src="../../assets/images/avtor.gif" alt="">
+                                </div>
+                                <div v-else
+                                    class="bg-black w-full h-full rounded-full overflow-hidden flex justify-center items-center">
+                                    <!-- <img src="../../assets/images/avtor.gif" alt=""> -->
+                                    <div class="icon iconfont icon-a-Addpeople text-primary-color font-bold"
+                                        style="font-size: 24px">
+
+                                    </div>
                                 </div>
                             </div>
-
                             <van-popover v-model:show="showPopoverOne" theme="dark" :actions="actions"
                                 placement="bottom-start">
                                 <template #reference>
-                                    <div class="operating-button text-center text-white rounded text-xs px-3">{{
-                                        $t('assistance.view') }}</div>
+                                    <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address"
+                                        class="operating-button text-center text-white rounded text-xs px-3">{{
+                                            $t('assistance.view') }}</div>
                                 </template>
                             </van-popover>
                         </div>
                         <div class="w-6/12 flex justify-start flex-col items-center">
-                            <div class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
-                                <div class="bg-black w-full h-full rounded-full overflow-hidden">
-                                    <img src="../../assets/images/avtor.gif" alt="" @click="$emit('clickPoint', true)">
+                            <div @click="clickPoint(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.pv, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.pv_remain, directReferrals && directReferrals.left_leg && directReferrals.left_leg.address,'right')"
+                                class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
+                                <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.address"
+                                    class="bg-black w-full h-full rounded-full overflow-hidden">
+                                    <img src="../../assets/images/avtor.gif" alt="">
+                                </div>
+                                <div v-else
+                                    class="bg-black w-full h-full rounded-full overflow-hidden flex justify-center items-center">
+                                    <!-- <img src="../../assets/images/avtor.gif" alt=""> -->
+                                    <div class="icon iconfont icon-a-Addpeople text-primary-color font-bold"
+                                        style="font-size: 24px">
+
+                                    </div>
                                 </div>
                             </div>
                             <van-popover v-model:show="showPopoverTwo" theme="dark" :actions="actions" placement="bottom">
                                 <template #reference>
-                                    <div class="operating-button text-center text-white rounded text-xs px-3">{{
-                                        $t('assistance.view') }}</div>
+                                    <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.address"
+                                        class="operating-button text-center text-white rounded text-xs px-3">{{
+                                            $t('assistance.view') }}</div>
                                 </template>
                             </van-popover>
 
@@ -72,53 +110,86 @@
                     </div>
                 </div>
                 <div class="w-6/12 flex flex-col justify-start items-center">
-                    <div class="w-14 p-1 h-14 operating-button rounded-full overflow-hidden mb-2">
-                        <div class="bg-black w-full h-full rounded-full overflow-hidden" @click="$emit('clickPoint', true)">
+                    <div @click="clickPoint(directReferrals && directReferrals.right_leg && directReferrals.right_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv, directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv_remain, directReferrals.address,'right')"
+                        class="w-14 p-1 h-14 operating-button rounded-full overflow-hidden mb-2">
+                        <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.address"
+                            class="bg-black w-full h-full rounded-full overflow-hidden">
                             <img src="../../assets/images/avtor.gif" alt="">
                         </div>
+                        <div v-else
+                            class="bg-black w-full h-full rounded-full overflow-hidden flex justify-center items-center">
+                            <!-- <img src="../../assets/images/avtor.gif" alt=""> -->
+                            <div class="icon iconfont icon-a-Addpeople text-primary-color font-bold"
+                                style="font-size: 24px">
+
+                            </div>
+                        </div>
                     </div>
-                    <div class="text-center text-xs">
-                        {{ $t('wallet.address') }}:0x17a...5796
+                    <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.address">
+                        <div class="text-center text-xs">
+                            {{ $t('wallet.address') }}:{{
+                                FilterAddress(directReferrals && directReferrals.right_leg && directReferrals.right_leg.address)
+                            }}
+                        </div>
+                        <div class="text-center text-xs">
+                            {{ $t('wallet.all') }} PV:{{
+                                directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv }}
+                        </div>
+                        <div class="text-center text-xs mb-1">
+                            {{ $t('assistance.remain') }} PV:{{
+                                directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv_remain }}
+                        </div>
                     </div>
-                    <div class="text-center text-xs">
-                        {{ $t('wallet.all') }} PV: 500 - 100
-                    </div>
-                    <div class="text-center text-xs mb-1">
-                        {{ $t('wallet.remain') }} PV 50 - 10
-                    </div>
+
                     <div class="w-1 h-8 border-l border-primary-color" />
                     <div class="w-6/12 h-6 border-t border-l border-r border-primary-color" />
                     <div class="flex w-full justify-start items-start">
                         <div class="w-6/12 flex flex-col items-center">
-                            <div class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
-                                <div
+                            <div @click="clickPoint(directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.pv, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.pv_remain, directReferrals && directReferrals.right_leg.address, 'left')"
+                                class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
+                                <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address"
+                                    class="bg-black w-full h-full rounded-full overflow-hidden">
+                                    <img src="../../assets/images/avtor.gif" alt="">
+                                </div>
+                                <div v-else
                                     class="bg-black w-full h-full rounded-full overflow-hidden flex justify-center items-center">
                                     <!-- <img src="../../assets/images/avtor.gif" alt=""> -->
                                     <div class="icon iconfont icon-a-Addpeople text-primary-color font-bold"
-                                        style="font-size: 24px" @click="$emit('clickPoint', false)">
+                                        style="font-size: 24px">
 
                                     </div>
                                 </div>
                             </div>
                             <van-popover v-model:show="showPopoverThree" theme="dark" :actions="actions" placement="bottom">
                                 <template #reference>
-                                    <div class="operating-button text-center text-white rounded text-xs px-3">{{
-                                        $t('assistance.view') }}</div>
+                                    <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address"
+                                        class="operating-button text-center text-white rounded text-xs px-3">{{
+                                            $t('assistance.view') }}</div>
                                 </template>
                             </van-popover>
                         </div>
                         <div class="w-6/12 flex flex-col justify-start items-center">
-                            <div class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
-                                <div class="bg-black w-full h-full rounded-full overflow-hidden"
-                                    @click="$emit('clickPoint', true)">
+                            <div class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2"
+                                @click="clickPoint(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.pv, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.pv_remain, directReferrals && directReferrals.right_leg.address,'right')">
+                                <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address"
+                                    class="bg-black w-full h-full rounded-full overflow-hidden">
                                     <img src="../../assets/images/avtor.gif" alt="">
+                                </div>
+                                <div v-else
+                                    class="bg-black w-full h-full rounded-full overflow-hidden flex justify-center items-center">
+                                    <!-- <img src="../../assets/images/avtor.gif" alt=""> -->
+                                    <div class="icon iconfont icon-a-Addpeople text-primary-color font-bold"
+                                        style="font-size: 24px">
+
+                                    </div>
                                 </div>
                             </div>
                             <van-popover v-model:show="showPopoverFour" theme="dark" :actions="actions"
                                 placement="bottom-end">
                                 <template #reference>
-                                    <div class="operating-button text-center text-white rounded text-xs px-3">{{
-                                        $t('assistance.view') }}</div>
+                                    <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address"
+                                        class="operating-button text-center text-white rounded text-xs px-3">{{
+                                            $t('assistance.view') }}</div>
                                 </template>
                             </van-popover>
                         </div>
@@ -134,9 +205,20 @@
 
 <script setup>
 import ModuleTitle from "../../components/ModuleTitle.vue";
+import { defineEmits } from 'vue'
+import { FilterAddress } from '@/utils/format'
 import { ref } from 'vue'
+defineProps({
+    directReferrals: {
+        type: Object,
+        default: () => { }
+    }
+})
 
-const actions = ref([
+import { addressLeg } from '@/request/api'
+const emit = defineEmits(['clickPoint'])
+
+let actions = ref([
     { text: '0x17a...5796' },
     { text: '500 - 100' },
     { text: '50 - 10' },
@@ -151,6 +233,40 @@ let showPopoverThree = ref(false)
 let showPopoverFour = ref(false)
 let showAttendPopup = ref(false)
 let currentAttendsWay = ref(0)
+//查看某地址下的點位圖
+
+//點解點位
+function clickPoint(address, allPV, remainPV, preAddress, point) {
+    console.log('address', address)
+    let pointInfo
+    // pointInfo = {
+    //     address: address,
+    //     allPV: allPV,
+    //     remainPV: remainPV,
+    //     leftPV: 'leftPV',
+    //     right: 'rightPV',
+    //     preAddress: preAddress
+    // }
+    if (address) {
+        pointInfo = {
+            address: address,
+            allPV: allPV,
+            remainPV: remainPV,
+            leftPV: 'leftPV',
+            right: 'rightPV',
+
+        }
+    } else {
+        pointInfo = {
+            address: address,
+            preAddress: preAddress,
+            point: point
+        }
+    }
+
+    //传递给父组件
+    emit('clickPoint', pointInfo)
+}
 
 function selectAttendWay(index) {
     currentAttendsWay.value = index

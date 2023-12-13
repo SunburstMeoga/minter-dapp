@@ -50,7 +50,8 @@
 		"gasEstimates": null,
 		"methodIdentifiers": {
 			"getLockedAmount(address)": "929ec537",
-			"mintWithLockup(address,uint256)": "065cd85d"
+			"mintWithLockup(address,uint256)": "065cd85d",
+			"mintWithoutLockup(address,uint256)": "d87326a1"
 		}
 	},
 	"abi": [
@@ -87,6 +88,24 @@
 				}
 			],
 			"name": "mintWithLockup",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "to",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "amount",
+					"type": "uint256"
+				}
+			],
+			"name": "mintWithoutLockup",
 			"outputs": [],
 			"stateMutability": "nonpayable",
 			"type": "function"

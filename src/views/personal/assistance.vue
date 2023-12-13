@@ -3,7 +3,7 @@
         <van-tabs class="pt-2 bg-black " v-model:active="active" sticky shrink animated swipeable color="#e149ed"
             title-inactive-color="#fff" title-active-color="#e149ed" background="#000">
             <van-tab :title="$t('assistance.pointMap')">
-                <point @clickPoint="clickPoint" />
+                <point @clickPoint="clickPoint" :directReferrals="directReferrals" />
             </van-tab>
             <van-tab :title="$t('assistance.organisationChart')">
                 <point-two @clickPoint="clickPoint" />
@@ -36,7 +36,6 @@
                         <div class="text-white text-sm">{{ item.title }}</div>
                     </div>
                 </div>
-
                 <div class="w-full flex justify-center items-center">
                     <div class="w-11/12 operating-button text-center py-2.5 rounded" @click="showAttendPopup = false">
                         {{ $t('wallet.cancleSale') }}
@@ -106,12 +105,12 @@
                 <div class="w-full flex flex-col items-center mb-2">
                     <div class="text-gray-200 text-sm text-left w-11/12 mb-1"> {{ $t('assistance.inviterAddress') }}</div>
                     <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-700 mb-1">
-                        <input type="text" :placeholder="$t('assistance.inviterAddress')"
+                        <input type="text" v-model="invitationAddress" :placeholder="$t('assistance.inviterAddress')"
                             class="w-full h-full bg-bottom-content rounded">
                     </div>
-                    <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
+                    <!-- <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
                         {{ $t('coherents.invalidAddress') }}
-                    </div>
+                    </div> -->
                 </div>
                 <!-- <div class="w-full flex flex-col items-center mb-2">
                     <div class="text-gray-200 text-sm text-left w-11/12 mb-1">请填写上级地址</div>
@@ -135,7 +134,7 @@
                 </div>
             </div>
         </van-popup>
-        <!-- 邀请链接弹窗 -->
+        <!-- 邀请链接二维码弹窗 -->
         <van-popup v-model:show="showLinkQRCode" :style="{ padding: '10px', borderRadius: '10px' }">
             <div class="rounded w-full h-full relative flex text-white flex-col justify-center items-center">
                 <!-- <div class="flex justify-end items-center pt-2 pr-2">
@@ -145,8 +144,8 @@
                     {{ $t('assistance.inviterLink') }}
                 </div>
                 <div class="mb-6 bg-white">
-                    <qrcode-vue value="http://localhost:5173/personal/assistance"
-                        logoSrc='../../assets/images/minter-logo-cro.png' :size="size" level="H" id="qrcode" margin="2" />
+                    <qrcode-vue :value="shareLink" logoSrc='../../assets/images/minter-logo-cro.png' :size="size" level="H"
+                        id="qrcode" margin="2" />
                 </div>
                 <div class="w-full flex justify-between items-center text-sm">
                     <div class="w-5/12 operating-button text-center py-2.5 rounded" @click="handleSaveQRCode">
@@ -162,7 +161,7 @@
         <!-- 点位操作弹窗 -->
         <van-popup v-model:show="showPointOperatingPopup" round position="bottom">
             <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
-                <div class="text-center mb-6 text-xs text-white">0x83906217A773022db1aDe203292B957961e67d1B</div>
+                <div class="text-center mb-6 text-xs text-white">{{ clickPointInfo.address }}</div>
                 <div class="flex justify-start items-center mb-6">
                     <div class="flex flex-col justify-start items-center mr-3 w-11/12" :key="index"
                         v-for="(item, index) in addressOperating" @click="clickOperatingItem(item, index)">
@@ -183,7 +182,7 @@
                 </div>
             </div>
         </van-popup>
-        <!-- 点位配套信息弹窗 -->
+        <!-- 帮下级升级点位弹窗 -->
         <van-popup v-model:show="showPointCoherentInfo" round position="bottom">
             <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
                 <div class="text-center mb-6 text-white">{{ $t('assistance.buyCoherent') }}</div>
@@ -191,31 +190,43 @@
                     <div class="text-gray-300 text-sm text-left w-11/12 mb-1">{{ $t('assistance.currentPointAddress') }}
                     </div>
                     <div class="rounded w-11/12 h-11 border border-gray-700 mb-1 px-1 break-words leading-5">
-                        {{ currentPointInfo.address }}
+                        {{ clickPointInfo.address }}
                     </div>
                 </div>
                 <div class="text-gray-300 text-sm  w-11/12 mb-1 ml-auto mr-auto">{{ $t('assistance.chooseCoherent') }}</div>
                 <div class="w-11/12 mr-auto ml-auto flex justify-between items-center mb-4">
-                    <div class="flex-1 pr-2">
-                        <van-popover v-model:show="showCoherentList" theme="dark" :actions="actions" placement="bottom">
+                    <div class="flex-1 pr-2 flex items-center">
+                        <van-popover v-model:show="showCoherentList" theme="dark" @select="selectPackage" :actions="actions"
+                            placement="bottom">
                             <template #reference>
                                 <div class="rounded w-full h-8 border border-gray-700 mb-1 px-10 break-words leading-7">
-                                    200
+                                    {{ buyPackage.text }}
                                 </div>
                             </template>
                         </van-popover>
                     </div>
-                    <div class="rounded operating-button h-8 leading-8 px-2">
-                        {{ $t('modalConfirm.confirm') }}
+                    <div class="rounded-full operating-button text-sm px-2 py-1 mr-2" @click="handleConfirmUpPackage">
+                        <!-- {{ $t('modalConfirm.confirm') }} -->
+                        USDT支付
+                    </div>
+                    <div class="rounded-full operating-button text-sm py-1 px-2 " @click="handleConfirmUpPackage">
+                        <!-- {{ $t('modalConfirm.confirm') }} -->
+                        RT支付
                     </div>
                 </div>
                 <div class="w-full flex flex-col items-center mb-2">
-                    <div class="text-gray-300 text-sm text-left w-11/12 mb-1">PV</div>
+                    <div class="text-gray-300 text-sm text-left w-11/12 mb-1">全部PV</div>
                     <div class="rounded w-11/12 h-11 border border-gray-700 mb-1 px-1 break-words leading-10">
-                        100
+                        {{ clickPointInfo.allPV }}
                     </div>
                 </div>
                 <div class="w-full flex flex-col items-center mb-2">
+                    <div class="text-gray-300 text-sm text-left w-11/12 mb-1">剩餘PV</div>
+                    <div class="rounded w-11/12 h-11 border border-gray-700 mb-1 px-1 break-words leading-10">
+                        {{ clickPointInfo.remainPV }}
+                    </div>
+                </div>
+                <!-- <div class="w-full flex flex-col items-center mb-2">
                     <div class="text-gray-300 text-sm text-left w-11/12 mb-1">{{ $t('assistance.left') }}PV</div>
                     <div class="rounded w-11/12 h-11 border border-gray-700 mb-1 px-1 break-words leading-10">
                         1000PV
@@ -226,11 +237,14 @@
                     <div class="rounded w-11/12 h-11 border border-gray-700 mb-1 px-1 break-words leading-10">
                         1000PV
                     </div>
-                </div>
+                </div> -->
 
-                <!-- <div class="w-full flex justify-center items-center">
-                    <div class="w-11/12 operating-button text-center py-2.5 rounded" @click="showBuyPopup = false">
-                        确认
+                <!-- <div class="w-full flex justify-between items-center">
+                    <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="showBuyPopup = false">
+                        USDT支付
+                    </div>
+                    <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="showBuyPopup = false">
+                        RT支付
                     </div>
                 </div> -->
             </div>
@@ -239,7 +253,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, getCurrentInstance } from 'vue'
 import QrcodeVue from 'qrcode.vue'
 import Point from './point.vue';
 import PointTwo from './pointTwo.vue';
@@ -250,8 +264,10 @@ import coherents_list from '@/datas/coherents_list'
 import { DownloadImage } from '@/utils/saveImg'
 import { CopyText } from '@/utils/copyText'
 import { useI18n } from 'vue-i18n';
+import { addressLeg, upInferiorPackage } from '@/request/api'
 
 const { t } = useI18n()
+const { proxy } = getCurrentInstance()
 let active = ref(0)
 let showAttendPopup = ref(false)
 let showBuyPopup = ref(false)
@@ -260,7 +276,10 @@ let showPointAddressPopup = ref(false)
 let showPointCoherentInfo = ref(false)
 let showPointOperatingPopup = ref(false)
 let showInvitationLinksPopup = ref(false)
-let currentPointInfo = ref({ address: '0x83906217A773022db1aDe203292B957961e67d1B' })
+let invitationAddress = ref('')
+let shareLink = ref('')
+let currentPointInfo = ref()
+let clickPointInfo = ref({})
 let size = ref(240)
 let cardList = ref([{ showMore: false }, { showMore: false }, { showMore: false }, { showMore: false }, { showMore: false }, { showMore: false }])
 let attendWays = computed(() => {
@@ -271,21 +290,55 @@ let addressOperating = computed(() => {
 })
 let showCoherentList = ref(false)
 const actions = ref([
-    { text: '200' },
-    { text: '600' },
-    { text: '2000' },
-    { text: '6000' },
-    { text: '20000' },
+    { text: '200', id: 1 },
+    { text: '600', id: 2 },
+    { text: '2000', id: 3 },
+    { text: '6000', id: 4 },
+    { text: '20000', id: 5 },
 ])
-
+const buyPackage = ref({ text: '請選擇配套' })
 const pointLsit = ref([{ title: '左' }, { title: '右' }])
 let currentPoint = ref(null)
 let currentCoherent = ref(null)
 const coherentsList = ref(coherents_list)
-
+let directReferrals = ref({})
 onMounted(() => {
     // viewAddressPoint(window.ethereum.selectedAddress)
+    console.log('document.domain', document.domain)
+    viewPointMap(localStorage.getItem('address'))
 })
+//查看某個地址下的點位圖
+function viewPointMap(address) {
+    proxy.$loading.show()
+    addressLeg(address)
+        .then(res => {
+            console.log('點位圖', res)
+            directReferrals.value = res.directReferrals
+            proxy.$loading.hide()
+
+        })
+        .catch(err => {
+            proxy.$loading.hide()
+
+            console.log(err)
+        })
+}
+//點擊幫下級升級配套按鈕
+function handleConfirmUpPackage() {
+    let params = { address: clickPointInfo.value.address, package_id: buyPackage.value.id }
+    upInferiorPackage(params)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+//选择配套
+function selectPackage(action) {
+    console.log(action)
+    buyPackage.value = action
+}
 //点击保存二维码按钮
 function handleSaveQRCode() {
     let qrcode = document.getElementById("qrcode")//获取到页面的元素
@@ -298,12 +351,17 @@ function handleSaveQRCode() {
 }
 //复制二维码链接
 async function handleCopyLink() {
-    await CopyText('http://localhost:5173/personal/assistance')
+    await CopyText(shareLink.value)
     toggleLinkPopup()
-
 }
 //点击生成邀请链接按钮
 function handleCreateInvitationLink() {
+    console.log(clickPointInfo.value)
+    let shareLinkStr = `${window.location.origin}/market/invite-buy-package?inviter=${invitationAddress.value}&pre=${clickPointInfo.value.preAddress}&point=${clickPointInfo.value.point}`
+    console.log(shareLinkStr)
+
+    // return
+    shareLink.value = shareLinkStr
     toggleInvitationLinksPopup()
     toggleLinkPopup()
 }
@@ -314,6 +372,7 @@ function toggleInvitationLinksPopup() {
 //点击地址操作面板操作按钮
 function clickOperatingItem(item, index) {
     if (index == 0) {
+        viewPointMap(clickPointInfo.value.address)
         toggleAddressOfPoint()
         // viewAddressPoint()
     } else {
@@ -350,11 +409,13 @@ function toggleLinkPopup() {
 function toggleBuyPopup() {
     showBuyPopup.value = !showBuyPopup.value
 }
+
 //点击点位图点位
-function clickPoint(haveAddress) {
+function clickPoint(pointInfo) {
     // toggleAttendPopup()
-    console.log('是否拥有点位', haveAddress)
-    if (haveAddress) {
+    clickPointInfo.value = pointInfo
+    console.log('點位信息', pointInfo)
+    if (pointInfo.address) {
         toggleAddressOfPoint()
     } else {
         toggleAttendPopup()

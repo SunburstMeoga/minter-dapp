@@ -173,7 +173,7 @@ import { showToast } from 'vant';
 import { useStore } from "@/stores/swiper";
 import { userStore } from "@/stores/user";
 import QrcodeVue from 'qrcode.vue'
-import { login } from '@/request/api'
+import { login, playersInfo } from '@/request/api'
 import { generateNonce } from '@/utils/getNonce'
 const swiperStore = useStore();
 const userInfo = userStore()
@@ -186,7 +186,7 @@ const showMorePersonal = ref(false)
 const showLoginPopup = ref(false)
 const currentMenuItem = ref('')
 
-const value = ref('http://baidu.com')
+const value = ref('sfsdfsf')
 const size = ref(240)
 const actions = ref([
     { text: '繁体中文', locale: 'zh-hk' },
@@ -216,7 +216,6 @@ let personalChilds = computed(() => {
     } else {
         return [{ title: t('menu.wallet'), router: '/personal/wallet' }]
     }
-
 })
 
 onMounted(() => {
@@ -225,13 +224,14 @@ onMounted(() => {
     }
     if (localStorage.getItem('address')) {
         userInfo.changeAddress(localStorage.getItem('address'))
-
     }
+    getPlayersInfo(localStorage.getItem('address'))
 })
 async function handleCopy() {
     await CopyText(userInfo.address)
     showToast(t('toast.copySuccess'))
 }
+
 function addressFilter(value) {
     if (value === undefined || value === null) return
     let arr = value.split('')
@@ -245,6 +245,16 @@ function addressFilter(value) {
     targetArr.splice(7, 0, '...')
     targetStr = targetArr.join('')
     return targetStr
+}
+//獲取玩家信息
+function getPlayersInfo(address) {
+    playersInfo(address)
+        .tnen(res => {
+            console.log('res', res)
+        })
+        .catch(err => {
+            console.log('err', err)
+        })
 }
 //钱包地址签名
 async function addressSign() {
@@ -290,7 +300,6 @@ async function handleConnect() {
     } else {
         addressSign()
     }
-
 }
 async function initWallet() {
     // if (localStorage.getItem('address')) {

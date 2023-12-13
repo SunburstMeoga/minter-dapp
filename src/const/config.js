@@ -1,15 +1,33 @@
 // import erc20_abi from './erc20.json'
 // import erc721_abi from './erc721.json'
-// import game_abi from './game.json'
+import pmt_purchase_abi from './PMTPurchaseContract.json'
+import nfts_marketplace_abi from './NFTMarketplace.json'
+import nfts_collection_abi from './MinterCollection.json'
+import swap_abi from './SwapContract.json'
+import mt_abi from './MinterToken.json'
+import usdt_abi from './MinterSharesToken.json'
+import minter_collection_abi from './MinterCollection.json'
+import burnable_token_abi from './BurnableToken.json'
 
 const config = {
-  '3ATUSDToken_addr': '0x53Ffa33162b1E3dd5FeE57531a6708b85266F7e0',
-  pmt_addr: '0xA6afb1F4dbC92C1019bd612D15b164AfD3caEf72',
+  USDToken_addr: '0x53Ffa33162b1E3dd5FeE57531a6708b85266F7e0',
+  pmt_addr: '0x21ABCeF1c903C9C05001F47BAFe99779A305E35B',
   mt_addr: '0xD473D757DdF59f53C77AA90eC66e4c237113935e',
   mst_addr: '0x2D31C2AD61c7342a94eae6BBAC830819710C8425',
-  pmt_purchase_addr: '0x1a07E2f75dc58A9eAbc1e8Da5355Fc036D87Bf17',
-  nfts_collection_addr: '0xcEa698fB80d4e58F847CC4E1a2935011b15372DC',
-  nfts_marketplace_addr: '0x45977e4715d5349ba8a465aea0eF4345987b51e1',
+  pmt_purchase_addr: '0x830dE6a1d11dC9314BD59930F505Cf941Cbf1Be0',
+  nfts_collection_addr: '0x3848027E5728Fd927791c065b68684e2EBf4fc2a',
+  nfts_marketplace_addr: '0xc96a9f947046B8C1fE762434A44F03F10552B51d',
+  swap_addr: '0x43a9DAE27950B940C1C43B34D6700936dcBcB1Bc',
+  minter_collection: '0xD24544a9EE84493250d3AFbc39414b785A5f570a',
+
+  mt_abi: mt_abi.abi,
+  burnable_token_abi: burnable_token_abi.abi,
+  usdt_abi: usdt_abi.abi,
+  pmt_purchase_abi: pmt_purchase_abi.abi,
+  nfts_collection_abi: nfts_collection_abi.abi,
+  nfts_marketplace_abi: nfts_marketplace_abi.abi,
+  swap_abi: swap_abi.abi,
+  minter_collection_abi: minter_collection_abi,
 
   api: 'http://13.228.135.184:8000/api',
   chainId: '1688288',

@@ -22,9 +22,9 @@
                 <div class="text-primary-color text-xs pl-1"> (1USDT = 1RT)</div>
             </div>
             <div class="w-full flex justify-between items-center mb-10">
-                <div class="rounded mr-2 border border-gray-700 flex-1 py-1">
+                <div class="rounded mr-2  flex-1 py-1">
                     <input type="text" :placeholder="$t('exchange.exchangeQuantity')"
-                        class="w-full h-full bg-transparent pl-1 text-gray-200">
+                        class="w-full py-2 bg-transparent pl-1 text-gray-200">
                 </div>
                 <div class="underline text-sm text-gray-200">{{ $t('wallet.all') }}</div>
             </div>

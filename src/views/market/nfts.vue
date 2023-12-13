@@ -4,7 +4,13 @@
             <div class="w-11/12 mr-auto ml-auto mt-4">
                 <module-title titleWord="NFTs" />
             </div>
-            <div class="border-b border-gray-700">
+            <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
+                <div v-for="(item, index) in nftsDatas" class="mb-2" style="width: 48%;" :key="index">
+                    <nft-card :nftImg="nftOne" :tokenID="item.token_id" :price="item.price" :showCheckbox="false"
+                        showBuyButton @handleBuyButton="handleBuyButton(item)" />
+                </div>
+            </div>
+            <!-- <div class="border-b border-gray-700">
                 <van-tabs class="pt-2 bg-black" v-model:active="active" animated swipeable color="#e149ed"
                     title-inactive-color="#fff" title-active-color="#e149ed" background="#000">
                     <van-tab title="N">
@@ -47,7 +53,7 @@
                         </div>
                     </van-tab>
                 </van-tabs>
-            </div>
+            </div> -->
         </div>
 
     </div>
@@ -56,38 +62,118 @@
 <script setup>
 import NftCard from '@/components/NftCard.vue';
 import ModuleTitle from "@/components/ModuleTitle.vue";
-
 import { ref, onMounted, getCurrentInstance } from 'vue'
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n'
-
-const { t } = useI18n()
-
+import { marketplace } from '@/request/api'
+import nftContractApi from '@/request/nft'
+import { showToast } from 'vant';
+import { config } from '@/const/config'
 import nftOne from '@/assets/images/nftOne.png'
 import nftTwo from '@/assets/images/nftTwo.png'
 import nftThree from '@/assets/images/nftThree.png'
 import nftFour from '@/assets/images/nftFour.png'
 import nftFive from '@/assets/images/nftFive.png'
 
-
+const { t } = useI18n()
 const router = useRouter()
-
 const { proxy } = getCurrentInstance()
+let nftsDatas = ref([])
+let nftInfo = ref({})
 
-function handleBuyButton() {
-    // console.log(proxy.$confirm)
-    proxy.$confirm.show({
-        title: t('modalConfirm.buySuccess'),
-        content: t('modalConfirm.luckyDraw'),
-        showCancelButton: false,
-        confirmText: t('modalConfirm.confirm'),
-        onConfirm: () => {
-            proxy.$confirm.hide()
-            router.push({
-                path: '/market/raffle'
-            })
-        },
-    });
+onMounted(() => {
+    getMarketplace()
+})
+
+//獲取可購買的nft列表
+function getMarketplace() {
+    proxy.$loading.show()
+    marketplace()
+        .then(res => {
+            console.log('nft列表', res)
+            nftsDatas.value = res.market_places
+            proxy.$loading.hide()
+        })
+        .catch(err => {
+            console.log(err)
+            proxy.$loading.hide()
+        })
+}
+
+
+
+async function handleBuyButton(item) {
+    console.log(item)
+    // nftInfo.value = item
+    proxy.$loading.show()
+    let allowance
+    try { //检查pmt对pmt_purchase的授权状态
+        allowance = await nftContractApi.allowance(localStorage.getItem('address'), config.nfts_marketplace_addr)
+        proxy.$loading.hide()
+    } catch (err) {
+        proxy.$loading.hide()
+        showToast(t('toast.error'))
+        console.log(err)
+    }
+    console.log('allowance', allowance)
+
+    if (Number(allowance) == 0) { //當前賬號未授權
+        proxy.$loading.hide()
+        proxy.$confirm.show({
+            title: '請授權',
+            content: '該地址未進行授權，請完成授權',
+            showCancelButton: false,
+            confirmText: '確定',
+            onConfirm: () => {
+                proxy.$loading.show()
+                // pmt对nft授權
+                nftContractApi.approve(config.nfts_marketplace_addr)
+                    .then(res => {
+                        console.log(res)
+                        proxy.$loading.hide()
+                        showToast(t('toast.success'))
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        proxy.$loading.hide()
+                        showToast(t('toast.error'))
+                    })
+            },
+        });
+        return
+    }
+
+    try { //购买nft
+        proxy.$loading.show()
+        await nftContractApi.purchaseNFT(item.token_id)
+        proxy.$loading.hide()
+        proxy.$confirm.show({ //nft购买成功进入抽奖
+            title: t('modalConfirm.buySuccess'),
+            content: t('modalConfirm.luckyDraw'),
+            showCancelButton: false,
+            confirmText: t('modalConfirm.confirm'),
+            onConfirm: () => {
+                proxy.$confirm.hide()
+                router.push({
+                    path: '/market/raffle',
+                    query: {
+                        address: item.address,
+                        nft_price: item.nft_price,
+                        nft_token_id: item.nft_token_id
+                    }
+                })
+            },
+        });
+        // showToast(t('toast.success'))
+    } catch (err) {
+        proxy.$loading.hide()
+        showToast(t('toast.error'))
+        console.log(err)
+    }
+
+
+
+
 }
 
 onMounted(() => {
