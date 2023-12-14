@@ -14,7 +14,8 @@
                 {{ $t('wallet.address') }}:{{ FilterAddress(directReferrals.address) }}
             </div>
             <div class="text-center text-xs">
-                {{ $t('wallet.all') }} PV: {{ directReferrals.pv }}
+                {{ $t('wallet.all') }} PV: {{ directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv }}
+                - {{ directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv }}
             </div>
             <div class="text-center text-xs mb-1">
                 {{ $t('assistance.remain') }} PV: {{ directReferrals.pv_remain }}

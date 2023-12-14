@@ -9,7 +9,7 @@
                     :textFontSize="textFontSize" :buttons="buttons" @start="startCallback" @end="endCallback" />
             </div>
         </div>
-        <van-popup v-model:show="isPrized">
+        <van-popup v-model:show="isPrized" :close-on-click-overlay="false">
             <div class="bg-black text-white">
                 <div class="pl-2 py-2  pr-44 rounded-t-md bg-primary-color">
                     <div class="font-bold text-lg">{{ $t('turntable.congratulations') }}</div>
@@ -25,7 +25,7 @@
                     </div> -->
                 </div>
                 <div class="rounded-full border border-gray-400 text-gray-400 text-center p-3 flex justify-center items-center w-0 h-0 text-sm mr-auto ml-auto"
-                    @click="isPrized = false">
+                    @click="$router.go(-1)">
                     <div class="icon iconfont icon-close"></div>
                 </div>
             </div>
