@@ -13,6 +13,9 @@
                 <module-title :titleWord="$t('wallet.title')"></module-title>
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
+                <wallet-card currency="HAH" :balance="0" />
+            </div>
+            <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card isUSD3 currency="USD3" :balance="usdtBalance" :contranct="config.USDToken_addr" isWithdraw
                     @recharge="handleWalletCardRecharge" @withdraw="handleWalletCardWithdraw" />
             </div>
@@ -32,6 +35,10 @@
             <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card currency="RT" :balance="palayBanalce.rt" @transfer="handleWalletCardTransfer" isTrasfer />
             </div>
+            <div class="w-11/12 mr-auto ml-auto mb-3">
+                <wallet-card currency="股權" :balance="0" />
+            </div>
+
             <div class="border-b border-gray-800 w-11/12 mr-auto ml-auto mb-3"></div>
             <div class="flex justify-between items-center w-11/12 mr-auto ml-auto mb-2">
                 <div class="w-full">
@@ -112,7 +119,7 @@
 
                     <div class="text-white text-base flex justify-between items-center mb-3">
                         <div>RT {{ $t('wallet.balance') }}: </div>
-                        <div class="text-red-500 font-bold">0.0000 RT </div>
+                        <div class="text-red-500 font-bold">{{ Number(palayBanalce.rt).toFixed(4) }} RT </div>
                         <!-- <div class="text-primary-color text-xs pl-1"> (当前1USD3可兑换2RT)</div> -->
                     </div>
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
@@ -152,7 +159,7 @@
 
                     <div class="text-white text-base flex justify-between items-center mb-3">
                         <div>USD3 {{ $t('wallet.balance') }}: </div>
-                        <div class="text-red-500 font-bold">0.0000 USD3 </div>
+                        <div class="text-red-500 font-bold">{{ Number(usdtBalance).toFixed(4) }} USD3 </div>
                         <!-- <div class="text-primary-color text-xs pl-1"> (当前1USD3可兑换2RT)</div> -->
                     </div>
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
@@ -189,7 +196,7 @@
 
                     <div class="text-white text-base flex justify-between items-center mb-3">
                         <div>{{ $t('wallet.withdrawableAmount') }}: </div>
-                        <div class="text-red-500 font-bold">0.0000 USD3 </div>
+                        <div class="text-red-500 font-bold">{{ Number(usdtBalance).toFixed(4) }} USD3 </div>
                         <!-- <div class="text-primary-color text-xs pl-1"> (当前1USD3可兑换2RT)</div> -->
                     </div>
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">

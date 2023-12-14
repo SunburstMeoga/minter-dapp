@@ -61,6 +61,7 @@ if (window.ethereum) {
       const result = await NFTGET.getAllListedNFTs()
       return result
     },
+    //授權狀態
     isApprovedAll: async function (walletAddr, contractAddress) {
       const result = await erc721.isApprovedForAll(walletAddr, contractAddress)
       return result

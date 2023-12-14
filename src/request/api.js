@@ -144,3 +144,11 @@ export function btToRt(data) {
     data
   })
 }
+
+//獲取自己可出售的NFT
+export function getCanSaleNFT(params) {
+  return request('/nfts/available', {
+    method: 'GET',
+    params
+  })
+}

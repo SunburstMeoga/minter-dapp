@@ -12,20 +12,25 @@
         </div>
         <div class="flex justify-between items-center">
           <div>{{ Number(price).toFixed(4) }} MT</div>
-          <div v-show="showCheckbox" class="border  rounded w-5 h-5 flex justify-center items-center"
+          <!-- <div v-show="showCheckbox" class="border  rounded w-5 h-5 flex justify-center items-center"
             :class="checkedStatus ? 'border-primary-color bg-primary-color' : 'border-gray-200'"
             @click="$emit('checkedStatusHasChange')">
             <div class="icon iconfont icon-right1" v-show="checkedStatus"></div>
-          </div>
+          </div> -->
         </div>
         <div class="flex justify-center items-center mt-2" v-show="showBuyButton" @click="$emit('handleBuyButton')">
-          <div class="operating-button w-full py-1 rounded-full text-center">
+          <div class="w-full py-1 rounded-full text-center" :class="canBuy ? 'operating-button' : 'disable-button'">
             {{ $t('coherents.buy') }}
           </div>
         </div>
         <div class="flex justify-center items-center mt-2" v-show="showListedButton" @click="$emit('handleListed')">
           <div class="operating-button w-full py-1 rounded-full text-center">
             掛單
+          </div>
+        </div>
+        <div class="flex justify-center items-center mt-2" v-show="showCancelButton" @click="$emit('handleCancel')">
+          <div class="operating-button w-full py-1 rounded-full text-center">
+            取消掛單
           </div>
         </div>
       </div>
@@ -37,6 +42,10 @@
 <script setup>
 import { ref } from 'vue'
 defineProps({
+  canBuy: {
+    type: Boolean,
+    default: true
+  },
   showCheckbox: {
     type: Boolean,
     default: true
@@ -46,6 +55,10 @@ defineProps({
     default: false
   },
   showListedButton: {
+    type: Boolean,
+    default: false
+  },
+  showCancelButton: {
     type: Boolean,
     default: false
   },

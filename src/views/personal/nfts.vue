@@ -9,62 +9,35 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="w-11/12 text-xs text-red-700 mb-5">
-            {{ $t('coherents.tips') }}
-        </div> -->
+        <!-- 全部 -->
         <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap" v-show="currentType == 0">
             <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in nftsDatas" :key="index">
-                <nft-card :nftImg="nftOne" :showCheckbox="false" :tokenID="item.token_id" showListedButton
-                    @handleListed="handleListed(item)" />
+                <nft-card :nftImg="nftOne" :showCheckbox="false" :price="item.price" :tokenID="item.token_id" />
             </div>
         </div>
-
         <div v-if="nftsDatas.length == 0 && currentType == 0" class="text-white font-bold mt-20 text-center">
             暫無數據
         </div>
-
+        <!-- 正在掛單 -->
         <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap"
             v-show="currentType == 1 && listeds.length !== 0">
-            <div class="px-2 py-0.5 text-sm flex justify-between items-center mb-2 w-full">
-                <div class=" justify-start items-center text-gray-200">
-                    <div class="rounded px-3 py-1.5 bg-card-content" @click="handleCancleList">取消掛單</div>
-                </div>
-                <div class="flex justify-end items-center">
-                    <div class="pr-2 font-bold text-lg" :class="isAllListed ? 'text-primary-color' : 'text-white'">{{
-                        $t('wallet.unanimous') }}</div>
-                    <van-checkbox @click="checkedAllListed" v-model="isAllListed" checked-color="#e149ed"
-                        icon-size="22px"></van-checkbox>
-                </div>
-            </div>
             <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in listeds" :key="index">
-                <nft-card :nftImg="item.nftImg" :checkedStatus="item.checkedStatus"
-                    @checkedStatusHasChange="listedsHasChange(item, index)" />
+                <nft-card :nftImg="nftOne" :price="item.price" :tokenID="item.token_id" showCancelButton
+                    @handleCancel="handleCancelList(item)" />
             </div>
         </div>
-
         <div v-if="listeds.length == 0 && currentType == 1" class="text-white font-bold mt-20 text-center">
             暫無數據
         </div>
-
+        <!-- 可出售 -->
         <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap"
             v-show="currentType == 2 && saleables.length !== 0">
-            <!-- <div class="px-2 py-0.5 text-sm flex justify-between items-center mb-2 w-full">
-                <div class=" justify-start items-center text-gray-200">
-                    <div class="rounded px-3 py-1.5 bg-card-content">掛單</div>
-                </div>
-                <div class="flex justify-end items-center">
-                    <div class="pr-2 font-bold text-lg" :class="isAllSale ? 'text-primary-color' : 'text-white'">{{
-                        $t('wallet.unanimous') }}</div>
-                    <van-checkbox v-model="isAllSale" @click="checkedAllSaleables" checked-color="#e149ed"
-                        icon-size="22px"></van-checkbox>
-                </div>
-            </div> -->
+
             <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in saleables" :key="index">
-                <nft-card :nftImg="item.nftImg" :checkedStatus="false" :showCheckbox="false" showListedButton
-                    @handleListed="handleListed(item)" @checkedStatusHasChange="saleablesHasChange(item, index)" />
+                <nft-card :nftImg="nftOne" showListedButton :tokenID="item.token_id" @handleListed="handleListed(item)"
+                    @checkedStatusHasChange="saleablesHasChange(item, index)" />
             </div>
         </div>
-
         <div v-if="saleables.length == 0 && currentType == 2" class="text-white font-bold mt-20 text-center">
             暫無數據
         </div>
@@ -75,8 +48,9 @@
 import { ref, onMounted, computed, getCurrentInstance } from 'vue'
 import NftCard from '@/components/NftCard.vue'
 import nftOne from '@/assets/images/nftOne.png'
-import { userNFT } from '@/request/api'
+import { userNFT, marketplace, getCanSaleNFT } from '@/request/api'
 import nftContractApi from '@/request/nft'
+import minterContractApi from '@/request/minter'
 import { showToast } from 'vant'
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n()
@@ -100,21 +74,86 @@ let isAllSale = ref(false)
 let nftsDatas = ref([])
 onMounted(() => {
     getUserNFTs()
+    getUserCanSaleNFT()
+    getAllNFT()
 })
 
-function getUserNFTs() {
+//用戶取得自己可出售的NFT
+function getUserCanSaleNFT() {
+    saleables.value = []
+    getCanSaleNFT()
+        .then(res => {
+            console.log(res)
+            if (res.nft_token_ids.length !== 0) {
+                res.nft_token_ids.map(item => {
+                    let obj = {}
+                    obj.token_id = item
+                    saleables.value.push(obj)
+                })
+            }
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+function getAllNFT() {
     proxy.$loading.show()
-    let params = { status: 0 }
+    nftsDatas.value = []
+    let status = currentType.value
+    let params = {}
+    if (status == 0) {
+        params = { address: localStorage.getItem('address'), perPage: 10000 }
+    } else if (status == 1) {
+        params = { address: localStorage.getItem('address'), status: 1, perPage: 10000 }
+    }
+    // let params = { address: localStorage.getItem('address'), status: 0, perPage: 10000 }
     userNFT(params)
         .then(res => {
             proxy.$loading.hide()
+            // saleables 可出售 listeds//正在掛單
+            if (res.nft_token_ids.length !== 0) {
+                res.nft_token_ids.map(item => {
+                    let obj = {}
+                    obj.token_id = item
+                    nftsDatas.value.push(obj)
 
-            res.nft_token_ids.map(item => {
-                let obj = {}
-                obj.token_id = item
-                nftsDatas.value.push(obj)
-            })
-            console.log('res', res)
+                })
+            }
+            console.log('我的nft', res)
+        })
+        .catch(err => {
+            proxy.$loading.hide()
+
+            console.log(err)
+        })
+}
+
+function getUserNFTs() {
+    proxy.$loading.show()
+    listeds.value = []
+    // let status = currentType.value
+    // let params = {}
+    // if (status == 0) {
+    //     params = { address: localStorage.getItem('address'), perPage: 10000 }
+    // } else if (status == 1) {
+    //     params = { address: localStorage.getItem('address'), status: 1, perPage: 10000 }
+    // }
+    // let params = { address: localStorage.getItem('address'), status: 0, perPage: 10000 }
+    let params = { address: localStorage.getItem('address'), status: 1, perPage: 10000 }
+    marketplace(params)
+        .then(res => {
+            proxy.$loading.hide()
+            // saleables 可出售 listeds//正在掛單
+            if (res.market_places.length !== 0) {
+                res.market_places.map(item => {
+                    if (item.address == localStorage.getItem('address')) {
+                        listeds.value.push(item)
+                    }
+                })
+            }
+            console.log('正在掛單', res)
+            console.log('正在掛單列表', listeds.value)
         })
         .catch(err => {
             proxy.$loading.hide()
@@ -124,16 +163,56 @@ function getUserNFTs() {
 }
 //掛單
 async function handleListed(item) {
+    console.log(item)
+    // return
     proxy.$loading.show()
     let isApprovedAll
     try { //检查pmt对pmt_purchase的授权状态
-        isApprovedAll = await nftContractApi.isApprovedAll(localStorage.getItem('address'), config.nfts_marketplace_addr)
+        isApprovedAll = await minterContractApi.allowance(localStorage.getItem('address'), config.nfts_marketplace_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
         showToast(t('toast.error'))
         console.log(err)
     }
+
+    let allowance
+    try { //检查usdt对pmt_purchase的授权状态
+        allowance = await nftContractApi.allowance(localStorage.getItem('address'), config.nfts_marketplace_addr)
+        proxy.$loading.hide()
+    } catch (err) {
+        proxy.$loading.hide()
+        showToast(t('toast.error'))
+        console.log(err)
+    }
+    console.log('allowance', allowance)
+
+    if (Number(allowance) == 0) { //當前領取方式未授權
+        proxy.$loading.hide()
+        proxy.$confirm.show({
+            title: '請授權',
+            content: '該地址未進行授權，請完成授權',
+            showCancelButton: false,
+            confirmText: '確定',
+            onConfirm: () => {
+                proxy.$loading.show()
+                // usdt对pmt授權
+                nftContractApi.approve(config.nfts_marketplace_addr)
+                    .then(res => {
+                        console.log(res)
+                        proxy.$loading.hide()
+                        showToast(t('toast.success'))
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        proxy.$loading.hide()
+                        showToast(t('toast.error'))
+                    })
+            },
+        });
+        return
+    }
+
     console.log('isApprovedAll', isApprovedAll)
     if (Number(isApprovedAll) == 0) { //當前賬號未授權
         proxy.$loading.hide()
@@ -145,7 +224,7 @@ async function handleListed(item) {
             onConfirm: () => {
                 proxy.$loading.show()
                 // pmt对nft授權
-                nftContractApi.setApprovalForAll(config.nfts_marketplace_addr)
+                allowance.approve(config.nfts_marketplace_addr)
                     .then(res => {
                         console.log(res)
                         proxy.$loading.hide()
@@ -167,6 +246,9 @@ async function handleListed(item) {
         await nftContractApi.listNFT(item.token_id)
         proxy.$loading.hide()
         showToast(t('toast.success'))
+        getUserNFTs()
+        getUserCanSaleNFT()
+        getAllNFT()
         // showToast(t('toast.success'))
     } catch (err) {
         proxy.$loading.hide()
@@ -176,7 +258,8 @@ async function handleListed(item) {
 }
 
 //取消掛單
-async function handleCancleList() {
+async function handleCancelList(item) {
+
     let isApprovedAll
     try { //检查pmt对pmt_purchase的授权状态
         isApprovedAll = await nftContractApi.isApprovedAll(localStorage.getItem('address'), config.nfts_marketplace_addr)
@@ -219,6 +302,9 @@ async function handleCancleList() {
         await nftContractApi.unlistNFT(item.token_id)
         proxy.$loading.hide()
         showToast(t('toast.success'))
+        getUserNFTs()
+        getUserCanSaleNFT()
+        getAllNFT()
         // showToast(t('toast.success'))
     } catch (err) {
         proxy.$loading.hide()
@@ -268,6 +354,7 @@ function saleablesHasChange(item, index) {
 }
 function handleTypeItem(item, index) {
     currentType.value = index
+    // getUserNFTs()
 }
 </script>
 

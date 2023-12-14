@@ -4,58 +4,65 @@
             <div class="w-11/12 mr-auto ml-auto mt-4">
                 <module-title titleWord="NFTs" />
             </div>
-            <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
+            <!-- <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                 <div v-for="(item, index) in nftsDatas" class="mb-2" style="width: 48%;" :key="index">
                     <nft-card :nftImg="nftOne" :tokenID="item.token_id" :price="item.price" :showCheckbox="false"
                         showBuyButton @handleBuyButton="handleBuyButton(item)" />
                 </div>
-            </div>
-            <!-- <div class="border-b border-gray-700">
+            </div> -->
+            <div class="border-b border-gray-700">
                 <van-tabs class="pt-2 bg-black" v-model:active="active" animated swipeable color="#e149ed"
                     title-inactive-color="#fff" title-active-color="#e149ed" background="#000">
                     <van-tab title="N">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
-                            <div v-for="(item, index) in nftsDatas" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftImg="nftOne" :showCheckbox="false" showBuyButton
-                                    @handleBuyButton="handleBuyButton" />
+                            <div v-for="(item, index) in packageN" class="mb-2" style="width: 48%;" :key="index">
+                                <nft-card :nftImg="nftOne" :showCheckbox="false"
+                                    :showBuyButton="userInfo.address !== item.address"
+                                    :showCancelButton="userInfo.address == item.address"
+                                    @handleBuyButton="handleBuyButton(item, packageID >= 1)" :tokenID="item.token_id"
+                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID >= 1" />
                             </div>
                         </div>
                     </van-tab>
                     <van-tab title="R">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
-                            <div v-for="(item, index) in nftsDatas" class="mb-2" style="width: 48%;" :key="index">
+                            <div v-for="(item, index) in packageR" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :nftImg="nftTwo" :showCheckbox="false" showBuyButton
-                                    @handleBuyButton="handleBuyButton" />
+                                    @handleBuyButton="handleBuyButton(item, packageID >= 2)" :tokenID="item.token_id"
+                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID >= 2" />
                             </div>
                         </div>
                     </van-tab>
                     <van-tab title="SR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
-                            <div v-for="(item, index) in nftsDatas" class="mb-2" style="width: 48%;" :key="index">
+                            <div v-for="(item, index) in packageSR" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :nftImg="nftThree" :showCheckbox="false" showBuyButton
-                                    @handleBuyButton="handleBuyButton" />
+                                    @handleBuyButton="handleBuyButton(item, packageID >= 3)" :tokenID="item.token_id"
+                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID >= 3" />
                             </div>
                         </div>
                     </van-tab>
                     <van-tab title="SSR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
-                            <div v-for="(item, index) in nftsDatas" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftImg="nftFour" :showCheckbox="false" @handleBuyButton="handleBuyButton" />
+                            <div v-for="(item, index) in packageSSR" class="mb-2" style="width: 48%;" :key="index">
+                                <nft-card :nftImg="nftFour" :showCheckbox="false"
+                                    @handleBuyButton="handleBuyButton(item, packageID >= 4)" :tokenID="item.token_id"
+                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID >= 4" />
                             </div>
                         </div>
                     </van-tab>
                     <van-tab title="UR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
-                            <div v-for="(item, index) in nftsDatas" class="mb-2" style="width: 48%;" :key="index">
+                            <div v-for="(item, index) in packageUR" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :nftImg="nftFive" :showCheckbox="false" showBuyButton
-                                    @handleBuyButton="handleBuyButton" />
+                                    @handleBuyButton="handleBuyButton(item, packageID >= 5)" :tokenID="item.token_id"
+                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID >= 5" />
                             </div>
                         </div>
                     </van-tab>
                 </van-tabs>
-            </div> -->
+            </div>
         </div>
-
     </div>
 </template>
 
@@ -74,23 +81,85 @@ import nftTwo from '@/assets/images/nftTwo.png'
 import nftThree from '@/assets/images/nftThree.png'
 import nftFour from '@/assets/images/nftFour.png'
 import nftFive from '@/assets/images/nftFive.png'
+import { userStore } from "@/stores/user";
 
 const { t } = useI18n()
 const router = useRouter()
 const { proxy } = getCurrentInstance()
 let nftsDatas = ref([])
+let packageN = ref([])
+let packageR = ref([])
+let packageSR = ref([])
+let packageSSR = ref([])
+let packageUR = ref([])
 let nftInfo = ref({})
+let packageID = ref()
+const userInfo = userStore()
+
 
 onMounted(() => {
     getMarketplace()
 })
 
+//取消掛單
+async function handleCancelList(item) {
+
+    let isApprovedAll
+    try { //检查pmt对pmt_purchase的授权状态
+        isApprovedAll = await nftContractApi.isApprovedAll(localStorage.getItem('address'), config.nfts_marketplace_addr)
+        proxy.$loading.hide()
+    } catch (err) {
+        proxy.$loading.hide()
+        showToast(t('toast.error'))
+        console.log(err)
+    }
+    console.log('isApprovedAll', isApprovedAll)
+
+    if (Number(isApprovedAll) == 0) { //當前賬號未授權
+        proxy.$loading.hide()
+        proxy.$confirm.show({
+            title: '請授權',
+            content: '該地址未進行授權，請完成授權',
+            showCancelButton: false,
+            confirmText: '確定',
+            onConfirm: () => {
+                proxy.$loading.show()
+                // pmt对nft授權
+                nftContractApi.setApprovalForAll(config.nfts_marketplace_addr)
+                    .then(res => {
+                        console.log(res)
+                        proxy.$loading.hide()
+                        showToast(t('toast.success'))
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        proxy.$loading.hide()
+                        showToast(t('toast.error'))
+                    })
+            },
+        });
+        return
+    }
+
+    try { //unlistNFT
+        proxy.$loading.show()
+        await nftContractApi.unlistNFT(item.token_id)
+        proxy.$loading.hide()
+        showToast(t('toast.success'))
+        // showToast(t('toast.success'))
+    } catch (err) {
+        proxy.$loading.hide()
+        showToast(t('toast.error'))
+        console.log(err)
+    }
+}
+
 //獲取可購買的nft列表
 function getMarketplace() {
     proxy.$loading.show()
-    marketplace({ perPage: 100000 })
+    marketplace({ perPage: 100000, status: 1 })
         .then(res => {
-
+            packageID.value = res.last_package.package_id
             if (res.message == '玩家沒有購買配套。') {
                 proxy.$loading.hide()
                 proxy.$confirm.show({
@@ -106,6 +175,18 @@ function getMarketplace() {
             }
             console.log('nft列表', res)
             nftsDatas.value = res.market_places
+            res.market_places.map(item => {
+                console.log(Number(item.price))
+                if (Number(item.price) >= 75 && Number(item.price) <= 300) {
+                    packageR.value.push(item)
+                }
+                if (Number(item.price) >= 25 && Number(item.price) <= 100) {
+                    packageN.value.push(item)
+                }
+                if (Number(item.price) >= 250 && Number(item.price) <= 1000) {
+                    packageSR.value.push(item)
+                }
+            })
             proxy.$loading.hide()
         })
         .catch(err => {
@@ -116,8 +197,13 @@ function getMarketplace() {
 
 
 
-async function handleBuyButton(item) {
-    console.log(item)
+async function handleBuyButton(item, canBuy) {
+    console.log(item, canBuy)
+    if (!canBuy) {
+        showToast('您购买的配套等级不可购买该卡池NFT')
+        return
+    }
+    // return
     // nftInfo.value = item
     proxy.$loading.show()
     let allowance
@@ -159,7 +245,7 @@ async function handleBuyButton(item) {
 
     try { //购买nft
         proxy.$loading.show()
-        // console.log('item', item)
+        console.log('item', item)
         // return
         await nftContractApi.purchaseNFT(item.token_id)
         proxy.$loading.hide()
