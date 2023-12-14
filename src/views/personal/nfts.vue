@@ -19,11 +19,12 @@
             </div>
         </div>
 
-        <div v-if="nftsDatas.length == 0" class="text-white font-bold mt-20 text-center">
+        <div v-if="nftsDatas.length == 0 && currentType == 0" class="text-white font-bold mt-20 text-center">
             暫無數據
         </div>
 
-        <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap" v-show="currentType == 1">
+        <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap"
+            v-show="currentType == 1 && listeds.length !== 0">
             <div class="px-2 py-0.5 text-sm flex justify-between items-center mb-2 w-full">
                 <div class=" justify-start items-center text-gray-200">
                     <div class="rounded px-3 py-1.5 bg-card-content" @click="handleCancleList">取消掛單</div>
@@ -41,7 +42,12 @@
             </div>
         </div>
 
-        <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap" v-show="currentType == 2">
+        <div v-if="listeds.length == 0 && currentType == 1" class="text-white font-bold mt-20 text-center">
+            暫無數據
+        </div>
+
+        <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap"
+            v-show="currentType == 2 && saleables.length !== 0">
             <!-- <div class="px-2 py-0.5 text-sm flex justify-between items-center mb-2 w-full">
                 <div class=" justify-start items-center text-gray-200">
                     <div class="rounded px-3 py-1.5 bg-card-content">掛單</div>
@@ -57,6 +63,10 @@
                 <nft-card :nftImg="item.nftImg" :checkedStatus="false" :showCheckbox="false" showListedButton
                     @handleListed="handleListed(item)" @checkedStatusHasChange="saleablesHasChange(item, index)" />
             </div>
+        </div>
+
+        <div v-if="saleables.length == 0 && currentType == 2" class="text-white font-bold mt-20 text-center">
+            暫無數據
         </div>
     </div>
 </template>
@@ -76,8 +86,10 @@ import { config } from '@/const/config'
 let nftsStatusList = computed(() => {
     return [{ title: '全部' }, { title: '正在掛單' }, { title: '可出售' }]
 })
-let listeds = ref([{ nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }])
-let saleables = ref([{ nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }])
+// let listeds = ref([{ nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }])
+// let saleables = ref([{ nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }])
+let listeds = ref([])
+let saleables = ref([])
 
 let checkedListeds = ref([])
 let checkedSaleables = ref([])
