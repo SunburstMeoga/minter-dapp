@@ -115,10 +115,12 @@
                     </div>
                 </div>
                 <div class="flex justify-between items-center w-11/12 mr-auto ml-auto">
-                    <div class="w-5/12 operating-button text-center py-2.5 rounded" @click="handleConfirmBuyForUSDTPOPUP">
-                        USD3支付
+                    <!-- <div class="w-5/12 operating-button text-center py-2.5 rounded" @click="handleConfirmBuyForUSDTPOPUP"> -->
+                    <div class="w-5/12 border border-primary-color text-center py-2.5 rounded"
+                        @click="showBuyPopup = false">
+                        取消
                     </div>
-                    <div class="w-5/12 card-content text-center py-2.5 rounded" @click="handleConfirmBuyForRTPOPUP">
+                    <div class="w-5/12 operating-button text-center py-2.5 rounded" @click="handleConfirmBuyForRTPOPUP">
                         RT支付
                     </div>
                 </div>
@@ -345,7 +347,7 @@ async function handleConfirmBuyForRTPOPUP() {
     //   toggleConfirmPayPopup()
     //判斷rt餘額是否充足
     console.log('用rt幫下級購買package')
-    if(!currentCoherent.value) {
+    if (!currentCoherent.value) {
         showToast('請先選擇要購買的配套')
         return
     }
