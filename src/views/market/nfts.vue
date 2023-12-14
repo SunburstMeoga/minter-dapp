@@ -74,6 +74,7 @@ import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n'
 import { marketplace } from '@/request/api'
 import nftContractApi from '@/request/nft'
+import minterContractApi from '@/request/minter'
 import { showToast } from 'vant';
 import { config } from '@/const/config'
 import nftOne from '@/assets/images/nftOne.png'
@@ -216,6 +217,42 @@ async function handleBuyButton(item, canBuy) {
         console.log(err)
     }
     console.log('allowance', allowance)
+
+    let isApprovedAll
+    try { //检查pmt对pmt_purchase的授权状态
+        isApprovedAll = await minterContractApi.allowance(localStorage.getItem('address'), config.nfts_marketplace_addr)
+        proxy.$loading.hide()
+    } catch (err) {
+        proxy.$loading.hide()
+        showToast(t('toast.error'))
+        console.log(err)
+    }
+
+    if (Number(isApprovedAll) == 0) { //當前賬號未授權
+        proxy.$loading.hide()
+        proxy.$confirm.show({
+            title: '請授權',
+            content: '該地址未進行授權，請完成授權',
+            showCancelButton: false,
+            confirmText: '確定',
+            onConfirm: () => {
+                proxy.$loading.show()
+                // pmt对nft授權
+                minterContractApi.approve(config.nfts_marketplace_addr)
+                    .then(res => {
+                        console.log(res)
+                        proxy.$loading.hide()
+                        showToast(t('toast.success'))
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        proxy.$loading.hide()
+                        showToast(t('toast.error'))
+                    })
+            },
+        });
+        return
+    }
 
     if (Number(allowance) == 0) { //當前賬號未授權
         proxy.$loading.hide()
