@@ -96,7 +96,7 @@
                 <div class="w-full flex flex-col items-center mb-2">
                     <div class="text-gray-200 text-sm text-left w-11/12 mb-1">{{ $t('assistance.nextAddress') }}</div>
                     <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-700 mb-1">
-                        <input type="text" :placeholder="$t('assistance.nextAddress')"
+                        <input type="text" :placeholder="$t('assistance.nextAddress')" v-model="helpNextAddress"
                             class="w-full h-full bg-bottom-content rounded">
                     </div>
                     <!-- <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
@@ -294,7 +294,7 @@ import { useI18n } from 'vue-i18n';
 import { config } from '@/const/config'
 import usdtContractApi from '@/request/usdt'
 import pmtContractApi from '@/request/pmt'
-import { addressLeg, upInferiorPackage, staticRecords, buyCoherent, joinTheThree } from '@/request/api'
+import { addressLeg, upInferiorPackage, staticRecords, buyCoherent, joinTheThree, buyPackageToNext } from '@/request/api'
 import { showToast } from 'vant'
 const { t } = useI18n()
 const { proxy } = getCurrentInstance()
@@ -309,6 +309,7 @@ let showInvitationLinksPopup = ref(false)
 let invitationAddress = ref('')
 let shareLink = ref('')
 let currentPointInfo = ref()
+let helpNextAddress = ref('')
 let clickPointInfo = ref({})
 let currentSelf = ref(0)
 let size = ref(240)
@@ -348,22 +349,31 @@ async function handleConfirmBuyForRTPOPUP() {
     proxy.$loading.show()
 
 
-    let data = { package_id: coherentsList.value[currentCoherent.value].id }
-    buyCoherent(data)
+
+    let data = { package_id: coherentsList.value[currentCoherent.value].id, address: helpNextAddress.value, legSide: clickPointInfo.value.point }
+    buyPackageToNext(data)
         .then(res => {
             console.log('購買成功', res)
             proxy.$loading.hide()
             if (res.message == 'RT餘額不足') {
                 showToast('RT餘額不足')
+                return
             }
+            showToast(t('toast.success'))
+            let data = {
+                address: helpNextAddress.value,
+                //   leg_address: legAddress.value,
+                legSide: clickPointInfo.value.point
+            }
+            joinTheThree(data)
         })
         .catch(err => {
             proxy.$loading.hide()
             console.log('購買失敗', err)
             showToast('購買失敗')
             toggleBuyPopup()
-
         })
+
 }
 
 async function handlePopupConfirmBuy() {
