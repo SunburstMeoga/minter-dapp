@@ -13,10 +13,10 @@
                 <module-title :titleWord="$t('wallet.title')"></module-title>
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="HAH" :balance="0" />
+                <wallet-card currency="HAH" :balance="hahBalance" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card isUSD3 currency="USD3" :balance="usdtBalance" :contranct="config.USDToken_addr" isWithdraw
+                <wallet-card isUSD3 currency="USD3" :balance="usdtBalance" :contranct="config.USDToken_addr"
                     @recharge="handleWalletCardRecharge" @withdraw="handleWalletCardWithdraw" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
@@ -36,7 +36,7 @@
                 <wallet-card currency="RT" :balance="palayBanalce.rt" @transfer="handleWalletCardTransfer" isTrasfer />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="股權" :balance="0" />
+                <wallet-card currency="股權" :balance="mstBalance" />
             </div>
 
             <div class="border-b border-gray-800 w-11/12 mr-auto ml-auto mb-3"></div>
@@ -328,6 +328,7 @@ onMounted(() => {
     getPlayersInfo(localStorage.getItem('address'))
     getUserNFTs()
     getStaticRecords()
+    getHAHBalance()
 })
 let currentCoherent = ref(null)
 let currentOperator = ref(null)
@@ -347,6 +348,7 @@ let usdtBalance = ref('')
 let pmtBalance = ref('')
 let mtBalance = ref('')
 let mstBalance = ref('')
+let hahBalance = ref('')
 let packageCount = ref(0)
 let nftsCount = ref(0)
 let promiseCardCount = ref(0)
@@ -365,6 +367,13 @@ function getPlayersInfo(address) {
         .catch(err => {
             console.log('err', err)
         })
+}
+
+async function getHAHBalance() {
+    let WEB3 = new Web3(window.ethereum)
+    let result = await WEB3.eth.getBalance(localStorage.getItem('address'))
+    hahBalance.value = WEB3.utils.fromWei(result.toString(), 'ether')
+    // console.log(result)
 }
 
 // const chartData = ref([1, 2, 3, 4, 5])   
