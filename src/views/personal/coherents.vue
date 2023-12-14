@@ -35,8 +35,9 @@ function getPlayersInfo(address) {
             console.log('res', res)
             res.player.package_transactions.map(item => {
                 coherentsList.value.map(_item => {
-                    // let obj = {}
+                    let obj = {}
                     if (item.package_id == _item.id) {
+                        _item.created_at = item.created_at
                         playerPackages.value.push(_item)
                     }
                 })

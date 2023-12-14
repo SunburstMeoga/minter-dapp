@@ -7,6 +7,7 @@ defineProps({
 })
 import { showToast } from 'vant';
 import { useI18n } from 'vue-i18n'
+import { FilterTime } from '@/utils/format'
 
 const { t } = useI18n()
 
@@ -14,6 +15,21 @@ function notYetOpen() {
     showToast(t('toast.notYetOpen'));
 
     return;
+}
+
+function FilterTimeNext(value, time) {
+    var timestamp = new Date(value).getTime()
+    let date = new Date(parseInt(timestamp + time * 1000))
+    // console.log(timestamp, time, timestamp + )
+    let Year = date.getFullYear()
+    let Moth = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
+    let Day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
+    let Hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
+    let Minute = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
+    let Sechond = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
+    let GMT = Year + '-' + Moth + '-' + Day + '   ' + Hour + ':' + Minute + ':' + Sechond
+
+    return GMT
 }
 </script>
 <template>
@@ -36,16 +52,17 @@ function notYetOpen() {
             </div> -->
             <div class="mb-1 text-sm text-menu-word flex justify-between items-center">
                 <div>
-                    {{ Number(coherentInfo.type) * 0.6 * (1 / 3) }}PMT{{ $t('coherents.releaseTime') }}: 2023-10-17 15:45:32
+                    {{ Number(coherentInfo.type) * 0.6 * (1 / 3) }}PMT{{ $t('coherents.releaseTime') }}: {{
+                        FilterTime(coherentInfo.created_at) }}
                 </div>
             </div>
             <div class="mb-1 text-sm text-menu-word flex justify-between items-center">
-                <div> {{ Number(coherentInfo.type) * 0.6 * (1 / 3) }}PMT{{ $t('coherents.secondReleaseTime') }}: 2023-10-18
-                    15:45:32</div>
+                <div> {{ Number(coherentInfo.type) * 0.6 * (1 / 3) }}PMT{{ $t('coherents.secondReleaseTime') }}: {{
+                    FilterTimeNext(coherentInfo.created_at, 86400) }}</div>
             </div>
             <div class="mb-6 text-sm text-menu-word flex justify-between items-center">
-                <div>{{ Number(coherentInfo.type) * 0.6 * (1 / 3) }}PMT{{ $t('coherents.thirdReleaseTime') }}: 2023-10-19
-                    15:45:32</div>
+                <div>{{ Number(coherentInfo.type) * 0.6 * (1 / 3) }}PMT{{ $t('coherents.thirdReleaseTime') }}: {{
+                    FilterTimeNext(coherentInfo.created_at, 172800) }}</div>
             </div>
 
             <!-- <div class="text-lg mb-2">

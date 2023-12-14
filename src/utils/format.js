@@ -42,6 +42,6 @@ export function FilterTime(value) {
   let Minute = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
   let Sechond = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
   let GMT = Year + '-' + Moth + '-' + Day + '   ' + Hour + ':' + Minute + ':' + Sechond
-
+  console.log(timestamp)
   return GMT
 }
