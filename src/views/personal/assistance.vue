@@ -116,11 +116,10 @@
                 </div>
                 <div class="flex justify-between items-center w-11/12 mr-auto ml-auto">
                     <div class="w-5/12 operating-button text-center py-2.5 rounded" @click="handleConfirmBuyForUSDTPOPUP">
-                        {{ $t('modalConfirm.confirm') }}
+                        USD3支付
                     </div>
-                    <div class="w-5/12 border border-primary-color text-center py-2.5 rounded"
-                        @click="handleConfirmBuyForRTPOPUP">
-                        {{ $t('modalConfirm.cancel') }}
+                    <div class="w-5/12 card-content text-center py-2.5 rounded" @click="handleConfirmBuyForRTPOPUP">
+                        RT支付
                     </div>
                 </div>
             </div>

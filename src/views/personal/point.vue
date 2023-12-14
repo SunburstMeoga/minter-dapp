@@ -14,11 +14,14 @@
                 {{ $t('wallet.address') }}:{{ FilterAddress(directReferrals.address) }}
             </div>
             <div class="text-center text-xs">
-                {{ $t('wallet.all') }} PV: {{ directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv }}
-                - {{ directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv }}
+                {{ $t('wallet.all') }} PV: {{ directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv ||
+                    0 }}
+                - {{ directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv || 0 }}
             </div>
             <div class="text-center text-xs mb-1">
-                {{ $t('assistance.remain') }} PV: {{ directReferrals.pv_remain }}
+                {{ $t('assistance.remain') }} PV: {{
+                    directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv_remain || 0 }} - {{
+        directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv_remain || 0 }}
             </div>
             <div class="w-1 h-10 border-l border-primary-color" />
             <div class="w-6/12 h-10 border-t border-l border-r border-primary-color" />
