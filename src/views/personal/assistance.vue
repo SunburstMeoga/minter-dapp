@@ -344,12 +344,14 @@ onMounted(() => {
 async function handleConfirmBuyForRTPOPUP() {
     //   toggleConfirmPayPopup()
     //判斷rt餘額是否充足
+    console.log('用rt幫下級購買package')
     toggleBuyPopup()
     proxy.$loading.show()
 
 
 
     let data = { package_id: coherentsList.value[currentCoherent.value].id, address: helpNextAddress.value, legSide: clickPointInfo.value.point }
+    console.log('幫助購買的下級地址', data, data.address)
     buyPackageToNext(data)
         .then(res => {
             console.log('購買成功', res)
@@ -403,6 +405,7 @@ async function handlePopupConfirmBuy() {
 
 async function handleConfirmBuyForUSDTPOPUP() {
     toggleBuyPopup()
+    console.log('用usd3幫下級購買package')
     proxy.$loading.show()
     // let data = { package_id: coherentsList.value[currentCoherent.value].id }
     let allowance
