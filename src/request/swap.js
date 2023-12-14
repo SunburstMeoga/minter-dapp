@@ -20,7 +20,7 @@ if (window.ethereum) {
       return result
     },
     //mt兌換成rt
-    swapMTForRT: async function () {
+    swapMTForRT: async function (mtAmount) {
       const result = await SWAPTRADE.swapMTForRT(mtAmount)
       return result
     },

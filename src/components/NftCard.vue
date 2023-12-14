@@ -11,7 +11,7 @@
           <div class="font-bold"># {{ tokenID }}</div>
         </div>
         <div class="flex justify-between items-center">
-          <div>{{ Number(price).toFixed(4) }} MT</div>
+          <div v-show="showPrice">{{ Number(price).toFixed(4) }} MT</div>
           <!-- <div v-show="showCheckbox" class="border  rounded w-5 h-5 flex justify-center items-center"
             :class="checkedStatus ? 'border-primary-color bg-primary-color' : 'border-gray-200'"
             @click="$emit('checkedStatusHasChange')">
@@ -43,6 +43,10 @@
 import { ref } from 'vue'
 defineProps({
   canBuy: {
+    type: Boolean,
+    default: true
+  },
+  showPrice: {
     type: Boolean,
     default: true
   },

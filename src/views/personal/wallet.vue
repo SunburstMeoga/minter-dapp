@@ -514,7 +514,7 @@ async function handleExchange() {
     // 检查mt或者usdt对swap的授权状态
     let allowance
     try {
-        allowance = currentExchangeType.value == 0 ? await usdtContractApi.allowance(localStorage.getItem('address'), config.swap_addr) : await minterContractApi.allowance(localStorage.getItem('address'), config.swap_addr)
+        allowance = await minterContractApi.allowance(localStorage.getItem('address'), config.swap_addr)
         proxy.$loading.hide()
     } catch (err) {
         showToast('錯誤，請重試')
@@ -532,31 +532,17 @@ async function handleExchange() {
             onConfirm: () => {
                 proxy.$loading.show()
                 // usdt和mt授權
-                if (currentExchangeType.value == 0) {
-                    usdtContractApi.approve(config.swap_addr)
-                        .then(res => {
-                            console.log(res)
-                            proxy.$loading.hide()
-                        })
-                        .catch(err => {
-                            console.log(err)
-                            proxy.$loading.hide()
-                            toggleExchangePopup()
-                            showToast('錯誤，請重試')
-                        })
-                } else {
-                    minterContractApi.approve(config.swap_addr)
-                        .then(res => {
-                            console.log(res)
-                            proxy.$loading.hide()
-                        })
-                        .catch(err => {
-                            console.log(err)
-                            proxy.$loading.hide()
-                            toggleExchangePopup()
-                            showToast('錯誤，請重試')
-                        })
-                }
+                minterContractApi.approve(config.swap_addr)
+                    .then(res => {
+                        console.log(res)
+                        proxy.$loading.hide()
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        proxy.$loading.hide()
+                        toggleExchangePopup()
+                        showToast('錯誤，請重試')
+                    })
 
             },
         });

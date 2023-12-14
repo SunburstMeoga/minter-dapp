@@ -34,7 +34,7 @@
             v-show="currentType == 2 && saleables.length !== 0">
 
             <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in saleables" :key="index">
-                <nft-card :nftImg="nftOne" showListedButton :tokenID="item.token_id" @handleListed="handleListed(item)" />
+                <nft-card :showPrice="false" :nftImg="nftOne" showListedButton :tokenID="item.token_id" @handleListed="handleListed(item)" />
             </div>
         </div>
         <div v-if="saleables.length == 0 && currentType == 2" class="text-white font-bold mt-20 text-center">
