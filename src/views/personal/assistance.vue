@@ -653,7 +653,7 @@ function clickPoint(pointInfo) {
     // toggleAttendPopup()
     clickPointInfo.value = pointInfo
     console.log('點位信息', pointInfo)
-    if (!pointInfo.preAddress) {
+    if (!pointInfo.preAddress && pointInfo.address !== localStorage.getItem('address')) {
         showToast('請先將點位佈置在上一級')
         return
     }
