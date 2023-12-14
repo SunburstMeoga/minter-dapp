@@ -171,11 +171,14 @@ onMounted(() => {
     })
     coherentInfo.value = targetCoherents[0]
     console.log(coherentInfo.value)
+    if (!localStorage.getItem('token')) {
+        addressSign()
+    }
     addressSign()
 })
 function handlePackage(packageInfo) {
     if (!packageInfo.isSale) {
-        showToast('toast.notYetOpen')
+        showToast(t('toast.notYetOpen'))
         return
     }
     let targetCoherents = coherents_list.filter(item => {
@@ -284,7 +287,7 @@ async function addressSign() {
         params = { randomString: randomString, signature: signature }
     } catch (err) {
         proxy.$loading.hide()
-        showToast('签名失败，请重试')
+        showToast(t('toast.error'))
         return
     }
 
@@ -300,7 +303,7 @@ async function addressSign() {
         })
         .catch(err => {
             proxy.$loading.hide()
-            showToast('登录失败，请重试')
+            showToast(t('toast.error'))
             console.log(err)
         })
     // console.log(signature)

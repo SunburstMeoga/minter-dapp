@@ -13,12 +13,66 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, getCurrentInstance } from 'vue'
 
 import TopBar from '@/components/TopBar.vue'
 import TopBackBar from './components/TopBackBar.vue'
+const { proxy } = getCurrentInstance()
+onMounted(() => {
+  accountHasChanged()
+})
+async function accountHasChanged() {
+  window.ethereum.on('accountsChanged', (accounts) => {
+    proxy.$confirm.show({
+      title: '賬戶發生變化',
+      content: '當前賬戶發生變化，請重新登錄',
+      showCancelButton: false,
+      confirmText: '確定',
+      onConfirm: () => {
+        localStorage.removeItem('token')
+        localStorage.removeItem('address')
+        location.reload()
+      },
+    });
+  })
+}
+//钱包地址签名
+// async function addressSign() {
+//     proxy.$loading.show()
+//     const web3 = new Web3(window.ethereum)
+//     let params = {}
+//     const randomString =
+//         "Welcome to Minter\n\nPlease click to sign in and accept the Minter Terms of Service.\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nWallet address:\n" +
+//         window.ethereum.selectedAddress +
+//         "\n\nNonece:\n" +
+//         generateNonce();
+//     try {
+//         const signature = await web3.eth.personal.sign(randomString, window.ethereum.selectedAddress, '')
+//         params = { randomString: randomString, signature: signature }
+//     } catch (err) {
+//         proxy.$loading.hide()
+//         showToast('签名失败，请重试')
+//         return
+//     }
 
 
+//     login(params)
+//         .then(res => {
+//             console.log(res)
+//             localStorage.setItem('token', res.access_token)
+//             localStorage.setItem('address', res.address)
+//             userInfo.changeAddress(res.address)
+//             proxy.$loading.hide()
+//             // showToast('已登录')
+//         })
+//         .catch(err => {
+//             proxy.$loading.hide()
+//             showToast('登录失败，请重试')
+//             console.log(err)
+//         })
+//     // console.log(signature)
+
+// }
 </script>
 
 <style  scoped>
