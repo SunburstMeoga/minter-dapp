@@ -15,7 +15,7 @@ export default {
         goBack() {
             console.log(window.history.length)
             // return
-            if (window.history.length > 1) {
+            if (window.history.length <= 1) {
                 this.$router.push({ path: '/' })
                 // return false
             } else {
