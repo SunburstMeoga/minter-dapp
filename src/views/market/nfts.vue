@@ -27,7 +27,9 @@
                     <van-tab title="R">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageR" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftImg="nftTwo" :showCheckbox="false" showBuyButton
+                                <nft-card :nftImg="nftTwo" :showCheckbox="false"
+                                    :showBuyButton="userInfo.address !== item.address"
+                                    :showCancelButton="userInfo.address == item.address"
                                     @handleBuyButton="handleBuyButton(item, packageID >= 2)" :tokenID="item.token_id"
                                     @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID >= 2" />
                             </div>
@@ -36,7 +38,9 @@
                     <van-tab title="SR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageSR" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftImg="nftThree" :showCheckbox="false" showBuyButton
+                                <nft-card :nftImg="nftThree" :showCheckbox="false"
+                                    :showBuyButton="userInfo.address !== item.address"
+                                    :showCancelButton="userInfo.address == item.address"
                                     @handleBuyButton="handleBuyButton(item, packageID >= 3)" :tokenID="item.token_id"
                                     @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID >= 3" />
                             </div>
@@ -46,6 +50,8 @@
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageSSR" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :nftImg="nftFour" :showCheckbox="false"
+                                    :showBuyButton="userInfo.address !== item.address"
+                                    :showCancelButton="userInfo.address == item.address"
                                     @handleBuyButton="handleBuyButton(item, packageID >= 4)" :tokenID="item.token_id"
                                     @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID >= 4" />
                             </div>
@@ -54,7 +60,9 @@
                     <van-tab title="UR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageUR" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftImg="nftFive" :showCheckbox="false" showBuyButton
+                                <nft-card :nftImg="nftFive" :showCheckbox="false"
+                                    :showBuyButton="userInfo.address !== item.address"
+                                    :showCancelButton="userInfo.address == item.address"
                                     @handleBuyButton="handleBuyButton(item, packageID >= 5)" :tokenID="item.token_id"
                                     @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID >= 5" />
                             </div>
@@ -177,13 +185,14 @@ function getMarketplace() {
             console.log('nft列表', res)
             nftsDatas.value = res.market_places
             res.market_places.map(item => {
-                console.log(Number(item.price))
-                if (Number(item.price) >= 75 && Number(item.price) <= 300) {
-                    packageR.value.push(item)
-                }
+                // console.log(Number(item.price))
                 if (Number(item.price) >= 25 && Number(item.price) <= 100) {
                     packageN.value.push(item)
                 }
+                if (Number(item.price) >= 75 && Number(item.price) <= 300) {
+                    packageR.value.push(item)
+                }
+
                 if (Number(item.price) >= 250 && Number(item.price) <= 1000) {
                     packageSR.value.push(item)
                 }

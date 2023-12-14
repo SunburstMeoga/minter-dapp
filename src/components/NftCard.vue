@@ -29,7 +29,7 @@
           </div>
         </div>
         <div class="flex justify-center items-center mt-2" v-show="showCancelButton" @click="$emit('handleCancel')">
-          <div class="operating-button w-full py-1 rounded-full text-center">
+          <div class="module-content w-full py-1 rounded-full text-center">
             取消掛單
           </div>
         </div>
