@@ -12,7 +12,7 @@ import burnable_token_abi from './BurnableToken.json'
 const config = {
   USDToken_addr: '0x53Ffa33162b1E3dd5FeE57531a6708b85266F7e0',
   pmt_addr: '0x21ABCeF1c903C9C05001F47BAFe99779A305E35B',
-  mt_addr: '0xD473D757DdF59f53C77AA90eC66e4c237113935e',
+  mt_addr: '0x8Bc3C6944702E9e0FfA97cEB87FD01C7b2459889',
   mst_addr: '0x2D31C2AD61c7342a94eae6BBAC830819710C8425',
   pmt_purchase_addr: '0x830dE6a1d11dC9314BD59930F505Cf941Cbf1Be0',
   nfts_collection_addr: '0x3848027E5728Fd927791c065b68684e2EBf4fc2a',
