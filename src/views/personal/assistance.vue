@@ -345,12 +345,16 @@ async function handleConfirmBuyForRTPOPUP() {
     //   toggleConfirmPayPopup()
     //判斷rt餘額是否充足
     console.log('用rt幫下級購買package')
+    if(!currentCoherent.value) {
+        showToast('請先選擇要購買的配套')
+        return
+    }
     toggleBuyPopup()
     proxy.$loading.show()
 
 
 
-    let data = { package_id: coherentsList.value[currentCoherent.value].id, address: helpNextAddress.value, legSide: clickPointInfo.value.point }
+    let data = { package_id: coherentsList.value[currentCoherent.value].id, address: helpNextAddress.value, legSide: clickPointInfo.value.point, leg_address: clickPointInfo.value.preAddress }
     console.log('幫助購買的下級地址', data, data.address)
     buyPackageToNext(data)
         .then(res => {
