@@ -94,7 +94,7 @@
                             </van-popover>
                         </div>
                         <div class="w-6/12 flex justify-start flex-col items-center">
-                            <div @click="clickPoint(directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.pv, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.pv_remain, directReferrals && directReferrals.left_leg && directReferrals.left_leg.address, 'right')"
+                            <div @click="clickPoint(directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.pv, directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.pv_remain, directReferrals && directReferrals.left_leg && directReferrals.left_leg.address, 'right')"
                                 class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
                                 <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.address"
                                     class="bg-black w-full h-full rounded-full overflow-hidden">
