@@ -9,7 +9,7 @@
                     v-for="(item, index) in dataList" :key="index">
                     <div class="flex justify-between items-center">
                         <div>{{ $t('wallet.address') }}:</div>
-                        <div>0xd8fAD...fe259C</div>
+                        <div>{{ FilterAddress(item.address) }}</div>
                     </div>
                     <div class="flex justify-between items-center">
                         <div>{{ $t('wallet.coherent') }}:</div>
@@ -30,6 +30,7 @@
 import ModuleTitle from "../../components/ModuleTitle.vue";
 import { ref, onMounted } from 'vue'
 import { referrerMap } from '@/request/api'
+import { FilterAddress } from '@/utils/format'
 
 const actions = ref([
     { text: '0x17a...5796' },

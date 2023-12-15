@@ -76,7 +76,7 @@
                 <div class="w-full flex flex-col items-center mb-2">
                     <div class="text-gray-200 text-sm text-left w-11/12 mb-1">{{ $t('assistance.inviterAddress') }}</div>
                     <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-700 mb-1">
-                        <input type="text" :placeholder="$t('assistance.inviterAddress')"
+                        <input type="text" :placeholder="$t('assistance.inviterAddress')" v-model="inviterAddressTwo"
                             class="w-full h-full bg-bottom-content rounded">
                     </div>
                     <!-- <div class="text-red-500 text-xs text-left w-11/12 mb-1 animate__animated animate__shakeX">
@@ -307,6 +307,7 @@ let showPointCoherentInfo = ref(false)
 let showPointOperatingPopup = ref(false)
 let showInvitationLinksPopup = ref(false)
 let invitationAddress = ref('')
+let inviterAddressTwo = ref('')
 let shareLink = ref('')
 let currentPointInfo = ref()
 let helpNextAddress = ref('')
@@ -355,7 +356,7 @@ async function handleConfirmBuyForRTPOPUP() {
 
 
 
-    let data = { package_id: coherentsList.value[currentCoherent.value].id, address: helpNextAddress.value, legSide: clickPointInfo.value.point, leg_address: clickPointInfo.value.preAddress }
+    let data = { package_id: coherentsList.value[currentCoherent.value].id, address: helpNextAddress.value, legSide: clickPointInfo.value.point, leg_address: inviterAddressTwo.value }
     console.log('幫助購買的下級地址', data, data.address)
     buyPackageToNext(data)
         .then(res => {
