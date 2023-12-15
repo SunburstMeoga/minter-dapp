@@ -96,7 +96,9 @@ async function getStaticIncomeInfo() {
                 {
                     name: 'Pressure',
                     type: 'gauge',
-                    min: rewardAmount,
+                    // min: rewardAmount,
+                    min: 0,
+
                     max: rewardAmountLimit,
                     progress: {
                         show: true,
