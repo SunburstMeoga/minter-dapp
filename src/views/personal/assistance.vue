@@ -346,7 +346,7 @@ async function handleConfirmBuyForRTPOPUP() {
     //   toggleConfirmPayPopup()
     //判斷rt餘額是否充足
     console.log('用rt幫下級購買package')
-    if (!currentCoherent.value) {
+    if (currentCoherent.value == null) {
         showToast('請先選擇要購買的配套')
         return
     }
