@@ -39,7 +39,7 @@ async function getInfor() {
                 },
                 detail: {
                     valueAnimation: true,
-                    formatter: '{value}',
+                    formatter: '{value} BT',
                     fontSize: '20px',
                     color: '#fff',
                     borderColor: '#e149ed',
