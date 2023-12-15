@@ -200,9 +200,10 @@ function handleConfirmBuyForRT() {
         .then(res => {
             proxy.$loading.hide()
             console.log('購買成功', res)
-            if (res.message == 'RT餘額不足') {
-                showToast('RT餘額不足')
-            }
+            // if (res.message == 'RT餘額不足') {
+            //     showToast('RT餘額不足')
+            // }
+            showToast(res.message)
 
         })
         .catch(err => {

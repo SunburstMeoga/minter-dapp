@@ -512,6 +512,7 @@ async function handlePopupConfirmBuy() {
     .then(res => {
       console.log('購買成功', res)
       proxy.$loading.hide()
+      showToast(res.message)
     })
     .catch(err => {
       proxy.$loading.hide()

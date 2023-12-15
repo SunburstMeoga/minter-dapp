@@ -396,9 +396,7 @@ async function handlePopupConfirmBuy() {
         .then(res => {
             console.log('購買成功', res)
             proxy.$loading.hide()
-            if (res.message == 'RT餘額不足') {
-                showToast('RT餘額不足')
-            }
+            showToast(res.message)
         })
         .catch(err => {
             proxy.$loading.hide()
@@ -577,6 +575,7 @@ function handleConfirmUpPackage() {
     upInferiorPackage(params)
         .then(res => {
             console.log(res)
+            showToast(res.message)
         })
         .catch(err => {
             console.log(err)
