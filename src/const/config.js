@@ -8,6 +8,7 @@ import mt_abi from './MinterToken.json'
 import usdt_abi from './MinterSharesToken.json'
 import minter_collection_abi from './MinterCollection.json'
 import burnable_token_abi from './BurnableToken.json'
+import pmt_abi from './PreMintToken.json'
 
 const config = {
   USDToken_addr: '0x53Ffa33162b1E3dd5FeE57531a6708b85266F7e0',
@@ -20,6 +21,7 @@ const config = {
   swap_addr: '0x43a9DAE27950B940C1C43B34D6700936dcBcB1Bc',
   minter_collection: '0xD24544a9EE84493250d3AFbc39414b785A5f570a',
 
+  pmt_abi: pmt_abi.abi,
   mt_abi: mt_abi.abi,
   burnable_token_abi: burnable_token_abi.abi,
   usdt_abi: usdt_abi.abi,

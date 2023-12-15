@@ -8,6 +8,8 @@ let pmtContractApi = {}
 if (window.ethereum) {
   provider = new ethers.BrowserProvider(window.ethereum)
   signer = await provider.getSigner()
+  const PMTTOKEN = new ethers.Contract(config.pmt_addr, config.pmt_abi, provider)
+  const PMTTOKENTRADE = new ethers.Contract(config.pmt_addr, config.pmt_abi, signer)
 
   const PMT = new ethers.Contract(config.pmt_purchase_addr, config.pmt_purchase_abi, provider)
   const PMTTRADE = new ethers.Contract(config.pmt_purchase_addr, config.pmt_purchase_abi, signer)
@@ -41,6 +43,21 @@ if (window.ethereum) {
     //收益上限
     getRewardAmountLimit: async function (walletAddr) {
       const result = await PMT.getRewardAmountLimit(walletAddr)
+      return result
+    },
+    //釋放鎖定的代幣
+    releaseTokens: async function () {
+      const result = await PMTTOKENTRADE.releaseTokens()
+      return result
+    },
+    //獲取地址鎖定的代幣數量
+    getLockedAmount: async function (walletAddr) {
+      const result = await PMTTOKEN.getLockedAmount(walletAddr)
+      return result
+    },
+    //獲取地址剩餘的鎖定期
+    getRemainingLockupPeriod: async function (walletAddr) {
+      const result = await PMTTOKEN.getRemainingLockupPeriod(walletAddr)
       return result
     }
   }
