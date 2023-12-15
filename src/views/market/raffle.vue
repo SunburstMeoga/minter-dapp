@@ -137,7 +137,7 @@ function startCallback() {
     luckyDraw(nftInfo.value)
         .then(res => {
             console.log('抽獎成功', res)
-            myLucky.value.stop(res.selectedRoulette.id)
+            myLucky.value.stop(res.selectedRoulette.id + 1)
             currentPrize.value = res.selectedRoulette.id
             console.log('currentPrize', currentPrize,)
             prizeContent.value = res.selectedRoulette.name
