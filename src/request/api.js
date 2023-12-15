@@ -118,7 +118,7 @@ export function staticRecords(params) {
 
 //查看rt餘額
 export function rtBanalce() {
-  return request('players/rt-balance', {
+  return request('/players/rt-balance', {
     method: 'GET'
   })
 }

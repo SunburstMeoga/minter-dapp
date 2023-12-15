@@ -9,11 +9,15 @@ import { playersInfo } from '@/request/api'
 async function getInfor() {
     let playInfo = await playersInfo(localStorage.getItem('address'))
     console.log(playInfo)
-    let incomeLimit = playInfo.dynamic_earning_percentage_limit.dynamic_earning_percentage_limit
-    let btWithdraw = playInfo.dynamic_earning_percentage_limit.total_bt_withdraw
-}
-onMounted(() => {
-    getInfor()
+    let incomeLimit = playInfo.player.dynamic_earning_percentage_limit.dynamic_earning_percentage_limit
+    let btWithdraw = playInfo.player.dynamic_earning_percentage_limit.total_bt_withdraw
+    let point
+    if (btWithdraw !== 0) {
+        point = Number((btWithdraw / incomeLimit) * 100).toFixed(1) + '%'
+    } else {
+        point = '0%'
+    }
+    console.log(point, incomeLimit, btWithdraw)
     let myChart = echarts.init(document.getElementById("dynamicEarnings"));
     myChart.setOption({
         tooltip: {
@@ -23,6 +27,8 @@ onMounted(() => {
             {
                 name: 'Pressure',
                 type: 'gauge',
+                min: 0,
+                max: incomeLimit,
                 progress: {
                     show: true,
                     overlap: true,
@@ -32,17 +38,20 @@ onMounted(() => {
                 },
                 detail: {
                     valueAnimation: true,
-                    formatter: '{value}%',
-                    fontSize: '10px',
+                    formatter: '{value}',
+                    fontSize: '20px',
                     color: '#fff',
                     borderColor: '#e149ed',
-                    width: 50,
-                    height: 10
+                },
+                axisLabel: {
+                    distance: 16,
+                    color: '#999',
+                    fontSize: 14
                 },
                 data: [
                     {
-                        value: 0,
-                        // name: '动态收益'
+                        value: btWithdraw,
+                        name: point
                     }
                 ],
                 radius: '90%',
@@ -58,5 +67,9 @@ onMounted(() => {
     window.onresize = function () {
         myChart.resize();
     };
+}
+onMounted(() => {
+    getInfor()
+
 })
 </script>

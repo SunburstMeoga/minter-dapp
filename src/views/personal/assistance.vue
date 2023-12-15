@@ -366,10 +366,10 @@ async function handleConfirmBuyForRTPOPUP() {
                 showToast('RT餘額不足')
                 return
             }
-            showToast(t('toast.success'))
+            showToast(res.message)
             let data = {
                 address: helpNextAddress.value,
-                //   leg_address: legAddress.value,
+                leg_address: clickPointInfo.value.preAddress,
                 legSide: clickPointInfo.value.point
             }
             joinTheThree(data)

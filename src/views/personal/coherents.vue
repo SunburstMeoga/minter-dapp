@@ -33,7 +33,8 @@
                     </div>
                 </div>
                 <div class="rounded-full py-1.5 text-center text-white mb-2"
-                    :class="releaseTime == 0 ? 'disable-button' : 'operating-button'" @click="handleReleased">
+                    :class="Number(remainingPMT) == 0 && isNotYet ? 'disable-button' : 'operating-button'"
+                    @click="handleReleased">
                     釋放
                 </div>
             </div>
@@ -61,8 +62,9 @@ const coherentsList = ref(coherents_list)
 let playerPackages = ref([])
 let remainingPMT = ref("")
 let beenReleased = ref("") //已經釋放的PMT
-let canReleasedTime = ref("已經全部釋放")
+let canReleasedTime = ref("")
 let releaseTime = ref(2)
+let isNotYet = ref(true)
 onMounted(() => {
     // releasePMTTokens()
     getPlayersInfo(localStorage.getItem('address'))
@@ -91,8 +93,8 @@ function countDown(time) {
 //點擊釋放按鈕
 async function handleReleased() {
     proxy.$loading.show()
-    if (Number(remainingPMT.value) == 0) {
-        showToast('暫無可釋放PMT')
+    if (Number(remainingPMT.value) == 0 || isNotYet.value) {
+        showToast(remainingPMT.value == 0 ? '暫無可釋放PMT' : "未到釋放時間")
         proxy.$loading.hide()
         return
     }
@@ -121,10 +123,15 @@ async function getPNTRemainingLockupPeriod() {
     let result = await pmtContractApi.getRemainingLockupPeriod(localStorage.getItem('address'))
     console.log('獲取剩餘的鎖定期', result)
     releaseTime.value = Number(result)
+    // releaseTime.value = 1702729311
     if (Number(result) !== 0) {
+        isNotYet.value = true
         setInterval(() => {
-            countDown(Number(1702712103))
+            countDown(Number(releaseTime.value))
         }, 1000)
+    } else {
+
+        canReleasedTime.value = "可以釋放"
     }
     // setInterval(() => {
     //     countDown(Number(1702712103))

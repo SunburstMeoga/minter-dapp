@@ -73,7 +73,7 @@ async function getStaticIncomeInfo() {
     let income = pmtBalance - min
     let trueLimit = max - min
     let point
-    point = Number((income / trueLimit) * 100).toFixed(1) + '%'
+    point = Number((rewardAmount / rewardAmountLimit) * 100).toFixed(1) + '%'
     // if (income >= trueLimit) {
     //     point = '100%'
     // } else {
@@ -93,8 +93,8 @@ async function getStaticIncomeInfo() {
             {
                 name: 'Pressure',
                 type: 'gauge',
-                min: min,
-                max: max,
+                min: rewardAmount,
+                max: rewardAmountLimit,
                 progress: {
                     show: true,
                     overlap: true,
@@ -119,7 +119,7 @@ async function getStaticIncomeInfo() {
                 },
                 data: [
                     {
-                        value: income,
+                        value: rewardAmount,
                         name: point,
                         // fontSize: '12px',
                     }
