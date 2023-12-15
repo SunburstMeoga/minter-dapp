@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                             <van-popover
-                                @open="openDetails(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.pv, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.pv_remain)"
+                                @open="openDetails(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.left_leg && directReferrals.left_leg.left_leg.left_leg.pv || 0, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.right_leg && directReferrals.left_leg.left_leg.right_leg.pv || 0, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.left_leg && directReferrals.left_leg.left_leg.left_leg.pv_remain || 0, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.right_leg && directReferrals.left_leg.left_leg.right_leg.pv_remain || 0,)"
                                 v-model:show="showPopoverOne" theme="dark" :actions="actions" placement="bottom-start">
                                 <template #reference>
                                     <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address"
@@ -110,7 +110,7 @@
                                 </div>
                             </div>
                             <van-popover
-                                @open="openDetails(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.pv, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.pv_remain)"
+                                @open="openDetails(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.left_leg && directReferrals.left_leg.right_leg.left_leg.pv || 0, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.right && directReferrals.left_leg.right_leg.right.pv || 0, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.left_leg && directReferrals.left_leg.right_leg.left_leg.pv_remain || 0, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.right && directReferrals.left_leg.right_leg.right.pv_remain || 0,)"
                                 v-model:show="showPopoverTwo" theme="dark" :actions="actions" placement="bottom">
                                 <template #reference>
                                     <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.address"
@@ -182,7 +182,7 @@
                                 </div>
                             </div>
                             <van-popover
-                                @open="openDetails(directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.pv, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.pv_remain)"
+                                @open="openDetails(directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.left_leg && directReferrals.right_leg.left_leg.left_leg.pv || 0, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.right_leg && directReferrals.right_leg.left_leg.right_leg.pv || 0, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.left_leg && directReferrals.right_leg.left_leg.left_leg.pv_remain || 0, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.right_leg && directReferrals.right_leg.left_leg.right_leg.pv_remain || 0)"
                                 v-model:show="showPopoverThree" theme="dark" :actions="actions" placement="bottom">
                                 <template #reference>
                                     <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address"
@@ -208,7 +208,7 @@
                                 </div>
                             </div>
                             <van-popover
-                                @open="openDetails(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.pv, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.pv_remain)"
+                                @open="openDetails(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.right_leg && directReferrals.right_leg.right_leg.right_leg.pv || 0, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.right_leg && directReferrals.right_leg.right_leg.left_leg.pv || 0, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.right_leg && directReferrals.right_leg.right_leg.right_leg.pv_remain || 0, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.right_leg && directReferrals.right_leg.right_leg.left_leg.pv_remain || 0)"
                                 v-model:show="showPopoverFour" theme="dark" :actions="actions" placement="bottom-end">
                                 <template #reference>
                                     <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address"
@@ -258,16 +258,16 @@ let showPopoverFour = ref(false)
 let showAttendPopup = ref(false)
 let currentAttendsWay = ref(0)
 //查看某地址下的點位圖
-function openDetails(address, pv, pv_remain) {
+function openDetails(address, left_pv, right_leg, left_pv_remain, right_pv_remain) {
     actions.value = [
         {
             text: FilterAddress(address)
         },
         {
-            text: '全部pv:' + pv
+            text: '全部pv:' + left_pv + ' - ' + right_leg
         },
         {
-            text: '剩餘pv:' + pv_remain
+            text: '剩餘pv:' + left_pv_remain + ' - ' + right_pv_remain
         }
     ]
 }

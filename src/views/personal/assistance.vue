@@ -4,6 +4,12 @@
             title-inactive-color="#fff" title-active-color="#e149ed" background="#000">
             <van-tab :title="$t('assistance.pointMap')">
                 <point @clickPoint="clickPoint" :directReferrals="directReferrals" />
+                <div class="flex justify-center items-center mt-20">
+                    <div class="card-content py-2 w-11/12 text-center text-white rounded-full"
+                        @click="handleBackPreAddress">
+                        返回上一级
+                    </div>
+                </div>
             </van-tab>
             <van-tab :title="$t('assistance.organisationChart')">
                 <point-two @clickPoint="clickPoint" />
@@ -342,6 +348,10 @@ onMounted(() => {
     viewPointMap(localStorage.getItem('address'))
     getStaticRecords()
 })
+
+async function handleBackPreAddress() {
+    viewPointMap(localStorage.getItem('address'))
+}
 
 async function handleConfirmBuyForRTPOPUP() {
     //   toggleConfirmPayPopup()
