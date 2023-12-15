@@ -356,8 +356,9 @@ async function handleConfirmBuyForRTPOPUP() {
 
 
 
-    let data = { package_id: coherentsList.value[currentCoherent.value].id, address: helpNextAddress.value, legSide: clickPointInfo.value.point, leg_address: inviterAddressTwo.value }
+    let data = { package_id: coherentsList.value[currentCoherent.value].id, address: helpNextAddress.value, legSide: clickPointInfo.value.point, leg_address: clickPointInfo.value.preAddress, referrer_address: inviterAddressTwo.value }
     console.log('幫助購買的下級地址', data, data.address)
+    return
     buyPackageToNext(data)
         .then(res => {
             console.log('購買成功', res)
