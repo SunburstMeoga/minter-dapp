@@ -233,10 +233,9 @@
                             </template>
                         </van-popover>
                     </div>
-                    <div class="rounded-full operating-button text-sm px-2 py-1 mr-2" @click="handleConfirmUpPackage">
-                        <!-- {{ $t('modalConfirm.confirm') }} -->
+                    <!-- <div class="rounded-full operating-button text-sm px-2 py-1 mr-2" @click="handleConfirmUpPackage">
                         USD3支付
-                    </div>
+                    </div> -->
                     <div class="rounded-full operating-button text-sm py-1 px-2 " @click="handleConfirmUpPackage">
                         <!-- {{ $t('modalConfirm.confirm') }} -->
                         RT支付
