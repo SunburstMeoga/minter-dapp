@@ -1,13 +1,19 @@
 <template>
     <div class="text-gray-200 text-center text-sm">{{ $t('wallet.dynamicIncome') }}</div>
-    <div id="dynamicEarnings" style="height: 180px;"></div>
+    <div id="dynamicEarnings" class="flex justify-center items-center" style="height: 380px; width:100vw;"></div>
 </template>
 <script setup>
-import {
-    onMounted
-} from "vue";
+import { ref, onMounted } from "vue";
 import * as echarts from 'echarts'
+import { playersInfo } from '@/request/api'
+async function getInfor() {
+    let playInfo = await playersInfo(localStorage.getItem('address'))
+    console.log(playInfo)
+    let incomeLimit = playInfo.dynamic_earning_percentage_limit.dynamic_earning_percentage_limit
+    let btWithdraw = playInfo.dynamic_earning_percentage_limit.total_bt_withdraw
+}
 onMounted(() => {
+    getInfor()
     let myChart = echarts.init(document.getElementById("dynamicEarnings"));
     myChart.setOption({
         tooltip: {

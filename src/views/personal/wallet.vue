@@ -2,10 +2,13 @@
     <div class="text-primary-color">
         <div class="pb-20 pt-12 bg-black">
             <div class="flex justify-center items-center">
-                <div class="w-11/12 ">
+                <div class="w-full">
                     <static-earnings />
                 </div>
-                <div class="w-11/12 ">
+            </div>
+            <div class="flex justify-center items-center">
+
+                <div class="w-full">
                     <dynamic-earnings />
                 </div>
             </div>
@@ -300,7 +303,7 @@ import usdtContractApi from '@/request/usdt'
 import pmtContractApi from '@/request/pmt'
 import mtContractApi from '@/request/mt'
 import mstContractApi from '@/request/mst'
-import { playersInfo, userNFT, staticRecords, btToUsdt, btToRt } from '@/request/api'
+import { playersInfo, userNFT, staticRecords, btToUsdt, btToRt, rtBanalce } from '@/request/api'
 
 
 import { config } from '@/const/config'
@@ -572,6 +575,7 @@ async function handleExchange() {
         } else {
             try {
                 await swapContractApi.swapMTForRT(amount)
+                await rtBanalce(localStorage.getItem('address'))
                 proxy.$loading.hide()
                 showToast('操作成功')
             } catch (err) {

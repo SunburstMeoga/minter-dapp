@@ -155,7 +155,7 @@ export function getCanSaleNFT(params) {
 
 //幫下級購買配套地址
 export function buyPackageToNext(data) {
-  return request('/buy-for-designated-address', {
+  return request('/packages/buy-for-designated-address', {
     method: 'POST',
     data
   })
