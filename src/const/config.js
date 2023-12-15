@@ -18,7 +18,7 @@ const config = {
   pmt_purchase_addr: '0x830dE6a1d11dC9314BD59930F505Cf941Cbf1Be0',
   nfts_collection_addr: '0x3848027E5728Fd927791c065b68684e2EBf4fc2a',
   nfts_marketplace_addr: '0xc96a9f947046B8C1fE762434A44F03F10552B51d',
-  swap_addr: '0x43a9DAE27950B940C1C43B34D6700936dcBcB1Bc',
+  swap_addr: '0x9b1ff1521C063ec9cdA156c808eE5da1cAF19Fa5',
   minter_collection: '0xD24544a9EE84493250d3AFbc39414b785A5f570a',
 
   pmt_abi: pmt_abi.abi,
