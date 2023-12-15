@@ -1,5 +1,5 @@
 <template>
-    <div class="text-gray-200 text-center text-sm">{{ $t('wallet.dynamicIncome') }}</div>
+    <div class="text-gray-200 text-center text-lg font-bold">{{ $t('wallet.dynamicIncome') }}</div>
     <div id="dynamicEarnings" class="flex justify-center items-center" style="height: 380px; width:100vw;"></div>
 </template>
 <script setup>
