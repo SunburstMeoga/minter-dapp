@@ -1,10 +1,10 @@
 <template>
   <div class="bg-black h-screen relative">
-    <div class="w-full top-0 left-0 z-50 shadow-xl sticky" v-if="this.$route.meta.showLogo">
+    <div class="w-full top-0 left-0 z-50 shadow-xl sticky" v-if="route.meta.showLogo">
       <top-bar :pageTitle="pageTitle" showLogo></top-bar>
     </div>
-    <div class="fixed bg-black w-full top-0 left-0 z-50 shadow-xl" v-if="this.$route.meta.showBack">
-      <top-back-bar :pageTitle="this.$route.meta.pageTitle" />
+    <div class="fixed bg-black w-full top-0 left-0 z-50 shadow-xl" v-if="route.meta.showBack">
+      <top-back-bar :pageTitle="route.meta.pageTitle" />
     </div>
     <div class="bg-black">
       <router-view />
@@ -14,7 +14,9 @@
 
 <script setup>
 import { ref, onMounted, getCurrentInstance } from 'vue'
+import { useRoute } from "vue-router";
 
+const route = useRoute()
 import TopBar from '@/components/TopBar.vue'
 import TopBackBar from './components/TopBackBar.vue'
 const { proxy } = getCurrentInstance()

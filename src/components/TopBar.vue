@@ -178,6 +178,7 @@ import { generateNonce } from '@/utils/getNonce'
 const swiperStore = useStore();
 const userInfo = userStore()
 const router = useRouter()
+
 const { t } = useI18n()
 const showLeftMenu = ref(false)
 const showMoreHome = ref(false)
@@ -186,7 +187,7 @@ const showMorePersonal = ref(false)
 const showLoginPopup = ref(false)
 const currentMenuItem = ref('')
 let hasPackage = ref(false)
-const value = ref('sfsdfsf')
+const value = ref('')
 const size = ref(240)
 const actions = ref([
     { text: '繁体中文', locale: 'zh-hk' },
