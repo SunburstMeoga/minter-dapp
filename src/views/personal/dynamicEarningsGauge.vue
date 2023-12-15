@@ -11,12 +11,13 @@ async function getInfor() {
     console.log(playInfo)
     let incomeLimit = playInfo.player.dynamic_earning_percentage_limit.dynamic_earning_percentage_limit
     let btWithdraw = playInfo.player.dynamic_earning_percentage_limit.total_bt_withdraw
-    let point
-    if (btWithdraw !== 0) {
-        point = Number((btWithdraw / incomeLimit) * 100).toFixed(1) + '%'
-    } else {
-        point = '0%'
-    }
+    let totalPackageValue = playInfo.player.dynamic_earning_percentage_limit.total_package_value
+    let point = Number(incomeLimit).toFixed(4) + '%'
+    // if (btWithdraw !== 0) {
+    //     point = Number((btWithdraw / incomeLimit) * 100).toFixed(1) + '%'
+    // } else {
+    //     point = '0%'
+    // }
     console.log(point, incomeLimit, btWithdraw)
     let myChart = echarts.init(document.getElementById("dynamicEarnings"));
     myChart.setOption({
@@ -28,7 +29,7 @@ async function getInfor() {
                 name: 'Pressure',
                 type: 'gauge',
                 min: 0,
-                max: incomeLimit,
+                max: totalPackageValue,
                 progress: {
                     show: true,
                     overlap: true,
