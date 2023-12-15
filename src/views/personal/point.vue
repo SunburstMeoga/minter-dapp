@@ -146,7 +146,7 @@
                         </div>
                         <div class="text-center text-xs">
                             {{ $t('wallet.all') }} PV:{{
-                                directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_legv &&
+                                directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg &&
                                 directReferrals.right_leg.left_leg.pv || 0 }} -
                             {{
                                 directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg &&
@@ -154,7 +154,7 @@
                         </div>
                         <div class="text-center text-xs mb-1">
                             {{ $t('assistance.remain') }} PV:{{
-                                directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_legv &&
+                                directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg &&
                                 directReferrals.right_leg.left_leg.pv_remain || 0 }} -
                             {{
                                 directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg &&
