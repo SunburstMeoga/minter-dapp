@@ -29,7 +29,7 @@ async function getInfor() {
                 name: 'Pressure',
                 type: 'gauge',
                 min: 0,
-                max: totalPackageValue,
+                max: totalPackageValue * 2,
                 progress: {
                     show: true,
                     overlap: true,
