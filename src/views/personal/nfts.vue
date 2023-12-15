@@ -34,7 +34,8 @@
             v-show="currentType == 2 && saleables.length !== 0">
 
             <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in saleables" :key="index">
-                <nft-card :showPrice="false" :nftImg="nftOne" showListedButton :tokenID="item.token_id" @handleListed="handleListed(item)" />
+                <nft-card :nftImg="nftOne" showListedButton :price="item.price" :tokenID="item.token_id"
+                    @handleListed="handleListed(item)" />
             </div>
         </div>
         <div v-if="saleables.length == 0 && currentType == 2" class="text-white font-bold mt-20 text-center">
@@ -83,13 +84,14 @@ function getUserCanSaleNFT() {
     getCanSaleNFT()
         .then(res => {
             console.log(res)
-            if (res.nft_token_ids.length !== 0) {
-                res.nft_token_ids.map(item => {
-                    let obj = {}
-                    obj.token_id = item
-                    saleables.value.push(obj)
-                })
-            }
+            saleables.value = res.nft_token_ids
+            // if (res.nft_token_ids.length !== 0) {
+            //     res.nft_token_ids.map(item => {
+            //         let obj = {}
+            //         obj.token_id = item
+            //         saleables.value.push(obj)
+            //     })
+            // }
         })
         .catch(err => {
             console.log(err)
@@ -111,14 +113,15 @@ function getAllNFT() {
         .then(res => {
             proxy.$loading.hide()
             // saleables 可出售 listeds//正在掛單
-            if (res.nft_token_ids.length !== 0) {
-                res.nft_token_ids.map(item => {
-                    let obj = {}
-                    obj.token_id = item
-                    nftsDatas.value.push(obj)
+            nftsDatas.value = res.nft_token_ids
+            // if (res.nft_token_ids.length !== 0) {
+            //     res.nft_token_ids.map(item => {
+            //         let obj = {}
+            //         obj.token_id = item
+            //         nftsDatas.value.push(obj)
 
-                })
-            }
+            //     })
+            // }
             console.log('我的nft', res)
         })
         .catch(err => {

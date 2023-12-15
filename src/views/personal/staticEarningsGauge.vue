@@ -48,19 +48,20 @@ async function getStaticIncomeInfo() {
     //現時已提現總數
     let withdrawalAmount = await pmtContractApi.getWithdrawalAmount(localStorage.getItem('address'))
     withdrawalAmount = WEB3.utils.fromWei(withdrawalAmount.toString(), 'ether')
-    withdrawalAmount = Number(withdrawalAmount)
+    withdrawalAmount = Number(withdrawalAmount).toFixed(0)
     //可提現上線
     let withdrawalAmountLimit = await pmtContractApi.getWithdrawalAmountLimit(localStorage.getItem('address'))
     withdrawalAmountLimit = WEB3.utils.fromWei(withdrawalAmountLimit.toString(), 'ether')
-    withdrawalAmountLimit = Number(withdrawalAmountLimit)
+    withdrawalAmountLimit = Number(withdrawalAmountLimit).toFixed(0)
     //現時收益總數
     let rewardAmount = await pmtContractApi.getRewardAmount(localStorage.getItem('address'))
     rewardAmount = WEB3.utils.fromWei(rewardAmount.toString(), 'ether')
-    rewardAmount = Number(withdrawalAmountLimit)
+    rewardAmount = Number(rewardAmount).toFixed(0)
     //收益上限
     let rewardAmountLimit = await pmtContractApi.getRewardAmountLimit(localStorage.getItem('address'))
     rewardAmountLimit = WEB3.utils.fromWei(rewardAmountLimit.toString(), 'ether')
-    rewardAmountLimit = Number(rewardAmountLimit)
+    rewardAmountLimit = Number(rewardAmountLimit).toFixed(0)
+
     //最高配套金額
     let result = await playersInfo(localStorage.getItem('address'))
     console.log('result', result)
@@ -104,7 +105,7 @@ async function getStaticIncomeInfo() {
                 },
                 detail: {
                     valueAnimation: true,
-                    formatter: '{value} PMT',
+                    formatter: '{value} MT',
                     fontSize: '20px',
                     color: '#fff',
                     borderColor: '#e149ed',
