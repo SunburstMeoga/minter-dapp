@@ -125,7 +125,7 @@ export function rtBanalce() {
 
 //邀請至樹狀圖
 export function joinTheThree(data) {
-  return request('/player/join-the-tree', {
+  return request('/players/join-the-tree', {
     method: 'POST',
     data
   })

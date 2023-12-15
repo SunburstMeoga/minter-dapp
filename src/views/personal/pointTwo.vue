@@ -11,13 +11,13 @@
                         <div>{{ $t('wallet.address') }}:</div>
                         <div>{{ FilterAddress(item.address) }}</div>
                     </div>
-                    <div class="flex justify-between items-center">
+                    <!-- <div class="flex justify-between items-center">
                         <div>{{ $t('wallet.coherent') }}:</div>
                         <div class="text-red-500">2000</div>
-                    </div>
+                    </div> -->
                     <div class="flex justify-between items-center">
-                        <div>{{ $t('assistance.buyTime') }}:</div>
-                        <div>2023-11-23 00:23:23</div>
+                        <div>綁定關係時間:</div>
+                        <div>{{ item.first_package_time }}</div>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
 import ModuleTitle from "../../components/ModuleTitle.vue";
 import { ref, onMounted } from 'vue'
 import { referrerMap } from '@/request/api'
-import { FilterAddress } from '@/utils/format'
+import { FilterAddress, FilterTime } from '@/utils/format'
 
 const actions = ref([
     { text: '0x17a...5796' },
