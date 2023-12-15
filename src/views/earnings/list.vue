@@ -92,7 +92,20 @@ function onChange(item) {
     if (item.name <= 2) {
         getDynamicRecords(item.name + 1)
     } else {
-        getStaticRecords(item.name + 1)
+        let type
+        if (item.name == 3) {
+            type = 1
+        }
+        if (item.name == 4) {
+            type = 2
+        }
+        if (item.name == 5) {
+            type = 3
+        }
+        if (item.name == 6) {
+            type = 4
+        }
+        getStaticRecords(type)
     }
 }
 
