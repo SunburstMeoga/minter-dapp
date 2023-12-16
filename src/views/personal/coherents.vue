@@ -127,7 +127,7 @@ async function getPNTRemainingLockupPeriod() {
     if (Number(result) !== 0) {
         isNotYet.value = true
         setInterval(() => {
-            countDown(Number(releaseTime.value))
+            countDown(Number(result))
         }, 1000)
     } else {
         isNotYet.value = false
