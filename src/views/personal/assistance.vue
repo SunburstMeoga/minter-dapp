@@ -113,7 +113,7 @@
                 </div>
                 <div class="w-full flex justify-center items-center mb-4">
                     <div class="w-11/12 flex justify-between items-center">
-                        <div v-for="(item, index) in coherentsList" @click="currentCoherent = index"
+                        <div v-for="(item, index) in coherentsList" @click="clickCurrentCoherent(item, index)"
                             class="border border-primary-color rounded w-2/12 text-center mb-2 py-1 text-sm text-white"
                             :class="currentCoherent == index ? 'operating-button' : ''">
                             {{ item.name }}
@@ -333,8 +333,8 @@ const actions = ref([
     { text: '200', id: 1 },
     { text: '600', id: 2 },
     { text: '2000', id: 3 },
-    { text: '6000', id: 4 },
-    { text: '20000', id: 5 },
+    // { text: '6000', id: 4 },
+    // { text: '20000', id: 5 },
 ])
 const buyPackage = ref({ text: '請選擇配套' })
 const pointLsit = ref([{ title: '左' }, { title: '右' }])
@@ -352,7 +352,13 @@ onMounted(() => {
 async function handleBackPreAddress() {
     viewPointMap(localStorage.getItem('address'))
 }
-
+function clickCurrentCoherent(item, index) {
+    if (!item.isSale) {
+        showToast(t('toast.notYetOpen'))
+        return
+    }
+    currentCoherent.value = index
+}
 async function handleConfirmBuyForRTPOPUP() {
     //   toggleConfirmPayPopup()
     //判斷rt餘額是否充足
