@@ -300,7 +300,7 @@ import { useI18n } from 'vue-i18n';
 import { config } from '@/const/config'
 import usdtContractApi from '@/request/usdt'
 import pmtContractApi from '@/request/pmt'
-import { addressLeg, upInferiorPackage, staticRecords, buyCoherent, joinTheThree, buyPackageToNext } from '@/request/api'
+import { addressLeg, upInferiorPackage, staticRecords, buyCoherent, joinTheThree, buyPackageToNext, updataRTBalance } from '@/request/api'
 import { showToast } from 'vant'
 const { t } = useI18n()
 const { proxy } = getCurrentInstance()
@@ -413,6 +413,13 @@ async function handlePopupConfirmBuy() {
             console.log('購買成功', res)
             proxy.$loading.hide()
             showToast(res.message)
+            updataRTBalance()
+                .then(res => {
+                    console.log('更新rt餘額', res)
+                })
+                .catch(err => {
+                    console.log('更新rt餘額失敗', err)
+                })
         })
         .catch(err => {
             proxy.$loading.hide()

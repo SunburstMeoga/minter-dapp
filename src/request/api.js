@@ -160,3 +160,10 @@ export function buyPackageToNext(data) {
     data
   })
 }
+
+//更新rt價格
+export function updataRTBalance(address) {
+  return request('/players/update-rt-balance/' + address, {
+    method: 'GET'
+  })
+}

@@ -250,7 +250,7 @@ import { showToast } from 'vant';
 import coherents_list from '@/datas/coherents_list'
 import { FormatAmount, FilterAddress } from '@/utils/format'
 import { useI18n } from 'vue-i18n';
-import { buyCoherent, adequateBalance, addressLeg, checkReferrerAddress, joinTheThree, playersInfo } from '@/request/api'
+import { buyCoherent, adequateBalance, addressLeg, checkReferrerAddress, joinTheThree, playersInfo, updataRTBalance } from '@/request/api'
 import pmtContractApi from '@/request/pmt'
 import usdtContractApi from '@/request/usdt'
 import { config } from '@/const/config'
@@ -513,6 +513,13 @@ async function handlePopupConfirmBuy() {
       console.log('購買成功', res)
       proxy.$loading.hide()
       showToast(res.message)
+      updataRTBalance()
+        .then(res => {
+          console.log('更新rt餘額', res)
+        })
+        .catch(err => {
+          console.log('更新rt餘額失敗', err)
+        })
     })
     .catch(err => {
       proxy.$loading.hide()

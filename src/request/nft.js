@@ -19,7 +19,11 @@ if (window.ethereum) {
     provider
   )
 
-  const erc721 = new ethers.Contract(config.minter_collection, config.minter_collection_abi, signer)
+  const MTCOLLECTION = new ethers.Contract(
+    config.minter_collection,
+    config.minter_collection_abi,
+    signer
+  )
 
   const NFT = new ethers.Contract(config.nfts_marketplace_addr, config.burnable_token_abi, provider)
   const NFTTRADE = new ethers.Contract(
@@ -63,13 +67,17 @@ if (window.ethereum) {
     },
     //授權狀態
     isApprovedAll: async function (walletAddr, contractAddress) {
-      const result = await erc721.isApprovedForAll(walletAddr, contractAddress)
+      const result = await MTCOLLECTION.isApprovedForAll(walletAddr, contractAddress)
       return result
     },
     setApprovalForAll: async function (contractAddress) {
-      const tx = await erc721.setApprovalForAll(contractAddress, true)
+      const tx = await MTCOLLECTION.setApprovalForAll(contractAddress, true)
       const result = await tx.wait()
-      // cnsole.log(result, "发起erc721授权");
+      // cnsole.log(result, "发起MTCOLLECTION授权");
+      return result
+    },
+    sellOffPeriod: async function (tokenID) {
+      const result = await MTCOLLECTION.nonTradableUntil(tokenID)
       return result
     }
   }

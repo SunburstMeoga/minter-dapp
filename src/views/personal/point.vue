@@ -57,11 +57,12 @@
 }}
                         </div>
                         <div class="text-center text-xs mb-1">
-                            {{ $t('assistance.remain') }} PV:{{ directReferrals && directReferrals.left_leg &&
-                                directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.pv_remain || 0
-                            }} - {{ directReferrals && directReferrals.left_leg &&
-    directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.pv_remain || 0
-}}
+                            {{ $t('assistance.remain') }} PV:{{ (directReferrals && directReferrals.left_leg &&
+                                directReferrals.left_leg.left_pv) - ((directReferrals && directReferrals.pv) - (directReferrals
+                                    && directReferrals.pv_remain)) }}
+                            -
+                            {{ (directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_pv) -
+                                ((directReferrals && directReferrals.pv) - (directReferrals && directReferrals.pv_remain)) }}
                         </div>
                     </div>
                     <div class="w-1 h-8 border-l border-primary-color" />
@@ -84,7 +85,7 @@
                                 </div>
                             </div>
                             <van-popover
-                                @open="openDetails(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.left_leg && directReferrals.left_leg.left_leg.left_leg.pv || 0, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.right_leg && directReferrals.left_leg.left_leg.right_leg.pv || 0, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.left_leg && directReferrals.left_leg.left_leg.left_leg.pv_remain || 0, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.right_leg && directReferrals.left_leg.left_leg.right_leg.pv_remain || 0,)"
+                                @open="openDetails(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.left_leg && directReferrals.left_leg.left_leg.left_leg.pv || 0, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.right_leg && directReferrals.left_leg.left_leg.right_leg.pv || 0, (directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.left_pv) - ((directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv) - (directReferrals && directReferrals.left_leg && directReferrals && directReferrals.left_leg.pv)), (directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.right_pv) - ((directReferrals && directReferrals.left_leg && directReferrals && directReferrals.left_leg.pv) - (directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv)))"
                                 v-model:show="showPopoverOne" theme="dark" :actions="actions" placement="bottom-start">
                                 <template #reference>
                                     <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address"
@@ -110,7 +111,7 @@
                                 </div>
                             </div>
                             <van-popover
-                                @open="openDetails(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.left_leg && directReferrals.left_leg.right_leg.left_leg.pv || 0, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.right && directReferrals.left_leg.right_leg.right.pv || 0, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.left_leg && directReferrals.left_leg.right_leg.left_leg.pv_remain || 0, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.right && directReferrals.left_leg.right_leg.right.pv_remain || 0,)"
+                                @open="openDetails(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.left_leg && directReferrals.left_leg.right_leg.left_leg.pv || 0, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.right_leg && directReferrals.left_leg.left_leg.right_leg.pv || 0, (directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.left_pv) - ((directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv) - (directReferrals && directReferrals.left_leg && directReferrals && directReferrals.left_leg.pv)), (directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.right_pv) - ((directReferrals && directReferrals.left_leg && directReferrals && directReferrals.left_leg.pv) - (directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv)))"
                                 v-model:show="showPopoverTwo" theme="dark" :actions="actions" placement="bottom">
                                 <template #reference>
                                     <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.address"
@@ -153,12 +154,12 @@
                                 directReferrals.right_leg.right_leg.pv || 0 }}
                         </div>
                         <div class="text-center text-xs mb-1">
-                            {{ $t('assistance.remain') }} PV:{{
-                                directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg &&
-                                directReferrals.right_leg.left_leg.pv_remain || 0 }} -
-                            {{
-                                directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg &&
-                                directReferrals.right_leg.right_leg.pv_remain || 0 }}
+                            {{ $t('assistance.remain') }} PV:{{ (directReferrals && directReferrals.right_leg &&
+                                directReferrals.right_leg.left_pv) - ((directReferrals && directReferrals.pv) - (directReferrals
+                                    && directReferrals.pv_remain)) }}
+                            -
+                            {{ (directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_pv) -
+                                ((directReferrals && directReferrals.pv) - (directReferrals && directReferrals.pv_remain)) }}
                         </div>
                     </div>
 
@@ -182,7 +183,7 @@
                                 </div>
                             </div>
                             <van-popover
-                                @open="openDetails(directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.left_leg && directReferrals.right_leg.left_leg.left_leg.pv || 0, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.right_leg && directReferrals.right_leg.left_leg.right_leg.pv || 0, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.left_leg && directReferrals.right_leg.left_leg.left_leg.pv_remain || 0, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.right_leg && directReferrals.right_leg.left_leg.right_leg.pv_remain || 0)"
+                                @open="openDetails(directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.left_leg && directReferrals.right_leg.left_leg.left_leg.pv || 0, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.right_leg && directReferrals.right_leg.left_leg.right_leg.pv || 0, (directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.left_pv) - ((directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv) - (directReferrals && directReferrals.right_leg && directReferrals && directReferrals.right_leg.pv)), (directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.right_pv) - ((directReferrals && directReferrals.right_leg && directReferrals && directReferrals.right_leg.pv) - (directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv)))"
                                 v-model:show="showPopoverThree" theme="dark" :actions="actions" placement="bottom">
                                 <template #reference>
                                     <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address"
@@ -208,7 +209,7 @@
                                 </div>
                             </div>
                             <van-popover
-                                @open="openDetails(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.right_leg && directReferrals.right_leg.right_leg.right_leg.pv || 0, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.right_leg && directReferrals.right_leg.right_leg.left_leg.pv || 0, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.right_leg && directReferrals.right_leg.right_leg.right_leg.pv_remain || 0, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.right_leg && directReferrals.right_leg.right_leg.left_leg.pv_remain || 0)"
+                                @open="openDetails(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.right_leg && directReferrals.right_leg.right_leg.right_leg.pv || 0, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.right_leg && directReferrals.right_leg.right_leg.left_leg.pv || 0, (directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.left_pv) - ((directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv) - (directReferrals && directReferrals.right_leg && directReferrals && directReferrals.right_leg.pv)), (directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.right_pv) - ((directReferrals && directReferrals.right_leg && directReferrals && directReferrals.right_leg.pv) - (directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv)))"
                                 v-model:show="showPopoverFour" theme="dark" :actions="actions" placement="bottom-end">
                                 <template #reference>
                                     <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address"

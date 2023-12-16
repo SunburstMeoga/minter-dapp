@@ -85,6 +85,7 @@ function getUserCanSaleNFT() {
         .then(res => {
             console.log(res)
             saleables.value = res.nft_token_ids
+
             // if (res.nft_token_ids.length !== 0) {
             //     res.nft_token_ids.map(item => {
             //         let obj = {}
@@ -163,11 +164,51 @@ function getUserNFTs() {
             console.log(err)
         })
 }
+function countDown(EndTime) {
+    var EndTime = EndTime//结束时间
+    var NowTime = new Date();//当前时间
+    var t = EndTime - (NowTime.getTime() / 1000).toFixed(0);
+    var d = Math.floor(t / 60 / 60 / 24);//天 
+    var h = Math.floor(t / 60 / 60 % 24);//时 
+    var m = Math.floor(t / 60 % 60);//分 
+    var s = Math.floor(t % 60);//秒 
+    if (parseInt(d) < 10) {
+        d = "0" + d;
+    }
+    if (parseInt(h) < 10) {
+        h = "0" + h;
+    }
+    if (parseInt(m) < 10) {
+        m = "0" + m;
+    }
+    if (parseInt(s) < 10) {
+        s = "0" + s;
+    }
+    let tarTime = d + "天" + h + "時" + m + "分" + s + "秒"
+    console.log(EndTime, tarTime)
+    return tarTime
+    // return day + "天" + hour + "时" + minute + "分" + second + "秒"
+}
 //掛單
 async function handleListed(item) {
     console.log(item)
     // return
     proxy.$loading.show()
+    let time
+    try {
+        time = await nftContractApi.sellOffPeriod(item.token_id)
+        console.log(time, new Date().getTime() / 1000)
+        if (Number(time) > (new Date().getTime() / 1000)) {
+            showToast(countDown(Number(time)) + '後可出售')
+            proxy.$loading.hide()
+            return
+        }
+
+    } catch (err) {
+        proxy.$loading.hide()
+        showToast(t('toast.error'))
+    }
+    // return
     let isApprovedAll
     try { //检查pmt对pmt_purchase的授权状态
         isApprovedAll = await minterContractApi.allowance(localStorage.getItem('address'), config.nfts_marketplace_addr)

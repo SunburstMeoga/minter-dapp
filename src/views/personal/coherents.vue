@@ -74,20 +74,29 @@ onMounted(() => {
 
 })
 
-function countDown(time) {
-    var nowTime = +new Date();
-    var inputTime = +new Date(time)
-    var time = (inputTime - nowTime) / 1000
-    var day = Math.floor(time / 60 / 60 / 24);
-    day = day < 10 ? "0" + day : day;
-    var hour = Math.floor(time / 60 / 60 % 24)
-    hour = hour < 10 ? "0" + hour : hour
-    var minute = Math.floor(time / 60 % 60)
-    minute = minute < 10 ? "0" + minute : minute
-    var second = Math.floor(time % 60);
-    second = second < 10 ? "0" + second : second
-    console.log(day + "天" + hour + "时" + minute + "分" + second + "秒")
-    canReleasedTime.value = day + "天" + hour + "時" + minute + "分" + second + "秒"
+function countDown(EndTime) {
+    var EndTime = EndTime//结束时间
+    var NowTime = new Date();//当前时间
+    var t = EndTime - (NowTime.getTime() / 1000).toFixed(0);
+    var d = Math.floor(t / 60 / 60 / 24);//天 
+    var h = Math.floor(t / 60 / 60 % 24);//时 
+    var m = Math.floor(t / 60 % 60);//分 
+    var s = Math.floor(t % 60);//秒 
+    if (parseInt(d) < 10) {
+        d = "0" + d;
+    }
+    if (parseInt(h) < 10) {
+        h = "0" + h;
+    }
+    if (parseInt(m) < 10) {
+        m = "0" + m;
+    }
+    if (parseInt(s) < 10) {
+        s = "0" + s;
+    }
+    let tarTime = d + "天" + h + "時" + m + "分" + s + "秒"
+    console.log(EndTime, tarTime)
+    return tarTime
     // return day + "天" + hour + "时" + minute + "分" + second + "秒"
 }
 //點擊釋放按鈕
@@ -124,10 +133,10 @@ async function getPNTRemainingLockupPeriod() {
     console.log('獲取剩餘的鎖定期', result)
     releaseTime.value = Number(result)
     // releaseTime.value = 1702729311
-    if (Number(result) !== 0) {
+    if (Number(result) > new Date().getTime() / 1000) {
         isNotYet.value = true
         setInterval(() => {
-            countDown(Number(releaseTime.value * 1000))
+            countDown(Number(releaseTime.value))
         }, 1000)
     } else {
         isNotYet.value = false

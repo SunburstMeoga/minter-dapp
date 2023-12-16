@@ -140,7 +140,7 @@ import { FormatAmount, FilterAddress } from '@/utils/format'
 import Web3 from "web3";
 import { generateNonce } from '@/utils/getNonce'
 import usdtContractApi from '@/request/usdt'
-import { buyCoherent, joinTheThree } from '@/request/api'
+import { buyCoherent, joinTheThree, updataRTBalance } from '@/request/api'
 import { userStore } from "@/stores/user";
 import { showToast } from 'vant'
 import { useI18n } from 'vue-i18n';
@@ -204,7 +204,13 @@ function handleConfirmBuyForRT() {
             //     showToast('RT餘額不足')
             // }
             showToast(res.message)
-
+            updataRTBalance()
+                .then(res => {
+                    console.log('更新rt餘額', res)
+                })
+                .catch(err => {
+                    console.log('更新rt餘額失敗', err)
+                })
         })
         .catch(err => {
             proxy.$loading.hide()
