@@ -63,7 +63,7 @@ let playerPackages = ref([])
 let remainingPMT = ref("")
 let beenReleased = ref("") //已經釋放的PMT
 let canReleasedTime = ref("")
-let releaseTime = ref(2)
+let releaseTime = ref(0)
 let isNotYet = ref(true)
 onMounted(() => {
     // releasePMTTokens()

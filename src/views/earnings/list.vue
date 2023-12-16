@@ -9,7 +9,8 @@
                 <van-tab :title="$t('assistance.directMarketingAward')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
                         <div v-for="(item, index) in dataList" class="mb-2" :key="index">
-                            <earnings-card :time="item.updated_at" :price="item.amount" :symbol="item.token.symbol" />
+                            <earnings-card :time="item.updated_at" :price="item.amount"
+                                :symbol="item.token && item.token.symbol" />
                         </div>
                     </div>
                     <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">暫無數據</div>
@@ -17,7 +18,8 @@
                 <van-tab :title="$t('assistance.matchReward')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
                         <div v-for="(item, index) in dataList" class="mb-2" :key="index">
-                            <earnings-card :time="item.updated_at" :price="item.amount" :symbol="item.token.symbol" />
+                            <earnings-card :time="item.updated_at" :price="item.amount"
+                                :symbol="item.token && item.token.symbol" />
                         </div>
                     </div>
                     <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">暫無數據</div>
@@ -25,7 +27,8 @@
                 <van-tab :title="$t('assistance.generationIncentive')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
                         <div v-for="(item, index) in dataList" class="mb-2" :key="index">
-                            <earnings-card :time="item.updated_at" :price="item.amount" :symbol="item.token.symbol" />
+                            <earnings-card :time="item.updated_at" :price="item.amount"
+                                :symbol="item.token && item.token.symbol" />
                         </div>
                     </div>
                     <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">暫無數據</div>
@@ -33,7 +36,8 @@
                 <van-tab :title="$t('assistance.acceleratorAward')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
                         <div v-for="(item, index) in dataList" class="mb-2" :key="index">
-                            <earnings-card :time="item.updated_at" :price="item.amount" :symbol="item.token.symbol" />
+                            <earnings-card :time="item.updated_at" :price="item.amount"
+                                :symbol="item.token && item.token.symbol" />
                         </div>
                     </div>
                     <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">暫無數據</div>
@@ -41,7 +45,8 @@
                 <van-tab :title="$t('assistance.commitmentCard')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
                         <div v-for="(item, index) in dataList" class="mb-2" :key="index">
-                            <earnings-card :time="item.updated_at" :price="item.amount" :symbol="item.token.symbol" />
+                            <earnings-card :time="item.updated_at" :price="item.amount"
+                                :symbol="item.token && item.token.symbol" />
                         </div>
                     </div>
                     <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">暫無數據</div>
@@ -49,7 +54,8 @@
                 <van-tab :title="$t('assistance.dailyEarnings')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
                         <div v-for="(item, index) in dataList" class="mb-2" :key="index">
-                            <earnings-card :time="item.updated_at" :price="item.amount" :symbol="item.token.symbol" />
+                            <earnings-card :time="item.updated_at" :price="item.amount"
+                                :symbol="item.token && item.token.symbol" />
                         </div>
                     </div>
                     <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">暫無數據</div>
@@ -156,5 +162,4 @@ function getDynamicRecords(typeID) {
     background: #000;
     padding-bottom: 20px;
     margin-top: 0.5px;
-}
-</style>
+}</style>
