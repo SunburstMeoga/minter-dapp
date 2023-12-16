@@ -676,7 +676,7 @@ function clickPoint(pointInfo) {
         showToast('請先將點位佈置在上一級')
         return
     }
-    if (pointInfo.isSelf) {
+    if (pointInfo.address == localStorage.getItem('address')) {
         console.log('自己')
         toggleBuyPackageSelf()
         return
