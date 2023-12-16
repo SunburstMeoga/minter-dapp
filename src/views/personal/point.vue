@@ -261,7 +261,7 @@ let currentAttendsWay = ref(0)
 function openDetails(address, left_pv, right_leg, left_pv_remain, right_pv_remain) {
     actions.value = [
         {
-            text: FilterAddress(address)
+            text: FilterAddress(address, 4, 5)
         },
         {
             text: '全部pv:' + left_pv + ' - ' + right_leg
