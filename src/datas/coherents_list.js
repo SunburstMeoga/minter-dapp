@@ -31,29 +31,29 @@ const coherents_list = [
     incentiveRate: 0.3,
     shareholdings: 20,
     isSale: true
-  },
-  {
-    name: 'SSR',
-    id: 4,
-    levelImg: '../../src/assets/images/coherent-ssr.png',
-    type: '6000',
-    releasePMT: '3600',
-    limit: '12000',
-    incentiveRate: 0.35,
-    shareholdings: 60,
-    isSale: false
-  },
-  {
-    name: 'UR',
-    id: 5,
-    levelImg: '../../src/assets/images/coherent-ur.png',
-    type: '20000',
-    releasePMT: '1200',
-    limit: '40000',
-    incentiveRate: 0.4,
-    shareholdings: 200,
-    isSale: false
   }
+  // {
+  //   name: 'SSR',
+  //   id: 4,
+  //   levelImg: '../../src/assets/images/coherent-ssr.png',
+  //   type: '6000',
+  //   releasePMT: '3600',
+  //   limit: '12000',
+  //   incentiveRate: 0.35,
+  //   shareholdings: 60,
+  //   isSale: false
+  // },
+  // {
+  //   name: 'UR',
+  //   id: 5,
+  //   levelImg: '../../src/assets/images/coherent-ur.png',
+  //   type: '20000',
+  //   releasePMT: '1200',
+  //   limit: '40000',
+  //   incentiveRate: 0.4,
+  //   shareholdings: 200,
+  //   isSale: false
+  // }
 ]
 
 export default coherents_list
