@@ -76,7 +76,7 @@ onMounted(() => {
 
 function countDown(time) {
     var nowTime = +new Date();
-    var inputTime = +new Date(time * 1000)
+    var inputTime = +new Date(time)
     var time = (inputTime - nowTime) / 1000
     var day = Math.floor(time / 60 / 60 / 24);
     day = day < 10 ? "0" + day : day;
