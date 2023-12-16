@@ -36,7 +36,8 @@
                 <wallet-card :currency="'RT' + '(' + $t('order.bind') + ')'" :balance="palayBanalce.rtLocked" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="RT" :balance="palayBanalce.rt" @transfer="handleWalletCardTransfer" isTrasfer />
+                <wallet-card currency="RT" :balance="palayBanalce.rt" @transfer="handleWalletCardTransfer"
+                    @exchange="handleExchangeRT" isExchange isTrasfer />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card currency="股權" :balance="mstBalance" />
@@ -356,6 +357,12 @@ let packageCount = ref(0)
 let nftsCount = ref(0)
 let promiseCardCount = ref(0)
 let palayBanalce = ref({})
+
+function handleExchangeRT() {
+    router.push({
+        path: '/personal/exchange'
+    })
+}
 
 //獲取玩家信息
 function getPlayersInfo(address) {

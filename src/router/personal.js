@@ -61,8 +61,9 @@ let personal = [
     name: 'personal-exchange',
     component: () => import('@/views/personal/exchange.vue'),
     meta: {
-      showLogo: true,
-      showBack: false
+      showLogo: false,
+      showBack: true,
+      pageTitle: '兌換'
     }
   }
 ]

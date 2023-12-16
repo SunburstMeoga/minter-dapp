@@ -130,7 +130,7 @@ async function getPNTRemainingLockupPeriod() {
             countDown(Number(releaseTime.value))
         }, 1000)
     } else {
-
+        isNotYet.value = false
         canReleasedTime.value = "可以釋放"
     }
     // setInterval(() => {
