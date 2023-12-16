@@ -2,7 +2,7 @@
     <div class="mb-3 rounded overflow-hidden p-2 bg-card-content text-card-word text-sm">
         <div class="flex justify-between items-center mb-2">
             <div>{{ $t('assistance.awardAmount') }}</div>
-            <div class="text-red-500">{{ Number(price).toFixed(4) }}</div>
+            <div class="text-red-500 font-bold">{{ Number(price).toFixed(4) }} {{ symbol }}</div>
         </div>
         <div class="flex justify-between items-center">
             <div>{{ $t('assistance.releaseTime') }}</div>
@@ -19,6 +19,10 @@ defineProps({
         default: ''
     },
     time: {
+        type: String,
+        default: ''
+    },
+    symbol: {
         type: String,
         default: ''
     }
