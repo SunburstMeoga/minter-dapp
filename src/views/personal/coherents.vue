@@ -95,7 +95,9 @@ function countDown(EndTime) {
         s = "0" + s;
     }
     let tarTime = d + "天" + h + "時" + m + "分" + s + "秒"
+    canReleasedTime.value = tarTime
     console.log(EndTime, tarTime)
+
     return tarTime
     // return day + "天" + hour + "时" + minute + "分" + second + "秒"
 }
