@@ -62,8 +62,8 @@ const coherentsList = ref(coherents_list)
 let playerPackages = ref([])
 let remainingPMT = ref("")
 let beenReleased = ref("") //已經釋放的PMT
-let canReleasedTime = ref("00天00時00分00秒")
-let releaseTime = ref(0)
+let canReleasedTime = ref("")
+let releaseTime = ref(2)
 let isNotYet = ref(true)
 onMounted(() => {
     // releasePMTTokens()
@@ -74,31 +74,21 @@ onMounted(() => {
 
 })
 
-function countDown(EndTime) {
-    var EndTime = EndTime//结束时间
-    var NowTime = new Date();//当前时间
-    var t = EndTime - (NowTime.getTime() / 1000).toFixed(0);
-    var d = Math.floor(t / 60 / 60 / 24);//天 
-    var h = Math.floor(t / 60 / 60 % 24);//时 
-    var m = Math.floor(t / 60 % 60);//分 
-    var s = Math.floor(t % 60);//秒 
-    if (parseInt(d) < 10) {
-        d = "0" + d;
-    }
-    if (parseInt(h) < 10) {
-        h = "0" + h;
-    }
-    if (parseInt(m) < 10) {
-        m = "0" + m;
-    }
-    if (parseInt(s) < 10) {
-        s = "0" + s;
-    }
-    let tarTime = d + "天" + h + "時" + m + "分" + s + "秒"
-    canReleasedTime.value = tarTime
-    console.log(EndTime, tarTime)
-
-    return tarTime
+function countDown(time) {
+    var nowTime = +new Date();
+    var inputTime = +new Date(time * 1000)
+    // var inputTime = 1703080568
+    var time = (inputTime - nowTime) / 1000
+    var day = Math.floor(time / 60 / 60 / 24);
+    day = day < 10 ? "0" + day : day;
+    var hour = Math.floor(time / 60 / 60 % 24)
+    hour = hour < 10 ? "0" + hour : hour
+    var minute = Math.floor(time / 60 % 60)
+    minute = minute < 10 ? "0" + minute : minute
+    var second = Math.floor(time % 60);
+    second = second < 10 ? "0" + second : second
+    console.log(day + "天" + hour + "时" + minute + "分" + second + "秒")
+    canReleasedTime.value = day + "天" + hour + "時" + minute + "分" + second + "秒"
     // return day + "天" + hour + "时" + minute + "分" + second + "秒"
 }
 //點擊釋放按鈕
@@ -135,18 +125,19 @@ async function getPNTRemainingLockupPeriod() {
     console.log('獲取剩餘的鎖定期', result)
     releaseTime.value = Number(result)
     // releaseTime.value = 1702729311
-    console.log((Number(result) + (new Date().getTime() / 1000)), new Date().getTime() / 1000)
     if ((Number(result) + (new Date().getTime() / 1000)) > new Date().getTime() / 1000) {
         isNotYet.value = true
+        let time = Number(result) + (new Date().getTime() / 1000)
         setInterval(() => {
-            countDown(Number(releaseTime.value))
+            // countDown(Number(result) + (new Date().getTime() / 1000))
+            countDown(time)
         }, 1000)
     } else if ((Number(result) + (new Date().getTime() / 1000)) == new Date().getTime() / 1000) {
         isNotYet.value = false
-        // canReleasedTime.value = "可以釋放"
+        canReleasedTime.value = "可以釋放"
     }
     // setInterval(() => {
-    //     countDown(Number(1702830365 * 1000))
+    //     countDown(Number(1702712103))
     // }, 1000)
 
 }
