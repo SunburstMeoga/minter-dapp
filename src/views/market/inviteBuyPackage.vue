@@ -204,7 +204,7 @@ function handleConfirmBuyForRT() {
             //     showToast('RT餘額不足')
             // }
             showToast(res.message)
-            updataRTBalance()
+            updataRTBalance(localStorage.getItem('address'))
                 .then(res => {
                     console.log('更新rt餘額', res)
                 })

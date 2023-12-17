@@ -287,6 +287,7 @@ async function addressSign() {
             localStorage.setItem('address', res.address)
             userInfo.changeAddress(res.address)
             proxy.$loading.hide()
+            location.reload()
             // showToast('已登录')
         })
         .catch(err => {

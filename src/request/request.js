@@ -80,7 +80,7 @@ const Request = (url, options = {}) => {
         .then((res) => {
           if (res && res.data) {
             console.log(res)
-            resolve(res.data)
+            resolve(res.data, res)
           }
         })
         .catch((err) => {

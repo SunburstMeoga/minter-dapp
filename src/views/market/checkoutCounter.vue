@@ -513,7 +513,7 @@ async function handlePopupConfirmBuy() {
       console.log('購買成功', res)
       proxy.$loading.hide()
       showToast(res.message)
-      updataRTBalance()
+      updataRTBalance(localStorage.getItem('address'))
         .then(res => {
           console.log('更新rt餘額', res)
         })
