@@ -62,7 +62,7 @@ const coherentsList = ref(coherents_list)
 let playerPackages = ref([])
 let remainingPMT = ref("")
 let beenReleased = ref("") //已經釋放的PMT
-let canReleasedTime = ref("")
+let canReleasedTime = ref("00天00時00分00秒")
 let releaseTime = ref(0)
 let isNotYet = ref(true)
 onMounted(() => {
@@ -133,14 +133,15 @@ async function getPNTRemainingLockupPeriod() {
     console.log('獲取剩餘的鎖定期', result)
     releaseTime.value = Number(result)
     // releaseTime.value = 1702729311
-    if (Number(result) > new Date().getTime() / 1000) {
+    console.log((Number(result) + (new Date().getTime() / 1000)), new Date().getTime() / 1000)
+    if ((Number(result) + (new Date().getTime() / 1000)) > new Date().getTime() / 1000) {
         isNotYet.value = true
         setInterval(() => {
             countDown(Number(releaseTime.value))
         }, 1000)
-    } else {
+    } else if ((Number(result) + (new Date().getTime() / 1000)) == new Date().getTime() / 1000) {
         isNotYet.value = false
-        canReleasedTime.value = "可以釋放"
+        // canReleasedTime.value = "可以釋放"
     }
     // setInterval(() => {
     //     countDown(Number(1702830365 * 1000))
