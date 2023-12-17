@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="rounded-full py-1.5 text-center text-white mb-2"
-                    :class="Number(remainingPMT) == 0 && isNotYet ? 'disable-button' : 'operating-button'"
+                    :class="Number(remainingPMT) == 0 || isNotYet ? 'disable-button' : 'operating-button'"
                     @click="handleReleased">
                     釋放
                 </div>
