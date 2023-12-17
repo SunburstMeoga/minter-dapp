@@ -263,15 +263,20 @@ function getPlayersInfo(address) {
 //钱包地址签名
 async function addressSign() {
     proxy.$loading.show()
+    const newAccounts = await ethereum.request({
+        method: 'eth_requestAccounts',
+    })
+    localStorage.setItem('address', newAccounts[0])
+    userInfo.changeAddress(newAccounts[0])
     const web3 = new Web3(window.ethereum)
     let params = {}
     const randomString =
         "Welcome to Minter\n\nPlease click to sign in and accept the Minter Terms of Service.\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nWallet address:\n" +
-        window.ethereum.selectedAddress +
+        localStorage.getItem('address') +
         "\n\nNonece:\n" +
         generateNonce();
     try {
-        const signature = await web3.eth.personal.sign(randomString, window.ethereum.selectedAddress, '')
+        const signature = await web3.eth.personal.sign(randomString, localStorage.getItem('address'), '')
         params = { randomString: randomString, signature: signature }
     } catch (err) {
         proxy.$loading.hide()

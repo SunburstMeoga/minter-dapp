@@ -164,30 +164,22 @@ function getUserNFTs() {
             console.log(err)
         })
 }
-function countDown(EndTime) {
-    var EndTime = EndTime//结束时间
-    var NowTime = new Date();//当前时间
-    var t = EndTime - (NowTime.getTime() / 1000).toFixed(0);
-    var d = Math.floor(t / 60 / 60 / 24);//天 
-    var h = Math.floor(t / 60 / 60 % 24);//时 
-    var m = Math.floor(t / 60 % 60);//分 
-    var s = Math.floor(t % 60);//秒 
-    if (parseInt(d) < 10) {
-        d = "0" + d;
-    }
-    if (parseInt(h) < 10) {
-        h = "0" + h;
-    }
-    if (parseInt(m) < 10) {
-        m = "0" + m;
-    }
-    if (parseInt(s) < 10) {
-        s = "0" + s;
-    }
-    let tarTime = d + "天" + h + "時" + m + "分" + s + "秒"
-    console.log(EndTime, tarTime)
-    return tarTime
-    // return day + "天" + hour + "时" + minute + "分" + second + "秒"
+function countDown(time) {
+    var nowTime = +new Date();
+    var inputTime = +new Date(time * 1000)
+    // var inputTime = 1703080568
+    var time = (inputTime - nowTime) / 1000
+    var day = Math.floor(time / 60 / 60 / 24);
+    day = day < 10 ? "0" + day : day;
+    var hour = Math.floor(time / 60 / 60 % 24)
+    hour = hour < 10 ? "0" + hour : hour
+    var minute = Math.floor(time / 60 % 60)
+    minute = minute < 10 ? "0" + minute : minute
+    var second = Math.floor(time % 60);
+    second = second < 10 ? "0" + second : second
+    // console.log(day + "天" + hour + "时" + minute + "分" + second + "秒")
+
+    return day + "天" + hour + "時" + minute + "分" + second + "秒"
 }
 //掛單
 async function handleListed(item) {
@@ -197,9 +189,9 @@ async function handleListed(item) {
     let time
     try {
         time = await nftContractApi.sellOffPeriod(item.token_id)
-        console.log(time, new Date().getTime() / 1000)
-        if ((Number(time) + (new Date().getTime() / 1000)) > (new Date().getTime() / 1000)) {
-            let time = Number(time) + (new Date().getTime() / 1000)
+        console.log(time, (new Date().getTime() / 1000))
+        if (Number(time) > (new Date().getTime() / 1000)) {
+            // let timeAll = Number(time) + (new Date().getTime() / 1000)
             showToast(countDown(time) + '後可出售')
             proxy.$loading.hide()
             return
@@ -207,6 +199,7 @@ async function handleListed(item) {
 
     } catch (err) {
         proxy.$loading.hide()
+        console.log(err)
         showToast(t('toast.error'))
     }
     // return
