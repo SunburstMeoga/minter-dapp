@@ -87,7 +87,7 @@ function countDown(time) {
     minute = minute < 10 ? "0" + minute : minute
     var second = Math.floor(time % 60);
     second = second < 10 ? "0" + second : second
-    console.log(day + "天" + hour + "时" + minute + "分" + second + "秒")
+    // console.log(day + "天" + hour + "时" + minute + "分" + second + "秒")
     canReleasedTime.value = day + "天" + hour + "時" + minute + "分" + second + "秒"
     // return day + "天" + hour + "时" + minute + "分" + second + "秒"
 }

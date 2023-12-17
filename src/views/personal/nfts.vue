@@ -199,7 +199,8 @@ async function handleListed(item) {
         time = await nftContractApi.sellOffPeriod(item.token_id)
         console.log(time, new Date().getTime() / 1000)
         if ((Number(time) + (new Date().getTime() / 1000)) > (new Date().getTime() / 1000)) {
-            showToast(countDown(Number(time) + (new Date().getTime() / 1000)) + '後可出售')
+            let time = Number(time) + (new Date().getTime() / 1000)
+            showToast(countDown(time) + '後可出售')
             proxy.$loading.hide()
             return
         }
