@@ -19,9 +19,9 @@
                 - {{ directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv || 0 }}
             </div>
             <div class="text-center text-xs mb-1">
-                {{ $t('assistance.remain') }} PV: {{
-                    directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv_remain || 0 }} - {{
-        directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv_remain || 0 }}
+                {{ $t('assistance.remain') }} PV: {{ (directReferrals && directReferrals.left_pv) - (directReferrals &&
+                    directReferrals.pv_used) }} - {{
+        (directReferrals && directReferrals.right_pv) - (directReferrals && directReferrals.pv_used) }}
             </div>
             <div class="w-1 h-10 border-l border-primary-color" />
             <div class="w-6/12 h-10 border-t border-l border-r border-primary-color" />
@@ -50,20 +50,19 @@
                             }}
                         </div>
                         <div class="text-center text-xs">
-                            {{ $t('wallet.all') }} PV:{{ directReferrals && directReferrals.left_leg &&
-                                directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.pv || 0
-                            }} - {{ directReferrals && directReferrals.left_leg &&
-    directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.pv || 0
+                            {{ $t('wallet.all') }} PV:{{ parseInt(directReferrals && directReferrals.left_leg &&
+                                directReferrals.left_leg.left_pv) || 0
+                            }} - {{ parseInt(directReferrals && directReferrals.left_leg &&
+    directReferrals.left_leg.right_pv) || 0
 }}
                         </div>
-                        <div class="text-center text-xs mb-1">
+                        <!-- <div class="text-center text-xs mb-1">
                             {{ $t('assistance.remain') }} PV:{{ (directReferrals && directReferrals.left_leg &&
-                                directReferrals.left_leg.left_pv) - ((directReferrals && directReferrals.pv) - (directReferrals
-                                    && directReferrals.pv_remain)) }}
-                            -
-                            {{ (directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_pv) -
-                                ((directReferrals && directReferrals.pv) - (directReferrals && directReferrals.pv_remain)) }}
-                        </div>
+                                directReferrals.left_leg.left_pv) - (directReferrals && directReferrals.left_leg &&
+                                    directReferrals.left_leg.left_pv_used) }} - {{ (directReferrals && directReferrals.left_leg &&
+            directReferrals.left_leg.right_pv) - (directReferrals && directReferrals.left_leg &&
+                directReferrals.left_leg.right_pv_used) }}
+                        </div> -->
                     </div>
                     <div class="w-1 h-8 border-l border-primary-color" />
                     <div class="w-6/12 h-6 border-t border-l border-r border-primary-color" />
@@ -85,7 +84,7 @@
                                 </div>
                             </div>
                             <van-popover
-                                @open="openDetails(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.left_leg && directReferrals.left_leg.left_leg.left_leg.pv || 0, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.right_leg && directReferrals.left_leg.left_leg.right_leg.pv || 0, (directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.left_pv) - ((directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv) - (directReferrals && directReferrals.left_leg && directReferrals && directReferrals.left_leg.pv)), (directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.right_pv) - ((directReferrals && directReferrals.left_leg && directReferrals && directReferrals.left_leg.pv) - (directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv)))"
+                                @open="openDetails(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.left_pv, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.right_pv)"
                                 v-model:show="showPopoverOne" theme="dark" :actions="actions" placement="bottom-start">
                                 <template #reference>
                                     <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address"
@@ -111,7 +110,7 @@
                                 </div>
                             </div>
                             <van-popover
-                                @open="openDetails(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.left_leg && directReferrals.left_leg.right_leg.left_leg.pv || 0, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.right_leg && directReferrals.left_leg.left_leg.right_leg.pv || 0, (directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.left_pv) - ((directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv) - (directReferrals && directReferrals.left_leg && directReferrals && directReferrals.left_leg.pv)), (directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.right_pv) - ((directReferrals && directReferrals.left_leg && directReferrals && directReferrals.left_leg.pv) - (directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv)))"
+                                @open="openDetails(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.right_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.left_pv, directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.right_pv)"
                                 v-model:show="showPopoverTwo" theme="dark" :actions="actions" placement="bottom">
                                 <template #reference>
                                     <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.address"
@@ -147,20 +146,21 @@
                         </div>
                         <div class="text-center text-xs">
                             {{ $t('wallet.all') }} PV:{{
-                                directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg &&
-                                directReferrals.right_leg.left_leg.pv || 0 }} -
+                                parseInt(directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_pv) || 0
+                            }} -
                             {{
-                                directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg &&
-                                directReferrals.right_leg.right_leg.pv || 0 }}
+                                parseInt(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_pv) ||
+                                0 }}
                         </div>
-                        <div class="text-center text-xs mb-1">
+                        <!-- <div class="text-center text-xs mb-1">
                             {{ $t('assistance.remain') }} PV:{{ (directReferrals && directReferrals.right_leg &&
-                                directReferrals.right_leg.left_pv) - ((directReferrals && directReferrals.pv) - (directReferrals
-                                    && directReferrals.pv_remain)) }}
+                                directReferrals.right_leg.left_pv) - (directReferrals && directReferrals.right_leg &&
+                                    directReferrals.right_leg.left_pv_used) }}
                             -
-                            {{ (directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_pv) -
-                                ((directReferrals && directReferrals.pv) - (directReferrals && directReferrals.pv_remain)) }}
-                        </div>
+                            {{ (directReferrals && directReferrals.right_leg &&
+                                directReferrals.right_leg.right_pv) - (directReferrals && directReferrals.right_leg &&
+                                    directReferrals.right_leg.right_pv_used) }}
+                        </div> -->
                     </div>
 
                     <div class="w-1 h-8 border-l border-primary-color" />
@@ -183,7 +183,7 @@
                                 </div>
                             </div>
                             <van-popover
-                                @open="openDetails(directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.left_leg && directReferrals.right_leg.left_leg.left_leg.pv || 0, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.right_leg && directReferrals.right_leg.left_leg.right_leg.pv || 0, (directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.left_pv) - ((directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv) - (directReferrals && directReferrals.right_leg && directReferrals && directReferrals.right_leg.pv)), (directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.right_pv) - ((directReferrals && directReferrals.right_leg && directReferrals && directReferrals.right_leg.pv) - (directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv)))"
+                                @open="openDetails(directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.left_pv, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.right_pv)"
                                 v-model:show="showPopoverThree" theme="dark" :actions="actions" placement="bottom">
                                 <template #reference>
                                     <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address"
@@ -209,7 +209,7 @@
                                 </div>
                             </div>
                             <van-popover
-                                @open="openDetails(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.right_leg && directReferrals.right_leg.right_leg.right_leg.pv || 0, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.right_leg && directReferrals.right_leg.right_leg.left_leg.pv || 0, (directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.left_pv) - ((directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv) - (directReferrals && directReferrals.right_leg && directReferrals && directReferrals.right_leg.pv)), (directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.right_pv) - ((directReferrals && directReferrals.right_leg && directReferrals && directReferrals.right_leg.pv) - (directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv)))"
+                                @open="openDetails(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.left_pv, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.right_pv)"
                                 v-model:show="showPopoverFour" theme="dark" :actions="actions" placement="bottom-end">
                                 <template #reference>
                                     <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address"
@@ -265,11 +265,11 @@ function openDetails(address, left_pv, right_leg, left_pv_remain, right_pv_remai
             text: FilterAddress(address, 4, 5)
         },
         {
-            text: '全部pv:' + left_pv + ' - ' + right_leg
+            text: '全部pv:' + parseInt(left_pv) + ' - ' + parseInt(right_leg)
         },
-        {
-            text: '剩餘pv:' + left_pv_remain + ' - ' + right_pv_remain
-        }
+        // {
+        //     text: '剩餘pv:' + left_pv_remain + ' - ' + right_pv_remain
+        // }
     ]
 }
 
