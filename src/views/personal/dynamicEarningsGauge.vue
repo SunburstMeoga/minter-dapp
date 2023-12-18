@@ -9,16 +9,20 @@ import { playersInfo } from '@/request/api'
 async function getInfor() {
     let playInfo = await playersInfo(localStorage.getItem('address'))
     console.log(playInfo)
-    let incomeLimit = playInfo.player.dynamic_earning_percentage_limit.dynamic_earning_percentage_limit
-    let btWithdraw = Number(playInfo.player.dynamic_earning_percentage_limit.total_bt_withdraw).toFixed(4)
-    let totalPackageValue = Number(playInfo.player.dynamic_earning_percentage_limit.total_package_value).toFixed(4)
-    let point = Number(incomeLimit).toFixed(4) + '%'
+
+    const { dynamic_earning_percentage_limit, total_bt_withdraw, total_package_value, total_bt_reward } = playInfo.player.dynamic_earning_percentage_limit
+    // let incomeLimit = playInfo.player.dynamic_earning_percentage_limit.dynamic_earning_percentage_limit
+    let btWithdraw = Number(total_bt_reward - total_bt_withdraw).toFixed(4)
+    let totalPackageValue = Number(total_package_value).toFixed(4)
+    let min = parseInt(total_bt_reward - total_bt_withdraw)
+    let max = parseInt((total_package_value * 2) - total_bt_withdraw)
+    let point = Number(dynamic_earning_percentage_limit).toFixed(4) + '%'
     // if (btWithdraw !== 0) {
     //     point = Number((btWithdraw / incomeLimit) * 100).toFixed(1) + '%'
     // } else {
     //     point = '0%'
     // }
-    console.log(point, incomeLimit, btWithdraw)
+    // console.log(point, incomeLimit, btWithdraw)
     let myChart = echarts.init(document.getElementById("dynamicEarnings"));
     myChart.setOption({
         tooltip: {
@@ -29,7 +33,7 @@ async function getInfor() {
                 name: 'Pressure',
                 type: 'gauge',
                 min: 0,
-                max: totalPackageValue * 2,
+                max: max,
                 progress: {
                     show: true,
                     overlap: true,
