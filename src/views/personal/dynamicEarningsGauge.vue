@@ -1,22 +1,25 @@
 <template>
     <div class="text-gray-200 text-center text-lg font-bold">{{ $t('wallet.dynamicIncome') }}</div>
     <div id="dynamicEarnings" class="flex justify-center items-center" style="height: 380px; width:100vw;"></div>
+    <div class="text-gray-500 text-center text-base -mt-20">{{ point }}</div>
 </template>
 <script setup>
 import { ref, onMounted } from "vue";
 import * as echarts from 'echarts'
 import { playersInfo } from '@/request/api'
+let point = ref("")
 async function getInfor() {
     let playInfo = await playersInfo(localStorage.getItem('address'))
     console.log(playInfo)
 
-    const { total_bt_withdraw, total_package_value, total_bt_reward } = playInfo.player.dynamic_earning_percentage_limit
+    const { total_bt_withdraw, total_package_value, total_bt_reward, dynamic_earning_percentage_limit } = playInfo.player.dynamic_earning_percentage_limit
     // let incomeLimit = playInfo.player.dynamic_earning_percentage_limit.dynamic_earning_percentage_limit
     let residual = Number(total_package_value * 2 - total_bt_reward).toFixed(4)
     let totalBTReward = Number(total_bt_reward).toFixed(4)
     let totalPackageValue = Number(total_package_value).toFixed(4)
     let min = Number(total_bt_reward - total_bt_withdraw).toFixed(4)
     let max = Number(total_package_value * 2 - total_bt_withdraw).toFixed()
+    point.value = Number(dynamic_earning_percentage_limit).toFixed(1) + '%'
     // let point = Number(dynamic_earning_percentage_limit).toFixed(4)
     // if (btWithdraw !== 0) {
     //     point = Number((btWithdraw / incomeLimit) * 100).toFixed(1) + '%'

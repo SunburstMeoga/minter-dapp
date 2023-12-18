@@ -1,7 +1,7 @@
 <template>
     <div class="text-gray-200 text-center text-lg font-bold">{{ $t('wallet.staticIncome') }}</div>
-    <div id="staticEarnings" class="flex justify-center items-center" style="height: 380px; width:100vw;">
-    </div>
+    <div id="staticEarnings" class="flex justify-center items-center" style="height: 380px; width:100vw;"></div>
+    <div class="text-gray-500 text-center text-base -mt-20"> {{ point }}</div>
 </template>
 <script setup>
 import { ref, onMounted, getCurrentInstance } from "vue";
@@ -11,7 +11,7 @@ import { Web3 } from 'web3'
 import { playersInfo } from '@/request/api'
 const { proxy } = getCurrentInstance()
 let maxPackage = ref('')
-
+let point = ref('')
 onMounted(() => {
     getStaticIncomeInfo()
     // getPlayersInfo(localStorage.getItem('address'))
@@ -75,8 +75,8 @@ async function getStaticIncomeInfo() {
         pmtBalance = Number(pmtBalance)
         let income = pmtBalance - min
         let trueLimit = max - min
-        let point
-        point = Number((rewardAmount / rewardAmountLimit) * 100).toFixed(1) + '%'
+        // let point
+        point.value = Number((rewardAmount / rewardAmountLimit) * 100).toFixed(1) + '%'
         // if (income >= trueLimit) {
         //     point = '100%'
         // } else {

@@ -1,13 +1,12 @@
 <template>
     <div class="text-primary-color">
         <div class="pb-20 pt-12 bg-black">
-            <div class="flex justify-center items-center">
+            <div class="flex justify-center items-center mb-10">
                 <div class="w-full">
                     <static-earnings />
                 </div>
             </div>
-            <div class="flex justify-center items-center">
-
+            <div class="flex justify-center items-center mb-10">
                 <div class="w-full">
                     <dynamic-earnings />
                 </div>
