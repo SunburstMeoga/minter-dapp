@@ -52,6 +52,10 @@ let nftInfo = ref({})
 let prizeContent = ref('')
 const blocks = ref([{ padding: '4px', background: '#617df2' }])
 const textFontSize = ref('10px')
+let prizeID = ref(0)
+let prizeName = ref('')
+let rewardPercentage = ref("")
+let prizeIndex = ref()
 let prizes = computed(() => {
     return [
         // { fonts: [{ text: t('turntable.dailyEarnings') + ' 2%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#2C4FB0' },
@@ -87,9 +91,11 @@ let buttons = computed(() => {
 onMounted(() => {
     nftInfo.value.address = route.query.address
     nftInfo.value.nft_price = route.query.nft_price
-
     nftInfo.value.nft_token_id = route.query.nft_token_id
-
+    prizeID.value = route.query.prizeID
+    prizeName.value = route.query.prizeName
+    rewardPercentage.value = route.query.rewardPercentage
+    prizeIndex.value = route.query.prizeIndex
     getRoulettes()
 })
 
@@ -134,26 +140,30 @@ function startCallback() {
     // 模拟调用接口异步抽奖
     // const index = Math.floor(Math.random() * 4)
     console.log(nftInfo.value)
-    luckyDraw(nftInfo.value)
-        .then(res => {
-            console.log('抽獎成功', res)
-            myLucky.value.stop(res.selectedRoulette.id - 1)
-            currentPrize.value = res.selectedRoulette.id
-            console.log('currentPrize', currentPrize,)
-            prizeContent.value = res.selectedRoulette.name
-        })
-        .catch(err => {
-            console.log('err', err)
-        })
-    // setTimeout(() => {
-    //     // 假设后端返回的中奖索引是0
 
-    //     // 调用stop停止旋转并传递中奖索引
-    //     myLucky.value.stop(9)
-    //     currentPrize.value = 9
-    //     console.log('currentPrize', currentPrize, index)
+    // prizeID
 
-    // }, 2000);
+    // luckyDraw(nftInfo.value)
+    //     .then(res => {
+    //         console.log('抽獎成功', res)
+    //         myLucky.value.stop(res.selectedRoulette.id - 1)
+    //         currentPrize.value = res.selectedRoulette.id
+    //         console.log('currentPrize', currentPrize,)
+    //         prizeContent.value = res.selectedRoulette.name
+    //     })
+    //     .catch(err => {
+    //         console.log('err', err)
+    //     })
+    setTimeout(() => {
+        // 假设后端返回的中奖索引是0
+
+        // 调用stop停止旋转并传递中奖索引
+        myLucky.value.stop(prizeIndex.value)
+        currentPrize.value = prizeID.value
+        prizeContent.value = prizeName.value + ' - ' + rewardPercentage.value + '%'
+        // console.log('currentPrize', currentPrize, index)
+
+    }, 3000);
 
 }
 // 抽奖结束会触发end回调

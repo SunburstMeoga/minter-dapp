@@ -80,7 +80,7 @@ import ModuleTitle from "@/components/ModuleTitle.vue";
 import { ref, onMounted, getCurrentInstance } from 'vue'
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n'
-import { marketplace } from '@/request/api'
+import { marketplace, getLuckyDraw } from '@/request/api'
 import nftContractApi from '@/request/nft'
 import minterContractApi from '@/request/minter'
 import { showToast } from 'vant';
@@ -293,25 +293,45 @@ async function handleBuyButton(item, canBuy) {
         proxy.$loading.show()
         console.log('item', item)
         // return
-        await nftContractApi.purchaseNFT(item.token_id)
+        let purchaseNFTInfo
+        let luckyResult
+        try {
+            purchaseNFTInfo = await nftContractApi.purchaseNFT(item.token_id)
+            console.log(purchaseNFTInfo)
+            luckyResult = await getLuckyDraw({ nft_token_id: item.token_id })
+            console.log('luckyResult', luckyResult)
+        } catch (err) {
+            toast(t('toast.error'))
+            return
+        }
         proxy.$loading.hide()
-        proxy.$confirm.show({ //nft购买成功进入抽奖
-            title: t('modalConfirm.buySuccess'),
-            content: t('modalConfirm.luckyDraw'),
-            showCancelButton: false,
-            confirmText: t('modalConfirm.confirm'),
-            onConfirm: () => {
-                proxy.$confirm.hide()
-                router.push({
-                    path: '/market/raffle',
-                    query: {
-                        address: item.address,
-                        nft_price: item.price,
-                        nft_token_id: item.token_id
-                    }
-                })
-            },
-        });
+        router.push({
+            path: '/market/raffle',
+            query: {
+                prizeID: luckyResult.roulette_record.prize_type_id,
+                prizeName: luckyResult.roulette_record.prize_type.name,
+                rewardPercentage: luckyResult.roulette_record.reward_percentage,
+                prizeIndex: luckyResult.roulette_record.prize_type.token_id,
+            }
+        })
+        // proxy.$loading.hide()
+        // proxy.$confirm.show({ //nft购买成功进入抽奖
+        //     title: t('modalConfirm.buySuccess'),
+        //     content: t('modalConfirm.luckyDraw'),
+        //     showCancelButton: false,
+        //     confirmText: t('modalConfirm.confirm'),
+        //     onConfirm: () => {
+        //         proxy.$confirm.hide()
+        //         router.push({
+        //             path: '/market/raffle',
+        //             query: {
+        //                 address: item.address,
+        //                 nft_price: item.price,
+        //                 nft_token_id: item.token_id
+        //             }
+        //         })
+        //     },
+        // });
         // showToast(t('toast.success'))
     } catch (err) {
         proxy.$loading.hide()

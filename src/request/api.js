@@ -167,3 +167,11 @@ export function updataRTBalance(address) {
     method: 'GET'
   })
 }
+
+//獲取抽獎結果
+export function getLuckyDraw(params) {
+  return request('/lucky-draw', {
+    method: 'GET',
+    params
+  })
+}

@@ -47,7 +47,8 @@ if (window.ethereum) {
     },
     //购买nft
     purchaseNFT: async function (nftID) {
-      const result = await NFTOPERATING.purchaseNFT(nftID)
+      const tx = await NFTOPERATING.purchaseNFT(nftID)
+      const result = await tx.wait()
       return result
     },
     //nft掛單
