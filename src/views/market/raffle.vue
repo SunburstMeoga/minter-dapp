@@ -170,7 +170,6 @@ function startCallback() {
 function endCallback(prize) {
     console.log(prize)
     isPrized.value = true
-
 }
 function togglePrizePopup() {
     showPrizePopup.value = !showPrizePopup.value
