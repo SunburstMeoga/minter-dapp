@@ -19,7 +19,7 @@ async function getInfor() {
     let totalPackageValue = Number(total_package_value).toFixed(4)
     let min = Number(total_bt_reward - total_bt_withdraw).toFixed(4)
     let max = Number(total_package_value * 2 - total_bt_withdraw).toFixed()
-    point.value = Number(dynamic_earning_percentage_limit).toFixed(1) + '%'
+    point.value = Number(dynamic_earning_percentage_limit).toFixed(4) + '%'
     // let point = Number(dynamic_earning_percentage_limit).toFixed(4)
     // if (btWithdraw !== 0) {
     //     point = Number((btWithdraw / incomeLimit) * 100).toFixed(1) + '%'
