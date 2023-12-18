@@ -94,11 +94,10 @@ async function getStaticIncomeInfo() {
             },
             series: [
                 {
-                    name: 'Pressure',
+                    // name: '已产出',
                     type: 'gauge',
-                    // min: rewardAmount,
+                    min: rewardAmount,
                     min: 0,
-
                     max: rewardAmountLimit,
                     progress: {
                         show: true,
@@ -113,6 +112,7 @@ async function getStaticIncomeInfo() {
                         fontSize: '20px',
                         color: '#fff',
                         borderColor: '#e149ed',
+
                         // width: 100,
                         // height: 40
 
@@ -120,13 +120,13 @@ async function getStaticIncomeInfo() {
                     axisLabel: {
                         distance: 16,
                         color: '#999',
-                        fontSize: 14
+                        fontSize: 12
                     },
                     data: [
                         {
                             value: rewardAmount,
-                            name: point,
-                            // fontSize: '12px',
+                            name: `剩餘量: ${rewardAmountLimit - rewardAmount}MT`
+                            // name: '剩余量:' + rewardAmountLimit - rewardAmount + ' MT',
                         }
                     ],
                     radius: '90%',

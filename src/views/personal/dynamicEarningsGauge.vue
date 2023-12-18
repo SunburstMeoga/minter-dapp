@@ -10,13 +10,14 @@ async function getInfor() {
     let playInfo = await playersInfo(localStorage.getItem('address'))
     console.log(playInfo)
 
-    const { dynamic_earning_percentage_limit, total_bt_withdraw, total_package_value, total_bt_reward } = playInfo.player.dynamic_earning_percentage_limit
+    const { total_bt_withdraw, total_package_value, total_bt_reward } = playInfo.player.dynamic_earning_percentage_limit
     // let incomeLimit = playInfo.player.dynamic_earning_percentage_limit.dynamic_earning_percentage_limit
-    let btWithdraw = Number(total_bt_reward - total_bt_withdraw).toFixed(4)
+    let residual = Number(total_package_value * 2 - total_bt_reward).toFixed(4)
+    let totalBTReward = Number(total_bt_reward).toFixed(4)
     let totalPackageValue = Number(total_package_value).toFixed(4)
-    let min = parseInt(total_bt_reward - total_bt_withdraw)
-    let max = parseInt((total_package_value * 2) - total_bt_withdraw)
-    let point = Number(dynamic_earning_percentage_limit).toFixed(4) + '%'
+    let min = Number(total_bt_reward - total_bt_withdraw).toFixed(4)
+    let max = Number(total_package_value * 2 - total_bt_withdraw).toFixed()
+    // let point = Number(dynamic_earning_percentage_limit).toFixed(4)
     // if (btWithdraw !== 0) {
     //     point = Number((btWithdraw / incomeLimit) * 100).toFixed(1) + '%'
     // } else {
@@ -51,12 +52,12 @@ async function getInfor() {
                 axisLabel: {
                     distance: 16,
                     color: '#999',
-                    fontSize: 14
+                    fontSize: 12
                 },
                 data: [
                     {
-                        value: btWithdraw,
-                        name: point
+                        value: totalBTReward,
+                        name: `剩餘量: ${residual}BT`
                     }
                 ],
                 radius: '90%',
