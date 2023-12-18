@@ -213,6 +213,43 @@ async function handleListed(item) {
         console.log(err)
     }
 
+    const transactionResponse = await nftContractApi.isApprovedAll(localStorage.getItem('address'), config.nfts_marketplace_addr)
+    console.log(transactionResponse)
+    if (!transactionResponse) { //當前領取方式未授權
+        proxy.$loading.hide()
+        proxy.$confirm.show({
+            title: '請授權',
+            content: '該地址未進行授權，請完成授權',
+            showCancelButton: false,
+            confirmText: '確定',
+            onConfirm: () => {
+                proxy.$loading.show()
+                // usdt对pmt授權
+                nftContractApi.setApprovalForAll(config.nfts_marketplace_addr)
+                    .then(res => {
+                        console.log(res)
+                        proxy.$loading.hide()
+                        showToast(t('toast.success'))
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        proxy.$loading.hide()
+                        showToast(t('toast.error'))
+                    })
+            },
+        });
+        return
+    }
+    // const transactionReceipt = await transactionResponse.wait();
+
+    // Transaction is confirmed. You can now check the receipt.
+    // if (transactionReceipt.status === 1) {
+    //     console.log("Transaction successful:", transactionReceipt, transactionResponse);
+    //     proxy.$loading.hide()
+    // } else {
+    //     console.log("Transaction failed:", transactionReceipt, transactionResponse);
+    // }
+
     let allowance
     try { //检查usdt对pmt_purchase的授权状态
         allowance = await nftContractApi.allowance(localStorage.getItem('address'), config.nfts_marketplace_addr)

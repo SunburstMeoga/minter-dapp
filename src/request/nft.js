@@ -68,6 +68,7 @@ if (window.ethereum) {
     //授權狀態
     isApprovedAll: async function (walletAddr, contractAddress) {
       const result = await MTCOLLECTION.isApprovedForAll(walletAddr, contractAddress)
+      // const result = await tx.wait()
       return result
     },
     setApprovalForAll: async function (contractAddress) {
