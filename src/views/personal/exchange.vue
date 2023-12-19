@@ -63,15 +63,32 @@ onMounted(() => {
     getPlayersInfo(localStorage.getItem('address'))
 })
 //獲取玩家信息
-function getPlayersInfo(address) {
+async function getPlayersInfo(address) {
+    proxy.$loading.show()
+    // try {
+    //     let result = await rtBanalce(address)
+    //     console.log(result)
+    //     playInfo.value = result
+    //     rtBalance.value = result.rt
+    //     proxy.$loading.hide()
+    // } catch {
+    //     showToast('更新餘額失敗，請刷新頁面')
+    //     proxy.$loading.hide()
+    // }
+    // const {} = res.player
+
     rtBanalce(address)
         .then(res => {
             console.log('res', res)
             playInfo.value = res
             rtBalance.value = res.player.rt
+            proxy.$loading.hide()
         })
         .catch(err => {
+            proxy.$loading.hide()
             console.log('err', err)
+            showToast('更新餘額失敗，請刷新頁面')
+
         })
 }
 async function getUSDTBalance() {
@@ -99,9 +116,9 @@ async function handleExchange() {
         proxy.$loading.hide()
         proxy.$confirm.show({
             title: '請授權',
-            content: '該地址未進行授權，請完成授權',
+            content: '需要進行USD3授權，請先完成授權。',
             showCancelButton: false,
-            confirmText: '確定',
+            confirmText: '去授權',
             onConfirm: () => {
                 // proxy.$loading.show()
                 // usdt对pmt授權

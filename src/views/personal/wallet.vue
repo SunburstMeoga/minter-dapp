@@ -545,7 +545,7 @@ async function handleExchange() {
         proxy.$loading.hide()
         proxy.$confirm.show({
             title: '請授權',
-            content: '該地址未進行授權，請完成授權',
+            content: '需要進行MT授權，請先完成授權。',
             showCancelButton: false,
             confirmText: '確定',
             onConfirm: () => {

@@ -148,9 +148,9 @@ async function handleCancelList(item) {
 
         proxy.$confirm.show({
             title: '請授權',
-            content: '該地址未進行授權，請完成授權',
+            content: '需要進行NFT授權，請先完成授權。',
             showCancelButton: false,
-            confirmText: '確定',
+            confirmText: '去授權',
             onConfirm: () => {
                 // proxy.$loading.show()
                 // pmt对nft授權
@@ -263,7 +263,7 @@ async function handleBuyButton(item, canBuy) {
         proxy.$loading.hide()
         proxy.$confirm.show({
             title: '請授權',
-            content: '該地址未進行授權，請完成授權',
+            content: '需要進行MT授權，請先完成授權。',
             showCancelButton: false,
             confirmText: '確定',
             onConfirm: () => {
@@ -291,7 +291,7 @@ async function handleBuyButton(item, canBuy) {
         proxy.$loading.hide()
         proxy.$confirm.show({
             title: '請授權',
-            content: '該地址未進行授權，請完成授權',
+            content: '需要進行PMT授權，請先完成授權。',
             showCancelButton: false,
             confirmText: '確定',
             onConfirm: () => {
@@ -327,7 +327,7 @@ async function handleBuyButton(item, canBuy) {
             luckyResult = await getLuckyDraw({ nft_token_id: item.token_id })
             console.log('luckyResult', luckyResult)
         } catch (err) {
-            toast(t('toast.error'))
+            showToast('購買失敗，請重試')
             return
         }
         proxy.$loading.hide()
