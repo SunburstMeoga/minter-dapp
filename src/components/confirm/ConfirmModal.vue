@@ -106,8 +106,10 @@ export default defineComponent({
             // propsData.visible = false;
             if (propsData.isWaiting) {
                 showToast('正在等待操作結果，請稍候')
+                return
             }
             context.emit("onConfirm");
+
             propsData.isWaiting = true
         };
         const handleCancel = () => {
