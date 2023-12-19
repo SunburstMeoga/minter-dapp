@@ -182,7 +182,7 @@ function getMarketplace() {
                     showCancelButton: false,
                     confirmText: '確定',
                     onConfirm: () => {
-                        proxy.$loading.show()
+                        // proxy.$loading.show()
                         window.history.go(-1);
                     },
                 });
@@ -191,7 +191,7 @@ function getMarketplace() {
             nftsDatas.value = res.market_places
             res.market_places.map(item => {
                 // console.log(Number(item.price))
-                if (Number(item.price) >= 25 && Number(item.price) <= 100) {
+                if (Number(item.price) >= 0 && Number(item.price) <= 100) {
                     packageN.value.push(item)
                 }
                 if (Number(item.price) >= 75 && Number(item.price) <= 300) {
