@@ -2,15 +2,21 @@
     <div class="h-14 w-full  pt-4">
         <div class="flex p-2 border border-page-content rounded-lg w-11/12 mr-auto ml-auto">
             <div class="flex justify-between w-full items-center h-full bg-gray-800 rounded-lg p-2">
-                <div class="w-32">
-                    <img src="../assets/images/minter-logo-cro.png" alt="">
-                </div>
                 <div>
                     <div class="icon iconfont menu icon-menu-hamburger text-white" @click="toggleMenu"></div>
                 </div>
+                <!-- <div class="w-32">
+                    <img src="../assets/images/minter-logo-cro.png" alt="">
+                </div> -->
+                <div class="flex justify-center items-center operating-button text-white py-1 px-2 rounded">
+                    <div class="icon iconfont mr-1" :class="!userInfo.address ? 'icon-denglu' : 'icon-tianjiaqianbao1'" style="font-size: 18px;"></div>
+                    <div class="text-center text-sm font-bold" @click="handleConnect">
+                        {{ !userInfo.address ? $t('wallet.connectWallet') : FilterAddress(userInfo.address,5,6) }}
+                    </div>
+                </div>
             </div>
         </div>
-        <van-popup v-model:show="showLeftMenu" position="right"
+        <van-popup v-model:show="showLeftMenu" position="left"
             :style="{ width: '75%', height: '100%', 'background': '#000' }">
             <div class="w-full h-full bg-black text-white flex flex-col relative">
                 <div class="flex justify-end items-center pt-2 pr-2">
@@ -107,11 +113,11 @@
                         </van-popover>
                     </div>
                 </div>
-                <div class="flex justify-center items-center absolute bottom-0 pb-6  w-full">
+                <!-- <div class="flex justify-center items-center absolute bottom-0 pb-6  w-full">
                     <div class="operating-button text-center mr-auto ml-auto w-11/12 rounded py-2" @click="handleConnect">
-                        {{ !userInfo.address ? $t('wallet.connectWallet') : addressFilter(userInfo.address) }}
+                        {{ !userInfo.address ? $t('wallet.connectWallet') : FilterAddress(userInfo.address) }}
                     </div>
-                </div>
+                </div> -->
             </div>
         </van-popup>
 
@@ -146,7 +152,7 @@
 
                 </div>
                 <div class="mb-6 text-sm">
-                    {{ $t('wallet.account') }}: {{ addressFilter(userInfo.address) }}
+                    {{ $t('wallet.account') }}: {{ FilterAddress(userInfo.address) }}
                 </div>
                 <div class="w-10/12 py-1.5 text-white operating-button text-center rounded mb-8" @click="disconnectWallet">
                     {{ $t('wallet.disconnect') }}
@@ -175,6 +181,7 @@ import { userStore } from "@/stores/user";
 import QrcodeVue from 'qrcode.vue'
 import { login, playersInfo } from '@/request/api'
 import { generateNonce } from '@/utils/getNonce'
+import { FilterAddress } from '@/utils/format'
 const swiperStore = useStore();
 const userInfo = userStore()
 const router = useRouter()
@@ -235,20 +242,20 @@ async function handleCopy() {
     showToast(t('toast.copySuccess'))
 }
 
-function addressFilter(value) {
-    if (value === undefined || value === null) return
-    let arr = value.split('')
-    let targetStr
-    let targetArr = []
-    arr.map((item, index) => {
-        if (index <= 6 || index >= arr.length - 7) {
-            targetArr.push(item)
-        }
-    })
-    targetArr.splice(7, 0, '...')
-    targetStr = targetArr.join('')
-    return targetStr
-}
+// function FilterAddress(value) {
+//     if (value === undefined || value === null) return
+//     let arr = value.split('')
+//     let targetStr
+//     let targetArr = []
+//     arr.map((item, index) => {
+//         if (index <= 4 || index >= arr.length - 4) {
+//             targetArr.push(item)
+//         }
+//     })
+//     targetArr.splice(7, 0, '...')
+//     targetStr = targetArr.join('')
+//     return targetStr
+// }
 //獲取玩家信息
 function getPlayersInfo(address) {
     playersInfo(address)
