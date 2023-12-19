@@ -248,6 +248,33 @@ async function handleBuyButton(item, canBuy) {
         console.log(err)
     }
     console.log('allowance', allowance)
+    if (Number(allowance) == 0) { //當前賬號未授權
+        proxy.$loading.hide()
+        proxy.$confirm.show({
+            title: '請授權',
+            content: '需要進行PMT授權，請先完成授權。',
+            showCancelButton: false,
+            confirmText: '去授權',
+            onConfirm: () => {
+                // proxy.$loading.show()
+                // pmt对nft授權
+                nftContractApi.approve(config.nfts_marketplace_addr)
+                    .then(res => {
+                        console.log(res)
+                        proxy.$confirm.hide()
+                        // proxy.$loading.hide()
+                        showToast('授權成功')
+
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        proxy.$confirm.hide()
+                        showToast('授權失敗，請重新授權')
+                    })
+            },
+        });
+        return
+    }
 
     let isApprovedAll
     try { //检查pmt对pmt_purchase的授权状态
@@ -287,33 +314,7 @@ async function handleBuyButton(item, canBuy) {
         return
     }
 
-    if (Number(allowance) == 0) { //當前賬號未授權
-        proxy.$loading.hide()
-        proxy.$confirm.show({
-            title: '請授權',
-            content: '需要進行PMT授權，請先完成授權。',
-            showCancelButton: false,
-            confirmText: '去授權',
-            onConfirm: () => {
-                // proxy.$loading.show()
-                // pmt对nft授權
-                nftContractApi.approve(config.nfts_marketplace_addr)
-                    .then(res => {
-                        console.log(res)
-                        proxy.$confirm.hide()
-                        // proxy.$loading.hide()
-                        showToast('授權成功')
 
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        proxy.$confirm.hide()
-                        showToast('授權失敗，請重新授權')
-                    })
-            },
-        });
-        return
-    }
 
     try { //购买nft
         proxy.$loading.show()
