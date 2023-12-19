@@ -21,7 +21,8 @@ if (window.ethereum) {
     //USDT對某個合約進行授權
     approve: async function (contractAddress) {
       const value = ethers.MaxUint256
-      const result = await USDTTRADE.approve(contractAddress, value)
+      const tx = await USDTTRADE.approve(contractAddress, value)
+      const result = tx.wait()
       return result
     },
     balanceOf: async function (walletAddr) {

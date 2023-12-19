@@ -15,14 +15,31 @@
                     </div>
                     <!-- <div class="split-line-top"></div> -->
                     <div class="w-full flex justify-between items-center py-2">
-                        <div class="rounded-full border border-primary-color py-1 text-primary-color w-5/12 text-center"
+                        <!-- <div class="rounded-full border border-primary-color py-1 text-primary-color w-5/12 text-center"
                             @click="handleCancel" v-if="showCancelButton">
-                            {{ cancelText }}
-                        </div>
+                            <div v-show="isWaiting">
+                                正在授权
+                            </div>
+                            <div v-show="!isWaiting">
+                                {{ cancelText }}
+                            </div>
+                        </div> -->
                         <!-- <div class="split-line-center" v-if="showCancelButton"></div> -->
-                        <div class="relative operating-button text-sm text-center py-1.5 rounded-full text-white"
-                            :class="showCancelButton ? 'w-5/12' : 'flex-1'" @click="handleConfirm">
-                            <div>{{ confirmText }}</div>
+                        <!-- <div class="relative operating-button text-sm text-center py-1.5 rounded-full text-white"
+                            :class="showCancelButton ? 'w-5/12' : 'flex-1'" @click="handleConfirm"> -->
+                        <div class="relative  text-sm text-center py-1.5 flex-1 rounded-full text-white"
+                            :class="isWaiting ? 'disable-button' : 'operating-button'" @click="handleConfirm">
+
+                            <!-- <div>{{ confirmText }}</div> -->
+                            <div v-show="isWaiting" class="flex justify-center items-center">
+                                <div class="icon iconfont icon-loading animate-spin"></div>
+                                <div class="pl-2">
+                                    請稍候...
+                                </div>
+                            </div>
+                            <div v-show="!isWaiting">
+                                {{ confirmText }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -33,9 +50,13 @@
   
 <script>
 import { ref, defineComponent, reactive, toRefs } from "vue";
-
+import { showToast } from 'vant'
 export default defineComponent({
     props: {
+        isWaiting: {
+            type: Boolean,
+            default: false
+        },
         visible: {
             type: Boolean,
             default: false,
@@ -82,8 +103,12 @@ export default defineComponent({
         let tempData = Object.assign({}, props);
         const propsData = reactive(tempData);
         const handleConfirm = () => {
-            propsData.visible = false;
+            // propsData.visible = false;
+            if (propsData.isWaiting) {
+                showToast('正在等待操作結果，請稍候')
+            }
             context.emit("onConfirm");
+            propsData.isWaiting = true
         };
         const handleCancel = () => {
             propsData.visible = false;

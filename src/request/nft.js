@@ -42,7 +42,8 @@ if (window.ethereum) {
     //pmt對某個合約進行授權
     approve: async function (contractAddress) {
       const value = ethers.MaxUint256
-      const result = await PMTTRADE.approve(contractAddress, value)
+      const tx = await PMTTRADE.approve(contractAddress, value)
+      const result = tx.wait()
       return result
     },
     //购买nft

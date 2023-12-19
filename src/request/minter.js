@@ -21,7 +21,8 @@ if (window.ethereum) {
     //MT對某個合約進行授權
     approve: async function (contractAddress) {
       const value = ethers.MaxUint256
-      const result = await MTTRADE.approve(contractAddress, value)
+      const tx = await MTTRADE.approve(contractAddress, value)
+      const result = tx.wait()
       return result
     }
   }

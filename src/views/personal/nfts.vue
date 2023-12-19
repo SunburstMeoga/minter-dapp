@@ -223,18 +223,20 @@ async function handleListed(item) {
             showCancelButton: false,
             confirmText: '確定',
             onConfirm: () => {
-                proxy.$loading.show()
+                // proxy.$loading.show()
                 // usdt对pmt授權
                 nftContractApi.setApprovalForAll(config.nfts_marketplace_addr)
                     .then(res => {
                         console.log(res)
-                        proxy.$loading.hide()
-                        showToast(t('toast.success'))
+                        proxy.$confirm.hide()
+                        // proxy.$loading.hide()
+                        showToast('授權成功')
+
                     })
                     .catch(err => {
                         console.log(err)
-                        proxy.$loading.hide()
-                        showToast(t('toast.error'))
+                        proxy.$confirm.hide()
+                        showToast('授權失敗，請重新授權')
                     })
             },
         });
@@ -269,18 +271,20 @@ async function handleListed(item) {
             showCancelButton: false,
             confirmText: '確定',
             onConfirm: () => {
-                proxy.$loading.show()
+                // proxy.$loading.show()
                 // usdt对pmt授權
                 nftContractApi.approve(config.nfts_marketplace_addr)
                     .then(res => {
                         console.log(res)
-                        proxy.$loading.hide()
-                        showToast(t('toast.success'))
+                        proxy.$confirm.hide()
+                        // proxy.$loading.hide()
+                        showToast('授權成功')
+
                     })
                     .catch(err => {
                         console.log(err)
-                        proxy.$loading.hide()
-                        showToast(t('toast.error'))
+                        proxy.$confirm.hide()
+                        showToast('授權失敗，請重新授權')
                     })
             },
         });
@@ -296,18 +300,20 @@ async function handleListed(item) {
             showCancelButton: false,
             confirmText: '確定',
             onConfirm: () => {
-                proxy.$loading.show()
+                // proxy.$loading.show()
                 // pmt对nft授權
                 minterContractApi.approve(config.nfts_marketplace_addr)
                     .then(res => {
                         console.log(res)
-                        proxy.$loading.hide()
-                        showToast(t('toast.success'))
+                        proxy.$confirm.hide()
+                        // proxy.$loading.hide()
+                        showToast('授權成功')
+
                     })
                     .catch(err => {
                         console.log(err)
-                        proxy.$loading.hide()
-                        showToast(t('toast.error'))
+                        proxy.$confirm.hide()
+                        showToast('授權失敗，請重新授權')
                     })
             },
         });
@@ -353,18 +359,20 @@ async function handleCancelList(item) {
             showCancelButton: false,
             confirmText: '確定',
             onConfirm: () => {
-                proxy.$loading.show()
+                // proxy.$loading.show()
                 // pmt对nft授權
                 nftContractApi.setApprovalForAll(config.nfts_marketplace_addr)
                     .then(res => {
                         console.log(res)
-                        proxy.$loading.hide()
-                        showToast(t('toast.success'))
+                        proxy.$confirm.hide()
+                        // proxy.$loading.hide()
+                        showToast('授權成功')
+
                     })
                     .catch(err => {
                         console.log(err)
-                        proxy.$loading.hide()
-                        showToast(t('toast.error'))
+                        proxy.$confirm.hide()
+                        showToast('授權失敗，請重新授權')
                     })
             },
         });

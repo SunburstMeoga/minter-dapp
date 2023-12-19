@@ -1,56 +1,60 @@
-import { createApp } from "vue";
-import ConfirmComponent from "./ConfirmModal.vue";
+import { createApp } from 'vue'
+import ConfirmComponent from './ConfirmModal.vue'
 
-const ConfirmPlugin = {};
-let $vm;
+const ConfirmPlugin = {}
+let $vm
 
 const defaultsOptions = {
-  title: "提示",
-  content: "内容",
-  confirmText: "确定",
-  cancelText: "取消",
-  confirmColor: "#E20F2A",
+  title: '提示',
+  content: '内容',
+  confirmText: '确定',
+  cancelText: '取消',
+  confirmColor: '#E20F2A',
+  isWaiting: false,
   showCancelButton: true,
   showConfirmButton: true,
-  clickMaskToClose: false,
-};
+  clickMaskToClose: false
+}
 
 const initInstance = () => {
-  const app = createApp(ConfirmComponent);
-  const container = document.createElement("div");
-  $vm = app.mount(container);
-  document.body.appendChild(container);
-};
+  const app = createApp(ConfirmComponent)
+  const container = document.createElement('div')
+  $vm = app.mount(container)
+  document.body.appendChild(container)
+}
 
 ConfirmPlugin.install = function (app) {
   const confirm = {
     show(options) {
-      if (!$vm) initInstance();
-      options = Object.assign({}, defaultsOptions, options);
+      if (!$vm) initInstance()
+      options = Object.assign({}, defaultsOptions, options)
       for (const i in options) {
-        $vm[i] = options[i];
+        $vm[i] = options[i]
       }
-      let handleCancel = $vm.handleCancel;
-      let handleConfirm = $vm.handleConfirm;
+      let handleCancel = $vm.handleCancel
+      let handleConfirm = $vm.handleConfirm
       $vm.handleCancel = () => {
-        handleCancel();
-        options && options.onCancel && options.onCancel();
-      };
+        handleCancel()
+        options && options.onCancel && options.onCancel()
+      }
 
       $vm.handleConfirm = () => {
-        handleConfirm();
-        options && options.onConfirm && options.onConfirm();
-      };
+        handleConfirm()
+        options && options.onConfirm && options.onConfirm()
+      }
 
-      $vm.visible = true;
+      $vm.visible = true
 
-      return $vm;
+      return $vm
     },
     hide() {
-      if ($vm) $vm.visible = false;
+      if ($vm) $vm.visible = false
     },
-  };
-  app.config.globalProperties.$confirm = confirm;
-};
+    changeWaiting() {
+      if ($vm) $vm.isWaiting = !$vm.isWaiting
+    }
+  }
+  app.config.globalProperties.$confirm = confirm
+}
 
-export default ConfirmPlugin;
+export default ConfirmPlugin

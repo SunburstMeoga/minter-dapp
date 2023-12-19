@@ -243,18 +243,20 @@ async function handleConfirmBuyForUSDT() {
             showCancelButton: false,
             confirmText: '確定',
             onConfirm: () => {
-                proxy.$loading.show()
+                // proxy.$loading.show()
                 // usdt对pmt授權
                 usdtContractApi.approve(config.pmt_purchase_addr)
                     .then(res => {
                         console.log(res)
-                        proxy.$loading.hide()
-                        showToast(t('toast.success'))
+                        proxy.$confirm.hide()
+                        // proxy.$loading.hide()
+                        showToast('授權成功')
+
                     })
                     .catch(err => {
                         console.log(err)
-                        proxy.$loading.hide()
-                        showToast(t('toast.error'))
+                        proxy.$confirm.hide()
+                        showToast('授權失敗，請重新授權')
                     })
             },
         });

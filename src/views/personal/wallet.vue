@@ -332,6 +332,7 @@ onMounted(() => {
     getUserNFTs()
     getStaticRecords()
     getHAHBalance()
+
 })
 let currentCoherent = ref(null)
 let currentOperator = ref(null)
