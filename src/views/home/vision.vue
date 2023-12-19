@@ -9,14 +9,14 @@
                 :class="hasChange ? 'animate__backInDown' : ''"></div>
             <div class="w-11/12 flex justify-center items-start pl-10 flex-col rounded-xl h-48 absolute right-0 bottom-0 operating-button text-white animate__animated"
                 :class="hasChange ? 'animate__backInRight' : ''">
-                <div class="font-bold text-3xl">
+                <div class="font-bold text-4xl">
                     NFT <span class="italic">MINTER</span>
                 </div>
                 <div class="flex justify-center items-center">
                     <div class="mr-2">
                         -
                     </div>
-                    <div class="lea">
+                    <div class="font-xs">
                         {{ $t('vision.contentOne') }}
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                     <div class="mr-2">
                         -
                     </div>
-                    <div class="lea">
+                    <div class="font-xs">
                         {{ $t('vision.contentTwo') }}
                     </div>
                 </div>
@@ -33,7 +33,7 @@
 
         </div>
 
-        <div class="module-content rounded-xl p-4 text-white text-xl font-bold italic w-11/12 mb-2 animate__animated"
+        <div class="module-content rounded-xl p-4 text-white text-2xl font-bold italic w-11/12 mb-2 animate__animated"
             :class="hasChange ? 'animate__fadeInRight' : ''">
             <div>
                 {{ $t('vision.weBelieveTitle') }}
@@ -42,11 +42,11 @@
                 新定义
             </div> -->
         </div>
-        <div class="text-white w-11/12 mb-4 animate__animated text-sm" :class="hasChange ? 'animate__bounceInUp' : ''">
+        <div class="text-white w-11/12 mb-4 animate__animated text-xs" :class="hasChange ? 'animate__bounceInUp' : ''">
             {{ $t('vision.weBelieveWord') }}
 
         </div>
-        <div class="module-content rounded-xl p-4 text-white text-xl font-bold italic w-11/12 mb-2 animate__animated"
+        <div class="module-content rounded-xl p-4 text-white text-2xl font-bold italic w-11/12 mb-2 animate__animated"
             :class="hasChange ? 'animate__fadeInLeft' : ''">
             <div class="mb-2">
                 {{ $t('vision.inMinterEyesTitleTop') }}
@@ -55,7 +55,7 @@
                 {{ $t('vision.inMinterEyesTitleBottom') }}
             </div>
         </div>
-        <div class="text-white w-11/12 mb-3 animate__animated text-sm" :class="hasChange ? 'animate__bounceInUp' : ''">
+        <div class="text-white w-11/12 mb-3 animate__animated text-xs" :class="hasChange ? 'animate__bounceInUp' : ''">
             {{ $t('vision.inMinterEyesWord') }}
         </div>
         <!-- <div class="w-4/12">
