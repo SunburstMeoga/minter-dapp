@@ -26,7 +26,8 @@ if (window.ethereum) {
     },
     //mt兌換成rt
     swapUSDTForRT: async function (mtAmount) {
-      const result = await SWAPTRADE.swapUSDTForRT(mtAmount)
+      const tx = await SWAPTRADE.swapUSDTForRT(mtAmount)
+      const result = tx.wait()
       return result
     }
   }
