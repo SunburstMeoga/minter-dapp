@@ -554,13 +554,15 @@ async function handleExchange() {
                 minterContractApi.approve(config.swap_addr)
                     .then(res => {
                         console.log(res)
-                        proxy.$loading.hide()
+                        proxy.$confirm.hide()
+                        // proxy.$loading.hide()
+                        showToast('授權成功')
+
                     })
                     .catch(err => {
                         console.log(err)
-                        proxy.$loading.hide()
-                        toggleExchangePopup()
-                        showToast('錯誤，請重試')
+                        proxy.$confirm.hide()
+                        showToast('授權失敗，請重新授權')
                     })
 
             },

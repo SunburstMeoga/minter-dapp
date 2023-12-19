@@ -22,6 +22,10 @@
                                     @handleBuyButton="handleBuyButton(item, packageID >= 1)" :tokenID="item.token_id"
                                     @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID >= 1" />
                             </div>
+                            <div v-show="packageN.length == 0"
+                                class="text-white font-bold text-xl text-center mt-10 w-full">
+                                暫無數據
+                            </div>
                         </div>
                     </van-tab>
                     <van-tab title="R">
@@ -32,6 +36,10 @@
                                     :showCancelButton="userInfo.address == item.address"
                                     @handleBuyButton="handleBuyButton(item, packageID >= 2)" :tokenID="item.token_id"
                                     @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID >= 2" />
+                            </div>
+                            <div v-show="packageR.length == 0"
+                                class="text-white font-bold text-xl text-center mt-10 w-full">
+                                暫無數據
                             </div>
                         </div>
                     </van-tab>
@@ -45,6 +53,9 @@
                                     @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID >= 3" />
                             </div>
                         </div>
+                        <div v-show="packageSR.length == 0" class="text-white font-bold text-xl text-center mt-10 w-full">
+                            暫無數據
+                        </div>
                     </van-tab>
                     <van-tab title="SSR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
@@ -56,6 +67,9 @@
                                     @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID >= 4" />
                             </div>
                         </div>
+                        <div v-show="packageSSR.length == 0" class="text-white font-bold text-xl text-center mt-10 w-full">
+                            暫無數據
+                        </div>
                     </van-tab>
                     <van-tab title="UR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
@@ -66,6 +80,9 @@
                                     @handleBuyButton="handleBuyButton(item, packageID >= 5)" :tokenID="item.token_id"
                                     @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID >= 5" />
                             </div>
+                        </div>
+                        <div v-show="packageUR.length == 0" class="text-white font-bold text-xl text-center mt-10 w-full">
+                            暫無數據
                         </div>
                     </van-tab>
                 </van-tabs>
