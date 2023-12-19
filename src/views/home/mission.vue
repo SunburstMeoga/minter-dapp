@@ -10,12 +10,12 @@
                 <div class="border-b border-white h-1 w-full mb-1"></div>
                 <div class="border-b border-white h-1 w-3/12 mb-1"></div>
             </div>
-            <div class="font-bold text-xl italic ml-2">{{ $t('mission.affirmative') }}</div>
+            <div class="font-bold text-3xl italic ml-2">{{ $t('mission.affirmative') }}</div>
         </div>
 
         <div class="w-11/12 flex justify-end items-center text-white mb-6 animate__animated"
             :class="hasChange ? 'animate__lightSpeedInRight' : ''">
-            <div class="font-bold text-xl italic mr-2">{{ $t('mission.empower') }}</div>
+            <div class="font-bold text-3xl italic mr-2">{{ $t('mission.empower') }}</div>
             <div class="flex flex-col items-start justify-start w-3/12">
                 <div class="border-b border-white h-1 w-3/12 mb-1"></div>
                 <div class="border-b border-white h-1 w-full mb-1"></div>
@@ -24,12 +24,12 @@
 
         </div>
 
-        <div class="text-white w-11/12 module-content rounded-xl p-4 mb-3 animate__animated"
+        <div class="text-white w-11/12 module-content text-2xl rounded-xl p-4 mb-3 animate__animated"
             :class="hasChange ? 'animate__zoomInDown' : ''">
             {{ $t('mission.introduction') }}
         </div>
 
-        <div class="text-white w-11/12  mb-8 text-sm animate__animated text-center"
+        <div class="text-white w-11/12 mb-8 text-xs animate__animated text-center"
             :class="hasChange ? 'animate__bounceInUp' : ''">
             <div>{{ $t('mission.presentTop') }}</div>
             <div>{{ $t('mission.presentBottom') }}</div>
