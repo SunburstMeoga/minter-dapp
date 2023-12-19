@@ -323,7 +323,7 @@ async function handleBuyButton(item, canBuy) {
         let purchaseNFTInfo
         let luckyResult
         try {
-            purchaseNFTInfo = await nftContractApi.purchaseNFT(item.token_id)
+            await nftContractApi.purchaseNFT(item.token_id)
             console.log(purchaseNFTInfo)
             luckyResult = await getLuckyDraw({ nft_token_id: item.token_id })
             console.log('luckyResult', luckyResult)
