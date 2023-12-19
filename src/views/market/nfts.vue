@@ -335,10 +335,10 @@ async function handleBuyButton(item, canBuy) {
         router.push({
             path: '/market/raffle',
             query: {
-                prizeID: luckyResult.roulette_record.prize_type_id,
-                prizeName: luckyResult.roulette_record.prize_type.name,
-                rewardPercentage: luckyResult.roulette_record.reward_percentage,
-                prizeIndex: luckyResult.roulette_record.prize_type.token_id,
+                // prizeID: luckyResult.roulette_record.prize_type_id,
+                // prizeName: luckyResult.roulette_record.prize_type.name,
+                // rewardPercentage: luckyResult.roulette_record.reward_percentage,
+                prizeIndex: luckyResult.roulette_record.roulette_id
             }
         })
         // proxy.$loading.hide()

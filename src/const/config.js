@@ -11,15 +11,16 @@ import burnable_token_abi from './BurnableToken.json'
 import pmt_abi from './PreMintToken.json'
 
 const config = {
-  USDToken_addr: '0x53Ffa33162b1E3dd5FeE57531a6708b85266F7e0',
-  pmt_addr: '0x21ABCeF1c903C9C05001F47BAFe99779A305E35B',
-  mt_addr: '0x8Bc3C6944702E9e0FfA97cEB87FD01C7b2459889',
-  mst_addr: '0x2D31C2AD61c7342a94eae6BBAC830819710C8425',
-  pmt_purchase_addr: '0x830dE6a1d11dC9314BD59930F505Cf941Cbf1Be0',
+  USDToken_addr: '0xB66Ee6DA8bC9709BC259f8d05D3d6D7178CCB0cc',
+  pmt_addr: '0xd21acBFE087E4b80fa77e1Dcef324bFD7485301A',
+  mt_addr: '0x2986c3eBd1d9ae38CBe92b838b3dFC8E82d6c97D',
+  mst_addr: '0xa39782FD9B5fCd7798E6645E72Bcd9b962D1A6d0',
+  pmt_purchase_addr: '0xc46cDa67EC557A7D5c1a6b9D6353aD4C21E6cB39',
+  nfts_marketplace_addr: '0xAC9a83A6831B8CF59B83F57ed9dafC99156fE1A3',
+  swap_addr: '0x81B8DaFf7d57F7B1D49Dd65698142b2c6DC0B05D',
+  minter_collection: '0xC1843b94e6FbB9B5177F9612acB81aC8c03124ff',
+
   nfts_collection_addr: '0x3848027E5728Fd927791c065b68684e2EBf4fc2a',
-  nfts_marketplace_addr: '0xc96a9f947046B8C1fE762434A44F03F10552B51d',
-  swap_addr: '0x9b1ff1521C063ec9cdA156c808eE5da1cAF19Fa5',
-  minter_collection: '0xD24544a9EE84493250d3AFbc39414b785A5f570a',
 
   pmt_abi: pmt_abi.abi,
   mt_abi: mt_abi.abi,

@@ -92,9 +92,9 @@ onMounted(() => {
     nftInfo.value.address = route.query.address
     nftInfo.value.nft_price = route.query.nft_price
     nftInfo.value.nft_token_id = route.query.nft_token_id
-    prizeID.value = route.query.prizeID
-    prizeName.value = route.query.prizeName
-    rewardPercentage.value = route.query.rewardPercentage
+    // prizeID.value = route.query.prizeID
+    // prizeName.value = route.query.prizeName
+    // rewardPercentage.value = route.query.rewardPercentage
     prizeIndex.value = route.query.prizeIndex
     getRoulettes()
 })
@@ -158,10 +158,9 @@ function startCallback() {
         // 假设后端返回的中奖索引是0
 
         // 调用stop停止旋转并传递中奖索引
-        myLucky.value.stop(prizeIndex.value)
-        currentPrize.value = prizeID.value
-        prizeContent.value = prizeName.value + ' - ' + rewardPercentage.value + '%'
-        // console.log('currentPrize', currentPrize, index)
+        myLucky.value.stop(prizeIndex.value - 1)
+        // currentPrize.value = prizeID.value
+        prizeContent.value = prizes.value[prizeIndex.value - 1].fonts[0].text
 
     }, 3000);
 
