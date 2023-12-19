@@ -39,30 +39,6 @@
           <swiper-slide>
             <revolutionaries :hasChange="currentSwiper == 6" />
           </swiper-slide>
-
-
-
-
-          <!-- <swiper-slide>
-            <present />
-          </swiper-slide>
-
-          <swiper-slide>
-            <game />
-          </swiper-slide>
-
-          <swiper-slide>
-            <collaborative />
-          </swiper-slide>
-
-          <swiper-slide>
-            <future />
-          </swiper-slide>
-
-          <swiper-slide>
-            <investor />
-          </swiper-slide> -->
-
         </swiper>
       </div>
     </div>
