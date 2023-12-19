@@ -20,7 +20,7 @@
                 </div>
                 <div class="flex justify-between items-center text-menu-word">
                     <div class=" text-sm">{{ $t('wallet.address') }}:0x839062...e67d1B</div>
-                    <div class="icon iconfont icon-copy" @click="handleCopy"></div>
+                    <div class="icon iconfont icon-copy" @click="handleAddToken"></div>
                 </div>
             </div> -->
             <div>
@@ -53,7 +53,7 @@
                 <div class="flex justify-between items-center text-menu-word text-sm" v-show="contranct">
                     <div class="">{{ $t('wallet.contract') }}</div>
                     <div class="flex justify-end items-center"> {{ FilterAddress(contranct) }} <span
-                            @click="handleCopy(contranct)" class="icon iconfont icon-copy ml-2 active-white-color">
+                            @click="handleAddToken(contranct)" class="icon iconfont icon-jiesuan ml-2 active-white-color">
                         </span></div>
                 </div>
             </div>
@@ -66,9 +66,11 @@ import { CopyText } from '@/utils/copyText'
 import { showToast } from 'vant'
 import { useI18n } from 'vue-i18n';
 import { FilterAddress } from '@/utils/format'
+import Web3 from 'web3'
+import { config } from '@/const/config'
 const { t } = useI18n()
 
-defineProps({
+const cardProps = defineProps({
     balance: {
         type: String,
         default: ''
@@ -98,9 +100,17 @@ defineProps({
         default: ''
     }
 })
-async function handleCopy(contranct) {
-    await CopyText(contranct)
-    showToast(t('toast.copySuccess'))
+async function handleAddToken(contranct) {
+    // // await CopyText(contranct)
+    // let web3 = new Web3(window.ethereum)
+
+    // const addTken = await web3.eth.wallet_addEthereumChain
+    // console.log(cardProps)
+    // return
+    console.log(config,cardProps)
+    // return
+    
+    // showToast(t('toast.copySuccess'))
 }
 </script>
 

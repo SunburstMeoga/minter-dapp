@@ -32,11 +32,12 @@ const config = {
   swap_abi: swap_abi.abi,
   minter_collection_abi: minter_collection_abi.abi,
 
-  api: 'http://13.228.135.184:8000/api',
-  chainId: '1688288',
+  // api: 'http://13.228.135.184:8000/api',
+  chainId: '0x11624',
   rpcUrls: ['https://rpc-testnet.hashahead.org'],
-  chainName: 'PGChain',
-  blockExplorerUrls: ['https://scan.pgchain.org/']
+  chainName: 'HAH',
+  blockExplorerUrls: ['https://testnet.hashahead.org/'],
+  decimals: 18
 }
 
 export { config }

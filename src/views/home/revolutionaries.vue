@@ -128,12 +128,12 @@ let contacts = ref([
     {
         title: '反饋'
     },
-    {
-        title: '設置'
-    },
-    {
-        title: '郵箱'
-    },
+    // {
+    //     title: '設置'
+    // },
+    // {
+    //     title: '郵箱'
+    // },
 ])
 let socialMedia = ref([{
     icon: 'icon-discord',

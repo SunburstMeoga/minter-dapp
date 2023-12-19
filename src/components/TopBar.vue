@@ -9,7 +9,7 @@
                     <img src="../assets/images/minter-logo-cro.png" alt="">
                 </div> -->
                 <div class="flex justify-center items-center operating-button text-white py-1 px-2 rounded">
-                    <div class="icon iconfont mr-1" :class="!userInfo.address ? 'icon-denglu' : 'icon-tianjiaqianbao1'" style="font-size: 18px;"></div>
+                    <div class="icon iconfont mr-1" :class="!userInfo.address ? 'icon-denglu' : 'icon-tianjiaqianbao1'" style="font-size: 18px; font-weight: bold;"></div>
                     <div class="text-center text-sm font-bold" @click="handleConnect">
                         {{ !userInfo.address ? $t('wallet.connectWallet') : FilterAddress(userInfo.address,5,6) }}
                     </div>
