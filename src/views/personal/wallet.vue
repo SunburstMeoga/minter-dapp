@@ -547,7 +547,7 @@ async function handleExchange() {
             title: '請授權',
             content: '需要進行MT授權，請先完成授權。',
             showCancelButton: false,
-            confirmText: '確定',
+            confirmText: '去授權',
             onConfirm: () => {
                 proxy.$loading.show()
                 // usdt和mt授權
