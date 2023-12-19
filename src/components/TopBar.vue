@@ -41,6 +41,11 @@
                         </div>
                     </div>
                     <div class="pl-10">
+                        <div class="menu-item active-primary-color" v-show="userInfo.address && hasPackage" @click="toCoherent">
+                            <div>{{ $t('wallet.coherent') }}</div>
+                        </div>
+                    </div>
+                    <div class="pl-10">
                         <div class="menu-item active-primary-color"
                             :class="currentMenuItem == 'market' ? 'text-primary-color' : 'text-white'"
                             @click="toggleMoreMarket('market')">
@@ -55,7 +60,6 @@
                                 @click="toMarket(index)" v-for="(item, index) in marketChilds" :key="index">
                                 {{ item.title }}
                             </div>
-
                         </div>
 
                     </div>
@@ -64,21 +68,40 @@
                             <div>{{ $t('menu.pledge') }}</div>
                         </div>
                     </div>
-                    <div class="pl-10">
+                    <!-- <div class="pl-10">
                         <div class="menu-item active-primary-color" @click="notYetOpen">
-                            <div>{{ $t('menu.partnership') }}</div>
+                            <div>DAO</div>
                         </div>
+                    </div> -->
+                    <div class="pl-10">
+                        <div class="menu-item active-primary-color"
+                            :class="currentMenuItem == 'DAO' ? 'text-primary-color' : 'text-white'"
+                            @click="toggleMoreDAO('DAO')">
+                            <div>DAO</div>
+                            <div class="pl-2">
+                                <div class="icon iconfont icon-caret-right transform ease-in-out duration-300"
+                                    :class="showMoreDAO ? 'rotate-90' : ''"></div>
+                            </div>
+                        </div>
+                        <div v-show="showMoreDAO" class="">
+                            <div class="py-1.5 pl-4 mr-4 rounded text-menu-word active-primary-color"
+                                @click="notYetOpen" v-for="(item, index) in DAOChilds" :key="index">
+                                {{ item.title }}
+                            </div>
+
+                        </div>
+
                     </div>
                     <div class="pl-10">
                         <div class="menu-item active-primary-color" @click="notYetOpen">
-                            <div>{{ $t('menu.rank') }}</div>
+                            <div>貢獻值</div>
                         </div>
                     </div>
-                    <div class="pl-10">
+                    <!-- <div class="pl-10">
                         <div class="menu-item active-primary-color" @click="notYetOpen">
                             <div>{{ $t('menu.casting') }}</div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="pl-10">
                         <div class="menu-item active-primary-color" @click="notYetOpen">
                             <div>{{ $t('menu.game') }}</div>
@@ -118,6 +141,11 @@
                         {{ !userInfo.address ? $t('wallet.connectWallet') : FilterAddress(userInfo.address) }}
                     </div>
                 </div> -->
+                <div class="absolute bottom-0 w-full flex justify-center items-center">
+                    <div class="w-4/12 ">
+                        <img src="../assets/images/minter-logo-ver.png" alt="">
+                    </div>
+                </div>
             </div>
         </van-popup>
 
@@ -191,6 +219,7 @@ const showLeftMenu = ref(false)
 const showMoreHome = ref(false)
 const showMoreMarket = ref(false)
 const showMorePersonal = ref(false)
+const showMoreDAO = ref(false)
 const showLoginPopup = ref(false)
 const currentMenuItem = ref('')
 let hasPackage = ref(false)
@@ -208,11 +237,15 @@ let showUserInfoPopup = ref(false)
 // let marketChilds = ref([{ title: 'NFTs' }, { title: '配套' }])
 let marketChilds = computed(() => {
     if (userInfo.address && hasPackage.value) {
-        return [{ title: 'NFTs' }, { title: t('wallet.coherent') }]
+        return [{ title: 'NFTs' }]
+        // return [{ title: 'NFTs' }, { title: t('wallet.coherent') }]
     } else {
         return [{ title: 'NFTs' }]
     }
 
+})
+let DAOChilds = computed(() => {
+    return [{ title: t('menu.rank')}]
 })
 let homeChilds = computed(() => {
     return [{ title: t('menu.home') }, { title: t('menu.news') }, { title: t('menu.vision') }, { title: t('menu.mission') }, { title: t('menu.cultureAndSpirituality') }, { title: t('menu.projectIntroduction') }, { title: t('menu.NFTRevolution') }]
@@ -391,6 +424,18 @@ function handleMenuItem(item) {
     showLeftMenu.value = false
 }
 
+function toggleMoreDAO(value) {
+    showMoreDAO.value = !showMoreDAO.value
+    if (showMoreHome.value) {
+        currentMenuItem.value = value
+    } else {
+        currentMenuItem.value = ''
+    }
+    showMoreMarket.value = false
+    showMorePersonal.value = false
+    showMoreHome.value = false
+}
+
 function toggleMoreHome(value) {
     showMoreHome.value = !showMoreHome.value
     if (showMoreHome.value) {
@@ -400,7 +445,7 @@ function toggleMoreHome(value) {
     }
     showMoreMarket.value = false
     showMorePersonal.value = false
-
+    showMoreDAO.value = false
 }
 
 function toggleMoreMarket(value) {
@@ -412,6 +457,7 @@ function toggleMoreMarket(value) {
     }
     showMoreHome.value = false
     showMorePersonal.value = false
+    showMoreDAO.value = false
 }
 
 function toggleMorePersonal(value) {
@@ -423,6 +469,7 @@ function toggleMorePersonal(value) {
     }
     showMoreHome.value = false
     showMoreMarket.value = false
+    showMoreDAO.value = false
 }
 
 function changeMenuItem(currentMenuItem) {
@@ -443,6 +490,14 @@ function toMarket(index) {
     })
     showLeftMenu.value = false
 }
+
+function toCoherent() {
+    router.push({
+        path: '/market/coherent',
+    })
+    showLeftMenu.value = false
+}
+
 
 function toPage(page) {
     router.push({
