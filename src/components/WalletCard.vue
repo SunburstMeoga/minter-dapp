@@ -62,12 +62,14 @@
 </template>
 
 <script setup>
+import { getCurrentInstance } from 'vue';
 import { CopyText } from '@/utils/copyText'
 import { showToast } from 'vant'
 import { useI18n } from 'vue-i18n';
 import { FilterAddress } from '@/utils/format'
 import Web3 from 'web3'
 import { config } from '@/const/config'
+const { proxy } = getCurrentInstance()
 const { t } = useI18n()
 
 const cardProps = defineProps({
@@ -101,16 +103,30 @@ const cardProps = defineProps({
     }
 })
 async function handleAddToken(contranct) {
-    // // await CopyText(contranct)
-    // let web3 = new Web3(window.ethereum)
 
-    // const addTken = await web3.eth.wallet_addEthereumChain
-    // console.log(cardProps)
-    // return
-    console.log(config,cardProps)
-    // return
-    
-    // showToast(t('toast.copySuccess'))
+    console.log(config, cardProps)
+    proxy.$loading.show()
+    try {
+        let addToken = await window.ethereum.request({
+            method: 'wallet_watchAsset',
+            params: {
+                type: 'ERC20',
+                options: {
+                    address: contranct,
+                    symbol: cardProps.currency,
+                    decimals: config.decimals,
+                },
+            },
+        })
+        proxy.$loading.hide()
+        console.log('addToken', addToken)
+    } catch (err) {
+        console.log(err)
+        proxy.$loading.hide()
+        if(err.code == 4001) {
+            showToast(`您已取消添加代幣：${cardProps.currency}`,)
+        }
+    }
 }
 </script>
 
