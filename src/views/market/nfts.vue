@@ -4,6 +4,19 @@
             <div class="w-11/12 mr-auto ml-auto mt-4">
                 <module-title titleWord="NFTs" />
             </div>
+            <div class="w-11/12 mr-auto ml-auto flex justify-end">
+                <van-popover v-model:show="showFilterPopover" theme="dark" placement="bottom-end" :actions="actions" @select="onSelect">
+                    <template #reference>
+                        <div class="flex justify-center items-center text-gray-500 border text-xs border-gray-500  rounded px-3 py-1">
+                          <div class="icon iconfont icon-screen mr-2" style="font-size: 12px;"></div>
+                          <div class="">
+                              {{ actions[currentFilter].text }}
+                            </div>
+                        </div>
+                      </template>
+                  </van-popover>
+            </div>
+          
             <!-- <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                 <div v-for="(item, index) in nftsDatas" class="mb-2" style="width: 48%;" :key="index">
                     <nft-card :nftImg="nftOne" :tokenID="item.token_id" :price="item.price" :showCheckbox="false"
@@ -94,7 +107,7 @@
 <script setup>
 import NftCard from '@/components/NftCard.vue';
 import ModuleTitle from "@/components/ModuleTitle.vue";
-import { ref, onMounted, getCurrentInstance } from 'vue'
+import { ref, onMounted, getCurrentInstance, computed } from 'vue'
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n'
 import { marketplace, getLuckyDraw } from '@/request/api'
@@ -120,6 +133,12 @@ let packageSSR = ref([])
 let packageUR = ref([])
 let nftInfo = ref({})
 let packageID = ref()
+let showFilterPopover = ref(false)
+let currentFilter = ref(0)
+let actions = ref([
+    {text: '升序', value: 0},
+    {text: '降序', value: 1}
+])
 const userInfo = userStore()
 
 
@@ -128,6 +147,11 @@ onMounted(() => {
 
 
 })
+
+function onSelect(select) {
+    console.log(select)
+    currentFilter.value = select.value
+}
 
 //取消掛單
 async function handleCancelList(item) {

@@ -1,9 +1,9 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4089165 */
-  src: url('//at.alicdn.com/t/c/font_4089165_ktvd3mwe3iq.woff2?t=1703010172818') format('woff2'),
-       url('//at.alicdn.com/t/c/font_4089165_ktvd3mwe3iq.woff?t=1703010172818') format('woff'),
-       url('//at.alicdn.com/t/c/font_4089165_ktvd3mwe3iq.ttf?t=1703010172818') format('truetype'),
-       url('//at.alicdn.com/t/c/font_4089165_ktvd3mwe3iq.svg?t=1703010172818#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/c/font_4089165_ub3cttnpct.woff2?t=1703059824465') format('woff2'),
+       url('//at.alicdn.com/t/c/font_4089165_ub3cttnpct.woff?t=1703059824465') format('woff'),
+       url('//at.alicdn.com/t/c/font_4089165_ub3cttnpct.ttf?t=1703059824465') format('truetype'),
+       url('//at.alicdn.com/t/c/font_4089165_ub3cttnpct.svg?t=1703059824465#iconfont') format('svg');
 }
 
 .iconfont {
@@ -12,6 +12,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-screen:before {
+  content: "\e670";
 }
 
 .icon-jiesuan:before {
