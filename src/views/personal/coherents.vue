@@ -89,8 +89,7 @@ function countDown(time) {
     var second = Math.floor(time % 60);
     second = second < 10 ? "0" + second : second
     // console.log(day + "天" + hour + "时" + minute + "分" + second + "秒")
-    if(inputTime / 1000 <= nowTime) {
-       
+    if(time <= 0) {
         isNotYet.value = false
         canReleasedTime.value = "可以釋放"
         return
