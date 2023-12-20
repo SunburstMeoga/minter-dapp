@@ -6,7 +6,7 @@
                     <static-earnings />
                 </div>
             </div>
-            <div class="flex justify-center items-center mb-10">
+            <div class="flex justify-center items-center mb-10" v-show="hasPackage">
                 <div class="w-full">
                     <dynamic-earnings />
                 </div>
@@ -304,8 +304,6 @@ import pmtContractApi from '@/request/pmt'
 import mtContractApi from '@/request/mt'
 import mstContractApi from '@/request/mst'
 import { playersInfo, userNFT, staticRecords, btToUsdt, btToRt, rtBanalce } from '@/request/api'
-
-
 import { config } from '@/const/config'
 import { showToast } from 'vant';
 import { number } from 'echarts';
@@ -313,7 +311,6 @@ import { userStore } from "@/stores/user";
 import Web3 from "web3";
 const { t } = useI18n()
 const userInfo = userStore()
-
 const { proxy } = getCurrentInstance()
 const router = useRouter()
 let coherentList = computed(() => {
@@ -357,6 +354,7 @@ let packageCount = ref(0)
 let nftsCount = ref(0)
 let promiseCardCount = ref(0)
 let palayBanalce = ref({})
+let hasPackage = ref(false)
 
 function handleExchangeRT() {
     router.push({
@@ -373,6 +371,7 @@ function getPlayersInfo(address) {
             palayBanalce.value.bt = res.player.bt
             palayBanalce.value.rt = res.player.rt
             palayBanalce.value.rtLocked = res.player.rt_locked
+            hasPackage.value = res.player.package_transactions.length !== 0
         })
         .catch(err => {
             console.log('err', err)
