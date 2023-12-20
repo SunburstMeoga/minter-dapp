@@ -155,7 +155,7 @@ async function handleExchange() {
         showToast(t('toast.success'))
         getUSDTBalance()
         getPlayersInfo(localStorage.getItem('address'))
-        // location.reload()
+        location.reload()
     } catch (err) {
         proxy.$loading.hide()
         showToast(t('toast.error'))
