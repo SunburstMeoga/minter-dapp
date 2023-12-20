@@ -351,10 +351,8 @@ async function handleBuyButton(item, canBuy) {
         try {
             purchaseNFTInfo = await nftContractApi.purchaseNFT(item.token_id)
             console.log(purchaseNFTInfo)
-            setTimeout(() => {
-                luckyResult = await getLuckyDraw({ nft_token_id: item.token_id })
-                console.log('luckyResult', luckyResult)
-            }, 2000)
+            luckyResult = await getLuckyDraw({ nft_token_id: item.token_id })
+            console.log('luckyResult', luckyResult)
             proxy.$loading.hide()
 
         } catch (err) {
