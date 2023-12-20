@@ -10,8 +10,8 @@
                     <img src="../../assets/images/avtor.gif" alt="">
                 </div>
             </div>
-            <div class="text-center text-xs">
-                {{ $t('wallet.address') }}:{{ FilterAddress(directReferrals.address) }}
+            <div class="text-center text-xs flex items-center">
+                {{ $t('wallet.address') }}:{{ FilterAddress(directReferrals.address) }} <div style="font-size: 12px;" class="icon iconfont icon-copy mr-2 active-white-color" @click="handleCopy(directReferrals.address)"></div>
             </div>
             <div class="text-center text-xs">
                 {{ $t('wallet.all') }} PV: {{ directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv ||
@@ -44,10 +44,11 @@
                     </div>
 
                     <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.address">
-                        <div class="text-center text-xs">
+                        <div class="text-center text-xs flex items-center">
                             {{ $t('wallet.address') }}:{{
                                 FilterAddress(directReferrals && directReferrals.left_leg && directReferrals.left_leg.address)
                             }}
+                            <div style="font-size: 12px;" class="icon iconfont icon-copy mr-2 active-white-color" @click="handleCopy(directReferrals && directReferrals.left_leg && directReferrals.left_leg.address)"></div>
                         </div>
                         <div class="text-center text-xs">
                             {{ $t('wallet.all') }} PV:{{ parseInt(directReferrals && directReferrals.left_leg &&
@@ -139,10 +140,11 @@
                         </div>
                     </div>
                     <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.address">
-                        <div class="text-center text-xs">
+                        <div class="text-center text-xs flex items-center">
                             {{ $t('wallet.address') }}:{{
                                 FilterAddress(directReferrals && directReferrals.right_leg && directReferrals.right_leg.address)
                             }}
+                            <div style="font-size: 12px;" class="icon iconfont icon-copy mr-2 active-white-color" @click="handleCopy(directReferrals && directReferrals.right_leg && directReferrals.right_leg.address)"></div>
                         </div>
                         <div class="text-center text-xs">
                             {{ $t('wallet.all') }} PV:{{
@@ -232,6 +234,10 @@
 import ModuleTitle from "../../components/ModuleTitle.vue";
 import { defineEmits } from 'vue'
 import { FilterAddress } from '@/utils/format'
+import { CopyText } from '@/utils/copyText'
+import { showToast } from 'vant'
+import { useI18n } from "vue-i18n";
+const { t } = useI18n()
 import { ref } from 'vue'
 defineProps({
     directReferrals: {
@@ -258,6 +264,10 @@ let showPopoverThree = ref(false)
 let showPopoverFour = ref(false)
 let showAttendPopup = ref(false)
 let currentAttendsWay = ref(0)
+async function handleCopy(address) {
+    await CopyText(address)
+    showToast(t('toast.copySuccess'))
+}
 //查看某地址下的點位圖
 function openDetails(address, left_pv, right_leg, left_pv_remain, right_pv_remain) {
     actions.value = [
