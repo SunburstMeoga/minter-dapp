@@ -17,7 +17,8 @@ if (window.ethereum) {
   pmtContractApi = {
     //檢查MT對某個合約的授權狀態
     purchasePackage: async function (packageId) {
-      const result = await PMTTRADE.purchasePackage(packageId)
+      const tx = await PMTTRADE.purchasePackage(packageId)
+      const result = tx.wait()
       return result
     },
     balanceOf: async function (walletAddr) {
@@ -47,7 +48,8 @@ if (window.ethereum) {
     },
     //釋放鎖定的代幣
     releaseTokens: async function () {
-      const result = await PMTTOKENTRADE.releaseTokens()
+      const tx = await PMTTOKENTRADE.releaseTokens()
+      const result = tx.wait()
       return result
     },
     //獲取地址鎖定的代幣數量

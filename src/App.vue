@@ -6,6 +6,9 @@
     <div class="fixed bg-black w-full top-0 left-0 z-50 shadow-xl" v-if="route.meta.showBack">
       <top-back-bar :pageTitle="route.meta.pageTitle" />
     </div>
+    <div class="fixed bg-black w-full top-0 left-0 z-50 shadow-xl" v-if="route.meta.showGOIndex">
+      <top-back-home :pageTitle="route.meta.pageTitle" />
+    </div>
     <div class="bg-black">
       <router-view />
     </div>
@@ -19,6 +22,8 @@ import { useRoute } from "vue-router";
 const route = useRoute()
 import TopBar from '@/components/TopBar.vue'
 import TopBackBar from './components/TopBackBar.vue'
+import TopBackHome from './components/TopBackHome.vue'
+
 const { proxy } = getCurrentInstance()
 onMounted(() => {
   accountHasChanged()

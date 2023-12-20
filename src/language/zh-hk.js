@@ -268,5 +268,13 @@ export default {
     needPay: '需支付',
     bind: '綁定',
     balance: '餘額'
+  },
+  invitePage: {
+    inviteAddress: '邀請人地址',
+    preAddress: '上級地址',
+    selfAddress: '本人地址',
+    chooseCoherentTip: '請選擇配套',
+    chooseCoherent: '選擇配套',
+    pay: '支付',
   }
 }

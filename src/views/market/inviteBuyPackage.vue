@@ -3,7 +3,7 @@
         <div class="w-11/12 ml-auto mr-auto rounded-lg bg-card-content flex flex-col justify-start items-center py-2 mb-4">
             <div class="w-11/12">
                 <div class="mb-1">
-                    推薦人地址
+                    {{ $t('invitePage.inviteAddress') }}
                 </div>
                 <div class=" rounded p-1 mb-2 break-words">
                     {{ inviterAddress }}
@@ -11,7 +11,7 @@
             </div>
             <div class="w-11/12">
                 <div class="mb-1">
-                    上級地址
+                    {{ $t('invitePage.preAddress') }}
                 </div>
                 <div class=" rounded p-1 mb-2 break-words">
                     {{ preAddress }}
@@ -19,7 +19,7 @@
             </div>
             <div class="w-11/12">
                 <div class="mb-1">
-                    本人地址
+                    {{ $t('invitePage.selfAddress') }}
                 </div>
                 <div class=" rounded p-1 mb-2 break-words">
                     {{ selfAddress }}
@@ -106,17 +106,17 @@
         <div class="w-full fixed bottom-3">
             <div class="flex justify-between items-center">
                 <div @click="togglePackagePopup"
-                    class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">選擇配套</div>
+                    class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">{{ $t('invitePage.chooseCoherent') }}</div>
                 <div @click="handleConfirmBuyForUSDT"
-                    class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">USD3支付</div>
+                    class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">USD3{{ $t('invitePage.pay') }}</div>
                 <div @click="handleConfirmBuyForRT"
-                    class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">RT支付</div>
+                    class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">RT{{ $t('invitePage.pay') }}</div>
             </div>
 
         </div>
         <van-popup v-model:show="showPackagePopup" round position="bottom">
             <div class="bg-black text-white py-4 flex flex-col justify-center">
-                <div class="text-center mb-4 font-bold">請選擇配套</div>
+                <div class="text-center mb-4 font-bold">{{ $t('invitePage.chooseCoherentTip') }}</div>
                 <div v-for="(item, index) in packageList" :key="index" @click="handlePackage(item)"
                     class="operating-button py-2 px-1 w-11/12 flex justify-between items-center mb-2 rounded mr-auto ml-auto">
                     <div>

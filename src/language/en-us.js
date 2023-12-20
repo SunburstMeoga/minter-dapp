@@ -279,5 +279,13 @@ export default {
     needPay: 'Payable',
     bind: 'Bind',
     balance: 'Balance'
+  },
+  invitePage: {
+    inviteAddress: "Inviter's address",
+    preAddress: 'Upgrade Address',
+    selfAddress: 'My address',
+    chooseCoherentTip: 'Please select a package',
+    chooseCoherent: 'Select Package',
+    pay: ' Disbursement',
   }
 }

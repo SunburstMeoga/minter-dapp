@@ -52,7 +52,8 @@ let market = [
     component: () => import('@/views/market/inviteBuyPackage.vue'),
     meta: {
       showLogo: false,
-      showBack: true,
+      showBack: false,
+      showGOIndex: true,
       pageTitle: '購買配套'
     }
   }
