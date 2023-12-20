@@ -165,8 +165,8 @@ function getUserNFTs() {
         })
 }
 function countDown(time) {
-    var nowTime = +new Date();
-    var inputTime = +new Date(time * 1000)
+    var nowTime = new Date();
+    var inputTime = new Date(time * 1000)
     // var inputTime = 1703080568
     var time = (inputTime - nowTime) / 1000
     var day = Math.floor(time / 60 / 60 / 24);
@@ -189,8 +189,8 @@ async function handleListed(item) {
     let time
     try {
         time = await nftContractApi.sellOffPeriod(item.token_id)
-        console.log(time, (new Date().getTime() / 1000))
-        if (Number(time) > (new Date().getTime() / 1000)) {
+        console.log(time, parseInt(new Date().getTime() / 1000))
+        if (Number(time) > parseInt(new Date().getTime() / 1000)) {
             // let timeAll = Number(time) + (new Date().getTime() / 1000)
             showToast(countDown(time) + '後可出售')
             proxy.$loading.hide()
@@ -201,6 +201,7 @@ async function handleListed(item) {
         proxy.$loading.hide()
         console.log(err)
         showToast(t('toast.error'))
+        return
     }
     // return
     let isApprovedAll
