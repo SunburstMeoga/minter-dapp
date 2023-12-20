@@ -5,18 +5,20 @@
                 <module-title titleWord="NFTs" />
             </div>
             <div class="w-11/12 mr-auto ml-auto flex justify-end">
-                <van-popover v-model:show="showFilterPopover" theme="dark" placement="bottom-end" :actions="actions" @select="onSelect">
+                <van-popover v-model:show="showFilterPopover" theme="dark" placement="bottom-end" :actions="actions"
+                    @select="onSelect">
                     <template #reference>
-                        <div class="flex justify-center items-center text-gray-500 border text-xs border-gray-500  rounded px-3 py-1">
-                          <div class="icon iconfont icon-screen mr-2" style="font-size: 12px;"></div>
-                          <div class="">
-                              {{ actions[currentFilter].text }}
+                        <div
+                            class="flex justify-center items-center text-gray-500 border text-xs border-gray-500  rounded px-3 py-1">
+                            <div class="icon iconfont icon-screen mr-2" style="font-size: 12px;"></div>
+                            <div class="">
+                                {{ actions[currentFilter].text }}
                             </div>
                         </div>
-                      </template>
-                  </van-popover>
+                    </template>
+                </van-popover>
             </div>
-          
+
             <!-- <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                 <div v-for="(item, index) in nftsDatas" class="mb-2" style="width: 48%;" :key="index">
                     <nft-card :nftImg="nftOne" :tokenID="item.token_id" :price="item.price" :showCheckbox="false"
@@ -136,8 +138,8 @@ let packageID = ref()
 let showFilterPopover = ref(false)
 let currentFilter = ref(0)
 let actions = ref([
-    {text: '升序', value: 0},
-    {text: '降序', value: 1}
+    { text: '升序', value: 0 },
+    { text: '降序', value: 1 }
 ])
 const userInfo = userStore()
 
@@ -351,7 +353,11 @@ async function handleBuyButton(item, canBuy) {
             console.log(purchaseNFTInfo)
             luckyResult = await getLuckyDraw({ nft_token_id: item.token_id })
             console.log('luckyResult', luckyResult)
+            proxy.$loading.hide()
+
         } catch (err) {
+            proxy.$loading.hide()
+
             showToast('購買失敗，請重試')
             return
         }
