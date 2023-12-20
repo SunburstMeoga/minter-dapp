@@ -137,6 +137,8 @@ let nftInfo = ref({})
 let packageID = ref()
 let showFilterPopover = ref(false)
 let currentFilter = ref(0)
+let tokenID = ref(null)
+let timer = ref(null)
 let actions = ref([
     { text: '价格由高到低', value: 0 },
     { text: '价格由低到高', value: 1 }
@@ -157,7 +159,6 @@ function onSelect(select) {
 
 //取消掛單
 async function handleCancelList(item) {
-
     let isApprovedAll
     try { //检查pmt对pmt_purchase的授权状态
         isApprovedAll = await nftContractApi.isApprovedAll(localStorage.getItem('address'), config.nfts_marketplace_addr)
@@ -345,59 +346,52 @@ async function handleBuyButton(item, canBuy) {
     try { //购买nft
         proxy.$loading.show()
         console.log('item', item)
+        tokenID.value = item.token_id
         // return
         let purchaseNFTInfo
         let luckyResult
         try {
             purchaseNFTInfo = await nftContractApi.purchaseNFT(item.token_id)
-            console.log(purchaseNFTInfo)
-            luckyResult = await getLuckyDraw({ nft_token_id: item.token_id })
-            console.log('luckyResult', luckyResult)
+            timer.value = setInterval(() => {
+                getLuckyRes()
+            }, 1000);
             proxy.$loading.hide()
 
         } catch (err) {
             proxy.$loading.hide()
-
             showToast('購買失敗，請重試')
             return
         }
-        proxy.$loading.hide()
-        router.push({
-            path: '/market/raffle',
-            query: {
-                // prizeID: luckyResult.roulette_record.prize_type_id,
-                // prizeName: luckyResult.roulette_record.prize_type.name,
-                // rewardPercentage: luckyResult.roulette_record.reward_percentage,
-                prizeIndex: luckyResult.roulette_record.roulette_id
-            }
-        })
-        // proxy.$loading.hide()
-        // proxy.$confirm.show({ //nft购买成功进入抽奖
-        //     title: t('modalConfirm.buySuccess'),
-        //     content: t('modalConfirm.luckyDraw'),
-        //     showCancelButton: false,
-        //     confirmText: t('modalConfirm.confirm'),
-        //     onConfirm: () => {
-        //         proxy.$confirm.hide()
-        //         router.push({
-        //             path: '/market/raffle',
-        //             query: {
-        //                 address: item.address,
-        //                 nft_price: item.price,
-        //                 nft_token_id: item.token_id
-        //             }
-        //         })
-        //     },
-        // });
-        // showToast(t('toast.success'))
     } catch (err) {
         proxy.$loading.hide()
-        showToast(t('toast.error'))
+        showToast('購買失敗，請重試')
         console.log(err)
     }
 
 
-
+    function getLuckyRes() {
+        getLuckyDraw({ nft_token_id: tokenID.value })
+        .then(res => {
+            if (res.message == "已成功抽獎") {
+                console.log(res)
+                clearInterval(timer.value)
+                router.push({
+                        path: '/market/raffle',
+                        query: {
+                            // prizeID: luckyResult.roulette_record.prize_type_id,
+                            // prizeName: luckyResult.roulette_record.prize_type.name,
+                            // rewardPercentage: luckyResult.roulette_record.reward_percentage,
+                            prizeIndex: res.roulette_record.roulette_id
+                        }
+                    })
+                } 
+        })
+        .catch (err => {
+            proxy.$loading.hide()
+            showToast('購買成功')
+            console.log(err)
+        })
+    }
 
 }
 
