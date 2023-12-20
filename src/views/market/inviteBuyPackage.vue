@@ -5,7 +5,7 @@
                 <div class="mb-1">
                     {{ $t('invitePage.inviteAddress') }}
                 </div>
-                <div class=" rounded p-1 mb-2 break-words border border-gray-500 text-gray-500">
+                <div class=" rounded p-1 mb-2 break-words border border-gray-500 text-gray-200">
                     {{ inviterAddress }}
                 </div>
             </div>
@@ -16,7 +16,7 @@
                 <div class="mb-1">
                     {{ $t('invitePage.preAddress') }}
                 </div>
-                <div class=" rounded p-1 mb-2 break-words border border-gray-500 text-gray-500">
+                <div class=" rounded p-1 mb-2 break-words border border-gray-500 text-gray-200">
                     {{ preAddress }}
                 </div>
             </div>
@@ -27,7 +27,7 @@
                 <div class="mb-1">
                     {{ $t('invitePage.selfAddress') }}
                 </div>
-                <div class=" rounded p-1 mb-2 break-words border border-gray-500 text-gray-500">
+                <div class=" rounded p-1 mb-2 break-words border border-gray-500 text-gray-200">
                     {{ selfAddress }}
                 </div>
             </div>
@@ -118,10 +118,10 @@
                     class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">{{
                         $t('invitePage.chooseCoherent') }}</div> -->
                 <div @click="handleConfirmBuyForUSDT"
-                    class="w-5/12 mr-auto ml-auto border border-primary-color text-white py-2 text-center rounded-full">USD3{{
+                    class="w-5/12 mr-auto ml-auto border-primary-color active-white-color border-2 text-white py-2 text-center rounded-full">USD3{{
                         $t('invitePage.pay') }}</div>
                 <div @click="handleConfirmBuyForRT"
-                    class="w-5/12 mr-auto ml-auto border border-primary-color text-white py-2 text-center rounded-full">RT{{
+                    class="w-5/12 mr-auto ml-auto border-2 active-white-color border-primary-color text-white py-2 text-center rounded-full">RT{{
                         $t('invitePage.pay') }}</div>
             </div>
 
