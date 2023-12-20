@@ -357,7 +357,7 @@ let searchAddress = ref(null)
 onMounted(() => {
     // viewAddressPoint(window.ethereum.selectedAddress)
     // console.log('document.domain', document.domain)
-    // viewPointMap(localStorage.getItem('address'))
+    viewPointMap(localStorage.getItem('address'))
     getStaticRecords()
 })
 //點擊搜索下級地址
