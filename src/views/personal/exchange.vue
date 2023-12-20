@@ -93,7 +93,7 @@ async function getPlayersInfo(address) {
 }
 async function getUSDTBalance() {
     console.log('userInfo.address', userInfo.address)
-    let balance = await usdtContractApi.balanceOf(userInfo.address)
+    let balance = await usdtContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
     console.log('usdt', result)
@@ -101,6 +101,10 @@ async function getUSDTBalance() {
     return balance
 }
 async function handleExchange() {
+    if(!exchangeAmount.value) {
+        showToast('請輸入兌換金額')
+        return
+    }
     proxy.$loading.show()
     let allowance
     try { //检查usdt对pmt_purchase的授权状态
@@ -151,6 +155,7 @@ async function handleExchange() {
         showToast(t('toast.success'))
         getUSDTBalance()
         getPlayersInfo(localStorage.getItem('address'))
+        // location.reload()
     } catch (err) {
         proxy.$loading.hide()
         showToast(t('toast.error'))
