@@ -98,7 +98,7 @@
                     </div>
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
                         <div class="text-base"> 請輸入兌換金額 </div>
-                        <div class="text-primary-color text-xs pl-1"> (需要收取{{ currentExchangeTypeBT == 0 ? ' 10% ' : ' 5% ' }}手續費)</div>
+                        <div class="text-primary-color text-xs pl-1"> (需要收取{{ currentExchangeTypeBT == 0 ? ' 10% ' : ' 0% ' }}手續費)</div>
                     </div>
                     <div class="w-full flex justify-between items-center mb-10">
                         <div class="rounded  flex-1 ">

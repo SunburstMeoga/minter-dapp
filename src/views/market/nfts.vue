@@ -138,8 +138,8 @@ let packageID = ref()
 let showFilterPopover = ref(false)
 let currentFilter = ref(0)
 let actions = ref([
-    { text: '升序', value: 0 },
-    { text: '降序', value: 1 }
+    { text: '价格由高到低', value: 0 },
+    { text: '价格由低到高', value: 1 }
 ])
 const userInfo = userStore()
 
