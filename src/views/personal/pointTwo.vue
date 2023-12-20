@@ -9,17 +9,19 @@
                     v-for="(item, index) in dataList" :key="index">
                     <div class="flex justify-between items-center">
                         <div>{{ $t('wallet.address') }}:</div>
-                        <div>{{ FilterAddress(item.address) }}</div>
+                        <div class="flex justify-end items-center">
+                            <div class="mr-2">{{ FilterAddress(item.address) || '0x000...0000' }}</div>
+                            <div class="icon iconfont icon-copy mr-2 active-white-color" style="font-size: 14px;" @click="handleCopy(item.address)"></div>
+                            <div class="icon iconfont icon-chakan active-white-color" style="font-size: 14px;" @click="checkPoint(item.address)"></div>
+
+                           </div>
                     </div>
-                    <!-- <div class="flex justify-between items-center">
-                        <div>{{ $t('wallet.coherent') }}:</div>
-                        <div class="text-red-500">2000</div>
-                    </div> -->
                     <div class="flex justify-between items-center">
                         <div>綁定關係時間:</div>
-                        <div>{{ item.first_package_time }}</div>
+                        <div>{{ item.first_package_time || null}}</div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -31,7 +33,13 @@ import ModuleTitle from "../../components/ModuleTitle.vue";
 import { ref, onMounted } from 'vue'
 import { referrerMap } from '@/request/api'
 import { FilterAddress, FilterTime } from '@/utils/format'
+import { CopyText } from '@/utils/copyText'
+import { showToast } from 'vant'
+import { useI18n } from "vue-i18n";
+import { defineEmits } from 'vue'
+const emit = defineEmits(['checkPoint'])
 
+const { t } = useI18n()
 const actions = ref([
     { text: '0x17a...5796' },
     { text: '500 - 100' },
@@ -51,6 +59,13 @@ let dataList = ref([])
 onMounted(() => {
     getRefferMap()
 })
+async function handleCopy(address) {
+    await CopyText(address)
+    showToast(t('toast.copySuccess'))
+}
+function checkPoint(address) {
+    emit('checkPoint', address)
+}
 //获取直推关系图
 function getRefferMap() {
     referrerMap(localStorage.getItem('address'))

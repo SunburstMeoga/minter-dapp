@@ -3,6 +3,15 @@
         <van-tabs class="pt-2 bg-black " v-model:active="active" sticky shrink animated swipeable color="#e149ed"
             title-inactive-color="#fff" title-active-color="#e149ed" background="#000">
             <van-tab :title="$t('assistance.pointMap')">
+                <div class="flex justify-center items-center mt-4">
+                    <div class="w-11/12 text-center text-white rounded-full h-16 flex justify-between items-center">
+                        <div class="flex-1 pr-4">
+                            <input type="text" v-model="searchAddress"
+                                class="px-1 h-8 rounded-full text-sm bg-transparent w-full" placeholder="搜索下級地址">
+                        </div>
+                        <div class="operating-button rounded-full px-3 h-8 flex items-center text-sm" @click="handleSearchAddress">搜索</div>
+                    </div>
+                </div>
                 <point @clickPoint="clickPoint" :directReferrals="directReferrals" />
                 <div class="flex justify-center items-center mt-20">
                     <div class="card-content py-2 w-11/12 text-center text-white rounded-full"
@@ -12,7 +21,7 @@
                 </div>
             </van-tab>
             <van-tab :title="$t('assistance.organisationChart')">
-                <point-two @clickPoint="clickPoint" />
+                <point-two @checkPoint="checkPoint" />
             </van-tab>
             <van-tab :title="$t('assistance.dynamicRewards')">
                 <dynamic-rewards />
@@ -302,6 +311,8 @@ import usdtContractApi from '@/request/usdt'
 import pmtContractApi from '@/request/pmt'
 import { addressLeg, upInferiorPackage, staticRecords, buyCoherent, joinTheThree, buyPackageToNext, updataRTBalance } from '@/request/api'
 import { showToast } from 'vant'
+import { ZeroAddress, isAddress } from 'ethers'
+
 const { t } = useI18n()
 const { proxy } = getCurrentInstance()
 let active = ref(0)
@@ -342,12 +353,25 @@ let currentPoint = ref(null)
 let currentCoherent = ref(null)
 const coherentsList = ref(coherents_list)
 let directReferrals = ref({})
+let searchAddress = ref(null)
 onMounted(() => {
     // viewAddressPoint(window.ethereum.selectedAddress)
     // console.log('document.domain', document.domain)
-    viewPointMap(localStorage.getItem('address'))
+    // viewPointMap(localStorage.getItem('address'))
     getStaticRecords()
 })
+//點擊搜索下級地址
+async function handleSearchAddress() {
+    if (!searchAddress.value) {
+        showToast('請輸入要搜索的下級地址')
+        return
+    }
+    if (searchAddress.value == ZeroAddress || !isAddress(searchAddress.value)) {
+        showToast('請輸入有效的下級地址')
+        return
+    }
+    viewPointMap(searchAddress.value)
+}
 
 async function handleBackPreAddress() {
     viewPointMap(localStorage.getItem('address'))
@@ -678,6 +702,12 @@ function toggleLinkPopup() {
 //显示隐藏购买配套的弹窗
 function toggleBuyPopup() {
     showBuyPopup.value = !showBuyPopup.value
+}
+
+//點擊架構圖點位查看點位圖
+function checkPoint(address) {
+    active.value = 0
+    viewPointMap(address)
 }
 
 //点击点位图点位
