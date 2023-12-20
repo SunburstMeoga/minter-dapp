@@ -5,23 +5,29 @@
                 <div class="mb-1">
                     {{ $t('invitePage.inviteAddress') }}
                 </div>
-                <div class=" rounded p-1 mb-2 break-words">
+                <div class=" rounded p-1 mb-2 break-words border border-gray-500 text-gray-500">
                     {{ inviterAddress }}
                 </div>
             </div>
+        </div>
+        <div class="w-11/12 ml-auto mr-auto rounded-lg bg-card-content flex flex-col justify-start items-center py-2 mb-4">
+            
             <div class="w-11/12">
                 <div class="mb-1">
                     {{ $t('invitePage.preAddress') }}
                 </div>
-                <div class=" rounded p-1 mb-2 break-words">
+                <div class=" rounded p-1 mb-2 break-words border border-gray-500 text-gray-500">
                     {{ preAddress }}
                 </div>
             </div>
+        </div>
+        <div class="w-11/12 ml-auto mr-auto rounded-lg bg-card-content flex flex-col justify-start items-center py-2 mb-4">
+           
             <div class="w-11/12">
                 <div class="mb-1">
                     {{ $t('invitePage.selfAddress') }}
                 </div>
-                <div class=" rounded p-1 mb-2 break-words">
+                <div class=" rounded p-1 mb-2 break-words border border-gray-500 text-gray-500">
                     {{ selfAddress }}
                 </div>
             </div>
@@ -67,7 +73,7 @@
                     <div class="flex justify-between text-gray-400 items-center mb-1.5">
                         <div class="">
                             {{ $t('coherents.totalReleased') }} <van-popover v-model:show="showPMTPopover" theme="dark"
-                                placement="bottom-start">
+                                placement="bottom-end">
                                 <div class="text-xs p-2 text-left text-gray-400">
                                     {{ $t('coherents.totalReleased') }}{{ Number(coherentInfo.type) * (6 / 10) }}PMT
                                 </div>
@@ -102,17 +108,20 @@
                 </div>
             </div>
         </div>
+        <div class="text-gray-500 text-center text-sm mt-10 underline active-white-color" @click="togglePackagePopup">
+            查看更多配套
+        </div>
 
         <div class="w-full fixed bottom-3">
             <div class="flex justify-between items-center">
-                <div @click="togglePackagePopup"
+                <!-- <div @click="togglePackagePopup"
                     class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">{{
-                        $t('invitePage.chooseCoherent') }}</div>
+                        $t('invitePage.chooseCoherent') }}</div> -->
                 <div @click="handleConfirmBuyForUSDT"
-                    class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">USD3{{
+                    class="w-5/12 mr-auto ml-auto border border-primary-color text-white py-2 text-center rounded-full">USD3{{
                         $t('invitePage.pay') }}</div>
                 <div @click="handleConfirmBuyForRT"
-                    class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">RT{{
+                    class="w-5/12 mr-auto ml-auto border border-primary-color text-white py-2 text-center rounded-full">RT{{
                         $t('invitePage.pay') }}</div>
             </div>
 
@@ -120,8 +129,10 @@
         <van-popup v-model:show="showPackagePopup" round position="bottom">
             <div class="bg-black text-white py-4 flex flex-col justify-center">
                 <div class="text-center mb-4 font-bold">{{ $t('invitePage.chooseCoherentTip') }}</div>
-                <div v-for="(item, index) in packageList" :key="index" @click="handlePackage(item)"
-                    class="operating-button py-2 px-1 w-11/12 flex justify-between items-center mb-2 rounded mr-auto ml-auto">
+                <div v-for="(item, index) in packageList" :key="index" @click="handlePackage(item, index)"
+                    class="border border-primary-color py-3 px-1 w-11/12 flex justify-between items-center mb-2 rounded mr-auto ml-auto"
+                    :class="coherentInfo.id - 1 == index ? 'operating-button' : ''"
+                    >
                     <div>
                         {{ item.name }}
                     </div>
