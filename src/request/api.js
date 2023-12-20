@@ -183,3 +183,10 @@ export function transfersRT(data) {
     data
   })
 }
+
+//檢查當前賬戶有沒有購買配套
+export function checkPackageCount() {
+  return request('/players/package-check', {
+    method: 'GET'
+  })
+}

@@ -106,11 +106,14 @@
         <div class="w-full fixed bottom-3">
             <div class="flex justify-between items-center">
                 <div @click="togglePackagePopup"
-                    class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">{{ $t('invitePage.chooseCoherent') }}</div>
+                    class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">{{
+                        $t('invitePage.chooseCoherent') }}</div>
                 <div @click="handleConfirmBuyForUSDT"
-                    class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">USD3{{ $t('invitePage.pay') }}</div>
+                    class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">USD3{{
+                        $t('invitePage.pay') }}</div>
                 <div @click="handleConfirmBuyForRT"
-                    class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">RT{{ $t('invitePage.pay') }}</div>
+                    class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">RT{{
+                        $t('invitePage.pay') }}</div>
             </div>
 
         </div>
@@ -140,12 +143,14 @@ import { FormatAmount, FilterAddress } from '@/utils/format'
 import Web3 from "web3";
 import { generateNonce } from '@/utils/getNonce'
 import usdtContractApi from '@/request/usdt'
-import { buyCoherent, joinTheThree, updataRTBalance } from '@/request/api'
+import { buyCoherent, joinTheThree, updataRTBalance, playersInfo, checkPackageCount } from '@/request/api'
 import { userStore } from "@/stores/user";
 import { showToast } from 'vant'
 import { useI18n } from 'vue-i18n';
 import pmtContractApi from '@/request/pmt'
 import { config } from '@/const/config'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 // /market/invite-buy-package
 const route = useRoute()
 const { t } = useI18n()
@@ -159,6 +164,8 @@ let selfAddress = ref()
 let showPackagePopup = ref(false)
 let packageList = coherents_list
 let coherentInfo = ref({})
+let hasPackage = ref(false)
+let timer = ref(null)
 onMounted(() => {
     console.log(route.query)
     inviterAddress.value = route.query.inviter
@@ -171,10 +178,52 @@ onMounted(() => {
     })
     coherentInfo.value = targetCoherents[0]
     console.log(coherentInfo.value)
+    // getPlayersInfo(window.ethereum.selectedAddress)
     if (!localStorage.getItem('token')) {
         addressSign()
     }
 })
+
+//加入樹狀圖
+function joinTree() {
+    let data = {
+        address: inviterAddress.value,
+        leg_address: preAddress.value,
+        legSide: point.value
+    }
+    joinTheThree(data)
+        .then(res => {
+            proxy.$loading.hide()
+        })
+        .catch(err => {
+            proxy.$loading.hide()
+        })
+}
+
+//獲取玩家信息
+function getPackageCount() {
+    proxy.$loading.show()
+    checkPackageCount()
+        .then(res => {
+            if (res.message == '你已經購買配套。') {
+                clearInterval(timer.value)
+                showToast('購買成功')
+                proxy.$loading.hide()
+                router.push({
+                    path: '/'
+                })
+                
+            } else {
+                joinTree()
+            }
+
+        })
+        .catch(err => {
+            console.log('err', err)
+            proxy.$loading.hide()
+        })
+}
+
 function handlePackage(packageInfo) {
     if (!packageInfo.isSale) {
         showToast(t('toast.notYetOpen'))
@@ -206,6 +255,7 @@ function handleConfirmBuyForRT() {
             updataRTBalance(localStorage.getItem('address'))
                 .then(res => {
                     console.log('更新rt餘額', res)
+
                 })
                 .catch(err => {
                     console.log('更新rt餘額失敗', err)
@@ -257,6 +307,7 @@ async function handleConfirmBuyForUSDT() {
                         proxy.$confirm.hide()
                         showToast('授權失敗，請重新授權')
                     })
+
             },
         });
         return
@@ -271,9 +322,12 @@ async function handleConfirmBuyForUSDT() {
             leg_address: preAddress.value,
             legSide: point.value
         }
-        await joinTheThree(data)
-        proxy.$loading.hide()
-        showToast(t('toast.success'))
+        // await joinTheThree(data)
+        timer.value = setInterval(() => {
+            getPackageCount()
+        }, 5000);
+        // // proxy.$loading.hide()
+        // showToast(t('toast.success'))
     } catch (err) {
         proxy.$loading.hide()
         showToast(t('toast.error'))
@@ -300,20 +354,43 @@ async function addressSign() {
     }
 
 
-    login(params)
-        .then(res => {
-            console.log(res)
-            localStorage.setItem('token', res.access_token)
-            localStorage.setItem('address', res.address)
-            userInfo.changeAddress(res.address)
-            proxy.$loading.hide()
-            // showToast('已登录')
-        })
-        .catch(err => {
-            proxy.$loading.hide()
-            showToast(t('toast.error'))
-            console.log(err)
-        })
+    try {
+        let loginInfo = await login(params)
+        localStorage.setItem('token', loginInfo.access_token)
+        localStorage.setItem('address', loginInfo.address)
+        userInfo.changeAddress(loginInfo.address)
+        let packageInfo = await checkPackageCount()
+        if (packageInfo.message == '您已經購買配套。') {
+            let data = {
+                address: inviterAddress.value,
+                leg_address: preAddress.value,
+                legSide: point.value
+            }
+            await joinTheThree(data)
+        }
+        console.log()
+    } catch (err) {
+        proxy.$loading.hide()
+        showToast(t('toast.error'))
+        console.log(err)
+    }
+
+    proxy.$loading.hide()
+
+    // login(params)
+    //     .then(res => {
+    //         console.log(res)
+    //         localStorage.setItem('token', res.access_token)
+    //         localStorage.setItem('address', res.address)
+    //         userInfo.changeAddress(res.address)
+    //         proxy.$loading.hide()
+    //         // showToast('已登录')
+    //     })
+    //     .catch(err => {
+    //         proxy.$loading.hide()
+    //         showToast(t('toast.error'))
+    //         console.log(err)
+    //     })
     // console.log(signature)
 
 }

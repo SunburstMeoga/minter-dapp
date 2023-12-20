@@ -371,7 +371,9 @@ function handleExchangeRT() {
 function handleTransferRT() {
     toggleTransferPopup()
     proxy.$loading.show()
-    transfersRT({ address: transferRTAddress.value, amount: transferRTAmount.value })
+    let data = {address: transferRTAddress.value, amount: transferRTAmount.value}
+    console.log(data)
+    transfersRT(data)
         .then(res => {
             proxy.$loading.hide()
             showToast('轉賬成功')
