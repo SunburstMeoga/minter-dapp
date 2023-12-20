@@ -465,7 +465,7 @@ function viewCoherents() {
 function viewNFTs() {
     setTimeout(() => {
         router.push({
-            path: '/personal/nft'
+            path: '/personal/nfts'
         })
     }, 1000)
 }
