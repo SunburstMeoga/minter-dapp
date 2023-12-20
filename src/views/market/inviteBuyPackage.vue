@@ -174,7 +174,6 @@ onMounted(() => {
     if (!localStorage.getItem('token')) {
         addressSign()
     }
-    addressSign()
 })
 function handlePackage(packageInfo) {
     if (!packageInfo.isSale) {

@@ -10,7 +10,7 @@
                     <template #reference>
                         <div
                             class="flex justify-center items-center text-gray-500 border text-xs border-gray-500  rounded px-3 py-1">
-                            <div class="icon iconfont icon-screen mr-2" style="font-size: 12px;"></div>
+                            <div class="icon iconfont icon-screen mr-1" style="font-size: 12px;"></div>
                             <div class="">
                                 {{ actions[currentFilter].text }}
                             </div>
@@ -354,7 +354,7 @@ async function handleBuyButton(item, canBuy) {
             purchaseNFTInfo = await nftContractApi.purchaseNFT(item.token_id)
             timer.value = setInterval(() => {
                 getLuckyRes()
-            }, 1000);
+            }, 5000);
             proxy.$loading.hide()
 
         } catch (err) {
