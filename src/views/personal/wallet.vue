@@ -25,18 +25,18 @@
                 <wallet-card currency="PMT" :balance="pmtBalance" :contranct="config.pmt_addr" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="MT" :balance="mtBalance" :contranct="config.mt_addr" isExchange
-                    @exchange="handleWalletCardExchange" />
+                <wallet-card currency="MT" :balance="mtBalance" :contranct="config.mt_addr" isExchange isBuy
+                    @buy="handleWalletCardBuy" @exchange="handleWalletCardExchange"/>
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card currency="BT" isExchange @exchange="handleWalletCardExchangeBT" :balance="palayBanalce.bt" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card :currency="'RT' + '(' + $t('order.bind') + ')'" :balance="palayBanalce.rtLocked" />
+                <wallet-card :currency="'RT' + '(' + $t('order.bind') + ')'" :balance="palayBanalce.rtLocked" isRegister @register="handleRegister"/>
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card currency="RT" :balance="palayBanalce.rt" @transfer="handleWalletCardTransfer"
-                    @exchange="handleExchangeRT" isExchange isTrasfer />
+                    @exchange="handleExchangeRT"  isExchange isTrasfer isRegister @register="handleRegister"/>
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card currency="股權" :balance="mstBalance" />
@@ -98,7 +98,7 @@
                     </div>
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
                         <div class="text-base"> 請輸入兌換金額 </div>
-                        <!-- <div class="text-primary-color text-xs pl-1"> (当前1USD3 = 1RT)</div> -->
+                        <div class="text-primary-color text-xs pl-1"> (需要收取{{ currentExchangeTypeBT == 0 ? ' 10% ' : ' 5% ' }}手續費)</div>
                     </div>
                     <div class="w-full flex justify-between items-center mb-10">
                         <div class="rounded  flex-1 ">
@@ -246,7 +246,7 @@
                     </div>
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
                         <div class="text-base"> 請輸入兌換金額 </div>
-                        <!-- <div class="text-primary-color text-xs pl-1"> (当前1USD3 = 1RT)</div> -->
+                        <div class="text-primary-color text-xs pl-1"> (需要收取{{ currentExchangeType == 0 ? ' 10% ' : ' 5% ' }}手續費)</div>
                     </div>
                     <div class="w-full flex justify-between items-center mb-10">
                         <div class="rounded  flex-1 ">
@@ -465,7 +465,7 @@ function viewCoherents() {
 function viewNFTs() {
     setTimeout(() => {
         router.push({
-            path: '/personal/nfts'
+            path: '/personal/nft'
         })
     }, 1000)
 }
@@ -598,7 +598,19 @@ async function handleExchange() {
     }
     // return
     // let exchange = await swapContractApi.swapMTForUSDT('800000000000000')
-    // console.log(exchange)
+    // console.log(texchange)
+}
+//點擊卡片註冊按鈕
+function handleRegister() {
+    router.push({
+        path: '/personal/assistance'
+    })
+}
+//點擊卡片購買按鈕
+function handleWalletCardBuy() {
+    router.push({
+        path: '/market/nfts'
+    })
 }
 //點擊錢包卡片充值按鈕
 function handleWalletCardRecharge() {

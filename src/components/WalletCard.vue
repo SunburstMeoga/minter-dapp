@@ -36,7 +36,11 @@
                         </div>
                         <div v-if="isTrasfer" class="pl-4 underline" @click="$emit('transfer')">{{ $t('wallet.transfer') }}
                         </div>
-                        <div v-if="isExchange" class="pl-4 underline" @click="$emit('exchange')">兌換
+                        <div v-if="isExchange" class="pl-4 underline" @click="$emit('exchange')">劃轉
+                        </div>
+                        <div v-if="isBuy" class="pl-4 underline" @click="$emit('buy')">購買
+                        </div>
+                        <div v-if="isRegister" class="pl-4 underline" @click="$emit('register')">註冊
                         </div>
                     </div>
                 </div>
@@ -81,7 +85,16 @@ const cardProps = defineProps({
         type: String,
         default: ''
     },
+    
+    isRegister: {
+        type: Boolean,
+        default: false
+    },
     isRecharge: {
+        type: Boolean,
+        default: false
+    },
+    isBuy: {
         type: Boolean,
         default: false
     },
