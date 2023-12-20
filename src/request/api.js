@@ -175,3 +175,11 @@ export function getLuckyDraw(params) {
     params
   })
 }
+
+//rt轉賬
+export function transfersRT(data) {
+  return request('/transfers/rt', {
+    method: 'POST',
+    data
+  })
+}

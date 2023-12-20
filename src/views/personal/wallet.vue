@@ -26,17 +26,18 @@
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card currency="MT" :balance="mtBalance" :contranct="config.mt_addr" isExchange isBuy
-                    @buy="handleWalletCardBuy" @exchange="handleWalletCardExchange"/>
+                    @buy="handleWalletCardBuy" @exchange="handleWalletCardExchange" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card currency="BT" isExchange @exchange="handleWalletCardExchangeBT" :balance="palayBanalce.bt" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card :currency="'RT' + '(' + $t('order.bind') + ')'" :balance="palayBanalce.rtLocked" isRegister @register="handleRegister"/>
+                <wallet-card :currency="'RT' + '(' + $t('order.bind') + ')'" :balance="palayBanalce.rtLocked" isRegister
+                    @register="handleRegister" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card currency="RT" :balance="palayBanalce.rt" @transfer="handleWalletCardTransfer"
-                    @exchange="handleExchangeRT"  isExchange isTrasfer isRegister @register="handleRegister"/>
+                    @exchange="handleExchangeRT" isExchange isTrasfer isRegister @register="handleRegister" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card currency="股權" :balance="mstBalance" />
@@ -98,7 +99,8 @@
                     </div>
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
                         <div class="text-base"> 請輸入兌換金額 </div>
-                        <div class="text-primary-color text-xs pl-1"> (需要收取{{ currentExchangeTypeBT == 0 ? ' 10% ' : ' 0% ' }}手續費)</div>
+                        <div class="text-primary-color text-xs pl-1"> (需要收取{{ currentExchangeTypeBT == 0 ? ' 10% ' : ' 0% '
+                        }}手續費)</div>
                     </div>
                     <div class="w-full flex justify-between items-center mb-10">
                         <div class="rounded  flex-1 ">
@@ -131,7 +133,7 @@
                     </div>
                     <div class="w-full mb-4 flex justify-between items-center">
                         <div class="rounded flex-1">
-                            <input type="text" :placeholder="$t('wallet.transferAddress')"
+                            <input type="text" :placeholder="$t('wallet.transferAddress')" v-model="transferRTAddress"
                                 class="w-full py-3 bg-transparent rounded">
                         </div>
                     </div>
@@ -140,14 +142,15 @@
                         <!-- <div class="text-primary-color text-xs pl-1"> (当前1USD3 = 1RT)</div> -->
                     </div>
                     <div class="w-full mb-8 flex justify-between items-center">
-                        <div class="rounded mr-2 flex-1">
-                            <input type="text" :placeholder="$t('wallet.transferAmount')"
+                        <div class="rounded  flex-1">
+                            <input type="text" :placeholder="$t('wallet.transferAmount')" v-model="transferRTAmount"
                                 class="w-full py-3 bg-transparent rounded">
                         </div>
-                        <div class="underline text-sm text-gray-200">{{ $t('wallet.all') }}</div>
+                        <!-- <div class="underline text-sm text-gray-200">{{ $t('wallet.all') }}</div> -->
                     </div>
                     <!--  -->
-                    <div class="operating-button rounded-full text-white font-bold text-center text-sm py-2">
+                    <div class="operating-button rounded-full text-white font-bold text-center text-sm py-2"
+                        @click="handleTransferRT">
                         {{ $t('modalConfirm.confirm') }}
                     </div>
                 </div>
@@ -246,7 +249,8 @@
                     </div>
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
                         <div class="text-base"> 請輸入兌換金額 </div>
-                        <div class="text-primary-color text-xs pl-1"> (需要收取{{ currentExchangeType == 0 ? ' 10% ' : ' 5% ' }}手續費)</div>
+                        <div class="text-primary-color text-xs pl-1"> (需要收取{{ currentExchangeType == 0 ? ' 10% ' : ' 5% '
+                        }}手續費)</div>
                     </div>
                     <div class="w-full flex justify-between items-center mb-10">
                         <div class="rounded  flex-1 ">
@@ -303,7 +307,7 @@ import usdtContractApi from '@/request/usdt'
 import pmtContractApi from '@/request/pmt'
 import mtContractApi from '@/request/mt'
 import mstContractApi from '@/request/mst'
-import { playersInfo, userNFT, staticRecords, btToUsdt, btToRt, rtBanalce } from '@/request/api'
+import { playersInfo, userNFT, staticRecords, btToUsdt, btToRt, rtBanalce, transfersRT } from '@/request/api'
 import { config } from '@/const/config'
 import { showToast } from 'vant';
 import { number } from 'echarts';
@@ -355,11 +359,31 @@ let nftsCount = ref(0)
 let promiseCardCount = ref(0)
 let palayBanalce = ref({})
 let hasPackage = ref(false)
-
+let transferRTAmount = ref(null)
+let transferRTAddress = ref(null)
 function handleExchangeRT() {
     router.push({
         path: '/personal/exchange'
     })
+}
+
+//rt轉賬
+function handleTransferRT() {
+    toggleTransferPopup()
+    proxy.$loading.show()
+    transfersRT({ address: transferRTAddress.value, amount: transferRTAmount.value })
+        .then(res => {
+            proxy.$loading.hide()
+            showToast('轉賬成功')
+            getPlayersInfo(localStorage.getItem('address'))
+        })
+        .catch(err => {
+            proxy.$loading.hide()
+            showToast('轉賬失敗，請重試')
+            console.log(res)
+            toggleTransferPopup()
+
+        })
 }
 
 //獲取玩家信息
@@ -670,6 +694,4 @@ function handleOperatorItem(item, index) {
 
 </script>
 
-<style scoped>
-img {}
-</style>
+<style scoped>img {}</style>

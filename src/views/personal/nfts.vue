@@ -193,7 +193,7 @@ async function handleListed(item) {
         console.log('現在時間時間戳',parseInt(new Date().getTime() / 1000))
         if (Number(time) > parseInt(new Date().getTime() / 1000)) {
             // let timeAll = Number(time) + (new Date().getTime() / 1000)
-            showToast(countDown(time) + '後可出售')
+            showToast(countDown(Number(time)) + '後可出售')
             proxy.$loading.hide()
             return
         }
