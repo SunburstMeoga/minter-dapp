@@ -12,7 +12,7 @@ import pmt_abi from './PreMintToken.json'
 
 const config = {
   USDToken_addr: '0xB66Ee6DA8bC9709BC259f8d05D3d6D7178CCB0cc',
-  pmt_addr: '0xd21acBFE087E4b80fa77e1Dcef324bFD7485301A',
+  pmt_addr: '0x91c514838CBC7d76F1D7bDACB2D0A672f836e359',
   mt_addr: '0x2986c3eBd1d9ae38CBe92b838b3dFC8E82d6c97D',
   mst_addr: '0xa39782FD9B5fCd7798E6645E72Bcd9b962D1A6d0',
   pmt_purchase_addr: '0xc46cDa67EC557A7D5c1a6b9D6353aD4C21E6cB39',
