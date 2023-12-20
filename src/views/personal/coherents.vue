@@ -77,6 +77,7 @@ onMounted(() => {
 function countDown(time) {
     var nowTime = +new Date();
     var inputTime = +new Date(time * 1000)
+    
     // var inputTime = 1703080568
     var time = (inputTime - nowTime) / 1000
     var day = Math.floor(time / 60 / 60 / 24);
@@ -88,6 +89,12 @@ function countDown(time) {
     var second = Math.floor(time % 60);
     second = second < 10 ? "0" + second : second
     // console.log(day + "天" + hour + "时" + minute + "分" + second + "秒")
+    if(inputTime <= nowTime) {
+       
+        isNotYet.value = false
+        canReleasedTime.value = "可以釋放"
+        return
+    }
     canReleasedTime.value = day + "天" + hour + "時" + minute + "分" + second + "秒"
     // return day + "天" + hour + "时" + minute + "分" + second + "秒"
 }
@@ -169,7 +176,7 @@ function getPlayersInfo(address) {
                 .then(res => {
                     let WEB3 = new Web3(window.ethereum)
                     remainingPMT = WEB3.utils.fromWei(res.toString(), 'ether')
-                    beenReleased.value = totalPMT - Number(remainingPMT)
+                    beenReleased.value = totalPMT - Number(remainingPMT) //已經釋放
                 })
                 .catch(err => {
                     console.log(err)
