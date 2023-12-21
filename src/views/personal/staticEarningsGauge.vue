@@ -128,7 +128,7 @@ async function getStaticIncomeInfo() {
                     data: [
                         {
                             value: rewardAmount - getLockedAmount,
-                            name: `剩餘量: ${rewardAmountLimit - rewardAmount - getLockedAmount}MT`
+                            name: `剩餘量: ${rewardAmountLimit - rewardAmount} MT`
                             // name: '剩余量:' + rewardAmountLimit - rewardAmount + ' MT',
                         }
                     ],
