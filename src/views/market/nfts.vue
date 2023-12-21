@@ -355,7 +355,7 @@ async function handleBuyButton(item, canBuy) {
             timer.value = setInterval(() => {
                 getLuckyRes()
             }, 5000);
-            proxy.$loading.hide()
+            
 
         } catch (err) {
             proxy.$loading.hide()
@@ -373,7 +373,8 @@ async function handleBuyButton(item, canBuy) {
         getLuckyDraw({ nft_token_id: tokenID.value })
         .then(res => {
             if (res.message == "已成功抽獎") {
-                console.log(res)
+                // console.log(res)
+                proxy.$loading.hide()
                 clearInterval(timer.value)
                 router.push({
                         path: '/market/raffle',
@@ -388,7 +389,7 @@ async function handleBuyButton(item, canBuy) {
         })
         .catch (err => {
             proxy.$loading.hide()
-            showToast('購買成功')
+            showToast('購買失敗，請重試')
             console.log(err)
         })
     }
