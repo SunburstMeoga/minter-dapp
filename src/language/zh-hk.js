@@ -217,7 +217,7 @@ export default {
     exchangeQuantity: '兌換數量'
   },
   coherents: {
-    MatchingLevelBonusRate: '配套等級獎勵率',
+    MatchingLevelBonusRate: '配套直推獎勵率',
     contribution: '可獲取貢獻值數量',
     title: '配套交易信息',
     price: '售價',
