@@ -17,6 +17,16 @@ let earnings = [
       showBack: false,
       pageTitle: '操作记录'
     }
+  },
+  {
+    path: '/earnings/operation-record',
+    name: 'poeration-record',
+    component: () => import('@/views/earnings/operationRecord.vue'),
+    meta: {
+      showLogo: true,
+      showBack: false,
+      pageTitle: '操作记录'
+    }
   }
 ]
 
