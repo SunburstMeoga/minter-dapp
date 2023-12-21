@@ -371,11 +371,27 @@ function handleExchangeRT() {
 function handleTransferRT() {
     toggleTransferPopup()
     proxy.$loading.show()
-    let data = {address: transferRTAddress.value, amount: transferRTAmount.value}
+    let data = { address: transferRTAddress.value, amount: transferRTAmount.value }
     console.log(data)
     transfersRT(data)
         .then(res => {
             proxy.$loading.hide()
+            console.log(res)
+            if(res.error) {
+                proxy.$confirm.show({
+                    title: '提示',
+                    content: '收款地址與發起地址無關，請確認你的收款地址',
+                    showCancelButton: false,
+                    confirmText: '確定',
+                    onConfirm: () => {
+                        proxy.$confirm.hide()
+                        toggleTransferPopup()
+                    },
+                });
+                return
+            }
+
+
             showToast('轉賬成功')
             getPlayersInfo(localStorage.getItem('address'))
         })
@@ -700,4 +716,6 @@ function handleOperatorItem(item, index) {
 
 </script>
 
-<style scoped>img {}</style>
+<style scoped>
+img {}
+</style>
