@@ -4,9 +4,9 @@
             <module-title :titleWord="$t('menu.operationRecord')" />
         </div>
         <van-tabs class="pt-2 bg-black " v-model:active="active" sticky shrink animated swipeable color="#e149ed"
-            title-inactive-color="#fff" title-active-color="#e149ed" background="#000">
-            <van-tab v-for="(item, index) in tabsList" :key="index" :title="item.title" @click-tab="handleTabs()">
-                
+            title-inactive-color="#fff" title-active-color="#e149ed" background="#000" @click-tab="handleTabs">
+            <van-tab v-for="(item, index) in tabsList" :key="index" :title="item.title" >
+
             </van-tab>
         </van-tabs>
         <div>
@@ -53,39 +53,37 @@ import ModuleTitle from "@/components/ModuleTitle.vue";
 
 const { t } = useI18n()
 const { proxy } = getCurrentInstance()
-// const typeList = ref([{ title: '直推奖励' }, { title: '对碰奖励' }, { title: '代数奖励' }])
-let typeList = computed(() => {
-    return [{ title: t('assistance.directMarketingAward') }, { title: t('assistance.matchReward') }, { title: t('assistance.generationIncentive') }]
-})
+const typeList = ref([{ title: '直推奖励' }, { title: '对碰奖励' }, { title: '代数奖励' }])
+// let typeList = ref([{ title: t('assistance.directMarketingAward') }, { title: t('assistance.matchReward') }, { title: t('assistance.generationIncentive') }])
 let currentType = ref(0)
 let dataList = ref([])
 let tabsList = computed(() => {
     return [
-        {title: '動態收益',value: 0},
-        {title: '動態收益',value: 0},
-        {title: 'NFT交易記錄',value: 0},
-        {title: '貨幣交易記錄',value: 0}
+        { title: '動態收益', value: 0 },
+        { title: '動態收益', value: 0 },
+        { title: 'NFT交易記錄', value: 0 },
+        { title: '貨幣交易記錄', value: 0 }
     ]
 })
 onMounted(() => {
     // getIncomeList(window.ethereum.selectedAddress, 1)
-    getDynamicEarningTypes()
-    getDynamicRecords()
+    // getDynamicEarningTypes()
+    // getDynamicRecords()
 })
 
 //點擊tabs菜單欄
-function handleTabs(item) {
-    // switch(index) {
-    //     case 0: typeList.value = [{ title: t('assistance.directMarketingAward') }, { title: t('assistance.matchReward') }, { title: t('assistance.generationIncentive') }]
-    //     break;
-    //     case 1: typeList.value = [{ title: t('assistance.acceleratorAward') }, { title: t('assistance.commitmentCard') }, { title: t('assistance.dailyEarnings') },{ title: t('assistance.recommendedBenefits') }]
-    //     break;
-    //     case 2:  typeList.value = [{ title: '普通NFT' }, { title: '正在掛單' }, { title: '已售出' }]
-    //     break;
-    //     case 3:  typeList.value = [{ title: 'USD3' }, { title: 'BT' },{ title: 'MT' },{ title: 'RT' },{ title: '綁定RT' },{ title: 'PMT' },]
-    //     break;
-    // }
-    console.log(item)
+function handleTabs(tabs) {
+    switch(tabs.name) {
+        case 0: typeList.value = [{ title: t('assistance.directMarketingAward') }, { title: t('assistance.matchReward') }, { title: t('assistance.generationIncentive') }];
+        break;
+        case 1: typeList.value = [{ title: t('assistance.acceleratorAward') }, { title: t('assistance.commitmentCard') }, { title: t('assistance.dailyEarnings') },{ title: t('assistance.recommendedBenefits') }];
+        break;
+        case 2: typeList.value = [{ title: '普通NFT' }, { title: '正在掛單' }, { title: '已售出' }];
+        break;
+        case 3: typeList.value = [{ title: 'USD3' }, { title: 'BT' },{ title: 'MT' },{ title: 'RT' },{ title: '綁定RT' },{ title: 'PMT' }];
+        break;
+    }
+    console.log(tabs,typeList.value)
 }
 
 //獲取動態收益記錄
