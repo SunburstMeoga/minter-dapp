@@ -513,15 +513,22 @@ async function handlePopupConfirmBuy() {
   buyCoherent(data)
     .then(res => {
       console.log('購買成功', res)
-      proxy.$loading.hide()
-      showToast(res.message)
+      // proxy.$loading.hide()
+      // showToast(res.message)
+     let timer = setTimeout(() => {
       updataRTBalance(localStorage.getItem('address'))
-        .then(res => {
-          console.log('更新rt餘額', res)
+        .then(result => {
+          proxy.$loading.hide()
+
+          console.log('購買成功', result)
+          clearTimeout(timer)
+          showToast(res.message)
         })
         .catch(err => {
+          proxy.$loading.hide()
           console.log('更新rt餘額失敗', err)
         })
+     },5000)
     })
     .catch(err => {
       proxy.$loading.hide()
