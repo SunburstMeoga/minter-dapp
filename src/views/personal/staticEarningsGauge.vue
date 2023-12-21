@@ -63,7 +63,10 @@ async function getStaticIncomeInfo() {
         let rewardAmountLimit = await pmtContractApi.getRewardAmountLimit(localStorage.getItem('address'))
         rewardAmountLimit = WEB3.utils.fromWei(rewardAmountLimit.toString(), 'ether')
         rewardAmountLimit = Number(rewardAmountLimit).toFixed(0)
-
+        //锁定期的pmt数量
+        let getLockedAmount = await pmtContractApi.getLockedAmount(localStorage.getItem('address'))
+        rewardAmountLimit = WEB3.utils.fromWei(getLockedAmount.toString(), 'ether')
+        getLockedAmount = Number(getLockedAmount).toFixed(0)
         //最高配套金額
         let result = await playersInfo(localStorage.getItem('address'))
         console.log('result', result)
@@ -85,7 +88,7 @@ async function getStaticIncomeInfo() {
 
         console.log('pmt', pmtBalance)
 
-        console.log(withdrawalAmount, withdrawalAmountLimit, rewardAmount, rewardAmountLimit)
+        console.log(withdrawalAmount, withdrawalAmountLimit, rewardAmount, rewardAmountLimit,getLockedAmount)
 
         let myChart = echarts.init(document.getElementById("staticEarnings"));
         myChart.setOption({
@@ -124,8 +127,8 @@ async function getStaticIncomeInfo() {
                     },
                     data: [
                         {
-                            value: rewardAmount,
-                            name: `剩餘量: ${rewardAmountLimit - rewardAmount}MT`
+                            value: rewardAmount - getLockedAmount,
+                            name: `剩餘量: ${rewardAmountLimit - rewardAmount - getLockedAmount}MT`
                             // name: '剩余量:' + rewardAmountLimit - rewardAmount + ' MT',
                         }
                     ],
