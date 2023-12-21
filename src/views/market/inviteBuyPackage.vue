@@ -204,6 +204,7 @@ function joinTree() {
     }
     joinTheThree(data)
         .then(res => {
+            //测试没问题之后，这里可以跳回首页
             proxy.$loading.hide()
         })
         .catch(err => {
@@ -220,14 +221,9 @@ function getPackageCount() {
                 clearInterval(timer.value)
                 showToast('購買成功')
                 proxy.$loading.hide()
-                router.push({
-                    path: '/'
-                })
-                
-            } else {
                 joinTree()
-            }
-
+                
+            } 
         })
         .catch(err => {
             console.log('err', err)
@@ -328,17 +324,9 @@ async function handleConfirmBuyForUSDT() {
         console.log(coherentInfo.value.type)
         proxy.$loading.show()
         await pmtContractApi.purchasePackage(Number(coherentInfo.value.id - 1))
-        let data = {
-            address: inviterAddress.value,
-            leg_address: preAddress.value,
-            legSide: point.value
-        }
-        // await joinTheThree(data)
         timer.value = setInterval(() => {
             getPackageCount()
         }, 5000);
-        // // proxy.$loading.hide()
-        // showToast(t('toast.success'))
     } catch (err) {
         proxy.$loading.hide()
         showToast(t('toast.error'))
