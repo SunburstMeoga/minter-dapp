@@ -574,7 +574,7 @@ async function handleExchange() {
             showCancelButton: false,
             confirmText: '去授權',
             onConfirm: () => {
-                proxy.$loading.show()
+                // proxy.$loading.show()
                 // usdt和mt授權
                 minterContractApi.approve(config.swap_addr)
                     .then(res => {
@@ -600,6 +600,8 @@ async function handleExchange() {
             try {
                 await swapContractApi.swapMTForUSDT(amount)
                 proxy.$loading.hide()
+                getPMTBalance()
+                getUSDTBalance()
                 showToast('操作成功')
             } catch (err) {
                 console.log(err)
@@ -610,6 +612,8 @@ async function handleExchange() {
             try {
                 await swapContractApi.swapMTForRT(amount)
                 await rtBanalce(localStorage.getItem('address'))
+                getMTBalance()
+                getPlayersInfo(localStorage.getItem('address'))
                 proxy.$loading.hide()
                 showToast('操作成功')
             } catch (err) {
