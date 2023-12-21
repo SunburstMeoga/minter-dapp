@@ -99,7 +99,7 @@ async function getStaticIncomeInfo() {
                 {
                     // name: '已产出',
                     type: 'gauge',
-                    min: rewardAmount,
+                    // min: rewardAmount,
                     min: 0,
                     max: rewardAmountLimit,
                     progress: {
