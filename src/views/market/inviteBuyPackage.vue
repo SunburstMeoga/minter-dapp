@@ -109,10 +109,10 @@
             </div>
         </div>
         <div class="text-gray-500 text-center text-sm mt-10 underline active-white-color" @click="togglePackagePopup">
-            查看更多配套
+            {{ $t('invitePage.showMore') }}
         </div>
 
-        <div class="w-full fixed bottom-3">
+        <div class="w-full fixed bottom-5">
             <div class="flex justify-between items-center">
                 <!-- <div @click="togglePackagePopup"
                     class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">{{

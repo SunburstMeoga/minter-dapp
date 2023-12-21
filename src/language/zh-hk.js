@@ -276,5 +276,6 @@ export default {
     chooseCoherentTip: '請選擇配套',
     chooseCoherent: '選擇配套',
     pay: '支付',
+    showMore: '顯示更多配套'
   }
 }

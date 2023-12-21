@@ -287,5 +287,6 @@ export default {
     chooseCoherentTip: 'Please select a package',
     chooseCoherent: 'Select Package',
     pay: ' Disbursement',
+    showMore: 'Show More Package'
   }
 }
