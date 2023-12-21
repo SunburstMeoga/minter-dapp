@@ -600,7 +600,7 @@ async function handleExchange() {
             try {
                 await swapContractApi.swapMTForUSDT(amount)
                 proxy.$loading.hide()
-                getPMTBalance()
+                getMTBalance()
                 getUSDTBalance()
                 showToast('操作成功')
             } catch (err) {
