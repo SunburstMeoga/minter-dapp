@@ -77,7 +77,7 @@ onMounted(() => {
 function countDown(time) {
     var nowTime = +new Date();
     var inputTime = +new Date(time * 1000)
-
+    
     // var inputTime = 1703080568
     var time = (inputTime - nowTime) / 1000
     var day = Math.floor(time / 60 / 60 / 24);
@@ -89,7 +89,7 @@ function countDown(time) {
     var second = Math.floor(time % 60);
     second = second < 10 ? "0" + second : second
     // console.log(day + "天" + hour + "时" + minute + "分" + second + "秒")
-    if (time <= 0) {
+    if(time <= 0) {
         isNotYet.value = false
         canReleasedTime.value = "可以釋放"
         return
@@ -109,8 +109,9 @@ async function handleReleased() {
         await pmtContractApi.releaseTokens(localStorage.getItem('address'))
         proxy.$loading.hide()
         showToast(t('toast.success'))
-        getPlayersInfo(localStorage.getItem('address'))
-        getPNTRemainingLockupPeriod()
+        location.reload()
+        // getPlayersInfo(localStorage.getItem('address'))
+        // getPNTRemainingLockupPeriod()
         // getPMTLockedAmount()
     } catch (err) {
         console.log(err)
@@ -147,6 +148,11 @@ async function getPNTRemainingLockupPeriod() {
     // }, 1000)
 
 }
+//釋放PMT
+// async function releasePMTTokens() {
+//     let result = await pmtContractApi.releaseTokens(localStorage.getItem('address'))
+//     console.log(result)
+// }
 //獲取玩家信息
 function getPlayersInfo(address) {
     proxy.$loading.show()
@@ -164,18 +170,13 @@ function getPlayersInfo(address) {
                     }
                 })
             })
-            let remainingPMTNum
+            let remainingPMT
             let totalPMT = playerPackages.value.reduce((sum, e) => sum + Number(e.pmt || 0), 0)
             pmtContractApi.getLockedAmount(localStorage.getItem('address'))
                 .then(res => {
                     let WEB3 = new Web3(window.ethereum)
-                    remainingPMTNum = WEB3.utils.fromWei(res.toString(), 'ether')
-                    beenReleased.value = totalPMT - Number(remainingPMTNum) //已經釋放
-                    remainingPMT.value = remainingPMTNum
-                    console.log('总量', totalPMT)
-                    console.log('已经释放', beenReleased.value)
-                    console.log('锁定', remainingPMT.value)
-
+                    remainingPMT = WEB3.utils.fromWei(res.toString(), 'ether')
+                    beenReleased.value = totalPMT - Number(remainingPMT) //已經釋放
                 })
                 .catch(err => {
                     console.log(err)
