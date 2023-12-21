@@ -638,7 +638,7 @@
 		"compilationTarget": {
 			"contract/mst.sol": "MinterSharesToken"
 		},
-		"evmVersion": "paris",
+		"evmVersion": "shanghai",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"

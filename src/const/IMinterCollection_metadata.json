@@ -380,7 +380,7 @@
 		"compilationTarget": {
 			"contract/NFTMarketplace.sol": "IMinterCollection"
 		},
-		"evmVersion": "paris",
+		"evmVersion": "shanghai",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -441,11 +441,11 @@
 			]
 		},
 		"contract/NFTMarketplace.sol": {
-			"keccak256": "0x047163baf6ffd6ed1f6cd7d8981ccd4ae9ac68430090dc7f541d17e98b85dcea",
+			"keccak256": "0x3f3415580fd54144901f08ccff4b66a82408419022da72c178773ba21bbbe517",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b2f2af2a41817d2d01ebb509f42617a2606c2c43fd2a18e4e1d6c110018fe330",
-				"dweb:/ipfs/QmZUs7LBJcwFssJUCoK5tivctbEtKagH5wqpqg8ToBPYUE"
+				"bzz-raw://94c6dddc9d6ef9861968b4d0e90a081457e99b21b1c5e63e129f2a82d7b47b43",
+				"dweb:/ipfs/Qmc9WaMihnzwS58xNe11iwpuCfqXcF2NKoJ551p1QcwdYi"
 			]
 		}
 	},

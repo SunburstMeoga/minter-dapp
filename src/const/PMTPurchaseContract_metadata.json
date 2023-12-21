@@ -19,6 +19,11 @@
 					},
 					{
 						"internalType": "address",
+						"name": "_mstAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
 						"name": "_projectOwnerAddress",
 						"type": "address"
 					},
@@ -158,6 +163,11 @@
 						"internalType": "uint256",
 						"name": "pmtAmount",
 						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "mstAmount",
+						"type": "uint256"
 					}
 				],
 				"name": "createPackage",
@@ -180,6 +190,11 @@
 					{
 						"internalType": "uint256",
 						"name": "pmtAmount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "mstAmount",
 						"type": "uint256"
 					}
 				],
@@ -215,6 +230,11 @@
 							{
 								"internalType": "uint256",
 								"name": "pmtAmount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "mstAmount",
 								"type": "uint256"
 							}
 						],
@@ -366,6 +386,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "mst",
+				"outputs": [
+					{
+						"internalType": "contract IMST",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "owner",
 				"outputs": [
 					{
@@ -408,6 +441,11 @@
 					{
 						"internalType": "uint256",
 						"name": "pmtAmount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "mstAmount",
 						"type": "uint256"
 					}
 				],
@@ -537,6 +575,32 @@
 						"type": "address"
 					}
 				],
+				"name": "setMstAddress",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_address",
+						"type": "address"
+					}
+				],
+				"name": "setPmtAddress",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_address",
+						"type": "address"
+					}
+				],
 				"name": "setProjectOwnerAddress",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -551,6 +615,19 @@
 					}
 				],
 				"name": "setSwapContract",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_address",
+						"type": "address"
+					}
+				],
+				"name": "setUsdtAddress",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -726,7 +803,7 @@
 		"compilationTarget": {
 			"contract/pmt_purchase.sol": "PMTPurchaseContract"
 		},
-		"evmVersion": "paris",
+		"evmVersion": "shanghai",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -771,11 +848,11 @@
 			]
 		},
 		"contract/pmt_purchase.sol": {
-			"keccak256": "0xfdf59dd6faf3160883a9360dbe2959ccb00a123c7ac6d83d0aaabe0e7b79993e",
+			"keccak256": "0x199aab0e7f9eac0cf86bac95dde481674ef0829f2475515fe723d36f6a7f465d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://61c5aed2088943b7dfcf3dbf2352419256189fb64f4e61f26974fa359b33f813",
-				"dweb:/ipfs/QmaxGzLx4MMDakr875LMg4t1xX77N9f9geMsjiih4PNyDe"
+				"bzz-raw://5784799a0312d084f79e291b86b263c14d2a0e07493fd29191b6f8e5cfc36212",
+				"dweb:/ipfs/QmZotjHpdJadGvBtuy8vqCyS9HddV6qURsSMevsVB6gCTJ"
 			]
 		}
 	},

@@ -383,6 +383,25 @@
 						"type": "address"
 					}
 				],
+				"name": "getReleaseCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_address",
+						"type": "address"
+					}
+				],
 				"name": "getRemainingLockupPeriod",
 				"outputs": [
 					{
@@ -784,7 +803,7 @@
 		"compilationTarget": {
 			"contract/pmt.sol": "PreMintToken"
 		},
-		"evmVersion": "paris",
+		"evmVersion": "shanghai",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -853,11 +872,11 @@
 			]
 		},
 		"contract/pmt.sol": {
-			"keccak256": "0xf22e7d851368ebdea1093f8e5061ad11c4f7b75ebe68e6eab7cff3cd75de93d1",
+			"keccak256": "0x12f1d63babf168c91c12a19f696aab948953c4c7ef3f76e513f51e16f0b50cae",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://687621680e8603129774537c16c631f940025902971828eca85b64fe56c490fe",
-				"dweb:/ipfs/QmSD7BCbtWmFdR8tNZaB73JDYRyGYhMdVy6vMA4hdN67hp"
+				"bzz-raw://7131c3004c52b6d967cd7486b0d52ab812188b80a7ce632bc8273c03588a202a",
+				"dweb:/ipfs/Qmbw2vgG9atf1tvLcLk2YMRuk38CCnARsBnSJryrgtdz9c"
 			]
 		}
 	},

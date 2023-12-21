@@ -590,7 +590,7 @@
 		"compilationTarget": {
 			"contract/swap_contract.sol": "SwapContract"
 		},
-		"evmVersion": "paris",
+		"evmVersion": "shanghai",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -635,11 +635,11 @@
 			]
 		},
 		"contract/swap_contract.sol": {
-			"keccak256": "0x4ad7a5e0a398045f64ee750158f5c3cbbae8303b6c3b5db146609c2148564c18",
+			"keccak256": "0x287f3243d64ad35f4ed9b5b0acecd64687308963b031a48c3ff963eb8e9f2c6e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2b8a1a8fef7557fc4ec517402a180935be6795fe73f5852470aa953ecf9e936f",
-				"dweb:/ipfs/QmeZNdK7ccS5rWUArgYgotfRw4yVt53H4qtRe9TABTGrx7"
+				"bzz-raw://ff34870c57bf68c99c9c7a3245f2c619114ee029394ac93291e9b7dbd6389e29",
+				"dweb:/ipfs/QmVa6yrD2G5Apq2UrAJpqkQnr4L4RGEBPDtfH34ecBc56W"
 			]
 		}
 	},

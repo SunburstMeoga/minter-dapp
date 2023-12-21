@@ -6,7 +6,18 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "symbol",
+						"type": "string"
+					}
+				],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
 			},
@@ -217,19 +228,6 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					}
-				],
-				"name": "addToWhitelist",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
 						"name": "owner",
 						"type": "address"
 					},
@@ -390,19 +388,6 @@
 					}
 				],
 				"name": "removeFromBlacklist",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					}
-				],
-				"name": "removeFromWhitelist",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -636,7 +621,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contract/mt.sol": "MinterToken"
+			"contract/3at.sol": "Contract3AT"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -706,12 +691,12 @@
 				"dweb:/ipfs/QmNgFkoXNWoUbAyw71rr1sKQ95Rj2GfvYiWg79xEYDn2NY"
 			]
 		},
-		"contract/mt.sol": {
-			"keccak256": "0x0b79cd925146b4d0ecf453560b31ae0d5f53eb3e0bbd12ee21279a25e2e933bf",
+		"contract/3at.sol": {
+			"keccak256": "0x97dc0d31f988c8c62592dcf8b2710642cf5ac151d7d8f00620ca3c80801f7df2",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9547023e5fbc377a5cf3fde64f0895dc707e7e65fbc285e4af27990cc3c4b5ae",
-				"dweb:/ipfs/Qmc1GCEHaLuSTwJ9ES2SySuUqzFggNgXHrsQP4tNd9g1Mg"
+				"bzz-raw://fe8b8bb45a0fdab95d46f272fbe24a080f7e9b3e72058f9b4c69af8c26f2e6dc",
+				"dweb:/ipfs/QmNUVCsHzKDq6ZYCcU6378PQxUiS5e47YUmAUuJtAVwZyA"
 			]
 		}
 	},

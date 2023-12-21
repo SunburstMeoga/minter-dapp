@@ -240,6 +240,12 @@
 						"internalType": "uint256",
 						"name": "initialPrice",
 						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint8",
+						"name": "tokenType",
+						"type": "uint8"
 					}
 				],
 				"name": "TokenMinted",
@@ -374,6 +380,30 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "getTokenDetails",
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "tokenType",
+						"type": "uint8"
+					},
+					{
+						"internalType": "string",
+						"name": "metadataURI",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
 						"name": "owner",
 						"type": "address"
@@ -419,16 +449,20 @@
 						"internalType": "uint256",
 						"name": "initialPrice",
 						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numberOfToken",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint8",
+						"name": "tokenType",
+						"type": "uint8"
 					}
 				],
 				"name": "mint",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
+				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
@@ -645,6 +679,24 @@
 					}
 				],
 				"name": "setApprovalForAll",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint8",
+						"name": "tokenType",
+						"type": "uint8"
+					},
+					{
+						"internalType": "string",
+						"name": "baseURI",
+						"type": "string"
+					}
+				],
+				"name": "setBaseURIForType",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -969,7 +1021,7 @@
 		"compilationTarget": {
 			"contract/minter_collection.sol": "MinterCollection"
 		},
-		"evmVersion": "paris",
+		"evmVersion": "shanghai",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -1086,11 +1138,11 @@
 			]
 		},
 		"contract/minter_collection.sol": {
-			"keccak256": "0xdd233b02d97c9dc489a1139e3fa14562dea2389c9a370423c5f16f931b57c255",
+			"keccak256": "0x7fd801b3b3cb59a361823daf9c90cb07c61d8b963022cbacf8fa0bc5417716a2",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://275403d9c1e9fc0aca261d0ca09cbce0f0408b822e82ec3c40e2393849832ecc",
-				"dweb:/ipfs/QmQXnLzfXuiz1wWxgyhxTLSBHgUsEs3Ncx72HwG64VtV8J"
+				"bzz-raw://eb20a85ca9e45ad577a958d9f951b8e38b915db298df6e093f2be8709eeba8a9",
+				"dweb:/ipfs/Qmca9mW57rfwJ1H7D77DF3CvQwSUrJhfbLmsqdxYv8HyEb"
 			]
 		}
 	},

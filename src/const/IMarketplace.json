@@ -49,66 +49,44 @@
 		},
 		"gasEstimates": null,
 		"methodIdentifiers": {
-			"getWithdrawalAmount(address)": "56582bf9",
-			"getWithdrawalAmountLimit(address)": "e67777ba",
-			"updateWithdrawalAmount(address,uint256)": "843f44f1"
+			"getListing(uint256)": "107a274a"
 		}
 	},
 	"abi": [
 		{
 			"inputs": [
 				{
-					"internalType": "address",
-					"name": "_address",
-					"type": "address"
+					"internalType": "uint256",
+					"name": "tokenId",
+					"type": "uint256"
 				}
 			],
-			"name": "getWithdrawalAmount",
+			"name": "getListing",
 			"outputs": [
 				{
-					"internalType": "uint256",
+					"components": [
+						{
+							"internalType": "uint256",
+							"name": "tokenId",
+							"type": "uint256"
+						},
+						{
+							"internalType": "address",
+							"name": "owner",
+							"type": "address"
+						},
+						{
+							"internalType": "uint256",
+							"name": "price",
+							"type": "uint256"
+						}
+					],
+					"internalType": "struct IMarketplace.Listing",
 					"name": "",
-					"type": "uint256"
+					"type": "tuple"
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "_address",
-					"type": "address"
-				}
-			],
-			"name": "getWithdrawalAmountLimit",
-			"outputs": [
-				{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "_address",
-					"type": "address"
-				},
-				{
-					"internalType": "uint256",
-					"name": "_amount",
-					"type": "uint256"
-				}
-			],
-			"name": "updateWithdrawalAmount",
-			"outputs": [],
-			"stateMutability": "nonpayable",
 			"type": "function"
 		}
 	]
