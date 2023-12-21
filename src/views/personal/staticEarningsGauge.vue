@@ -14,23 +14,23 @@ let maxPackage = ref('')
 let point = ref('')
 onMounted(() => {
     getStaticIncomeInfo()
-    // getPlayersInfo(localStorage.getItem('address'))
+    // getPlayersInfo('0x6f2290855c59291D94a6B5e77731421a88Ba1C64')
 
 })
 async function userGetWithdrawalAmount() { //
-    let result = await pmtContractApi.getWithdrawalAmount(localStorage.getItem('address'))
+    let result = await pmtContractApi.getWithdrawalAmount('0x6f2290855c59291D94a6B5e77731421a88Ba1C64')
     console.log(result)
 }
 async function userGetWithdrawalAmountLimit() {
-    let result = await pmtContractApi.getWithdrawalAmountLimit(localStorage.getItem('address'))
+    let result = await pmtContractApi.getWithdrawalAmountLimit('0x6f2290855c59291D94a6B5e77731421a88Ba1C64')
     console.log(result)
 }
 async function userGetRewardAmount() {
-    let result = await pmtContractApi.getRewardAmount(localStorage.getItem('address'))
+    let result = await pmtContractApi.getRewardAmount('0x6f2290855c59291D94a6B5e77731421a88Ba1C64')
     console.log(result)
 }
 async function userGetRewardAmountLimit() {
-    let result = await pmtContractApi.getRewardAmountLimit(localStorage.getItem('address'))
+    let result = await pmtContractApi.getRewardAmountLimit('0x6f2290855c59291D94a6B5e77731421a88Ba1C64')
     console.log(result)
 }
 // async function getPMTBalance() {
@@ -48,31 +48,31 @@ async function getStaticIncomeInfo() {
         proxy.$loading.show()
         let WEB3 = new Web3(window.ethereum)
         //現時已提現總數
-        let withdrawalAmount = await pmtContractApi.getWithdrawalAmount(localStorage.getItem('address'))
+        let withdrawalAmount = await pmtContractApi.getWithdrawalAmount('0x6f2290855c59291D94a6B5e77731421a88Ba1C64')
         withdrawalAmount = WEB3.utils.fromWei(withdrawalAmount.toString(), 'ether')
         withdrawalAmount = Number(withdrawalAmount).toFixed(0)
         //可提現上線
-        let withdrawalAmountLimit = await pmtContractApi.getWithdrawalAmountLimit(localStorage.getItem('address'))
+        let withdrawalAmountLimit = await pmtContractApi.getWithdrawalAmountLimit('0x6f2290855c59291D94a6B5e77731421a88Ba1C64')
         withdrawalAmountLimit = WEB3.utils.fromWei(withdrawalAmountLimit.toString(), 'ether')
         withdrawalAmountLimit = Number(withdrawalAmountLimit).toFixed(0)
         //現時收益總數
-        let rewardAmount = await pmtContractApi.getRewardAmount(localStorage.getItem('address'))
+        let rewardAmount = await pmtContractApi.getRewardAmount('0x6f2290855c59291D94a6B5e77731421a88Ba1C64')
         rewardAmount = WEB3.utils.fromWei(rewardAmount.toString(), 'ether')
         rewardAmount = Number(rewardAmount).toFixed(0)
         //收益上限
-        let rewardAmountLimit = await pmtContractApi.getRewardAmountLimit(localStorage.getItem('address'))
+        let rewardAmountLimit = await pmtContractApi.getRewardAmountLimit('0x6f2290855c59291D94a6B5e77731421a88Ba1C64')
         rewardAmountLimit = WEB3.utils.fromWei(rewardAmountLimit.toString(), 'ether')
         rewardAmountLimit = Number(rewardAmountLimit).toFixed(0)
         //锁定期的pmt数量
-        let getLockedAmount = await pmtContractApi.getLockedAmount(localStorage.getItem('address'))
+        let getLockedAmount = await pmtContractApi.getLockedAmount('0x6f2290855c59291D94a6B5e77731421a88Ba1C64')
         getLockedAmount = WEB3.utils.fromWei(getLockedAmount.toString(), 'ether')
         getLockedAmount = Number(getLockedAmount).toFixed(0)
         //最高配套金額
-        let result = await playersInfo(localStorage.getItem('address'))
+        let result = await playersInfo('0x6f2290855c59291D94a6B5e77731421a88Ba1C64')
         console.log('result', result)
         let max = Number(result.player.max_package.price) * 2
         let min = Number(result.player.max_package.price) * 0.6
-        let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
+        let pmtBalance = await pmtContractApi.balanceOf('0x6f2290855c59291D94a6B5e77731421a88Ba1C64')
 
         pmtBalance = WEB3.utils.fromWei(pmtBalance.toString(), 'ether')
         pmtBalance = Number(pmtBalance)
