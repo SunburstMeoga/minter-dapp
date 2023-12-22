@@ -140,21 +140,22 @@ let currentFilter = ref(0)
 let tokenID = ref(null)
 let timer = ref(null)
 let actions = ref([
-    { text: '价格由高到低', value: 0 },
-    { text: '价格由低到高', value: 1 }
+    { text: '价格由高到低', value: true, index: 0 },
+    { text: '价格由低到高', value: false, index: 1 }
 ])
 const userInfo = userStore()
 
 
 onMounted(() => {
-    getMarketplace()
-
-
+    let params =  { perPage: 100000, status: 1 }
+    getMarketplace(params)
 })
 
 function onSelect(select) {
     console.log(select)
-    currentFilter.value = select.value
+    currentFilter.value = select.index
+    let params =  { perPage: 100000, status: 1, sortBy:'price',sortDesc: select.value }
+    getMarketplace(params)
 }
 
 //取消掛單
@@ -213,10 +214,13 @@ async function handleCancelList(item) {
 }
 
 //獲取可購買的nft列表
-function getMarketplace() {
+function getMarketplace(params) {
     proxy.$loading.show()
-    marketplace({ perPage: 100000, status: 1 })
+    marketplace(params)
         .then(res => {
+            packageN.value = []
+            packageR.value = []
+            packageSR.value = []
             packageID.value = res.last_package.package_id
             if (res.message == '玩家沒有購買配套。') {
                 proxy.$loading.hide()
