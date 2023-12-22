@@ -67,11 +67,17 @@ async function getStaticIncomeInfo() {
         let getLockedAmount = await pmtContractApi.getLockedAmount(localStorage.getItem('address'))
         getLockedAmount = WEB3.utils.fromWei(getLockedAmount.toString(), 'ether')
         getLockedAmount = Number(getLockedAmount).toFixed(0)
+        //獲取PMT的釋放次數
+        let getReleaseCount = await pmtContractApi.getReleaseCount()
+        getReleaseCount = WEB3.utils.fromWei(getReleaseCount.toString(), 'ether')
+        getReleaseCount = Number(getReleaseCount).toFixed(0)
+        
         //最高配套金額
         let result = await playersInfo(localStorage.getItem('address'))
         console.log('result', result)
         let max = Number(result.player.max_package.price) * 2
-        let min = Number(result.player.max_package.price) * 0.6
+        let min = Number(result.player.max_package.price) * 0.6 //最高金額的package釋放數量
+        let eraningAmount = min / 3 * getReleaseCount  //pmt釋放量
         let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
 
         pmtBalance = WEB3.utils.fromWei(pmtBalance.toString(), 'ether')
@@ -79,7 +85,7 @@ async function getStaticIncomeInfo() {
         let income = pmtBalance - min
         let trueLimit = max - min
         // let point
-        point.value = Number(((rewardAmount - getLockedAmount) / rewardAmountLimit) * 100).toFixed(1) + '%'
+        point.value = Number(((rewardAmount - eraningAmount) / rewardAmountLimit) * 100).toFixed(1) + '%'
         // if (income >= trueLimit) {
         //     point = '100%'
         // } else {
@@ -88,7 +94,15 @@ async function getStaticIncomeInfo() {
 
         console.log('pmt', pmtBalance)
 
-        console.log(withdrawalAmount, withdrawalAmountLimit, rewardAmount, rewardAmountLimit,getLockedAmount)
+        console.log('顯示已提取總數 ', withdrawalAmount)
+        console.log('可提取上限 ',  withdrawalAmountLimit)
+        console.log('現時收益總數 ',  rewardAmount)
+        console.log('收益上限 ',  rewardAmountLimit)
+        console.log('锁定期的pmt数量 ',  getLockedAmount)
+        console.log('獲取PMT的釋放次數 ',  getReleaseCount)
+        console.log('最高金額的package釋放數量 ',  min)
+
+
 
         let myChart = echarts.init(document.getElementById("staticEarnings"));
         myChart.setOption({
@@ -127,8 +141,8 @@ async function getStaticIncomeInfo() {
                     },
                     data: [
                         {
-                            value: rewardAmount - getLockedAmount,
-                            name: `剩餘量: ${rewardAmountLimit - rewardAmount + Number(getLockedAmount)} MT`
+                            value: rewardAmount - eraningAmount,
+                            name: `剩餘量: ${rewardAmountLimit - rewardAmount + Number(eraningAmount)} MT`
                             // name: '剩余量:' + rewardAmountLimit - rewardAmount + ' MT',
                         }
                     ],
