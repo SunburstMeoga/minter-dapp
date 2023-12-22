@@ -168,7 +168,7 @@ async function getStaticIncomeInfo() {
         proxy.$loading.hide()
 
     } catch (err) {
-
+        console.log(err)
         proxy.$loading.hide()
     }
 }
