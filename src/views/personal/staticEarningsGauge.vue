@@ -77,7 +77,7 @@ async function getStaticIncomeInfo() {
         console.log('result', result)
         let max = Number(result.player.max_package.price) * 2
         let min = Number(result.player.max_package.price) * 0.6 //最高金額的package釋放數量
-        let eraningAmount = min / 3 * getReleaseCount  //pmt釋放量
+        let eraningAmount = min / 3 * (3 - getReleaseCount)  //pmt釋放量
         let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
 
         pmtBalance = WEB3.utils.fromWei(pmtBalance.toString(), 'ether')
@@ -101,7 +101,7 @@ async function getStaticIncomeInfo() {
         console.log('锁定期的pmt数量 ',  getLockedAmount)
         console.log('獲取PMT的釋放次數 ',  getReleaseCount)
         console.log('package總釋放數量 ',  min)
-
+        console.log('package的釋放量', eraningAmount)
 
 
         let myChart = echarts.init(document.getElementById("staticEarnings"));
