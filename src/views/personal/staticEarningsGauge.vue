@@ -100,7 +100,7 @@ async function getStaticIncomeInfo() {
         console.log('收益上限 ',  rewardAmountLimit)
         console.log('锁定期的pmt数量 ',  getLockedAmount)
         console.log('獲取PMT的釋放次數 ',  getReleaseCount)
-        console.log('最高金額的package釋放數量 ',  min)
+        console.log('package釋放數量 ',  min)
 
 
 
