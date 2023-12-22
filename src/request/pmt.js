@@ -61,6 +61,11 @@ if (window.ethereum) {
     getRemainingLockupPeriod: async function (walletAddr) {
       const result = await PMTTOKEN.getRemainingLockupPeriod(walletAddr)
       return result
+    },
+    //獲取pmt的釋放次數
+    getReleaseCount: async function(walletAddr) {
+      const result = await PMTTOKENTRADE.getReleaseCount(walletAddr)
+      return result
     }
   }
 }

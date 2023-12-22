@@ -68,7 +68,7 @@ async function getStaticIncomeInfo() {
         getLockedAmount = WEB3.utils.fromWei(getLockedAmount.toString(), 'ether')
         getLockedAmount = Number(getLockedAmount).toFixed(0)
         //獲取PMT的釋放次數
-        let getReleaseCount = await pmtContractApi.getReleaseCount()
+        let getReleaseCount = await pmtContractApi.getReleaseCount(localStorage.getItem('address'))
         getReleaseCount = WEB3.utils.fromWei(getReleaseCount.toString(), 'ether')
         getReleaseCount = Number(getReleaseCount).toFixed(0)
         
