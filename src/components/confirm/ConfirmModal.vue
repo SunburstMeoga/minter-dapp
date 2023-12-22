@@ -27,16 +27,25 @@
                         <!-- <div class="split-line-center" v-if="showCancelButton"></div> -->
                         <!-- <div class="relative operating-button text-sm text-center py-1.5 rounded-full text-white"
                             :class="showCancelButton ? 'w-5/12' : 'flex-1'" @click="handleConfirm"> -->
-                        <div v-show="!isWaiting" class="relative  text-sm text-center py-1.5 flex-1 rounded-full text-white"
-                            :class="isWaiting ? 'disable-button' : 'operating-button'" @click="handleConfirm">
+                        <!-- 確認按鈕 -->
+                        <div v-show="!isWaiting"
+                            class="relative operating-button text-sm text-center py-2  rounded-full text-white"
+                            :class="showCancelButton ? 'w-5/12' : 'flex-1'" @click="handleConfirm">
                             <div>
                                 {{ confirmText }}
                             </div>
                         </div>
-                        <div v-show="isWaiting" class="relative  text-sm text-center py-1.5 flex-1 rounded-full text-white"
-                            :class="isWaiting ? 'disable-button' : 'operating-button'">
-
-                            <!-- <div>{{ confirmText }}</div> -->
+                        <!-- 取消按鈕 -->
+                        <div v-show="showCancelButton && !isWaiting"
+                            class="relative border border-primary-color w-5/12 text-sm text-center py-2 rounded-full text-white"
+                            @click="handleCancel">
+                            <div>
+                                {{ cancelText }}
+                            </div>
+                        </div>
+                        <!-- 等待按鈕 -->
+                        <div v-show="isWaiting"
+                            class="relative disable-button text-sm text-center py-1.5 flex-1 rounded-full text-white">
                             <div class="flex justify-center items-center">
                                 <div class="icon iconfont icon-loading animate-spin"></div>
                                 <div class="pl-2">

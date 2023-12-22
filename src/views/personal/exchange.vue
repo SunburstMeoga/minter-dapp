@@ -62,6 +62,7 @@ onMounted(() => {
     getUSDTBalance()
     getPlayersInfo(localStorage.getItem('address'))
 })
+
 //獲取玩家信息
 async function getPlayersInfo(address) {
     proxy.$loading.show()
@@ -77,7 +78,7 @@ async function getPlayersInfo(address) {
     // }
     // const {} = res.player
 
-    rtBanalce(address)
+    rtBanalce({ address: localStorage.getItem('address') })
         .then(res => {
             console.log('res', res)
             playInfo.value = res
@@ -101,7 +102,7 @@ async function getUSDTBalance() {
     return balance
 }
 async function handleExchange() {
-    if(!exchangeAmount.value) {
+    if (!exchangeAmount.value) {
         showToast('請輸入兌換金額')
         return
     }
@@ -144,23 +145,54 @@ async function handleExchange() {
         return
     }
 
-    try {
+    proxy.$loading.hide()
+    proxy.$confirm.show({
+        title: '確認',
+        content: `是否確認將 ${exchangeAmount.value} USD3兌換為 ${exchangeAmount.value} RT?`,
+        showCancelButton: true,
+        confirmText: '確定',
+        cancelText: '取消',
+        onConfirm: () => {
+            // proxy.$confirm.hide()
+            const WEB3 = new Web3(window.ethereum)
+            let amount = WEB3.utils.toWei((exchangeAmount.value).toString(), 'ether')
+            swapContractApi.swapUSDTForRT(amount)
+                .then(res => {
+                    console.log(res)
+                    showToast(t('toast.success'))
+                    getUSDTBalance()
+                    getPlayersInfo(localStorage.getItem('address'))
+                    location.reload()
+                })
+                .catch(err => {
+                    proxy.$confirm.hide()
+                    showToast('您已取消授權')
 
-        proxy.$loading.show()
-        const WEB3 = new Web3(window.ethereum)
-        let amount = WEB3.utils.toWei((exchangeAmount.value).toString(), 'ether')
-        let changeInfo = await swapContractApi.swapUSDTForRT(amount)
-        console.log(changeInfo)
-        proxy.$loading.hide()
-        showToast(t('toast.success'))
-        getUSDTBalance()
-        getPlayersInfo(localStorage.getItem('address'))
-        location.reload()
-    } catch (err) {
-        proxy.$loading.hide()
-        showToast(t('toast.error'))
-        console.log(err)
-    }
+                    console.log(err)
+                })
+        },
+        onCancel: () => {
+            proxy.$confirm.hide()
+        },
+    });
+    // return
+
+    // try {
+    //     // proxy.$loading.show()
+    //     const WEB3 = new Web3(window.ethereum)
+    //     let amount = WEB3.utils.toWei((exchangeAmount.value).toString(), 'ether')
+    //     let changeInfo = await swapContractApi.swapUSDTForRT(amount)
+    //     console.log(changeInfo)
+    //     proxy.$loading.hide()
+    //     showToast(t('toast.success'))
+    //     getUSDTBalance()
+    //     getPlayersInfo(localStorage.getItem('address'))
+    //     location.reload()
+    // } catch (err) {
+    //     proxy.$loading.hide()
+    //     showToast(t('toast.error'))
+    //     console.log(err)
+    // }
 }
 
 </script>

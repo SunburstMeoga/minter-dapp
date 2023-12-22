@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="w-11/12 ml-auto mr-auto rounded-lg bg-card-content flex flex-col justify-start items-center py-2 mb-4">
-            
+
             <div class="w-11/12">
                 <div class="mb-1">
                     {{ $t('invitePage.preAddress') }}
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="w-11/12 ml-auto mr-auto rounded-lg bg-card-content flex flex-col justify-start items-center py-2 mb-4">
-           
+
             <div class="w-11/12">
                 <div class="mb-1">
                     {{ $t('invitePage.selfAddress') }}
@@ -118,10 +118,12 @@
                     class="w-3/12 mr-auto ml-auto operating-button text-white py-2 text-center rounded-full">{{
                         $t('invitePage.chooseCoherent') }}</div> -->
                 <div @click="handleConfirmBuyForUSDT"
-                    class="w-5/12 mr-auto ml-auto border-primary-color active-white-color border-2 text-white py-2 text-center rounded-full">USD3{{
+                    class="w-5/12 mr-auto ml-auto border-primary-color active-white-color border-2 text-white py-2 text-center rounded-full">
+                    USD3{{
                         $t('invitePage.pay') }}</div>
                 <div @click="handleConfirmBuyForRT"
-                    class="w-5/12 mr-auto ml-auto border-2 active-white-color border-primary-color text-white py-2 text-center rounded-full">RT{{
+                    class="w-5/12 mr-auto ml-auto border-2 active-white-color border-primary-color text-white py-2 text-center rounded-full">
+                    RT{{
                         $t('invitePage.pay') }}</div>
             </div>
 
@@ -131,8 +133,7 @@
                 <div class="text-center mb-4 font-bold">{{ $t('invitePage.chooseCoherentTip') }}</div>
                 <div v-for="(item, index) in packageList" :key="index" @click="handlePackage(item, index)"
                     class="border border-primary-color py-3 px-1 w-11/12 flex justify-between items-center mb-2 rounded mr-auto ml-auto"
-                    :class="coherentInfo.id - 1 == index ? 'operating-button' : ''"
-                    >
+                    :class="coherentInfo.id - 1 == index ? 'operating-button' : ''">
                     <div>
                         {{ item.name }}
                     </div>
@@ -149,12 +150,11 @@
 import { ref, onMounted, getCurrentInstance } from 'vue'
 import { useRoute } from 'vue-router'
 import coherents_list from '@/datas/coherents_list'
-import { login } from '@/request/api'
 import { FormatAmount, FilterAddress } from '@/utils/format'
 import Web3 from "web3";
 import { generateNonce } from '@/utils/getNonce'
 import usdtContractApi from '@/request/usdt'
-import { buyCoherent, joinTheThree, updataRTBalance, playersInfo, checkPackageCount } from '@/request/api'
+import { buyCoherent, joinTheThree, updataRTBalance, playersInfo, checkPackageCount, login, rtBanalce } from '@/request/api'
 import { userStore } from "@/stores/user";
 import { showToast } from 'vant'
 import { useI18n } from 'vue-i18n';
@@ -194,6 +194,22 @@ onMounted(() => {
         addressSign()
     }
 })
+//判断rt余额是否充足
+async function isSufficientRT(amount) {
+    let balance = await rtBanalce({ address: localStorage.getItem('address') })
+    balance = parseInt(balance.player.rt)
+    return Number(amount).toFixed(0) <= balance
+}
+
+//判斷usdt餘額是否充足
+async function isSufficientUSD3(amount) {
+    let balance = await usdtContractApi.balanceOf(localStorage.getItem('address'))
+    let WEB3 = new Web3(window.ethereum)
+    balance = WEB3.utils.fromWei(balance.toString(), 'ether')
+    balance = parseInt(balance)
+    console.log(amount, balance)
+    return Number(amount).toFixed(0) <= balance
+}
 
 //加入樹狀圖
 function joinTree() {
@@ -215,6 +231,7 @@ function joinTree() {
 //獲取玩家信息
 function getPackageCount() {
     proxy.$loading.show()
+
     checkPackageCount()
         .then(res => {
             if (res.message == '你已經購買配套。') {
@@ -222,15 +239,15 @@ function getPackageCount() {
                 showToast('購買成功')
                 proxy.$loading.hide()
                 joinTree()
-                
-            } 
+
+            }
         })
         .catch(err => {
             console.log('err', err)
             proxy.$loading.hide()
         })
 }
-
+//點解配套列表配套
 function handlePackage(packageInfo) {
     if (!packageInfo.isSale) {
         showToast(t('toast.notYetOpen'))
@@ -248,8 +265,38 @@ function togglePackagePopup() {
 }
 
 //使用rt購買package 
-function handleConfirmBuyForRT() {
+async function handleConfirmBuyForRT() {
     proxy.$loading.show()
+
+    try {
+        if (!await isSufficientRT(coherentInfo.value.type)) {
+            proxy.$loading.hide()
+            proxy.$confirm.show({
+                title: '餘額不足',
+                content: `當前配套價格為 ${coherentInfo.value.type} RT，您的 RT 餘額不足。`,
+                showCancelButton: false,
+                confirmText: '確定',
+                onConfirm: () => {
+                    proxy.$confirm.hide()
+                },
+            });
+            return
+        }
+
+    } catch (err) {
+        proxy.$loading.hide()
+        proxy.$confirm.show({
+            title: '錯誤',
+            content: `獲取RT餘額失敗，請重試`,
+            showCancelButton: false,
+            confirmText: '確定',
+            onConfirm: () => {
+                proxy.$confirm.hide()
+            },
+        });
+        return
+    }
+
     let data = { package_id: coherentInfo.value.id, referrer_address: inviterAddress.value, leg_address: preAddress.value, legSide: point.value }
     buyCoherent(data)
         .then(res => {
@@ -279,14 +326,43 @@ function handleConfirmBuyForRT() {
 
 //使用usdt購買package
 async function handleConfirmBuyForUSDT() {
+    console.log(coherentInfo.value.type)
     proxy.$loading.show()
+    try {
+        if (!await isSufficientUSD3(coherentInfo.value.type)) {
+            proxy.$loading.hide()
+            proxy.$confirm.show({
+                title: '餘額不足',
+                content: `當前配套價格為 ${coherentInfo.value.type} USD3，您的 USD3 餘額不足。`,
+                showCancelButton: false,
+                confirmText: '確定',
+                onConfirm: () => {
+                    proxy.$confirm.hide()
+                },
+            });
+            return
+        }
+
+    } catch (err) {
+        proxy.$loading.hide()
+        proxy.$confirm.show({
+            title: '錯誤',
+            content: `獲取USD3餘額失敗，請重試`,
+            showCancelButton: false,
+            confirmText: '確定',
+            onConfirm: () => {
+                proxy.$confirm.hide()
+            },
+        });
+        return
+    }
     let allowance
     try { //检查usdt对pmt_purchase的授权状态
         allowance = await usdtContractApi.allowance(localStorage.getItem('address'), config.pmt_purchase_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
-        showToast(t('toast.error'))
+        showToast('获取授权状态错误，请重试。')
         console.log(err)
     }
     console.log('allowance', allowance)
@@ -299,8 +375,6 @@ async function handleConfirmBuyForUSDT() {
             showCancelButton: false,
             confirmText: '去授權',
             onConfirm: () => {
-                // proxy.$loading.show()
-                // usdt对pmt授權
                 usdtContractApi.approve(config.pmt_purchase_addr)
                     .then(res => {
                         console.log(res)
@@ -333,7 +407,7 @@ async function handleConfirmBuyForUSDT() {
         console.log(err)
     }
 }
-
+//签名
 async function addressSign() {
     proxy.$loading.show()
     const web3 = new Web3(window.ethereum)
