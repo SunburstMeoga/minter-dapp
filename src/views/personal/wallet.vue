@@ -429,7 +429,6 @@ async function getHAHBalance() {
 
 // const chartData = ref([1, 2, 3, 4, 5])   
 async function getMSTBalance() {
-    console.log('localStorage.getItem('address')', localStorage.getItem('address'))
     let balance = await mstContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
@@ -438,7 +437,6 @@ async function getMSTBalance() {
     return balance
 }
 async function getUSDTBalance() {
-    console.log('localStorage.getItem('address')', localStorage.getItem('address'))
     let balance = await usdtContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
@@ -447,7 +445,6 @@ async function getUSDTBalance() {
     return balance
 }
 async function getPMTBalance() {
-    console.log('localStorage.getItem('address')', localStorage.getItem('address'))
     let balance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
@@ -456,7 +453,6 @@ async function getPMTBalance() {
     return balance
 }
 async function getMTBalance() {
-    console.log('localStorage.getItem('address')', localStorage.getItem('address'))
     let balance = await mtContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
