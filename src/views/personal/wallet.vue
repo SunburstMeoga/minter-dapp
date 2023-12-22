@@ -429,8 +429,8 @@ async function getHAHBalance() {
 
 // const chartData = ref([1, 2, 3, 4, 5])   
 async function getMSTBalance() {
-    console.log('userInfo.address', userInfo.address)
-    let balance = await mstContractApi.balanceOf(userInfo.address)
+    console.log('localStorage.getItem('address')', localStorage.getItem('address'))
+    let balance = await mstContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
     console.log('mst', result)
@@ -438,8 +438,8 @@ async function getMSTBalance() {
     return balance
 }
 async function getUSDTBalance() {
-    console.log('userInfo.address', userInfo.address)
-    let balance = await usdtContractApi.balanceOf(userInfo.address)
+    console.log('localStorage.getItem('address')', localStorage.getItem('address'))
+    let balance = await usdtContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
     console.log('usdt', result)
@@ -447,8 +447,8 @@ async function getUSDTBalance() {
     return balance
 }
 async function getPMTBalance() {
-    console.log('userInfo.address', userInfo.address)
-    let balance = await pmtContractApi.balanceOf(userInfo.address)
+    console.log('localStorage.getItem('address')', localStorage.getItem('address'))
+    let balance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
     console.log('pmt', result)
@@ -456,8 +456,8 @@ async function getPMTBalance() {
     return balance
 }
 async function getMTBalance() {
-    console.log('userInfo.address', userInfo.address)
-    let balance = await mtContractApi.balanceOf(userInfo.address)
+    console.log('localStorage.getItem('address')', localStorage.getItem('address'))
+    let balance = await mtContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
     console.log('mt', result)
