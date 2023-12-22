@@ -3,7 +3,7 @@
     <div class="confirm-modal">
         <transition name="fade">
             <!-- @touchmove.prevent -->
-            <div class="w-full h-full flex justify-center items-center  fixed top-0 left-0 bottom-0 z-40 bg-popup-cover"
+            <div class="w-full h-full flex justify-center items-center  fixed top-0 left-0 bottom-0 z-50 bg-popup-cover"
                 @click="clickMaskToClose ? handleCancel() : null" v-if="visible" @touchmove.prevent>
                 <div class="bg-gray-bottom p-2 rounded-lg w-9/12 flex flex-col items-center z-50 relative">
                     <div class="text-gray-200 font-bold text-lg border-b text-center border-gray-500 w-full pb-2"
@@ -45,7 +45,7 @@
                         </div>
                         <!-- 等待按鈕 -->
                         <div v-show="isWaiting"
-                            class="relative disable-button text-sm text-center py-1.5 flex-1 rounded-full text-white">
+                            class="relative disable-button text-sm text-center py-2 flex-1 rounded-full text-white">
                             <div class="flex justify-center items-center">
                                 <div class="icon iconfont icon-loading animate-spin"></div>
                                 <div class="pl-2">

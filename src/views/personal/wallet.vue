@@ -108,7 +108,7 @@
                                 v-model="exchangeAmountBT">
                         </div>
                     </div>
-                    <div class="operating-button rounded-full text-white font-bold text-center text-sm py-2"
+                    <div class="operating-button rounded-full text-white font-bold text-center text-sm py-3"
                         @click="handleExchangeBT">
                         {{ $t('modalConfirm.confirm') }}
                     </div>
@@ -149,7 +149,7 @@
                         <!-- <div class="underline text-sm text-gray-200">{{ $t('wallet.all') }}</div> -->
                     </div>
                     <!--  -->
-                    <div class="operating-button rounded-full text-white font-bold text-center text-sm py-2"
+                    <div class="operating-button rounded-full text-white font-bold text-center text-sm py-3"
                         @click="handleTransferRT">
                         {{ $t('modalConfirm.confirm') }}
                     </div>
@@ -187,7 +187,7 @@
                         </div>
                         <div class="underline text-sm text-gray-200">全部</div>
                     </div> -->
-                    <div class="operating-button rounded-full text-white font-bold text-center text-sm py-2">
+                    <div class="operating-button rounded-full text-white font-bold text-center text-sm py-3">
                         {{ $t('modalConfirm.confirm') }}
                     </div>
                 </div>
@@ -227,7 +227,7 @@
                         <div class="underline text-sm text-gray-200">{{ $t('wallet.all') }}</div>
                     </div>
                     <!--  -->
-                    <div class="operating-button rounded-full text-white font-bold text-center text-sm py-2">
+                    <div class="operating-button rounded-full text-white font-bold text-center text-sm py-3">
                         {{ $t('modalConfirm.confirm') }}
                     </div>
                 </div>
@@ -258,30 +258,7 @@
                                 v-model="exchangeAmount">
                         </div>
                     </div>
-                    <!-- <div class="text-white text-base flex justify-between items-center mb-3">
-                        <div>{{ $t('wallet.withdrawableAmount') }}: </div>
-                        <div class="text-red-500 font-bold">0.0000 USD3 </div>
-                    </div>
-                    <div class="text-white text-xs flex justify-start items-baseline mb-1">
-                        <div class="text-base">{{ $t('wallet.withdrawAddress') }} </div>
-                    </div>
-                    <div class="w-full mb-4 flex justify-between items-center">
-                        <div class="rounded border border-gray-700 flex-1 py-2">
-                            <input type="text" :placeholder="$t('wallet.withdrawAddress')"
-                                class="w-full h-full bg-transparent rounded pl-1">
-                        </div>
-                    </div>
-                    <div class="text-white text-xs flex justify-start items-baseline mb-1">
-                        <div class="text-base">{{ $t('wallet.withdrawAmount') }} </div>
-                    </div>
-                    <div class="w-full mb-8 flex justify-between items-center">
-                        <div class="rounded mr-2 flex-1 ">
-                            <input type="text" :placeholder="$t('wallet.withdrawAmount')"
-                                class="w-full h-full bg-transparent rounded py-2">
-                        </div>
-                        <div class="underline text-sm text-gray-200">{{ $t('wallet.all') }}</div>
-                    </div> -->
-                    <div class="operating-button rounded-full text-white font-bold text-center text-sm py-2"
+                    <div class="operating-button rounded-full text-white font-bold text-center text-sm py-3"
                         @click="handleExchange">
                         {{ $t('modalConfirm.confirm') }}
                     </div>
@@ -377,7 +354,7 @@ function handleTransferRT() {
         .then(res => {
             proxy.$loading.hide()
             console.log(res)
-            if(res.error) {
+            if (res.error) {
                 proxy.$confirm.show({
                     title: '提示',
                     content: '收款地址與發起地址無關，請確認你的收款地址',
@@ -461,6 +438,7 @@ async function getMTBalance() {
     return balance
 }
 
+//承諾卡數量
 function getStaticRecords() {
     proxy.$loading.show()
     let params = { prize_type_id: 3, perPage: 100000 }
@@ -475,7 +453,7 @@ function getStaticRecords() {
 
         })
 }
-
+//nft數量
 function getUserNFTs() {
     proxy.$loading.show()
     let params = { status: 1 }
@@ -490,7 +468,7 @@ function getUserNFTs() {
             console.log(err)
         })
 }
-
+//查看配套
 function viewCoherents() {
     setTimeout(() => {
         router.push({
@@ -499,6 +477,7 @@ function viewCoherents() {
     }, 1000)
 
 }
+//查看NFT
 function viewNFTs() {
     setTimeout(() => {
         router.push({
@@ -506,6 +485,7 @@ function viewNFTs() {
         })
     }, 1000)
 }
+//查看承諾卡
 function viewPromiseCard() {
     setTimeout(() => {
         router.push({
@@ -604,42 +584,58 @@ async function handleExchange() {
 
             },
         });
-    } else { //當前領取方式已授權，直接兌換
-        proxy.$loading.show()
-        const WEB3 = new Web3(window.ethereum)
-        let amount = WEB3.utils.toWei((exchangeAmount.value).toString(), 'ether')
-        if (currentExchangeType.value == 0) {
-            try {
-                await swapContractApi.swapMTForUSDT(amount)
-                proxy.$loading.hide()
-                getMTBalance()
-                getUSDTBalance()
-                showToast('操作成功')
-            } catch (err) {
-                console.log(err)
-                proxy.$loading.hide()
-                showToast('錯誤，請重試')
-            }
-        } else {
-            try {
-                await swapContractApi.swapMTForRT(amount)
-                await rtBanalce(localStorage.getItem('address'))
-                getMTBalance()
-                getPlayersInfo(localStorage.getItem('address'))
-                proxy.$loading.hide()
-                showToast('操作成功')
-            } catch (err) {
-                console.log(err)
-                proxy.$loading.hide()
-                showToast('錯誤，請重試')
-            }
-        }
-
-
+        return
     }
-    // return
-    // let exchange = await swapContractApi.swapMTForUSDT('800000000000000')
-    // console.log(texchange)
+    const WEB3 = new Web3(window.ethereum)
+    let amount = WEB3.utils.toWei((exchangeAmount.value).toString(), 'ether')
+    let contentWord
+    if (currentExchangeType.value == 0) {
+        contentWord = `是否確認將 ${exchangeAmount.value} MT 兌換為 ${exchangeAmount.value * 0.9} USDT， 已扣除10% (${exchangeAmount.value * 0.1} MT) 手續費。 `
+    } else {
+        contentWord = `是否確認將 ${exchangeAmount.value} MT 兌換為 ${exchangeAmount.value * 0.95} RT， 已扣除5% (${exchangeAmount.value * 0.05} MT) 手續費。`
+    }
+    proxy.$loading.hide()
+    proxy.$confirm.show({
+        title: '確認',
+        content: contentWord,
+        showCancelButton: true,
+        confirmText: '確定',
+        cancelText: '取消',
+        onConfirm: async () => {
+            if (currentExchangeType.value == 0) {
+                try {
+                    await swapContractApi.swapMTForUSDT(amount)
+                    proxy.$confirm.hide()
+                    getMTBalance()
+                    getUSDTBalance()
+                    showToast(`已成功兌換 ${exchangeAmount.value * 0.9} USD3`)
+                } catch (err) {
+                    console.log(err)
+                    proxy.$loading.hide()
+                    showToast('兌換失敗，請重試')
+                }
+            } else {
+                try {
+                    await swapContractApi.swapMTForRT(amount)
+                    await rtBanalce(localStorage.getItem('address'))
+                    proxy.$confirm.hide()
+                    getMTBalance()
+                    getPlayersInfo(localStorage.getItem('address'))
+                    showToast(`已成功兌換 ${exchangeAmount.value * 0.95} RT`)
+                } catch (err) {
+                    console.log(err)
+                    proxy.$confirm.hide()
+                    showToast('兌換失敗，請重試')
+                }
+            }
+        },
+        onCancel: () => {
+            proxy.$confirm.hide()
+        },
+    });
+    return
+
+
 }
 //點擊卡片註冊按鈕
 function handleRegister() {
@@ -670,6 +666,10 @@ function handleWalletCardExchangeBT() {
 }
 //點擊錢包卡片兌換按鈕
 function handleWalletCardExchange() {
+    if (Number(mtBalance.value) == 0) {
+        showToast('MT餘額不足，不能進行劃轉操作。')
+        return
+    }
     toggleExchangePopup()
 }
 //顯示隱藏兌換MT彈窗

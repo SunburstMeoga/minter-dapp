@@ -1,12 +1,12 @@
 <template>
   <div class="bg-black h-screen relative">
-    <div class="w-full top-0 left-0 z-50 shadow-xl sticky" v-if="route.meta.showLogo">
+    <div class="w-full top-0 left-0 z-40 shadow-xl sticky" v-if="route.meta.showLogo">
       <top-bar :pageTitle="pageTitle" showLogo></top-bar>
     </div>
-    <div class="fixed bg-black w-full top-0 left-0 z-50 shadow-xl" v-if="route.meta.showBack">
+    <div class="fixed bg-black w-full top-0 left-0 z-40 shadow-xl" v-if="route.meta.showBack">
       <top-back-bar :pageTitle="route.meta.pageTitle" />
     </div>
-    <div class="fixed bg-black w-full top-0 left-0 z-50 shadow-xl" v-if="route.meta.showGOIndex">
+    <div class="fixed bg-black w-full top-0 left-0 z-40 shadow-xl" v-if="route.meta.showGOIndex">
       <top-back-home :pageTitle="route.meta.pageTitle" />
     </div>
     <div class="bg-black">
@@ -88,5 +88,4 @@ img {
   height: 100%;
   object-fit: cover;
 }
-
 </style>
