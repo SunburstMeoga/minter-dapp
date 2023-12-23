@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-white rounded-lg overflow-hidden border"
+    <div class="text-white rounded-lg overflow-hidden border "
       :class="checkedStatus ? ' border-primary-color' : ' border-black'">
       <div>
         <img :src="nftImg" alt="">
