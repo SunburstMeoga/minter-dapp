@@ -417,7 +417,7 @@ async function handleListed(item) {
     proxy.$loading.hide()
     proxy.$confirm.show({
         title: '確認',
-        content: `是否確認將tokenID為:${item.token_id}的NFT進行掛單?`,
+        content: `是否確認將tokenID為: ${item.token_id} 的NFT進行掛單?`,
         showCancelButton: true,
         confirmText: '確定',
         onConfirm: async () => {
@@ -426,7 +426,7 @@ async function handleListed(item) {
                 console.log(item.token_id)
                 await nftContractApi.listNFT(item.token_id)
                 proxy.$confirm.hide()
-                showToast(t('toast.success'))
+                showToast('掛單成功')
                 getUserNFTs()
                 getUserCanSaleNFT()
                 getAllNFT()
@@ -493,23 +493,31 @@ async function handleCancelList(item) {
     proxy.$loading.hide()
     proxy.$confirm.show({
         title: '確認',
-        content: `是否取消掛單tokenID為:${item.token_id}的NFT?`,
+        content: `是否取消掛單tokenID為: ${item.token_id} 的NFT?`,
         showCancelButton: true,
         confirmText: '確定',
         onConfirm: async () => {
             try { //unlistNFT
-                proxy.$loading.show()
+                // proxy.$loading.show()
                 await nftContractApi.unlistNFT(item.token_id)
-                proxy.$loading.hide()
-                showToast(t('toast.success'))
+                // proxy.$loading.hide()
+                showToast('取消成功')
                 getUserNFTs()
                 getUserCanSaleNFT()
                 getAllNFT()
                 // showToast(t('toast.success'))
             } catch (err) {
-                proxy.$loading.hide()
-                showToast(t('toast.error'))
-                console.log(err)
+                proxy.$confirm.hide()
+                proxy.$confirm.show({
+                    title: '提示',
+                    content: '取消掛單失敗，請重試',
+                    showCancelButton: false,
+                    confirmText: '確定',
+                    onConfirm: () => {
+                        proxy.$confirm.hide()
+                        // toggleConfirmPayPopup()
+                    },
+                });
             }
         },
     });
