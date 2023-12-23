@@ -12,7 +12,7 @@
         <!-- 全部 -->
         <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap" v-show="currentType == 0">
             <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in nftsDatas" :key="index">
-                <nft-card :nftImg="nftOne" :showCheckbox="false" :price="item.price" :tokenID="item.token_id" />
+                <nft-card :nftImg="item.nftImg" :showCheckbox="false" :price="item.price" :tokenID="item.token_id" />
             </div>
         </div>
         <div v-if="nftsDatas.length == 0 && currentType == 0" class="text-white font-bold mt-20 text-center">
@@ -22,7 +22,7 @@
         <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap"
             v-show="currentType == 1 && listeds.length !== 0">
             <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in listeds" :key="index">
-                <nft-card :nftImg="nftOne" :price="item.price" :tokenID="item.token_id" showCancelButton
+                <nft-card :nftImg="item.nftImg" :price="item.price" :tokenID="item.token_id" showCancelButton
                     @handleCancel="handleCancelList(item)" />
             </div>
         </div>
@@ -34,7 +34,7 @@
             v-show="currentType == 2 && saleables.length !== 0">
 
             <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in saleables" :key="index">
-                <nft-card :nftImg="nftOne" showListedButton :price="item.price" :tokenID="item.token_id"
+                <nft-card :nftImg="item.nftImg" showListedButton :price="item.price" :tokenID="item.token_id"
                     @handleListed="handleListed(item)" />
             </div>
         </div>
@@ -47,7 +47,11 @@
 <script setup>
 import { ref, onMounted, computed, getCurrentInstance } from 'vue'
 import NftCard from '@/components/NftCard.vue'
-import nftOne from '@/assets/images/nftOne.png'
+import nftOne from '@/assets/images/200.png'
+import nftTwo from '@/assets/images/600.png'
+import nftThree from '@/assets/images/2000.png'
+import nftFour from '@/assets/images/6000.png'
+import nftFive from '@/assets/images/20000.png'
 import { userNFT, marketplace, getCanSaleNFT } from '@/request/api'
 import nftContractApi from '@/request/nft'
 import minterContractApi from '@/request/minter'
@@ -85,8 +89,22 @@ function getUserCanSaleNFT() {
         .then(res => {
             console.log(res)
             saleables.value = res.nft_token_ids
-
-            // if (res.nft_token_ids.length !== 0) {
+            if (saleables.value.length !== 0) {
+                saleables.value.map(item => {
+                    if (item.token_type == 1) {
+                        item.nftImg = nftOne
+                    } else if (item.token_type == 2) {
+                        item.nftImg = nftTwo
+                    } else if (item.token_type == 3) {
+                        item.nftImg = nftThree
+                    } else if (item.token_type == 4) {
+                        item.nftImg = nftFour
+                    } else if (item.token_type == 5) {
+                        item.nftImg = nftFour
+                    }
+                })
+            }
+            // if (res.nft_token_ids.length !== 0) {    
             //     res.nft_token_ids.map(item => {
             //         let obj = {}
             //         obj.token_id = item
@@ -114,7 +132,23 @@ function getAllNFT() {
         .then(res => {
             proxy.$loading.hide()
             // saleables 可出售 listeds//正在掛單
+            console.log(res)
             nftsDatas.value = res.nft_token_ids
+            if (nftsDatas.value.length !== 0) {
+                nftsDatas.value.map(item => {
+                    if (item.token_type == 1) {
+                        item.nftImg = nftOne
+                    } else if (item.token_type == 2) {
+                        item.nftImg = nftTwo
+                    } else if (item.token_type == 3) {
+                        item.nftImg = nftThree
+                    } else if (item.token_type == 4) {
+                        item.nftImg = nftFour
+                    } else if (item.token_type == 5) {
+                        item.nftImg = nftFour
+                    }
+                })
+            }
             // if (res.nft_token_ids.length !== 0) {
             //     res.nft_token_ids.map(item => {
             //         let obj = {}
@@ -152,6 +186,21 @@ function getUserNFTs() {
                 res.market_places.map(item => {
                     if (item.address == localStorage.getItem('address')) {
                         listeds.value.push(item)
+                        if (listeds.value.length !== 0) {
+                            listeds.value.map(_item => {
+                                if (_item.token_type == 1) {
+                                    _item.nftImg = nftOne
+                                } else if (_item.token_type == 2) {
+                                    _item.nftImg = nftTwo
+                                } else if (_item.token_type == 3) {
+                                    _item.nftImg = nftThree
+                                } else if (_item.token_type == 4) {
+                                    _item.nftImg = nftFour
+                                } else if (_item.token_type == 5) {
+                                    _item.nftImg = nftFour
+                                }
+                            })
+                        }
                     }
                 })
             }
