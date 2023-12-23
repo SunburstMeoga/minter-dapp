@@ -38,10 +38,31 @@
                     釋放
                 </div>
             </div>
+            <div>
+                <div class="rounded bg-card-content p-2 mb-2 text-white">
+                    <div class="pt-1 flex justify-between items-center">
+                        <div>
+                            動態已提現總數：
+                        </div>
+                        <div>
+                            {{ Number(totalBTWithdraw).toFixed(4) }} PMT
+                        </div>
+                    </div>
+                    <div class="pt-1 flex justify-between items-center">
+                        <div>
+                            動態總提現總數：
+                        </div>
+                        <div>
+                            {{ Number(totalBTReward).toFixed(4) }} PMT
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="mb-2" v-for="(item, index) in playerPackages" :key="index">
                 <coherent-card :coherentInfo="item" />
             </div>
         </div>
+
     </div>
 </template>
 
@@ -64,6 +85,9 @@ let remainingPMT = ref("")
 let beenReleased = ref("") //已經釋放的PMT
 let canReleasedTime = ref("")
 let releaseTime = ref(2)
+let totalBTWithdraw = ref(null)
+let totalBTReward = ref(null)
+
 let isNotYet = ref(true)
 onMounted(() => {
     // releasePMTTokens()
@@ -77,7 +101,7 @@ onMounted(() => {
 function countDown(time) {
     var nowTime = +new Date();
     var inputTime = +new Date(time * 1000)
-    
+
     // var inputTime = 1703080568
     var time = (inputTime - nowTime) / 1000
     var day = Math.floor(time / 60 / 60 / 24);
@@ -89,7 +113,7 @@ function countDown(time) {
     var second = Math.floor(time % 60);
     second = second < 10 ? "0" + second : second
     // console.log(day + "天" + hour + "时" + minute + "分" + second + "秒")
-    if(time <= 0) {
+    if (time <= 0) {
         isNotYet.value = false
         canReleasedTime.value = "可以釋放"
         return
@@ -159,6 +183,12 @@ function getPlayersInfo(address) {
     playersInfo(address)
         .then(res => {
             console.log('res', res)
+            const { total_bt_withdraw, total_bt_reward } = res.player.dynamic_earning_percentage_limit
+
+            totalBTWithdraw.value = total_bt_withdraw
+            totalBTReward.value = total_bt_reward
+
+
             res.player.package_transactions.map(item => {
                 coherentsList.value.map(_item => {
                     let obj = {}
