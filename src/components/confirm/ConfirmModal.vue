@@ -10,7 +10,7 @@
                         v-if="title">
                         {{ title }}
                     </div>
-                    <div class="text-gray-300 text-sm px-2 py-4 text-center">
+                    <div class="text-gray-300 text-sm px-2 py-4 text-center break-words w-11/12">
                         {{ content }}
                     </div>
                     <!-- <div class="split-line-top"></div> -->
