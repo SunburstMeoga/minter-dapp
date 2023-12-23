@@ -14,7 +14,7 @@
             </div>
             <div class="text-white text-base flex justify-between items-center mb-6">
                 <div>RT {{ $t('order.balance') }}: </div>
-                <div>{{ Number(rtBalance).toFixed(4) }} RT </div>
+                <div>{{ Number(rtBalanceNum).toFixed(4) }} RT </div>
                 <!-- <div class="text-primary-color text-xs pl-1"> (当前1USD3可兑换2RT)</div> -->
             </div>
             <div class="text-white text-xs flex justify-start items-baseline mb-2">
@@ -47,14 +47,14 @@ import { showToast } from 'vant';
 import usdtContractApi from '@/request/usdt'
 import swapContractApi from '@/request/swap'
 import { userStore } from "@/stores/user";
-import { playersInfo, rtBanalce } from '@/request/api'
+import { playersInfo, rtBalance } from '@/request/api'
 import { useI18n } from 'vue-i18n';
 import Web3 from "web3";
 const userInfo = userStore()
 const { proxy } = getCurrentInstance()
 const { t } = useI18n()
 let usdtBalance = ref('')
-let rtBalance = ref('')
+let rtBalanceNum = ref('')
 let exchangeAmount = ref('')
 let playInfo = ref({})
 const router = useRouter()
@@ -67,7 +67,7 @@ onMounted(() => {
 async function getPlayersInfo(address) {
     proxy.$loading.show()
     // try {
-    //     let result = await rtBanalce(address)
+    //     let result = await rtBalance(address)
     //     console.log(result)
     //     playInfo.value = result
     //     rtBalance.value = result.rt
@@ -78,11 +78,11 @@ async function getPlayersInfo(address) {
     // }
     // const {} = res.player
 
-    rtBanalce({ address: localStorage.getItem('address') })
+    rtBalance({ address: localStorage.getItem('address') })
         .then(res => {
             console.log('res', res)
             playInfo.value = res
-            rtBalance.value = res.player.rt
+            rtBalanceNum.value = res.player.rt
             proxy.$loading.hide()
         })
         .catch(err => {

@@ -50,7 +50,7 @@
                         </div>
                         <div class="text-red-500 font-bold">
                             {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
-                                FormatAmount(coherentInfo.type).pointOffside }}</span>
+                                                            FormatAmount(coherentInfo.type).pointOffside }}</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
@@ -59,7 +59,7 @@
                         </div>
                         <div class="text-red-500 font-bold">
                             {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-                                FormatAmount(coherentInfo.limit).pointOffside }}</span>
+                                                            FormatAmount(coherentInfo.limit).pointOffside }}</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
@@ -80,7 +80,7 @@
                                 <div class="text-xs p-2 text-left text-gray-400">
                                     <!-- 购买成功之后即时释放{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT -->
                                     {{ $t('coherents.buyAfterReleased') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3)
-                                    }}PMT
+                                                                        }}PMT
                                 </div>
                                 <div class="text-xs p-2 text-left text-gray-400">
                                     {{ $t('coherents.24Released') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT
@@ -120,11 +120,11 @@
                 <div @click="handleConfirmBuyForUSDT"
                     class="w-5/12 mr-auto ml-auto border-primary-color active-white-color border-2 text-white py-2 text-center rounded-full">
                     USD3{{
-                        $t('invitePage.pay') }}</div>
+                                        $t('invitePage.pay') }}</div>
                 <div @click="handleConfirmBuyForRT"
                     class="w-5/12 mr-auto ml-auto border-2 active-white-color border-primary-color text-white py-2 text-center rounded-full">
                     RT{{
-                        $t('invitePage.pay') }}</div>
+                                        $t('invitePage.pay') }}</div>
             </div>
 
         </div>
@@ -154,7 +154,7 @@ import { FormatAmount, FilterAddress } from '@/utils/format'
 import Web3 from "web3";
 import { generateNonce } from '@/utils/getNonce'
 import usdtContractApi from '@/request/usdt'
-import { buyCoherent, joinTheThree, updataRTBalance, playersInfo, checkPackageCount, login, rtBanalce } from '@/request/api'
+import { buyCoherent, joinTheThree, updataRTBalance, playersInfo, checkPackageCount, login, rtBalance } from '@/request/api'
 import { userStore } from "@/stores/user";
 import { showToast } from 'vant'
 import { useI18n } from 'vue-i18n';
@@ -196,7 +196,7 @@ onMounted(() => {
 })
 //判断rt余额是否充足
 async function isSufficientRT(amount) {
-    let balance = await rtBanalce({ address: localStorage.getItem('address') })
+    let balance = await rtBalance({ address: localStorage.getItem('address') })
     balance = parseInt(balance.player.rt)
     return Number(amount).toFixed(0) <= balance
 }

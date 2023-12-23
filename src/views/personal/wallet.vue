@@ -284,10 +284,12 @@ import usdtContractApi from '@/request/usdt'
 import pmtContractApi from '@/request/pmt'
 import mtContractApi from '@/request/mt'
 import mstContractApi from '@/request/mst'
-import { playersInfo, userNFT, staticRecords, btToUsdt, btToRt, rtBanalce, transfersRT } from '@/request/api'
+import { playersInfo, userNFT, staticRecords, btToUsdt, btToRt, rtBalance, transfersRT } from '@/request/api'
 import { config } from '@/const/config'
 import { showToast } from 'vant';
 import { number } from 'echarts';
+import { ZeroAddress, isAddress } from 'ethers'
+
 import { userStore } from "@/stores/user";
 import Web3 from "web3";
 const { t } = useI18n()
@@ -346,39 +348,66 @@ function handleExchangeRT() {
 
 //rt轉賬
 function handleTransferRT() {
+    if (!transferRTAmount.value) {
+        showToast('請輸入轉賬金額')
+        return
+    }
+    if (!transferRTAddress.value) {
+        showToast('請輸入轉賬地址')
+        return
+    }
+    if (transferRTAddress.value == ZeroAddress || !isAddress(transferRTAddress.value)) {
+        showToast('請輸入有效地址')
+        return
+    }
     toggleTransferPopup()
-    proxy.$loading.show()
-    let data = { address: transferRTAddress.value, amount: transferRTAmount.value }
-    console.log(data)
-    transfersRT(data)
-        .then(res => {
-            proxy.$loading.hide()
-            console.log(res)
-            if (res.error) {
-                proxy.$confirm.show({
-                    title: '提示',
-                    content: '收款地址與發起地址無關，請確認你的收款地址',
-                    showCancelButton: false,
-                    confirmText: '確定',
-                    onConfirm: () => {
-                        proxy.$confirm.hide()
-                        toggleTransferPopup()
-                    },
-                });
-                return
-            }
+    // proxy.$loading.show()
+
+    proxy.$confirm.show({
+        title: '確認',
+        content: `是否確認將${transferRTAmount.value}RT轉入到${transferRTAddress.value},該行為不可撤銷！`,
+        showCancelButton: true,
+        confirmText: '確定',
+        cancelText: '取消',
+        onConfirm: async () => {
+            let data = { address: transferRTAddress.value, amount: transferRTAmount.value }
+            console.log(data)
+            transfersRT(data)
+                .then(res => {
+                    proxy.$confirm.hide()
+                    console.log(res)
+                    if (res.error) {
+                        proxy.$confirm.show({
+                            title: '提示',
+                            content: '收款地址與發起地址無關，請確認你的收款地址',
+                            showCancelButton: false,
+                            confirmText: '確定',
+                            onConfirm: () => {
+                                proxy.$confirm.hide()
+                                toggleTransferPopup()
+                            },
+                        });
+                        return
+                    }
 
 
-            showToast('轉賬成功')
-            getPlayersInfo(localStorage.getItem('address'))
-        })
-        .catch(err => {
-            proxy.$loading.hide()
-            showToast('轉賬失敗，請重試')
-            console.log(res)
-            toggleTransferPopup()
+                    showToast('轉賬成功')
+                    getPlayersInfo(localStorage.getItem('address'))
+                })
+                .catch(err => {
+                    proxy.$confirm.hide()
+                    showToast('轉賬失敗，請重試')
+                    console.log(res)
+                    toggleTransferPopup()
 
-        })
+                })
+        },
+        onCancel: () => {
+            proxy.$confirm.hide()
+        },
+    });
+
+
 }
 
 //獲取玩家信息
@@ -495,48 +524,70 @@ function viewPromiseCard() {
 }
 //兌換bt
 async function handleExchangeBT() {
+
     if (!exchangeAmountBT.value) {
         showToast('請輸入兌換金額')
         return
     }
     toggleExchangePopupBT()
+
+    let contentWord
+    if (currentExchangeTypeBT.value == 0) {
+        contentWord = `是否確認將 ${exchangeAmountBT.value} BT 兌換為 ${exchangeAmountBT.value * 0.9} USD3， 已扣除10% (${exchangeAmountBT.value * 0.1} BT) 手續費。 `
+    } else {
+        contentWord = `是否確認將 ${exchangeAmountBT.value} BT 兌換為 ${exchangeAmountBT.value} RT。 `
+    }
     let data = {
         amount: exchangeAmountBT.value
     }
-    proxy.$loading.show()
-    if (currentExchangeTypeBT.value == 0) {
-        btToUsdt(data)
-            .then(res => {
-                proxy.$loading.hide()
-                if (res.error == 'Insufficient balance') {
-                    showToast('BT餘額不足')
-                    return
-                }
-                showToast(t('toast.success'))
-                console.log(res)
-            })
-            .catch(err => {
-                proxy.$loading.hide()
-                showToast(t('toast.error'))
-                console.log(err)
-            })
-    } else {
-        btToRt(data)
-            .then(res => {
-                proxy.$loading.hide()
-                if (res.error == 'Insufficient balance') {
-                    showToast('BT餘額不足')
-                    return
-                }
-                showToast(t('toast.success'))
-                console.log(res)
-            })
-            .catch(err => {
-                proxy.$loading.hide()
-                showToast(t('toast.error'))
-                console.log(err)
-            })
-    }
+    proxy.$confirm.show({
+        title: '確認',
+        content: contentWord,
+        showCancelButton: true,
+        confirmText: '確定',
+        cancelText: '取消',
+        onConfirm: async () => {
+            if (currentExchangeTypeBT.value == 0) {
+                btToUsdt(data)
+                    .then(res => {
+                        proxy.$confirm.hide()
+                        if (res.error == 'Insufficient balance') {
+                            showToast('BT餘額不足')
+                            return
+                        }
+                        getUSDTBalance()
+                        getPlayersInfo(localStorage.getItem('address'))
+                        showToast(`已成功兌換 ${exchangeAmountBT.value * 0.9} USD3`)
+                        console.log(res)
+                    })
+                    .catch(err => {
+                        proxy.$confirm.hide()
+                        showToast(t('toast.error'))
+                        console.log(err)
+                    })
+            } else {
+                btToRt(data)
+                    .then(res => {
+                        proxy.$confirm.hide()
+                        if (res.error == 'Insufficient balance') {
+                            showToast('BT餘額不足')
+                            return
+                        }
+                        getPlayersInfo(localStorage.getItem('address'))
+                        showToast(`已成功兌換 ${exchangeAmountBT.value} RT`)
+                        console.log(res)
+                    })
+                    .catch(err => {
+                        proxy.$confirm.hide()
+                        showToast(t('toast.error'))
+                        console.log(err)
+                    })
+            }
+        },
+        onCancel: () => {
+            proxy.$confirm.hide()
+        },
+    });
 }
 //點擊兌換彈窗兌換按鈕
 async function handleExchange() {
@@ -590,7 +641,7 @@ async function handleExchange() {
     let amount = WEB3.utils.toWei((exchangeAmount.value).toString(), 'ether')
     let contentWord
     if (currentExchangeType.value == 0) {
-        contentWord = `是否確認將 ${exchangeAmount.value} MT 兌換為 ${exchangeAmount.value * 0.9} USDT， 已扣除10% (${exchangeAmount.value * 0.1} MT) 手續費。 `
+        contentWord = `是否確認將 ${exchangeAmount.value} MT 兌換為 ${exchangeAmount.value * 0.9} USD3， 已扣除10% (${exchangeAmount.value * 0.1} MT) 手續費。 `
     } else {
         contentWord = `是否確認將 ${exchangeAmount.value} MT 兌換為 ${exchangeAmount.value * 0.95} RT， 已扣除5% (${exchangeAmount.value * 0.05} MT) 手續費。`
     }
@@ -617,7 +668,7 @@ async function handleExchange() {
             } else {
                 try {
                     await swapContractApi.swapMTForRT(amount)
-                    await rtBanalce(localStorage.getItem('address'))
+                    await rtBalance(localStorage.getItem('address'))
                     proxy.$confirm.hide()
                     getMTBalance()
                     getPlayersInfo(localStorage.getItem('address'))
@@ -633,9 +684,6 @@ async function handleExchange() {
             proxy.$confirm.hide()
         },
     });
-    return
-
-
 }
 //點擊卡片註冊按鈕
 function handleRegister() {
@@ -659,14 +707,23 @@ function handleWalletCardWithdraw() {
 }
 //点击钱包卡片转账按钮
 function handleWalletCardTransfer() {
+    console.log(palayBanalce.value.rt)
+    if (Number(palayBanalce.value.rt <= 0)) {
+        showToast('RT餘額不足，不能進行转账操作。')
+        return
+    }
     toggleTransferPopup()
 }
 function handleWalletCardExchangeBT() {
+    if (Number(palayBanalce.value.bt <= 0)) {
+        showToast('BT餘額不足，不能進行劃轉操作。')
+        return
+    }
     toggleExchangePopupBT()
 }
 //點擊錢包卡片兌換按鈕
 function handleWalletCardExchange() {
-    if (Number(mtBalance.value) == 0) {
+    if (Number(mtBalance.value).toFixed(4) <= 0) {
         showToast('MT餘額不足，不能進行劃轉操作。')
         return
     }
