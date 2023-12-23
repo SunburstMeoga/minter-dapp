@@ -171,9 +171,9 @@ async function handleExchange() {
                     console.log(err)
                 })
         },
-        onCancel: () => {
-            proxy.$confirm.hide()
-        },
+        // onCancel: () => {
+        //     proxy.$confirm.hide()
+        // },
     });
     // return
 

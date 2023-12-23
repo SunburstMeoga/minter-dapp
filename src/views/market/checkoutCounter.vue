@@ -250,10 +250,12 @@ import { showToast } from 'vant';
 import coherents_list from '@/datas/coherents_list'
 import { FormatAmount, FilterAddress } from '@/utils/format'
 import { useI18n } from 'vue-i18n';
-import { buyCoherent, adequateBalance, addressLeg, checkReferrerAddress, joinTheThree, playersInfo, updataRTBalance } from '@/request/api'
+import { buyCoherent, adequateBalance, addressLeg, checkReferrerAddress, joinTheThree, playersInfo, updataRTBalance, rtBalance } from '@/request/api'
 import pmtContractApi from '@/request/pmt'
 import usdtContractApi from '@/request/usdt'
 import { config } from '@/const/config'
+import Web3 from "web3";
+
 const { t } = useI18n()
 const route = useRoute()
 const { proxy } = getCurrentInstance()
@@ -267,6 +269,7 @@ let calibratingReferrer = ref(false) //正在校驗直接上級地址
 let calibratingLeg = ref(false) //正在校驗直接上級地址
 let canUseReferrer = ref(false)
 let canUseLeg = ref(false)
+
 let showPointPopup = ref(false)
 const pointList = ref([])
 let propertiesList = computed(() => {
@@ -411,9 +414,61 @@ function handleConfirmReferrerAddress() {
   propertiesList.value[0].content = FilterAddress(referrerAddress.value)
   toggleReferrerAddressPopup()
 }
+//判断rt余额是否充足
+async function isSufficientRT(amount) {
+  try {
+    let balance = await rtBalance({ address: localStorage.getItem('address') })
+    // balance = parseInt(balance)
+    balance = balance.player
+    balance = balance.rt
+    console.log('rt餘額', balance)
+    console.log('rt餘額', parseInt(balance))
+    return Number(amount).toFixed(0) <= parseInt(balance)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+//判斷usdt餘額是否充足
+async function isSufficientUSD3(amount) {
+  let balance = await usdtContractApi.balanceOf(localStorage.getItem('address'))
+  let WEB3 = new Web3(window.ethereum)
+  balance = WEB3.utils.fromWei(balance.toString(), 'ether')
+  balance = parseInt(balance)
+  console.log('u餘額', balance)
+  return Number(amount).toFixed(0) <= balance
+}
 //使用usdt購買package
 async function handleConfirmBuyForUSDT() {
   proxy.$loading.show()
+  try {
+    if (!await isSufficientUSD3(coherentInfo.value.type)) {
+      proxy.$loading.hide()
+      proxy.$confirm.show({
+        title: '餘額不足',
+        content: `當前配套價格為 ${coherentInfo.value.type} USD3，您的 USD3 餘額不足。`,
+        showCancelButton: false,
+        confirmText: '確定',
+        onConfirm: () => {
+          proxy.$confirm.hide()
+        },
+      });
+      return
+    }
+
+  } catch (err) {
+    proxy.$loading.hide()
+    proxy.$confirm.show({
+      title: '錯誤',
+      content: `獲取USD3餘額失敗，請重試`,
+      showCancelButton: false,
+      confirmText: '確定',
+      onConfirm: () => {
+        proxy.$confirm.hide()
+      },
+    });
+    return
+  }
   let allowance
   try { //检查usdt对pmt_purchase的授权状态
     allowance = await usdtContractApi.allowance(localStorage.getItem('address'), config.pmt_purchase_addr)
@@ -461,18 +516,16 @@ async function handleConfirmBuyForUSDT() {
     confirmText: '確定',
     onConfirm: async () => {
       try {
-        proxy.$loading.show()
         console.log(Number(coherentInfo.value.id))
-        // return
-        await pmtContractApi.purchasePackage(Number(coherentInfo.value.id - 1))
-        // referrerAddress.value, leg_address: legAddress.value, legSide: currentPoint.value == 0 ? 'left' : 'right'
+        let purchase = await pmtContractApi.purchasePackage(Number(coherentInfo.value.id - 1))
+        console.log(purchase)
         let data = {
           address: referrerAddress.value,
           leg_address: legAddress.value,
           legSide: currentPoint.value == 0 ? 'left' : 'right'
         }
         await joinTheThree(data)
-        proxy.$loading.hide()
+        proxy.$confirm.hide()
         showToast('購買成功')
       } catch (err) {
         proxy.$confirm.hide()
@@ -483,15 +536,16 @@ async function handleConfirmBuyForUSDT() {
           confirmText: '確定',
           onConfirm: () => {
             proxy.$confirm.hide()
+            // toggleConfirmPayPopup()
           },
         });
-        showToast('購買失敗，請重試')
-        console.log(err)
+        // showToast('購買失敗，請重試')
+        // console.log(err)
       }
     },
-    onCancel: () => {
-      proxy.$confirm.hide()
-    },
+    // onCancel: () => {
+    //   proxy.$confirm.hide()
+    // },
   });
 }
 
@@ -528,36 +582,61 @@ async function handlePopupConfirmBuy() {
   } catch (err) {
     showToast('獲取餘額失敗，請重試')
     proxy.$loading.hide()
+    return
   }
+  proxy.$loading.hide()
+  proxy.$confirm.show({
+    title: '提示',
+    content: `是否確認購買該配套`,
+    showCancelButton: true,
+    confirmText: '確定',
+    onConfirm: async () => {
+      let data = { package_id: coherentInfo.value.id, referrer_address: referrerAddress.value, leg_address: legAddress.value, legSide: currentPoint.value == 0 ? 'left' : 'right' }
+      buyCoherent(data)
+        .then(res => {
+          console.log('購買成功', res)
+          // proxy.$loading.hide()
+          // showToast(res.message)
+          let timer = setTimeout(() => {
+            updataRTBalance(localStorage.getItem('address'))
+              .then(result => {
+                proxy.$loading.hide()
 
-  let data = { package_id: coherentInfo.value.id, referrer_address: referrerAddress.value, leg_address: legAddress.value, legSide: currentPoint.value == 0 ? 'left' : 'right' }
-  buyCoherent(data)
-    .then(res => {
-      console.log('購買成功', res)
-      // proxy.$loading.hide()
-      // showToast(res.message)
-      let timer = setTimeout(() => {
-        updataRTBalance(localStorage.getItem('address'))
-          .then(result => {
-            proxy.$loading.hide()
+                console.log('購買成功', result)
+                showToast(res.message)
+                proxy.$confirm.hide()
 
-            console.log('購買成功', result)
-            clearTimeout(timer)
-            showToast(res.message)
-          })
-          .catch(err => {
-            proxy.$loading.hide()
-            console.log('更新rt餘額失敗', err)
-          })
-      }, 5000)
-    })
-    .catch(err => {
-      proxy.$loading.hide()
-      console.log('購買失敗', err)
-      showToast('購買失敗')
-      toggleConfirmPayPopup()
+                clearTimeout(timer)
 
-    })
+              })
+              .catch(err => {
+                proxy.$loading.hide()
+                console.log('更新rt餘額失敗', err)
+              })
+          }, 5000)
+        })
+        .catch(err => {
+          proxy.$confirm.hide()
+          proxy.$confirm.show({
+            title: '提示',
+            content: '購買失敗，請重新購買。',
+            showCancelButton: false,
+            confirmText: '確定',
+            onConfirm: () => {
+              proxy.$confirm.hide()
+              toggleConfirmPayPopup()
+            },
+          });
+
+
+        })
+    },
+    // onCacncel: async () => {
+    //     proxy.$confirm.hide()
+    // }
+  });
+
+
 }
 
 //選擇購買配套地址相應屬性

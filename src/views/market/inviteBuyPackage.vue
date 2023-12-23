@@ -407,9 +407,9 @@ async function handleConfirmBuyForUSDT() {
                 getPackageCount()
             }, 5000);
         },
-        onCancel: () => {
-            proxy.$confirm.hide()
-        },
+        // onCancel: () => {
+        //     proxy.$confirm.hide()
+        // },
     });
 
     // try {

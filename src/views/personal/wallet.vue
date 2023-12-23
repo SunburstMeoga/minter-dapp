@@ -402,9 +402,9 @@ function handleTransferRT() {
 
                 })
         },
-        onCancel: () => {
-            proxy.$confirm.hide()
-        },
+        // onCancel: () => {
+        //     proxy.$confirm.hide()
+        // },
     });
 
 
@@ -584,9 +584,9 @@ async function handleExchangeBT() {
                     })
             }
         },
-        onCancel: () => {
-            proxy.$confirm.hide()
-        },
+        // onCancel: () => {
+        //     proxy.$confirm.hide()
+        // },
     });
 }
 //點擊兌換彈窗兌換按鈕
@@ -680,9 +680,9 @@ async function handleExchange() {
                 }
             }
         },
-        onCancel: () => {
-            proxy.$confirm.hide()
-        },
+        // onCancel: () => {
+        //     proxy.$confirm.hide()
+        // },
     });
 }
 //點擊卡片註冊按鈕

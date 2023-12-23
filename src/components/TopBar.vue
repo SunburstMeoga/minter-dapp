@@ -1,6 +1,6 @@
 <template>
     <div class="h-14 w-full  pt-4">
-        <div class="flex p-2 border border-page-content rounded-lg w-11/12 mr-auto ml-auto">
+        <div class="flex p-2 border-4 border-page-content rounded-lg w-11/12 mr-auto ml-auto">
             <div class="flex justify-between w-full items-center h-full bg-gray-800 rounded-lg p-2">
                 <div>
                     <div class="icon iconfont menu icon-menu-hamburger text-white" @click="toggleMenu"></div>
@@ -9,9 +9,10 @@
                     <img src="../assets/images/minter-logo-cro.png" alt="">
                 </div> -->
                 <div class="flex justify-center items-center operating-button text-white py-1 px-2 rounded">
-                    <div class="icon iconfont mr-1" :class="!userInfo.address ? 'icon-denglu' : 'icon-tianjiaqianbao1'" style="font-size: 18px; font-weight: bold;"></div>
+                    <div class="icon iconfont mr-1" :class="!userInfo.address ? 'icon-denglu' : 'icon-tianjiaqianbao1'"
+                        style="font-size: 18px; font-weight: bold;"></div>
                     <div class="text-center text-sm font-bold" @click="handleConnect">
-                        {{ !userInfo.address ? $t('wallet.connectWallet') : FilterAddress(userInfo.address,5,6) }}
+                        {{ !userInfo.address ? $t('wallet.connectWallet') : FilterAddress(userInfo.address, 5, 6) }}
                     </div>
                 </div>
             </div>
@@ -41,7 +42,8 @@
                         </div>
                     </div>
                     <div class="pl-10">
-                        <div class="menu-item active-primary-color" v-show="userInfo.address && hasPackage" @click="toCoherent">
+                        <div class="menu-item active-primary-color" v-show="userInfo.address && hasPackage"
+                            @click="toCoherent">
                             <div>{{ $t('wallet.coherent') }}</div>
                         </div>
                     </div>
@@ -84,8 +86,8 @@
                             </div>
                         </div>
                         <div v-show="showMoreDAO" class="">
-                            <div class="py-1.5 pl-4 mr-4 rounded text-menu-word active-primary-color"
-                                @click="notYetOpen" v-for="(item, index) in DAOChilds" :key="index">
+                            <div class="py-1.5 pl-4 mr-4 rounded text-menu-word active-primary-color" @click="notYetOpen"
+                                v-for="(item, index) in DAOChilds" :key="index">
                                 {{ item.title }}
                             </div>
 
@@ -245,7 +247,7 @@ let marketChilds = computed(() => {
 
 })
 let DAOChilds = computed(() => {
-    return [{ title: t('menu.rank')}]
+    return [{ title: t('menu.rank') }]
 })
 let homeChilds = computed(() => {
     return [{ title: t('menu.home') }, { title: t('menu.news') }, { title: t('menu.vision') }, { title: t('menu.mission') }, { title: t('menu.cultureAndSpirituality') }, { title: t('menu.projectIntroduction') }, { title: t('menu.NFTRevolution') }]

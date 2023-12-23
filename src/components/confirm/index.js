@@ -26,6 +26,7 @@ const initInstance = () => {
 ConfirmPlugin.install = function (app) {
   const confirm = {
     show(options) {
+      $vm = null
       if (!$vm) initInstance()
       options = Object.assign({}, defaultsOptions, options)
       for (const i in options) {

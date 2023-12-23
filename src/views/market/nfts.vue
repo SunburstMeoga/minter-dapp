@@ -147,14 +147,14 @@ const userInfo = userStore()
 
 
 onMounted(() => {
-    let params =  { perPage: 100000, status: 1 }
+    let params = { perPage: 100000, status: 1 }
     getMarketplace(params)
 })
 
 function onSelect(select) {
     console.log(select)
     currentFilter.value = select.index
-    let params =  { perPage: 100000, status: 1, sortBy:'price',sortDesc: select.value }
+    let params = { perPage: 100000, status: 1, sortBy: 'price', sortDesc: select.value }
     getMarketplace(params)
 }
 
@@ -193,7 +193,7 @@ async function handleCancelList(item) {
                     .catch(err => {
                         console.log(err)
                         proxy.$confirm.hide()
-                        showToast('授權失敗，請重新授權')
+                        showToast('您取消了NFT授权')
                     })
             },
         });
@@ -300,7 +300,7 @@ async function handleBuyButton(item, canBuy) {
                     .catch(err => {
                         console.log(err)
                         proxy.$confirm.hide()
-                        showToast('授權失敗，請重新授權')
+                        showToast('您取消了PMT授权')
                     })
             },
         });
@@ -338,49 +338,75 @@ async function handleBuyButton(item, canBuy) {
                     .catch(err => {
                         console.log(err)
                         proxy.$confirm.hide()
-                        showToast('授權失敗，請重新授權')
+                        showToast('您取消了MT授权')
                     })
             },
         });
         return
     }
+    proxy.$loading.hide()
+    proxy.$confirm.show({
+        title: '提示',
+        content: `是否確認購買該NFT`,
+        showCancelButton: true,
+        confirmText: '確定',
+        onConfirm: async () => {
+            try { //购买nft
+                // proxy.$loading.show()
+                console.log('item', item)
+                tokenID.value = item.token_id
+                // return
+                let purchaseNFTInfo
+                let luckyResult
+                try {
+                    purchaseNFTInfo = await nftContractApi.purchaseNFT(item.token_id)
+                    timer.value = setInterval(() => {
+                        getLuckyRes()
+                    }, 5000);
 
 
+                } catch (err) {
+                    proxy.$confirm.show({
+                        title: '提示',
+                        content: '購買失敗，請重新購買。',
+                        showCancelButton: false,
+                        confirmText: '確定',
+                        onConfirm: () => {
+                            proxy.$confirm.hide()
+                            // toggleConfirmPayPopup()
+                        },
+                    });
+                }
+            } catch (err) {
+                proxy.$loading.hide()
+                proxy.$confirm.show({
+                    title: '提示',
+                    content: '購買失敗，請重新購買。',
+                    showCancelButton: false,
+                    confirmText: '確定',
+                    onConfirm: () => {
+                        proxy.$confirm.hide()
+                        // toggleConfirmPayPopup()
+                    },
+                });
+            }
 
-    try { //购买nft
-        proxy.$loading.show()
-        console.log('item', item)
-        tokenID.value = item.token_id
-        // return
-        let purchaseNFTInfo
-        let luckyResult
-        try {
-            purchaseNFTInfo = await nftContractApi.purchaseNFT(item.token_id)
-            timer.value = setInterval(() => {
-                getLuckyRes()
-            }, 5000);
-            
+        },
+        // onCacncel: async () => {
+        //     proxy.$confirm.hide()
+        // }
+    });
 
-        } catch (err) {
-            proxy.$loading.hide()
-            showToast('購買失敗，請重試')
-            return
-        }
-    } catch (err) {
-        proxy.$loading.hide()
-        showToast('購買失敗，請重試')
-        console.log(err)
-    }
 
 
     function getLuckyRes() {
         getLuckyDraw({ nft_token_id: tokenID.value })
-        .then(res => {
-            if (res.message == "已成功抽獎") {
-                // console.log(res)
-                proxy.$loading.hide()
-                clearInterval(timer.value)
-                router.push({
+            .then(res => {
+                if (res.message == "已成功抽獎") {
+                    // console.log(res)
+                    proxy.$confirm.hide()
+                    clearInterval(timer.value)
+                    router.push({
                         path: '/market/raffle',
                         query: {
                             // prizeID: luckyResult.roulette_record.prize_type_id,
@@ -389,13 +415,13 @@ async function handleBuyButton(item, canBuy) {
                             prizeIndex: res.roulette_record.roulette_id
                         }
                     })
-                } 
-        })
-        .catch (err => {
-            proxy.$loading.hide()
-            showToast('購買失敗，請重試')
-            console.log(err)
-        })
+                }
+            })
+            .catch(err => {
+                proxy.$loading.hide()
+                showToast('購買失敗，請重試')
+                console.log(err)
+            })
     }
 
 }
