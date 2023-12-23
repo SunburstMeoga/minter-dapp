@@ -9,7 +9,8 @@
                             <input type="text" v-model="searchAddress"
                                 class="px-1 h-8 rounded-full text-sm bg-transparent w-full" placeholder="搜索下級地址">
                         </div>
-                        <div class="operating-button rounded-full px-3 h-8 flex items-center text-sm" @click="handleSearchAddress">搜索</div>
+                        <div class="operating-button rounded-full px-3 h-8 flex items-center text-sm"
+                            @click="handleSearchAddress">搜索</div>
                     </div>
                 </div>
                 <point @clickPoint="clickPoint" :directReferrals="directReferrals" />
@@ -393,8 +394,6 @@ async function handleConfirmBuyForRTPOPUP() {
     }
     toggleBuyPopup()
     proxy.$loading.show()
-
-
 
     let data = { package_id: coherentsList.value[currentCoherent.value].id, address: helpNextAddress.value, legSide: clickPointInfo.value.point, leg_address: clickPointInfo.value.preAddress, referrer_address: inviterAddressTwo.value }
     console.log('幫助購買的下級地址', data, data.address)

@@ -308,7 +308,7 @@ function getPlayersInfo(address) {
 function togglePointPopup() {
   showPointPopup.value = !showPointPopup.value
 }
-//點解點位選擇彈窗確認按鈕
+//點擊點位選擇彈窗確認按鈕
 function handleConfirmPoint() {
   console.log(pointList.value[currentPoint.value])
   propertiesList.value[2].content = pointList.value[currentPoint.value].title
@@ -453,25 +453,46 @@ async function handleConfirmBuyForUSDT() {
     return
   }
 
-  try {
-    proxy.$loading.show()
-    console.log(Number(coherentInfo.value.id))
-    // return
-    await pmtContractApi.purchasePackage(Number(coherentInfo.value.id - 1))
-    // referrerAddress.value, leg_address: legAddress.value, legSide: currentPoint.value == 0 ? 'left' : 'right'
-    let data = {
-      address: referrerAddress.value,
-      leg_address: legAddress.value,
-      legSide: currentPoint.value == 0 ? 'left' : 'right'
-    }
-    await joinTheThree(data)
-    proxy.$loading.hide()
-    showToast(t('toast.success'))
-  } catch (err) {
-    proxy.$loading.hide()
-    showToast(t('toast.error'))
-    console.log(err)
-  }
+  proxy.$loading.hide()
+  proxy.$confirm.show({
+    title: '確認',
+    content: '是否確認購買該配套。',
+    showCancelButton: true,
+    confirmText: '確定',
+    onConfirm: async () => {
+      try {
+        proxy.$loading.show()
+        console.log(Number(coherentInfo.value.id))
+        // return
+        await pmtContractApi.purchasePackage(Number(coherentInfo.value.id - 1))
+        // referrerAddress.value, leg_address: legAddress.value, legSide: currentPoint.value == 0 ? 'left' : 'right'
+        let data = {
+          address: referrerAddress.value,
+          leg_address: legAddress.value,
+          legSide: currentPoint.value == 0 ? 'left' : 'right'
+        }
+        await joinTheThree(data)
+        proxy.$loading.hide()
+        showToast('購買成功')
+      } catch (err) {
+        proxy.$confirm.hide()
+        proxy.$confirm.show({
+          title: '提示',
+          content: '購買失敗，請重新購買。',
+          showCancelButton: false,
+          confirmText: '確定',
+          onConfirm: () => {
+            proxy.$confirm.hide()
+          },
+        });
+        showToast('購買失敗，請重試')
+        console.log(err)
+      }
+    },
+    onCancel: () => {
+      proxy.$confirm.hide()
+    },
+  });
 }
 
 //点击填写对碰上级弹窗确认按钮
@@ -515,20 +536,20 @@ async function handlePopupConfirmBuy() {
       console.log('購買成功', res)
       // proxy.$loading.hide()
       // showToast(res.message)
-     let timer = setTimeout(() => {
-      updataRTBalance(localStorage.getItem('address'))
-        .then(result => {
-          proxy.$loading.hide()
+      let timer = setTimeout(() => {
+        updataRTBalance(localStorage.getItem('address'))
+          .then(result => {
+            proxy.$loading.hide()
 
-          console.log('購買成功', result)
-          clearTimeout(timer)
-          showToast(res.message)
-        })
-        .catch(err => {
-          proxy.$loading.hide()
-          console.log('更新rt餘額失敗', err)
-        })
-     },5000)
+            console.log('購買成功', result)
+            clearTimeout(timer)
+            showToast(res.message)
+          })
+          .catch(err => {
+            proxy.$loading.hide()
+            console.log('更新rt餘額失敗', err)
+          })
+      }, 5000)
     })
     .catch(err => {
       proxy.$loading.hide()

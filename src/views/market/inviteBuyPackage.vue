@@ -50,7 +50,7 @@
                         </div>
                         <div class="text-red-500 font-bold">
                             {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
-                                                            FormatAmount(coherentInfo.type).pointOffside }}</span>
+                                FormatAmount(coherentInfo.type).pointOffside }}</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
@@ -59,7 +59,7 @@
                         </div>
                         <div class="text-red-500 font-bold">
                             {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-                                                            FormatAmount(coherentInfo.limit).pointOffside }}</span>
+                                FormatAmount(coherentInfo.limit).pointOffside }}</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
@@ -80,7 +80,7 @@
                                 <div class="text-xs p-2 text-left text-gray-400">
                                     <!-- 购买成功之后即时释放{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT -->
                                     {{ $t('coherents.buyAfterReleased') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3)
-                                                                        }}PMT
+                                    }}PMT
                                 </div>
                                 <div class="text-xs p-2 text-left text-gray-400">
                                     {{ $t('coherents.24Released') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT
@@ -120,11 +120,11 @@
                 <div @click="handleConfirmBuyForUSDT"
                     class="w-5/12 mr-auto ml-auto border-primary-color active-white-color border-2 text-white py-2 text-center rounded-full">
                     USD3{{
-                                        $t('invitePage.pay') }}</div>
+                        $t('invitePage.pay') }}</div>
                 <div @click="handleConfirmBuyForRT"
                     class="w-5/12 mr-auto ml-auto border-2 active-white-color border-primary-color text-white py-2 text-center rounded-full">
                     RT{{
-                                        $t('invitePage.pay') }}</div>
+                        $t('invitePage.pay') }}</div>
             </div>
 
         </div>
@@ -237,7 +237,8 @@ function getPackageCount() {
             if (res.message == '你已經購買配套。') {
                 clearInterval(timer.value)
                 showToast('購買成功')
-                proxy.$loading.hide()
+                proxy.$confirm.hide()
+                proxy.$loading.show()
                 joinTree()
 
             }
@@ -394,18 +395,35 @@ async function handleConfirmBuyForUSDT() {
         return
     }
 
-    try {
-        console.log(coherentInfo.value.type)
-        proxy.$loading.show()
-        await pmtContractApi.purchasePackage(Number(coherentInfo.value.id - 1))
-        timer.value = setInterval(() => {
-            getPackageCount()
-        }, 5000);
-    } catch (err) {
-        proxy.$loading.hide()
-        showToast(t('toast.error'))
-        console.log(err)
-    }
+    proxy.$loading.hide()
+    proxy.$confirm.show({
+        title: '確認',
+        content: '是否確認購買該配套。',
+        showCancelButton: true,
+        confirmText: '確定',
+        onConfirm: async () => {
+            await pmtContractApi.purchasePackage(Number(coherentInfo.value.id - 1))
+            timer.value = setInterval(() => {
+                getPackageCount()
+            }, 5000);
+        },
+        onCancel: () => {
+            proxy.$confirm.hide()
+        },
+    });
+
+    // try {
+    //     console.log(coherentInfo.value.type)
+    //     proxy.$loading.show()
+    //     await pmtContractApi.purchasePackage(Number(coherentInfo.value.id - 1))
+    //     timer.value = setInterval(() => {
+    //         getPackageCount()
+    //     }, 5000);
+    // } catch (err) {
+    //     proxy.$loading.hide()
+    //     showToast(t('toast.error'))
+    //     console.log(err)
+    // }
 }
 //签名
 async function addressSign() {

@@ -181,16 +181,60 @@ function countDown(time) {
 
     return day + "天" + hour + "時" + minute + "分" + second + "秒"
 }
+//獲取24小時內掛單的nft數量
+async function getListeds24h() {
+    let timestamp = new Date().getTime()
+    let listedsList = []
+    listeds.value.find(item => {
+        if (timestamp - new Date(item.updated_at).getTime() <= 60 * 60 * 24 * 1000) {
+            // console.log(timestamp - new Date(item.updated_at).getTime(), 60 * 60 * 24 * 1000)
+            listedsList.push(item)
+        }
+    })
+    // console.log(listedsList)
+    return listedsList.length
+}
+
 //掛單
 async function handleListed(item) {
+
+    // console.log(await getListeds24h())
+    // console.log(listeds.value.length)
+    // return
+    if (await getListeds24h() >= 4) {
+        proxy.$confirm.show({
+            title: '提示',
+            content: '您在24小時內已經進行過4次掛單，暫無法進行再次掛單。',
+            showCancelButton: false,
+            confirmText: '確定',
+            onConfirm: () => {
+                proxy.$onConfirm.hide()
+            },
+        });
+        return
+    }
+
+    if (listeds.value.length >= 4) {
+        proxy.$confirm.show({
+            title: '提示',
+            content: '當前有4張NFT正在掛單未出售，無法進行掛單。',
+            showCancelButton: false,
+            confirmText: '確定',
+            onConfirm: () => {
+                proxy.$onConfirm.hide()
+            },
+        });
+        return
+    }
+
     console.log(item)
     // return
     proxy.$loading.show()
     let time
     try {
         time = await nftContractApi.sellOffPeriod(item.token_id)
-        console.log('出售時間時間戳',Number(time))
-        console.log('現在時間時間戳',parseInt(new Date().getTime() / 1000))
+        console.log('出售時間時間戳', Number(time))
+        console.log('現在時間時間戳', parseInt(new Date().getTime() / 1000))
         if (Number(time) > parseInt(new Date().getTime() / 1000)) {
             // let timeAll = Number(time) + (new Date().getTime() / 1000)
             showToast(countDown(Number(time)) + '後可出售')
