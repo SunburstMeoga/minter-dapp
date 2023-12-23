@@ -41,7 +41,12 @@
 
 <script setup>
 import { ref } from 'vue'
-defineProps({
+import nftOne from '@/assets/images/200.png'
+import nftTwo from '@/assets/images/600.png'
+import nftThree from '@/assets/images/2000.png'
+import nftFour from '@/assets/images/6000.png'
+import nftFive from '@/assets/images/20000.png'
+const nftProps = defineProps({
   canBuy: {
     type: Boolean,
     default: true
@@ -81,8 +86,17 @@ defineProps({
   nftImg: {
     type: String,
     default: ''
-  }
+  },
+  nftTokenType: {
+    type: Number,
+    default: null
+  },
 })
+// function getNFTImage() {  
+//   if (nftProps.nftTokenType == 1) {
+//     nftImg
+//   }
+// }
 // let checked = ref(false)
 </script>
 

@@ -21,7 +21,7 @@
 
             <!-- <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                 <div v-for="(item, index) in nftsDatas" class="mb-2" style="width: 48%;" :key="index">
-                    <nft-card :nftImg="nftOne" :tokenID="item.token_id" :price="item.price" :showCheckbox="false"
+                    <nft-card :nftTokenType="item.token_type" :nftImg="nftOne" :tokenID="item.token_id" :price="item.price" :showCheckbox="false"
                         showBuyButton @handleBuyButton="handleBuyButton(item)" />
                 </div>
             </div> -->
@@ -31,7 +31,7 @@
                     <van-tab title="N">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageN" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftImg="nftOne" :showCheckbox="false"
+                                <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
                                     :showBuyButton="userInfo.address !== item.address"
                                     :showCancelButton="userInfo.address == item.address"
                                     @handleBuyButton="handleBuyButton(item, packageID >= 1)" :tokenID="item.token_id"
@@ -46,7 +46,7 @@
                     <van-tab title="R">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageR" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftImg="nftTwo" :showCheckbox="false"
+                                <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
                                     :showBuyButton="userInfo.address !== item.address"
                                     :showCancelButton="userInfo.address == item.address"
                                     @handleBuyButton="handleBuyButton(item, packageID >= 2)" :tokenID="item.token_id"
@@ -61,7 +61,7 @@
                     <van-tab title="SR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageSR" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftImg="nftThree" :showCheckbox="false"
+                                <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
                                     :showBuyButton="userInfo.address !== item.address"
                                     :showCancelButton="userInfo.address == item.address"
                                     @handleBuyButton="handleBuyButton(item, packageID >= 3)" :tokenID="item.token_id"
@@ -75,7 +75,7 @@
                     <van-tab title="SSR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageSSR" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftImg="nftFour" :showCheckbox="false"
+                                <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
                                     :showBuyButton="userInfo.address !== item.address"
                                     :showCancelButton="userInfo.address == item.address"
                                     @handleBuyButton="handleBuyButton(item, packageID >= 4)" :tokenID="item.token_id"
@@ -89,7 +89,7 @@
                     <van-tab title="UR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageUR" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftImg="nftFive" :showCheckbox="false"
+                                <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
                                     :showBuyButton="userInfo.address !== item.address"
                                     :showCancelButton="userInfo.address == item.address"
                                     @handleBuyButton="handleBuyButton(item, packageID >= 5)" :tokenID="item.token_id"
@@ -117,11 +117,11 @@ import nftContractApi from '@/request/nft'
 import minterContractApi from '@/request/minter'
 import { showToast } from 'vant';
 import { config } from '@/const/config'
-import nftOne from '@/assets/images/nftOne.png'
-import nftTwo from '@/assets/images/nftTwo.png'
-import nftThree from '@/assets/images/nftThree.png'
-import nftFour from '@/assets/images/nftFour.png'
-import nftFive from '@/assets/images/nftFive.png'
+import nftOne from '@/assets/images/200.png'
+import nftTwo from '@/assets/images/600.png'
+import nftThree from '@/assets/images/2000.png'
+import nftFour from '@/assets/images/6000.png'
+import nftFive from '@/assets/images/20000.png'
 import { userStore } from "@/stores/user";
 
 const { t } = useI18n()
@@ -238,16 +238,60 @@ function getMarketplace(params) {
             console.log('nft列表', res)
             nftsDatas.value = res.market_places
             res.market_places.map(item => {
-                // console.log(Number(item.price))
+                console.log(Number(item.token_type))
                 if (Number(item.price) >= 0 && Number(item.price) <= 100) {
                     packageN.value.push(item)
+                    packageN.value.map(item => {
+                        if (item.token_type == 1) {
+                            item.nftImg = nftOne
+                        } else if (item.token_type == 2) {
+                            item.nftImg = nftTwo
+                        } else if (item.token_type == 3) {
+                            item.nftImg = nftThree
+                        } else if (item.token_type == 4) {
+                            item.nftImg = nftFour
+                        } else if (item.token_type == 5) {
+                            item.nftImg = nftFour
+                        }
+                    })
                 }
                 if (Number(item.price) >= 75 && Number(item.price) <= 300) {
                     packageR.value.push(item)
+                    if (packageR.value.length !== 0) {
+                        packageR.value.map(item => {
+                            if (item.token_type == 1) {
+                                item.nftImg = nftOne
+                            } else if (item.token_type == 2) {
+                                item.nftImg = nftTwo
+                            } else if (item.token_type == 3) {
+                                item.nftImg = nftThree
+                            } else if (item.token_type == 4) {
+                                item.nftImg = nftFour
+                            } else if (item.token_type == 5) {
+                                item.nftImg = nftFour
+                            }
+                        })
+                    }
                 }
 
                 if (Number(item.price) >= 250 && Number(item.price) <= 1000) {
                     packageSR.value.push(item)
+
+                    if (packageSR.value.length !== 0) {
+                        packageSR.value.map(item => {
+                            if (item.token_type == 1) {
+                                item.nftImg = nftOne
+                            } else if (item.token_type == 2) {
+                                item.nftImg = nftTwo
+                            } else if (item.token_type == 3) {
+                                item.nftImg = nftThree
+                            } else if (item.token_type == 4) {
+                                item.nftImg = nftFour
+                            } else if (item.token_type == 5) {
+                                item.nftImg = nftFour
+                            }
+                        })
+                    }
                 }
             })
             proxy.$loading.hide()
