@@ -173,6 +173,7 @@ async function handleCancelList(item) {
 
     if (Number(isApprovedAll) == 0) { //當前賬號未授權
         proxy.$loading.hide()
+        proxy.$confirm.hide()
 
         proxy.$confirm.show({
             title: '請授權',
@@ -224,6 +225,7 @@ function getMarketplace(params) {
             packageID.value = res.last_package.package_id
             if (res.message == '玩家沒有購買配套。') {
                 proxy.$loading.hide()
+                proxy.$confirm.hide()
                 proxy.$confirm.show({
                     title: '提示',
                     content: '您當前沒有購買配套。',
@@ -322,9 +324,11 @@ async function handleBuyButton(item, canBuy) {
         showToast(t('toast.error'))
         console.log(err)
     }
+    proxy.$loading.hide()
     console.log('allowance', allowance)
     if (Number(allowance) == 0) { //當前賬號未授權
         proxy.$loading.hide()
+        proxy.$confirm.hide()
         proxy.$confirm.show({
             title: '請授權',
             content: '需要進行PMT授權，請先完成授權。',
@@ -336,6 +340,7 @@ async function handleBuyButton(item, canBuy) {
                 nftContractApi.approve(config.nfts_marketplace_addr)
                     .then(res => {
                         console.log(res)
+                        proxy.$loading.hide()
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
                         showToast('授權成功')
@@ -343,8 +348,19 @@ async function handleBuyButton(item, canBuy) {
                     })
                     .catch(err => {
                         console.log(err)
+                        proxy.$loading.hide()
                         proxy.$confirm.hide()
-                        showToast('您取消了PMT授权')
+                        console.log('err', err)
+                        proxy.$confirm.show({
+                            title: '提示',
+                            content: 'PMT授權失敗，請重新授權',
+                            showCancelButton: false,
+                            confirmText: '確定',
+                            onConfirm: () => {
+                                proxy.$confirm.hide()
+                                // toggleConfirmPayPopup()
+                            },
+                        });
                     })
             },
         });
@@ -360,9 +376,10 @@ async function handleBuyButton(item, canBuy) {
         showToast(t('toast.error'))
         console.log(err)
     }
-
+    proxy.$loading.hide()
     if (Number(isApprovedAll) == 0) { //當前賬號未授權
         proxy.$loading.hide()
+        proxy.$confirm.hide()
         proxy.$confirm.show({
             title: '請授權',
             content: '需要進行MT授權，請先完成授權。',
@@ -374,6 +391,7 @@ async function handleBuyButton(item, canBuy) {
                 minterContractApi.approve(config.nfts_marketplace_addr)
                     .then(res => {
                         console.log(res)
+                        proxy.$loading.hide()
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
                         showToast('授權成功')
@@ -381,14 +399,26 @@ async function handleBuyButton(item, canBuy) {
                     })
                     .catch(err => {
                         console.log(err)
+                        proxy.$loading.hide()
                         proxy.$confirm.hide()
-                        showToast('您取消了MT授权')
+                        console.log('err', err)
+                        proxy.$confirm.show({
+                            title: '提示',
+                            content: 'MT授權失敗，請重新授權',
+                            showCancelButton: false,
+                            confirmText: '確定',
+                            onConfirm: () => {
+                                proxy.$confirm.hide()
+                                // toggleConfirmPayPopup()
+                            },
+                        });
                     })
             },
         });
         return
     }
     proxy.$loading.hide()
+    proxy.$confirm.hide()
     proxy.$confirm.show({
         title: '提示',
         content: `是否確認購買該NFT`,
@@ -410,6 +440,7 @@ async function handleBuyButton(item, canBuy) {
 
 
                 } catch (err) {
+                    proxy.$confirm.hide()
                     proxy.$confirm.show({
                         title: '提示',
                         content: '購買失敗，請重新購買。',
@@ -423,6 +454,8 @@ async function handleBuyButton(item, canBuy) {
                 }
             } catch (err) {
                 proxy.$loading.hide()
+                proxy.$confirm.hide()
+
                 proxy.$confirm.show({
                     title: '提示',
                     content: '購買失敗，請重新購買。',

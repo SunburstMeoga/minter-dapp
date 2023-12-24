@@ -30,6 +30,7 @@ onMounted(() => {
 })
 async function accountHasChanged() {
   window.ethereum.on('accountsChanged', (accounts) => {
+    proxy.$confirm.hide()
     proxy.$confirm.show({
       title: '賬戶發生變化',
       content: '當前賬戶發生變化，請重新登錄',

@@ -251,6 +251,7 @@ async function handleListed(item) {
     // console.log(listeds.value.length)
     // return
     if (await getListeds24h() >= 4) {
+        proxy.$confirm.hide()
         proxy.$confirm.show({
             title: '提示',
             content: '您在24小時內已經進行過4次掛單，暫無法進行再次掛單。',
@@ -264,6 +265,7 @@ async function handleListed(item) {
     }
 
     if (listeds.value.length >= 4) {
+        proxy.$confirm.hide()
         proxy.$confirm.show({
             title: '提示',
             content: '當前有4張NFT正在掛單未出售，無法進行掛單。',
@@ -312,6 +314,7 @@ async function handleListed(item) {
     console.log(transactionResponse)
     if (!transactionResponse) { //當前領取方式未授權
         proxy.$loading.hide()
+        proxy.$confirm.hide()
         proxy.$confirm.show({
             title: '請授權',
             content: '需要進行NFT授權，請先完成授權。',
@@ -360,6 +363,7 @@ async function handleListed(item) {
 
     if (Number(allowance) == 0) { //當前領取方式未授權
         proxy.$loading.hide()
+        proxy.$confirm.hide()
         proxy.$confirm.show({
             title: '請授權',
             content: '需要進行PMT授權，請先完成授權。',
@@ -389,6 +393,7 @@ async function handleListed(item) {
     console.log('isApprovedAll', isApprovedAll)
     if (Number(isApprovedAll) == 0) { //當前賬號未授權
         proxy.$loading.hide()
+        proxy.$confirm.hide()
         proxy.$confirm.show({
             title: '請授權',
             content: '需要進行MT授權，請先完成授權。',
@@ -415,6 +420,7 @@ async function handleListed(item) {
         return
     }
     proxy.$loading.hide()
+    proxy.$confirm.hide()
     proxy.$confirm.show({
         title: '確認',
         content: `是否確認將tokenID為: ${item.token_id} 的NFT進行掛單?`,
@@ -432,6 +438,7 @@ async function handleListed(item) {
                 getAllNFT()
                 // showToast(t('toast.success'))
             } catch (err) {
+                proxy.$confirm.hide()
                 proxy.$confirm.hide()
                 proxy.$confirm.show({
                     title: '提示',
@@ -464,6 +471,7 @@ async function handleCancelList(item) {
 
     if (Number(isApprovedAll) == 0) { //當前賬號未授權
         proxy.$loading.hide()
+        proxy.$confirm.hide()
         proxy.$confirm.show({
             title: '請授權',
             content: '需要進行NFT授權，請先完成授權。',
@@ -491,6 +499,7 @@ async function handleCancelList(item) {
     }
 
     proxy.$loading.hide()
+    proxy.$confirm.hide()
     proxy.$confirm.show({
         title: '確認',
         content: `是否取消掛單tokenID為: ${item.token_id} 的NFT?`,
@@ -507,6 +516,7 @@ async function handleCancelList(item) {
                 getAllNFT()
                 // showToast(t('toast.success'))
             } catch (err) {
+                proxy.$confirm.hide()
                 proxy.$confirm.hide()
                 proxy.$confirm.show({
                     title: '提示',

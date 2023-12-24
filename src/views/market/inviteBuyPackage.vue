@@ -272,6 +272,7 @@ async function handleConfirmBuyForRT() {
     try {
         if (!await isSufficientRT(coherentInfo.value.type)) {
             proxy.$loading.hide()
+            proxy.$confirm.hide()
             proxy.$confirm.show({
                 title: '餘額不足',
                 content: `當前配套價格為 ${coherentInfo.value.type} RT，您的 RT 餘額不足。`,
@@ -286,6 +287,7 @@ async function handleConfirmBuyForRT() {
 
     } catch (err) {
         proxy.$loading.hide()
+        proxy.$confirm.hide()
         proxy.$confirm.show({
             title: '錯誤',
             content: `獲取RT餘額失敗，請重試`,
@@ -332,6 +334,7 @@ async function handleConfirmBuyForUSDT() {
     try {
         if (!await isSufficientUSD3(coherentInfo.value.type)) {
             proxy.$loading.hide()
+            proxy.$confirm.hide()
             proxy.$confirm.show({
                 title: '餘額不足',
                 content: `當前配套價格為 ${coherentInfo.value.type} USD3，您的 USD3 餘額不足。`,
@@ -346,6 +349,7 @@ async function handleConfirmBuyForUSDT() {
 
     } catch (err) {
         proxy.$loading.hide()
+        proxy.$confirm.hide()
         proxy.$confirm.show({
             title: '錯誤',
             content: `獲取USD3餘額失敗，請重試`,
@@ -370,6 +374,7 @@ async function handleConfirmBuyForUSDT() {
 
     if (Number(allowance) == 0) { //當前領取方式未授權
         proxy.$loading.hide()
+        proxy.$confirm.hide()
         proxy.$confirm.show({
             title: '請授權',
             content: '需要進行USD3授權，請先完成授權。',
@@ -396,6 +401,7 @@ async function handleConfirmBuyForUSDT() {
     }
 
     proxy.$loading.hide()
+    proxy.$confirm.hide()
     proxy.$confirm.show({
         title: '確認',
         content: '是否確認購買該配套。',

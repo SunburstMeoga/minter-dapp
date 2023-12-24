@@ -119,6 +119,7 @@ async function handleExchange() {
 
     if (Number(allowance) == 0) { //當前領取方式未授權
         proxy.$loading.hide()
+        proxy.$confirm.hide()
         proxy.$confirm.show({
             title: '請授權',
             content: '需要進行USD3授權，請先完成授權。',
@@ -146,6 +147,7 @@ async function handleExchange() {
     }
 
     proxy.$loading.hide()
+    proxy.$confirm.hide()
     proxy.$confirm.show({
         title: '確認',
         content: `是否確認將 ${exchangeAmount.value} USD3兌換為 ${exchangeAmount.value} RT?`,

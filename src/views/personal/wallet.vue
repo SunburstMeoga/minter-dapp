@@ -362,7 +362,8 @@ function handleTransferRT() {
     }
     toggleTransferPopup()
     // proxy.$loading.show()
-
+    proxy.$confirm.hide()
+    proxy.$confirm.hide()
     proxy.$confirm.show({
         title: '確認',
         content: `是否確認將${transferRTAmount.value}RT轉入到${transferRTAddress.value},該行為不可撤銷！`,
@@ -540,6 +541,7 @@ async function handleExchangeBT() {
     let data = {
         amount: exchangeAmountBT.value
     }
+    proxy.$confirm.hide()
     proxy.$confirm.show({
         title: '確認',
         content: contentWord,
@@ -611,6 +613,7 @@ async function handleExchange() {
     console.log('allowance', allowance)
     if (Number(allowance) == 0) { //當前領取方式未授權
         proxy.$loading.hide()
+        proxy.$confirm.hide()
         proxy.$confirm.show({
             title: '請授權',
             content: '需要進行MT授權，請先完成授權。',
@@ -646,6 +649,7 @@ async function handleExchange() {
         contentWord = `是否確認將 ${exchangeAmount.value} MT 兌換為 ${exchangeAmount.value * 0.95} RT， 已扣除5% (${exchangeAmount.value * 0.05} MT) 手續費。`
     }
     proxy.$loading.hide()
+    proxy.$confirm.hide()
     proxy.$confirm.show({
         title: '確認',
         content: contentWord,
