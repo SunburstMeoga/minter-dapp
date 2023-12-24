@@ -12,13 +12,13 @@ async function getInfor() {
     let playInfo = await playersInfo(localStorage.getItem('address'))
     console.log(playInfo)
 
-    const { total_bt_withdraw, total_package_value, total_bt_reward, dynamic_earning_percentage_limit } = playInfo.player.dynamic_earning_percentage_limit
+    const { total_bt_withdraw, total_package_value, total_bt_reward, dynamic_earning_percentage_limit, last_out_total_package_value } = playInfo.player.dynamic_earning_percentage_limit
     // let incomeLimit = playInfo.player.dynamic_earning_percentage_limit.dynamic_earning_percentage_limit
     let residual = Number(total_package_value * 2 - total_bt_reward).toFixed(4)
-    let totalBTReward = Number(total_bt_reward).toFixed(4)
+    let totalBTReward = Number(total_bt_reward - last_out_total_package_value).toFixed(4)
     let totalPackageValue = Number(total_package_value).toFixed(4)
     let min = Number(total_bt_reward - total_bt_withdraw).toFixed(4)
-    let max = Number(total_package_value * 2).toFixed()
+    let max = Number(total_package_value * 2 - last_out_total_package_value).toFixed()
     point.value = Number(dynamic_earning_percentage_limit).toFixed(4) + '%'
     // let point = Number(dynamic_earning_percentage_limit).toFixed(4)
     // if (btWithdraw !== 0) {
