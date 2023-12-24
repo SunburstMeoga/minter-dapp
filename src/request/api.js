@@ -207,3 +207,18 @@ export function tokenExhange(params) {
     params
   })
 }
+
+//nft购买记录
+export function nftTransaction(params) {
+  return request('/nft_transactions', {
+    method: 'GET',
+    params
+  })
+}
+//nft掛單記錄
+export function nftMarketplace(params) {
+  return request('/nfts/marketplace', {
+    method: 'GET',
+    params
+  })
+}

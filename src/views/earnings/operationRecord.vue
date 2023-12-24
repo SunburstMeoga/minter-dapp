@@ -24,9 +24,9 @@
                         <div class="w-full  mb-3 rounded overflow-hidden p-2  text-card-word text-sm">
                             <div class="w-11/12 mr-auto ml-auto">
                                 <div v-for="(item, index) in dataList" class="mb-2" :key="index">
-                                    <earnings-card :time="item.updated_at" :isEarning="currentTab == 0 || currentTab == 1"
-                                        :isNFT="currentTab == 2" :isToken="currentTab == 3"
-                                        :price="item.amount || item.reward_amount"
+                                    <earnings-card :time="item.updated_at || item.created_at"
+                                        :isEarning="currentTab == 0 || currentTab == 1" :isNFT="currentTab == 2"
+                                        :isToken="currentTab == 3" :price="item.amount || item.reward_amount || item.price"
                                         :symbol="item.token && item.token.symbol" />
                                 </div>
                             </div>
@@ -45,7 +45,7 @@
 import { ref, onMounted, getCurrentInstance, computed } from 'vue'
 import { useI18n } from 'vue-i18n';
 import { FilterTime } from '@/utils/format'
-import { dynamicEarningTypes, dynamicRecords, staticRecords } from '@/request/api'
+import { dynamicEarningTypes, dynamicRecords, staticRecords, nftMarketplace, nftTransaction } from '@/request/api'
 import ModuleTitle from "@/components/ModuleTitle.vue";
 import EarningsCard from "./earningsCard.vue";
 
@@ -69,8 +69,45 @@ onMounted(() => {
     // getIncomeList(window.ethereum.selectedAddress, 1)
     // getDynamicEarningTypes()
     getDynamicRecords(1)
+    // nftBuyList()
+    // nftPendList()
 })
 
+//nft購買記錄
+function nftBuyList() {
+    proxy.$loading.show()
+    dataList.value = []
+    let params = { perPage: 10000 }
+    nftTransaction(params)
+        .then(res => {
+            console.log('nft購買記錄', res)
+            dataList.value = res.nft_transactions
+            proxy.$loading.hide()
+        })
+        .catch(err => {
+            console.log(err)
+            proxy.$loading.hide()
+        })
+}
+
+//nft購買記錄
+function nftPendList() {
+    proxy.$loading.show()
+    dataList.value = []
+    let params = { perPage: 10000 }
+    nftMarketplace(params)
+        .then(res => {
+            console.log('nft掛單記錄', res)
+            dataList.value = res.market_places
+            proxy.$loading.hide()
+        })
+        .catch(err => {
+            console.log(err)
+            proxy.$loading.hide()
+        })
+}
+
+// 動態收益
 function getDynamicRecords(typeID) { //typeID：1直推 2对碰 3代数
     proxy.$loading.show()
     dataList.value = []
@@ -105,6 +142,7 @@ function handleTabs(tabs) {
             getStaticRecords(1);
             break;
         case 2: typeList.value = [{ title: '普通NFT' }, { title: '正在掛單' }, { title: '已售出' }];
+            nftBuyList();
             break;
         case 3: typeList.value = [{ title: 'USD3' }, { title: 'BT' }, { title: 'MT' }, { title: 'RT' }, { title: '綁定RT' }, { title: 'PMT' }];
             dataList.value = [{
@@ -167,11 +205,18 @@ function getStaticRecords(typeID) {
 
 function handleType(item, index) {
     currentType.value = index
+    console.log(currentType.value, item, index)
     dataList.value = []
     if (currentTab.value == 0) {
         getDynamicRecords(index + 1)
     } else if (currentTab.value == 1) {
         getStaticRecords((index + 1))
+    } else if (currentTab.value == 2) {
+        if (currentType.value == 0) {
+            nftBuyList()
+        } else if (currentType.value == 1) {
+            nftPendList()
+        }
     }
 
     // getIncomeList(window.ethereum.selectedAddress, index + 1)
