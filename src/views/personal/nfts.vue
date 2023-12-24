@@ -530,7 +530,7 @@ async function handleCancelList(item) {
                 }, 8000)
                 // showToast(t('toast.success'))
             } catch (err) {
-                proxy.$confirm.hide()
+                proxy.$loading.hide()
                 proxy.$confirm.hide()
                 proxy.$confirm.show({
                     title: '提示',
