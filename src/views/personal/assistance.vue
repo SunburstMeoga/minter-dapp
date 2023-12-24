@@ -80,7 +80,7 @@
                 </div>
                 <div class="w-full flex justify-center items-center">
                     <div class="w-11/12 operating-button text-center py-2.5 rounded" @click="showAttendPopup = false">
-                        {{ $t('wallet.cancleSale') }}
+                        {{ $t('modalConfirm.cancel') }}
                     </div>
                 </div>
             </div>
@@ -407,7 +407,16 @@ async function handleConfirmBuyForRTPOPUP() {
             console.log('購買成功', res)
             proxy.$loading.hide()
             if (res.message == 'RT餘額不足') {
-                showToast('RT餘額不足')
+                proxy.$confirm.hide()
+                proxy.$confirm.show({
+                    title: '餘額不足',
+                    content: `當前配套價格為 ${coherentsList.value[currentCoherent.value].type} RT，您的 RT 餘額不足。`,
+                    showCancelButton: false,
+                    confirmText: '確定',
+                    onConfirm: () => {
+                        proxy.$confirm.hide()
+                    },
+                });
                 return
             }
             showToast(res.message)
@@ -417,6 +426,9 @@ async function handleConfirmBuyForRTPOPUP() {
                 legSide: clickPointInfo.value.point
             }
             joinTheThree(data)
+                .then(_res => {
+                    viewPointMap(localStorage.getItem('address'))
+                })
         })
         .catch(err => {
             proxy.$loading.hide()
@@ -483,6 +495,7 @@ async function handlePopupConfirmBuy() {
                                 console.log('購買成功', _res)
                                 proxy.$loading.hide()
                                 proxy.$confirm.hide()
+
                             })
                             .catch(err => {
                                 console.log('更新rt餘額失敗', err)
@@ -553,7 +566,7 @@ async function handleConfirmBuyForUSDTPOPUP() {
     try {
         proxy.$loading.show()
         await pmtContractApi.purchasePackage(coherentsList.value[currentCoherent.value].id - 1)
-
+        viewPointMap(localStorage.getItem('address'))
         // await joinTheThree(data)
         proxy.$loading.hide()
         showToast(t('toast.success'))
@@ -674,7 +687,7 @@ async function handleConfirmBuyForUSDT() {
             try {
                 proxy.$loading.hide()
                 await pmtContractApi.purchasePackage(coherentsList.value[currentSelf.value].id - 1)
-
+                viewPointMap(localStorage.getItem('address'))
                 proxy.$confirm.hide()
                 showToast('購買成功。')
             } catch (err) {

@@ -168,7 +168,7 @@ async function handleExchange() {
                 })
                 .catch(err => {
                     proxy.$confirm.hide()
-                    showToast('您已取消授權')
+                    showToast('您已取消兌換')
 
                     console.log(err)
                 })
