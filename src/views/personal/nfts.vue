@@ -433,9 +433,16 @@ async function handleListed(item) {
                 await nftContractApi.listNFT(item.token_id)
                 proxy.$confirm.hide()
                 showToast('掛單成功')
-                getUserNFTs()
-                getUserCanSaleNFT()
-                getAllNFT()
+                proxy.$loading.show()
+                setTimeout(() => {
+
+                    proxy.$loading.hide()
+                    getUserNFTs()
+                    getUserCanSaleNFT()
+                    getAllNFT()
+                }, 8000)
+
+
                 // showToast(t('toast.success'))
             } catch (err) {
                 proxy.$confirm.hide()
@@ -509,11 +516,18 @@ async function handleCancelList(item) {
             try { //unlistNFT
                 // proxy.$loading.show()
                 await nftContractApi.unlistNFT(item.token_id)
-                // proxy.$loading.hide()
+                proxy.$confirm.hide()
                 showToast('取消成功')
-                getUserNFTs()
-                getUserCanSaleNFT()
-                getAllNFT()
+                proxy.$loading.show()
+                setTimeout(() => {
+
+                    proxy.$loading.hide()
+
+
+                    getUserNFTs()
+                    getUserCanSaleNFT()
+                    getAllNFT()
+                }, 8000)
                 // showToast(t('toast.success'))
             } catch (err) {
                 proxy.$confirm.hide()

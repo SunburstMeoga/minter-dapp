@@ -241,60 +241,89 @@ function getMarketplace(params) {
             nftsDatas.value = res.market_places
             res.market_places.map(item => {
                 console.log(Number(item.token_type))
-                if (Number(item.price) >= 0 && Number(item.price) <= 100) {
+                if (item.token_type == 1) {
+                    item.nftImg = nftOne
+                }
+                if (item.token_type == 2) {
+                    item.nftImg = nftTwo
+                }
+                if (item.token_type == 3) {
+                    item.nftImg = nftThree
+                }
+                // if (item.token_type == 4) {
+                //     item.nftImg = nftFour
+                // }
+                // if (item.token_type == 5) {
+                //     item.nftImg = nftFour
+                // }
+                if (item.token_type == 1) {
                     packageN.value.push(item)
-                    packageN.value.map(item => {
-                        if (item.token_type == 1) {
-                            item.nftImg = nftOne
-                        } else if (item.token_type == 2) {
-                            item.nftImg = nftTwo
-                        } else if (item.token_type == 3) {
-                            item.nftImg = nftThree
-                        } else if (item.token_type == 4) {
-                            item.nftImg = nftFour
-                        } else if (item.token_type == 5) {
-                            item.nftImg = nftFour
-                        }
-                    })
                 }
-                if (Number(item.price) >= 75 && Number(item.price) <= 300) {
+                if (item.token_type == 2) {
                     packageR.value.push(item)
-                    if (packageR.value.length !== 0) {
-                        packageR.value.map(item => {
-                            if (item.token_type == 1) {
-                                item.nftImg = nftOne
-                            } else if (item.token_type == 2) {
-                                item.nftImg = nftTwo
-                            } else if (item.token_type == 3) {
-                                item.nftImg = nftThree
-                            } else if (item.token_type == 4) {
-                                item.nftImg = nftFour
-                            } else if (item.token_type == 5) {
-                                item.nftImg = nftFour
-                            }
-                        })
-                    }
                 }
-
-                if (Number(item.price) >= 250 && Number(item.price) <= 1000) {
+                if (item.token_type == 3) {
                     packageSR.value.push(item)
-
-                    if (packageSR.value.length !== 0) {
-                        packageSR.value.map(item => {
-                            if (item.token_type == 1) {
-                                item.nftImg = nftOne
-                            } else if (item.token_type == 2) {
-                                item.nftImg = nftTwo
-                            } else if (item.token_type == 3) {
-                                item.nftImg = nftThree
-                            } else if (item.token_type == 4) {
-                                item.nftImg = nftFour
-                            } else if (item.token_type == 5) {
-                                item.nftImg = nftFour
-                            }
-                        })
-                    }
                 }
+                // if (Number(item.price) >= 0 && Number(item.price) <= 100) {
+                //     packageN.value.push(item)
+                //     packageN.value.map(item => {
+                //         item.nftImg = nftOne
+                //         // item.token_type = 1
+                //         // if (item.token_type == 1) {
+                //         //     item.nftImg = nftOne
+                //         // } else if (item.token_type == 2) {
+                //         //     item.nftImg = nftTwo
+                //         // } else if (item.token_type == 3) {
+                //         //     item.nftImg = nftThree
+                //         // } else if (item.token_type == 4) {
+                //         //     item.nftImg = nftFour
+                //         // } else if (item.token_type == 5) {
+                //         //     item.nftImg = nftFour
+                //         // }
+                //     })
+                // }
+                // if (Number(item.price) >= 75 && Number(item.price) <= 300) {
+                //     packageR.value.push(item)
+                //     if (packageR.value.length !== 0) {
+                //         packageR.value.map(item => {
+                //             item.nftImg = nftTwo
+                //             // if (item.token_type == 1) {
+                //             //     item.nftImg = nftOne
+                //             // } else if (item.token_type == 2) {
+                //             //     item.nftImg = nftTwo
+                //             // } else if (item.token_type == 3) {
+                //             //     item.nftImg = nftThree
+                //             // } else if (item.token_type == 4) {
+                //             //     item.nftImg = nftFour
+                //             // } else if (item.token_type == 5) {
+                //             //     item.nftImg = nftFour
+                //             // }
+                //         })
+                //     }
+                // }
+
+                // if (Number(item.price) >= 250 && Number(item.price) <= 1000) {
+                //     packageSR.value.push(item)
+
+                //     if (packageSR.value.length !== 0) {
+                //         packageSR.value.map(item => {
+                //             // item.token_type = 3
+                //             item.nftImg = nftThree
+                //             // if (item.token_type == 1) {
+                //             //     item.nftImg = nftOne
+                //             // } else if (item.token_type == 2) {
+                //             //     item.nftImg = nftTwo
+                //             // } else if (item.token_type == 3) {
+                //             //     item.nftImg = nftThree
+                //             // } else if (item.token_type == 4) {
+                //             //     item.nftImg = nftFour
+                //             // } else if (item.token_type == 5) {
+                //             //     item.nftImg = nftFour
+                //             // }
+                //         })
+                //     }
+                // }
             })
             proxy.$loading.hide()
         })
