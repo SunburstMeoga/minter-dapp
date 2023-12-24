@@ -16,7 +16,7 @@
                 <div class="text-red-500 font-bold">{{ Number(price).toFixed(4) }} {{ symbol }}</div>
             </div>
             <div class="flex justify-between items-center">
-                <div>时间：</div>
+                <div>时间</div>
                 <div>{{ FilterTime(time) }}</div>
             </div>
         </div>
