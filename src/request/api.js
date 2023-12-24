@@ -199,3 +199,11 @@ export function checkPackageCount() {
     method: 'GET'
   })
 }
+
+//RT兌換記錄
+export function tokenExhange(params) {
+  return request('/exchange_records/rt', {
+    method: 'GET',
+    params
+  })
+}
