@@ -93,13 +93,17 @@ function getUserCanSaleNFT() {
                 saleables.value.map(item => {
                     if (item.token_type == 1) {
                         item.nftImg = nftOne
-                    } else if (item.token_type == 2) {
+                    }
+                    if (item.token_type == 2) {
                         item.nftImg = nftTwo
-                    } else if (item.token_type == 3) {
+                    }
+                    if (item.token_type == 3) {
                         item.nftImg = nftThree
-                    } else if (item.token_type == 4) {
+                    }
+                    if (item.token_type == 4) {
                         item.nftImg = nftFour
-                    } else if (item.token_type == 5) {
+                    }
+                    if (item.token_type == 5) {
                         item.nftImg = nftFour
                     }
                 })
@@ -138,13 +142,17 @@ function getAllNFT() {
                 nftsDatas.value.map(item => {
                     if (item.token_type == 1) {
                         item.nftImg = nftOne
-                    } else if (item.token_type == 2) {
+                    }
+                    if (item.token_type == 2) {
                         item.nftImg = nftTwo
-                    } else if (item.token_type == 3) {
+                    }
+                    if (item.token_type == 3) {
                         item.nftImg = nftThree
-                    } else if (item.token_type == 4) {
+                    }
+                    if (item.token_type == 4) {
                         item.nftImg = nftFour
-                    } else if (item.token_type == 5) {
+                    }
+                    if (item.token_type == 5) {
                         item.nftImg = nftFour
                     }
                 })
@@ -190,13 +198,17 @@ function getUserNFTs() {
                             listeds.value.map(_item => {
                                 if (_item.token_type == 1) {
                                     _item.nftImg = nftOne
-                                } else if (_item.token_type == 2) {
+                                }
+                                if (_item.token_type == 2) {
                                     _item.nftImg = nftTwo
-                                } else if (_item.token_type == 3) {
+                                }
+                                if (_item.token_type == 3) {
                                     _item.nftImg = nftThree
-                                } else if (_item.token_type == 4) {
+                                }
+                                if (_item.token_type == 4) {
                                     _item.nftImg = nftFour
-                                } else if (_item.token_type == 5) {
+                                }
+                                if (_item.token_type == 5) {
                                     _item.nftImg = nftFour
                                 }
                             })
