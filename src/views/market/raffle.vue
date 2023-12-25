@@ -24,8 +24,10 @@
                         {{ $t('turntable.rewardsDetails') }}
                     </div> -->
                 </div>
-                <div class="rounded-full border border-gray-400 text-gray-400 text-center p-3 flex justify-center items-center w-0 h-0 text-sm mr-auto ml-auto"
-                    @click="$router.go(-1)">
+                <!-- <div class="rounded-full border border-gray-400 text-gray-400 text-center p-3 flex justify-center items-center w-0 h-0 text-sm mr-auto ml-auto"
+                    @click="$router.go(-1)"> -->
+                <div
+                    class="rounded-full border border-gray-400 text-gray-400 text-center p-3 flex justify-center items-center w-0 h-0 text-sm mr-auto ml-auto">
                     <div class="icon iconfont icon-close"></div>
                 </div>
             </div>
