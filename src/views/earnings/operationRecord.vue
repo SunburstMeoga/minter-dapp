@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="bg-page-content w-9/12 h-screen overflow-scroll pt-2">
-                        <div class="w-11/12 mr-auto ml-auto flex justify-end" v-show="currentType == 3">
+                        <div class="w-11/12 mr-auto ml-auto flex justify-end" v-show="currentTab == 3">
                             <van-popover v-model:show="showFilterPopover" theme="dark" placement="bottom-end"
                                 :actions="actions" @select="onSelect">
                                 <template #reference>
@@ -70,10 +70,10 @@ const typeList = ref([{ title: '直推奖励' }, { title: '对碰奖励' }, { ti
 let actions = ref([
     { text: 'USD3', value: true, index: 0 },
     { text: 'BT', value: false, index: 1 },
-    { text: 'MT', value: false, index: 1 },
-    { text: 'RT', value: false, index: 1 },
-    { text: '綁定RT', value: false, index: 1 },
-    { text: 'PMT', value: false, index: 1 }
+    { text: 'MT', value: false, index: 2 },
+    { text: 'RT', value: false, index: 3 },
+    { text: '綁定RT', value: false, index: 4 },
+    { text: 'PMT', value: false, index: 5 }
 ])
 // let typeList = ref([{ title: t('assistance.directMarketingAward') }, { title: t('assistance.matchReward') }, { title: t('assistance.generationIncentive') }])
 let currentType = ref(0)
