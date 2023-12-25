@@ -7,11 +7,13 @@
             <div class="w-16 p-1 h-16 operating-button rounded-full overflow-hidden mb-2"
                 @click="clickPoint(directReferrals.address, directReferrals.pv, directReferrals.pv_remain, null, null, true)">
                 <div class="bg-black w-full h-full rounded-full overflow-hidden">
-                    <img src="../../assets/images/avtor.gif" alt="">
+                    <img :src="getMaxPackage(directReferrals.address)" alt="">
                 </div>
             </div>
             <div class="text-center text-xs flex items-center">
-                {{ $t('wallet.address') }}:{{ FilterAddress(directReferrals.address) }} <div style="font-size: 12px;" class="icon iconfont icon-copy mr-2 active-white-color" @click="handleCopy(directReferrals.address)"></div>
+                {{ $t('wallet.address') }}:{{ FilterAddress(directReferrals.address) }} <div style="font-size: 12px;"
+                    class="icon iconfont icon-copy mr-2 active-white-color" @click="handleCopy(directReferrals.address)">
+                </div>
             </div>
             <div class="text-center text-xs">
                 {{ $t('wallet.all') }} PV: {{ directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv ||
@@ -31,7 +33,8 @@
                         class="w-14 p-1 h-14 operating-button rounded-full overflow-hidden mb-2">
                         <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.address"
                             class="bg-black w-full h-full rounded-full overflow-hidden">
-                            <img src="../../assets/images/avtor.gif" alt="">
+                            <img :src="getMaxPackage(directReferrals && directReferrals.left_leg && directReferrals.left_leg.address)"
+                                alt="">
                         </div>
                         <div v-else
                             class="bg-black w-full h-full rounded-full overflow-hidden flex justify-center items-center">
@@ -48,7 +51,9 @@
                             {{ $t('wallet.address') }}:{{
                                 FilterAddress(directReferrals && directReferrals.left_leg && directReferrals.left_leg.address)
                             }}
-                            <div style="font-size: 12px;" class="icon iconfont icon-copy mr-2 active-white-color" @click="handleCopy(directReferrals && directReferrals.left_leg && directReferrals.left_leg.address)"></div>
+                            <div style="font-size: 12px;" class="icon iconfont icon-copy mr-2 active-white-color"
+                                @click="handleCopy(directReferrals && directReferrals.left_leg && directReferrals.left_leg.address)">
+                            </div>
                         </div>
                         <div class="text-center text-xs">
                             {{ $t('wallet.all') }} PV:{{ parseInt(directReferrals && directReferrals.left_leg &&
@@ -73,7 +78,8 @@
                                 class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
                                 <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address"
                                     class="bg-black w-full h-full rounded-full overflow-hidden">
-                                    <img src="../../assets/images/avtor.gif" alt="">
+                                    <img :src="getMaxPackage(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address)"
+                                        alt="">
                                 </div>
                                 <div v-else
                                     class="bg-black w-full h-full rounded-full overflow-hidden flex justify-center items-center">
@@ -99,7 +105,8 @@
                                 class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
                                 <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.address"
                                     class="bg-black w-full h-full rounded-full overflow-hidden">
-                                    <img src="../../assets/images/avtor.gif" alt="">
+                                    <img :src="getMaxPackage(directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.address)"
+                                        alt="">
                                 </div>
                                 <div v-else
                                     class="bg-black w-full h-full rounded-full overflow-hidden flex justify-center items-center">
@@ -128,7 +135,8 @@
                         class="w-14 p-1 h-14 operating-button rounded-full overflow-hidden mb-2">
                         <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.address"
                             class="bg-black w-full h-full rounded-full overflow-hidden">
-                            <img src="../../assets/images/avtor.gif" alt="">
+                            <img :src="getMaxPackage(directReferrals && directReferrals.right_leg && directReferrals.right_leg.address)"
+                                alt="">
                         </div>
                         <div v-else
                             class="bg-black w-full h-full rounded-full overflow-hidden flex justify-center items-center">
@@ -144,7 +152,9 @@
                             {{ $t('wallet.address') }}:{{
                                 FilterAddress(directReferrals && directReferrals.right_leg && directReferrals.right_leg.address)
                             }}
-                            <div style="font-size: 12px;" class="icon iconfont icon-copy mr-2 active-white-color" @click="handleCopy(directReferrals && directReferrals.right_leg && directReferrals.right_leg.address)"></div>
+                            <div style="font-size: 12px;" class="icon iconfont icon-copy mr-2 active-white-color"
+                                @click="handleCopy(directReferrals && directReferrals.right_leg && directReferrals.right_leg.address)">
+                            </div>
                         </div>
                         <div class="text-center text-xs">
                             {{ $t('wallet.all') }} PV:{{
@@ -173,7 +183,8 @@
                                 class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
                                 <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address"
                                     class="bg-black w-full h-full rounded-full overflow-hidden">
-                                    <img src="../../assets/images/avtor.gif" alt="">
+                                    <img :src="getMaxPackage(directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address)"
+                                        alt="">
                                 </div>
                                 <div v-else
                                     class="bg-black w-full h-full rounded-full overflow-hidden flex justify-center items-center">
@@ -199,7 +210,8 @@
                                 @click="clickPoint(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.pv, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.pv_remain, directReferrals && directReferrals.right_leg && directReferrals.right_leg.address, 'right')">
                                 <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address"
                                     class="bg-black w-full h-full rounded-full overflow-hidden">
-                                    <img src="../../assets/images/avtor.gif" alt="">
+                                    <img :src="getMaxPackage(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address)"
+                                        alt="">
                                 </div>
                                 <div v-else
                                     class="bg-black w-full h-full rounded-full overflow-hidden flex justify-center items-center">
@@ -232,11 +244,16 @@
 
 <script setup>
 import ModuleTitle from "../../components/ModuleTitle.vue";
-import { defineEmits } from 'vue'
+import { defineEmits, onMounted } from 'vue'
 import { FilterAddress } from '@/utils/format'
 import { CopyText } from '@/utils/copyText'
 import { showToast } from 'vant'
 import { useI18n } from "vue-i18n";
+import { login, playersInfo } from '@/request/api'
+
+import nftOne from '@/assets/images/200.png'
+import nftTwo from '@/assets/images/600.png'
+import nftThree from '@/assets/images/2000.png'
 const { t } = useI18n()
 import { ref } from 'vue'
 defineProps({
@@ -267,6 +284,36 @@ let currentAttendsWay = ref(0)
 async function handleCopy(address) {
     await CopyText(address)
     showToast(t('toast.copySuccess'))
+}
+
+onMounted(() => {
+    // getMaxPackage(localStorage.getItem('address'))
+})
+
+//獲取點位圖地址當前最高的配套圖片
+function getMaxPackage(address) {
+    // return nftOne
+
+    // playersInfo(address)
+    // .then(res => {
+    //     console.log('res', res)
+    //     let img = null
+    //     // if (res.player.max_package_id == 1) {
+    //     //     img = nftOne
+    //     // } else if (res.player.max_package_id == 2) {
+    //     //     img = nftTwo
+    //     // } else if (res.player.max_package_id == 3) {
+    //     //     img = nftThree
+    //     // }
+    //     // console.log(img)
+    //     // return img
+    //     return nftOne
+    // })
+    // .catch(err => {
+    //     console.log('err', err)
+    // })
+
+    return nftOne
 }
 //查看某地址下的點位圖
 function openDetails(address, left_pv, right_leg, left_pv_remain, right_pv_remain) {
@@ -338,5 +385,4 @@ img {
 .van-popover__action-text {
     font-size: 12px;
     text-align: left;
-}
-</style>
+}</style>

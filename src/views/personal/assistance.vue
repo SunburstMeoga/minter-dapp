@@ -3,21 +3,23 @@
         <van-tabs class="pt-2 bg-black " v-model:active="active" sticky shrink animated swipeable color="#e149ed"
             title-inactive-color="#fff" title-active-color="#e149ed" background="#000">
             <van-tab :title="$t('assistance.pointMap')">
-                <div class="flex justify-center items-center mt-4">
-                    <div class="w-11/12 text-center text-white rounded-full h-16 flex justify-between items-center">
-                        <div class="flex-1 pr-4">
-                            <input type="text" v-model="searchAddress"
-                                class="px-1 h-8 rounded-full text-sm bg-transparent w-full" placeholder="搜索下級地址">
+                <div v-if="isFinishPoint">
+                    <div class="flex justify-center items-center mt-4">
+                        <div class="w-11/12 text-center text-white rounded-full h-16 flex justify-between items-center">
+                            <div class="flex-1 pr-4">
+                                <input type="text" v-model="searchAddress"
+                                    class="px-1 h-8 rounded-full text-sm bg-transparent w-full" placeholder="搜索下級地址">
+                            </div>
+                            <div class="operating-button rounded-full px-3 h-8 flex items-center text-sm"
+                                @click="handleSearchAddress">搜索</div>
                         </div>
-                        <div class="operating-button rounded-full px-3 h-8 flex items-center text-sm"
-                            @click="handleSearchAddress">搜索</div>
                     </div>
-                </div>
-                <point @clickPoint="clickPoint" :directReferrals="directReferrals" />
-                <div class="flex justify-center items-center mt-20">
-                    <div class="card-content py-2 w-11/12 text-center text-white rounded-full"
-                        @click="handleBackPreAddress">
-                        返回上一级
+                    <point @clickPoint="clickPoint" :directReferrals="directReferrals" />
+                    <div class="flex justify-center items-center mt-20">
+                        <div class="card-content py-2 w-11/12 text-center text-white rounded-full"
+                            @click="handleBackPreAddress">
+                            返回上一级
+                        </div>
                     </div>
                 </div>
             </van-tab>
@@ -330,6 +332,7 @@ import Web3 from "web3";
 
 const { t } = useI18n()
 const { proxy } = getCurrentInstance()
+let isFinishPoint = ref(false)
 let active = ref(0)
 let showAttendPopup = ref(false)
 let showBuyPopup = ref(false)
@@ -395,10 +398,12 @@ async function handleSearchAddress() {
         showToast('請輸入有效的下級地址')
         return
     }
+    isFinishPoint.value = false
     viewPointMap(searchAddress.value)
 }
 
 async function handleBackPreAddress() {
+    isFinishPoint.value = false
     viewPointMap(localStorage.getItem('address'))
 }
 function clickCurrentCoherent(item, index) {
@@ -447,6 +452,7 @@ async function handleConfirmBuyForRTPOPUP() {
             }
             joinTheThree(data)
                 .then(_res => {
+                    isFinishPoint.value = false
                     viewPointMap(localStorage.getItem('address'))
                 })
         })
@@ -585,6 +591,7 @@ async function handleConfirmBuyForUSDTPOPUP() {
     }
     try {
         proxy.$loading.show()
+        isFinishPoint.value = false
         await pmtContractApi.purchasePackage(coherentsList.value[currentCoherent.value].id - 1)
         viewPointMap(localStorage.getItem('address'))
         // await joinTheThree(data)
@@ -706,6 +713,7 @@ async function handleConfirmBuyForUSDT() {
         onConfirm: async () => {
             try {
                 proxy.$loading.hide()
+                isFinishPoint.value = false
                 await pmtContractApi.purchasePackage(coherentsList.value[currentSelf.value].id - 1)
                 viewPointMap(localStorage.getItem('address'))
                 proxy.$confirm.hide()
@@ -760,11 +768,11 @@ function viewPointMap(address) {
             console.log('點位圖', res)
             directReferrals.value = res.directReferrals
             proxy.$loading.hide()
-
+            isFinishPoint.value = true
         })
         .catch(err => {
             proxy.$loading.hide()
-
+            isFinishPoint.value = true
             console.log(err)
         })
 }
