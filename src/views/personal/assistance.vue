@@ -90,7 +90,19 @@
             <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
                 <!-- <div class="text-center mb-6 text-white">请输入上级地址</div> -->
                 <div class="w-full flex flex-col items-center mb-2">
-                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1">{{ $t('assistance.inviterAddress') }}</div>
+                    <div class="flex justify-between items-center w-11/12">
+                        <div class="text-gray-200 text-sm text-left mb-1">{{ $t('assistance.inviterAddress') }}
+                        </div>
+                        <div class="flex justify-end items-center">
+                            <div class="text-gray-200 text-xs px-1 text-left w-11/12 border border-gray-400 rounded active-white-color"
+                                @click="enterPreAddress">鍵入上級地址
+                            </div>
+                            <div class="text-gray-200 text-xs px-1 text-left w-11/12 ml-2 border border-gray-400 rounded active-white-color"
+                                @click="enterSelfAddress">
+                                鍵入我的地址
+                            </div>
+                        </div>
+                    </div>
                     <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-700 mb-1">
                         <input type="text" :placeholder="$t('assistance.inviterAddress')" v-model="inviterAddressTwo"
                             class="w-full h-full bg-bottom-content rounded">
@@ -365,6 +377,14 @@ onMounted(() => {
     getStaticRecords()
 })
 
+//输入我的地址
+function enterSelfAddress() {
+    inviterAddressTwo.value = localStorage.getItem('address')
+}
+//输入上级地址
+function enterPreAddress() {
+    inviterAddressTwo.value = clickPointInfo.value.preAddress
+}
 //點擊搜索下級地址
 async function handleSearchAddress() {
     if (!searchAddress.value) {
