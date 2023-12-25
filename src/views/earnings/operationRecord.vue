@@ -20,7 +20,21 @@
                         </div>
                     </div>
                     <div class="bg-page-content w-9/12 h-screen overflow-scroll pt-2">
-
+                        <div class="w-11/12 mr-auto ml-auto flex justify-end" v-show="currentType == 3">
+                            <van-popover v-model:show="showFilterPopover" theme="dark" placement="bottom-end"
+                                :actions="actions" @select="onSelect">
+                                <template #reference>
+                                    <div
+                                        class="flex justify-center items-center text-gray-500 border text-xs border-gray-500 rounded px-3 py-1">
+                                        <div class="icon iconfont icon-coins mr-1 font-bold" style="font-size: 12px;">
+                                        </div>
+                                        <div class="">
+                                            {{ actions[currentFilter].text }}
+                                        </div>
+                                    </div>
+                                </template>
+                            </van-popover>
+                        </div>
                         <div class="w-full  mb-3 rounded overflow-hidden p-2  text-card-word text-sm">
                             <div class="w-11/12 mr-auto ml-auto">
                                 <div v-for="(item, index) in dataList" class="mb-2" :key="index">
@@ -53,10 +67,22 @@ import EarningsCard from "./earningsCard.vue";
 const { t } = useI18n()
 const { proxy } = getCurrentInstance()
 const typeList = ref([{ title: '直推奖励' }, { title: '对碰奖励' }, { title: '代数奖励' }])
+let actions = ref([
+    { text: 'USD3', value: true, index: 0 },
+    { text: 'BT', value: false, index: 1 },
+    { text: 'MT', value: false, index: 1 },
+    { text: 'RT', value: false, index: 1 },
+    { text: '綁定RT', value: false, index: 1 },
+    { text: 'PMT', value: false, index: 1 }
+])
 // let typeList = ref([{ title: t('assistance.directMarketingAward') }, { title: t('assistance.matchReward') }, { title: t('assistance.generationIncentive') }])
 let currentType = ref(0)
 let currentTab = ref(0)
 let dataList = ref([])
+let currentFilter = ref(0)
+
+let showFilterPopover = ref(false)
+
 let tabsList = computed(() => {
     return [
         { title: '動態收益', value: 0 },
@@ -72,6 +98,10 @@ onMounted(() => {
     // nftBuyList()
     // nftPendList()
 })
+function onSelect(select) {
+    console.log(select)
+    currentFilter.value = select.index
+}
 
 //nft購買記錄
 function nftBuyList() {
@@ -144,21 +174,23 @@ function handleTabs(tabs) {
         case 2: typeList.value = [{ title: '普通NFT' }, { title: '正在掛單' }, { title: '已售出' }];
             nftBuyList();
             break;
-        case 3: typeList.value = [{ title: 'USD3' }, { title: 'BT' }, { title: 'MT' }, { title: 'RT' }, { title: '綁定RT' }, { title: 'PMT' }];
-            dataList.value = [{
-                operationType: '兌換',
-                currentType: 'USD3 兌換成 RT',
-                amount: '34.0000MT',
-                exchangeTime: "2023-12-23T15:15:11.000000Z",
-                creditCardTime: "2023-12-23T15:15:11.000000Z",
-                launchTime: "2023-12-23T15:15:11.000000Z",
-            }, {
-                operationType: '交易',
-                payeeAddress: '0x234...234234',
-                amount: '34.0000MT',
-                creditCardTime: "2023-12-23T15:15:11.000000Z",
-                launchTime: "2023-12-23T15:15:11.000000Z",
-            }];
+        // case 3: typeList.value = [{ title: 'USD3' }, { title: 'BT' }, { title: 'MT' }, { title: 'RT' }, { title: '綁定RT' }, { title: 'PMT' }];
+        case 3: typeList.value = [{ title: '貨幣交易' }, { title: '貨幣兌換' }];
+
+            // dataList.value = [{
+            //     operationType: '兌換',
+            //     currentType: 'USD3 兌換成 RT',
+            //     amount: '34.0000MT',
+            //     exchangeTime: "2023-12-23T15:15:11.000000Z",
+            //     creditCardTime: "2023-12-23T15:15:11.000000Z",
+            //     launchTime: "2023-12-23T15:15:11.000000Z",
+            // }, {
+            //     operationType: '交易',
+            //     payeeAddress: '0x234...234234',
+            //     amount: '34.0000MT',
+            //     creditCardTime: "2023-12-23T15:15:11.000000Z",
+            //     launchTime: "2023-12-23T15:15:11.000000Z",
+            // }];
 
             break;
 
