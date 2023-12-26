@@ -22,29 +22,29 @@
         </div>
         <div v-show="isToken">
             <div class="flex justify-between items-center mb-2">
-                <div>操作類型:</div>
-                <div class="text-red-500 font-bold">{{ operationType }}</div>
+                <div>操作地址</div>
+                <div class="text-red-500 font-bold">{{ FilterAddress(address) }}</div>
             </div>
-            <div class="flex justify-between items-center mb-2">
-                <div>兌換幣種:</div>
+            <!-- <div class="flex justify-between items-center mb-2">
+                <div>兌換幣種</div>
                 <div class="text-red-500 font-bold">{{ currentType }}</div>
+            </div> -->
+            <div class="flex justify-between items-center mb-2">
+                <div>兌換金額</div>
+                <div class="text-red-500 font-bold">{{ price }} {{ symbol }}</div>
+            </div>
+            <div class="flex justify-between items-center mb-2" v-show="remark">
+                <div>兌換類型</div>
+                <div class="text-red-500 font-bold">{{ remark }}</div>
             </div>
             <div class="flex justify-between items-center mb-2">
-                <div>兌換金額:</div>
-                <div class="text-red-500 font-bold">{{ amount }}</div>
+                <div>到賬時間</div>
+                <div class="text-red-500 font-bold">{{ FilterTime(time) }}</div>
             </div>
-            <div class="flex justify-between items-center mb-2">
-                <div>兌換時間:</div>
-                <div class="text-red-500 font-bold">{{ FilterTime(exchangeTime) }}</div>
-            </div>
-            <div class="flex justify-between items-center mb-2">
-                <div>到賬時間:</div>
-                <div class="text-red-500 font-bold">{{ FilterTime(creditCardTime) }}</div>
-            </div>
-            <div class="flex justify-between items-center mb-2">
-                <div>發起時間:</div>
+            <!-- <div class="flex justify-between items-center mb-2">
+                <div>發起時間</div>
                 <div class="text-red-500 font-bold">{{ FilterTime(launchTime) }}</div>
-            </div>
+            </div> -->
             <!-- <div class="flex justify-between items-center mb-2">
                 <div>兌換幣種:</div>
                 <div class="text-red-500 font-bold">{{ operationType}}</div>
@@ -55,16 +55,24 @@
 
 <script setup>
 import { ref } from 'vue'
-import { FilterTime } from '@/utils/format';
-let operationType = ref('兌換')
-let currentType = ref('USD3 兌換成 RT')
-let amount = ref('34.0000MT')
-let exchangeTime = ref("2023-12-23T15:15:11.000000Z")
-let creditCardTime = ref("2023-12-23T15:15:11.000000Z")
-let launchTime = ref("2023-12-23T15:15:11.000000Z")
-let payeeAddress = ref('0x234...234234')
+import { FilterTime, FilterAddress } from '@/utils/format';
+// let operationType = ref('兌換')
+// let currentType = ref('USD3 兌換成 RT')
+// let amount = ref('34.0000MT')
+// let exchangeTime = ref("2023-12-23T15:15:11.000000Z")
+// let creditCardTime = ref("2023-12-23T15:15:11.000000Z")
+// let launchTime = ref("2023-12-23T15:15:11.000000Z")
+// let payeeAddress = ref('0x234...234234')
 defineProps({
     price: {
+        type: String,
+        default: ''
+    },
+    remark: {
+        type: String,
+        default: ''
+    },
+    address: {
         type: String,
         default: ''
     },

@@ -30,6 +30,7 @@
     "vue-clipboard3": "^2.0.0",
     "vue-i18n": "^9.5.0",
     "vue-router": "^4.2.4",
+    "vue3-roulette": "^0.3.3",
     "web3": "^4.3.0"
   },
   "devDependencies": {

@@ -201,12 +201,12 @@ export function checkPackageCount() {
 }
 
 //RT兌換記錄
-export function tokenExhange(params) {
-  return request('/exchange_records/rt', {
-    method: 'GET',
-    params
-  })
-}
+// export function tokenExhange(params) {
+//   return request('/exchange_records/rt', {
+//     method: 'GET',
+//     params
+//   })
+// }
 
 //nft购买记录
 export function nftTransaction(params) {
@@ -218,6 +218,53 @@ export function nftTransaction(params) {
 //nft掛單記錄
 export function nftMarketplace(params) {
   return request('/nfts/marketplace', {
+    method: 'GET',
+    params
+  })
+}
+
+//rt兑换记录
+export function RTExchangeRecord(params) {
+  return request('/exchange_records/rt', {
+    method: 'GET',
+    params
+  })
+}
+
+//usdt兌換記錄
+export function usdtExchangeRecord(params) {
+  return request('/records/swaps/usdt', {
+    method: 'GET',
+    params
+  })
+}
+
+//bt兌換記錄
+export function btExchangeRecord(params) {
+  return request('/records/swaps/bt', {
+    method: 'GET',
+    params
+  })
+}
+
+//mt兌換記錄
+export function mtExchangeRecord(params) {
+  return request('/records/swaps/mt', {
+    method: 'GET',
+    params
+  })
+}
+
+//bt交易記錄
+export function btTransations(params) {
+  return request('/records/transactions/bt', {
+    method: 'GET',
+    params
+  })
+}
+//rt交易記錄
+export function rtTransations(params) {
+  return request('/records/transactions/rt', {
     method: 'GET',
     params
   })

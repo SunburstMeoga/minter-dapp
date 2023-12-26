@@ -38,9 +38,10 @@
                         <div class="w-full  mb-3 rounded overflow-hidden p-2  text-card-word text-sm">
                             <div class="w-11/12 mr-auto ml-auto">
                                 <div v-for="(item, index) in dataList" class="mb-2" :key="index">
-                                    <earnings-card :time="item.updated_at || item.created_at"
-                                        :isEarning="currentTab == 0 || currentTab == 1" :isNFT="currentTab == 2"
-                                        :isToken="currentTab == 3" :price="item.amount || item.reward_amount || item.price"
+                                    <earnings-card :time="item.updated_at || item.created_at" :remark="item.remark"
+                                        :address="item.address" :isEarning="currentTab == 0 || currentTab == 1"
+                                        :isNFT="currentTab == 2" :isToken="currentTab == 3"
+                                        :price="item.amount || item.reward_amount || item.price"
                                         :symbol="item.token && item.token.symbol" />
                                 </div>
                             </div>
@@ -59,7 +60,7 @@
 import { ref, onMounted, getCurrentInstance, computed } from 'vue'
 import { useI18n } from 'vue-i18n';
 import { FilterTime } from '@/utils/format'
-import { dynamicEarningTypes, dynamicRecords, staticRecords, nftMarketplace, nftTransaction } from '@/request/api'
+import { dynamicEarningTypes, dynamicRecords, staticRecords, nftMarketplace, nftTransaction, usdtExchangeRecord, btExchangeRecord, mtExchangeRecord, btTransations, rtTransations } from '@/request/api'
 import ModuleTitle from "@/components/ModuleTitle.vue";
 import EarningsCard from "./earningsCard.vue";
 
@@ -100,9 +101,104 @@ onMounted(() => {
 })
 function onSelect(select) {
     console.log(select)
+    let params = { address: localStorage.getItem('address') }
     currentFilter.value = select.index
-}
+    if (currentType.value == 0) {
+        if (currentFilter.value == 0) {
+            getUSDTExchangeRecord(params)
+        } else if (currentFilter.value == 1) {
+            getBTExchangeRecord(params)
+        } else if (currentFilter.value == 2) {
+            getMTExchangeRecord(params)
+        }
+    } else {
+        if (currentFilter.value == 1) {
+            getBTTransations(params)
+        } else if (currentFilter.value == 1) {
+            // getBTExchangeRecord(params)
+        } else if (currentFilter.value == 3) {
+            getRTTransations(params)
+        }
 
+    }
+
+
+}
+//bt交易記錄
+function getBTTransations(params) {
+    proxy.$loading.show()
+    dataList.value = []
+    btTransations(params)
+        .then(res => {
+            console.log('bt交易記錄', res)
+            dataList.value = res.transactions
+            proxy.$loading.hide()
+        })
+        .catch(err => {
+            console.log('err', err)
+            proxy.$loading.hide()
+        })
+}
+//rt交易記錄
+function getRTTransations(params) {
+    proxy.$loading.show()
+    dataList.value = []
+    rtTransations(params)
+        .then(res => {
+            console.log('rt交易記錄', res)
+            dataList.value = res.transactions
+            proxy.$loading.hide()
+        })
+        .catch(err => {
+            console.log('err', err)
+            proxy.$loading.hide()
+        })
+}
+//usdt兌換記錄
+function getUSDTExchangeRecord(params) {
+    proxy.$loading.show()
+    dataList.value = []
+    usdtExchangeRecord(params)
+        .then(res => {
+            console.log('usdt兌換記錄', res)
+            dataList.value = res.transactions
+            proxy.$loading.hide()
+        })
+        .catch(err => {
+            console.log('err', err)
+            proxy.$loading.hide()
+        })
+}
+//bt兌換記錄
+function getBTExchangeRecord(params) {
+    proxy.$loading.show()
+    dataList.value = []
+    btExchangeRecord(params)
+        .then(res => {
+            console.log('bt兌換記錄', res)
+            dataList.value = res.transactions
+            proxy.$loading.hide()
+        })
+        .catch(err => {
+            console.log('err', err)
+            proxy.$loading.hide()
+        })
+}
+//mt兌換記錄
+function getMTExchangeRecord(params) {
+    proxy.$loading.show()
+    dataList.value = []
+    mtExchangeRecord(params)
+        .then(res => {
+            console.log('mt兌換記錄', res)
+            dataList.value = res.transactions
+            proxy.$loading.hide()
+        })
+        .catch(err => {
+            console.log('err', err)
+            proxy.$loading.hide()
+        })
+}
 //nft購買記錄
 function nftBuyList() {
     proxy.$loading.show()
@@ -175,7 +271,9 @@ function handleTabs(tabs) {
             nftBuyList();
             break;
         // case 3: typeList.value = [{ title: 'USD3' }, { title: 'BT' }, { title: 'MT' }, { title: 'RT' }, { title: '綁定RT' }, { title: 'PMT' }];
-        case 3: typeList.value = [{ title: '貨幣交易' }, { title: '貨幣兌換' }];
+        case 3: typeList.value = [{ title: '貨幣兌換' }, { title: '貨幣交易' }];
+            let params = { address: localStorage.getItem('address') }
+            getUSDTExchangeRecord(params)
 
             // dataList.value = [{
             //     operationType: '兌換',
@@ -249,6 +347,15 @@ function handleType(item, index) {
         } else if (currentType.value == 1) {
             nftPendList()
         }
+    } else if (currentTab.value == 3) {
+        if (currentType.value == 0) {
+            let params = { address: localStorage.getItem('address') }
+            getUSDTExchangeRecord(params)
+        } else if (currentType.value == 1) {
+            //去獲取usdt的交易記錄 （待完成）
+            // if(currentType == )
+        }
+
     }
 
     // getIncomeList(window.ethereum.selectedAddress, index + 1)
