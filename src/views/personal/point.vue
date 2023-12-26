@@ -6,8 +6,9 @@
             </div> -->
             <div class="w-16 p-1 h-16 operating-button rounded-full overflow-hidden mb-2"
                 @click="clickPoint(directReferrals.address, directReferrals.pv, directReferrals.pv_remain, null, null, true)">
-                <div class="bg-black w-full h-full rounded-full overflow-hidden">
-                    <img :src="getMaxPackage(directReferrals.address)" alt="">
+                <div class="bg-black w-full h-full rounded-full overflow-hidden"
+                    :class="directReferrals.is_out ? 'gray' : ''">
+                    <img :src="getMaxPackage(directReferrals.max_package_id)" alt="">
                 </div>
             </div>
             <div class="text-center text-xs flex items-center">
@@ -32,8 +33,9 @@
                     <div @click="clickPoint(directReferrals && directReferrals.left_leg && directReferrals.left_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv, directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv_remain, directReferrals.address, 'left')"
                         class="w-14 p-1 h-14 operating-button rounded-full overflow-hidden mb-2">
                         <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.address"
-                            class="bg-black w-full h-full rounded-full overflow-hidden">
-                            <img :src="getMaxPackage(directReferrals && directReferrals.left_leg && directReferrals.left_leg.address)"
+                            class="bg-black w-full h-full rounded-full overflow-hidden"
+                            :class="directReferrals && directReferrals.left_leg && directReferrals.left_leg.is_out ? 'gray' : ''">
+                            <img :src="getMaxPackage(directReferrals && directReferrals.left_leg && directReferrals.left_leg.max_package_id)"
                                 alt="">
                         </div>
                         <div v-else
@@ -77,8 +79,9 @@
                             <div @click="clickPoint(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.pv, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.pv_remain, directReferrals && directReferrals.left_leg && directReferrals.left_leg.address, 'left')"
                                 class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
                                 <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address"
-                                    class="bg-black w-full h-full rounded-full overflow-hidden">
-                                    <img :src="getMaxPackage(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address)"
+                                    class="bg-black w-full h-full rounded-full overflow-hidden"
+                                    :class="directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.is_out ? 'gray' : ''">
+                                    <img :src="getMaxPackage(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.max_package_id)"
                                         alt="">
                                 </div>
                                 <div v-else
@@ -104,8 +107,9 @@
                             <div @click="clickPoint(directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.address, directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.pv, directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.pv_remain, directReferrals && directReferrals.left_leg && directReferrals.left_leg.address, 'right')"
                                 class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
                                 <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.address"
-                                    class="bg-black w-full h-full rounded-full overflow-hidden">
-                                    <img :src="getMaxPackage(directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.address)"
+                                    class="bg-black w-full h-full rounded-full overflow-hidden"
+                                    :class="directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.is_out ? 'gray' : ''">
+                                    <img :src="getMaxPackage(directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.max_package_id)"
                                         alt="">
                                 </div>
                                 <div v-else
@@ -134,8 +138,9 @@
                     <div @click="clickPoint(directReferrals && directReferrals.right_leg && directReferrals.right_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv, directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv_remain, directReferrals.address, 'right')"
                         class="w-14 p-1 h-14 operating-button rounded-full overflow-hidden mb-2">
                         <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.address"
-                            class="bg-black w-full h-full rounded-full overflow-hidden">
-                            <img :src="getMaxPackage(directReferrals && directReferrals.right_leg && directReferrals.right_leg.address)"
+                            class="bg-black w-full h-full rounded-full overflow-hidden"
+                            :class="directReferrals && directReferrals.right_leg && directReferrals.right_leg.is_out ? 'gray' : ''">
+                            <img :src="getMaxPackage(directReferrals && directReferrals.right_leg && directReferrals.right_leg.max_package_id)"
                                 alt="">
                         </div>
                         <div v-else
@@ -182,8 +187,9 @@
                             <div @click="clickPoint(directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.pv, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.pv_remain, directReferrals && directReferrals.right_leg && directReferrals.right_leg.address, 'left')"
                                 class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2">
                                 <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address"
-                                    class="bg-black w-full h-full rounded-full overflow-hidden">
-                                    <img :src="getMaxPackage(directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address)"
+                                    class="bg-black w-full h-full rounded-full overflow-hidden"
+                                    :class="directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.is_out ? 'gray' : ''">
+                                    <img :src="getMaxPackage(directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.max_package_id)"
                                         alt="">
                                 </div>
                                 <div v-else
@@ -209,8 +215,9 @@
                             <div class="w-12 p-1 h-12 operating-button rounded-full overflow-hidden mb-2"
                                 @click="clickPoint(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.pv, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.pv_remain, directReferrals && directReferrals.right_leg && directReferrals.right_leg.address, 'right')">
                                 <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address"
-                                    class="bg-black w-full h-full rounded-full overflow-hidden">
-                                    <img :src="getMaxPackage(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address)"
+                                    class="bg-black w-full h-full rounded-full overflow-hidden"
+                                    :class="directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.is_out ? 'gray' : ''">
+                                    <img :src="getMaxPackage(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.max_package_id)"
                                         alt="">
                                 </div>
                                 <div v-else
@@ -291,29 +298,17 @@ onMounted(() => {
 })
 
 //獲取點位圖地址當前最高的配套圖片
-function getMaxPackage(address) {
-    // return nftOne
+function getMaxPackage(maxPackage) {
+    let img
+    if (maxPackage == 1) {
+        img = nftOne
+    } else if (maxPackage == 2) {
+        img = nftTwo
+    } else if (maxPackage == 3) {
+        img = nftThree
+    }
 
-    // playersInfo(address)
-    // .then(res => {
-    //     console.log('res', res)
-    //     let img = null
-    //     // if (res.player.max_package_id == 1) {
-    //     //     img = nftOne
-    //     // } else if (res.player.max_package_id == 2) {
-    //     //     img = nftTwo
-    //     // } else if (res.player.max_package_id == 3) {
-    //     //     img = nftThree
-    //     // }
-    //     // console.log(img)
-    //     // return img
-    //     return nftOne
-    // })
-    // .catch(err => {
-    //     console.log('err', err)
-    // })
-
-    return nftOne
+    return img
 }
 //查看某地址下的點位圖
 function openDetails(address, left_pv, right_leg, left_pv_remain, right_pv_remain) {
@@ -385,4 +380,5 @@ img {
 .van-popover__action-text {
     font-size: 12px;
     text-align: left;
-}</style>
+}
+</style>
