@@ -9,11 +9,11 @@
     <div class="fixed bg-black w-full top-0 left-0 z-40 shadow-xl" v-if="route.meta.showGOIndex">
       <top-back-home :pageTitle="route.meta.pageTitle" />
     </div>
-    <div class="bg-black">
-
+    <div class="">
+      <router-view class="relative z-40" />
       <div ref="container" class="container relative" style="border: 1px solid black;">
-        <router-view class="relative z-40" />
-        <canvas id="canvas" class="fixed left-0 top-0" ref="canvas" />
+
+        <canvas id="canvas" class="w-screen h-screen fixed left-0 top-0" ref="canvas" />
         <div class="absolute top-0 left-0 w-full h-full bg-black opacity-50" />
       </div>
 
@@ -244,11 +244,11 @@ img {
   object-fit: cover;
 }
 
-/*.container {
+.container {
   position: absolute;
   inset: 0;
   overflow: hidden;
-}*/
+}
 
 #canvas {
   width: 100%;
