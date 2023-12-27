@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="bg-page-content rounded-lg text-white p-2 border border-gray-600">
+        <div class=" rounded-lg text-white p-2 border border-gray-600">
             <!-- <div v-if="isMUSDT">
                 <div class="flex justify-between items-center mb-2">
                     <div class="flex justify-start items-center">
