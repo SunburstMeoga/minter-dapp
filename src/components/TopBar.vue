@@ -1,6 +1,7 @@
 <template>
     <div class="h-14 w-full  pt-4">
-        <div class="flex px-2 border-4 border-page-content rounded-lg w-11/12 mr-auto ml-auto">
+        <div class="flex px-2 border border-page-content rounded-lg w-11/12 mr-auto ml-auto"
+            style="box-shadow: 0 0 1px rgba(0,153,184, .5) inset,0 0 20px rgba(0,153,184,.5);">
             <div class="flex justify-between w-full items-center h-full rounded-lg p-2">
                 <div>
                     <div class="icon iconfont menu icon-menu-hamburger text-white" @click="toggleMenu"></div>
