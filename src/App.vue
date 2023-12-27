@@ -10,11 +10,11 @@
       <top-back-home :pageTitle="route.meta.pageTitle" />
     </div>
     <div class="">
-      <router-view class="relative z-40" />
+      <router-view class="relative z-10" />
       <div ref="container" class="container relative" style="border: 1px solid black;">
 
         <canvas id="canvas" class="w-screen h-screen fixed left-0 top-0" ref="canvas" />
-        <div class="absolute top-0 left-0 w-full h-full bg-black opacity-50" />
+        <!-- <div class="top-0 left-0 w-screen h-screen fixed bg-black opacity-50" /> -->
       </div>
 
     </div>
