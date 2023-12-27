@@ -8,7 +8,7 @@
       <div class="absolute top-10 right-4 active-primary-color">
         <div class="icon iconfont icon-share text-white " style="font-size: 28px;"></div>
       </div>
-      <div class="pt-16">
+      <div>
         <swiper :direction="'vertical'" @swiper="setSwiperRef" @slideChange="swiperChange" :pagination="{
           clickable: true,
         }" :modules="modules" class="mySwiper">
