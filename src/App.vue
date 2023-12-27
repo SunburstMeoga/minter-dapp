@@ -14,7 +14,7 @@
       <div ref="container" class="container relative" style="border: 1px solid black;">
 
         <canvas id="canvas" class="w-screen h-screen fixed left-0 top-0" ref="canvas" />
-        <!-- <div class="top-0 left-0 w-screen h-screen fixed bg-black opacity-50" /> -->
+        <div class="w-screen h-screen fixed left-0 top-0 bg-black opacity-50" />
       </div>
 
     </div>
