@@ -4,7 +4,7 @@
       <!-- <div class="absolute top-0 w-full left-0 h-full">
         <img src="../../assets/images/home-bg.png" alt="">
       </div> -->
-      <div class="absolute top-0 left-0 w-full h-full bg-black opacity-80" />
+      <!-- <div class="absolute top-0 left-0 w-full h-full bg-black opacity-80" /> -->
       <div class="absolute top-10 right-4 active-primary-color">
         <div class="icon iconfont icon-share text-white " style="font-size: 28px;"></div>
       </div>
