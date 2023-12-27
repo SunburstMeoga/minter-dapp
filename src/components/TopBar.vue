@@ -1,7 +1,7 @@
 <template>
     <div class="h-14 w-full  pt-4">
-        <div class="flex p-2 border-4 border-page-content rounded-lg w-11/12 mr-auto ml-auto">
-            <div class="flex justify-between w-full items-center h-full bg-gray-800 rounded-lg p-2">
+        <div class="flex px-2 border-4 border-page-content rounded-lg w-11/12 mr-auto ml-auto">
+            <div class="flex justify-between w-full items-center h-full rounded-lg p-2">
                 <div>
                     <div class="icon iconfont menu icon-menu-hamburger text-white" @click="toggleMenu"></div>
                 </div>

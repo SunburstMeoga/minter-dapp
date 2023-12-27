@@ -9,8 +9,8 @@
                     </div>
 
                     <div class="flex justify-end text-sm items-center text-test-two">
-                        <div v-if="!isRT" class="underline">{{ $t('wallet.recharge') }}</div>
-                        <div class="pl-4 underline" @click="$emit('transfer')">{{ isRT ? '转账' : $t('wallet.withdraw') }}
+                        <div v-if="!isRT" class="">{{ $t('wallet.recharge') }}</div>
+                        <div class="pl-4 " @click="$emit('transfer')">{{ isRT ? '转账' : $t('wallet.withdraw') }}
                         </div>
                     </div>
                 </div>
@@ -29,19 +29,20 @@
                         <div class="icon iconfont icon-yingyongshichang text-primary-color" style="font-size: 24px;"></div>
                         <div class="font-bold text-lg pl-4">{{ currency }}</div>
                     </div>
-                    <div class="flex justify-end text-sm items-center text-test-two active-color">
-                        <div v-if="isRecharge" class="underline" @click="$emit('recharge')">{{ $t('wallet.recharge') }}
+                    <div class="flex justify-end text-sm items-center text-yellow-300 active-color">
+                        <div v-if="isRecharge" class="" @click="$emit('recharge')">{{ $t('wallet.recharge') }}
                         </div>
-                        <div v-if="isWithdraw" class="pl-4 underline" @click="$emit('withdraw')">{{ $t('wallet.withdraw') }}
+                        <div v-if="isWithdraw" class="pl-4 " @click="$emit('withdraw')">{{ $t('wallet.withdraw') }}
                         </div>
-                        <div v-if="isTrasfer" class="pl-4 underline" @click="$emit('transfer')">{{ $t('wallet.transfer') }}
+                        <div v-if="isTrasfer" class="pl-4 " @click="$emit('transfer')">{{ $t('wallet.transfer') }}
                         </div>
-                        <div v-if="isExchange" class="pl-4 underline" @click="$emit('exchange')">劃轉
+                        <div v-if="isExchange" class="pl-4 " @click="$emit('exchange')">劃轉
                         </div>
-                        <div v-if="isBuy" class="pl-4 underline" @click="$emit('buy')">購買
+                        <div v-if="isBuy" class="pl-4 " @click="$emit('buy')">市場
                         </div>
-                        <div v-if="isRegister" class="pl-4 underline" @click="$emit('register')">註冊
+                        <div v-if="isRegister" class="pl-4 " @click="$emit('register')">註冊
                         </div>
+                        <div v-if="isReleases" class="pl-4 " @click="$emit('releases')">释放</div>
                     </div>
                 </div>
                 <div class="flex justify-between items-center text-menu-word text-sm mb-2">
@@ -85,7 +86,7 @@ const cardProps = defineProps({
         type: String,
         default: ''
     },
-    
+
     isRegister: {
         type: Boolean,
         default: false
@@ -107,6 +108,10 @@ const cardProps = defineProps({
         default: false
     },
     isExchange: {
+        type: Boolean,
+        default: false
+    },
+    isReleases: {
         type: Boolean,
         default: false
     },
@@ -136,7 +141,7 @@ async function handleAddToken(contranct) {
     } catch (err) {
         console.log(err)
         proxy.$loading.hide()
-        if(err.code == 4001) {
+        if (err.code == 4001) {
             showToast(`您已取消添加代幣：${cardProps.currency}`,)
         }
     }

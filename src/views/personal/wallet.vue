@@ -22,7 +22,8 @@
                     @recharge="handleWalletCardRecharge" @withdraw="handleWalletCardWithdraw" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="PMT" :balance="pmtBalance" :contranct="config.pmt_addr" />
+                <wallet-card currency="PMT" :balance="pmtBalance" :contranct="config.pmt_addr" isBuy isReleases
+                    @buy="handleWalletCardBuy" @releases="handleWalletCardReleases" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card currency="MT" :balance="mtBalance" :contranct="config.mt_addr" isExchange isBuy
@@ -345,7 +346,95 @@ function handleExchangeRT() {
         path: '/personal/exchange'
     })
 }
+//秒轉化時間
+function getTime(time) {
+    var nowTime = +new Date();
+    var inputTime = +new Date(time * 1000)
 
+    // var inputTime = 1703080568
+    var time = (inputTime - nowTime) / 1000
+    var day = Math.floor(time / 60 / 60 / 24);
+    day = day < 10 ? "0" + day : day;
+    var hour = Math.floor(time / 60 / 60 % 24)
+    hour = hour < 10 ? "0" + hour : hour
+    var minute = Math.floor(time / 60 % 60)
+    minute = minute < 10 ? "0" + minute : minute
+    var second = Math.floor(time % 60);
+    second = second < 10 ? "0" + second : second
+    // console.log(day + "天" + hour + "时" + minute + "分" + second + "秒")
+
+    return day + "天" + hour + "時" + minute + "分" + second + "秒"
+    // return day + "天" + hour + "时" + minute + "分" + second + "秒"
+}
+//獲取pmt鎖定期
+async function getRemainingLockupPeriod() {
+
+
+    if ((Number(result) + (new Date().getTime() / 1000)) <= new Date().getTime() / 1000) {
+        return false
+    }
+    // let time = result
+
+}
+
+//點擊pmt卡片釋放按鈕
+async function handleWalletCardReleases() {
+    proxy.$loading.show()
+    let result = await pmtContractApi.getRemainingLockupPeriod(localStorage.getItem('address'))
+    proxy.$loading.hide()
+    let time
+    if ((Number(result) + (new Date().getTime() / 1000)) > new Date().getTime() / 1000) {
+        time = Number(result) + (new Date().getTime() / 1000)
+        proxy.$confirm.hide()
+        proxy.$confirm.show({
+            title: "提示",
+            content: `${getTime(time)}後可釋放`,
+            showCancelButton: false,
+            onConfirm: () => {
+                proxy.$confirm.hide()
+            }
+        })
+        return
+    }
+    proxy.$loading.show()
+    let pmtNumber = await pmtContractApi.getLockedAmount(localStorage.getItem('address'))
+    proxy.$loading.hide()
+    if (Number(pmtNumber) == 0) {
+        proxy.$confirm.hide()
+        proxy.$confirm.show({
+            title: "提示",
+            content: `當前暫無可釋放PMT`,
+            showCancelButton: false,
+            onConfirm: () => {
+                proxy.$confirm.hide()
+            }
+        })
+        return
+    }
+    proxy.$confirm.hide()
+    proxy.$confirm.show({
+        title: "提示",
+        content: `是否確認釋放剩餘PMT`,
+        showCancelButton: false,
+        onConfirm: async () => {
+            try {
+                await pmtContractApi.releaseTokens(localStorage.getItem('address'))
+                proxy.$loading.hide()
+                proxy.$confirm.hide()
+                showToast(t('toast.success'))
+                location.reload()
+                // getPlayersInfo(localStorage.getItem('address'))
+                // getPNTRemainingLockupPeriod()
+                // getPMTLockedAmount()
+            } catch (err) {
+                console.log(err)
+                proxy.$loading.hide()
+                proxy.$confirm.hide()
+                showToast(t('toast.error'))
+            }
+        }
+    })
+}
 //rt轉賬
 function handleTransferRT() {
     if (!transferRTAmount.value) {

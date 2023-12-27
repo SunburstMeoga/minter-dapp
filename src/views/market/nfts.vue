@@ -112,7 +112,7 @@ import ModuleTitle from "@/components/ModuleTitle.vue";
 import { ref, onMounted, getCurrentInstance, computed } from 'vue'
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n'
-import { marketplace, getLuckyDraw } from '@/request/api'
+import { marketplace, getLuckyDraw, playersInfo } from '@/request/api'
 import nftContractApi from '@/request/nft'
 import minterContractApi from '@/request/minter'
 import { showToast } from 'vant';
@@ -139,6 +139,7 @@ let showFilterPopover = ref(false)
 let currentFilter = ref(0)
 let tokenID = ref(null)
 let timer = ref(null)
+let active = ref(0)
 let actions = ref([
     { text: '价格由高到低', value: true, index: 0 },
     { text: '价格由低到高', value: false, index: 1 }
@@ -149,6 +150,7 @@ const userInfo = userStore()
 onMounted(() => {
     let params = { perPage: 100000, status: 1 }
     getMarketplace(params)
+    getMaxPackage()
 })
 
 function onSelect(select) {
@@ -157,7 +159,13 @@ function onSelect(select) {
     let params = { perPage: 100000, status: 1, sortBy: 'price', sortDesc: select.value }
     getMarketplace(params)
 }
-
+//獲取當前最高配套
+async function getMaxPackage() {
+    let result = await playersInfo(localStorage.getItem('address'))
+    console.log(result.player.max_package_id)
+    active.value = result.player.max_package_id - 1
+    console.log(active.value)
+}
 //取消掛單
 async function handleCancelList(item) {
     let isApprovedAll
@@ -532,10 +540,7 @@ async function handleBuyButton(item, canBuy) {
 
 }
 
-onMounted(() => {
-    // console.log(route.query.target)
-    // active.value = route.query.target
-})
+
 </script>
 
 <style scoped>
