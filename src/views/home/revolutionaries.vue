@@ -9,7 +9,7 @@
                 <div class="mb-2">
                     {{ $t('NFTRevolution.contentTop') }}
                 </div>
-    
+
                 <div class="mb-2">
                     {{ $t('NFTRevolution.contentTwo') }}
                 </div>
@@ -26,14 +26,14 @@
                 </div>
                 <div class="font-bold text-xl italic ml-2">{{ $t('NFTRevolution.challengeTitle') }}</div>
             </div>
-    
+
             <div class="flex justify-between items-start w-11/12 text-white text-sm mb-4">
                 <div class="w-3/12 flex flex-col items-center justify-start mb-4 animate__animated "
                     :class="hasChange ? 'animate__zoomIn' : ''" v-for="(item, index) in questionList" :key="index">
                     <div
                         class="text-white relative w-20 h-20  p-1.5 flex justify-center items-center rounded-full overflow-hidden mb-2">
                         <div class="operating-button w-full h-full absolute">
-    
+
                         </div>
                         <div class="w-full h-full relative rounded-full flex justify-center items-center ">
                             <div class="icon iconfont" :class="item.icon" style="font-size: 44px;"></div>
@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="w-11/12 flex justify-end items-center text-white mb-6 animate__animated"
                 :class="hasChange ? 'animate__lightSpeedInRight' : ''">
                 <div class="font-bold text-xl italic mr-2">{{ $t('NFTRevolution.hahTitle') }}</div>
@@ -56,15 +56,15 @@
                     <div class="border-b border-white h-1 w-full mb-1"></div>
                     <div class="border-b border-white h-1 w-3/12 mb-1"></div>
                 </div>
-    
+
             </div>
-    
+
             <div class="w-11/12 text-white text-xs mb-2">
                 {{ $t('NFTRevolution.hahContentOne') }}
             </div>
             <div class="w-11/12 text-white text-xs">
                 {{ $t('NFTRevolution.hahContentTwo') }}
-    
+
             </div>
         </div>
         <div class="py-2 pb-3 w-full bg-gray-900">
@@ -75,14 +75,16 @@
                 <div class="flex justify-end items-center">
                     <div class="flex justify-end items-center text-gray-400">
                         <div v-for="(item, index) in socialMedia" :key="index">
-                            <div class="icon iconfont ml-4 active-white-color" :class="item.icon" style="font-size: 20px;"> </div>
+                            <div class="icon iconfont ml-4 active-white-color" :class="item.icon" style="font-size: 20px;">
+                            </div>
                         </div>
                     </div>
                     <div class="ml-2 text-gray-300">
-                        <van-popover v-model:show="showLangePopover" theme="dark" :actions="actions"
-                            placement="top-end" @select="changeLanguage">
+                        <van-popover v-model:show="showLangePopover" theme="dark" :actions="actions" placement="top-end"
+                            @select="changeLanguage">
                             <template #reference>
-                                <div class="flex justify-start items-center border border-gray-500 rounded py-1 px-1.5 text-xs">
+                                <div
+                                    class="flex justify-start items-center border border-gray-500 rounded py-1 px-1.5 text-xs">
                                     <div class="icon iconfont icon-duoyuyan" style="font-size:10px;"></div>
                                     <div class="pl-1">{{ $t('language') }}</div>
                                 </div>
@@ -90,14 +92,15 @@
                         </van-popover>
                     </div>
                 </div>
-                
+
             </div>
             <div class="flex justify-between items-center w-11/12 ml-auto mr-auto text-xs text-gray-500">
                 <div class="">
                     © 2023 MINTER. 版權所有
                 </div>
                 <div class="flex justify-end items-center">
-                    <div class=" ml-3 underline active-white-color" v-for="(item, index) in contacts">
+                    <div class=" ml-3 underline active-white-color" @click="toContactsPage(item)"
+                        v-for="(item, index) in contacts">
                         {{ item.title }}
                     </div>
                 </div>
@@ -108,11 +111,14 @@
 
 <script setup>
 import { ref, computed, getCurrentInstance } from 'vue'
+import { useRouter } from "vue-router";
+
 import ModuleTitle from '@/components/ModuleTitle.vue'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
-const {proxy} =  getCurrentInstance()
+const { proxy } = getCurrentInstance()
 let showLangePopover = ref(false)
+const router = useRouter()
 
 
 defineProps({
@@ -123,10 +129,12 @@ defineProps({
 })
 let contacts = ref([
     {
-        title: '聯係我們'
+        title: '聯係我們',
+
     },
     {
-        title: '反饋'
+        title: '反饋',
+        router: '/personal/feedback'
     },
     // {
     //     title: '設置'
@@ -138,13 +146,13 @@ let contacts = ref([
 let socialMedia = ref([{
     icon: 'icon-discord',
     url: ''
-},{
+}, {
     icon: 'icon-telegram1',
     url: ''
-},{
+}, {
     icon: 'icon-medium',
     url: ''
-},{
+}, {
     icon: 'icon-tuite',
     url: ''
 }])
@@ -159,6 +167,13 @@ const actions = ref([
     { text: '繁体中文', locale: 'zh-hk' },
     { text: 'English', locale: 'en-us' }
 ])
+
+function toContactsPage(item) {
+    if (!item.router) return
+    router.push({
+        path: item.router
+    })
+}
 
 function changeLanguage(actions) {
     console.log(actions)
@@ -184,5 +199,4 @@ img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-</style>
+}</style>

@@ -17,6 +17,7 @@ module.exports = {
         'page-content': '#0F131C',
         'popup-cover': 'rgba(0, 0, 0, 0.8)',
         'card-cover': 'rgba(0, 0, 0, 0.4)',
+        'nft-cover': 'rgba(243,232,255, 0.2)',
         'top-content': '#1c1832',
         'test-one': '#CC6DED',
         'test-two': '#48A7FA',

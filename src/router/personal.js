@@ -47,6 +47,7 @@ let personal = [
       pageTitle: 'NFTs'
     }
   },
+
   {
     path: '/personal/assistance',
     name: 'personal-assistance',
@@ -65,7 +66,17 @@ let personal = [
       showBack: true,
       pageTitle: '兌換'
     }
-  }
+  },
+  {
+    path: '/personal/feedback',
+    name: 'personal-feedback',
+    component: () => import('@/views/personal/feedback.vue'),
+    meta: {
+      showLogo: false,
+      showBack: true,
+      pageTitle: '反馈'
+    }
+  },
 ]
 
 export default personal

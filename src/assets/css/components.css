@@ -35,11 +35,13 @@ input {
     border: 1px solid grey;
     /* text-align: center;	 */
     padding-left: 2px;
+    border-radius: 4px;
 }
 
 input:focus-within {
     border: 1px solid #e149ed;
     padding-left: 2px;
+    border-radius: 4px;
 }
 
 .disable-button {

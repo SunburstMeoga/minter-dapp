@@ -26,7 +26,7 @@
                 </div>
             </div> -->
             <div class="border-b border-gray-700">
-                <van-tabs class="pt-2 bg-black" v-model:active="active" animated swipeable color="#e149ed"
+                <van-tabs class="pt-2" v-model:active="active" animated swipeable color="#e149ed"
                     title-inactive-color="#fff" title-active-color="#e149ed" background="#000">
                     <van-tab title="N">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
