@@ -1,6 +1,6 @@
 <template>
   <div class="text-white pt-16 pb-20">
-    <div class="bg-black flex flex-col items-center w-full pb-4 text-white">
+    <div class="flex flex-col items-center w-full pb-4 text-white">
       <div class="flex justify-start items-center w-11/12 mb-4 bg-card-content p-2 rounded-md">
         <div class="flex w-30 p-2 justify-center bg-page-content rounded shadow-xl">
           <img :src="coherentInfo.levelImg" alt="">

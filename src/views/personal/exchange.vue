@@ -1,9 +1,9 @@
 <template>
-    <div class="flex flex-col justify-start items-center bg-black pb-20 pt-12">
+    <div class="flex flex-col justify-start items-center bg-transparent pb-20 pt-12">
         <div class="w-11/12 mb-4 mt-4">
             <module-title :titleWord="$t('exchange.title') + ' RT'" />
         </div>
-        <div class="w-11/12 rounded-lg bg-top-content px-2 py-4">
+        <div class="w-11/12 rounded-lg border border-top-content px-2 py-4">
             <div class="text-center font-bold text-white mb-6">
                 {{ $t('exchange.title') }}
             </div>

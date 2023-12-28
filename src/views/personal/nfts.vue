@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col justify-start items-center w-full bg-black pt-16 pb-20">
+    <div class="flex flex-col justify-start items-center w-full bg-transparent pt-16 pb-20">
         <div class="w-11/12 mb-4">
             <div class="flex justify-between items-center px-0.5 py-0.5 border border-primary-color rounded">
                 <div v-for="(item, index) in nftsStatusList" class="py-1 text-center text-sm rounded flex-1"

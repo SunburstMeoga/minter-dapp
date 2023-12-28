@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col justify-start items-center bg-black pb-20 pt-10">
+    <div class="flex flex-col justify-start items-center bg-transparent pb-20 pt-10">
         <div class="w-11/12 mb-4 mt-4">
             <module-title :titleWord="$t('coherents.coherentTitle')" />
         </div>

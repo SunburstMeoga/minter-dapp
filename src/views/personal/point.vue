@@ -1,5 +1,5 @@
 <template>
-    <div class="text-white bg-black">
+    <div class="text-white bg-transparent">
         <div class=" w-full h-full flex flex-col items-center justify-start mt-10">
             <!-- <div class="w-11/12 mr-auto ml-auto mt-4 mb-4">
                 <module-title titleWord="点位图" />

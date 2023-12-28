@@ -1,24 +1,26 @@
 <template>
     <div>
-        <div class="text-white bg-black w-full">
+        <div class="text-white bg-transparent w-full">
             <div v-show="dataList.length == 0" class="pt-10 font-bold text-xl text-center">
                 暂无数据
             </div>
             <div class="w-full h-full flex flex-col items-center justify-start mt-4">
-                <div class="rounded bg-bottom-content text-gray-200 w-11/12 p-2 text-sm mb-2"
-                    v-for="(item, index) in dataList" :key="index">
+                <div class="rounded bg-transparent text-gray-200 w-11/12 p-2 text-sm mb-2" v-for="(item, index) in dataList"
+                    :key="index">
                     <div class="flex justify-between items-center">
                         <div>{{ $t('wallet.address') }}:</div>
                         <div class="flex justify-end items-center">
                             <div class="mr-2">{{ FilterAddress(item.address) || '0x000...0000' }}</div>
-                            <div class="icon iconfont icon-copy mr-2 active-white-color" style="font-size: 14px;" @click="handleCopy(item.address)"></div>
-                            <div class="icon iconfont icon-chakan active-white-color" style="font-size: 14px;" @click="checkPoint(item.address)"></div>
+                            <div class="icon iconfont icon-copy mr-2 active-white-color" style="font-size: 14px;"
+                                @click="handleCopy(item.address)"></div>
+                            <div class="icon iconfont icon-chakan active-white-color" style="font-size: 14px;"
+                                @click="checkPoint(item.address)"></div>
 
-                           </div>
+                        </div>
                     </div>
                     <div class="flex justify-between items-center">
                         <div>綁定關係時間:</div>
-                        <div>{{ item.first_package_time || null}}</div>
+                        <div>{{ item.first_package_time || null }}</div>
                     </div>
                 </div>
 

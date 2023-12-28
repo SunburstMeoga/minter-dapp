@@ -1,20 +1,19 @@
 <template>
-  <div class="bg-black h-screen relative">
+  <div class="h-screen relative">
     <div class="w-full top-2 left-0 z-40 shadow-xl sticky" v-if="route.meta.showLogo">
       <top-bar :pageTitle="pageTitle" showLogo></top-bar>
     </div>
-    <div class="fixed bg-black w-full top-0 left-0 z-40 shadow-xl" v-if="route.meta.showBack">
+    <div class="fixed  w-full top-0 left-0 z-40 shadow-xl" v-if="route.meta.showBack">
       <top-back-bar :pageTitle="route.meta.pageTitle" />
     </div>
-    <div class="fixed bg-black w-full top-0 left-0 z-40 shadow-xl" v-if="route.meta.showGOIndex">
+    <div class="fixed  w-full top-0 left-0 z-40 shadow-xl" v-if="route.meta.showGOIndex">
       <top-back-home :pageTitle="route.meta.pageTitle" />
     </div>
     <div class="">
       <router-view class="relative z-10" />
       <div ref="container" class="container relative" style="border: 1px solid black;">
-
         <canvas id="canvas" class="w-screen h-screen fixed left-0 top-0" ref="canvas" />
-        <div class="w-screen h-screen fixed left-0 top-0 bg-black opacity-50" />
+        <div class="w-screen h-screen fixed left-0 top-0 bg-black opacity-70" />
       </div>
 
     </div>

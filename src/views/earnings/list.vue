@@ -1,11 +1,11 @@
 <template>
-    <div class="bg-black pt-12">
+    <div class="bg-transparent pt-12">
         <div class="w-11/12 mr-auto ml-auto mb-2">
             <module-title :titleWord="$t('menu.operationRecord')" />
         </div>
         <div class="border-b border-gray-700">
-            <van-tabs class="bg-black" @click-tab="onChange" v-model:active="active" animated swipeable color="#e149ed"
-                title-inactive-color="#fff" title-active-color="#e149ed" background="#000">
+            <van-tabs class="bg-transparent" @click-tab="onChange" v-model:active="active" animated swipeable
+                color="#e149ed" title-inactive-color="#fff" title-active-color="#e149ed" background="transparent">
                 <van-tab :title="$t('assistance.directMarketingAward')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
                         <div v-for="(item, index) in dataList" class="mb-2" :key="index">
@@ -159,7 +159,7 @@ function getDynamicRecords(typeID) {
 }
 
 .van-tab__panel {
-    background: #000;
+    background: transparent;
     padding-bottom: 20px;
     margin-top: 0.5px;
 }
