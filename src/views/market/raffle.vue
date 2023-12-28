@@ -1,5 +1,5 @@
 <template>
-    <div class="text-primary-color bg-transparent pt-14">
+    <div class="text-primary-color bg-transparent pt-14 overflow-hidden">
         <div class="w-11/12 mb-4 mt-4 ml-auto mr-auto">
             <module-title :titleWord="$t('turntable.title')" />
         </div>
@@ -8,11 +8,11 @@
                 <LuckyWheel ref="myLucky" width="340px" height="340px" :prizes="prizes" :blocks="blocks"
                     :textFontSize="textFontSize" :buttons="buttons" @start="startCallback" @end="endCallback" />
             </div> -->
-            <div class="mb-4 relative ">
+            <div class="mb-4 relative">
                 <div class="absolute z-20 top-4 left-4 w-20 ">
                     <img src="../../assets/images/raffle_arrow.png" class="rotate-180 transform" alt="">
                 </div>
-                <div class="transform  -rotate-45">
+                <div class="transform  -rotate-45 ">
                     <Roulette class="" ref="wheel" :items="items" :centered-indicator="wheelSettings.centeredIndicator"
                         :indicator-position="wheelSettings.indicatorPosition" :size="wheelSettings.size"
                         :display-shadow="wheelSettings.displayShadow" :display-border="wheelSettings.displayBorder"
