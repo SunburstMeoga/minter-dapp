@@ -6,6 +6,14 @@
     transition: all 0.1s ease-in;
 }
 
+/* div {
+    font-family: din-regular !important;
+}
+
+span {
+    font-family: din-regular !important;
+} */
+
 .operating-button:active {
     transform: scale(0.95, 0.95);
 }

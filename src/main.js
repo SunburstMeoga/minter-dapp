@@ -8,6 +8,7 @@ import i18n from './language/index.js'
 import loading from '@/components/loading'
 import confirm from '@/components/confirm'
 import VueLuckyCanvas from '@lucky-canvas/vue'
+import './assets/css/fonts.css'
 
 import App from './App.vue'
 import router from './router'

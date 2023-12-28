@@ -235,7 +235,19 @@ async function accountHasChanged() {
 
 // }
 </script>
+<style>
+body {
+  font-family: din-regular !important;
+}
 
+html {
+  font-family: din-regular !important;
+}
+
+canvas {
+  font-family: din-regular !important;
+}
+</style>
 <style  scoped>
 img {
   width: 100%;
