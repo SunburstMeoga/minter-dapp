@@ -1,9 +1,9 @@
 <template>
-    <div class="text-primary-color bg-black pt-14">
+    <div class="text-primary-color bg-transparent pt-14">
         <div class="w-11/12 mb-4 mt-4 ml-auto mr-auto">
             <module-title :titleWord="$t('turntable.title')" />
         </div>
-        <div class="bg-black border border-black flex flex-col items-center w-full py-4 px-2 text-white">
+        <div class="bg-transparent border border-black flex flex-col items-center w-full py-4 px-2 text-white">
             <!-- <div class="mb-4">
                 <LuckyWheel ref="myLucky" width="340px" height="340px" :prizes="prizes" :blocks="blocks"
                     :textFontSize="textFontSize" :buttons="buttons" @start="startCallback" @end="endCallback" />
@@ -21,7 +21,8 @@
                     :horizontal-content="wheelSettings.horizontalContent" :base-display="wheelSettings.baseDisplay"
                     :base-size="wheelSettings.baseSize" :base-display-indicator="wheelSettings.baseDisplayIndicator"
                     :base-display-shadow="wheelSettings.baseDisplayShadow" :base-background="wheelSettings.baseBackground"
-                    @click="launchWheel" @wheel-end="wheelEndedCallback">
+                    :wheel-result-index="wheelSettings.wheelResultIndex" @click="launchWheel"
+                    @wheel-end="wheelEndedCallback" @wheel-start="wheelStartedCallback">
                     <template #baseContent>
                         <div class="arrow-roullete" v-html="wheelSettings.baseHtmlContent" />
                     </template>
@@ -72,14 +73,14 @@ const wheelSettings = {
     indicatorPosition: "top",
     size: 350,
     displayShadow: true,
-    duration: 6,
-    resultVariation: 70,
+    duration: 3,
+    // resultVariation: -40,
     easing: "Bounce",
     counterClockwise: true,
     horizontalContent: false,
     displayBorder: true,
     displayIndicator: false,
-    indicatorPosition: 'left',
+    // resultVariation: ,
     baseDisplay: true,
     // baseSize: 210,
     baseDisplayShadow: true,
@@ -88,7 +89,10 @@ const wheelSettings = {
     baseSize: 80,
     baseBackground: "#000000cc",
     wheelResultIndex: {
-        value: 12,
+        value: 12
+    },
+    firstItemIndex: {
+        value: 0
     },
     baseHtmlContent:
         "<strong>Go!</strong>",
@@ -146,29 +150,36 @@ let buttons = computed(() => {
     }]
 })
 
-const wheelEndedCallback = (evt) => {
 
-};
+
 
 
 onMounted(() => {
     nftInfo.value.address = route.query.address
     nftInfo.value.nft_price = route.query.nft_price
     nftInfo.value.nft_token_id = route.query.nft_token_id
-    // prizeID.value = route.query.prizeID
-    // prizeName.value = route.query.prizeName
-    // rewardPercentage.value = route.query.rewardPercentage
     prizeIndex.value = route.query.prizeIndex
+
     getRoulettes()
     initRoulette()
-
-
 })
+
+
+function wheelStartedCallback(evt) {
+    console.log(evt)
+}
+
+function wheelEndedCallback(evt) {
+    console.log(evt)
+    console.log(items)
+    console.log(wheelSettings.wheelResultIndex)
+    // wheelSettings.value.resultVariation = 3
+}
 
 async function initRoulette() {
     proxy.$loading.show()
     const res = await roulettes()
-    console.log('輪盤參數', res.roulettes)
+    // console.log('輪盤參數', res.roulettes)
     let obj = []
     res.roulettes.map((item, index) => {
         let modifiedName = item.name.match(/.{1,3}/g).join('<br/>');
@@ -187,7 +198,7 @@ async function initRoulette() {
             name: item.reward_percentage,
             htmlContent: modifiedName,
             background: backgroundColor,
-            textColor: '',
+            textColor: index,
         })
 
     })
@@ -197,7 +208,7 @@ async function initRoulette() {
     //首先从最大的数开始遍历，之后递减
     for (var i = len - 1; i >= 0; i--) {
         var randomIndex = Math.floor(Math.random() * (i + 1));  //随机索引值randomIndex是从0-arr.length中随机抽取的，因为Math.floor()方法是向下取整的，所以这里是i+1
-        //下面三句相当于把从数组中随机抽取到的值与当前遍历的值互换位置
+        //把从数组中随机抽取到的值与当前遍历的值互换位置
         var temp = items[randomIndex];
         items[randomIndex] = items[i];
         items[i] = temp;
