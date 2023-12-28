@@ -7,7 +7,7 @@
             {{ $t('coherents.tips') }}
         </div> -->
         <div class="w-11/12">
-            <div class="rounded bg-card-content p-2 mb-2 text-white">
+            <div class="rounded border-card-content border p-2 mb-2 text-white">
                 <div class="pt-1 flex justify-between items-center">
                     <div>
                         已經釋放：
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div>
-                <div class="rounded bg-card-content p-2 mb-2 text-white">
+                <div class="rounded border-card-content border p-2 mb-2 text-white">
                     <div class="pt-1 flex justify-between items-center">
                         <div>
                             動態已提現總數：
