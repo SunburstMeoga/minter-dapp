@@ -32,6 +32,16 @@
 
             </div>
         </div>
+        <!-- 奖品说明 -->
+        <div class="w-11/12 mr-auto ml-auto">
+            <div class="rounded border border-gray-400 mb-2 p-2 text-sm text-gray-200"
+                v-for="(item, index) in prizeDescription" :key="index">
+                <div class="font-bold text-center text-gray-400 mb-2">{{ item.title }}</div>
+                <div class="text-center leading-4"> {{ item.content }} <span v-show="item.tips" class="text-red-500">{{
+                    item.tips
+                }}</span></div>
+            </div>
+        </div>
         <van-popup v-model:show="isPrized" :close-on-click-overlay="false">
             <div class="bg-black text-white">
                 <div class="pl-2 py-2  pr-44 rounded-t-md bg-primary-color">
@@ -43,15 +53,16 @@
                     <div class="font-bold text-3xl mb-3">
                         {{ prizeContent }}
                     </div>
-                    <!-- <div class="text-sm pr-2 text-gray-500">
-                        {{ $t('turntable.rewardsDetails') }}
-                    </div> -->
+                    <div class="text-sm pr-2 text-gray-500">
+                        <!-- {{ $t('turntable.rewardsDetails') }} -->
+                        {{ prizeDetails }}
+                    </div>
                 </div>
                 <!-- <div class="rounded-full border border-gray-400 text-gray-400 text-center p-3 flex justify-center items-center w-0 h-0 text-sm mr-auto ml-auto"
                     @click="$router.go(-1)"> -->
                 <div
                     class="rounded-full border border-gray-400 text-gray-400 text-center p-3 flex justify-center items-center w-0 h-0 text-sm mr-auto ml-auto">
-                    <div class="icon iconfont icon-close"></div>
+                    <div class="icon iconfont icon-close" @click="$router.go(-1)"></div>
                 </div>
             </div>
         </van-popup>
@@ -66,8 +77,24 @@ import ModuleTitle from "../../components/ModuleTitle.vue";
 import { useI18n } from 'vue-i18n'
 import { roulettes, luckyDraw } from '@/request/api'
 import { Roulette } from 'vue3-roulette'
-
+let prizeDescription = computed(() => {
+    return [{
+        title: '收益加速器(12%～36%)',
+        content: '馬上獲得對應的NFT獎勵，使你的收益獲得遠超每日收益的獎勵'
+    }, {
+        title: '每日收益(0.5%～6%)',
+        content: '提高你的NFT價格，使你出售後獲得更高的收益'
+    }, {
+        title: '業績承諾卡(10%)',
+        content: '達到一定條件後即可獲得高額的RT獎勵'
+    }, {
+        title: '推薦福利(0.5%～12%)',
+        content: '無需任何手續費即可獲得更多的RT獎勵,',
+        tips: '請切記這個獎勵要在每個月7號前使用'
+    }]
+})
 const wheel = ref(null);
+let prizeDetails = ref('')
 function launchWheel() {
     wheel.value.launchWheel();
 }
@@ -174,16 +201,22 @@ function wheelStartedCallback(evt) {
 }
 
 function wheelEndedCallback(evt) {
-    console.log(evt)
+    console.log(evt.typeId, prizeDescription.value)
     console.log(items)
     console.log(wheelSettings.wheelResultIndex)
+    if (evt) {
+        isPrized.value = true
+        prizeContent.value = items[wheelSettings.wheelResultIndex.value].name
+        prizeDetails.value = prizeDescription.value[evt.typeId - 1].content
+    }
+
     // wheelSettings.value.resultVariation = 3
 }
 
 async function initRoulette() {
     proxy.$loading.show()
     const res = await roulettes()
-    // console.log('輪盤參數', res.roulettes)
+    console.log('輪盤參數', res.roulettes)
     let obj = []
     res.roulettes.map((item, index) => {
         let modifiedName = item.name.match(/.{1,3}/g).join('<br/>');
@@ -199,10 +232,10 @@ async function initRoulette() {
         }
         obj.push({
             id: item.id,
-            name: item.reward_percentage,
+            name: item.name,
             htmlContent: modifiedName,
             background: backgroundColor,
-            textColor: index,
+            typeId: item.prize_type_id,
         })
 
     })
