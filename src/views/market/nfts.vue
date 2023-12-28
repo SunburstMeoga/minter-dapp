@@ -520,15 +520,22 @@ async function handleBuyButton(item, canBuy) {
                     // console.log(res)
                     proxy.$confirm.hide()
                     clearInterval(timer.value)
-                    router.push({
-                        path: '/market/raffle',
-                        query: {
-                            // prizeID: luckyResult.roulette_record.prize_type_id,
-                            // prizeName: luckyResult.roulette_record.prize_type.name,
-                            // rewardPercentage: luckyResult.roulette_record.reward_percentage,
-                            prizeIndex: res.roulette_record.roulette_id
-                        }
-                    })
+                    if (!res.is_shown) {
+                        router.push({
+                            path: '/market/raffle',
+                            query: {
+                                // prizeID: luckyResult.roulette_record.prize_type_id,
+                                // prizeName: luckyResult.roulette_record.prize_type.name,
+                                // rewardPercentage: luckyResult.roulette_record.reward_percentage,
+                                prizeIndex: res.roulette_record.roulette_id
+                            }
+                        })
+                    } else {
+                        router.push({
+                            path: '/earnings/operation-record',
+
+                        })
+                    }
                 }
             })
             .catch(err => {
