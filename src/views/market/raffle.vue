@@ -8,25 +8,28 @@
                 <LuckyWheel ref="myLucky" width="340px" height="340px" :prizes="prizes" :blocks="blocks"
                     :textFontSize="textFontSize" :buttons="buttons" @start="startCallback" @end="endCallback" />
             </div> -->
-            <div class="mb-4 relative">
+            <div class="mb-4 relative ">
                 <div class="absolute z-20 top-4 left-4 w-20 ">
                     <img src="../../assets/images/raffle_arrow.png" class="rotate-180 transform" alt="">
                 </div>
-                <Roulette ref="wheel" :items="items" :centered-indicator="wheelSettings.centeredIndicator"
-                    :indicator-position="wheelSettings.indicatorPosition" :size="wheelSettings.size"
-                    :display-shadow="wheelSettings.displayShadow" :display-border="wheelSettings.displayBorder"
-                    :display-indicator="wheelSettings.displayIndicator" :duration="wheelSettings.duration"
-                    :result-variation="wheelSettings.resultVariation" :easing="wheelSettings.easing"
-                    :counter-clockwise="wheelSettings.counterClockwise"
-                    :horizontal-content="wheelSettings.horizontalContent" :base-display="wheelSettings.baseDisplay"
-                    :base-size="wheelSettings.baseSize" :base-display-indicator="wheelSettings.baseDisplayIndicator"
-                    :base-display-shadow="wheelSettings.baseDisplayShadow" :base-background="wheelSettings.baseBackground"
-                    :wheel-result-index="wheelSettings.wheelResultIndex" @click="launchWheel"
-                    @wheel-end="wheelEndedCallback" @wheel-start="wheelStartedCallback">
-                    <template #baseContent>
-                        <div class="arrow-roullete" v-html="wheelSettings.baseHtmlContent" />
-                    </template>
-                </Roulette>
+                <div class="transform  -rotate-45">
+                    <Roulette class="" ref="wheel" :items="items" :centered-indicator="wheelSettings.centeredIndicator"
+                        :indicator-position="wheelSettings.indicatorPosition" :size="wheelSettings.size"
+                        :display-shadow="wheelSettings.displayShadow" :display-border="wheelSettings.displayBorder"
+                        :display-indicator="wheelSettings.displayIndicator" :duration="wheelSettings.duration"
+                        :result-variation="wheelSettings.resultVariation" :easing="wheelSettings.easing"
+                        :counter-clockwise="wheelSettings.counterClockwise"
+                        :horizontal-content="wheelSettings.horizontalContent" :base-display="wheelSettings.baseDisplay"
+                        :base-size="wheelSettings.baseSize" :base-display-indicator="wheelSettings.baseDisplayIndicator"
+                        :base-display-shadow="wheelSettings.baseDisplayShadow"
+                        :base-background="wheelSettings.baseBackground" :wheel-result-index="wheelSettings.wheelResultIndex"
+                        @click="launchWheel" @wheel-end="wheelEndedCallback" @wheel-start="wheelStartedCallback">
+                        <template #baseContent>
+                            <div class="arrow-roullete" v-html="wheelSettings.baseHtmlContent" />
+                        </template>
+                    </Roulette>
+                </div>
+
             </div>
         </div>
         <van-popup v-model:show="isPrized" :close-on-click-overlay="false">
@@ -74,7 +77,7 @@ const wheelSettings = {
     size: 350,
     displayShadow: true,
     duration: 3,
-    // resultVariation: -40,
+    resultVariation: 40,
     easing: "Bounce",
     counterClockwise: true,
     horizontalContent: false,
@@ -89,13 +92,14 @@ const wheelSettings = {
     baseSize: 80,
     baseBackground: "#000000cc",
     wheelResultIndex: {
-        value: 12
+        value: 0
     },
     firstItemIndex: {
         value: 0
     },
     baseHtmlContent:
-        "<strong>Go!</strong>",
+        '<div class="transform rotate-45"><strong>Go!</strong></div>',
+    // '<div><img src="../../assets/images/click.png"></div>',
 };
 
 let items = [
@@ -213,7 +217,13 @@ async function initRoulette() {
         items[randomIndex] = items[i];
         items[i] = temp;
     }
-
+    console.log(prizeIndex.value)
+    let resultIndex = items.findIndex((item) => {
+        // console.log(item.id, parseInt(prizeIndex.value))
+        return item.id == parseInt(prizeIndex.value)
+    })
+    // resultIndex = resultIndex + 2
+    wheelSettings.wheelResultIndex.value = resultIndex
 
     console.log('prizesCanvas', items)
     proxy.$forceUpdate()
