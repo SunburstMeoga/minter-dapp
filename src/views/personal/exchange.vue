@@ -160,11 +160,14 @@ async function handleExchange() {
             let amount = WEB3.utils.toWei((exchangeAmount.value).toString(), 'ether')
             swapContractApi.swapUSDTForRT(amount)
                 .then(res => {
-                    console.log(res)
-                    showToast(t('toast.success'))
-                    getUSDTBalance()
-                    getPlayersInfo(localStorage.getItem('address'))
-                    location.reload()
+                    setTimeout(() => {
+                        console.log(res)
+                        proxy.$confirm.hide()
+                        showToast('兌換成功')
+                        getUSDTBalance()
+                        getPlayersInfo(localStorage.getItem('address'))
+                    }, 5000)
+                    // location.reload()
                 })
                 .catch(err => {
                     proxy.$confirm.hide()

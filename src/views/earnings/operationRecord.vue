@@ -278,6 +278,7 @@ function getDynamicRecords(typeID) { //typeID：1直推 2对碰 3代数
 //點擊tabs菜單欄
 function handleTabs(tabs) {
     dataList.value = []
+    currentFilter.value = 0
     currentTab.value = tabs.name
     currentType.value = 0
     switch (tabs.name) {

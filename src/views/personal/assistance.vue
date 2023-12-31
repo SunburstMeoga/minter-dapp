@@ -470,7 +470,7 @@ async function handlePopupConfirmBuy() {
     //判斷rt餘額是否充足
     toggleBuyPackageSelf()
     proxy.$loading.show()
-    console.log('是否余额不足', await isSufficientRT(coherentsList.value[currentSelf.value].type))
+    // console.log('是否余额不足', await isSufficientRT(coherentsList.value[currentSelf.value].type))
     try {
         if (!await isSufficientRT(coherentsList.value[currentSelf.value].type)) {
             proxy.$loading.hide()
