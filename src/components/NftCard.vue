@@ -15,23 +15,22 @@
           <div class="text-primary-color font-bold text-center w-full">Minter</div>
           <!-- <div class="text-xs text-gray-600"># {{ tokenID }}</div> -->
         </div>
-        <div class="flex justify-center items-center text-center w-full">
+        <div class="flex justify-center items-center text-center w-full" @click="$emit('handleBuyButton')">
           <div class="" v-show="showPrice">{{ Number(price).toFixed(4) }} MT</div>
           <!-- <div v-show="showCheckbox" class="border  rounded w-5 h-5 flex justify-center items-center"
             :class="checkedStatus ? 'border-primary-color bg-primary-color' : 'border-gray-200'"
             @click="$emit('checkedStatusHasChange')">
             <div class="icon iconfont icon-right1" v-show="checkedStatus"></div>
           </div> -->
-          <div class="icon  iconfont icon-Buy ml-1" style="font-size: 22px;" v-show="showBuyButton"
-            @click="$emit('handleBuyButton')">
+          <!-- <div class="icon  iconfont icon-Buy ml-1" style="font-size: 22px;" v-show="showBuyButton">
 
-          </div>
+          </div> -->
         </div>
-        <!-- <div class="flex justify-center items-center mt-2" v-show="showBuyButton" @click="$emit('handleBuyButton')">
+        <div class="flex justify-center items-center mt-2" v-show="showBuyButton" @click="$emit('handleBuyButton')">
           <div class="w-full py-1 rounded-full text-center" :class="canBuy ? 'operating-button' : 'disable-button'">
             {{ $t('coherents.buy') }}
           </div>
-        </div> -->
+        </div>
         <div class="flex justify-center items-center mt-2" v-show="showListedButton" @click="$emit('handleListed')">
           <div class="operating-button w-full py-1 rounded-full text-center">
             掛單
