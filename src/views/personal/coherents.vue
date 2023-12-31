@@ -50,7 +50,7 @@
                     </div>
                     <div class="pt-1 flex justify-between items-center">
                         <div>
-                            動態可提現總數：
+                            動態提現總數：
                         </div>
                         <div>
                             {{ Number(totalBTReward).toFixed(4) }} PMT
