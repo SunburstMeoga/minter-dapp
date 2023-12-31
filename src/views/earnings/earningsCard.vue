@@ -12,13 +12,18 @@
         </div>
         <div v-show="isNFT">
             <div class="flex justify-between items-center mb-2">
-                <div>{{ $t('assistance.awardAmount') }}</div>
+                <div>購買金額</div>
                 <div class="text-red-500 font-bold">{{ Number(price).toFixed(4) }} {{ symbol }}</div>
             </div>
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center mb-2">
+                <div>Token ID</div>
+                <div>{{ tokenID }}</div>
+            </div>
+            <div class="flex justify-between items-center ">
                 <div>时间</div>
                 <div>{{ FilterTime(time) }}</div>
             </div>
+
         </div>
         <div v-show="isToken">
             <div class="flex justify-between items-center mb-2">
@@ -89,6 +94,10 @@ defineProps({
         default: ''
     },
     transferType: {
+        type: String,
+        default: ''
+    },
+    tokenID: {
         type: String,
         default: ''
     },

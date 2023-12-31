@@ -45,7 +45,8 @@
                                         :price="item.amount || item.reward_amount || item.price"
                                         :symbol="item.token && item.token.symbol"
                                         :transfer="currentTab == 3 && currentType == 1"
-                                        :transferType="item.dynamic_earning_type && item.dynamic_earning_type.name" />
+                                        :transferType="item.dynamic_earning_type && item.dynamic_earning_type.name"
+                                        :tokenID="item.token_id" />
                                 </div>
                             </div>
                         </div>
@@ -104,7 +105,7 @@ onMounted(() => {
 })
 function onSelect(select) {
     console.log(select)
-    let params = { address: localStorage.getItem('address') }
+    let params = { address: localStorage.getItem('address'), sortBy: 'time', sortDesc: true }
     currentFilter.value = select.index
     if (currentType.value == 0) {
         if (currentFilter.value == 0) {
@@ -206,7 +207,7 @@ function getMTExchangeRecord(params) {
 function nftBuyList() {
     proxy.$loading.show()
     dataList.value = []
-    let params = { perPage: 10000 }
+    let params = { perPage: 10000, sortBy: 'time', sortDesc: true }
     nftTransaction(params)
         .then(res => {
             console.log('nft購買記錄', res)
@@ -223,7 +224,7 @@ function nftBuyList() {
 function nftPendList() {
     proxy.$loading.show()
     dataList.value = []
-    let params = { perPage: 10000 }
+    let params = { perPage: 10000, sortBy: 'time', sortDesc: true }
     nftMarketplace(params)
         .then(res => {
             console.log('nft掛單記錄', res)
@@ -240,7 +241,7 @@ function nftPendList() {
 function nftSaleList() {
     proxy.$loading.show()
     dataList.value = []
-    let params = { perPage: 10000 }
+    let params = { perPage: 10000, sortBy: 'time', sortDesc: true }
     nftSale(params)
         .then(res => {
             console.log('nft出售', res)
@@ -258,7 +259,7 @@ function getDynamicRecords(typeID) { //typeID：1直推 2对碰 3代数
     proxy.$loading.show()
     dataList.value = []
     // dynamic_earning_type_id=1&sortBy=created_at&sortDesc=true&perPage=10&page=1
-    let params = { dynamic_earning_type_id: typeID, perPage: 100000 }
+    let params = { dynamic_earning_type_id: typeID, perPage: 100000, sortBy: 'time', sortDesc: true }
     console.log(params)
     dynamicRecords(params)
         .then(res => {
@@ -288,12 +289,12 @@ function handleTabs(tabs) {
         case 1: typeList.value = [{ title: t('assistance.acceleratorAward') }, { title: t('assistance.dailyEarnings') }, { title: t('assistance.commitmentCard') }, { title: t('assistance.recommendedBenefits') }];
             getStaticRecords(1);
             break;
-        case 2: typeList.value = [{ title: '普通NFT' }, { title: '正在掛單' }, { title: '已售出' }];
+        case 2: typeList.value = [{ title: '已購買' }, { title: '正在掛單' }, { title: '已售出' }];
             nftBuyList();
             break;
         // case 3: typeList.value = [{ title: 'USD3' }, { title: 'BT' }, { title: 'MT' }, { title: 'RT' }, { title: '綁定RT' }, { title: 'PMT' }];
         case 3: typeList.value = [{ title: '貨幣兌換' }, { title: '貨幣交易' }];
-            let params = { address: localStorage.getItem('address') }
+            let params = { address: localStorage.getItem('address'), sortBy: 'time', sortDesc: true }
             getUSDTExchangeRecord(params)
 
             // dataList.value = [{
@@ -338,7 +339,7 @@ function handleTabs(tabs) {
 function getStaticRecords(typeID) {
     proxy.$loading.show()
     dataList.value = []
-    let params = { prize_type_id: typeID, perPage: 100000 }
+    let params = { prize_type_id: typeID, perPage: 100000, sortBy: 'time', sortDesc: true }
     staticRecords(params)
         .then(res => {
             console.log(res)
@@ -372,7 +373,7 @@ function handleType(item, index) {
         }
     } else if (currentTab.value == 3) {
         if (currentType.value == 0) {
-            let params = { address: localStorage.getItem('address') }
+            let params = { address: localStorage.getItem('address'), sortBy: 'time', sortDesc: true }
             getUSDTExchangeRecord(params)
         } else if (currentType.value == 1) {
             //去獲取usdt的交易記錄 （待完成）

@@ -235,7 +235,7 @@
                 </div>
                 <div class="w-full flex justify-center items-center">
                     <div class="w-11/12 operating-button text-center py-2.5 rounded" @click="showAttendPopup = false">
-                        {{ $t('wallet.cancleSale') }}
+                        取消
                     </div>
                 </div>
             </div>
@@ -514,18 +514,20 @@ async function handlePopupConfirmBuy() {
                 let data = { package_id: coherentsList.value[currentSelf.value].id }
                 buyCoherent(data)
                     .then(res => {
-                        showToast(res.message)
-                        updataRTBalance(localStorage.getItem('address'))
-                            .then(_res => {
-                                console.log('更新rt餘額', _res)
-                                console.log('購買成功', _res)
-                                proxy.$loading.hide()
-                                proxy.$confirm.hide()
-                                // showToast('購買成功')
-                            })
-                            .catch(err => {
-                                console.log('更新rt餘額失敗', err)
-                            })
+                        setTimeout(() => {
+                            showToast(res.message)
+                            updataRTBalance(localStorage.getItem('address'))
+                                .then(_res => {
+                                    console.log('更新rt餘額', _res)
+                                    console.log('購買成功', _res)
+                                    proxy.$loading.hide()
+                                    proxy.$confirm.hide()
+                                    showToast('購買成功')
+                                })
+                                .catch(err => {
+                                    console.log('更新rt餘額失敗', err)
+                                })
+                        }, 5000);
                     })
                     .catch(err => {
                         proxy.$confirm.hide()
@@ -778,13 +780,19 @@ function viewPointMap(address) {
 }
 //點擊幫下級升級配套按鈕
 function handleConfirmUpPackage() {
+    proxy.$loading.show()
     let params = { address: clickPointInfo.value.address, package_id: buyPackage.value.id }
     upInferiorPackage(params)
         .then(res => {
-            console.log(res)
-            showToast(res.message)
+            setTimeout(() => {
+                console.log(res)
+                showPointCoherentInfo.value = false
+                proxy.$loading.hide()
+                showToast(res.message)
+            }, 5000)
         })
         .catch(err => {
+            proxy.$loading.hide()
             console.log(err)
         })
 }

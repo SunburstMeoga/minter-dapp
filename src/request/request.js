@@ -1,4 +1,8 @@
 import axios from 'axios'
+import { login } from '@/request/api'
+import Web3 from "web3";
+import { generateNonce } from '@/utils/getNonce'
+
 
 // request.js
 // 创建新的axios实例
@@ -66,6 +70,10 @@ const Request = (url, options = {}) => {
           params: params
         })
         .then((res) => {
+          if (res.status == 400 || res.status == 401 || res.status == 403) {
+            addressSign()
+            return
+          }
           if (res && res.data) {
             resolve(res.data)
           }
@@ -79,6 +87,10 @@ const Request = (url, options = {}) => {
       service
         .post(url, data)
         .then((res) => {
+          if (res.status == 400 || res.status == 401 || res.status == 403) {
+            addressSign()
+            return
+          }
           if (res && res.data) {
             console.log(res)
             resolve(res.data, res)
@@ -89,6 +101,47 @@ const Request = (url, options = {}) => {
         })
     })
   }
+}
+
+async function addressSign() {
+  const newAccounts = await ethereum.request({
+    method: 'eth_requestAccounts',
+  })
+  localStorage.setItem('address', newAccounts[0])
+  // userInfo.changeAddress(newAccounts[0])
+  const web3 = new Web3(window.ethereum)
+  let params = {}
+  const randomString =
+    "Welcome to Minter\n\nPlease click to sign in and accept the Minter Terms of Service.\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nWallet address:\n" +
+    localStorage.getItem('address') +
+    "\n\nNonece:\n" +
+    generateNonce();
+  try {
+    const signature = await web3.eth.personal.sign(randomString, localStorage.getItem('address'), '')
+    params = { randomString: randomString, signature: signature }
+  } catch (err) {
+    showToast('签名失败，请重试')
+    return
+  }
+
+
+  login(params)
+    .then(res => {
+      console.log(res)
+      localStorage.setItem('token', res.access_token)
+      localStorage.setItem('address', res.address)
+      // userInfo.changeAddress(res.address)
+      // proxy.$loading.hide()
+      location.reload()
+      // showToast('已登录')
+    })
+    .catch(err => {
+      // proxy.$loading.hide()
+      showToast('登录失败，请重试')
+      console.log(err)
+    })
+  // console.log(signature)
+
 }
 
 export default Request
