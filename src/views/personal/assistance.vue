@@ -470,7 +470,7 @@ async function handlePopupConfirmBuy() {
     //判斷rt餘額是否充足
     toggleBuyPackageSelf()
     proxy.$loading.show()
-
+    console.log('是否余额不足', await isSufficientRT(coherentsList.value[currentSelf.value].type))
     try {
         if (!await isSufficientRT(coherentsList.value[currentSelf.value].type)) {
             proxy.$loading.hide()
@@ -514,14 +514,14 @@ async function handlePopupConfirmBuy() {
                 let data = { package_id: coherentsList.value[currentSelf.value].id }
                 buyCoherent(data)
                     .then(res => {
-                        // showToast(res.message)
+                        showToast(res.message)
                         updataRTBalance(localStorage.getItem('address'))
                             .then(_res => {
                                 console.log('更新rt餘額', _res)
                                 console.log('購買成功', _res)
                                 proxy.$loading.hide()
                                 proxy.$confirm.hide()
-
+                                // showToast('購買成功')
                             })
                             .catch(err => {
                                 console.log('更新rt餘額失敗', err)
