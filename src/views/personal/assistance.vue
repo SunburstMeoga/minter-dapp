@@ -430,8 +430,9 @@ async function handleConfirmBuyForRTPOPUP() {
     buyPackageToNext(data)
         .then(res => {
             console.log('購買成功', res)
-            proxy.$loading.hide()
+
             if (res.message == 'RT餘額不足') {
+                proxy.$loading.hide()
                 proxy.$confirm.hide()
                 proxy.$confirm.show({
                     title: '餘額不足',
@@ -444,17 +445,21 @@ async function handleConfirmBuyForRTPOPUP() {
                 });
                 return
             }
-            showToast(res.message)
-            let data = {
-                address: helpNextAddress.value,
-                leg_address: clickPointInfo.value.preAddress,
-                legSide: clickPointInfo.value.point
-            }
-            joinTheThree(data)
-                .then(_res => {
-                    isFinishPoint.value = false
-                    viewPointMap(localStorage.getItem('address'))
-                })
+
+            setTimeout(() => {
+                proxy.$loading.hide()
+                showToast(res.message)
+                let data = {
+                    address: helpNextAddress.value,
+                    leg_address: clickPointInfo.value.preAddress,
+                    legSide: clickPointInfo.value.point
+                }
+                joinTheThree(data)
+                    .then(_res => {
+                        isFinishPoint.value = false
+                        viewPointMap(localStorage.getItem('address'))
+                    })
+            }, 5000)
         })
         .catch(err => {
             proxy.$loading.hide()
@@ -780,6 +785,10 @@ function viewPointMap(address) {
 }
 //點擊幫下級升級配套按鈕
 function handleConfirmUpPackage() {
+    if (!buyPackage.value.id) {
+        showToast('請先選擇要購買的配套')
+        return
+    }
     proxy.$loading.show()
     let params = { address: clickPointInfo.value.address, package_id: buyPackage.value.id }
     upInferiorPackage(params)

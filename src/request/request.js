@@ -70,7 +70,7 @@ const Request = (url, options = {}) => {
           params: params
         })
         .then((res) => {
-          if (res.status == 400 || res.status == 401 || res.status == 403) {
+          if (res.status == 401 || res.status == 403) {
             addressSign()
             return
           }
@@ -87,7 +87,7 @@ const Request = (url, options = {}) => {
       service
         .post(url, data)
         .then((res) => {
-          if (res.status == 400 || res.status == 401 || res.status == 403) {
+          if (res.status == 401 || res.status == 403) {
             addressSign()
             return
           }
