@@ -38,7 +38,8 @@
                         <div class="w-full  mb-3 rounded overflow-hidden p-2  text-card-word text-sm">
                             <div class="w-11/12 mr-auto ml-auto">
                                 <div v-for="(item, index) in dataList" class="mb-2" :key="index">
-                                    <earnings-card :time="item.updated_at || item.created_at" :remark="item.remark"
+                                    <earnings-card :time="item.updated_at || item.created_at"
+                                        :remark="item.remark ? item.remark : `${actions[currentFilter].text}兌換${item.token && item.token.symbol}`"
                                         :address="item.address" :isEarning="currentTab == 0 || currentTab == 1"
                                         :isNFT="currentTab == 2" :isToken="currentTab == 3"
                                         :price="item.amount || item.reward_amount || item.price"
