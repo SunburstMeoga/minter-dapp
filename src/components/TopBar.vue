@@ -144,7 +144,7 @@
                         {{ !userInfo.address ? $t('wallet.connectWallet') : FilterAddress(userInfo.address) }}
                     </div>
                 </div> -->
-                <div class="absolute bottom-0 w-full flex justify-center items-center">
+                <div class="absolute bottom-10 w-full flex justify-center items-center">
                     <div class="w-4/12 ">
                         <img src="../assets/images/minter-logo-ver.png" alt="">
                     </div>
@@ -188,7 +188,7 @@
                 <div class="w-10/12 py-1.5 text-white operating-button text-center rounded mb-8" @click="disconnectWallet">
                     {{ $t('wallet.disconnect') }}
                 </div>
-                <div class="absolute bottom-0 w-full flex justify-center items-center">
+                <div class="absolute bottom-10 w-full flex justify-center items-center">
                     <div class="w-4/12 ">
                         <img src="../assets/images/minter-logo-ver.png" alt="">
                     </div>
@@ -256,7 +256,7 @@ let homeChilds = computed(() => {
 
 let personalChilds = computed(() => {
     if (userInfo.address && hasPackage.value) {
-        return [{ title: t('menu.wallet'), router: '/personal/wallet' }, { title: t('menu.exchange'), router: '/personal/exchange' }, { title: '配套復投', router: '/personal/coherents' }, { title: t('menu.custodianship') }, { title: t('menu.grandPrix') }, { title: '業績承諾卡', router: '/personal/promise-card' }, { title: t('menu.synthesize') }, { title: t('menu.operationRecord'), router: '/earnings/list' }, { title: t('menu.helpHand'), router: '/personal/assistance' }, { title: t('menu.setting') }]
+        return [{ title: t('menu.wallet'), router: '/personal/wallet' }, { title: t('menu.exchange'), router: '/personal/exchange' }, { title: '配套復投', router: '/personal/coherents', query: { isReVote: true } }, { title: t('menu.custodianship') }, { title: t('menu.grandPrix') }, { title: '業績承諾卡', router: '/personal/promise-card' }, { title: t('menu.synthesize') }, { title: t('menu.operationRecord'), router: '/earnings/list' }, { title: t('menu.helpHand'), router: '/personal/assistance' }, { title: t('menu.setting') }]
     } else if (!userInfo.address && !hasPackage.value) {
         return [{ title: t('menu.wallet'), router: '/personal/wallet' }]
     } else if (userInfo.address && !hasPackage.value) {
@@ -422,7 +422,8 @@ function handleMenuItem(item) {
         return
     }
     router.push({
-        path: item.router
+        path: item.router,
+        query: item.query
     })
     showLeftMenu.value = false
 }

@@ -50,7 +50,7 @@
                     </div>
                     <div class="pt-1 flex justify-between items-center">
                         <div>
-                            動態總提現總數：
+                            動態可提現總數：
                         </div>
                         <div>
                             {{ Number(totalBTReward).toFixed(4) }} PMT
@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="mb-2" v-for="(item, index) in playerPackages" :key="index">
-                <coherent-card :coherentInfo="item" />
+                <coherent-card :showReVote="showReVote" :coherentInfo="item" @click="toReVote(item)" />
             </div>
         </div>
 
@@ -76,6 +76,9 @@ import { useI18n } from 'vue-i18n'
 import { playersInfo } from '@/request/api'
 import { Web3 } from 'web3'
 import { showToast } from 'vant';
+import { useRoute, useRouter } from "vue-router"
+const router = useRouter()
+const route = useRoute()
 const { proxy } = getCurrentInstance()
 const { t } = useI18n()
 
@@ -87,10 +90,15 @@ let canReleasedTime = ref("")
 let releaseTime = ref(2)
 let totalBTWithdraw = ref(null)
 let totalBTReward = ref(null)
+let showReVote = ref(false)
 
 let isNotYet = ref(true)
 onMounted(() => {
     // releasePMTTokens()
+    if (route.query.isReVote) {
+        showReVote.value = true
+        console.log(showReVote.value)
+    }
     getPlayersInfo(localStorage.getItem('address'))
     getPNTRemainingLockupPeriod()
     getPMTLockedAmount()
@@ -120,6 +128,12 @@ function countDown(time) {
     }
     canReleasedTime.value = day + "天" + hour + "時" + minute + "分" + second + "秒"
     // return day + "天" + hour + "时" + minute + "分" + second + "秒"
+}
+//點擊復投按鈕
+function toReVote(item) {
+    router.push({
+        path: `/checkout-counter/${item.type}`
+    })
 }
 //點擊釋放按鈕
 async function handleReleased() {

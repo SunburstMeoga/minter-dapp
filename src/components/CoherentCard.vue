@@ -3,6 +3,10 @@ defineProps({
     coherentInfo: {
         type: Object,
         default: () => { }
+    },
+    showReVote: {
+        type: Boolean,
+        default: false
     }
 })
 import { showToast } from 'vant';
@@ -33,7 +37,7 @@ function FilterTimeNext(value, time) {
 }
 </script>
 <template>
-    <div class="border-card-content border text-white rounded px-4 py-2 overflow-hidden">
+    <div class="border-card-content border text-white rounded px-4 py-2 overflow-hidden flex justify-between items-center">
 
         <div>
             <div class="mb-1 font-bold text-xl">
@@ -72,6 +76,9 @@ function FilterTimeNext(value, time) {
                 $t('coherents.buy') }}</div> -->
 
 
+        </div>
+        <div class="operating-button px-8 py-1 rounded-full text-white text-sm" v-show="showReVote"
+            @click="$emit('toReVote')">復投
         </div>
     </div>
 </template>

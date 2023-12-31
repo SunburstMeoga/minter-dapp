@@ -222,6 +222,13 @@ export function nftMarketplace(params) {
     params
   })
 }
+//nft出售记录
+export function nftSale(params) {
+  return request('/nft_transactions/sell-records', {
+    method: 'GET',
+    params
+  })
+}
 
 //rt兑换记录
 export function RTExchangeRecord(params) {

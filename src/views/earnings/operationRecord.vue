@@ -60,7 +60,7 @@
 import { ref, onMounted, getCurrentInstance, computed } from 'vue'
 import { useI18n } from 'vue-i18n';
 import { FilterTime } from '@/utils/format'
-import { dynamicEarningTypes, dynamicRecords, staticRecords, nftMarketplace, nftTransaction, usdtExchangeRecord, btExchangeRecord, mtExchangeRecord, btTransations, rtTransations } from '@/request/api'
+import { dynamicEarningTypes, dynamicRecords, staticRecords, nftMarketplace, nftTransaction, usdtExchangeRecord, btExchangeRecord, mtExchangeRecord, btTransations, rtTransations, nftSale } from '@/request/api'
 import ModuleTitle from "@/components/ModuleTitle.vue";
 import EarningsCard from "./earningsCard.vue";
 
@@ -216,7 +216,7 @@ function nftBuyList() {
         })
 }
 
-//nft購買記錄
+//nft挂单记录
 function nftPendList() {
     proxy.$loading.show()
     dataList.value = []
@@ -224,6 +224,23 @@ function nftPendList() {
     nftMarketplace(params)
         .then(res => {
             console.log('nft掛單記錄', res)
+            dataList.value = res.market_places
+            proxy.$loading.hide()
+        })
+        .catch(err => {
+            console.log(err)
+            proxy.$loading.hide()
+        })
+}
+
+//nft出售记录
+function nftSaleList() {
+    proxy.$loading.show()
+    dataList.value = []
+    let params = { perPage: 10000 }
+    nftSale(params)
+        .then(res => {
+            console.log('nft出售', res)
             dataList.value = res.market_places
             proxy.$loading.hide()
         })
@@ -346,6 +363,8 @@ function handleType(item, index) {
             nftBuyList()
         } else if (currentType.value == 1) {
             nftPendList()
+        } else if (currentType.value == 2) {
+            nftSaleList()
         }
     } else if (currentTab.value == 3) {
         if (currentType.value == 0) {
