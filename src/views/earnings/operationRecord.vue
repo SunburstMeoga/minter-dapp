@@ -43,7 +43,9 @@
                                         :address="item.address" :isEarning="currentTab == 0 || currentTab == 1"
                                         :isNFT="currentTab == 2" :isToken="currentTab == 3"
                                         :price="item.amount || item.reward_amount || item.price"
-                                        :symbol="item.token && item.token.symbol" />
+                                        :symbol="item.token && item.token.symbol"
+                                        :transfer="currentTab == 3 && currentType == 1"
+                                        :transferType="item.dynamic_earning_type && item.dynamic_earning_type.name" />
                                 </div>
                             </div>
                         </div>

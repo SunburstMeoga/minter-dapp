@@ -33,9 +33,13 @@
                 <div>兌換金額</div>
                 <div class="text-red-500 font-bold">{{ price }} {{ symbol }}</div>
             </div>
-            <div class="flex justify-between items-center mb-2" v-show="remark">
+            <div class="flex justify-between items-center mb-2" v-show="remark && !transfer">
                 <div>兌換類型</div>
                 <div class="text-red-500 font-bold">{{ remark }}</div>
+            </div>
+            <div class="flex justify-between items-center mb-2" v-show="transfer">
+                <div>交易類型</div>
+                <div class="text-red-500 font-bold">{{ transferType }}</div>
             </div>
             <div class="flex justify-between items-center mb-2">
                 <div>到賬時間</div>
@@ -84,6 +88,10 @@ defineProps({
         type: String,
         default: ''
     },
+    transferType: {
+        type: String,
+        default: ''
+    },
     isEarning: {
         type: Boolean,
         default: false
@@ -96,6 +104,10 @@ defineProps({
         type: Boolean,
         default: false
     },
+    transfer: {
+        type: Boolean,
+        default: false
+    }
 })
 </script>
 
