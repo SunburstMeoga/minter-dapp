@@ -197,10 +197,11 @@ function getPlayersInfo(address) {
     playersInfo(address)
         .then(res => {
             console.log('res', res)
-            const { total_bt_withdraw, total_bt_reward } = res.player.dynamic_earning_percentage_limit
+            const { total_bt_withdraw, total_bt_reward, total_package_value, last_out_total_package_value } = res.player.dynamic_earning_percentage_limit
 
             totalBTWithdraw.value = total_bt_withdraw
-            totalBTReward.value = total_bt_reward
+            // totalBTReward.value = total_bt_reward
+            totalBTReward.value = Number(total_package_value * 2 - last_out_total_package_value).toFixed()
 
 
             res.player.package_transactions.map(item => {
