@@ -270,7 +270,7 @@ async function handleListed(item) {
             showCancelButton: false,
             confirmText: '確定',
             onConfirm: () => {
-                proxy.$onConfirm.hide()
+                proxy.$confirm.hide()
             },
         });
         return
@@ -284,7 +284,7 @@ async function handleListed(item) {
             showCancelButton: false,
             confirmText: '確定',
             onConfirm: () => {
-                proxy.$onConfirm.hide()
+                proxy.$confirm.hide()
             },
         });
         return
@@ -300,8 +300,20 @@ async function handleListed(item) {
         console.log('現在時間時間戳', parseInt(new Date().getTime() / 1000))
         if (Number(time) > parseInt(new Date().getTime() / 1000)) {
             // let timeAll = Number(time) + (new Date().getTime() / 1000)
-            showToast(countDown(Number(time)) + '後可出售')
-            proxy.$loading.hide()
+            // showToast(countDown(Number(time)) + '後可出售')
+            // proxy.$loading.hide()
+            // return
+            proxy.$confirm.hide()
+            proxy.$confirm.show({
+                title: '提示',
+                content: `${countDown(Number(time))}後可出售`,
+                showCancelButton: false,
+                confirmText: '確定',
+                onConfirm: () => {
+                    proxy.$confirm.hide()
+                    proxy.$loading.hide()
+                },
+            });
             return
         }
 
