@@ -558,7 +558,7 @@ async function handleConfirmBuyForUSDTPOPUP() {
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
-        showToast(t('toast.error'))
+        showToast('檢查USD3授權失敗，請重試')
         console.log(err)
     }
     console.log('allowance', allowance)
@@ -583,7 +583,7 @@ async function handleConfirmBuyForUSDTPOPUP() {
                     .catch(err => {
                         console.log(err)
                         proxy.$loading.hide()
-                        showToast(t('toast.error'))
+                        showToast('授權失敗，請重試')
                     })
             },
         });
@@ -599,7 +599,7 @@ async function handleConfirmBuyForUSDTPOPUP() {
         showToast(t('toast.success'))
     } catch (err) {
         proxy.$loading.hide()
-        showToast(t('toast.error'))
+        showToast('購買失敗，請重新購買')
         toggleBuyPackageSelf()
         console.log(err)
     }
@@ -670,7 +670,7 @@ async function handleConfirmBuyForUSDT() {
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
-        showToast(t('toast.error'))
+        showToast('檢查USD3授權失敗，請重試')
         console.log(err)
     }
     console.log('allowance', allowance)
@@ -697,7 +697,7 @@ async function handleConfirmBuyForUSDT() {
                         console.log(err)
                         proxy.$loading.hide()
                         proxy.$confirm.hide()
-                        showToast(t('toast.error'))
+                        showToast('授權失敗，請重試')
                     })
             },
         });

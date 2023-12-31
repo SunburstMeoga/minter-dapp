@@ -446,7 +446,7 @@ async function addressSign() {
         params = { randomString: randomString, signature: signature }
     } catch (err) {
         proxy.$loading.hide()
-        showToast(t('toast.error'))
+        showToast('簽名失敗，請重試')
         return
     }
 
@@ -468,7 +468,7 @@ async function addressSign() {
         console.log()
     } catch (err) {
         proxy.$loading.hide()
-        showToast(t('toast.error'))
+        showToast('登錄失敗，請重新登登錄')
         console.log(err)
     }
 

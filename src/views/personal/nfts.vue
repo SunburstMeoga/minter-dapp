@@ -320,7 +320,7 @@ async function handleListed(item) {
     } catch (err) {
         proxy.$loading.hide()
         console.log(err)
-        showToast(t('toast.error'))
+        showToast('獲取禁售期失敗，請重試')
         return
     }
     // return
@@ -330,7 +330,7 @@ async function handleListed(item) {
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
-        showToast(t('toast.error'))
+        showToast('檢查MT授權狀態失敗，請重試')
         console.log(err)
     }
 
@@ -380,7 +380,7 @@ async function handleListed(item) {
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
-        showToast(t('toast.error'))
+        showToast('檢查授權狀態失敗，請重試')
         console.log(err)
     }
     console.log('allowance', allowance)
@@ -495,7 +495,7 @@ async function handleCancelList(item) {
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
-        showToast(t('toast.error'))
+        showToast('檢查授權狀態失敗，請重試')
         console.log(err)
     }
     console.log('isApprovedAll', isApprovedAll)

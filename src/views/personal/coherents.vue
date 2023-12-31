@@ -153,7 +153,7 @@ async function handleReleased() {
         // getPMTLockedAmount()
     } catch (err) {
         console.log(err)
-        showToast(t('toast.error'))
+        showToast('釋放PMT失敗，請重試')
     }
 }
 //獲取鎖定的代幣數量

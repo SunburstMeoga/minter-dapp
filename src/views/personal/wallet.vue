@@ -430,7 +430,7 @@ async function handleWalletCardReleases() {
                 console.log(err)
                 proxy.$loading.hide()
                 proxy.$confirm.hide()
-                showToast(t('toast.error'))
+                showToast('釋放PMT失敗，請重試')
             }
         }
     })
@@ -653,7 +653,7 @@ async function handleExchangeBT() {
                     })
                     .catch(err => {
                         proxy.$confirm.hide()
-                        showToast(t('toast.error'))
+                        showToast('兌換失敗，請重試')
                         console.log(err)
                     })
             } else {
@@ -670,7 +670,7 @@ async function handleExchangeBT() {
                     })
                     .catch(err => {
                         proxy.$confirm.hide()
-                        showToast(t('toast.error'))
+                        showToast('兌換失敗，請重試')
                         console.log(err)
                     })
             }

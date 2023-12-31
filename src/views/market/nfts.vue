@@ -174,7 +174,7 @@ async function handleCancelList(item) {
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
-        showToast(t('toast.error'))
+        showToast('檢查NFT授權錯誤，請重試')
         console.log(err)
     }
     console.log('isApprovedAll', isApprovedAll)
@@ -217,7 +217,7 @@ async function handleCancelList(item) {
         // showToast(t('toast.success'))
     } catch (err) {
         proxy.$loading.hide()
-        showToast(t('toast.error'))
+        showToast('撤銷掛單失敗，請重試')
         console.log(err)
     }
 }
@@ -358,7 +358,7 @@ async function handleBuyButton(item, canBuy) {
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
-        showToast(t('toast.error'))
+        showToast('檢查PMT授權錯誤，請重試')
         console.log(err)
     }
     proxy.$loading.hide()
@@ -410,7 +410,7 @@ async function handleBuyButton(item, canBuy) {
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
-        showToast(t('toast.error'))
+        showToast('檢查MT授權狀態失敗，請重試')
         console.log(err)
     }
     proxy.$loading.hide()

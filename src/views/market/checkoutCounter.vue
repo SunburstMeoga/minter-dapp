@@ -486,7 +486,7 @@ async function handleConfirmBuyForUSDT() {
     proxy.$loading.hide()
   } catch (err) {
     proxy.$loading.hide()
-    showToast(t('toast.error'))
+    showToast('檢查USD3授權失敗，請重試')
     console.log(err)
   }
   console.log('allowance', allowance)
