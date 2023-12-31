@@ -93,7 +93,7 @@ import ModuleTitle from '@/components/ModuleTitle.vue';
 const router = useRouter()
 function toReward() {
     router.push({
-        path: '/earnings/list'
+        path: '/earnings/operation-record'
     })
 }
 </script>
