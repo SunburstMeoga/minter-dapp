@@ -13,7 +13,7 @@
                         已經釋放：
                     </div>
                     <div>
-                        {{ Number(beenReleased).toFixed(4) }} PMT
+                        {{ Number(beenReleased).toFixed(4) >= 0.000 ? Number(beenReleased).toFixed(4) : 0.000 }} PMT
                     </div>
                 </div>
                 <div class="pt-1 flex justify-between items-center">
