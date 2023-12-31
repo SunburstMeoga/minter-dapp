@@ -88,7 +88,7 @@ async function getPlayersInfo(address) {
         .catch(err => {
             proxy.$loading.hide()
             console.log('err', err)
-            showToast('更新餘額失敗，請刷新頁面')
+            showToast('更新RT餘額失敗，請刷新頁面')
 
         })
 }
