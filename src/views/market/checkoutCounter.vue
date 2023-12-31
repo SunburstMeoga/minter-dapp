@@ -327,6 +327,11 @@ function handlePoint(item, index) {
 }
 //點擊校驗直接上級地址
 async function handleCalibrationReferrer() {
+  console.log(referrerAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase())
+  if (referrerAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase()) {
+    showToast('自己的地址不能作為自己的直接上級')
+    return
+  }
   isErrLeg.value = false
   if (calibratingReferrer.value) {
     showToast('正在校驗，請稍後')
@@ -367,6 +372,10 @@ async function handleCalibrationReferrer() {
 }
 //點擊校驗對碰上級地址
 async function handleCalibrationLeg() {
+  if (legAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase()) {
+    showToast('自己的地址不能作為自己的對碰上級')
+    return
+  }
   isErrReferrer.value = false
   if (calibratingLeg.value) {
     showToast('正在校驗，請稍後')

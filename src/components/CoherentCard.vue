@@ -77,9 +77,9 @@ function FilterTimeNext(value, time) {
 
 
         </div>
-        <div class="operating-button px-8 py-1 rounded-full text-white text-sm" v-show="showReVote"
+        <!-- <div class="operating-button px-8 py-1 rounded-full text-white text-sm" v-show="showReVote"
             @click="$emit('toReVote')">復投
-        </div>
+        </div> -->
     </div>
 </template>
 <style scoped></style>

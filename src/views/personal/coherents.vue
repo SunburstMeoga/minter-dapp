@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="mb-2" v-for="(item, index) in playerPackages" :key="index">
-                <coherent-card :showReVote="showReVote" :coherentInfo="item" @click="toReVote(item)" />
+                <coherent-card :showReVote="showReVote" :coherentInfo="item" />
             </div>
         </div>
 
