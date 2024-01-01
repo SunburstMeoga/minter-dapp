@@ -458,7 +458,7 @@ async function handleBuyButton(item, canBuy) {
     proxy.$confirm.hide()
     proxy.$confirm.show({
         title: '提示',
-        content: `是否確認購買該NFT`,
+        content: `是否確認購買Token ID為${item.token_id}的NFT`,
         showCancelButton: true,
         confirmText: '確定',
         onConfirm: async () => {
