@@ -247,7 +247,7 @@ async function getListeds24h() {
     let timestamp = new Date().getTime()
     let listedsList = []
     listeds.value.find(item => {
-        if (timestamp - new Date(item.updated_at).getTime() <= 60 * 60 * 24 * 1000) {
+        if (timestamp - new Date(item.updated_at).getTime() <= 60 * 60 * 3 * 1000) {
             // console.log(timestamp - new Date(item.updated_at).getTime(), 60 * 60 * 24 * 1000)
             listedsList.push(item)
         }
