@@ -71,7 +71,7 @@ async function getStaticIncomeInfo() {
         let getReleaseCount = await pmtContractApi.getReleaseCount(localStorage.getItem('address'))
         // getReleaseCount = WEB3.utils.fromWei(getReleaseCount.toString(), 'ether')
         getReleaseCount = Number(getReleaseCount).toFixed(0)
-        
+
         //最高配套金額
         let result = await playersInfo(localStorage.getItem('address'))
         console.log('result', result)
@@ -94,13 +94,13 @@ async function getStaticIncomeInfo() {
 
         console.log('pmt', pmtBalance)
 
-        console.log('顯示已提取總數 ', withdrawalAmount)
-        console.log('可提取上限 ',  withdrawalAmountLimit)
-        console.log('現時收益總數 ',  rewardAmount)
-        console.log('收益上限 ',  rewardAmountLimit)
-        console.log('锁定期的pmt数量 ',  getLockedAmount)
-        console.log('獲取PMT的釋放次數 ',  getReleaseCount)
-        console.log('package總釋放數量 ',  min)
+        console.log('现时已提取總數 ', withdrawalAmount)
+        console.log('可提取上限 ', withdrawalAmountLimit)
+        console.log('現時收益總數 ', rewardAmount)
+        console.log('收益上限 ', rewardAmountLimit)
+        console.log('锁定期的pmt数量 ', getLockedAmount)
+        console.log('獲取PMT的釋放次數 ', getReleaseCount)
+        console.log('package總釋放數量 ', min)
         console.log('package的釋放量', eraningAmount)
 
 
