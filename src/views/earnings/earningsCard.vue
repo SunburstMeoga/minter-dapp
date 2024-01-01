@@ -5,6 +5,10 @@
                 <div>{{ $t('assistance.awardAmount') }}</div>
                 <div class="text-red-500 font-bold">{{ Number(price).toFixed(4) }} {{ symbol }}</div>
             </div>
+            <div class="flex justify-between items-center mb-2">
+                <div>Token ID</div>
+                <div># {{ tokenID }}</div>
+            </div>
             <div class="flex justify-between items-center">
                 <div>{{ $t('assistance.releaseTime') }}</div>
                 <div>{{ FilterTime(time) }}</div>
@@ -17,7 +21,7 @@
             </div>
             <div class="flex justify-between items-center mb-2">
                 <div>Token ID</div>
-                <div>{{ tokenID }}</div>
+                <div># {{ tokenID }}</div>
             </div>
             <div class="flex justify-between items-center ">
                 <div>时间</div>

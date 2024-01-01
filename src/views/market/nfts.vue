@@ -163,7 +163,7 @@ function onSelect(select) {
 async function getMaxPackage() {
     let result = await playersInfo(localStorage.getItem('address'))
     console.log(result.player.max_package_id)
-    active.value = result.player.max_package_id - 1
+    active.value = result.player.package_transactions[0].package_id - 1
     console.log(active.value)
 }
 //取消掛單

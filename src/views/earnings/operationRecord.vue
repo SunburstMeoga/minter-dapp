@@ -261,7 +261,7 @@ function nftSaleList() {
     nftSale(params)
         .then(res => {
             console.log('nft出售', res)
-            dataList.value = res.market_places
+            dataList.value = res.nft_transactions
             proxy.$loading.hide()
         })
         .catch(err => {
