@@ -417,6 +417,7 @@ async function handleConfirmBuyForRTPOPUP() {
     //   toggleConfirmPayPopup()
     //判斷rt餘額是否充足
     console.log('用rt幫下級購買package')
+    // return
     if (currentCoherent.value == null) {
         showToast('請先選擇要購買的配套')
         return
@@ -459,7 +460,7 @@ async function handleConfirmBuyForRTPOPUP() {
                         isFinishPoint.value = false
                         viewPointMap(localStorage.getItem('address'))
                     })
-            }, 5000)
+            }, 8000)
         })
         .catch(err => {
             proxy.$loading.hide()
