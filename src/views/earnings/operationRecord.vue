@@ -165,7 +165,8 @@ function getMTTransations(params) {
     mtTransations(params)
         .then(res => {
             console.log('mt交易記錄', res)
-            dataList.value = res.transactions
+            dataList.value = res.nft_transactions
+            console.log(dataList.value.length)
             proxy.$loading.hide()
         })
         .catch(err => {

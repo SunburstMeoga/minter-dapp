@@ -98,8 +98,8 @@ defineProps({
         default: ''
     },
     tokenID: {
-        type: String,
-        default: ''
+        type: Number,
+        default: 0
     },
     isEarning: {
         type: Boolean,
