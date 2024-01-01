@@ -761,7 +761,7 @@ async function handleExchange() {
             } else {
                 try {
                     await swapContractApi.swapMTForRT(amount)
-                    await rtBalance(localStorage.getItem('address'))
+                    // await rtBalance(localStorage.getItem('address'))
                     proxy.$confirm.hide()
                     getMTBalance()
                     getPlayersInfo(localStorage.getItem('address'))

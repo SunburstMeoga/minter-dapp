@@ -30,19 +30,22 @@
                         <div class="font-bold text-lg pl-4">{{ currency }}</div>
                     </div>
                     <div class="flex justify-end text-sm items-center text-yellow-300 active-color">
-                        <div v-if="isRecharge" class="" @click="$emit('recharge')">{{ $t('wallet.recharge') }}
+                        <div v-if="isRecharge" class="active-white-color" @click="$emit('recharge')">{{
+                            $t('wallet.recharge') }}
                         </div>
-                        <div v-if="isWithdraw" class="pl-4 " @click="$emit('withdraw')">{{ $t('wallet.withdraw') }}
+                        <div v-if="isWithdraw" class="pl-4 active-white-color" @click="$emit('withdraw')">{{
+                            $t('wallet.withdraw') }}
                         </div>
-                        <div v-if="isTrasfer" class="pl-4 " @click="$emit('transfer')">{{ $t('wallet.transfer') }}
+                        <div v-if="isTrasfer" class="pl-4 active-white-color" @click="$emit('transfer')">{{
+                            $t('wallet.transfer') }}
                         </div>
-                        <div v-if="isExchange" class="pl-4 " @click="$emit('exchange')">劃轉
+                        <div v-if="isExchange" class="pl-4 active-white-color" @click="$emit('exchange')">劃轉
                         </div>
-                        <div v-if="isBuy" class="pl-4 " @click="$emit('buy')">市場
+                        <div v-if="isBuy" class="pl-4 active-white-color" @click="$emit('buy')">市場
                         </div>
-                        <div v-if="isRegister" class="pl-4 " @click="$emit('register')">註冊
+                        <div v-if="isRegister" class="pl-4 active-white-color" @click="$emit('register')">註冊
                         </div>
-                        <div v-if="isReleases" class="pl-4 " @click="$emit('releases')">释放</div>
+                        <div v-if="isReleases" class="pl-4 active-white-color" @click="$emit('releases')">释放</div>
                     </div>
                 </div>
                 <div class="flex justify-between items-center text-menu-word text-sm mb-2">

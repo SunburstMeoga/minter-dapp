@@ -70,11 +70,13 @@ const Request = (url, options = {}) => {
           params: params
         })
         .then((res) => {
+          console.log(res)
           if (res.status == 401 || res.status == 403) {
             addressSign()
             return
           }
           if (res && res.data) {
+
             resolve(res.data)
           }
         })
