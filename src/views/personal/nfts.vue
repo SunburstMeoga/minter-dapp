@@ -456,11 +456,11 @@ async function handleListed(item) {
                 console.log(item.token_id)
                 await nftContractApi.listNFT(item.token_id)
                 proxy.$confirm.hide()
-                showToast('掛單成功')
+
                 proxy.$loading.show()
                 setTimeout(() => {
-
                     proxy.$loading.hide()
+                    showToast('掛單成功')
                     getUserNFTs()
                     getUserCanSaleNFT()
                     getAllNFT()
@@ -541,13 +541,11 @@ async function handleCancelList(item) {
                 // proxy.$loading.show()
                 await nftContractApi.unlistNFT(item.token_id)
                 proxy.$confirm.hide()
-                showToast('取消成功')
+
                 proxy.$loading.show()
                 setTimeout(() => {
-
                     proxy.$loading.hide()
-
-
+                    showToast('取消成功')
                     getUserNFTs()
                     getUserCanSaleNFT()
                     getAllNFT()
