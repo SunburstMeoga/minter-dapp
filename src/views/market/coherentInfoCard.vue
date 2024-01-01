@@ -3,11 +3,11 @@
         <div class="relative flex justify-center items-center py-10 border-b border-gray-600 mb-2">
             <div class="absolute top-0 h-full left-0 flex justify-center items-center ">
                 <div class="w-8/12 animate-spin">
-                    <!-- <img src="../../assets/images/s_result_light.png" alt=""> -->
+                    <img src="../../assets/images/s_result_light.png" alt="">
                 </div>
             </div>
             <div class="w-6/12 relative z-10">
-                <img src="../../assets/images/200.gif" alt="">
+                <img :src="levelImg" alt="">
             </div>
         </div>
         <div class="w-full text-gray-400 text-sm mb-2">
