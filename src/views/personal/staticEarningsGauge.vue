@@ -77,7 +77,7 @@ async function getStaticIncomeInfo() {
         console.log('result', result)
         let max = Number(result.player.max_package.price) * 2
         let min = Number(result.player.max_package.price) * 0.6 //最高金額的package釋放數量
-        let eraningAmount = min / 3 * (3 - getReleaseCount)  //pmt釋放量
+        let eraningAmount = Number(result.player.package_transactions[0].amount) * 0.6 / 3 * (3 - getReleaseCount)  //pmt釋放量
         let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
 
         pmtBalance = WEB3.utils.fromWei(pmtBalance.toString(), 'ether')
