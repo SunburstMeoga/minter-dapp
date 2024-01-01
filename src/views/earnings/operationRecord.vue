@@ -64,7 +64,7 @@
 import { ref, onMounted, getCurrentInstance, computed } from 'vue'
 import { useI18n } from 'vue-i18n';
 import { FilterTime } from '@/utils/format'
-import { dynamicEarningTypes, dynamicRecords, staticRecords, nftMarketplace, nftTransaction, usdtExchangeRecord, btExchangeRecord, mtExchangeRecord, btTransations, rtTransations, nftSale } from '@/request/api'
+import { dynamicEarningTypes, dynamicRecords, staticRecords, nftMarketplace, nftTransaction, usdtExchangeRecord, btExchangeRecord, mtExchangeRecord, btTransations, mtTransations, rtTransations, nftSale } from '@/request/api'
 import ModuleTitle from "@/components/ModuleTitle.vue";
 import EarningsCard from "./earningsCard.vue";
 
@@ -118,8 +118,8 @@ function onSelect(select) {
     } else {
         if (currentFilter.value == 1) {
             getBTTransations(params)
-        } else if (currentFilter.value == 1) {
-            // getBTExchangeRecord(params)
+        } else if (currentFilter.value == 2) {
+            getMTTransations(params)
         } else if (currentFilter.value == 3) {
             getRTTransations(params)
         }
@@ -150,6 +150,21 @@ function getRTTransations(params) {
     rtTransations(params)
         .then(res => {
             console.log('rt交易記錄', res)
+            dataList.value = res.transactions
+            proxy.$loading.hide()
+        })
+        .catch(err => {
+            console.log('err', err)
+            proxy.$loading.hide()
+        })
+}
+//mt交易记录
+function getMTTransations(params) {
+    proxy.$loading.show()
+    dataList.value = []
+    mtTransations(params)
+        .then(res => {
+            console.log('mt交易記錄', res)
             dataList.value = res.transactions
             proxy.$loading.hide()
         })

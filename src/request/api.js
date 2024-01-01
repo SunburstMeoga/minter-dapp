@@ -276,3 +276,10 @@ export function rtTransations(params) {
     params
   })
 }
+//mt交易记录
+export function mtTransations(params) {
+  return request('/records/transactions/mt', {
+    method: 'GET',
+    params
+  })
+}
