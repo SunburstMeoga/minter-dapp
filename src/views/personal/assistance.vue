@@ -1,6 +1,6 @@
 <template>
     <div class="pt-12 text-primary-color">
-        <van-tabs class="pt-2 bg-black " v-model:active="active" sticky shrink animated swipeable color="#e149ed"
+        <van-tabs class="pt-2" v-model:active="active" sticky shrink animated swipeable color="#e149ed"
             title-inactive-color="#fff" title-active-color="#e149ed" background="#000">
             <van-tab :title="$t('assistance.pointMap')">
                 <div v-if="isFinishPoint">
