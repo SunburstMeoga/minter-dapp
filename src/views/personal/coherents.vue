@@ -45,7 +45,7 @@
                             動態已提現總數：
                         </div>
                         <div>
-                            {{ Number(totalBTWithdraw).toFixed(4) }} PMT
+                            {{ Number(totalBTWithdraw).toFixed(4) }} MT
                         </div>
                     </div>
                     <div class="pt-1 flex justify-between items-center">
@@ -53,7 +53,7 @@
                             動態提現總數：
                         </div>
                         <div>
-                            {{ Number(totalBTReward).toFixed(4) }} PMT
+                            {{ Number(totalBTReward).toFixed(4) }} MT
                         </div>
                     </div>
                 </div>
