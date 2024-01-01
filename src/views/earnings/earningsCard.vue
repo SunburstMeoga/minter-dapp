@@ -1,7 +1,7 @@
 <template>
     <div class="mb-3 rounded overflow-hidden p-2 bg-card-content text-card-word text-sm">
         <div v-show="isEarning">
-            <div class="flex justify-between items-center mb-2">
+            <div class="flex justify-between items-center mb-2" v-show="showOutput">
                 <div>产出地址</div>
                 <div class="text-red-500 font-bold">{{ FilterAddress(address) }}</div>
             </div>
@@ -9,7 +9,7 @@
                 <div>{{ $t('assistance.awardAmount') }}</div>
                 <div class="text-red-500 font-bold">{{ Number(price).toFixed(4) }} {{ symbol }}</div>
             </div>
-            <div class="flex justify-between items-center mb-2">
+            <div class="flex justify-between items-center mb-2" v-show="tokenID !== 0">
                 <div>Token ID</div>
                 <div># {{ tokenID }}</div>
             </div>
@@ -122,6 +122,10 @@ defineProps({
         default: false
     },
     transfer: {
+        type: Boolean,
+        default: false
+    },
+    showOutput: {
         type: Boolean,
         default: false
     }
