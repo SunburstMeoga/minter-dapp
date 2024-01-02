@@ -851,13 +851,14 @@ function handleConfirmUpPackage() {
                         showCancelButton: false,
                         confirmText: '確定',
                         onConfirm: () => {
-                            // proxy.$confirm.hide()
+                            proxy.$confirm.hide()
+                            proxy.$loading.show()
                             setTimeout(() => {
                                 console.log(res)
                                 showPointCoherentInfo.value = false
                                 proxy.$loading.hide()
                                 proxy.$confirm.hide()
-                                showToast(res.message)
+                                // showToast(res.message)
                             }, 5000)
                         },
                     });
