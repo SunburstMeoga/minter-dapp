@@ -827,25 +827,62 @@ function viewPointMap(address) {
 }
 //點擊幫下級升級配套按鈕
 function handleConfirmUpPackage() {
+    console.log(buyPackage.value)
     if (!buyPackage.value.id) {
         showToast('請先選擇要購買的配套')
         return
     }
-    proxy.$loading.show()
-    let params = { address: clickPointInfo.value.address, package_id: buyPackage.value.id }
-    upInferiorPackage(params)
-        .then(res => {
-            setTimeout(() => {
-                console.log(res)
-                showPointCoherentInfo.value = false
-                proxy.$loading.hide()
-                showToast(res.message)
-            }, 5000)
-        })
-        .catch(err => {
-            proxy.$loading.hide()
-            console.log(err)
-        })
+    proxy.$confirm.hide()
+    proxy.$confirm.show({
+        title: '提示',
+        content: `是否確認将下级配套升级为 ${buyPackage.value.text} 配套`,
+        showCancelButton: true,
+        confirmText: '確定',
+        onConfirm: async () => {
+
+            let params = { address: clickPointInfo.value.address, package_id: buyPackage.value.id }
+            proxy.$loading.show()
+            upInferiorPackage(params)
+                .then(res => {
+                    proxy.$confirm.hide()
+                    proxy.$confirm.show({
+                        title: '成功',
+                        content: `成功将下级配套升级为 ${buyPackage.value.text} 配套`,
+                        showCancelButton: false,
+                        confirmText: '確定',
+                        onConfirm: () => {
+                            // proxy.$confirm.hide()
+                            setTimeout(() => {
+                                console.log(res)
+                                showPointCoherentInfo.value = false
+                                proxy.$loading.hide()
+                                proxy.$confirm.hide()
+                                showToast(res.message)
+                            }, 5000)
+                        },
+                    });
+                })
+                .catch(err => {
+                    proxy.$loading.hide()
+                    proxy.$confirm.hide()
+                    proxy.$confirm.show({
+                        title: '失败',
+                        content: `将下级配套升级为 ${buyPackage.value.text} 配套失败，请重试`,
+                        showCancelButton: false,
+                        confirmText: '確定',
+                        onConfirm: () => {
+                            proxy.$confirm.hide()
+
+                        },
+                    });
+                })
+        },
+        onCacncel: async () => {
+            proxy.$confirm.hide()
+        }
+    });
+
+
 }
 //选择配套
 function selectPackage(action) {
