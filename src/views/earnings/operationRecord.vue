@@ -306,7 +306,7 @@ function handleTabs(tabs) {
         case 1: typeList.value = [{ title: t('assistance.acceleratorAward') }, { title: t('assistance.dailyEarnings') }, { title: t('assistance.commitmentCard') }, { title: t('assistance.recommendedBenefits') }];
             getStaticRecords(1);
             break;
-        case 2: typeList.value = [{ title: '已購買' }, { title: '正在掛單' }, { title: '已售出' }];
+        case 2: typeList.value = [{ title: '已購買' }, { title: '掛單' }, { title: '已售出' }];
             nftBuyList();
             break;
         // case 3: typeList.value = [{ title: 'USD3' }, { title: 'BT' }, { title: 'MT' }, { title: 'RT' }, { title: '綁定RT' }, { title: 'PMT' }];
