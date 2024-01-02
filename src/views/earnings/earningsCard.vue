@@ -27,9 +27,9 @@
                 <div>Token ID</div>
                 <div># {{ tokenID }}</div>
             </div>
-            <div class="flex justify-between items-center mb-2">
+            <div class="flex justify-between items-center mb-2" v-show="operationType == 0 || operationType == 1">
                 <div>操作類型</div>
-                <div>{{ operationType }}</div>
+                <div>{{ operationType == 0 ? '取消掛單' : '掛單' }}</div>
             </div>
             <div class="flex justify-between items-center ">
                 <div>时间</div>
@@ -110,8 +110,8 @@ defineProps({
         default: ''
     },
     operationType: {
-        type: String,
-        default: ''
+        type: Number,
+        default: null
     },
     tokenID: {
         type: Number,
