@@ -148,22 +148,24 @@ async function handleReleased() {
     proxy.$confirm.show({
         title: '確認',
         content: '是否確認釋放剩餘PMT',
-        showCancelButton: false,
+        showCancelButton: true,
         confirmText: '確定',
         onConfirm: async () => {
             try {
                 await pmtContractApi.releaseTokens(localStorage.getItem('address'))
-                proxy.$confirm.hide()
-                proxy.$confirm.show({
-                    title: '提示',
-                    content: '已成功釋放PMT',
-                    showCancelButton: false,
-                    confirmText: '確定',
-                    onConfirm: () => {
-                        proxy.$confirm.hide()
-                        location.reload()
-                    },
-                });
+                setTimeout(() => {
+                    proxy.$confirm.hide()
+                    proxy.$confirm.show({
+                        title: '提示',
+                        content: '已成功釋放PMT',
+                        showCancelButton: false,
+                        confirmText: '確定',
+                        onConfirm: () => {
+                            proxy.$confirm.hide()
+                            location.reload()
+                        },
+                    });
+                }, 5000);
             } catch (err) {
                 console.log(err)
                 proxy.$confirm.hide()
