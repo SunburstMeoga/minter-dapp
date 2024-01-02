@@ -1,7 +1,7 @@
 <template>
     <div class="text-primary-color h-full w-full text-center flex flex-col justify-end items-center">
         <div class="flex flex-col justify-between items-center h-4/6">
-            <div class="w-8/12 animate__animated " :class="hasChange ? 'animate__zoomIn' : ''">
+            <div class="w-4/12 animate__animated " :class="hasChange ? 'animate__zoomIn' : ''">
                 <img src="../../assets/images/minter-logo-ver.png" alt="">
             </div>
             <!-- <div class="text-5xl font-extrabold mb-4 italic text-white animate__animated w-11/12"

@@ -27,6 +27,10 @@
                 <div>Token ID</div>
                 <div># {{ tokenID }}</div>
             </div>
+            <div class="flex justify-between items-center mb-2">
+                <div>操作類型</div>
+                <div>{{ operationType }}</div>
+            </div>
             <div class="flex justify-between items-center ">
                 <div>时间</div>
                 <div>{{ FilterTime(time) }}</div>
@@ -102,6 +106,10 @@ defineProps({
         default: ''
     },
     transferType: {
+        type: String,
+        default: ''
+    },
+    operationType: {
         type: String,
         default: ''
     },
