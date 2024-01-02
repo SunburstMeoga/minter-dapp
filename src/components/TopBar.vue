@@ -144,8 +144,8 @@
                         {{ !userInfo.address ? $t('wallet.connectWallet') : FilterAddress(userInfo.address) }}
                     </div>
                 </div> -->
-                <div class="absolute bottom-10 pr-4 w-full flex justify-end items-center">
-                    <div class="w-4/12 ">
+                <div class="absolute bottom-4 pr-4 w-full flex justify-end items-center">
+                    <div class="w-3/12 ">
                         <img src="../assets/images/minter-logo-ver.png" alt="">
                     </div>
                 </div>
@@ -188,8 +188,8 @@
                 <div class="w-10/12 py-1.5 text-white operating-button text-center rounded mb-8" @click="disconnectWallet">
                     {{ $t('wallet.disconnect') }}
                 </div>
-                <div class="absolute bottom-10 w-full flex justify-center items-center">
-                    <div class="w-4/12 ">
+                <div class="absolute bottom-4 w-full flex justify-center items-center">
+                    <div class="w-3/12 ">
                         <img src="../assets/images/minter-logo-ver.png" alt="">
                     </div>
                 </div>

@@ -35,7 +35,7 @@
                                 </template>
                             </van-popover>
                         </div>
-                        <div class="w-full  mb-3 rounded overflow-hidden p-2  text-card-word text-sm">
+                        <div class="w-full  mb-3 rounded overflow-hidden p-2 pb-20 text-card-word text-sm">
                             <div class="w-11/12 mr-auto ml-auto">
                                 <div v-for="(item, index) in dataList" class="mb-2" :key="index">
                                     <earnings-card :time="item.updated_at || item.created_at"
