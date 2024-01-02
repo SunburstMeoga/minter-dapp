@@ -456,30 +456,32 @@ async function handleConfirmBuyForRTPOPUP() {
                             });
                             return
                         }
-                        proxy.$confirm.hide()
-                        proxy.$confirm.show({
-                            title: '購買成功',
-                            content: `已成功為下級購買 ${coherentsList.value[currentCoherent.value].type} 配套`,
-                            showCancelButton: false,
-                            confirmText: '確定',
-                            onConfirm: () => {
-                                proxy.$confirm.hide()
-                                proxy.$loading.show()
-                                setTimeout(() => {
-                                    proxy.$loading.hide()
-                                    let data = {
-                                        address: helpNextAddress.value,
-                                        leg_address: clickPointInfo.value.preAddress,
-                                        legSide: clickPointInfo.value.point
-                                    }
-                                    joinTheThree(data)
-                                        .then(_res => {
-                                            isFinishPoint.value = false
-                                            viewPointMap(localStorage.getItem('address'))
-                                        })
-                                }, 8000)
-                            },
-                        });
+                        setTimeout(() => {
+                            proxy.$confirm.hide()
+                            proxy.$confirm.show({
+                                title: '購買成功',
+                                content: `已成功為下級購買 ${coherentsList.value[currentCoherent.value].type} 配套`,
+                                showCancelButton: false,
+                                confirmText: '確定',
+                                onConfirm: () => {
+                                    proxy.$confirm.hide()
+                                    proxy.$loading.show()
+                                    setTimeout(() => {
+                                        proxy.$loading.hide()
+                                        let data = {
+                                            address: helpNextAddress.value,
+                                            leg_address: clickPointInfo.value.preAddress,
+                                            legSide: clickPointInfo.value.point
+                                        }
+                                        joinTheThree(data)
+                                            .then(_res => {
+                                                isFinishPoint.value = false
+                                                viewPointMap(localStorage.getItem('address'))
+                                            })
+                                    }, 3000)
+                                },
+                            });
+                        }, 8000);
 
 
                     })
@@ -562,19 +564,29 @@ async function handlePopupConfirmBuy() {
                 buyCoherent(data)
                     .then(res => {
                         setTimeout(() => {
-                            showToast(res.message)
-                            updataRTBalance(localStorage.getItem('address'))
-                                .then(_res => {
-                                    console.log('更新rt餘額', _res)
-                                    console.log('購買成功', _res)
-                                    proxy.$loading.hide()
+                            // showToast(res.message)
+                            proxy.$confirm.hide()
+                            proxy.$confirm.show({
+                                title: '提示',
+                                content: `成功購買購買 ${coherentsList.value[currentSelf.value].type} 配套`,
+                                showCancelButton: false,
+                                confirmText: '確定',
+                                onConfirm: () => {
                                     proxy.$confirm.hide()
-                                    showToast('購買成功')
-                                })
-                                .catch(err => {
-                                    console.log('更新rt餘額失敗', err)
-                                })
-                        }, 5000);
+                                    updataRTBalance(localStorage.getItem('address'))
+                                        .then(_res => {
+                                            console.log('更新rt餘額', _res)
+                                            // console.log('購買成功', _res)
+                                            proxy.$loading.hide()
+                                            proxy.$confirm.hide()
+                                            // showToast('購買成功')
+                                        })
+                                        .catch(err => {
+                                            console.log('更新rt餘額失敗', err)
+                                        })
+                                }
+                            })
+                        }, 8000);
                     })
                     .catch(err => {
                         proxy.$confirm.hide()

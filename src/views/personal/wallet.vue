@@ -464,9 +464,10 @@ function handleTransferRT() {
             console.log(data)
             transfersRT(data)
                 .then(res => {
-                    proxy.$confirm.hide()
+
                     console.log(res)
                     if (res.error) {
+                        proxy.$confirm.hide()
                         proxy.$confirm.show({
                             title: '提示',
                             content: '收款地址與發起地址無關，請確認你的收款地址',
@@ -481,14 +482,43 @@ function handleTransferRT() {
                     }
 
 
-                    showToast('轉賬成功')
-                    getPlayersInfo(localStorage.getItem('address'))
+                    setTimeout(() => {
+                        proxy.$confirm.hide()
+                        proxy.$confirm.show({
+                            title: '提示',
+                            content: `已成功轉賬 ${transferRTAmount.value} RT`,
+                            showCancelButton: false,
+                            confirmText: '確定',
+                            onConfirm: async () => {
+                                try {
+                                    getPlayersInfo(localStorage.getItem('address'))
+                                    proxy.$confirm.hide()
+                                } catch (err) {
+                                    console.log(err)
+                                }
+                                // toggleTransferPopup()
+                            },
+                        });
+                    }, 8000);
+
+                    // showToast('轉賬成功')
+
                 })
                 .catch(err => {
+                    console.log('err', err)
                     proxy.$confirm.hide()
-                    showToast('轉賬失敗，請重試')
-                    console.log(res)
-                    toggleTransferPopup()
+                    proxy.$confirm.show({
+                        title: '提示',
+                        content: `轉賬失敗，請重試`,
+                        showCancelButton: false,
+                        confirmText: '確定',
+                        onConfirm: () => {
+                            toggleTransferPopup()
+                            // toggleTransferPopup()
+                        },
+                    });
+
+
 
                 })
         },

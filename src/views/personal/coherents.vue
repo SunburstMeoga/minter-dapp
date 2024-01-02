@@ -143,18 +143,42 @@ async function handleReleased() {
         proxy.$loading.hide()
         return
     }
-    try {
-        await pmtContractApi.releaseTokens(localStorage.getItem('address'))
-        proxy.$loading.hide()
-        showToast(t('toast.success'))
-        location.reload()
-        // getPlayersInfo(localStorage.getItem('address'))
-        // getPNTRemainingLockupPeriod()
-        // getPMTLockedAmount()
-    } catch (err) {
-        console.log(err)
-        showToast('釋放PMT失敗，請重試')
-    }
+    proxy.$loading.hide()
+    proxy.$confirm.hide()
+    proxy.$confirm.show({
+        title: '確認',
+        content: '是否確認釋放剩餘PMT',
+        showCancelButton: false,
+        confirmText: '確定',
+        onConfirm: async () => {
+            try {
+                await pmtContractApi.releaseTokens(localStorage.getItem('address'))
+                proxy.$confirm.hide()
+                proxy.$confirm.show({
+                    title: '提示',
+                    content: '已成功釋放PMT',
+                    showCancelButton: false,
+                    confirmText: '確定',
+                    onConfirm: () => {
+                        proxy.$confirm.hide()
+                        location.reload()
+                    },
+                });
+            } catch (err) {
+                console.log(err)
+                proxy.$confirm.hide()
+                proxy.$confirm.show({
+                    title: '提示',
+                    content: '釋放PMT失敗，請重試',
+                    showCancelButton: false,
+                    confirmText: '確定',
+                    onConfirm: () => {
+                        proxy.$confirm.hide()
+                    },
+                });
+            }
+        },
+    });
 }
 //獲取鎖定的代幣數量
 async function getPMTLockedAmount() {
