@@ -26,7 +26,7 @@
             <van-tab :title="$t('assistance.organisationChart')">
                 <point-two @checkPoint="checkPoint" />
             </van-tab>
-            <van-tab :title="$t('assistance.dynamicRewards')">
+            <!-- <van-tab :title="$t('assistance.dynamicRewards')">
                 <dynamic-rewards />
             </van-tab>
             <van-tab :title="$t('assistance.commitmentCard')">
@@ -39,7 +39,7 @@
                 <div v-if="cardList.length == 0" class="text-white font-bold mt-16 text-center">
                     暫無數據
                 </div>
-            </van-tab>
+            </van-tab> -->
         </van-tabs>
         <!-- 帮自己购买package弹窗 -->
         <van-popup v-model:show="showBuyPackageSelf" round position="bottom">
@@ -427,48 +427,89 @@ async function handleConfirmBuyForRTPOPUP() {
 
     let data = { package_id: coherentsList.value[currentCoherent.value].id, address: helpNextAddress.value, legSide: clickPointInfo.value.point, leg_address: clickPointInfo.value.preAddress, referrer_address: inviterAddressTwo.value }
     console.log('幫助購買的下級地址', data, data.address)
-    // return
-    buyPackageToNext(data)
-        .then(res => {
-            console.log('購買成功', res)
 
-            if (res.message == 'RT餘額不足') {
+    proxy.$loading.hide()
+    proxy.$confirm.hide()
+
+    proxy.$confirm.show({
+        title: '提示',
+        content: `是否確認購買 ${coherentsList.value[currentCoherent.value].type} 配套`,
+        showCancelButton: true,
+        confirmText: '確定',
+        onConfirm: async () => {
+            try {
                 proxy.$loading.hide()
-                proxy.$confirm.hide()
-                proxy.$confirm.show({
-                    title: '餘額不足',
-                    content: `當前配套價格為 ${coherentsList.value[currentCoherent.value].type} RT，您的 RT 餘額不足。`,
-                    showCancelButton: false,
-                    confirmText: '確定',
-                    onConfirm: () => {
+                buyPackageToNext(data)
+                    .then(res => {
+                        console.log('購買成功', res)
+                        if (res.message == 'RT餘額不足') {
+                            proxy.$loading.hide()
+                            proxy.$confirm.hide()
+                            proxy.$confirm.show({
+                                title: '餘額不足',
+                                content: `當前配套價格為 ${coherentsList.value[currentCoherent.value].type} RT，您的 RT 餘額不足。`,
+                                showCancelButton: false,
+                                confirmText: '確定',
+                                onConfirm: () => {
+                                    proxy.$confirm.hide()
+                                },
+                            });
+                            return
+                        }
                         proxy.$confirm.hide()
-                    },
-                });
-                return
-            }
+                        proxy.$confirm.show({
+                            title: '購買成功',
+                            content: `已成功為下級購買 ${coherentsList.value[currentCoherent.value].type} 配套`,
+                            showCancelButton: false,
+                            confirmText: '確定',
+                            onConfirm: () => {
+                                proxy.$confirm.hide()
+                                proxy.$loading.show()
+                                setTimeout(() => {
+                                    proxy.$loading.hide()
+                                    let data = {
+                                        address: helpNextAddress.value,
+                                        leg_address: clickPointInfo.value.preAddress,
+                                        legSide: clickPointInfo.value.point
+                                    }
+                                    joinTheThree(data)
+                                        .then(_res => {
+                                            isFinishPoint.value = false
+                                            viewPointMap(localStorage.getItem('address'))
+                                        })
+                                }, 8000)
+                            },
+                        });
 
-            setTimeout(() => {
-                proxy.$loading.hide()
-                showToast(res.message)
-                let data = {
-                    address: helpNextAddress.value,
-                    leg_address: clickPointInfo.value.preAddress,
-                    legSide: clickPointInfo.value.point
-                }
-                joinTheThree(data)
-                    .then(_res => {
-                        isFinishPoint.value = false
-                        viewPointMap(localStorage.getItem('address'))
+
                     })
-            }, 8000)
-        })
-        .catch(err => {
-            proxy.$loading.hide()
-            console.log('購買失敗', err)
-            showToast('購買失敗')
-            toggleBuyPopup()
-        })
+                    .catch(err => {
+                        proxy.$loading.hide()
+                        proxy.$confirm.hide()
+                        proxy.$confirm.show({
+                            title: '購買失敗',
+                            content: `購買 ${coherentsList.value[currentCoherent.value].type} 配套失敗，請重新購買。`,
+                            showCancelButton: false,
+                            confirmText: '確定',
+                            onConfirm: () => {
+                                proxy.$confirm.hide()
+                                proxy.$loading.show()
 
+                            },
+                        });
+                    })
+            } catch (err) {
+                proxy.$loading.hide()
+                showToast('購買失敗，請重新購買。')
+                toggleBuyPackageSelf()
+                console.log(err)
+                proxy.$confirm.hide()
+            }
+        },
+        onCacncel: async () => {
+            proxy.$confirm.hide()
+        }
+    });
 }
 
 async function handlePopupConfirmBuy() {
@@ -512,7 +553,7 @@ async function handlePopupConfirmBuy() {
     proxy.$confirm.hide()
     proxy.$confirm.show({
         title: '提示',
-        content: `是否確認購買該配套`,
+        content: `是否確認購買 ${coherentsList.value[currentSelf.value].type} 配套`,
         showCancelButton: true,
         confirmText: '確定',
         onConfirm: async () => {
@@ -715,7 +756,7 @@ async function handleConfirmBuyForUSDT() {
     proxy.$confirm.hide()
     proxy.$confirm.show({
         title: '提示',
-        content: `是否確認購買該配套`,
+        content: `是否確認購買 ${coherentsList.value[currentSelf.value].type} 配套`,
         showCancelButton: true,
         confirmText: '確定',
         onConfirm: async () => {

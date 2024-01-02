@@ -5,9 +5,9 @@
                 暂无数据
             </div>
             <div class="w-full h-full flex flex-col items-center justify-start mt-4">
-                <div class="rounded bg-transparent text-gray-200 w-11/12 p-2 text-sm mb-2" v-for="(item, index) in dataList"
-                    :key="index">
-                    <div class="flex justify-between items-center">
+                <div class="rounded bg-transparent border border-gray-600 text-gray-200 w-11/12 p-2 text-sm mb-2"
+                    v-for="(item, index) in dataList" :key="index">
+                    <div class="flex justify-between items-center mb-2">
                         <div>{{ $t('wallet.address') }}:</div>
                         <div class="flex justify-end items-center">
                             <div class="mr-2">{{ FilterAddress(item.address) || '0x000...0000' }}</div>
