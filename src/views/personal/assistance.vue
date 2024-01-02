@@ -845,23 +845,40 @@ function handleConfirmUpPackage() {
             upInferiorPackage(params)
                 .then(res => {
                     proxy.$confirm.hide()
-                    proxy.$confirm.show({
-                        title: '成功',
-                        content: `成功将下级配套升级为 ${buyPackage.value.text} 配套`,
-                        showCancelButton: false,
-                        confirmText: '確定',
-                        onConfirm: () => {
-                            proxy.$confirm.hide()
-                            proxy.$loading.show()
-                            setTimeout(() => {
-                                console.log(res)
-                                showPointCoherentInfo.value = false
-                                proxy.$loading.hide()
+                    let tipContent
+                    if (res.message == "RT餘額不足") {
+                        proxy.$confirm.show({
+                            title: '失败',
+                            content: `RT余额不足，无法购买 ${buyPackage.value.text} 配套`,
+                            showCancelButton: false,
+                            confirmText: '確定',
+                            onConfirm: () => {
                                 proxy.$confirm.hide()
-                                // showToast(res.message)
-                            }, 5000)
-                        },
-                    });
+                                proxy.$loading.hide()
+
+                            },
+                        });
+                        return
+                    } else {
+                        proxy.$confirm.show({
+                            title: '成功',
+                            content: `成功将下级配套升级为 ${buyPackage.value.text} 配套`,
+                            showCancelButton: false,
+                            confirmText: '確定',
+                            onConfirm: () => {
+                                proxy.$confirm.hide()
+                                proxy.$loading.show()
+                                setTimeout(() => {
+                                    console.log(res)
+                                    showPointCoherentInfo.value = false
+                                    proxy.$loading.hide()
+                                    proxy.$confirm.hide()
+                                    // showToast(res.message)
+                                }, 5000)
+                            },
+                        });
+                    }
+
                 })
                 .catch(err => {
                     proxy.$loading.hide()
