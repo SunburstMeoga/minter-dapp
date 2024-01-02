@@ -54,12 +54,14 @@ if (window.ethereum) {
     },
     //nft掛單
     listNFT: async function (nftID) {
-      const result = await NFTOPERATING.listNFT(nftID)
+      const tx = await await NFTOPERATING.listNFT(nftID)
+      const result = tx.wait()
       return result
     },
     //下架NFT
     unlistNFT: async function (nftID) {
-      const result = await NFTOPERATING.unlistNFT(nftID)
+      const tx = await NFTOPERATING.unlistNFT(nftID)
+      const result = tx.wait()
       return result
     },
     //獲取上市的所有nft

@@ -447,7 +447,7 @@ async function handleListed(item) {
     proxy.$confirm.hide()
     proxy.$confirm.show({
         title: '確認',
-        content: `是否確認將tokenID為: ${item.token_id} 的NFT進行掛單?`,
+        content: `是否確認將Token ID為 ${item.token_id} 的NFT進行掛單?`,
         showCancelButton: true,
         confirmText: '確定',
         onConfirm: async () => {
@@ -457,14 +457,30 @@ async function handleListed(item) {
                 await nftContractApi.listNFT(item.token_id)
                 proxy.$confirm.hide()
 
-                proxy.$loading.show()
-                setTimeout(() => {
-                    proxy.$loading.hide()
-                    showToast('掛單成功')
-                    getUserNFTs()
-                    getUserCanSaleNFT()
-                    getAllNFT()
-                }, 8000)
+                // proxy.$loading.show()
+                proxy.$confirm.show({
+                    title: '成功',
+                    content: `已成功掛單Token ID為 ${item.token_id} 的NFT`,
+                    showCancelButton: false,
+                    confirmText: '確定',
+                    onConfirm: () => {
+
+                        setTimeout(() => {
+                            // proxy.$loading.hide()
+                            proxy.$confirm.hide()
+                            getUserNFTs()
+                            getUserCanSaleNFT()
+                            getAllNFT()
+                        }, 8000)
+                    }
+                })
+                // setTimeout(() => {
+                //     proxy.$loading.hide()
+                //     showToast('掛單成功')
+                //     getUserNFTs()
+                //     getUserCanSaleNFT()
+                //     getAllNFT()
+                // }, 8000)
 
 
                 // showToast(t('toast.success'))
@@ -533,23 +549,42 @@ async function handleCancelList(item) {
     proxy.$confirm.hide()
     proxy.$confirm.show({
         title: '確認',
-        content: `是否取消掛單tokenID為: ${item.token_id} 的NFT?`,
+        content: `是否取消掛單Token ID為 ${item.token_id} 的NFT?`,
         showCancelButton: true,
         confirmText: '確定',
         onConfirm: async () => {
             try { //unlistNFT
                 // proxy.$loading.show()
                 await nftContractApi.unlistNFT(item.token_id)
+
                 proxy.$confirm.hide()
 
-                proxy.$loading.show()
-                setTimeout(() => {
-                    proxy.$loading.hide()
-                    showToast('取消成功')
-                    getUserNFTs()
-                    getUserCanSaleNFT()
-                    getAllNFT()
-                }, 8000)
+                // proxy.$loading.show()
+                proxy.$confirm.show({
+                    title: '成功',
+                    content: `已成功取消Token ID為 ${item.token_id} 的NFT掛單`,
+                    showCancelButton: false,
+                    confirmText: '確定',
+                    onConfirm: () => {
+
+                        setTimeout(() => {
+                            proxy.$loading.hide()
+                            proxy.$confirm.hide()
+                            getUserNFTs()
+                            getUserCanSaleNFT()
+                            getAllNFT()
+                        }, 8000)
+                    }
+                })
+
+                // proxy.$loading.show()
+                // setTimeout(() => {
+                //     proxy.$loading.hide()
+                //     showToast('取消成功')
+                //     getUserNFTs()
+                //     getUserCanSaleNFT()
+                //     getAllNFT()
+                // }, 8000)
                 // showToast(t('toast.success'))
             } catch (err) {
                 proxy.$loading.hide()

@@ -26,17 +26,20 @@
 
           </div> -->
         </div>
-        <div class="flex justify-center items-center mt-2" v-show="showBuyButton" @click="$emit('handleBuyButton')">
+        <div class="flex justify-center items-center mt-2 active-primary-color" v-show="showBuyButton"
+          @click="$emit('handleBuyButton')">
           <div class="w-full py-1 rounded-full text-center" :class="canBuy ? 'operating-button' : 'disable-button'">
             {{ $t('coherents.buy') }}
           </div>
         </div>
-        <div class="flex justify-center items-center mt-2" v-show="showListedButton" @click="$emit('handleListed')">
+        <div class="flex justify-center items-center mt-2 active-primary-color" v-show="showListedButton"
+          @click="$emit('handleListed')">
           <div class="operating-button w-full py-1 rounded-full text-center">
             掛單
           </div>
         </div>
-        <div class="flex justify-center items-center mt-2" v-show="showCancelButton" @click="$emit('handleCancel')">
+        <div class="flex justify-center items-center mt-2 active-primary-color" v-show="showCancelButton"
+          @click="$emit('handleCancel')">
           <div class="module-content w-full py-1 rounded-full text-center">
             取消掛單
           </div>
@@ -113,5 +116,4 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-</style>
+}</style>
