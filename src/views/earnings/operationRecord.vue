@@ -115,7 +115,7 @@ onMounted(() => {
 })
 function onSelect(select) {
     console.log(select)
-    let params = { address: localStorage.getItem('address'), sortBy: 'created_at', sortDesc: true }
+    let params = { address: localStorage.getItem('address'), perPage: 10000, sortBy: 'created_at', sortDesc: true }
     currentFilter.value = select.index
     if (currentType.value == 0) {
         if (currentFilter.value == 0) {
@@ -254,7 +254,12 @@ function nftPendList() {
     nftMarketplace(params)
         .then(res => {
             console.log('nft掛單記錄', res)
-            dataList.value = res.market_places
+            res.market_places.map(item => {
+                if (item.status !== 2) {
+                    dataList.value.push(item)
+                }
+            })
+            // dataList.value = res.market_places
             proxy.$loading.hide()
         })
         .catch(err => {
