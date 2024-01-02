@@ -71,14 +71,14 @@
           <div>{{ coherentInfo.releasePMT }}PMT</div>
         </div>
 
-        <div class="flex justify-between text-gray-400 items-center p-2 rounded active-primary-color"
+        <!-- <div class="flex justify-between text-gray-400 items-center p-2 rounded active-primary-color"
           v-for="(item, index) in propertiesList" :key="index" @click="handlePropertiesItem(item, index)">
           <div>{{ item.title }}</div>
           <div class="flex justify-end items-center">
             <div class="mr-0.5">{{ item.content }}</div>
             <div class=" icon iconfont icon-right"></div>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <div class="w-11/12 flex justify-between items-center fixed bottom-3">
@@ -524,13 +524,24 @@ async function handleConfirmBuyForUSDT() {
   proxy.$confirm.hide()
   proxy.$confirm.show({
     title: '確認',
-    content: '是否確認購買該配套。',
+    content: `是否確認購買 ${coherentInfo.value.type} 配套`,
     showCancelButton: true,
     confirmText: '確定',
     onConfirm: async () => {
       try {
         console.log(Number(coherentInfo.value.id))
         let purchase = await pmtContractApi.purchasePackage(Number(coherentInfo.value.id - 1))
+        proxy.$confirm.hide()
+        proxy.$confirm.show({
+          title: '成功',
+          content: `已成功購買 ${coherentInfo.value.type} 配套`,
+          showCancelButton: false,
+          confirmText: '確定',
+          onConfirm: () => {
+            proxy.$confirm.hide()
+            // toggleConfirmPayPopup()
+          },
+        });
         console.log(purchase)
         let data = {
           address: referrerAddress.value,
@@ -538,8 +549,8 @@ async function handleConfirmBuyForUSDT() {
           legSide: currentPoint.value == 0 ? 'left' : 'right'
         }
         await joinTheThree(data)
-        proxy.$confirm.hide()
-        showToast('購買成功')
+        // proxy.$confirm.hide()
+        // showToast('購買成功')
       } catch (err) {
         proxy.$confirm.hide()
         proxy.$confirm.hide()
@@ -593,6 +604,25 @@ async function handlePopupConfirmBuy() {
   let isAdequateBalance
   try {
     isAdequateBalance = await adequateBalance({ package_id: coherentInfo.value.id })
+    console.log('isAdequateBalance', isAdequateBalance)
+    proxy.$loading.hide()
+    if (isAdequateBalance.message == "RT餘額不足") {
+      proxy.$confirm.show({
+        title: '提示',
+        content: `RT餘額不足，無法購買 ${coherentInfo.value.type} 配套`,
+        showCancelButton: true,
+        confirmText: '確定',
+        onConfirm: async () => {
+          proxy.$confirm.hide()
+        },
+        // onCacncel: async () => {
+        //     proxy.$confirm.hide()
+        // }
+      });
+      return
+    }
+
+
   } catch (err) {
     showToast('獲取餘額失敗，請重試')
     proxy.$loading.hide()
@@ -602,36 +632,48 @@ async function handlePopupConfirmBuy() {
   proxy.$confirm.hide()
   proxy.$confirm.show({
     title: '提示',
-    content: `是否確認購買該配套`,
+    content: `是否確認購買 ${coherentInfo.value.type} 配套`,
     showCancelButton: true,
     confirmText: '確定',
     onConfirm: async () => {
-      let data = { package_id: coherentInfo.value.id, referrer_address: referrerAddress.value, leg_address: legAddress.value, legSide: currentPoint.value == 0 ? 'left' : 'right' }
+      let data = { package_id: coherentInfo.value.id }
       buyCoherent(data)
         .then(res => {
           console.log('購買成功', res)
-          // proxy.$loading.hide()
+
           // showToast(res.message)
-          let timer = setTimeout(() => {
-            updataRTBalance(localStorage.getItem('address'))
-              .then(result => {
-                proxy.$loading.hide()
 
-                console.log('購買成功', result)
-                showToast(res.message)
-                proxy.$confirm.hide()
+          setTimeout(() => {
+            proxy.$confirm.hide()
+            proxy.$confirm.show({
+              title: '成功',
+              content: `已成功購買 ${coherentInfo.value.type} 配套`,
+              showCancelButton: false,
+              confirmText: '確定',
+              onConfirm: async () => {
+                updataRTBalance(localStorage.getItem('address'))
+                  .then(result => {
+                    proxy.$loading.hide()
+                    console.log('購買成功', result)
+                    // showToast(res.message)
+                    proxy.$confirm.hide()
+                    // clearTimeout(timer)
+                  })
+                  .catch(err => {
+                    proxy.$loading.hide()
+                    console.log('更新rt餘額失敗', err)
+                    proxy.$confirm.hide()
+                  })
+              },
+              // onCacncel: async () => {
+              //     proxy.$confirm.hide()
+              // }
+            });
+          }, 5000);
 
-                clearTimeout(timer)
 
-              })
-              .catch(err => {
-                proxy.$loading.hide()
-                console.log('更新rt餘額失敗', err)
-              })
-          }, 5000)
         })
         .catch(err => {
-          proxy.$confirm.hide()
           proxy.$confirm.hide()
           proxy.$confirm.show({
             title: '提示',
@@ -647,9 +689,9 @@ async function handlePopupConfirmBuy() {
 
         })
     },
-    // onCacncel: async () => {
-    //     proxy.$confirm.hide()
-    // }
+    onCacncel: async () => {
+      proxy.$confirm.hide()
+    }
   });
 
 
@@ -690,14 +732,14 @@ async function checkERC20ApproveState(walletAddress) {
   return true
 }
 async function handleConfirmBuyForRT() {
-  if (referrerAddress.value == null) {
-    showToast(t('coherents.pleaseEnter') + t('coherents.directAddress'))
-    return
-  }
-  if (legAddress.value == null) {
-    showToast(t('coherents.pleaseEnter') + t('coherents.collisionAddress'))
-    return
-  }
+  // if (referrerAddress.value == null) {
+  //   showToast(t('coherents.pleaseEnter') + t('coherents.directAddress'))
+  //   return
+  // }
+  // if (legAddress.value == null) {
+  //   showToast(t('coherents.pleaseEnter') + t('coherents.collisionAddress'))
+  //   return
+  // }
   // proxy.$loading.show()
 
   toggleConfirmPayPopup()
