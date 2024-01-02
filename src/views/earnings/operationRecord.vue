@@ -38,7 +38,7 @@
                         <div class="w-full  mb-3 rounded overflow-hidden p-2 pb-20 text-card-word text-sm">
                             <div class="w-11/12 mr-auto ml-auto">
                                 <div v-for="(item, index) in dataList" class="mb-2" :key="index">
-                                    <earnings-card :time="item.updated_at || item.created_at" :operationType="item.status"
+                                    <earnings-card :time="item.created_at" :operationType="item.status"
                                         :remark="item.remark ? item.remark : `${actions[currentFilter].text}兌換${item.token && item.token.symbol}`"
                                         :address="item.address" :isEarning="currentTab == 0 || currentTab == 1"
                                         :isNFT="currentTab == 2" :isToken="currentTab == 3"
@@ -73,14 +73,23 @@ import EarningsCard from "./earningsCard.vue";
 const { t } = useI18n()
 const { proxy } = getCurrentInstance()
 const typeList = ref([{ title: '直推奖励' }, { title: '对碰奖励' }, { title: '代数奖励' }])
-let actions = ref([
-    { text: 'USD3', value: true, index: 0 },
+// let actions = ref([
+//     { text: 'USD3', value: true, index: 0 },
+//     { text: 'BT', value: false, index: 1 },
+//     { text: 'MT', value: false, index: 2 },
+//     { text: 'RT', value: false, index: 3 },
+//     { text: '綁定RT', value: false, index: 4 },
+//     { text: 'PMT', value: false, index: 5 }
+// ])
+let actions = ref(
+    [{ text: 'USD3', value: true, index: 0 },
     { text: 'BT', value: false, index: 1 },
     { text: 'MT', value: false, index: 2 },
-    { text: 'RT', value: false, index: 3 },
-    { text: '綁定RT', value: false, index: 4 },
-    { text: 'PMT', value: false, index: 5 }
-])
+        // { text: 'RT', value: false, index: 3 },
+        // { text: '綁定RT', value: false, index: 4 },
+        //     { text: 'PMT', value: false, index: 5 }
+    ]
+)
 // let typeList = ref([{ title: t('assistance.directMarketingAward') }, { title: t('assistance.matchReward') }, { title: t('assistance.generationIncentive') }])
 let currentType = ref(0)
 let currentTab = ref(0)
@@ -390,9 +399,22 @@ function handleType(item, index) {
         }
     } else if (currentTab.value == 3) {
         if (currentType.value == 0) {
+            actions.value = [{ text: 'USD3', value: true, index: 0 },
+            { text: 'BT', value: false, index: 1 },
+            { text: 'MT', value: false, index: 2 },
+                // { text: 'RT', value: false, index: 3 },
+                // { text: '綁定RT', value: false, index: 4 },
+                //     { text: 'PMT', value: false, index: 5 }
+            ]
             let params = { address: localStorage.getItem('address'), sortBy: 'created_at', sortDesc: true }
             getUSDTExchangeRecord(params)
         } else if (currentType.value == 1) {
+            actions.value = [{ text: 'USD3', value: true, index: 0 },
+            { text: 'BT', value: false, index: 1 },
+            { text: 'MT', value: false, index: 2 },
+            { text: 'RT', value: false, index: 3 },
+            { text: '綁定RT', value: false, index: 4 },
+            { text: 'PMT', value: false, index: 5 }]
             //去獲取usdt的交易記錄 （待完成）
             // if(currentType == )
         }
