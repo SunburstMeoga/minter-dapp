@@ -46,7 +46,8 @@
                                         :symbol="item.token && item.token.symbol"
                                         :transfer="currentTab == 3 && currentType == 1"
                                         :transferType="item.dynamic_earning_type && item.dynamic_earning_type.name || item.remark"
-                                        :showOutput="currentTab == 0 && currentType == 0" :tokenID="item.token_id" />
+                                        :showOutput="currentTab == 0 && currentType == 0"
+                                        :tokenID="currentTab == 1 ? item.nft_token_id : item.token_id" />
                                 </div>
                             </div>
                         </div>
