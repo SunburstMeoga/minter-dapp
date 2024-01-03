@@ -296,16 +296,18 @@ async function handleListed(item) {
     proxy.$loading.show()
     let numListingsIn24Hours
     let totalListings
+    let lastListingTime
     let timestamp
     try {
         numListingsIn24Hours = await nftContractApi.getNumListingsIn24Hours(localStorage.getItem('address')) //24小時內一共多少張NFT正在掛賣或已經賣出
         totalListings = await nftContractApi.getTotalListings(localStorage.getItem('address')) //現正掛賣NFT數量
         lastListingTime = await nftContractApi.getLastListingTime(localStorage.getItem('address')) //由此時間開始計起24小時 
-        timestamp = lastListingTime + 60 * 60 * 24 * 1000
+        timestamp = Number(lastListingTime) + Number(60 * 60 * 24 * 1000)
         console.log('24小時內一共多小張NFT正在掛賣或已經賣出', numListingsIn24Hours)
         console.log('現正掛賣NFT數量', totalListings)
+        console.log('由此時間開始計起24小時', lastListingTime)
         proxy.$confirm.hide()
-        if (numListingsIn24Hours >= 4) {
+        if (Number(numListingsIn24Hours) >= 4) {
             proxy.$confirm.hide()
             proxy.$confirm.show({
                 title: '提示',
@@ -320,7 +322,7 @@ async function handleListed(item) {
             return
         }
 
-        if (totalListings >= 4) {
+        if (Number(totalListings) >= 4) {
             proxy.$confirm.hide()
             proxy.$confirm.show({
                 title: '提示',
@@ -338,6 +340,7 @@ async function handleListed(item) {
     } catch (err) {
         console.log(err)
         proxy.$confirm.hide()
+        proxy.$loading.hide()
         showToast('获取挂单状态失败，请重试')
         return
     }

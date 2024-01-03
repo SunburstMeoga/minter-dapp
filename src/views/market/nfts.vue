@@ -540,7 +540,7 @@ async function handleBuyButton(item, canBuy) {
             })
             .catch(err => {
                 proxy.$loading.hide()
-                showToast('購買失敗，請重試')
+                // showToast('購買失敗，請重試')
                 console.log(err)
             })
     }
