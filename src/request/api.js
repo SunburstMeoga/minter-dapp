@@ -283,3 +283,10 @@ export function mtTransations(params) {
     params
   })
 }
+//pmt交易记录
+export function pmtTransations(params) {
+  return request('/records/transactions/pmt', {
+    method: 'GET',
+    params
+  })
+}

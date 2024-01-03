@@ -47,7 +47,7 @@
                 <div class="text-red-500 font-bold">{{ currentType }}</div>
             </div> -->
             <div class="flex justify-between items-center mb-2">
-                <div>兌換金額</div>
+                <div>金額</div>
                 <div class="text-red-500 font-bold">{{ price }} {{ symbol }}</div>
             </div>
             <div class="flex justify-between items-center mb-2" v-show="remark && !transfer">

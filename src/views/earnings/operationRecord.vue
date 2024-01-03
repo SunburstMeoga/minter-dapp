@@ -65,7 +65,7 @@
 import { ref, onMounted, getCurrentInstance, computed } from 'vue'
 import { useI18n } from 'vue-i18n';
 import { FilterTime } from '@/utils/format'
-import { dynamicEarningTypes, dynamicRecords, staticRecords, nftMarketplace, nftTransaction, usdtExchangeRecord, btExchangeRecord, mtExchangeRecord, btTransations, mtTransations, rtTransations, nftSale } from '@/request/api'
+import { dynamicEarningTypes, dynamicRecords, staticRecords, nftMarketplace, nftTransaction, usdtExchangeRecord, btExchangeRecord, mtExchangeRecord, btTransations, mtTransations, rtTransations, pmtTransations, nftSale } from '@/request/api'
 import ModuleTitle from "@/components/ModuleTitle.vue";
 import EarningsCard from "./earningsCard.vue";
 
@@ -132,6 +132,8 @@ function onSelect(select) {
             getMTTransations(params)
         } else if (currentFilter.value == 3) {
             getRTTransations(params)
+        } else if (currentFilter.value == 5) {
+            getPMTTransations(params)
         }
 
     }
@@ -146,6 +148,22 @@ function getBTTransations(params) {
         .then(res => {
             console.log('bt交易記錄', res)
             dataList.value = res.transactions
+            proxy.$loading.hide()
+        })
+        .catch(err => {
+            console.log('err', err)
+            proxy.$loading.hide()
+        })
+}
+//mt交易记录
+function getMTTransations(params) {
+    proxy.$loading.show()
+    dataList.value = []
+    mtTransations(params)
+        .then(res => {
+            console.log('mt交易記錄', res)
+            dataList.value = res.nft_transactions
+            console.log(dataList.value.length)
             proxy.$loading.hide()
         })
         .catch(err => {
@@ -168,11 +186,12 @@ function getRTTransations(params) {
             proxy.$loading.hide()
         })
 }
-//mt交易记录
-function getMTTransations(params) {
+
+//pmt交易记录
+function getPMTTransations(params) {
     proxy.$loading.show()
     dataList.value = []
-    mtTransations(params)
+    pmtTransations(params)
         .then(res => {
             console.log('mt交易記錄', res)
             dataList.value = res.nft_transactions
@@ -403,6 +422,7 @@ function handleType(item, index) {
             nftSaleList()
         }
     } else if (currentTab.value == 3) {
+        currentFilter.value = 0
         if (currentType.value == 0) {
             actions.value = [{ text: 'USD3', value: true, index: 0 },
             { text: 'BT', value: false, index: 1 },
@@ -421,7 +441,6 @@ function handleType(item, index) {
             { text: '綁定RT', value: false, index: 4 },
             { text: 'PMT', value: false, index: 5 }]
             //去獲取usdt的交易記錄 （待完成）
-            // if(currentType == )
         }
 
     }
