@@ -75,12 +75,12 @@ if (window.ethereum) {
       return result
     },
     //24小時內一共多少張nft正在掛賣或已經賣出
-    numListingsIn24Hours: async function (walletAddr) {
+    getNumListingsIn24Hours: async function (walletAddr) {
       const result = await NFTGET.numListingsIn24Hours(walletAddr)
       return result
     },
     //現在正在掛賣的nft數量
-    totalListings: async function (walletAddr) {
+    getTotalListings: async function (walletAddr) {
       const result = await NFTGET.totalListings(walletAddr)
       return result
     },

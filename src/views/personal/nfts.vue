@@ -243,7 +243,7 @@ function countDown(time) {
     return day + "天" + hour + "時" + minute + "分" + second + "秒"
 }
 //獲取24小時內掛單的nft數量
-async function getListeds24h() {
+async function getListeds24h() { //每个地址每天最多挂单4张NFT
     let timestamp = new Date().getTime()
     let listedsList = []
     listeds.value.find(item => {
@@ -262,39 +262,87 @@ async function handleListed(item) {
     // console.log(await getListeds24h())
     // console.log(listeds.value.length)
     // return
-    if (await getListeds24h() >= 4) {
-        proxy.$confirm.hide()
-        proxy.$confirm.show({
-            title: '提示',
-            content: '您在24小時內已經進行過4次掛單，暫無法進行再次掛單。',
-            showCancelButton: false,
-            confirmText: '確定',
-            onConfirm: () => {
-                proxy.$confirm.hide()
-            },
-        });
-        return
-    }
+    // if (await getListeds24h() >= 4) {
+    //     proxy.$confirm.hide()
+    //     proxy.$confirm.show({
+    //         title: '提示',
+    //         content: '您在24小時內已經進行過4次掛單，暫無法進行再次掛單。',
+    //         showCancelButton: false,
+    //         confirmText: '確定',
+    //         onConfirm: () => {
+    //             proxy.$confirm.hide()
+    //         },
+    //     });
+    //     return
+    // }
 
-    if (listeds.value.length >= 4) {
-        proxy.$confirm.hide()
-        proxy.$confirm.show({
-            title: '提示',
-            content: '當前有4張NFT正在掛單未出售，無法進行掛單。',
-            showCancelButton: false,
-            confirmText: '確定',
-            onConfirm: () => {
-                proxy.$confirm.hide()
-            },
-        });
-        return
-    }
+    // if (listeds.value.length >= 4) { //每个地址最多同时挂单4张
+    //     proxy.$confirm.hide()
+    //     proxy.$confirm.show({
+    //         title: '提示',
+    //         content: '當前有4張NFT正在掛單未出售，無法進行掛單。',
+    //         showCancelButton: false,
+    //         confirmText: '確定',
+    //         onConfirm: () => {
+    //             proxy.$confirm.hide()
+    //         },
+    //     });
+    //     return
+    // }
+
 
     console.log(item)
     // return
     proxy.$loading.show()
-    let time
+    let numListingsIn24Hours
+    let totalListings
+    let timestamp
     try {
+        numListingsIn24Hours = await nftContractApi.getNumListingsIn24Hours(localStorage.getItem('address')) //24小時內一共多少張NFT正在掛賣或已經賣出
+        totalListings = await nftContractApi.getTotalListings(localStorage.getItem('address')) //現正掛賣NFT數量
+        lastListingTime = await nftContractApi.getLastListingTime(localStorage.getItem('address')) //由此時間開始計起24小時 
+        timestamp = lastListingTime + 60 * 60 * 24 * 1000
+        console.log('24小時內一共多小張NFT正在掛賣或已經賣出', numListingsIn24Hours)
+        console.log('現正掛賣NFT數量', totalListings)
+        proxy.$confirm.hide()
+        if (numListingsIn24Hours >= 4) {
+            proxy.$confirm.hide()
+            proxy.$confirm.show({
+                title: '提示',
+                content: `24小時內一共只能掛單或售賣4張NFT，您当前已挂单或售出${numListingsIn24Hours}张，${countDown(timestamp)} 後可繼續掛單`,
+                showCancelButton: false,
+                confirmText: '確定',
+                onConfirm: () => {
+                    proxy.$confirm.hide()
+                    proxy.$loading.hide()
+                },
+            });
+            return
+        }
+
+        if (totalListings >= 4) {
+            proxy.$confirm.hide()
+            proxy.$confirm.show({
+                title: '提示',
+                content: `你当前已经挂单${totalListings}张NFT，${countDown(timestamp)} 後可繼續掛單`,
+                showCancelButton: false,
+                confirmText: '確定',
+                onConfirm: () => {
+                    proxy.$confirm.hide()
+                    proxy.$loading.hide()
+                },
+            });
+            return
+        }
+
+    } catch (err) {
+        console.log(err)
+        proxy.$confirm.hide()
+        showToast('获取挂单状态失败，请重试')
+        return
+    }
+    let time
+    try { //禁售期
         time = await nftContractApi.sellOffPeriod(item.token_id)
         console.log('出售時間時間戳', Number(time))
         console.log('現在時間時間戳', parseInt(new Date().getTime() / 1000))
