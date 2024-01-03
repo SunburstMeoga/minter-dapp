@@ -302,16 +302,30 @@ async function handleListed(item) {
         numListingsIn24Hours = await nftContractApi.getNumListingsIn24Hours(localStorage.getItem('address')) //24小時內一共多少張NFT正在掛賣或已經賣出
         totalListings = await nftContractApi.getTotalListings(localStorage.getItem('address')) //現正掛賣NFT數量
         lastListingTime = await nftContractApi.getLastListingTime(localStorage.getItem('address')) //由此時間開始計起24小時 
-        timestamp = Number(lastListingTime) + Number(60 * 60 * 24 * 1000)
+        lastListingTime = 1704271082
+        timestamp = Number(lastListingTime) + Number(60 * 60 * 24)
+        // timestamp = new Date(timestamp).getTime()
         console.log('24小時內一共多小張NFT正在掛賣或已經賣出', numListingsIn24Hours)
         console.log('現正掛賣NFT數量', totalListings)
         console.log('由此時間開始計起24小時', lastListingTime)
+        console.log('timestamp', timestamp)
+        // proxy.$confirm.show({
+        //     title: '提示',
+        //     content: `24小時內一共只能掛單或售賣4張NFT，您当前已挂单或售出${numListingsIn24Hours}张，${countDown(timestamp)}後可繼續掛單`,
+        //     showCancelButton: false,
+        //     confirmText: '確定',
+        //     onConfirm: () => {
+        //         proxy.$confirm.hide()
+        //         proxy.$loading.hide()
+        //     },
+        // });
+        // return
         proxy.$confirm.hide()
         if (Number(numListingsIn24Hours) >= 4) {
             proxy.$confirm.hide()
             proxy.$confirm.show({
                 title: '提示',
-                content: `24小時內一共只能掛單或售賣4張NFT，您当前已挂单或售出${numListingsIn24Hours}张，${countDown(timestamp)} 後可繼續掛單`,
+                content: `24小時內一共只能掛單或售賣4張NFT，您当前已挂单或售出${numListingsIn24Hours}张，${countDown(timestamp)}後可繼續掛單`,
                 showCancelButton: false,
                 confirmText: '確定',
                 onConfirm: () => {
