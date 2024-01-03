@@ -69,6 +69,21 @@ if (window.ethereum) {
       const result = await NFTGET.getAllListedNFTs()
       return result
     },
+    //由此时间开始计起24小時
+    getLastListingTime: async function (walletAddr) {
+      const result = await NFTGET.getLastListingTime(walletAddr)
+      return result
+    },
+    //24小時內一共多少張nft正在掛賣或已經賣出
+    numListingsIn24Hours: async function (walletAddr) {
+      const result = await NFTGET.numListingsIn24Hours(walletAddr)
+      return result
+    },
+    //現在正在掛賣的nft數量
+    totalListings: async function (walletAddr) {
+      const result = await NFTGET.totalListings(walletAddr)
+      return result
+    },
     //授權狀態
     isApprovedAll: async function (walletAddr, contractAddress) {
       const result = await MTCOLLECTION.isApprovedForAll(walletAddr, contractAddress)

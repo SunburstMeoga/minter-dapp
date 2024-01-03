@@ -49,9 +49,9 @@
 		},
 		"gasEstimates": null,
 		"methodIdentifiers": {
-			"getWithdrawalAmount(address)": "56582bf9",
-			"getWithdrawalAmountLimit(address)": "e67777ba",
-			"updateWithdrawalAmount(address,uint256)": "843f44f1"
+			"getHighestPurchase(address)": "d491bab8",
+			"getRewardAmount(address)": "44a040f5",
+			"getRewardAmountLimit(address)": "292afe23"
 		}
 	},
 	"abi": [
@@ -59,11 +59,11 @@
 			"inputs": [
 				{
 					"internalType": "address",
-					"name": "_address",
+					"name": "buyer",
 					"type": "address"
 				}
 			],
-			"name": "getWithdrawalAmount",
+			"name": "getHighestPurchase",
 			"outputs": [
 				{
 					"internalType": "uint256",
@@ -82,7 +82,7 @@
 					"type": "address"
 				}
 			],
-			"name": "getWithdrawalAmountLimit",
+			"name": "getRewardAmount",
 			"outputs": [
 				{
 					"internalType": "uint256",
@@ -99,16 +99,17 @@
 					"internalType": "address",
 					"name": "_address",
 					"type": "address"
-				},
+				}
+			],
+			"name": "getRewardAmountLimit",
+			"outputs": [
 				{
 					"internalType": "uint256",
-					"name": "_amount",
+					"name": "",
 					"type": "uint256"
 				}
 			],
-			"name": "updateWithdrawalAmount",
-			"outputs": [],
-			"stateMutability": "nonpayable",
+			"stateMutability": "view",
 			"type": "function"
 		}
 	]

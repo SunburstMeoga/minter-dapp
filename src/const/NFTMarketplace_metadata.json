@@ -130,6 +130,18 @@
 						"internalType": "uint256",
 						"name": "price",
 						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "mtAmount",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "pmtAmount",
+						"type": "uint256"
 					}
 				],
 				"name": "Purchased",
@@ -207,6 +219,25 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "_address",
+						"type": "address"
+					}
+				],
+				"name": "getLastListingTime",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "tokenId",
 						"type": "uint256"
@@ -235,6 +266,44 @@
 						"internalType": "struct NFTMarketplace.Listing",
 						"name": "",
 						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_address",
+						"type": "address"
+					}
+				],
+				"name": "getNumListingsIn24Hours",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_address",
+						"type": "address"
+					}
+				],
+				"name": "getTotalListings",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -679,11 +748,11 @@
 			]
 		},
 		"contract/NFTMarketplace.sol": {
-			"keccak256": "0x3f3415580fd54144901f08ccff4b66a82408419022da72c178773ba21bbbe517",
+			"keccak256": "0xed2edf7a7222aaf9860c67dc140bd4aaeedc8b7b48b054584598bb52949176b6",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://94c6dddc9d6ef9861968b4d0e90a081457e99b21b1c5e63e129f2a82d7b47b43",
-				"dweb:/ipfs/Qmc9WaMihnzwS58xNe11iwpuCfqXcF2NKoJ551p1QcwdYi"
+				"bzz-raw://ed9d825f81828c911cd2641fac5d72f5c9ccaf6184e081183b94f17092991cb9",
+				"dweb:/ipfs/QmWRd6Ec3F56ueNYA9SAV3gPCBVtvTE7JXzhPTL5i3Edgu"
 			]
 		}
 	},
