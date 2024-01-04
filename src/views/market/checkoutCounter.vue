@@ -71,25 +71,24 @@
           <div>{{ coherentInfo.releasePMT }}PMT</div>
         </div>
 
-        <!-- <div class="flex justify-between text-gray-400 items-center p-2 rounded active-primary-color"
+        <div class="flex justify-between text-gray-400 items-center p-2 rounded active-primary-color"
           v-for="(item, index) in propertiesList" :key="index" @click="handlePropertiesItem(item, index)">
           <div>{{ item.title }}</div>
           <div class="flex justify-end items-center">
             <div class="mr-0.5">{{ item.content }}</div>
             <div class=" icon iconfont icon-right"></div>
           </div>
-        </div> -->
+        </div>
       </div>
 
       <div class="w-11/12 flex justify-between items-center fixed bottom-3">
-        <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForRT">
+        <div class="w-full operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForRT">
           <!-- {{ $t('modalConfirm.confirm') }} {{ $t('coherents.buy') }} -->
           RT支付
         </div>
-        <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForUSDT">
-          <!-- {{ $t('modalConfirm.confirm') }} {{ $t('coherents.buy') }} -->
+        <!-- <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForUSDT">
           USD3支付
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- 直接上級彈窗 -->
@@ -105,19 +104,21 @@
                 class="w-full h-full bg-page-content rounded text-sm">
             </div>
             <div class="flex justify-between items-center w-11/12">
-              <div class="text-gray-200 underline text-sm active-white-color flex justify-end items-center">
+              <!-- <div class="text-gray-200 underline text-sm active-white-color flex justify-end items-center">
                 <div class="w-4 mr-2" v-show="calibratingReferrer">
                   <img src="@/assets/images/calibration-loading.gif" alt="">
                 </div>
                 <div @click="handleCalibrationReferrer">校驗地址</div>
-              </div>
+              </div> -->
               <div class="text-sm text-left animate__animated text-red-500" v-show="isErrReferrer"
                 :class="isErrReferrer ? 'animate__shakeX text-red-500' : ''">{{ $t('coherents.invalidAddress') }}
               </div>
             </div>
           </div>
         </div>
-        <div class="w-full flex justify-center items-center" v-show="canUseReferrer">
+        <!-- <div class="w-full flex justify-center items-center" v-show="canUseReferrer"> -->
+
+        <div class="w-full flex justify-center items-center">
           <div class="w-11/12 text-center py-2.5 rounded-full operating-button" @click="handleConfirmReferrerAddress">
             {{ $t('modalConfirm.confirm') }}
           </div>
@@ -150,7 +151,9 @@
           </div>
 
         </div>
-        <div class="w-full flex justify-center items-center" v-show="canUseLeg">
+        <!-- <div class="w-full flex justify-center items-center" v-show="canUseLeg"> -->
+        <div class="w-full flex justify-center items-center">
+
           <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmLegAddress">
             {{ $t('modalConfirm.confirm') }}
           </div>
@@ -174,6 +177,39 @@
         </div>
         <div class="w-full flex justify-center items-center">
           <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmPoint">
+            {{ $t('modalConfirm.confirm') }}
+          </div>
+        </div>
+      </div>
+    </van-popup>
+    <!-- 下級地址彈窗 -->
+    <van-popup v-model:show="showNextPopup" round position="bottom">
+      <div class="bg-page-content text-white py-4 flex flex-col justify-center">
+        <div class="w-full mb-4">
+          <div class="text-center mb-4 font-bold">{{ propertiesList[3].title }}</div>
+          <div class="w-full flex flex-col items-center mb-4">
+            <div class="text-gray-200 text-sm text-left w-11/12 mb-1">{{ propertiesList[3].title }}</div>
+            <div class="rounded overflow-hidden w-11/12 h-11  mb-1">
+              <input @focus="isErrLeg = false" type="text"
+                :placeholder="propertiesList[3].placeholder + propertiesList[3].title" v-model="helpNextAddress"
+                class="w-full h-full bg-page-content rounded text-sm">
+            </div>
+            <!-- <div class="flex justify-between items-center w-11/12">
+              <div class="text-gray-200 underline text-sm active-white-color flex justify-end items-center">
+                <div class="w-4 mr-2" v-show="calibratingLeg">
+                  <img src="@/assets/images/calibration-loading.gif" alt="">
+                </div>
+                <div @click="handleCalibrationLeg">校驗地址</div>
+              </div>
+              <div v-show="isErrLeg" class="text-sm text-left animate__animated text-red-500"
+                :class="isErrLeg ? 'animate__shakeX text-red-500' : ''">{{ $t('coherents.invalidAddress') }}
+              </div>
+            </div> -->
+          </div>
+
+        </div>
+        <div class="w-full flex justify-center items-center">
+          <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmNextAddress">
             {{ $t('modalConfirm.confirm') }}
           </div>
         </div>
@@ -250,7 +286,7 @@ import { showToast } from 'vant';
 import coherents_list from '@/datas/coherents_list'
 import { FormatAmount, FilterAddress } from '@/utils/format'
 import { useI18n } from 'vue-i18n';
-import { buyCoherent, adequateBalance, addressLeg, checkReferrerAddress, joinTheThree, playersInfo, updataRTBalance, rtBalance } from '@/request/api'
+import { buyCoherent, adequateBalance, addressLeg, checkReferrerAddress, joinTheThree, playersInfo, updataRTBalance, rtBalance, buyPackageToNext } from '@/request/api'
 import pmtContractApi from '@/request/pmt'
 import usdtContractApi from '@/request/usdt'
 import { config } from '@/const/config'
@@ -265,6 +301,7 @@ let isErrLeg = ref(false) //对碰上级是否为无效地址
 let coherentInfo = ref({})
 let referrerAddress = ref(null) //直接上级
 let legAddress = ref(null)//对碰上级
+let helpNextAddress = ref(null)
 let calibratingReferrer = ref(false) //正在校驗直接上級地址
 let calibratingLeg = ref(false) //正在校驗直接上級地址
 let canUseReferrer = ref(false)
@@ -274,9 +311,11 @@ let showPointPopup = ref(false)
 const pointList = ref([])
 let propertiesList = computed(() => {
   return [
-    { title: t('coherents.directAddress'), placeholder: t('coherents.pleaseEnter'), content: '' },
-    { title: t('coherents.collisionAddress'), placeholder: t('coherents.pleaseEnter'), content: '' },
-    { title: t('對碰上級地址點位'), placeholder: '請選擇', content: '' },
+    { title: '邀請人地址', placeholder: t('coherents.pleaseEnter'), content: '' },
+    { title: '對碰地址', placeholder: t('coherents.pleaseEnter'), content: '' },
+    { title: '点位', placeholder: '請選擇', content: '' },
+    { title: t('下级地址'), placeholder: '請選擇', content: '' },
+
   ]
 })
 let currentPoint = ref(null)
@@ -285,6 +324,7 @@ let showLegAddressPopup = ref(false)
 let showConfirmPayPopup = ref(false)
 let showPMTPopover = ref(false)
 let palayBanalce = ref({})
+let showNextPopup = ref(false)
 onMounted(() => {
   // FormatAmount()
   console.log(route.params.type)
@@ -310,6 +350,9 @@ function getPlayersInfo(address) {
 }
 function togglePointPopup() {
   showPointPopup.value = !showPointPopup.value
+}
+function toggleNextPopup() {
+  showNextPopup.value = !showNextPopup.value
 }
 //點擊點位選擇彈窗確認按鈕
 function handleConfirmPoint() {
@@ -372,10 +415,10 @@ async function handleCalibrationReferrer() {
 }
 //點擊校驗對碰上級地址
 async function handleCalibrationLeg() {
-  if (legAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase()) {
-    showToast('自己的地址不能作為自己的對碰上級')
-    return
-  }
+  // if (legAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase()) {
+  //   showToast('自己的地址不能作為自己的對碰上級')
+  //   return
+  // }
   isErrReferrer.value = false
   if (calibratingLeg.value) {
     showToast('正在校驗，請稍後')
@@ -573,7 +616,16 @@ async function handleConfirmBuyForUSDT() {
     // },
   });
 }
-
+//點擊填寫下級彈窗確認按鈕
+async function handleConfirmNextAddress() {
+  if (!helpNextAddress.value) {
+    showToast('請輸入下級地址')
+    // calibratingLeg.value = false
+    return
+  }
+  propertiesList.value[3].content = FilterAddress(helpNextAddress.value)
+  toggleNextPopup()
+}
 //点击填写对碰上级弹窗确认按钮
 async function handleConfirmLegAddress() {
   if (!legAddress.value) {
@@ -607,6 +659,7 @@ async function handlePopupConfirmBuy() {
     console.log('isAdequateBalance', isAdequateBalance)
     proxy.$loading.hide()
     if (isAdequateBalance.message == "RT餘額不足") {
+      proxy.$loading.hide()
       proxy.$confirm.show({
         title: '提示',
         content: `RT餘額不足，無法購買 ${coherentInfo.value.type} 配套`,
@@ -636,39 +689,52 @@ async function handlePopupConfirmBuy() {
     showCancelButton: true,
     confirmText: '確定',
     onConfirm: async () => {
-      let data = { package_id: coherentInfo.value.id }
-      buyCoherent(data)
+      let data = {
+        package_id: coherentInfo.value.id,
+        address: helpNextAddress.value,
+        leg_address: legAddress.value,
+        legSide: currentPoint.value == 0 ? 'left' : 'right',
+        referrer_address: referrerAddress.value
+      }
+      buyPackageToNext(data)
         .then(res => {
           console.log('購買成功', res)
 
           // showToast(res.message)
 
           setTimeout(() => {
-            proxy.$confirm.hide()
-            proxy.$confirm.show({
-              title: '成功',
-              content: `已成功購買 ${coherentInfo.value.type} 配套`,
-              showCancelButton: false,
-              confirmText: '確定',
-              onConfirm: async () => {
-                updataRTBalance(localStorage.getItem('address'))
-                  .then(result => {
-                    proxy.$loading.hide()
-                    console.log('購買成功', result)
-                    // showToast(res.message)
-                    proxy.$confirm.hide()
-                    // clearTimeout(timer)
-                  })
-                  .catch(err => {
-                    proxy.$loading.hide()
-                    console.log('更新rt餘額失敗', err)
-                    proxy.$confirm.hide()
-                  })
-              },
-              // onCacncel: async () => {
-              //     proxy.$confirm.hide()
-              // }
-            });
+            // proxy.$confirm.hide()
+            setTimeout(() => {
+              proxy.$confirm.hide()
+              proxy.$confirm.show({
+                title: '購買成功',
+                content: `已成功為下級購買 ${coherentInfo.value.type} 配套`,
+                showCancelButton: false,
+                confirmText: '確定',
+                onConfirm: () => {
+                  proxy.$confirm.hide()
+                  let data = {
+                    address: helpNextAddress.value,
+                    leg_address: legAddress.value,
+                    legSide: currentPoint.value == 0 ? 'left' : 'right',
+                  }
+                  joinTheThree(data)
+                  updataRTBalance(localStorage.getItem('address'))
+                    .then(result => {
+                      proxy.$loading.hide()
+                      console.log('購買成功', result)
+                      // showToast(res.message)
+                      proxy.$confirm.hide()
+                      // clearTimeout(timer)
+                    })
+                    .catch(err => {
+                      proxy.$loading.hide()
+                      console.log('更新rt餘額失敗', err)
+                      proxy.$confirm.hide()
+                    })
+                },
+              });
+            }, 8000);
           }, 5000);
 
 
@@ -704,17 +770,19 @@ function handlePropertiesItem(item, index) {
     toggleReferrerAddressPopup()
   } else if (index == 1) {
     toggleLegAdddressPopup()
-  } else {
+  } else if (index == 2) {
     // pointList.value[0].address = legAddressInfo.directReferrals.left_leg
-    if (pointList.value[0].address && pointList.value[1].address) {
-      showToast('对碰上级左右点位均被占用，请重新输入对碰上级地址')
-      return
-    }
-    if (!legAddress.value) {
-      showToast('填入对碰地址再选择点位')
-      return
-    }
+    // if (pointList.value[0].address && pointList.value[1].address) {
+    //   showToast('对碰上级左右点位均被占用，请重新输入对碰上级地址')
+    //   return
+    // }
+    // if (!legAddress.value) {
+    //   showToast('填入对碰地址再选择点位')
+    //   return
+    // }
     togglePointPopup()
+  } else if (index == 3) {
+    toggleNextPopup()
   }
   // switch (index) {
   //   case 0: toggleReferrerAddressPopup()
@@ -732,14 +800,17 @@ async function checkERC20ApproveState(walletAddress) {
   return true
 }
 async function handleConfirmBuyForRT() {
-  // if (referrerAddress.value == null) {
-  //   showToast(t('coherents.pleaseEnter') + t('coherents.directAddress'))
-  //   return
-  // }
-  // if (legAddress.value == null) {
-  //   showToast(t('coherents.pleaseEnter') + t('coherents.collisionAddress'))
-  //   return
-  // }
+  if (referrerAddress.value == null) {
+    showToast(t('coherents.pleaseEnter') + t('coherents.directAddress'))
+    return
+  }
+  if (legAddress.value == null) {
+    showToast(t('coherents.pleaseEnter') + t('coherents.collisionAddress'))
+    return
+  }
+  if (helpNextAddress.value == null) {
+    showToast('請輸入下級地址')
+  }
   // proxy.$loading.show()
 
   toggleConfirmPayPopup()
