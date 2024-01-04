@@ -44,12 +44,15 @@ input {
     /* text-align: center;	 */
     padding-left: 2px;
     border-radius: 4px;
+    text-indent: 4px;
 }
 
 input:focus-within {
     border: 1px solid #e149ed;
     padding-left: 2px;
-    border-radius: 4px;
+    border-radius: 999px;
+    text-indent: 4px;
+
 }
 
 .disable-button {

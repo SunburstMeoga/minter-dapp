@@ -38,7 +38,7 @@
                         <div class="w-full  mb-3 rounded overflow-hidden p-2 pb-20 text-card-word text-sm">
                             <div class="w-11/12 mr-auto ml-auto">
                                 <div v-for="(item, index) in dataList" class="mb-2" :key="index">
-                                    <earnings-card :time="item.created_at" :operationType="item.status"
+                                    <earnings-card :time="item.created_at" :operationType="item.is_listed"
                                         :remark="item.remark ? item.remark : `${actions[currentFilter].text}兌換${item.token && item.token.symbol}`"
                                         :address="item.address" :isEarning="currentTab == 0 || currentTab == 1"
                                         :isNFT="currentTab == 2" :isToken="currentTab == 3"
@@ -273,12 +273,12 @@ function nftPendList() {
     nftMarketplace(params)
         .then(res => {
             console.log('nft掛單記錄', res)
-            res.market_places.map(item => {
-                if (item.status !== 2) {
-                    dataList.value.push(item)
-                }
-            })
-            // dataList.value = res.market_places
+            // res.nft_transaction_logs.map(item => {
+            //     if (item.status !== 2) {
+            //         dataList.value.push(item)
+            //     }
+            // })
+            dataList.value = res.nft_transaction_logs
             proxy.$loading.hide()
         })
         .catch(err => {

@@ -217,7 +217,7 @@ export function nftTransaction(params) {
 }
 //nft掛單記錄
 export function nftMarketplace(params) {
-  return request('/nfts/marketplace', {
+  return request('/nft_transactions/log', {
     method: 'GET',
     params
   })

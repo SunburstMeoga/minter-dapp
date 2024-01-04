@@ -827,6 +827,21 @@ function viewPointMap(address) {
     addressLeg(address)
         .then(res => {
             console.log('點位圖', res)
+            if (res.message.address && res.message.address.length == 1) {
+                proxy.$loading.hide()
+                proxy.$confirm.hide()
+                isFinishPoint.value = true
+                proxy.$confirm.show({
+                    title: '提示',
+                    content: `您無法查詢不在您點位圖內的地址信息`,
+                    showCancelButton: false,
+                    confirmText: '確定',
+                    onConfirm: async () => {
+                        proxy.$confirm.hide()
+                    }
+                })
+                return
+            }
             directReferrals.value = res.directReferrals
             proxy.$loading.hide()
             isFinishPoint.value = true

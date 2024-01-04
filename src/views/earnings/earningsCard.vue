@@ -27,9 +27,9 @@
                 <div>Token ID</div>
                 <div># {{ tokenID }}</div>
             </div>
-            <div class="flex justify-between items-center mb-2" v-show="operationType == 0 || operationType == 1">
+            <div class="flex justify-between items-center mb-2" v-show="operationType === true || operationType === false">
                 <div>操作類型</div>
-                <div>{{ operationType == 0 ? '取消掛單' : '掛單' }}</div>
+                <div>{{ operationType ? '掛單' : '取消掛單' }}</div>
             </div>
             <div class="flex justify-between items-center ">
                 <div>时间</div>
