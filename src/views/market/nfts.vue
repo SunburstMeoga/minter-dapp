@@ -122,7 +122,10 @@ import nftTwo from '@/assets/images/600.png'
 import nftThree from '@/assets/images/2000.png'
 import nftFour from '@/assets/images/6000.png'
 import nftFive from '@/assets/images/20000.png'
+import Web3, { ContractOnceRequiresCallbackError } from "web3";
 import { userStore } from "@/stores/user";
+import pmtContractApi from '@/request/pmt'
+import mtContractApi from '@/request/mt'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -341,7 +344,49 @@ function getMarketplace(params) {
         })
 }
 
+// async function getPMTBalance() {
+//     let balance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
+//     let WEB3 = new Web3(window.ethereum)
+//     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
+//     console.log('pmt', result)
+//     pmtBalance.value = result
+//     return balance
+// }
+// async function getMTBalance() {
+//     let balance = await mtContractApi.balanceOf(localStorage.getItem('address'))
+//     let WEB3 = new Web3(window.ethereum)
+//     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
+//     console.log('mt', result)
+//     mtBalance.value = result
+//     return balance
+// }
 
+async function isNotEnoughBalance(amount) {
+    try {
+        let WEB3 = new Web3(window.ethereum)
+        let mtBalance = await mtContractApi.balanceOf(localStorage.getItem('address'))
+        mtBalance = WEB3.utils.fromWei(mtBalance.toString(), 'ether')
+        let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
+        pmtBalance = WEB3.utils.fromWei(pmtBalance.toString(), 'ether')
+        let balance = parseInt(parseInt(mtBalance) + parseInt(pmtBalance))
+        console.log(balance, parseInt(amount).toFixed(4))
+        return balance < parseInt(amount)
+
+    } catch (err) {
+        console.log(err)
+        proxy.$loading.hide()
+        proxy.$confirm.hide()
+        proxy.$confirm.show({
+            title: '提示',
+            content: `獲取PMT和MT餘額失敗，請重試`,
+            showCancelButton: false,
+            onConfirm: () => {
+                proxy.$confirm.hide()
+            }
+        })
+        return
+    }
+}
 
 async function handleBuyButton(item, canBuy) {
     console.log(item, canBuy)
@@ -349,9 +394,35 @@ async function handleBuyButton(item, canBuy) {
         showToast('您购买的配套等级不可购买该卡池NFT')
         return
     }
-    // return
-    // nftInfo.value = item
     proxy.$loading.show()
+    try {
+        if (await isNotEnoughBalance(item.price)) {
+            proxy.$loading.hide()
+            proxy.$confirm.hide()
+            proxy.$confirm.show({
+                title: '提示',
+                content: `您的PMT和MT餘額不足`,
+                showCancelButton: false,
+                onConfirm: () => {
+                    proxy.$confirm.hide()
+                }
+            })
+            return
+        }
+    } catch (err) {
+        console.log(err)
+        proxy.$loading.hide()
+        proxy.$confirm.hide()
+        proxy.$confirm.show({
+            title: '提示',
+            content: `獲取PMT和MT餘額失敗，請重試`,
+            showCancelButton: false,
+            onConfirm: () => {
+                proxy.$confirm.hide()
+            }
+        })
+        return
+    }
     let allowance
     try { //检查pmt对pmt_purchase的授权状态
         allowance = await nftContractApi.allowance(localStorage.getItem('address'), config.nfts_marketplace_addr)
