@@ -362,30 +362,14 @@ function getMarketplace(params) {
 // }
 
 async function isNotEnoughBalance(amount) {
-    try {
-        let WEB3 = new Web3(window.ethereum)
-        let mtBalance = await mtContractApi.balanceOf(localStorage.getItem('address'))
-        mtBalance = WEB3.utils.fromWei(mtBalance.toString(), 'ether')
-        let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
-        pmtBalance = WEB3.utils.fromWei(pmtBalance.toString(), 'ether')
-        let balance = parseInt(parseInt(mtBalance) + parseInt(pmtBalance))
-        console.log(balance, parseInt(amount).toFixed(4))
-        return balance < parseInt(amount)
-
-    } catch (err) {
-        console.log(err)
-        proxy.$loading.hide()
-        proxy.$confirm.hide()
-        proxy.$confirm.show({
-            title: '提示',
-            content: `獲取PMT和MT餘額失敗，請重試`,
-            showCancelButton: false,
-            onConfirm: () => {
-                proxy.$confirm.hide()
-            }
-        })
-        return
-    }
+    let WEB3 = new Web3(window.ethereum)
+    let mtBalance = await mtContractApi.balanceOf(localStorage.getItem('address'))
+    mtBalance = WEB3.utils.fromWei(mtBalance.toString(), 'ether')
+    let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
+    pmtBalance = WEB3.utils.fromWei(pmtBalance.toString(), 'ether')
+    let balance = parseInt(parseInt(mtBalance) + parseInt(pmtBalance))
+    console.log(balance, Number(amount).toFixed(4))
+    return balance < parseInt(amount)
 }
 
 async function handleBuyButton(item, canBuy) {
