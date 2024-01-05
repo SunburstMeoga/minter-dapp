@@ -456,6 +456,20 @@ async function handleConfirmBuyForRTPOPUP() {
                             });
                             return
                         }
+                        if (res.message == "推薦人地址不存在") {
+                            proxy.$confirm.hide()
+                            proxy.$confirm.show({
+                                title: '提示',
+                                content: `推薦人地址不存在`,
+                                showCancelButton: false,
+                                confirmText: '確定',
+                                onConfirm: () => {
+                                    proxy.$confirm.hide()
+
+                                },
+                            });
+                            return
+                        }
                         setTimeout(() => {
                             proxy.$confirm.hide()
                             proxy.$confirm.show({
