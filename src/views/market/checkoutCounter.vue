@@ -719,7 +719,7 @@ async function handlePopupConfirmBuy() {
             proxy.$confirm.hide()
             proxy.$confirm.show({
               title: '提示',
-              content: `对碰地址必须在上级地址的点位位图中`,
+              content: `對碰地址必須在上級地址的點位圖中`,
               showCancelButton: false,
               confirmText: '確定',
               onConfirm: () => {
