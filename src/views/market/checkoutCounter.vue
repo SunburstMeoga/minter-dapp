@@ -405,7 +405,17 @@ async function handleCalibrationReferrer() {
     console.log(isSelfNext)
     if (isSelfNext.message == '所檢示的地址不是自己的下級。') {
       calibratingReferrer.value = false
-      showToast(`${isSelfNext.message}`)
+      proxy.$confirm.hide()
+      proxy.$confirm.show({
+        title: '提示',
+        content: '邀請地址必須在您的點位圖中。',
+        showCancelButton: false,
+        confirmText: '確定',
+        onConfirm: () => {
+          proxy.$loading.hide()
+          proxy.$confirm.hide()
+        },
+      });
       return
     }
     // return
@@ -447,6 +457,24 @@ async function handleCalibrationLeg() {
   }
   try {
     let legAddressInfo
+    let isSelfNext
+    isSelfNext = await checkAddressInTree(referrerAddress.value)
+    console.log(isSelfNext)
+    if (isSelfNext.message == '所檢示的地址不是自己的下級。') {
+      calibratingReferrer.value = false
+      proxy.$confirm.hide()
+      proxy.$confirm.show({
+        title: '提示',
+        content: '對碰地址必須在您的點位圖中。',
+        showCancelButton: false,
+        confirmText: '確定',
+        onConfirm: () => {
+          proxy.$loading.hide()
+          proxy.$confirm.hide()
+        },
+      });
+      return
+    }
     console.log(addressLeg)
     legAddressInfo = await addressLeg(legAddress.value)
     if (legAddressInfo.message == '該地址沒有購買配套記錄，不是有效地址。') {
