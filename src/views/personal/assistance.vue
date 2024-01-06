@@ -856,6 +856,22 @@ function viewPointMap(address) {
                 })
                 return
             }
+            if (res.message == '所檢示的地址不是自己的下級。') {
+                proxy.$loading.hide()
+                proxy.$confirm.hide()
+                isFinishPoint.value = true
+                proxy.$confirm.show({
+                    title: '提示',
+                    content: `所檢示的地址不是自己的下級。`,
+                    showCancelButton: false,
+                    confirmText: '確定',
+                    onConfirm: async () => {
+                        proxy.$confirm.hide()
+                    }
+                })
+                return
+            }
+
             directReferrals.value = res.directReferrals
             proxy.$loading.hide()
             isFinishPoint.value = true

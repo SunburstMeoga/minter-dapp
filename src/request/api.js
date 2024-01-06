@@ -290,3 +290,9 @@ export function pmtTransations(params) {
     params
   })
 }
+//檢查玩家是否在自己腳下
+export function checkAddressInTree(address) {
+  return request('/players/check-in-tree/' + address, {
+    method: 'GET'
+  })
+}

@@ -104,12 +104,12 @@
                 class="w-full h-full bg-page-content rounded text-sm">
             </div>
             <div class="flex justify-between items-center w-11/12">
-              <!-- <div class="text-gray-200 underline text-sm active-white-color flex justify-end items-center">
+              <div class="text-gray-200 underline text-sm active-white-color flex justify-end items-center">
                 <div class="w-4 mr-2" v-show="calibratingReferrer">
                   <img src="@/assets/images/calibration-loading.gif" alt="">
                 </div>
                 <div @click="handleCalibrationReferrer">校驗地址</div>
-              </div> -->
+              </div>
               <div class="text-sm text-left animate__animated text-red-500" v-show="isErrReferrer"
                 :class="isErrReferrer ? 'animate__shakeX text-red-500' : ''">{{ $t('coherents.invalidAddress') }}
               </div>
@@ -286,7 +286,7 @@ import { showToast } from 'vant';
 import coherents_list from '@/datas/coherents_list'
 import { FormatAmount, FilterAddress } from '@/utils/format'
 import { useI18n } from 'vue-i18n';
-import { buyCoherent, adequateBalance, addressLeg, checkReferrerAddress, joinTheThree, playersInfo, updataRTBalance, rtBalance, buyPackageToNext } from '@/request/api'
+import { buyCoherent, adequateBalance, addressLeg, checkReferrerAddress, joinTheThree, playersInfo, updataRTBalance, rtBalance, buyPackageToNext, checkAddressInTree } from '@/request/api'
 import pmtContractApi from '@/request/pmt'
 import usdtContractApi from '@/request/usdt'
 import { config } from '@/const/config'
@@ -370,11 +370,16 @@ function handlePoint(item, index) {
 }
 //點擊校驗直接上級地址
 async function handleCalibrationReferrer() {
+  console.log('referrerAddress', referrerAddress.value)
   console.log(referrerAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase())
-  if (referrerAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase()) {
-    showToast('自己的地址不能作為自己的直接上級')
+  if (!referrerAddress.value) {
+    showToast('請輸入邀請地址')
     return
   }
+  // if (referrerAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase()) {
+  //   showToast('自己的地址不能作為自己的直接上級')
+  //   return
+  // }
   isErrLeg.value = false
   if (calibratingReferrer.value) {
     showToast('正在校驗，請稍後')
@@ -394,7 +399,16 @@ async function handleCalibrationReferrer() {
     return
   }
   let isValidAddress
+  let isSelfNext
   try {
+    isSelfNext = await checkAddressInTree(referrerAddress.value)
+    console.log(isSelfNext)
+    if (isSelfNext.message == '所檢示的地址不是自己的下級。') {
+      calibratingReferrer.value = false
+      showToast(`${isSelfNext.message}`)
+      return
+    }
+    // return
     isValidAddress = await checkReferrerAddress(referrerAddress.value)
     if (isValidAddress.message == '該地址是有效地址。') {
       calibratingReferrer.value = false
