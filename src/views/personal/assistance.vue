@@ -474,7 +474,7 @@ async function handleConfirmBuyForRTPOPUP() {
                             proxy.$confirm.hide()
                             proxy.$confirm.show({
                                 title: '購買失敗',
-                                content: `${res.message}`,
+                                content: `购买失败：该地址已有上级`,
                                 showCancelButton: false,
                                 confirmText: '確定',
                                 onConfirm: () => {
