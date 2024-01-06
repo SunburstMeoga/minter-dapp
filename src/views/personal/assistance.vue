@@ -470,6 +470,20 @@ async function handleConfirmBuyForRTPOPUP() {
                             });
                             return
                         }
+                        if (!res.players) {
+                            proxy.$confirm.hide()
+                            proxy.$confirm.show({
+                                title: '購買失敗',
+                                content: `${res.message}`,
+                                showCancelButton: false,
+                                confirmText: '確定',
+                                onConfirm: () => {
+                                    proxy.$confirm.hide()
+
+                                },
+                            });
+                            return
+                        }
                         setTimeout(() => {
                             proxy.$confirm.hide()
                             proxy.$confirm.show({
