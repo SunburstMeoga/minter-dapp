@@ -715,6 +715,20 @@ async function handlePopupConfirmBuy() {
             });
             return
           }
+          if (res.message == "Address not found in leg tree") {
+            proxy.$confirm.hide()
+            proxy.$confirm.show({
+              title: '提示',
+              content: `对碰地址必须在上级地址的点位位图中`,
+              showCancelButton: false,
+              confirmText: '確定',
+              onConfirm: () => {
+                proxy.$confirm.hide()
+
+              },
+            });
+            return
+          }
           setTimeout(() => {
             // proxy.$confirm.hide()
             setTimeout(() => {

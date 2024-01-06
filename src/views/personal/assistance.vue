@@ -8,7 +8,7 @@
                         <div class="w-11/12 text-center text-white rounded-full h-16 flex justify-between items-center">
                             <div class="flex-1 pr-4">
                                 <input type="text" v-model="searchAddress"
-                                    class="px-1 h-8 rounded-full text-sm bg-transparent w-full" placeholder="搜索下級地址">
+                                    class="px-1 h-8 rounded-full text-sm bg-transparent w-full" placeholder="搜索地址">
                             </div>
                             <div class="operating-button rounded-full px-3 h-8 flex items-center text-sm"
                                 @click="handleSearchAddress">搜索</div>
