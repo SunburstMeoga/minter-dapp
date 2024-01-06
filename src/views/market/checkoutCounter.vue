@@ -704,7 +704,7 @@ async function handlePopupConfirmBuy() {
           if (res.message == "推薦人地址不存在") {
             proxy.$confirm.hide()
             proxy.$confirm.show({
-              title: '提示',
+              title: '購買失敗',
               content: `推薦人地址不存在`,
               showCancelButton: false,
               confirmText: '確定',
@@ -718,7 +718,7 @@ async function handlePopupConfirmBuy() {
           if (res.message == "Address not found in leg tree") {
             proxy.$confirm.hide()
             proxy.$confirm.show({
-              title: '提示',
+              title: '購買失敗',
               content: `對碰地址必須在上級地址的點位圖中`,
               showCancelButton: false,
               confirmText: '確定',
