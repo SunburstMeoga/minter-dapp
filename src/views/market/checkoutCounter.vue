@@ -698,7 +698,7 @@ async function handlePopupConfirmBuy() {
       }
       buyPackageToNext(data)
         .then(res => {
-          console.log('購買成功', res)
+          console.log('購買', res)
 
           // showToast(res.message)
           if (res.message == "推薦人地址不存在") {
