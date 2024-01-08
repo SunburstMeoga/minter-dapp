@@ -537,7 +537,7 @@ async function handleListed(item) {
                             getUserNFTs()
                             getUserCanSaleNFT()
                             getAllNFT()
-                        }, 8000)
+                        }, 3000)
                     }
                 })
                 // setTimeout(() => {
