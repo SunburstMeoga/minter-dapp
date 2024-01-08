@@ -127,11 +127,11 @@ function getAllNFT() {
     let status = currentType.value
     let params = {}
     if (status == 0) {
-        params = { address: localStorage.getItem('address'), perPage: 10000 }
+        params = { address: '0x1d2891bf4D510f3DfeF85D1192c5f5F414CeBaf3', perPage: 10000 }
     } else if (status == 1) {
-        params = { address: localStorage.getItem('address'), status: 1, perPage: 10000 }
+        params = { address: '0x1d2891bf4D510f3DfeF85D1192c5f5F414CeBaf3', status: 1, perPage: 10000 }
     }
-    // let params = { address: localStorage.getItem('address'), status: 0, perPage: 10000 }
+    // let params = { address: '0x1d2891bf4D510f3DfeF85D1192c5f5F414CeBaf3', status: 0, perPage: 10000 }
     userNFT(params)
         .then(res => {
             proxy.$loading.hide()
@@ -180,19 +180,19 @@ function getUserNFTs() {
     // let status = currentType.value
     // let params = {}
     // if (status == 0) {
-    //     params = { address: localStorage.getItem('address'), perPage: 10000 }
+    //     params = { address: '0x1d2891bf4D510f3DfeF85D1192c5f5F414CeBaf3', perPage: 10000 }
     // } else if (status == 1) {
-    //     params = { address: localStorage.getItem('address'), status: 1, perPage: 10000 }
+    //     params = { address: '0x1d2891bf4D510f3DfeF85D1192c5f5F414CeBaf3', status: 1, perPage: 10000 }
     // }
-    // let params = { address: localStorage.getItem('address'), status: 0, perPage: 10000 }
-    let params = { address: localStorage.getItem('address'), status: 1, perPage: 10000 }
+    // let params = { address: '0x1d2891bf4D510f3DfeF85D1192c5f5F414CeBaf3', status: 0, perPage: 10000 }
+    let params = { address: '0x1d2891bf4D510f3DfeF85D1192c5f5F414CeBaf3', status: 1, perPage: 10000 }
     marketplace(params)
         .then(res => {
             proxy.$loading.hide()
             // saleables 可出售 listeds//正在掛單
             if (res.market_places.length !== 0) {
                 res.market_places.map(item => {
-                    if (item.address == localStorage.getItem('address')) {
+                    if (item.address == '0x1d2891bf4D510f3DfeF85D1192c5f5F414CeBaf3') {
                         listeds.value.push(item)
                         if (listeds.value.length !== 0) {
                             listeds.value.map(_item => {
@@ -299,11 +299,11 @@ async function handleListed(item) {
     let lastListingTime
     let timestamp
     try {
-        numListingsIn24Hours = await nftContractApi.getNumListingsIn24Hours(localStorage.getItem('address')) //24小時內一共多少張NFT正在掛賣或已經賣出
-        totalListings = await nftContractApi.getTotalListings(localStorage.getItem('address')) //現正掛賣NFT數量
-        lastListingTime = await nftContractApi.getLastListingTime(localStorage.getItem('address')) //由此時間開始計起24小時 
+        numListingsIn24Hours = await nftContractApi.getNumListingsIn24Hours('0x1d2891bf4D510f3DfeF85D1192c5f5F414CeBaf3') //24小時內一共多少張NFT正在掛賣或已經賣出
+        totalListings = await nftContractApi.getTotalListings('0x1d2891bf4D510f3DfeF85D1192c5f5F414CeBaf3') //現正掛賣NFT數量
+        lastListingTime = await nftContractApi.getLastListingTime('0x1d2891bf4D510f3DfeF85D1192c5f5F414CeBaf3') //由此時間開始計起24小時 
         // lastListingTime = 1704271082
-        timestamp = Number(lastListingTime) + Number(60 * 60 * 24)
+        timestamp = Number(lastListingTime) + Number(60 * 60 * 3)
         // timestamp = new Date(timestamp).getTime()
         console.log('24小時內一共多小張NFT正在掛賣或已經賣出', numListingsIn24Hours)
         console.log('現正掛賣NFT數量', totalListings)
@@ -320,23 +320,7 @@ async function handleListed(item) {
         //     },
         // });
         // return
-        proxy.$confirm.hide()
-        if (Number(numListingsIn24Hours) >= 4) {
-            proxy.$confirm.hide()
-            proxy.$confirm.show({
-                title: '提示',
-                content: `24小時內一共只能掛單或售賣4張NFT，您当前已挂单或售出${numListingsIn24Hours}张，${countDown(timestamp)}後可繼續掛單`,
-                showCancelButton: false,
-                confirmText: '確定',
-                onConfirm: () => {
-                    proxy.$confirm.hide()
-                    proxy.$loading.hide()
-                },
-            });
-            return
-        }
-
-        if (Number(totalListings) >= 4) {
+        if (Number(totalListings) >= 4 && Number(numListingsIn24Hours) >= 4) {
             proxy.$confirm.hide()
             proxy.$confirm.show({
                 title: '提示',
@@ -350,6 +334,23 @@ async function handleListed(item) {
             });
             return
         }
+        proxy.$confirm.hide()
+        // if (Number(numListingsIn24Hours) >= 4) {
+        //     proxy.$confirm.hide()
+        //     proxy.$confirm.show({
+        //         title: '提示',
+        //         content: `24小時內一共只能掛單或售賣4張NFT，您当前已挂单或售出${numListingsIn24Hours}张，${countDown(timestamp)}後可繼續掛單`,
+        //         showCancelButton: false,
+        //         confirmText: '確定',
+        //         onConfirm: () => {
+        //             proxy.$confirm.hide()
+        //             proxy.$loading.hide()
+        //         },
+        //     });
+        //     return
+        // }
+
+
 
     } catch (err) {
         console.log(err)
@@ -391,7 +392,7 @@ async function handleListed(item) {
     // return
     let isApprovedAll
     try { //检查pmt对pmt_purchase的授权状态
-        isApprovedAll = await minterContractApi.allowance(localStorage.getItem('address'), config.nfts_marketplace_addr)
+        isApprovedAll = await minterContractApi.allowance('0x1d2891bf4D510f3DfeF85D1192c5f5F414CeBaf3', config.nfts_marketplace_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
@@ -399,7 +400,7 @@ async function handleListed(item) {
         console.log(err)
     }
 
-    const transactionResponse = await nftContractApi.isApprovedAll(localStorage.getItem('address'), config.nfts_marketplace_addr)
+    const transactionResponse = await nftContractApi.isApprovedAll('0x1d2891bf4D510f3DfeF85D1192c5f5F414CeBaf3', config.nfts_marketplace_addr)
     console.log(transactionResponse)
     if (!transactionResponse) { //當前領取方式未授權
         proxy.$loading.hide()
@@ -441,7 +442,7 @@ async function handleListed(item) {
 
     let allowance
     try { //检查usdt对pmt_purchase的授权状态
-        allowance = await nftContractApi.allowance(localStorage.getItem('address'), config.nfts_marketplace_addr)
+        allowance = await nftContractApi.allowance('0x1d2891bf4D510f3DfeF85D1192c5f5F414CeBaf3', config.nfts_marketplace_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
@@ -572,7 +573,7 @@ async function handleCancelList(item) {
 
     let isApprovedAll
     try { //检查pmt对pmt_purchase的授权状态
-        isApprovedAll = await nftContractApi.isApprovedAll(localStorage.getItem('address'), config.nfts_marketplace_addr)
+        isApprovedAll = await nftContractApi.isApprovedAll('0x1d2891bf4D510f3DfeF85D1192c5f5F414CeBaf3', config.nfts_marketplace_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
