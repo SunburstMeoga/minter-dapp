@@ -335,6 +335,7 @@ async function handleListed(item) {
             return
         }
         proxy.$confirm.hide()
+        console.log(timestamp * 1000 > new Date().getTime(), timestamp * 1000, new Date().getTime())
         if (Number(numListingsIn24Hours) >= 4 && timestamp * 1000 > new Date().getTime()) {
             proxy.$confirm.hide()
             proxy.$confirm.show({
