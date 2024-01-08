@@ -99,7 +99,7 @@
           <div class="w-full flex flex-col items-center mb-2">
             <div class="text-gray-200 text-sm text-left w-11/12 mb-1">{{ propertiesList[0].title }}</div>
             <div class="rounded overflow-hidden w-11/12 h-11  mb-1">
-              <input @focus="isErrReferrer = false" type="text"
+              <input @focus="isErrReferrer = false; canUseReferrer = false;" type="text"
                 :placeholder="propertiesList[0].placeholder + propertiesList[0].title" v-model="referrerAddress"
                 class="w-full h-full bg-page-content rounded text-sm">
             </div>
@@ -113,10 +113,14 @@
               <div class="text-sm text-left animate__animated text-red-500" v-show="isErrReferrer"
                 :class="isErrReferrer ? 'animate__shakeX text-red-500' : ''">{{ $t('coherents.invalidAddress') }}
               </div>
+              <div class="text-sm text-left animate__animated " v-show="canUseReferrer"
+                :class="canUseReferrer ? 'animate__heartBeat text-green-500' : ''">
+                可以使用該地址
+              </div>
             </div>
           </div>
         </div>
-        <!-- <div class="w-full flex justify-center items-center" v-show="canUseReferrer"> -->
+
 
         <div class="w-full flex justify-center items-center">
           <div class="w-11/12 text-center py-2.5 rounded-full operating-button" @click="handleConfirmReferrerAddress">
@@ -133,7 +137,7 @@
           <div class="w-full flex flex-col items-center mb-4">
             <div class="text-gray-200 text-sm text-left w-11/12 mb-1">{{ propertiesList[1].title }}</div>
             <div class="rounded overflow-hidden w-11/12 h-11  mb-1">
-              <input @focus="isErrLeg = false" type="text"
+              <input @focus="isErrLeg = false; canUseLeg = false;" type="text"
                 :placeholder="propertiesList[1].placeholder + propertiesList[1].title" v-model="legAddress"
                 class="w-full h-full bg-page-content rounded text-sm">
             </div>
@@ -146,6 +150,10 @@
               </div>
               <div v-show="isErrLeg" class="text-sm text-left animate__animated text-red-500"
                 :class="isErrLeg ? 'animate__shakeX text-red-500' : ''">{{ $t('coherents.invalidAddress') }}
+              </div>
+              <div class="text-sm text-left animate__animated " v-show="canUseLeg"
+                :class="canUseReferrer ? 'animate__heartBeat text-green-500' : ''">
+                可以使用該地址
               </div>
             </div>
           </div>
@@ -325,6 +333,7 @@ let showConfirmPayPopup = ref(false)
 let showPMTPopover = ref(false)
 let palayBanalce = ref({})
 let showNextPopup = ref(false)
+let preAddressUse = ref(t('coherents.invalidAddress'))
 onMounted(() => {
   // FormatAmount()
   console.log(route.params.type)
@@ -396,6 +405,7 @@ async function handleCalibrationReferrer() {
     console.log('无效地址')
     calibratingReferrer.value = false
     isErrReferrer.value = true
+
     return
   }
   let isValidAddress
@@ -405,6 +415,7 @@ async function handleCalibrationReferrer() {
     console.log(isSelfNext)
     if (isSelfNext.message == '所檢示的地址不是自己的下級。') {
       calibratingReferrer.value = false
+
       proxy.$confirm.hide()
       proxy.$confirm.show({
         title: '提示',
