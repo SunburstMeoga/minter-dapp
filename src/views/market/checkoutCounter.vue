@@ -741,7 +741,20 @@ async function handlePopupConfirmBuy() {
       buyPackageToNext(data)
         .then(res => {
           console.log('購買', res)
-
+          if (res.message == 'RT餘額不足') {
+            proxy.$loading.hide()
+            proxy.$confirm.hide()
+            proxy.$confirm.show({
+              title: '餘額不足',
+              content: `當前配套價格為 ${coherentInfo.value.type} RT，您的 RT 餘額不足。`,
+              showCancelButton: false,
+              confirmText: '確定',
+              onConfirm: () => {
+                proxy.$confirm.hide()
+              },
+            });
+            return
+          }
           // showToast(res.message)
           if (res.message == "推薦人地址不存在") {
             proxy.$confirm.hide()
