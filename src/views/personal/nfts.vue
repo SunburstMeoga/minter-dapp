@@ -335,20 +335,20 @@ async function handleListed(item) {
             return
         }
         proxy.$confirm.hide()
-        if (Number(numListingsIn24Hours) >= 4) {
-            proxy.$confirm.hide()
-            proxy.$confirm.show({
-                title: '提示',
-                content: `24小時內一共只能掛單或售賣4張NFT，您当前已挂单或售出${numListingsIn24Hours}张，${countDown(timestamp)}後可繼續掛單`,
-                showCancelButton: false,
-                confirmText: '確定',
-                onConfirm: () => {
-                    proxy.$confirm.hide()
-                    proxy.$loading.hide()
-                },
-            });
-            return
-        }
+        // if (Number(numListingsIn24Hours) >= 4) {
+        //     proxy.$confirm.hide()
+        //     proxy.$confirm.show({
+        //         title: '提示',
+        //         content: `24小時內一共只能掛單或售賣4張NFT，您当前已挂单或售出${numListingsIn24Hours}张，${countDown(timestamp)}後可繼續掛單`,
+        //         showCancelButton: false,
+        //         confirmText: '確定',
+        //         onConfirm: () => {
+        //             proxy.$confirm.hide()
+        //             proxy.$loading.hide()
+        //         },
+        //     });
+        //     return
+        // }
 
 
 
