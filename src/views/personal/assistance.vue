@@ -465,6 +465,19 @@ async function handleConfirmBuyForRTPOPUP() {
                                 confirmText: '確定',
                                 onConfirm: () => {
                                     proxy.$confirm.hide()
+                                },
+                            });
+                            return
+                        }
+                        if (res.message == "Address not found in leg tree") {
+                            proxy.$confirm.hide()
+                            proxy.$confirm.show({
+                                title: '購買失敗',
+                                content: `對碰地址必須在上級地址的點位圖中`,
+                                showCancelButton: false,
+                                confirmText: '確定',
+                                onConfirm: () => {
+                                    proxy.$confirm.hide()
 
                                 },
                             });
@@ -479,7 +492,6 @@ async function handleConfirmBuyForRTPOPUP() {
                                 confirmText: '確定',
                                 onConfirm: () => {
                                     proxy.$confirm.hide()
-
                                 },
                             });
                             return
@@ -510,8 +522,6 @@ async function handleConfirmBuyForRTPOPUP() {
                                 },
                             });
                         }, 8000);
-
-
                     })
                     .catch(err => {
                         proxy.$loading.hide()
