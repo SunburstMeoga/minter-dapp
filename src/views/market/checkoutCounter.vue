@@ -757,6 +757,7 @@ async function handlePopupConfirmBuy() {
             });
             return
           }
+
           if (res.message == "Address not found in leg tree") {
             proxy.$confirm.hide()
             proxy.$confirm.show({
@@ -767,6 +768,19 @@ async function handlePopupConfirmBuy() {
               onConfirm: () => {
                 proxy.$confirm.hide()
 
+              },
+            });
+            return
+          }
+          if (!res.player) {
+            proxy.$confirm.hide()
+            proxy.$confirm.show({
+              title: '購買失敗',
+              content: `购买失败：该地址已有上级`,
+              showCancelButton: false,
+              confirmText: '確定',
+              onConfirm: () => {
+                proxy.$confirm.hide()
               },
             });
             return

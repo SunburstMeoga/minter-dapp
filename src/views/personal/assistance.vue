@@ -483,7 +483,7 @@ async function handleConfirmBuyForRTPOPUP() {
                             });
                             return
                         }
-                        if (!res.players) {
+                        if (!res.player) {
                             proxy.$confirm.hide()
                             proxy.$confirm.show({
                                 title: '購買失敗',
