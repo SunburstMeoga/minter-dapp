@@ -442,6 +442,20 @@ async function handleConfirmBuyForRTPOPUP() {
                 buyPackageToNext(data)
                     .then(res => {
                         console.log('購買成功', res)
+                        if (res.error) {
+                            proxy.$confirm.hide()
+                            proxy.$confirm.show({
+                                title: '購買失敗',
+                                content: `${res.error}`,
+                                showCancelButton: false,
+                                confirmText: '確定',
+                                onConfirm: () => {
+                                    proxy.$confirm.hide()
+
+                                },
+                            });
+                            return
+                        }
                         if (res.message == 'RT餘額不足') {
                             proxy.$loading.hide()
                             proxy.$confirm.hide()
@@ -601,8 +615,23 @@ async function handlePopupConfirmBuy() {
                 let data = { package_id: coherentsList.value[currentSelf.value].id }
                 buyCoherent(data)
                     .then(res => {
+                        console.log(res)
                         setTimeout(() => {
                             // showToast(res.message)
+                            if (res.error) {
+                                proxy.$confirm.hide()
+                                proxy.$confirm.show({
+                                    title: '購買失敗',
+                                    content: `${res.error}`,
+                                    showCancelButton: false,
+                                    confirmText: '確定',
+                                    onConfirm: () => {
+                                        proxy.$confirm.hide()
+
+                                    },
+                                });
+                                return
+                            }
                             proxy.$confirm.hide()
                             proxy.$confirm.show({
                                 title: '提示',
@@ -624,7 +653,7 @@ async function handlePopupConfirmBuy() {
                                         })
                                 }
                             })
-                        }, 8000);
+                        }, 3000);
                     })
                     .catch(err => {
                         proxy.$confirm.hide()
@@ -926,6 +955,20 @@ function handleConfirmUpPackage() {
             upInferiorPackage(params)
                 .then(res => {
                     let tipContent
+                    if (res.error) {
+                        proxy.$confirm.hide()
+                        proxy.$confirm.show({
+                            title: '購買失敗',
+                            content: `${res.error}`,
+                            showCancelButton: false,
+                            confirmText: '確定',
+                            onConfirm: () => {
+                                proxy.$confirm.hide()
+
+                            },
+                        });
+                        return
+                    }
                     if (res.message == "RT餘額不足") {
                         proxy.$confirm.hide()
 
@@ -956,7 +999,7 @@ function handleConfirmUpPackage() {
                                 showPointCoherentInfo.value = false
                             },
                         });
-                    }, 8000);
+                    }, 3000);
 
                 })
                 .catch(err => {

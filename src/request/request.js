@@ -89,7 +89,7 @@ const Request = (url, options = {}) => {
       service
         .post(url, data)
         .then((res) => {
-          if (res.status == 401 || res.status == 403) {
+          if (res.status == 401) {
             addressSign()
             return
           }

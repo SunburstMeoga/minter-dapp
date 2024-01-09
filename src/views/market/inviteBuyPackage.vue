@@ -308,6 +308,20 @@ async function handleConfirmBuyForRT() {
             // if (res.message == 'RT餘額不足') {
             //     showToast('RT餘額不足')
             // }
+            if (res.error) {
+                proxy.$confirm.hide()
+                proxy.$confirm.show({
+                    title: '購買失敗',
+                    content: `${res.error}`,
+                    showCancelButton: false,
+                    confirmText: '確定',
+                    onConfirm: () => {
+                        proxy.$confirm.hide()
+
+                    },
+                });
+                return
+            }
             showToast(res.message)
             updataRTBalance(localStorage.getItem('address'))
                 .then(res => {

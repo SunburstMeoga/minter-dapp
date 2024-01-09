@@ -752,6 +752,20 @@ async function handlePopupConfirmBuy() {
       buyPackageToNext(data)
         .then(res => {
           console.log('購買', res)
+          if (res.error) {
+            proxy.$confirm.hide()
+            proxy.$confirm.show({
+              title: '購買失敗',
+              content: `${res.error}`,
+              showCancelButton: false,
+              confirmText: '確定',
+              onConfirm: () => {
+                proxy.$confirm.hide()
+
+              },
+            });
+            return
+          }
           if (res.message == 'RT餘額不足') {
             proxy.$loading.hide()
             proxy.$confirm.hide()
@@ -796,6 +810,8 @@ async function handlePopupConfirmBuy() {
             });
             return
           }
+
+
           if (!res.player) {
             proxy.$confirm.hide()
             proxy.$confirm.show({

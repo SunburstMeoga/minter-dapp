@@ -125,7 +125,7 @@
 
                     <div class="text-white text-base flex justify-between items-center mb-3">
                         <div>RT {{ $t('wallet.balance') }}: </div>
-                        <div class="text-red-500 font-bold">{{ Number(palayBanalce.rt).toFixed(4) }} RT </div>
+                        <div class="text-red-500 font-bold">{{ Number(palayBanalce.rt).toFixed(4) || '0.0000' }} RT </div>
                         <!-- <div class="text-primary-color text-xs pl-1"> (当前1USD3可兑换2RT)</div> -->
                     </div>
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
@@ -470,7 +470,7 @@ function handleTransferRT() {
                         proxy.$confirm.hide()
                         proxy.$confirm.show({
                             title: '提示',
-                            content: '收款地址與發起地址無關，請確認你的收款地址',
+                            content: res.error,
                             showCancelButton: false,
                             confirmText: '確定',
                             onConfirm: () => {
@@ -672,8 +672,17 @@ async function handleExchangeBT() {
                 btToUsdt(data)
                     .then(res => {
                         proxy.$confirm.hide()
-                        if (res.error == 'Insufficient balance') {
-                            showToast('BT餘額不足')
+                        if (res.error) {
+                            proxy.$confirm.hide()
+                            proxy.$confirm.show({
+                                title: '提示',
+                                content: res.error,
+                                showCancelButton: false,
+                                confirmText: '確定',
+                                onConfirm: () => {
+                                    proxy.$confirm.hide()
+                                },
+                            });
                             return
                         }
                         getUSDTBalance()
@@ -690,8 +699,17 @@ async function handleExchangeBT() {
                 btToRt(data)
                     .then(res => {
                         proxy.$confirm.hide()
-                        if (res.error == 'Insufficient balance') {
-                            showToast('BT餘額不足')
+                        if (res.error) {
+                            proxy.$confirm.hide()
+                            proxy.$confirm.show({
+                                title: '提示',
+                                content: res.error,
+                                showCancelButton: false,
+                                confirmText: '確定',
+                                onConfirm: () => {
+                                    proxy.$confirm.hide()
+                                },
+                            });
                             return
                         }
                         getPlayersInfo(localStorage.getItem('address'))
