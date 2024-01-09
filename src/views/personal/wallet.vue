@@ -513,6 +513,7 @@ function handleTransferRT() {
                         showCancelButton: false,
                         confirmText: '確定',
                         onConfirm: () => {
+                            proxy.$confirm.hide()
                             toggleTransferPopup()
                             // toggleTransferPopup()
                         },
