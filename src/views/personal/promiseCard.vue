@@ -7,9 +7,17 @@
                         <div class="text-white font-bold text-lg">{{ item.roulette.name }}</div>
                     </div>
 
-                    <div class="flex justify-between items-center mb-3">
+                    <!-- <div class="flex justify-between items-center mb-3">
                         <div>tokenID</div>
                         <div class="text-red-500 font-bold"># {{ item.nft_token_id }}</div>
+                    </div> -->
+                    <div class="flex justify-between items-center mb-3">
+                        <div>獎勵金額:</div>
+                        <div class="text-red-500 font-bold">{{ Number(item.reward_amount).toFixed(4) }}</div>
+                    </div>
+                    <div class="flex justify-between items-center mb-3">
+                        <div>派獎情況:</div>
+                        <div class="">{{ item.is_rewarded ? '已派獎' : '未派獎' }}</div>
                     </div>
 
 
@@ -18,14 +26,11 @@
                             <div>{{ $t('assistance.packageAmount') }}:</div>
                             <div class="text-red-500 font-bold">{{ Number(item.reward_amount).toFixed(2) }}</div>
                         </div>-->
-                        <div class="flex justify-between items-center mb-3 mt-3">
+                        <!-- <div class="flex justify-between items-center mb-3 mt-3">
                             <div>NFT價格:</div>
                             <div class="text-red-500 font-bold">{{ Number(item.nft_price).toFixed(4) }}</div>
-                        </div>
-                        <div class="flex justify-between items-center mb-3">
-                            <div>獎勵金額:</div>
-                            <div class="text-red-500 font-bold">{{ Number(item.reward_amount).toFixed(4) }}</div>
-                        </div>
+                        </div> -->
+
                         <div class="flex justify-between items-center mb-3">
                             <div>配套價格:</div>
                             <div class="text-red-500 font-bold">{{ Number(item.max_package.price).toFixed(4) }}</div>
@@ -44,17 +49,14 @@
                             <div class="">{{ FilterTime(item.promise_card_valid_date) }}</div>
                         </div>
 
-                        <div class="flex justify-between items-center mb-3">
-                            <div>派獎情況:</div>
-                            <div class="">{{ item.is_rewarded ? '已派獎' : '未派獎' }}</div>
-                        </div>
+
 
                         <div class="flex justify-between items-center mb-3">
                             <div>规则介绍:</div>
-                            <div class="">達到一定條件後即可獲得高額的RT獎勵</div>
+                            <div class="">邀請2個購買{{ Number(item.max_package.price) }}配套或以上的新地址</div>
                         </div>
                         <div class="flex justify-between items-center mb-3">
-                            <div>邀請數量:</div>
+                            <div>已邀請數量:</div>
                             <div class="">{{ item.number_of_invite }}</div>
                         </div>
                         <div class="flex justify-between items-center mb-1">
