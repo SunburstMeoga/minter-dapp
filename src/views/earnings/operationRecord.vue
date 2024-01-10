@@ -43,7 +43,7 @@
                                         :address="item.address" :isEarning="currentTab == 0 || currentTab == 1"
                                         :isNFT="currentTab == 2" :isToken="currentTab == 3"
                                         :price="item.amount || item.reward_amount || item.price"
-                                        :symbol="item.token && item.token.symbol"
+                                        :symbol="item.token && (currentTab == 1 && currentType == 3 ? item.token.symbol + '(绑定版)' : item.token.symbol)"
                                         :transfer="currentTab == 3 && currentType == 1"
                                         :transferType="item.dynamic_earning_type && item.dynamic_earning_type.name || item.remark"
                                         :showOutput="currentTab == 0 && currentType == 0"
