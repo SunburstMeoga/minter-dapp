@@ -1,16 +1,16 @@
 <template>
-    <div class="bg-gray-800 rounded-lg overflow-hidden p-2">
-        <div class="relative flex justify-center items-center py-10 border-b border-gray-600 mb-2">
-            <div class="absolute top-0 h-full left-0 flex justify-center items-center ">
+    <div class="bg-black rounded-lg overflow-hidden border border-gray-700">
+        <div class="relative flex justify-center items-center mb-2">
+            <!-- <div class="absolute top-0 h-full left-0 flex justify-center items-center ">
                 <div class="w-8/12 animate-spin">
                     <img src="../../assets/images/s_result_light.png" alt="">
                 </div>
-            </div>
-            <div class="w-6/12 relative z-10">
+            </div> -->
+            <div class="w-full relative z-10 ">
                 <img :src="levelImg" alt="">
             </div>
         </div>
-        <div class="w-full text-gray-400 text-sm mb-2">
+        <div class="w-full text-gray-400 text-sm mb-2 p-2">
             <div class="flex justify-between items-center mb-1">
                 <div>{{ $t('coherents.price') }}</div>
                 <div class="font-bold text-red-500">{{ type }} RT</div>
@@ -20,9 +20,12 @@
                 <div>{{ limit }} </div>
             </div>
         </div>
-        <div class="text-center py-1 text-sm rounded-full"
-            :class="isSale ? 'operating-button text-white' : 'bg-gray-500 text-black'" @click="$emit('handleBuy')">{{ isSale
-                ? $t('coherents.buy') : $t('toast.notYetOpen') }}</div>
+        <div class="p-2">
+            <div class="text-center py-1 text-sm rounded-full"
+                :class="isSale ? 'operating-button text-white' : 'bg-gray-500 text-black'" @click="$emit('handleBuy')">{{
+                    isSale
+                    ? $t('coherents.buy') : $t('toast.notYetOpen') }}</div>
+        </div>
     </div>
 </template>
 

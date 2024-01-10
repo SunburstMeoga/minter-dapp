@@ -2,7 +2,7 @@
   <div class="text-white pt-16 pb-20">
     <div class="flex flex-col items-center w-full pb-4 text-white">
       <div class="flex justify-start items-center w-11/12 mb-4 bg-card-content p-2 rounded-md">
-        <div class="flex w-30 p-2 justify-center bg-page-content rounded shadow-xl">
+        <div class="flex w-30 p-2 justify-center bg-black rounded shadow-xl">
           <img :src="coherentInfo.levelImg" alt="">
         </div>
         <div class="text-gray-400 flex-1 ml-2 h-full flex flex-col justify-start text-sm">
@@ -227,7 +227,7 @@
     <van-popup v-model:show="showConfirmPayPopup" round position="bottom">
       <div class="bg-black text-white py-4 flex flex-col justify-center">
         <div class="flex justify-start items-center w-11/12 mr-auto ml-auto mb-2 border-b border-gray-900 pb-4">
-          <div class="flex w-30 p-2 justify-center bg-page-content rounded shadow-xl">
+          <div class="flex w-30 p-2 justify-center bg-black rounded shadow-xl border border-gray-600 rounded">
             <img :src="coherentInfo.levelImg" alt="">
           </div>
           <div class="text-gray-400 flex-1 ml-2 h-full flex flex-col justify-start">
