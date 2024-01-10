@@ -42,9 +42,41 @@
                 }}</span></div>
             </div>
         </div>
-        <van-popup v-model:show="isPrized" :close-on-click-overlay="false">
-            <div class="bg-black text-white">
-                <div class="pl-2 py-2  pr-44 rounded-t-md bg-primary-color">
+        <van-overlay :show="isPrized">
+            <div class="w-full h-full flex flex-wrap justify-center items-center">
+                <div class="relative">
+                    <div>
+                        <img src="../../assets/images/prize.png" alt="">
+                    </div>
+                    <div class="flex justify-center items-center absolute top-60 w-full">
+                        <div class="w-5/12 text-yellow-400 pt-4 px-2">
+                            <div class="font-bold text-lg mb-2 w-full text-center text-shadow-3xl">
+                                {{ prizeContent }}
+                            </div>
+                            <!-- <div class="text-xs w-full text-center text-shadow-3xl">
+                                {{ prizeDetails }}
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="rounded-full border border-gray-400 text-gray-400 text-center p-6 flex justify-center items-center w-0 h-0 text-lg">
+                    <div class="icon iconfont icon-close" style="font-size: 30px;" @click="$router.go(-1)"></div>
+                </div>
+            </div>
+
+        </van-overlay>
+        <!-- <van-popup v-model:show="isPrized" :close-on-click-overlay="false">
+            <div class="bg-transparent text-white" style="border: 1px solid red;">
+            <div class="w-full relative">
+                <div>
+                    <img src="../../assets/images/prize.png" alt="" style="border: 1px solid blue;">
+                </div>
+                <div class="absolute">
+
+                </div>
+            </div>
+            <div class="pl-2 py-2  pr-44 rounded-t-md bg-primary-color">
                     <div class="font-bold text-lg">{{ $t('turntable.congratulations') }}</div>
                     <div class="text-sm">{{ $t('turntable.rewardsTips') }}</div>
 
@@ -54,18 +86,15 @@
                         {{ prizeContent }}
                     </div>
                     <div class="text-sm pr-2 text-gray-500">
-                        <!-- {{ $t('turntable.rewardsDetails') }} -->
                         {{ prizeDetails }}
                     </div>
                 </div>
-                <!-- <div class="rounded-full border border-gray-400 text-gray-400 text-center p-3 flex justify-center items-center w-0 h-0 text-sm mr-auto ml-auto"
-                    @click="$router.go(-1)"> -->
                 <div
                     class="rounded-full border border-gray-400 text-gray-400 text-center p-3 flex justify-center items-center w-0 h-0 text-sm mr-auto ml-auto">
                     <div class="icon iconfont icon-close" @click="$router.go(-1)"></div>
                 </div>
             </div>
-        </van-popup>
+        </van-popup> -->
     </div>
 </template>
 
@@ -341,6 +370,12 @@ function togglePrizePopup() {
 </script>
 
 <style scoped>
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .term {
     @apply px-3 py-0.5 border border-secondary-icon rounded text-secondary-icon;
 }
@@ -520,5 +555,10 @@ function togglePrizePopup() {
     100% {
         opacity: 0.9;
     }
+}
+</style>
+<style>
+.van-overlay {
+    background: rgba(0, 0, 0, .9);
 }
 </style>

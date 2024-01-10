@@ -37,7 +37,8 @@ import {
   Checkbox,
   Swipe,
   SwipeItem,
-  ShareSheet
+  ShareSheet,
+  Overlay
 } from 'vant'
 
 import 'vant/lib/index.css'
@@ -74,6 +75,8 @@ app.use(Checkbox)
 app.use(Swipe)
 app.use(SwipeItem)
 app.use(ShareSheet)
+app.use(Overlay)
+
 app.use(loading)
 app.use(confirm)
 app.use(i18n)
