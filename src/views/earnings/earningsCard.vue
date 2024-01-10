@@ -5,6 +5,7 @@
                 <div>产出地址</div>
                 <div class="text-red-500 font-bold">{{ FilterAddress(address) }}</div>
             </div>
+
             <div class="flex justify-between items-center mb-2">
                 <div>{{ $t('assistance.awardAmount') }}</div>
                 <div class="text-red-500 font-bold">{{ Number(price).toFixed(4) }} {{ symbol }}</div>
@@ -13,9 +14,18 @@
                 <div>Token ID</div>
                 <div># {{ tokenID }}</div>
             </div>
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center mb-2">
                 <div>{{ $t('assistance.releaseTime') }}</div>
                 <div>{{ FilterTime(time) }}</div>
+            </div>
+
+            <div class="flex justify-between items-center" v-show="promiseCardValidDate">
+                <div>到期時間</div>
+                <div>{{ FilterTime(promiseCardValidDate) }}</div>
+            </div>
+            <div class="flex justify-between items-center" v-show="showExpire">
+                <div>清零時間</div>
+                <div>{{ FilterTime(expireDate) }}</div>
             </div>
         </div>
         <div v-show="isNFT">
@@ -101,6 +111,10 @@ defineProps({
         type: String,
         default: ''
     },
+    expireDate: {
+        type: String,
+        default: ''
+    },
     symbol: {
         type: String,
         default: ''
@@ -112,6 +126,10 @@ defineProps({
     operationType: {
         type: Number,
         default: null
+    },
+    promiseCardValidDate: {
+        type: String,
+        default: ''
     },
     tokenID: {
         type: Number,
@@ -134,6 +152,10 @@ defineProps({
         default: false
     },
     showOutput: {
+        type: Boolean,
+        default: false
+    },
+    showExpire: {
         type: Boolean,
         default: false
     }

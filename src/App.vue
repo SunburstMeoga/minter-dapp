@@ -152,7 +152,7 @@ const initStar = () => {
   h.value = container.value?.clientHeight
   canvas.value.width = container.value?.clientWidth || 1000
   canvas.value.height = container.value?.clientHeight || 800
-  console.log(`画布的宽高是: ${w.value} ======== ${h.value}`)
+  // console.log(`画布的宽高是: ${w.value} ======== ${h.value}`)
   canvas2.value = document.createElement('canvas')
   ctx2.value = canvas2.value.getContext('2d')
   canvas2.value.width = 100
@@ -171,7 +171,7 @@ const initStar = () => {
     const star = generateStar()
     stars.value.push(star)
   }
-  console.log(stars.value)
+  // console.log(stars.value)
 }
 
 
