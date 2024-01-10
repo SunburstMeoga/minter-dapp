@@ -28,7 +28,7 @@
                         </div>
                         <div class="flex justify-between items-center mb-3">
                             <div>配套價格:</div>
-                            <div class="text-red-500 font-bold">{{ Number(item.reward_amount / 0.1).toFixed(4) }}</div>
+                            <div class="text-red-500 font-bold">{{ Number(item.package_price).toFixed(4) }}</div>
                         </div>
                         <!-- <div class="flex justify-between items-center mb-3">
                             <div>發放時間:</div>
