@@ -49,6 +49,11 @@
                             <div class="">{{ FilterTime(item.promise_card_valid_date) }}</div>
                         </div>
 
+                        <div class="flex justify-between items-center mb-3">
+                            <div>派獎時間:</div>
+                            <div class="">{{ item.reward_date ? FilterTime(item.reward_date) : '未派獎' }}</div>
+                        </div>
+
 
 
                         <div class="flex justify-between items-center mb-3">

@@ -1,12 +1,12 @@
 <template>
     <div class="bg-black rounded-lg overflow-hidden border border-gray-700">
-        <div class="relative flex justify-center items-center mb-2">
-            <!-- <div class="absolute top-0 h-full left-0 flex justify-center items-center ">
-                <div class="w-8/12 animate-spin">
+        <div class="relative flex justify-center items-center mb-2 p-2">
+            <div class="absolute top-0 h-full left-0 flex justify-center items-center pt-4">
+                <div class="w-8/12 animate-spin ">
                     <img src="../../assets/images/s_result_light.png" alt="">
                 </div>
-            </div> -->
-            <div class="w-full relative z-10 ">
+            </div>
+            <div class="w-8/12 z-10 pt-4">
                 <img :src="levelImg" alt="">
             </div>
         </div>
