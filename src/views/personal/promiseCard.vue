@@ -46,7 +46,7 @@
 
                         <div class="flex justify-between items-center mb-3">
                             <div>到期時間:</div>
-                            <div class="">{{ FilterTime(item.promise_card_valid_date) }}</div>
+                            <div class="">{{item.promise_card_valid_date }}</div>
                         </div>
 
                         <div class="flex justify-between items-center mb-3">
