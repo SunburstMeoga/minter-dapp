@@ -268,13 +268,15 @@
             <div class="text-primary-color font-bold pl-1"> {{ $t('order.balance') }}: {{ palayBanalce.rtLocked }} RT
             </div>
           </div>
-          <div class="w-full mb-4 flex justify-between items-center">
+          <div class="w-full flex justify-between items-center">
             <div class="rounded pl-3 border border-gray-700 flex-1 py-1.5 text-sm ">
               {{ $t('order.needPay') }} {{ Number(palayBanalce.rt) - Number(coherentInfo.type) < 0 ?
                 Number(coherentInfo.type) - Number(palayBanalce.rt) : '0.0000' }} </div>
             </div>
           </div>
-
+          <div class="text-primary-color font-bold pl-4 text-sm mb-4">
+           * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
+          </div>
           <div class="w-full flex justify-center items-center">
             <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handlePopupConfirmBuy">
               {{ $t('modalConfirm.confirm') }}

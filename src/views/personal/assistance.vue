@@ -45,6 +45,9 @@
         <van-popup v-model:show="showBuyPackageSelf" round position="bottom">
             <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
                 <div class="text-center mb-6 text-white">购买配套</div>
+                <div class="text-primary-color font-bold text-sm mb-2">
+             * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
+          </div>        
                 <div class="flex w-11/12 ml-auto mr-auto flex-wrap justify-between items-center mb-6">
                     <div v-for="(item, index) in coherentsList" :key="index"
                         class="border border-primary-color rounded px-2 py-1"
@@ -135,6 +138,9 @@
                 </div>
                 <div class="text-gray-200 text-sm w-11/12 mb-1 ml-auto mr-auto">{{ $t('assistance.chooseCoherentBuy') }}
                 </div>
+                <div class="text-primary-color font-bold text-sm mb-2">
+             * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
+          </div> 
                 <div class="w-full flex justify-center items-center mb-4">
                     <div class="w-11/12 flex justify-between items-center">
                         <div v-for="(item, index) in coherentsList" @click="clickCurrentCoherent(item, index)"
@@ -244,6 +250,9 @@
         <van-popup v-model:show="showPointCoherentInfo" round position="bottom">
             <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
                 <div class="text-center mb-6 text-white">{{ $t('assistance.buyCoherent') }}</div>
+                <div class="text-primary-color font-bold text-sm mb-2">
+             * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
+          </div> 
                 <div class="w-full flex flex-col items-center mb-2">
                     <div class="text-gray-300 text-sm text-left w-11/12 mb-1">{{ $t('assistance.currentPointAddress') }}
                     </div>

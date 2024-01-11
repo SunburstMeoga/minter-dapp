@@ -67,7 +67,7 @@
                         <div class="flex justify-between items-center mb-1">
                             <div>邀請地址:</div>
                         </div>
-                        <div class="flex justify-between items-center mb-2">
+                        <div class="mb-2">
                             <div v-for="(_item, _index) in item.packages" :key="_index"
                                 class="p-2 w-full rounded bg-gray-600 mb-1">
                                 <div class="flex justify-between items-center mb-1">
@@ -87,6 +87,7 @@
                                     <div class="">{{ _item.is_minted ? '已發放' : '未發放' }}</div>
                                 </div>
                             </div>
+                           
 
                         </div>
                         <!-- <div class="flex justify-between items-center mb-3">
