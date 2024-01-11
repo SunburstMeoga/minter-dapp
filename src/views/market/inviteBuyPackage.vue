@@ -40,7 +40,7 @@
 
         <div class="bg-card-content w-11/12 ml-auto mr-auto rounded-lg p-2">
             <div class="flex justify-start items-center w-full">
-                <div class="flex w-30 p-2 justify-center bg-black rounded shadow-xl">
+                <div class="flex w-24 p-2 justify-center bg-black rounded shadow-xl">
                     <img :src="coherentInfo.levelImg" alt="">
                 </div>
                 <div class="text-gray-400 flex-1 ml-2 h-full flex flex-col justify-start text-sm">
