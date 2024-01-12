@@ -41,7 +41,7 @@
                     @exchange="handleExchangeRT" isExchange isTrasfer isRegister @register="handleRegister" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="股權" :balance="mstBalance" />
+                <wallet-card currency="貢獻值" :balance="mstBalance" />
             </div>
 
             <div class="border-b border-gray-800 w-11/12 mr-auto ml-auto mb-3"></div>
