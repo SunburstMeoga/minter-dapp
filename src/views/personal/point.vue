@@ -258,9 +258,9 @@ import { showToast } from 'vant'
 import { useI18n } from "vue-i18n";
 import { login, playersInfo } from '@/request/api'
 
-import nftOne from '@/assets/images/200.png'
-import nftTwo from '@/assets/images/600.png'
-import nftThree from '@/assets/images/2000.png'
+import nftOne from '@/assets/images/200_500m.gif'
+import nftTwo from '@/assets/images/600_500m.gif'
+import nftThree from '@/assets/images/2000_500m.gif'
 const { t } = useI18n()
 import { ref } from 'vue'
 defineProps({

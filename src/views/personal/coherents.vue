@@ -10,7 +10,7 @@
             <div class="rounded border-card-content border p-2 mb-2 text-white">
                 <div class="pt-1 flex justify-between items-center">
                     <div>
-                        {{${'coherents.released'}}}
+                        {{$t{'coherents.released'}}}
                     </div>
                     <div>
                         {{ Number(beenReleased).toFixed(4) >= 0.000 ? Number(beenReleased).toFixed(4) : 0.000 }} PMT
