@@ -96,7 +96,7 @@
             </div>
             <div class="flex justify-between items-center w-11/12 ml-auto mr-auto text-xs text-gray-500">
                 <div class="">
-                    © 2023 MINTER. 版權所有
+                    {{ $t('footBar.copyright') }}
                 </div>
                 <div class="flex justify-end items-center">
                     <div class=" ml-3 underline active-white-color" @click="toContactsPage(item)"
@@ -127,22 +127,19 @@ defineProps({
         default: false
     }
 })
-let contacts = ref([
-    {
-        title: '聯係我們',
+
+let contacts = computed(() => {
+    return [
+        {
+        title: t('footBar.connectUS'),
 
     },
     {
-        title: '反饋',
+        title: t('footBar.feedback'),
         router: '/personal/feedback'
     },
-    // {
-    //     title: '設置'
-    // },
-    // {
-    //     title: '郵箱'
-    // },
-])
+    ]
+})
 let socialMedia = ref([{
     icon: 'icon-discord',
     url: ''

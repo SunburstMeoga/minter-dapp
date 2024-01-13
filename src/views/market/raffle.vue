@@ -77,8 +77,8 @@
                 </div>
             </div>
             <div class="pl-2 py-2  pr-44 rounded-t-md bg-primary-color">
-                    <div class="font-bold text-lg">{{ $t('turntable.congratulations') }}</div>
-                    <div class="text-sm">{{ $t('turntable.rewardsTips') }}</div>
+                    <div class="font-bold text-lg">{{ t('turntable.congratulations') }}</div>
+                    <div class="text-sm">{{ t('turntable.rewardsTips') }}</div>
 
                 </div>
                 <div class="pl-2 py-6 rounded-b-md text-white bg-gray-800 mb-4">
@@ -108,18 +108,18 @@ import { roulettes, luckyDraw } from '@/request/api'
 import { Roulette } from 'vue3-roulette'
 let prizeDescription = computed(() => {
     return [{
-        title: '收益加速器(12%～36%)',
-        content: '馬上獲得對應的NFT獎勵，使你的收益獲得遠超每日收益的獎勵'
+        title: t('raffle.revenueGasPedal'),
+        content: t('raffle.expediteContent'),
     }, {
-        title: '每日收益(0.5%～6%)',
-        content: '提高你的NFT價格，使你出售後獲得更高的收益'
+        title: t('raffle.earnings'),
+        content: t('raffle.earningsContent'),
     }, {
-        title: '業績承諾卡(10%)',
-        content: '達到一定條件後即可獲得高額的RT獎勵'
+        title: t('raffle.promiseCard'),
+        content: t('raffle.promiseCardContent'),
     }, {
-        title: '推薦福利(0.5%～12%)',
-        content: '無需任何手續費即可獲得更多的RT獎勵,',
-        tips: '請切記這個獎勵要在每個月7號前使用'
+        title: t('raffle.welfare'),
+        content: t('raffle.welfareContent'),
+        tips: t('raffle.welfareTips'),
     }]
 })
 const wheel = ref(null);

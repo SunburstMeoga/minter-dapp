@@ -41,7 +41,7 @@
                     @exchange="handleExchangeRT" isExchange isTrasfer isRegister @register="handleRegister" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="貢獻值" :balance="mstBalance" />
+                <wallet-card :currency="$t('menu.contributionValue')" :balance="mstBalance" />
             </div>
 
             <div class="border-b border-gray-800 w-11/12 mr-auto ml-auto mb-3"></div>
@@ -73,7 +73,7 @@
                         @click="viewPromiseCard">
                         <div class="flex justify-start items-center">
                             <div class="pr-1 font-bold text-lg">{{ promiseCardCount }}</div>
-                            <div class="text-white">承諾卡</div>
+                            <div class="text-white">{{ $t('menu.promiseCard') }}</div>
                         </div>
                         <div class="flex justify-end items-center text-white active-white-color">
                             <div class="pr-1 text-sm">{{ $t('wallet.details') }}</div>
@@ -88,7 +88,7 @@
             <div class="bg-black text-white py-4 flex flex-col justify-center">
                 <div class="w-11/12 mr-auto ml-auto">
                     <div class="text-center font-bold text-white mb-6">
-                        兌換
+                        {{ $t('exchange.title') }}
                     </div>
                     <div class="flex justify-start items-center mb-10">
                         <div class="border-b-4 border-transparent px-2 py-1.5 ml-4" v-for="(item, index) in exhangeTypesBT"
@@ -850,14 +850,14 @@ function handleWalletCardWithdraw() {
 //点击钱包卡片转账按钮
 function handleWalletCardTransfer() {
     console.log(palayBanalce.value.rt)
-    if (Number(palayBanalce.value.rt <= 0)) {
+    if (Number(palayBanalce.value.rt) <= 0 ) {
         showToast('RT餘額不足，不能進行转账操作。')
         return
     }
     toggleTransferPopup()
 }
 function handleWalletCardExchangeBT() {
-    if (Number(palayBanalce.value.bt <= 0)) {
+    if (Number(palayBanalce.value.bt) <= 0) {
         showToast('BT餘額不足，不能進行劃轉操作。')
         return
     }

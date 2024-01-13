@@ -15,12 +15,15 @@ export default {
     feedback: '反饋',
     market: '市場',
     pledge: '質押',
+    contributionValue: '貢獻值',
     partnership: '合夥人',
     rank: '排行榜',
     casting: '鑄造',
     userCenter: '用戶中心',
     wallet: '錢包',
     coinBank: '存錢罐',
+    promiseCard: '業績承諾卡',
+
     custodianship: '託管',
     grandPrix: '大獎賽',
     bag: '我的背包',
@@ -34,7 +37,8 @@ export default {
     title: '歡迎來到',
     contentOne: 'Minter歡迎所有對NFT感興趣的朋友加入我們!',
     contentTwo: '與我們共同創造一個充滿無數可能性的新世界!',
-    documentation: '文檔'
+    documentation: '文檔',
+    wallet: "錢包下載"
   },
   present: {
     title: 'Minter項目',
@@ -133,8 +137,9 @@ export default {
     exploratory: '探索'
   },
   footBar: {
-    copyright: '©2023 Minter. 版權所有',
-    connectUS: '聯繫我們'
+    copyright: '©2024 Minter. 版權所有',
+    connectUS: '聯繫我們',
+    feedback: '反饋'
   },
   toast: {
     notYetOpen: '暫未開放',
@@ -161,6 +166,9 @@ export default {
     staticIncome: '靜態收益',
     dynamicIncome: '動態收益',
     transfer: '轉賬',
+    market: '市場',
+    release: "釋放",
+    register: "註冊",
     title: '資產',
     details: '查看詳情',
     transferAddress: '轉賬地址',
@@ -242,7 +250,8 @@ export default {
     paymenMethod: '支付方式',
     pleaseEnter: '請填寫',
     invalidAddress: '該地址為無效地址',
-    tips: '若用户购买了Minter1（即200USDT的Minter）则用户每日可获取的对碰奖金上限为200USDT；若用户W购买了Minter1+Minter2（即200USDT和600USDT）则用户每日可获取的对碰奖金上限为200+600USDT=800；以此类推'
+    tips: '若用户购买了Minter1（即200USDT的Minter）则用户每日可获取的对碰奖金上限为200USDT；若用户W购买了Minter1+Minter2（即200USDT和600USDT）则用户每日可获取的对碰奖金上限为200+600USDT=800；以此类推',
+
   },
   modalConfirm: {
     buySuccess: '購買成功',
@@ -251,7 +260,16 @@ export default {
     cancel: '取消'
   },
   raffle: {
-    start: '開始'
+    start: '開始',
+    revenueGasPedal: '收益加速器(12%～36%)',
+    expediteContent: '馬上獲得對應的NFT獎勵，使你的收益獲得遠超每日收益的獎勵',
+    earnings: '每日收益(0.5%～6%)',
+    earningsContent: '提高你的NFT價格，使你出售後獲得更高的收益',
+    promiseCard: '業績承諾卡(10%)',
+    promiseCardContent: '達到一定條件後即可獲得高額的RT獎勵',
+    welfare: '推薦福利(0.5%～12%)',
+    welfareContent: '無需任何手續費即可獲得更多的RT獎勵,',
+    welfareTips: '請切記這個獎勵要在每個月7號前使用'
   },
   turntable: {
     title: '輪盤抽獎',

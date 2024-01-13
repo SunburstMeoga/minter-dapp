@@ -180,6 +180,11 @@ onMounted(() => {
   initStar()
   animation()
   accountHasChanged()
+  if(localStorage.getItem('language')){
+    proxy.$i18n.locale = localStorage.getItem('language')
+  } else {
+    proxy.$i18n.locale  = 'en-us'
+  }
 })
 async function accountHasChanged() {
   window.ethereum.on('accountsChanged', (accounts) => {

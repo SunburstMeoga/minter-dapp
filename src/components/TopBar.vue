@@ -97,7 +97,7 @@
                     </div>
                     <div class="pl-10">
                         <div class="menu-item active-primary-color" @click="notYetOpen">
-                            <div>貢獻值</div>
+                            <div>{{ $t('menu.contributionValue') }}</div>
                         </div>
                     </div>
                     <!-- <div class="pl-10">
@@ -256,7 +256,7 @@ let homeChilds = computed(() => {
 
 let personalChilds = computed(() => {
     if (userInfo.address && hasPackage.value) {
-        return [{ title: t('menu.wallet'), router: '/personal/wallet' }, { title: t('menu.exchange'), router: '/personal/exchange' }, { title: '存錢罐', router: '/personal/coherents' }, { title: t('menu.custodianship') }, { title: t('menu.grandPrix') }, { title: '業績承諾卡', router: '/personal/promise-card' }, { title: t('menu.synthesize') }, { title: t('menu.operationRecord'), router: '/earnings/operation-record' }, { title: t('menu.helpHand'), router: '/personal/assistance' }, { title: t('menu.setting') }]
+        return [{ title: t('menu.wallet'), router: '/personal/wallet' }, { title: t('menu.exchange'), router: '/personal/exchange' }, { title: t('menu.coinBank'), router: '/personal/coherents' }, { title: t('menu.custodianship') }, { title: t('menu.grandPrix') }, { title: t('menu.promiseCard'), router: '/personal/promise-card' }, { title: t('menu.synthesize') }, { title: t('menu.operationRecord'), router: '/earnings/operation-record' }, { title: t('menu.helpHand'), router: '/personal/assistance' }, { title: t('menu.setting') }]
     } else if (!userInfo.address && !hasPackage.value) {
         return [{ title: t('menu.wallet'), router: '/personal/wallet' }]
     } else if (userInfo.address && !hasPackage.value) {

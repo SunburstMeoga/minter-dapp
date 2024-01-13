@@ -23,11 +23,11 @@
             <div class="flex justify-around items-center w-11/12">
                 <div class="border-2 border-primary-color text-white px-4 py-2 rounded-md font-bold animate__animated"
                     :class="hasChange ? 'animate__fadeInRight' : ''" @click="viewDocument">
-                    查看{{ $t('home.documentation') }}
+                    {{ $t('home.documentation') }}
                 </div>
                 <div class="border-2 border-primary-color text-white px-4 py-2 rounded-md font-bold animate__animated"
                     :class="hasChange ? 'animate__fadeInRight' : ''">
-                    錢包下載
+                    {{ $t('home.wallet') }}
                 </div>
             </div>
             <div class="">

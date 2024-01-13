@@ -39,13 +39,13 @@
                         <div v-if="isTrasfer" class="pl-4 active-white-color" @click="$emit('transfer')">{{
                             $t('wallet.transfer') }}
                         </div>
-                        <div v-if="isExchange" class="pl-4 active-white-color" @click="$emit('exchange')">劃轉
+                        <div v-if="isExchange" class="pl-4 active-white-color" @click="$emit('exchange')">{{$t('exchange.title')}}
                         </div>
-                        <div v-if="isBuy" class="pl-4 active-white-color" @click="$emit('buy')">市場
+                        <div v-if="isBuy" class="pl-4 active-white-color" @click="$emit('buy')">{{$t('wallet.market')}}
                         </div>
-                        <div v-if="isRegister" class="pl-4 active-white-color" @click="$emit('register')">註冊
+                        <div v-if="isRegister" class="pl-4 active-white-color" @click="$emit('register')">{{$t('wallet.register')}}
                         </div>
-                        <div v-if="isReleases" class="pl-4 active-white-color" @click="$emit('releases')">释放</div>
+                        <div v-if="isReleases" class="pl-4 active-white-color" @click="$emit('releases')">{{$t('wallet.release')}}</div>
                     </div>
                 </div>
                 <div class="flex justify-between items-center text-menu-word text-sm mb-2">

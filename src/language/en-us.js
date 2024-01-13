@@ -15,12 +15,15 @@ export default {
     feedback: 'Feedback',
     market: 'Market',
     pledge: 'Pledge',
+    contributionValue: 'Contribution Value',
     partnership: 'Partnership',
     rank: 'Ranking',
     casting: 'Casting',
     userCenter: 'User Center',
     wallet: 'Wallet',
     coinBank: 'CoinBank',
+    promiseCard: 'Promise Card',
+
     custodianship: 'Custodianship',
     grandPrix: 'Grand Prix',
     bag: 'My Bag',
@@ -34,7 +37,8 @@ export default {
     title: 'WELCOME TO',
     contentOne: 'Minter welcomes all those interested in NFT to join us!',
     contentTwo: 'Join us in creating a new world of endless possibilities!',
-    documentation: 'Documentation'
+    documentation: 'Documentation',
+    wallet: "Download Wallet"
   },
   present: {
     title: 'Minter Project',
@@ -143,8 +147,9 @@ export default {
     exploratory: 'Exploratory'
   },
   footBar: {
-    copyright: '©2023 Minter.',
-    connectUS: 'Contact Us'
+    copyright: '©2024 Minter.',
+    connectUS: 'Contact Us',
+    feedback: 'feedback'
   },
   toast: {
     notYetOpen: 'Not yet open',
@@ -171,6 +176,9 @@ export default {
     staticIncome: 'Static income',
     dynamicIncome: 'Dynamic income',
     transfer: 'Transfer',
+    market: 'Market',
+    release: "Release",
+    register: "Register",
     title: 'Assets',
     details: 'View Details',
     transferAddress: 'Transfer Address',
@@ -261,7 +269,15 @@ export default {
     cancel: 'Cancel'
   },
   raffle: {
-    start: 'GO'
+    start: 'GO',
+    revenueGasPedal: 'Revenue Accelerator (12% to 36%)',
+    expediteContent: 'Get the corresponding NFT bonus right away, so that your earnings are rewarded far more than daily earnings',
+    earnings: 'Daily Earnings (0.5% to 6%)',
+    earningsContent: 'Raise the price of your NFTs so you get a higher return when you sell them',
+    promiseCard: 'Performance Promise Card (10%)',
+    welfare: "Referral Benefit (0.5%~12%)",
+    welfareContent: "Get more RT bonus without any handling fee,",
+    welfareTips: 'Please remember to use this bonus before the 7th of each month'
   },
   turntable: {
     title: 'Raffle',
