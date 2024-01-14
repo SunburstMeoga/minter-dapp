@@ -640,7 +640,7 @@ async function handleCancelList(item) {
                             getUserNFTs()
                             getUserCanSaleNFT()
                             getAllNFT()
-                        }, 8000)
+                        }, 3000)
                     }
                 })
 
