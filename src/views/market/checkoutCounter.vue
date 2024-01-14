@@ -20,6 +20,24 @@
               {{ $t('coherents.coherentCap') }}:
             </div>
             <div class="text-red-500 font-bold">
+              {{ FormatAmount(coherentInfo.limit * 2).pointPre }}.<span class="text-xs">{{
+                FormatAmount(coherentInfo.limit * 2).pointOffside }}</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+              收益:
+            </div>
+            <div class="text-red-500 font-bold">
+              {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
+                FormatAmount(coherentInfo.limit).pointOffside }}</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+              獎金:
+            </div>
+            <div class="text-red-500 font-bold">
               {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
                 FormatAmount(coherentInfo.limit).pointOffside }}</span>
             </div>
@@ -82,13 +100,14 @@
       </div>
 
       <div class="w-11/12 flex justify-between items-center fixed bottom-3">
-        <div class="w-full operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForRT">
+        <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForUSDT">
+          USD3支付
+        </div>
+        <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForRT">
           <!-- {{ $t('modalConfirm.confirm') }} {{ $t('coherents.buy') }} -->
           RT支付
         </div>
-        <!-- <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForUSDT">
-          USD3支付
-        </div> -->
+
       </div>
     </div>
     <!-- 直接上級彈窗 -->
@@ -275,7 +294,7 @@
             </div>
           </div>
           <div class="text-primary-color font-bold pl-4 text-sm mb-4">
-           * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
+            * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
           </div>
           <div class="w-full flex justify-center items-center">
             <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handlePopupConfirmBuy">

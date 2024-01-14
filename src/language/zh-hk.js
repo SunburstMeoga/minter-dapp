@@ -27,7 +27,7 @@ export default {
     custodianship: '託管',
     grandPrix: '大獎賽',
     bag: '我的背包',
-    synthesize: '合成',
+    synthesize: '合成賦能',
     operationRecord: '操作記錄',
     helpHand: '助力',
     setting: '設置',

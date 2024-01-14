@@ -13,11 +13,11 @@
         <div class="w-full text-gray-400 text-sm mb-2 p-2">
             <div class="flex justify-between items-center mb-1">
                 <div>{{ $t('coherents.price') }}</div>
-                <div class="font-bold text-red-500">{{ type }} RT</div>
+                <div class="font-bold text-red-500">{{ type }} + 5 USD3 / RT</div>
             </div>
             <div class="flex justify-between items-center ">
                 <div>{{ $t('coherents.coherentCap') }}</div>
-                <div>{{ limit }} </div>
+                <div>{{ Number(limit) * 2 }} </div>
             </div>
         </div>
         <div class="p-2">

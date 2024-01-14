@@ -256,7 +256,20 @@ let homeChilds = computed(() => {
 
 let personalChilds = computed(() => {
     if (userInfo.address && hasPackage.value) {
-        return [{ title: t('menu.wallet'), router: '/personal/wallet' }, { title: t('menu.exchange'), router: '/personal/exchange' }, { title: t('menu.coinBank'), router: '/personal/coherents' }, { title: t('menu.custodianship') }, { title: t('menu.grandPrix') }, { title: t('menu.promiseCard'), router: '/personal/promise-card' }, { title: t('menu.synthesize') }, { title: t('menu.operationRecord'), router: '/earnings/operation-record' }, { title: t('menu.helpHand'), router: '/personal/assistance' }, { title: t('menu.setting') }]
+        return [
+            { title: t('menu.wallet'), router: '/personal/wallet' },
+            { title: t('menu.exchange'), router: '/personal/exchange' },
+            { title: 'NFTs', router: '/market/nfts' },
+            { title: t('menu.coinBank'), router: '/personal/coherents' },
+            { title: t('menu.promiseCard'), router: '/personal/promise-card' },
+            { title: t('menu.custodianship') },
+            { title: t('menu.synthesize') },
+            { title: t('menu.operationRecord'), router: '/earnings/operation-record' },
+            { title: t('menu.helpHand'), router: '/personal/assistance' },
+            { title: t('menu.setting') }]
+        // { title: t('menu.grandPrix') },
+
+
     } else if (!userInfo.address && !hasPackage.value) {
         return [{ title: t('menu.wallet'), router: '/personal/wallet' }]
     } else if (userInfo.address && !hasPackage.value) {
