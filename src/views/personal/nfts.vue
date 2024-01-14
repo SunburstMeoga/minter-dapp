@@ -324,7 +324,7 @@ async function handleListed(item) {
             proxy.$confirm.hide()
             proxy.$confirm.show({
                 title: '提示',
-                content: `你当前已经挂单${totalListings}张NFT，${countDown(timestamp)} 後可繼續掛單`,
+                content: `你当前已经挂单${totalListings}张NFT，賣掉一張後可繼續掛單，且24小時內只能掛單4張NFT。`,
                 showCancelButton: false,
                 confirmText: '確定',
                 onConfirm: () => {
