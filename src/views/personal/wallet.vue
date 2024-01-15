@@ -22,22 +22,23 @@
                     @recharge="handleWalletCardRecharge" @withdraw="handleWalletCardWithdraw" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="PMT" :balance="pmtBalance" :contranct="config.pmt_addr" isBuy isReleases
-                    @buy="handleWalletCardBuy" @releases="handleWalletCardReleases" />
+                <wallet-card currency="PMT" :tokenImg="pmtImg" :balance="pmtBalance" :contranct="config.pmt_addr" isBuy
+                    isReleases @buy="handleWalletCardBuy" @releases="handleWalletCardReleases" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="MT" :balance="mtBalance" :contranct="config.mt_addr" isExchange isBuy
-                    @buy="handleWalletCardBuy" @exchange="handleWalletCardExchange" />
+                <wallet-card currency="MT" :tokenImg="mtImg" :balance="mtBalance" :contranct="config.mt_addr" isExchange
+                    isBuy @buy="handleWalletCardBuy" @exchange="handleWalletCardExchange" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="BT" isExchange @exchange="handleWalletCardExchangeBT" :balance="palayBanalce.bt" />
+                <wallet-card currency="BT" :tokenImg="btImg" isExchange @exchange="handleWalletCardExchangeBT"
+                    :balance="palayBanalce.bt" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card :currency="'RT' + '(' + $t('order.bind') + ')'" :balance="palayBanalce.rtLocked" isRegister
-                    @register="handleRegister" />
+                <wallet-card :currency="'RT' + '(' + $t('order.bind') + ')'" :tokenImg="rtImg"
+                    :balance="palayBanalce.rtLocked" isRegister @register="handleRegister" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="RT" :balance="palayBanalce.rt" @transfer="handleWalletCardTransfer"
+                <wallet-card currency="RT" :balance="palayBanalce.rt" :tokenImg="rtImg" @transfer="handleWalletCardTransfer"
                     @exchange="handleExchangeRT" isExchange isTrasfer isRegister @register="handleRegister" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
@@ -290,6 +291,10 @@ import { config } from '@/const/config'
 import { showToast } from 'vant';
 import { number } from 'echarts';
 import { ZeroAddress, isAddress } from 'ethers'
+import rtImg from '@/assets/images/RT.png'
+import pmtImg from '@/assets/images/PT.png'
+import mtImg from '@/assets/images/MT.png'
+import btImg from '@/assets/images/BT.png'
 
 import { userStore } from "@/stores/user";
 import Web3 from "web3";
@@ -850,7 +855,7 @@ function handleWalletCardWithdraw() {
 //点击钱包卡片转账按钮
 function handleWalletCardTransfer() {
     console.log(palayBanalce.value.rt)
-    if (Number(palayBanalce.value.rt) <= 0 ) {
+    if (Number(palayBanalce.value.rt) <= 0) {
         showToast('RT餘額不足，不能進行转账操作。')
         return
     }

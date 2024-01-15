@@ -26,8 +26,13 @@
             <div>
                 <div class="flex justify-between items-center mb-2">
                     <div class="flex justify-start items-center">
-                        <div class="icon iconfont icon-yingyongshichang text-primary-color" style="font-size: 24px;"></div>
-                        <div class="font-bold text-lg pl-4">{{ currency }}</div>
+                        <div class="w-6" v-if="tokenImg">
+                            <img :src="tokenImg" alt="">
+                        </div>
+                        <div v-else class="icon iconfont icon-yingyongshichang text-primary-color" style="font-size: 24px;">
+                        </div>
+
+                        <div class="font-bold text-lg pl-2">{{ currency }}</div>
                     </div>
                     <div class="flex justify-end text-sm items-center text-yellow-300 active-color">
                         <div v-if="isRecharge" class="active-white-color" @click="$emit('recharge')">{{
@@ -39,13 +44,16 @@
                         <div v-if="isTrasfer" class="pl-4 active-white-color" @click="$emit('transfer')">{{
                             $t('wallet.transfer') }}
                         </div>
-                        <div v-if="isExchange" class="pl-4 active-white-color" @click="$emit('exchange')">{{$t('exchange.title')}}
+                        <div v-if="isExchange" class="pl-4 active-white-color" @click="$emit('exchange')">
+                            {{ $t('exchange.title') }}
                         </div>
-                        <div v-if="isBuy" class="pl-4 active-white-color" @click="$emit('buy')">{{$t('wallet.market')}}
+                        <div v-if="isBuy" class="pl-4 active-white-color" @click="$emit('buy')">{{ $t('wallet.market') }}
                         </div>
-                        <div v-if="isRegister" class="pl-4 active-white-color" @click="$emit('register')">{{$t('wallet.register')}}
+                        <div v-if="isRegister" class="pl-4 active-white-color" @click="$emit('register')">
+                            {{ $t('wallet.register') }}
                         </div>
-                        <div v-if="isReleases" class="pl-4 active-white-color" @click="$emit('releases')">{{$t('wallet.release')}}</div>
+                        <div v-if="isReleases" class="pl-4 active-white-color" @click="$emit('releases')">
+                            {{ $t('wallet.release') }}</div>
                     </div>
                 </div>
                 <div class="flex justify-between items-center text-menu-word text-sm mb-2">
@@ -89,7 +97,10 @@ const cardProps = defineProps({
         type: String,
         default: ''
     },
-
+    tokenImg: {
+        type: String,
+        default: ''
+    },
     isRegister: {
         type: Boolean,
         default: false
