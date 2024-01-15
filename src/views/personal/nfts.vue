@@ -62,16 +62,14 @@ const { t } = useI18n()
 const { proxy } = getCurrentInstance()
 import { config } from '@/const/config'
 let nftsStatusList = computed(() => {
-    return [{ title: '全部' }, { title: '正在掛單' }, { title: '待出售' }]
+    return [{ title: '全部' }, { title: '正在掛單' }, { title: '可出售' }]
 })
 // let listeds = ref([{ nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }])
 // let saleables = ref([{ nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }])
 let listeds = ref([])
 let saleables = ref([])
-
 let checkedListeds = ref([])
 let checkedSaleables = ref([])
-
 let currentType = ref(0)
 let isAllListed = ref(false)
 let isAllSale = ref(false)
@@ -108,6 +106,7 @@ function getUserCanSaleNFT() {
                     }
                 })
             }
+            console.log('可出售列表', saleables.value)
             // if (res.nft_token_ids.length !== 0) {    
             //     res.nft_token_ids.map(item => {
             //         let obj = {}
@@ -177,14 +176,6 @@ function getAllNFT() {
 function getUserNFTs() {
     proxy.$loading.show()
     listeds.value = []
-    // let status = currentType.value
-    // let params = {}
-    // if (status == 0) {
-    //     params = { address: localStorage.getItem('address'), perPage: 10000 }
-    // } else if (status == 1) {
-    //     params = { address: localStorage.getItem('address'), status: 1, perPage: 10000 }
-    // }
-    // let params = { address: localStorage.getItem('address'), status: 0, perPage: 10000 }
     let params = { address: localStorage.getItem('address'), status: 1, perPage: 10000 }
     marketplace(params)
         .then(res => {
@@ -238,8 +229,6 @@ function countDown(time) {
     minute = minute < 10 ? "0" + minute : minute
     var second = Math.floor(time % 60);
     second = second < 10 ? "0" + second : second
-    // console.log(day + "天" + hour + "时" + minute + "分" + second + "秒")
-
     return day + "天" + hour + "時" + minute + "分" + second + "秒"
 }
 //獲取24小時內掛單的nft數量
@@ -248,7 +237,6 @@ async function getListeds24h() { //每个地址每天最多挂单4张NFT
     let listedsList = []
     listeds.value.find(item => {
         if (timestamp - new Date(item.updated_at).getTime() <= 60 * 60 * 3 * 1000) {
-            // console.log(timestamp - new Date(item.updated_at).getTime(), 60 * 60 * 24 * 1000)
             listedsList.push(item)
         }
     })
@@ -258,37 +246,6 @@ async function getListeds24h() { //每个地址每天最多挂单4张NFT
 
 //掛單
 async function handleListed(item) {
-
-    // console.log(await getListeds24h())
-    // console.log(listeds.value.length)
-    // return
-    // if (await getListeds24h() >= 4) {
-    //     proxy.$confirm.hide()
-    //     proxy.$confirm.show({
-    //         title: '提示',
-    //         content: '您在24小時內已經進行過4次掛單，暫無法進行再次掛單。',
-    //         showCancelButton: false,
-    //         confirmText: '確定',
-    //         onConfirm: () => {
-    //             proxy.$confirm.hide()
-    //         },
-    //     });
-    //     return
-    // }
-
-    // if (listeds.value.length >= 4) { //每个地址最多同时挂单4张
-    //     proxy.$confirm.hide()
-    //     proxy.$confirm.show({
-    //         title: '提示',
-    //         content: '當前有4張NFT正在掛單未出售，無法進行掛單。',
-    //         showCancelButton: false,
-    //         confirmText: '確定',
-    //         onConfirm: () => {
-    //             proxy.$confirm.hide()
-    //         },
-    //     });
-    //     return
-    // }
 
 
     console.log(item)
@@ -309,17 +266,7 @@ async function handleListed(item) {
         console.log('現正掛賣NFT數量', totalListings)
         console.log('由此時間開始計起24小時', lastListingTime)
         console.log('timestamp', timestamp)
-        // proxy.$confirm.show({
-        //     title: '提示',
-        //     content: `24小時內一共只能掛單或售賣4張NFT，您当前已挂单或售出${numListingsIn24Hours}张，${countDown(timestamp)}後可繼續掛單`,
-        //     showCancelButton: false,
-        //     confirmText: '確定',
-        //     onConfirm: () => {
-        //         proxy.$confirm.hide()
-        //         proxy.$loading.hide()
-        //     },
-        // });
-        // return
+
         if (Number(totalListings) >= 4) {
             proxy.$confirm.hide()
             proxy.$confirm.show({

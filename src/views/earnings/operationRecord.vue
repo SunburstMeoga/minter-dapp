@@ -45,7 +45,7 @@
                                         :price="item.amount || item.reward_amount || item.price"
                                         :symbol="item.token && item.token.symbol + (item.transaction && item.transaction.locked ? '(綁定版)' : '')"
                                         :showExpire="currentTab == 1 && currentType == 3"
-                                        :expireDate="item.transaction && item.transaction.expire_date"
+                                        :expireDate="getExpireData(item.created_at)"
                                         :promiseCardValidDate="item.promise_card_valid_date"
                                         :transfer="currentTab == 3 && currentType == 1"
                                         :transferType="item.dynamic_earning_type && item.dynamic_earning_type.name || item.remark"
@@ -116,6 +116,17 @@ onMounted(() => {
     // nftBuyList()
     // nftPendList()
 })
+function getExpireData(value) {
+    let timestamp = new Date(value).getTime()
+    var date = new Date(timestamp); // 初始化日期
+    var year = date.getFullYear(); //获取年份
+    var month = date.getMonth() + 2; // 获取月份
+    var day = date.getDate(); // 获取具体日
+
+    return year + '-' + month + '-' + '7'
+    // }
+    // return timestamp
+}
 function onSelect(select) {
     console.log(select)
     let params = { address: localStorage.getItem('address'), perPage: 10000, sortBy: 'created_at', sortDesc: true }

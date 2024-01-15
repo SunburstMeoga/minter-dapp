@@ -25,7 +25,7 @@
             </div>
             <div class="flex justify-between items-center" v-show="showExpire">
                 <div>清零時間</div>
-                <div>{{ FilterTime(expireDate) }}</div>
+                <div>{{ expireDate }}</div>
             </div>
         </div>
         <div v-show="isNFT">

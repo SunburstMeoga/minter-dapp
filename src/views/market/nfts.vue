@@ -368,7 +368,7 @@ async function isNotEnoughBalance(amount) {
     let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
     pmtBalance = WEB3.utils.fromWei(pmtBalance.toString(), 'ether')
     let balance = parseInt(parseInt(mtBalance) + parseInt(pmtBalance))
-    console.log(balance, Number(amount).toFixed(4))
+    console.log(balance, parseInt(amount))
     return balance < parseInt(amount)
 }
 
