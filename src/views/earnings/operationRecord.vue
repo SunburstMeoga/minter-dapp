@@ -120,7 +120,13 @@ function getExpireData(value) {
     let timestamp = new Date(value).getTime()
     var date = new Date(timestamp); // 初始化日期
     var year = date.getFullYear(); //获取年份
-    var month = date.getMonth() + 2; // 获取月份
+    var month = date.getMonth() + 1; // 获取月份
+    if (month == 12) {
+        month = 1
+        year = year + 1
+    } else {
+        month = month + 1
+    }
     var day = date.getDate(); // 获取具体日
 
     return year + '-' + month + '-' + '7'
