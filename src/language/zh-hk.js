@@ -37,7 +37,7 @@ export default {
     title: '歡迎來到',
     contentOne: 'Minter歡迎所有對NFT感興趣的朋友加入我們!',
     contentTwo: '與我們共同創造一個充滿無數可能性的新世界!',
-    documentation: '文檔',
+    documentation: '查看文檔',
     wallet: "錢包下載"
   },
   present: {

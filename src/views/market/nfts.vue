@@ -34,8 +34,8 @@
                                 <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
                                     :showBuyButton="userInfo.address !== item.address"
                                     :showCancelButton="userInfo.address == item.address"
-                                    @handleBuyButton="handleBuyButton(item, packageID >= 1)" :tokenID="item.token_id"
-                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID >= 1" />
+                                    @handleBuyButton="handleBuyButton(item, packageID == 1)" :tokenID="item.token_id"
+                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 1" />
                             </div>
                             <div v-show="packageN.length == 0"
                                 class="text-white font-bold text-xl text-center mt-10 w-full">
@@ -49,8 +49,8 @@
                                 <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
                                     :showBuyButton="userInfo.address !== item.address"
                                     :showCancelButton="userInfo.address == item.address"
-                                    @handleBuyButton="handleBuyButton(item, packageID >= 2)" :tokenID="item.token_id"
-                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID >= 2" />
+                                    @handleBuyButton="handleBuyButton(item, packageID == 2)" :tokenID="item.token_id"
+                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 2" />
                             </div>
                             <div v-show="packageR.length == 0"
                                 class="text-white font-bold text-xl text-center mt-10 w-full">
@@ -64,8 +64,8 @@
                                 <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
                                     :showBuyButton="userInfo.address !== item.address"
                                     :showCancelButton="userInfo.address == item.address"
-                                    @handleBuyButton="handleBuyButton(item, packageID >= 3)" :tokenID="item.token_id"
-                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID >= 3" />
+                                    @handleBuyButton="handleBuyButton(item, packageID == 3)" :tokenID="item.token_id"
+                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 3" />
                             </div>
                         </div>
                         <div v-show="packageSR.length == 0" class="text-white font-bold text-xl text-center mt-10 w-full">
@@ -78,8 +78,8 @@
                                 <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
                                     :showBuyButton="userInfo.address !== item.address"
                                     :showCancelButton="userInfo.address == item.address"
-                                    @handleBuyButton="handleBuyButton(item, packageID >= 4)" :tokenID="item.token_id"
-                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID >= 4" />
+                                    @handleBuyButton="handleBuyButton(item, packageID == 4)" :tokenID="item.token_id"
+                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 4" />
                             </div>
                         </div>
                         <div v-show="packageSSR.length == 0" class="text-white font-bold text-xl text-center mt-10 w-full">
@@ -92,8 +92,8 @@
                                 <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
                                     :showBuyButton="userInfo.address !== item.address"
                                     :showCancelButton="userInfo.address == item.address"
-                                    @handleBuyButton="handleBuyButton(item, packageID >= 5)" :tokenID="item.token_id"
-                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID >= 5" />
+                                    @handleBuyButton="handleBuyButton(item, packageID == 5)" :tokenID="item.token_id"
+                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 5" />
                             </div>
                         </div>
                         <div v-show="packageUR.length == 0" class="text-white font-bold text-xl text-center mt-10 w-full">
@@ -165,9 +165,10 @@ function onSelect(select) {
 //獲取當前最高配套
 async function getMaxPackage() {
     let result = await playersInfo(localStorage.getItem('address'))
-    console.log(result.player.max_package_id)
-    active.value = result.player.package_transactions[0].package_id - 1
-    console.log(active.value)
+    console.log(result)
+    packageID.value = result.player.max_package_id
+    active.value = result.player.max_package_id - 1
+    // console.log(active.value)
 }
 //取消掛單
 async function handleCancelList(item) {
@@ -233,7 +234,7 @@ function getMarketplace(params) {
             packageN.value = []
             packageR.value = []
             packageSR.value = []
-            packageID.value = res.last_package.package_id
+            // packageID.value = res.last_package.package_id
             if (res.message == '玩家沒有購買配套。') {
                 proxy.$loading.hide()
                 proxy.$confirm.hide()
@@ -251,7 +252,7 @@ function getMarketplace(params) {
             console.log('nft列表', res)
             nftsDatas.value = res.market_places
             res.market_places.map(item => {
-                console.log(Number(item.token_type))
+                // console.log(Number(item.token_type), item.token_id)
                 if (item.token_type == 1) {
                     item.nftImg = nftOne
                 }
