@@ -52,7 +52,7 @@ const coherents_list = [
     limit: '40000',
     incentiveRate: 0.4,
     shareholdings: 200,
-    isSale: tru
+    isSale: true
   }
 ]
 

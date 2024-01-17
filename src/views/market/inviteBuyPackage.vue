@@ -108,7 +108,8 @@
                 </div>
             </div>
         </div>
-        <div class="text-gray-500 text-center text-sm mt-10 underline active-white-color" @click="togglePackagePopup">
+        <div class="text-gray-200 text-center text-sm mt-10 operating-button w-11/12 ml-auto mr-auto py-2"
+            @click="togglePackagePopup">
             {{ $t('invitePage.showMore') }}
         </div>
 
