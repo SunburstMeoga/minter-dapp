@@ -262,12 +262,12 @@ function getMarketplace(params) {
                 if (item.token_type == 3) {
                     item.nftImg = nftThree
                 }
-                // if (item.token_type == 4) {
-                //     item.nftImg = nftFour
-                // }
-                // if (item.token_type == 5) {
-                //     item.nftImg = nftFour
-                // }
+                if (item.token_type == 4) {
+                    item.nftImg = nftFour
+                }
+                if (item.token_type == 5) {
+                    item.nftImg = nftFour
+                }
                 if (item.token_type == 1) {
                     packageN.value.push(item)
                 }
@@ -276,6 +276,12 @@ function getMarketplace(params) {
                 }
                 if (item.token_type == 3) {
                     packageSR.value.push(item)
+                }
+                if (item.token_type == 4) {
+                    packageSSR.value.push(item)
+                }
+                if (item.token_type == 5) {
+                    packageUR.value.push(item)
                 }
                 // if (Number(item.price) >= 0 && Number(item.price) <= 100) {
                 //     packageN.value.push(item)
