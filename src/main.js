@@ -38,7 +38,8 @@ import {
   Swipe,
   SwipeItem,
   ShareSheet,
-  Overlay
+  Overlay,
+  List
 } from 'vant'
 
 import 'vant/lib/index.css'
@@ -76,6 +77,8 @@ app.use(Swipe)
 app.use(SwipeItem)
 app.use(ShareSheet)
 app.use(Overlay)
+app.use(List)
+
 
 app.use(loading)
 app.use(confirm)

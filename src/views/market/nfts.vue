@@ -583,7 +583,8 @@ async function handleBuyButton(item, canBuy) {
                                 // prizeID: luckyResult.roulette_record.prize_type_id,
                                 // prizeName: luckyResult.roulette_record.prize_type.name,
                                 // rewardPercentage: luckyResult.roulette_record.reward_percentage,
-                                prizeIndex: res.roulette_record.roulette_id
+                                prizeIndex: res.roulette_record.roulette_id,
+                                nftPrice: res.roulette_record.nft_price,
                             }
                         })
                     } else {

@@ -262,13 +262,13 @@ export default {
   raffle: {
     start: '開始',
     revenueGasPedal: '收益加速器(12%～36%)',
-    expediteContent: '馬上獲得對應的NFT獎勵，使你的收益獲得遠超每日收益的獎勵',
+    expediteContent: '即时发放PMT 到购买地址。NFT 的价值不变。72 小时后可售出NFT，成功售出 NFT 后，售额将即时入账MT钱包',
     earnings: '每日收益(0.5%～6%)',
-    earningsContent: '提高你的NFT價格，使你出售後獲得更高的收益',
+    earningsContent: '附加收益在 NFT 价值上。72 小时后可 售 出 NFT，售额将即时入 账 MT 钱包。',
     promiseCard: '業績承諾卡(10%)',
-    promiseCardContent: '達到一定條件後即可獲得高額的RT獎勵',
+    promiseCardContent: '业绩承诺卡需於 30 天内邀请两个用户。购买>或=业绩承诺卡记录的配套(基于用户购买的最后价值的配套计算)，方能立刻获得业绩承诺卡所记录的配套的10% 的 RT。',
     welfare: '推薦福利(0.5%～12%)',
-    welfareContent: '無需任何手續費即可獲得更多的RT獎勵,',
+    welfareContent: '绑定的RT，每个月推荐福利(绑定 RT)于次月 7 日 0 点清零，1-7 日产生的 RT 值在下个月的 7 日清零。可以配合正常 RT 一起使用去购买配套使用。',
     welfareTips: '請切記這個獎勵要在每個月7號前使用'
   },
   turntable: {

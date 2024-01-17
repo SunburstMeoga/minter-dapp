@@ -49,13 +49,13 @@
                         <img src="../../assets/images/prize.png" alt="">
                     </div>
                     <div class="flex justify-center items-center absolute top-60 w-full">
-                        <div class="w-5/12 text-yellow-400 pt-4 px-2">
-                            <div class="font-bold text-lg mb-2 w-full text-center text-shadow-3xl">
+                        <div class="w-5/12 text-yellow-400 pt-0.5 px-2">
+                            <div class="font-bold text-lg w-full text-center text-shadow-3xl">
                                 {{ prizeContent }}
                             </div>
-                            <!-- <div class="text-xs w-full text-center text-shadow-3xl">
+                            <div class="text-xs w-full text-center text-shadow-3xl">
                                 {{ prizeDetails }}
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -178,6 +178,7 @@ let prizeID = ref(0)
 let prizeName = ref('')
 let rewardPercentage = ref("")
 let prizeIndex = ref()
+let nftPrice = ref()
 let prizes = computed(() => {
     return [
         // { fonts: [{ text: t('turntable.dailyEarnings') + ' 2%', top: '10%', fontSize: '12px', fontColor: '#fff' }], background: '#2C4FB0' },
@@ -216,11 +217,12 @@ let buttons = computed(() => {
 
 onMounted(() => {
     nftInfo.value.address = route.query.address
-    nftInfo.value.nft_price = route.query.nft_price
+    // nftPrice.value = route.query.nft_price
     nftInfo.value.nft_token_id = route.query.nft_token_id
     prizeIndex.value = route.query.prizeIndex
-
-    getRoulettes()
+    nftPrice.value = route.query.nftPrice
+    // getRoulettes()
+    console.log(nftPrice.value)
     initRoulette()
 })
 
@@ -234,9 +236,22 @@ function wheelEndedCallback(evt) {
     console.log(items)
     console.log(wheelSettings.wheelResultIndex)
     if (evt) {
+        console.log(evt)
         isPrized.value = true
         prizeContent.value = items[wheelSettings.wheelResultIndex.value].name
-        prizeDetails.value = prizeDescription.value[evt.typeId - 1].content
+        // prizeDetails.value = prizeDescription.value[evt.typeId - 1].content
+        let typeId = evt.typeId
+        console.log(evt.rewardPercentage)
+        console.log(nftPrice.value)
+        switch (typeId) {
+            case 1: prizeDetails.value = `恭喜获得【PMT收益加速】,奖励NFT的${evt.rewardPercentage}%,即${Number(nftPrice.value) * (Number(evt.rewardPercentage) / 100)}PMT，加速回本`
+                break;
+            case 2: prizeDetails.value = `【NFT增值奖励】挂售NFT可增值${evt.rewardPercentage}%, 即${Number(nftPrice.value) * (Number(evt.rewardPercentage) / 100)}收益 *NFT72小时可挂售`
+                break;
+            case 3: prizeDetails.value = `恭喜获得【额外${evt.rewardPercentage}%直推奖金】,必须30天内直推大于等于自身配套的2个账户赚取配套10%。`
+                break;
+            case 4: prizeDetails.value = `恭喜获得【个人推荐绑定RT】,获得${evt.rewardPercentage}%,即${Number(nftPrice.value) * (Number(evt.rewardPercentage) / 100)}RT *每月7号0点截止（绑定RT）`
+        }
     }
 
     // wheelSettings.value.resultVariation = 3
@@ -265,6 +280,7 @@ async function initRoulette() {
             htmlContent: modifiedName,
             background: backgroundColor,
             typeId: item.prize_type_id,
+            rewardPercentage: item.reward_percentage
         })
 
     })
@@ -292,35 +308,36 @@ async function initRoulette() {
     proxy.$loading.hide()
 }
 
-function getRoulettes() {
-    proxy.$loading.show()
-    roulettes()
-        .then(res => {
-            console.log('輪盤參數', res)
-            res.roulettes.map(item => {
-                let obj = {}
-                let objChild = {}
-                let fonts = []
-                objChild.text = item.name
-                objChild.id = item.id
-                objChild.top = '10%'
-                objChild.fontSize = '12px'
-                objChild.fontColor = '#fff'
-                fonts.push(objChild)
-                obj.fonts = fonts
-                prizes.value.push(obj)
-            })
-            prizes.value.map((item, index) => {
-                index % 2 == 0 ? item.background = '#CC6DED' : item.background = '#2C4FB0'
-            })
-            proxy.$loading.hide()
-            console.log(prizes.value)
-        })
-        .catch(err => {
-            console.log('err', err)
-            proxy.$loading.hide()
-        })
-}
+// function getRoulettes() {
+//     proxy.$loading.show()
+//     roulettes()
+//         .then(res => {
+//             console.log('輪盤參數', res)
+//             res.roulettes.map(item => {
+//                 let obj = {}
+//                 let objChild = {}
+//                 let fonts = []
+//                 objChild.text = item.name
+//                 objChild.id = item.id
+//                 objChild.top = '10%'
+//                 objChild.fontSize = '12px'
+//                 objChild.fontColor = '#fff'
+//                 obj.objChild
+//                 fonts.push(objChild)
+//                 obj.fonts = fonts
+//                 prizes.value.push(obj)
+//             })
+//             prizes.value.map((item, index) => {
+//                 index % 2 == 0 ? item.background = '#CC6DED' : item.background = '#2C4FB0'
+//             })
+//             proxy.$loading.hide()
+//             console.log(prizes.value)
+//         })
+//         .catch(err => {
+//             console.log('err', err)
+//             proxy.$loading.hide()
+//         })
+// }
 
 function viewPrizeDetaisl() {
     showPrizeDetails.value = true

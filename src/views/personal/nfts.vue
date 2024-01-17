@@ -10,10 +10,19 @@
             </div>
         </div>
         <!-- 全部 -->
-        <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap" v-show="currentType == 0">
-            <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in nftsDatas" :key="index">
+        <div class="w-11/12 mr-auto ml-auto flex" v-show="currentType == 0">
+            <van-list v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" class="w-full">
+                <div class="flex justify-between items-center flex-wrap">
+                    <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in nftsDatas"
+                        :key="index">
+                        <nft-card :nftImg="item.nftImg" :showCheckbox="false" :price="item.price"
+                            :tokenID="item.token_id" />
+                    </div>
+                </div>
+            </van-list>
+            <!-- <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in nftsDatas" :key="index">
                 <nft-card :nftImg="item.nftImg" :showCheckbox="false" :price="item.price" :tokenID="item.token_id" />
-            </div>
+            </div> -->
         </div>
         <div v-if="nftsDatas.length == 0 && currentType == 0" class="text-white font-bold mt-20 text-center">
             暫無數據
@@ -32,7 +41,6 @@
         <!-- 可出售 -->
         <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap"
             v-show="currentType == 2 && saleables.length !== 0">
-
             <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in saleables" :key="index">
                 <nft-card :nftImg="item.nftImg" showListedButton :price="item.price" :tokenID="item.token_id"
                     @handleListed="handleListed(item)" />
@@ -74,18 +82,34 @@ let currentType = ref(0)
 let isAllListed = ref(false)
 let isAllSale = ref(false)
 let nftsDatas = ref([])
+const list = ref([]);
+const loading = ref(false)
+const finished = ref(false)
 onMounted(() => {
     getUserNFTs()
     getUserCanSaleNFT()
     getAllNFT()
 })
+function onLoad() {
+    setTimeout(() => {
+        for (let i = 0; i < 10; i++) {
+            list.value.push(list.value.length + 1);
+        }
 
+        // 加载状态结束
+        loading.value = false;
+
+        // 数据全部加载完成
+        if (list.value.length >= 1000) {
+            finished.value = true;
+        }
+    }, 1000);
+}
 //用戶取得自己可出售的NFT
 function getUserCanSaleNFT() {
     saleables.value = []
     getCanSaleNFT()
         .then(res => {
-            console.log(res)
             saleables.value = res.nft_token_ids
             if (saleables.value.length !== 0) {
                 saleables.value.map(item => {
@@ -107,20 +131,13 @@ function getUserCanSaleNFT() {
                 })
             }
             console.log('可出售列表', saleables.value)
-            // if (res.nft_token_ids.length !== 0) {    
-            //     res.nft_token_ids.map(item => {
-            //         let obj = {}
-            //         obj.token_id = item
-            //         saleables.value.push(obj)
-            //     })
-            // }
         })
         .catch(err => {
             console.log(err)
         })
 }
 
-function getAllNFT() {
+async function getAllNFT() {
     proxy.$loading.show()
     nftsDatas.value = []
     let status = currentType.value
@@ -134,11 +151,14 @@ function getAllNFT() {
     userNFT(params)
         .then(res => {
             proxy.$loading.hide()
-            // saleables 可出售 listeds//正在掛單
             console.log(res)
             nftsDatas.value = res.nft_token_ids
             if (nftsDatas.value.length !== 0) {
-                nftsDatas.value.map(item => {
+                nftsDatas.value.map(async item => {
+                    let time = await nftContractApi.sellOffPeriod(item.token_id)
+                    // console.log('出售時間時間戳', Number(time))
+                    // console.log('現在時間時間戳', parseInt(new Date().getTime() / 1000))
+
                     if (item.token_type == 1) {
                         item.nftImg = nftOne
                     }
@@ -154,21 +174,17 @@ function getAllNFT() {
                     if (item.token_type == 5) {
                         item.nftImg = nftFour
                     }
+                    if (Number(time) > parseInt(new Date().getTime() / 1000)) {
+                        item.isSellOffPeriod = true
+                    } else {
+                        item.isSellOffPeriod = false
+                    }
                 })
             }
-            // if (res.nft_token_ids.length !== 0) {
-            //     res.nft_token_ids.map(item => {
-            //         let obj = {}
-            //         obj.token_id = item
-            //         nftsDatas.value.push(obj)
-
-            //     })
-            // }
-            console.log('我的nft', res)
+            console.log('全部', res)
         })
         .catch(err => {
             proxy.$loading.hide()
-
             console.log(err)
         })
 }
@@ -208,7 +224,6 @@ function getUserNFTs() {
                 })
             }
             console.log('正在掛單', res)
-            console.log('正在掛單列表', listeds.value)
         })
         .catch(err => {
             proxy.$loading.hide()
