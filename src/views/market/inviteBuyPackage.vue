@@ -108,7 +108,7 @@
                 </div>
             </div>
         </div>
-        <div class="text-gray-200 text-center text-sm mt-10 operating-button w-11/12 ml-auto mr-auto py-2"
+        <div class="text-gray-200 text-center text-sm mt-10 operating-button w-11/12 ml-auto mr-auto py-3 rounded"
             @click="togglePackagePopup">
             {{ $t('invitePage.showMore') }}
         </div>
