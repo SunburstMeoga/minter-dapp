@@ -99,5 +99,5 @@ input:focus-within {
 
     filter: grayscale(100%);
 
-    filter: gray;
+    filter: #872644;
 }

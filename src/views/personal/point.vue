@@ -261,6 +261,9 @@ import { login, playersInfo } from '@/request/api'
 import nftOne from '@/assets/images/200_500m.gif'
 import nftTwo from '@/assets/images/600_500m.gif'
 import nftThree from '@/assets/images/2000_500m.gif'
+import nftFour from '@/assets/images/6000_500m.gif'
+import nftFive from '@/assets/images/20000_500m.gif'
+
 const { t } = useI18n()
 import { ref } from 'vue'
 defineProps({
@@ -306,6 +309,10 @@ function getMaxPackage(maxPackage) {
         img = nftTwo
     } else if (maxPackage == 3) {
         img = nftThree
+    } else if (maxPackage == 4) {
+        img = nftFour
+    } else if (maxPackage == 5) {
+        img = nftFive
     }
 
     return img
