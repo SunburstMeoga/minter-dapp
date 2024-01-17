@@ -259,7 +259,7 @@ let personalChilds = computed(() => {
         return [
             { title: t('menu.wallet'), router: '/personal/wallet' },
             { title: t('menu.exchange'), router: '/personal/exchange' },
-            { title: 'NFTs', router: '/market/nfts' },
+            { title: 'NFTs', router: '/personal/nfts' },
             { title: t('menu.coinBank'), router: '/personal/coherents' },
             { title: t('menu.promiseCard'), router: '/personal/promise-card' },
             { title: t('menu.custodianship') },
