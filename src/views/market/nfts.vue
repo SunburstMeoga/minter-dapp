@@ -1,22 +1,33 @@
 <template>
     <div class="text-primary-color pt-12">
         <div class="pt-2">
-            <div class="w-11/12 mr-auto ml-auto mt-4">
-                <module-title titleWord="NFTs" />
+            <div class="w-11/12 mr-auto ml-auto mt-4 flex justify-between items-center">
+                <div>
+                    <module-title titleWord="NFTs" />
+                </div>
+
             </div>
             <div class="w-11/12 mr-auto ml-auto flex justify-end">
-                <van-popover v-model:show="showFilterPopover" theme="dark" placement="bottom-end" :actions="actions"
-                    @select="onSelect">
-                    <template #reference>
-                        <div
-                            class="flex justify-center items-center text-gray-500 border text-xs border-gray-500  rounded px-3 py-1">
-                            <div class="icon iconfont icon-screen mr-1" style="font-size: 12px;"></div>
-                            <div class="">
-                                {{ actions[currentFilter].text }}
+                <div>
+                    <div class="text-gray-500 mr-5 rounded flex justify-center items-center h-8 w-8 border active-primary-color border-gray-500"
+                        @click="refreshData">
+                        <div class="icon iconfont icon-shuaxin icon-refresh" :class="loading ? 'animate-spin' : ''"></div>
+                    </div>
+                </div>
+                <div>
+                    <van-popover v-model:show="showFilterPopover" theme="dark" placement="bottom-end" :actions="actions"
+                        @select="onSelect">
+                        <template #reference>
+                            <div
+                                class="flex justify-center items-center text-gray-500 border text-xs border-gray-500 active-primary-color  rounded px-3 h-8">
+                                <div class="icon iconfont icon-screen mr-1" style="font-size: 12px;"></div>
+                                <div class="">
+                                    {{ actions[currentFilter].text }}
+                                </div>
                             </div>
-                        </div>
-                    </template>
-                </van-popover>
+                        </template>
+                    </van-popover>
+                </div>
             </div>
 
             <!-- <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
@@ -143,10 +154,12 @@ let currentFilter = ref(0)
 let tokenID = ref(null)
 let timer = ref(null)
 let active = ref(0)
+let loading = ref(false)
 let actions = ref([
     { text: '价格由高到低', value: true, index: 0 },
     { text: '价格由低到高', value: false, index: 1 }
 ])
+
 const userInfo = userStore()
 
 
@@ -155,6 +168,12 @@ onMounted(() => {
     getMarketplace(params)
     getMaxPackage()
 })
+//刷新
+function refreshData() {
+    loading.value = true
+    let params = { perPage: 100000, status: 1 }
+    getMarketplace(params)
+}
 
 function onSelect(select) {
     console.log(select)
@@ -283,71 +302,15 @@ function getMarketplace(params) {
                 if (item.token_type == 5) {
                     packageUR.value.push(item)
                 }
-                // if (Number(item.price) >= 0 && Number(item.price) <= 100) {
-                //     packageN.value.push(item)
-                //     packageN.value.map(item => {
-                //         item.nftImg = nftOne
-                //         // item.token_type = 1
-                //         // if (item.token_type == 1) {
-                //         //     item.nftImg = nftOne
-                //         // } else if (item.token_type == 2) {
-                //         //     item.nftImg = nftTwo
-                //         // } else if (item.token_type == 3) {
-                //         //     item.nftImg = nftThree
-                //         // } else if (item.token_type == 4) {
-                //         //     item.nftImg = nftFour
-                //         // } else if (item.token_type == 5) {
-                //         //     item.nftImg = nftFour
-                //         // }
-                //     })
-                // }
-                // if (Number(item.price) >= 75 && Number(item.price) <= 300) {
-                //     packageR.value.push(item)
-                //     if (packageR.value.length !== 0) {
-                //         packageR.value.map(item => {
-                //             item.nftImg = nftTwo
-                //             // if (item.token_type == 1) {
-                //             //     item.nftImg = nftOne
-                //             // } else if (item.token_type == 2) {
-                //             //     item.nftImg = nftTwo
-                //             // } else if (item.token_type == 3) {
-                //             //     item.nftImg = nftThree
-                //             // } else if (item.token_type == 4) {
-                //             //     item.nftImg = nftFour
-                //             // } else if (item.token_type == 5) {
-                //             //     item.nftImg = nftFour
-                //             // }
-                //         })
-                //     }
-                // }
-
-                // if (Number(item.price) >= 250 && Number(item.price) <= 1000) {
-                //     packageSR.value.push(item)
-
-                //     if (packageSR.value.length !== 0) {
-                //         packageSR.value.map(item => {
-                //             // item.token_type = 3
-                //             item.nftImg = nftThree
-                //             // if (item.token_type == 1) {
-                //             //     item.nftImg = nftOne
-                //             // } else if (item.token_type == 2) {
-                //             //     item.nftImg = nftTwo
-                //             // } else if (item.token_type == 3) {
-                //             //     item.nftImg = nftThree
-                //             // } else if (item.token_type == 4) {
-                //             //     item.nftImg = nftFour
-                //             // } else if (item.token_type == 5) {
-                //             //     item.nftImg = nftFour
-                //             // }
-                //         })
-                //     }
-                // }
+                loading.value = false
             })
             proxy.$loading.hide()
         })
         .catch(err => {
             console.log(err)
             proxy.$loading.hide()
+            loading.value = false
+
         })
 }
 
@@ -378,7 +341,7 @@ async function isNotEnoughBalance(amount) {
     console.log(balance, parseInt(amount))
     return balance < parseInt(amount)
 }
-
+// 點擊購買配套按鈕
 async function handleBuyButton(item, canBuy) {
     console.log(item, canBuy)
     if (!canBuy) {
@@ -572,9 +535,7 @@ async function handleBuyButton(item, canBuy) {
         //     proxy.$confirm.hide()
         // }
     });
-
-
-
+    //抽奖结果
     function getLuckyRes() {
         getLuckyDraw({ nft_token_id: tokenID.value })
             .then(res => {
