@@ -266,7 +266,7 @@ function getMarketplace(params) {
                     item.nftImg = nftFour
                 }
                 if (item.token_type == 5) {
-                    item.nftImg = nftFour
+                    item.nftImg = nftFive
                 }
                 if (item.token_type == 1) {
                     packageN.value.push(item)
