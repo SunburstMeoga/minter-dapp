@@ -8,7 +8,7 @@
                 @click="clickPoint(directReferrals.address, directReferrals.pv, directReferrals.pv_remain, null, null, true)">
                 <div class="bg-black w-full h-full rounded-full overflow-hidden"
                     :class="directReferrals.is_out ? 'gray' : ''">
-                    <img :src="getMaxPackage(directReferrals.max_package_id)" alt="">
+                    <img :src="getMaxPackage(directReferrals.max_package_id, directReferrals.is_out)" alt="">
                 </div>
             </div>
             <div class="text-center text-xs flex items-center">
@@ -35,7 +35,7 @@
                         <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.address"
                             class="bg-black w-full h-full rounded-full overflow-hidden"
                             :class="directReferrals && directReferrals.left_leg && directReferrals.left_leg.is_out ? 'gray' : ''">
-                            <img :src="getMaxPackage(directReferrals && directReferrals.left_leg && directReferrals.left_leg.max_package_id)"
+                            <img :src="getMaxPackage(directReferrals && directReferrals.left_leg && directReferrals.left_leg.max_package_id, directReferrals && directReferrals.left_leg && directReferrals.left_leg.is_out)"
                                 alt="">
                         </div>
                         <div v-else
@@ -81,7 +81,7 @@
                                 <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address"
                                     class="bg-black w-full h-full rounded-full overflow-hidden"
                                     :class="directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.is_out ? 'gray' : ''">
-                                    <img :src="getMaxPackage(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.max_package_id)"
+                                    <img :src="getMaxPackage(directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.max_package_id, directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.is_out)"
                                         alt="">
                                 </div>
                                 <div v-else
@@ -109,7 +109,7 @@
                                 <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.address"
                                     class="bg-black w-full h-full rounded-full overflow-hidden"
                                     :class="directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.is_out ? 'gray' : ''">
-                                    <img :src="getMaxPackage(directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.max_package_id)"
+                                    <img :src="getMaxPackage(directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.max_package_id, directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.is_out)"
                                         alt="">
                                 </div>
                                 <div v-else
@@ -140,7 +140,7 @@
                         <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.address"
                             class="bg-black w-full h-full rounded-full overflow-hidden"
                             :class="directReferrals && directReferrals.right_leg && directReferrals.right_leg.is_out ? 'gray' : ''">
-                            <img :src="getMaxPackage(directReferrals && directReferrals.right_leg && directReferrals.right_leg.max_package_id)"
+                            <img :src="getMaxPackage(directReferrals && directReferrals.right_leg && directReferrals.right_leg.max_package_id, directReferrals && directReferrals.right_leg && directReferrals.right_leg.is_out)"
                                 alt="">
                         </div>
                         <div v-else
@@ -189,7 +189,7 @@
                                 <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address"
                                     class="bg-black w-full h-full rounded-full overflow-hidden"
                                     :class="directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.is_out ? 'gray' : ''">
-                                    <img :src="getMaxPackage(directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.max_package_id)"
+                                    <img :src="getMaxPackage(directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.max_package_id, directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.is_out)"
                                         alt="">
                                 </div>
                                 <div v-else
@@ -217,7 +217,7 @@
                                 <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address"
                                     class="bg-black w-full h-full rounded-full overflow-hidden"
                                     :class="directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.is_out ? 'gray' : ''">
-                                    <img :src="getMaxPackage(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.max_package_id)"
+                                    <img :src="getMaxPackage(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.max_package_id, directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.is_out)"
                                         alt="">
                                 </div>
                                 <div v-else
@@ -264,6 +264,12 @@ import nftThree from '@/assets/images/2000_500m.gif'
 import nftFour from '@/assets/images/6000_500m.gif'
 import nftFive from '@/assets/images/20000_500m.gif'
 
+import nftOneOut from '@/assets/images/200_200m_out.gif'
+import nftTwoOut from '@/assets/images/600_200m_out.gif'
+import nftThreeOut from '@/assets/images/2000_200m_out.gif'
+import nftFourOut from '@/assets/images/6000_200m_out.gif'
+import nftFiveOut from '@/assets/images/20000_200m_out.gif'
+
 const { t } = useI18n()
 import { ref } from 'vue'
 defineProps({
@@ -301,20 +307,19 @@ onMounted(() => {
 })
 
 //獲取點位圖地址當前最高的配套圖片
-function getMaxPackage(maxPackage) {
+function getMaxPackage(maxPackage, isOut) {
     let img
     if (maxPackage == 1) {
-        img = nftOne
+        img = isOut ? nftOneOut : nftOne
     } else if (maxPackage == 2) {
-        img = nftTwo
+        img = isOut ? nftTwoOut : nftTwo
     } else if (maxPackage == 3) {
-        img = nftThree
+        img = isOut ? nftThreeOut : nftThree
     } else if (maxPackage == 4) {
-        img = nftFour
+        img = isOut ? nftFiveOut : nftFour
     } else if (maxPackage == 5) {
-        img = nftFive
+        img = isOut ? nftFourOut : nftFive
     }
-
     return img
 }
 //查看某地址下的點位圖
