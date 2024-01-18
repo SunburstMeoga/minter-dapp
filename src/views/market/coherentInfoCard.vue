@@ -26,10 +26,10 @@
                     isSale
                     ? $t('coherents.buy') : $t('toast.notYetOpen') }}</div>
         </div>
-        <div class="p-2">
+        <!-- <div class="p-2">
             <div class="text-center py-1 text-sm rounded-full" @click="$emit('handleBuy')">{{
                 $t('coherents.buy') }}</div>
-        </div>
+        </div> -->
     </div>
 </template>
 
