@@ -253,6 +253,8 @@ function getMarketplace(params) {
             packageN.value = []
             packageR.value = []
             packageSR.value = []
+            packageSSR.value = []
+            packageUR.value = []
             // packageID.value = res.last_package.package_id
             if (res.message == '玩家沒有購買配套。') {
                 proxy.$loading.hide()
