@@ -320,9 +320,12 @@ import pmtContractApi from '@/request/pmt'
 import usdtContractApi from '@/request/usdt'
 import { config } from '@/const/config'
 import Web3 from "web3";
+import { useRouter } from "vue-router";
 
 const { t } = useI18n()
 const route = useRoute()
+const router = useRouter()
+
 const { proxy } = getCurrentInstance()
 
 let isErrReferrer = ref(false) //直接上级是否为无效地址
@@ -738,13 +741,18 @@ async function handlePopupConfirmBuy() {
         title: '提示',
         content: `RT餘額不足，無法購買 ${coherentInfo.value.type} 配套`,
         showCancelButton: true,
-        confirmText: '確定',
-        onConfirm: async () => {
+        confirmText: '兌換',
+        onConfirm: () => {
           proxy.$confirm.hide()
+          proxy.$loading.hide()
+          router.push({
+            path: '/personal/exchange'
+          })
         },
-        // onCacncel: async () => {
-        //     proxy.$confirm.hide()
-        // }
+        onCancel: () => {
+          proxy.$confirm.hide()
+          proxy.$loading.hide()
+        }
       });
       return
     }
@@ -793,11 +801,19 @@ async function handlePopupConfirmBuy() {
             proxy.$confirm.show({
               title: '餘額不足',
               content: `當前配套價格為 ${coherentInfo.value.type} RT，您的 RT 餘額不足。`,
-              showCancelButton: false,
-              confirmText: '確定',
+              showCancelButton: true,
+              confirmText: '兌換',
               onConfirm: () => {
                 proxy.$confirm.hide()
+                proxy.$loading.hide()
+                router.push({
+                  path: '/personal/exchange'
+                })
               },
+              onCancel: () => {
+                proxy.$confirm.hide()
+                proxy.$loading.hide()
+              }
             });
             return
           }

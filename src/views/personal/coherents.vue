@@ -10,7 +10,7 @@
             <div class="rounded border-card-content border p-2 mb-2 text-white">
                 <div class="pt-1 flex justify-between items-center">
                     <div>
-                        {{ $t('coherents.released')}}
+                        {{ $t('coherents.released') }}
                     </div>
                     <div>
                         {{ Number(beenReleased).toFixed(4) >= 0.000 ? Number(beenReleased).toFixed(4) : 0.000 }} PMT
@@ -248,6 +248,8 @@ function getPlayersInfo(address) {
                     let WEB3 = new Web3(window.ethereum)
                     remainingPMT = WEB3.utils.fromWei(res.toString(), 'ether')
                     beenReleased.value = totalPMT - Number(remainingPMT) //已經釋放
+                    console.log(remainingPMT, totalPMT, beenReleased.value)
+                    console.log(playerPackages.value)
                 })
                 .catch(err => {
                     console.log(err)

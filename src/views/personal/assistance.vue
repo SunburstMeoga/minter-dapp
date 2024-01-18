@@ -46,8 +46,8 @@
             <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
                 <div class="text-center mb-6 text-white">购买配套</div>
                 <div class="text-primary-color font-bold text-sm mb-2">
-             * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
-          </div>        
+                    * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
+                </div>
                 <div class="flex w-11/12 ml-auto mr-auto flex-wrap justify-between items-center mb-6">
                     <div v-for="(item, index) in coherentsList" :key="index"
                         class="border border-primary-color rounded px-2 py-1"
@@ -139,8 +139,8 @@
                 <div class="text-gray-200 text-sm w-11/12 mb-1 ml-auto mr-auto">{{ $t('assistance.chooseCoherentBuy') }}
                 </div>
                 <div class="text-primary-color font-bold text-sm mb-2">
-             * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
-          </div> 
+                    * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
+                </div>
                 <div class="w-full flex justify-center items-center mb-4">
                     <div class="w-11/12 flex justify-between items-center">
                         <div v-for="(item, index) in coherentsList" @click="clickCurrentCoherent(item, index)"
@@ -251,8 +251,8 @@
             <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
                 <div class="text-center mb-6 text-white">{{ $t('assistance.buyCoherent') }}</div>
                 <div class="text-primary-color font-bold text-sm mb-2">
-             * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
-          </div> 
+                    * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
+                </div>
                 <div class="w-full flex flex-col items-center mb-2">
                     <div class="text-gray-300 text-sm text-left w-11/12 mb-1">{{ $t('assistance.currentPointAddress') }}
                     </div>
@@ -319,6 +319,7 @@
 </template>
 
 <script setup>
+import { useRouter } from "vue-router";
 import { ref, onMounted, computed, getCurrentInstance } from 'vue'
 import QrcodeVue from 'qrcode.vue'
 import Point from './point.vue';
@@ -338,6 +339,7 @@ import { showToast } from 'vant'
 import { ZeroAddress, isAddress } from 'ethers'
 import Web3 from "web3";
 
+const router = useRouter()
 
 const { t } = useI18n()
 const { proxy } = getCurrentInstance()
@@ -471,11 +473,19 @@ async function handleConfirmBuyForRTPOPUP() {
                             proxy.$confirm.show({
                                 title: '餘額不足',
                                 content: `當前配套價格為 ${coherentsList.value[currentCoherent.value].type} RT，您的 RT 餘額不足。`,
-                                showCancelButton: false,
-                                confirmText: '確定',
+                                showCancelButton: true,
+                                confirmText: '兌換',
                                 onConfirm: () => {
                                     proxy.$confirm.hide()
+                                    proxy.$loading.hide()
+                                    router.push({
+                                        path: '/personal/exchange'
+                                    })
                                 },
+                                onCancel: () => {
+                                    proxy.$confirm.hide()
+                                    proxy.$loading.hide()
+                                }
                             });
                             return
                         }
@@ -588,11 +598,19 @@ async function handlePopupConfirmBuy() {
             proxy.$confirm.show({
                 title: '餘額不足',
                 content: `當前配套價格為 ${coherentsList.value[currentSelf.value].type} RT，您的 RT 餘額不足。`,
-                showCancelButton: false,
-                confirmText: '確定',
+                showCancelButton: true,
+                confirmText: '兌換',
                 onConfirm: () => {
                     proxy.$confirm.hide()
+                    proxy.$loading.hide()
+                    router.push({
+                        path: '/personal/exchange'
+                    })
                 },
+                onCancel: () => {
+                    proxy.$confirm.hide()
+                    proxy.$loading.hide()
+                }
             });
             return
         }
@@ -983,14 +1001,20 @@ function handleConfirmUpPackage() {
 
                         proxy.$confirm.show({
                             title: '失败',
-                            content: `RT余额不足，无法购买 ${buyPackage.value.text} 配套`,
-                            showCancelButton: false,
-                            confirmText: '確定',
+                            content: `RT餘額不足，無法購買 ${buyPackage.value.text} 配套`,
+                            showCancelButton: true,
+                            confirmText: '兌換',
                             onConfirm: () => {
                                 proxy.$confirm.hide()
                                 proxy.$loading.hide()
-
+                                router.push({
+                                    path: '/personal/exchange'
+                                })
                             },
+                            onCancel: () => {
+                                proxy.$confirm.hide()
+                                proxy.$loading.hide()
+                            }
                         });
                         return
                     }

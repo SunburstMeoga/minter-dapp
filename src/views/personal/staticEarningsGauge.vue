@@ -72,7 +72,7 @@ async function getStaticIncomeInfo() {
         // getReleaseCount = WEB3.utils.fromWei(getReleaseCount.toString(), 'ether')
         getReleaseCount = Number(getReleaseCount).toFixed(0)
 
-        //最高配套金額
+        //最新配套金额
         let result = await playersInfo(localStorage.getItem('address'))
         console.log('result', result)
         let max = Number(result.player.max_package.price) * 2
