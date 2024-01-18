@@ -60,8 +60,9 @@
                     </div>
                 </div>
                 <div
-                    class="rounded-full border border-gray-400 text-gray-400 text-center p-6 flex justify-center items-center w-0 h-0 text-lg">
-                    <div class="icon iconfont icon-close" style="font-size: 30px;" @click="$router.go(-1)"></div>
+                    class="rounded-full  text-gray-200 text-center flex justify-center items-center  text-lg w-11/12 mr-auto ml-auto operting-button">
+                    開心收下
+                    <!-- <div class="icon iconfont icon-close" style="font-size: 30px;" @click="$router.go(-1)"></div> -->
                 </div>
             </div>
 
