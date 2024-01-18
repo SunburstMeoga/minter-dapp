@@ -15,11 +15,12 @@
                 <module-title :titleWord="$t('wallet.title')"></module-title>
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="HAH" :balance="hahBalance" />
+                <wallet-card currency="HAH" :tokenImg="hahImg" :balance="hahBalance" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card isUSD3 currency="USD3" :balance="usdtBalance" :contranct="config.USDToken_addr"
-                    @recharge="handleWalletCardRecharge" @withdraw="handleWalletCardWithdraw" />
+                <wallet-card isUSD3 :tokenImg="usdImg" currency="USD3" :balance="usdtBalance"
+                    :contranct="config.USDToken_addr" @recharge="handleWalletCardRecharge"
+                    @withdraw="handleWalletCardWithdraw" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card currency="PMT" :tokenImg="pmtImg" :balance="pmtBalance" :contranct="config.pmt_addr" isBuy
@@ -295,6 +296,8 @@ import rtImg from '@/assets/images/RT.png'
 import pmtImg from '@/assets/images/PT.png'
 import mtImg from '@/assets/images/MT.png'
 import btImg from '@/assets/images/BT.png'
+import hahImg from '@/assets/images/HashAhead Logo.png'
+import usdImg from '@/assets/images/3AT_logo.svg'
 
 import { userStore } from "@/stores/user";
 import Web3 from "web3";
