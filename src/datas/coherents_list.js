@@ -48,7 +48,7 @@ const coherents_list = [
     id: 5,
     levelImg: '../../src/assets/images/20000_500m.gif',
     type: '20000',
-    releasePMT: '1200',
+    releasePMT: '12000',
     limit: '40000',
     incentiveRate: 0.4,
     shareholdings: 200,
