@@ -141,7 +141,7 @@ async function getStaticIncomeInfo() {
                     },
                     data: [
                         {
-                            value: (rewardAmount - eraningAmount) >= 0 ? rewardAmount - eraningAmount : 0,
+                            value: (rewardAmount - eraningAmount) >= 0 ? (rewardAmount - eraningAmount) : 0,
                             name: `剩餘量: ${rewardAmountLimit - rewardAmount + Number(eraningAmount)} MT`
                             // name: '剩余量:' + rewardAmountLimit - rewardAmount + ' MT',
                         }
