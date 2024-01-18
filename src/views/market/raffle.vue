@@ -59,8 +59,8 @@
                         </div>
                     </div>
                 </div>
-                <div
-                    class="rounded-full  text-gray-200 text-center flex justify-center items-center  text-lg w-11/12 mr-auto ml-auto operting-button">
+                <div class="rounded-full  text-gray-200 text-center flex justify-center items-center  text-lg w-11/12 mr-auto ml-auto operting-button"
+                    @click="$router.go(-1)">
                     開心收下
                     <!-- <div class="icon iconfont icon-close" style="font-size: 30px;" @click="$router.go(-1)"></div> -->
                 </div>
