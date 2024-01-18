@@ -100,10 +100,10 @@
       </div>
 
       <div class="w-11/12 flex justify-between items-center fixed bottom-3">
-        <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForUSDT">
+        <!-- <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForUSDT">
           USD3支付
-        </div>
-        <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForRT">
+        </div> -->
+        <div class="w-full operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForRT">
           <!-- {{ $t('modalConfirm.confirm') }} {{ $t('coherents.buy') }} -->
           RT支付
         </div>
@@ -778,6 +778,7 @@ async function handlePopupConfirmBuy() {
         legSide: currentPoint.value == 0 ? 'left' : 'right',
         referrer_address: referrerAddress.value
       }
+      console.log(data)
       buyPackageToNext(data)
         .then(res => {
           console.log('購買', res)
