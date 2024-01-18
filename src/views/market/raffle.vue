@@ -9,7 +9,7 @@
                     :textFontSize="textFontSize" :buttons="buttons" @start="startCallback" @end="endCallback" />
             </div> -->
             <div class="mb-4 relative">
-                <div class="absolute z-20 top-4 left-4 w-20 ">
+                <div class="absolute z-20 top-4 left-4 w-20">
                     <img src="../../assets/images/raffle_arrow.png" class="rotate-180 transform" alt="">
                 </div>
                 <div class="transform  -rotate-45 ">
@@ -42,8 +42,8 @@
                 }}</span></div>
             </div>
         </div>
-        <van-overlay :show="isPrized">
-            <div class="w-full h-full flex flex-wrap justify-center items-center">
+        <van-overlay :show="isPrized" z-index="20">
+            <div class="w-full h-full flex flex-col justify-center items-center">
                 <div class="relative">
                     <div>
                         <img src="../../assets/images/prize.png" alt="">
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="rounded-full  text-gray-200 text-center flex justify-center items-center  text-lg w-11/12 mr-auto ml-auto operting-button"
+                <div class="rounded-full text-gray-200 text-center flex justify-center items-center text-lg w-11/12 py-2 mr-auto ml-auto operating-button"
                     @click="$router.go(-1)">
                     開心收下
                     <!-- <div class="icon iconfont icon-close" style="font-size: 30px;" @click="$router.go(-1)"></div> -->
