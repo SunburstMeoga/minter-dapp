@@ -275,7 +275,7 @@ async function handleListed(item) {
         totalListings = await nftContractApi.getTotalListings(localStorage.getItem('address')) //現正掛賣NFT數量
         lastListingTime = await nftContractApi.getLastListingTime(localStorage.getItem('address')) //由此時間開始計起24小時 
         // lastListingTime = 1704271082
-        timestamp = Number(lastListingTime) + Number(60 * 60 * 3)
+        timestamp = Number(lastListingTime) + Number(60 * 20)
         // timestamp = new Date(timestamp).getTime()
         console.log('24小時內一共多小張NFT正在掛賣或已經賣出', numListingsIn24Hours)
         console.log('現正掛賣NFT數量', totalListings)
