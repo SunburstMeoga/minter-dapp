@@ -126,7 +126,7 @@ function getUserCanSaleNFT() {
                         item.nftImg = nftFour
                     }
                     if (item.token_type == 5) {
-                        item.nftImg = nftFour
+                        item.nftImg = nftFive
                     }
                 })
             }
@@ -155,7 +155,7 @@ async function getAllNFT() {
             nftsDatas.value = res.nft_token_ids
             if (nftsDatas.value.length !== 0) {
                 nftsDatas.value.map(async item => {
-                    let time = await nftContractApi.sellOffPeriod(item.token_id)
+                    // let time = await nftContractApi.sellOffPeriod(item.token_id)
                     // console.log('出售時間時間戳', Number(time))
                     // console.log('現在時間時間戳', parseInt(new Date().getTime() / 1000))
 
@@ -172,13 +172,13 @@ async function getAllNFT() {
                         item.nftImg = nftFour
                     }
                     if (item.token_type == 5) {
-                        item.nftImg = nftFour
+                        item.nftImg = nftFive
                     }
-                    if (Number(time) > parseInt(new Date().getTime() / 1000)) {
-                        item.isSellOffPeriod = true
-                    } else {
-                        item.isSellOffPeriod = false
-                    }
+                    // if (Number(time) > parseInt(new Date().getTime() / 1000)) {
+                    //     item.isSellOffPeriod = true
+                    // } else {
+                    //     item.isSellOffPeriod = false
+                    // }
                 })
             }
             console.log('全部', res)
