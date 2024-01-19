@@ -216,7 +216,7 @@ function getUserNFTs() {
                                     _item.nftImg = nftFour
                                 }
                                 if (_item.token_type == 5) {
-                                    _item.nftImg = nftFour
+                                    _item.nftImg = nftFive
                                 }
                             })
                         }
