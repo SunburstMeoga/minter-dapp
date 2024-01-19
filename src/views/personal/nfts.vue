@@ -277,7 +277,7 @@ async function handleListed(item) {
         // lastListingTime = 1704271082
         timestamp = Number(lastListingTime) + Number(60 * 20)
         // timestamp = new Date(timestamp).getTime()
-        console.log('24小時內一共多小張NFT正在掛賣或已經賣出', numListingsIn24Hours)
+        console.log('20分鐘內一共多小張NFT正在掛賣或已經賣出', numListingsIn24Hours)
         console.log('現正掛賣NFT數量', totalListings)
         console.log('由此時間開始計起24小時', lastListingTime)
         console.log('timestamp', timestamp)
@@ -286,7 +286,7 @@ async function handleListed(item) {
             proxy.$confirm.hide()
             proxy.$confirm.show({
                 title: '提示',
-                content: `你当前已经挂单${totalListings}张NFT，賣掉一張後可繼續掛單，且24小時內只能掛單4張NFT。`,
+                content: `你当前已经挂单${totalListings}张NFT，賣掉一張後可繼續掛單，且20分鐘內只能掛單4張NFT。`,
                 showCancelButton: false,
                 confirmText: '確定',
                 onConfirm: () => {
@@ -302,7 +302,7 @@ async function handleListed(item) {
             proxy.$confirm.hide()
             proxy.$confirm.show({
                 title: '提示',
-                content: `24小時內一共只能掛單或售賣4張NFT，您當前已掛單或售賣${numListingsIn24Hours}張，${countDown(timestamp)}後可繼續掛單`,
+                content: `20分鐘內一共只能買4張和同時掛單NFT，您當前已掛單或售賣${numListingsIn24Hours}張，${countDown(timestamp)}後可繼續掛單`,
                 showCancelButton: false,
                 confirmText: '確定',
                 onConfirm: () => {
