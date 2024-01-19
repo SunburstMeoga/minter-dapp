@@ -10,7 +10,7 @@
             </div>
         </div>
         <!-- 全部 -->
-        <div class="w-11/12 mr-auto ml-auto flex" v-show="currentType == 0">
+        <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap" v-show="currentType == 0">
             <!-- <van-list v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" class="w-full">
                 <div class="flex justify-between items-center flex-wrap">
                     <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in nftsDatas"
