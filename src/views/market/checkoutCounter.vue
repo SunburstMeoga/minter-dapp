@@ -282,32 +282,41 @@
                 Number(coherentInfo.type) : Number(palayBanalce.rt) }}
             </div>
           </div>
-          <div class="text-white text-xs flex justify-between items-baseline mb-1">
-            <div class="text-base">{{ $t('order.bind') }}RT </div>
-            <div class="text-primary-color font-bold pl-1"> {{ $t('order.balance') }}: {{ palayBanalce.rtLocked }} RT
-            </div>
-          </div>
-          <div class="w-full flex justify-between items-center">
-            <div class="rounded pl-3 border border-gray-700 flex-1 py-1.5 text-sm ">
-              {{ $t('order.needPay') }} {{ Number(palayBanalce.rt) - Number(coherentInfo.type) < 0 ?
-                Number(coherentInfo.type) - Number(palayBanalce.rt) : '0.0000' }} </div>
-            </div>
-          </div>
-          <div class="text-primary-color font-bold pl-4 text-sm mb-4">
-            * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
-          </div>
-          <div class="w-full flex justify-center items-center">
-            <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handlePopupConfirmBuy">
-              {{ $t('modalConfirm.confirm') }}
+          <div v-show="rtBind.length && rtBind.length !== 0">
+            <div v-for="(item, index) in rtBind" :key="index" class="mb-3">
+              <div class="text-white text-xs flex justify-between items-baseline mb-1">
+                <div class="text-base">{{ $t('order.bind') }}RT </div>
+                <div class="text-primary-color font-bold pl-1"> 到期時間: {{ FilterTime(item.expire_date) }}
+                </div>
+              </div>
+              <div class="w-full flex justify-between items-center">
+                <!-- <div class="rounded pl-3 border border-gray-700 flex-1 py-1.5 text-sm ">
+                  {{ $t('order.needPay') }} {{ Number(palayBanalce.rt) - Number(coherentInfo.type) < 0 ?
+                    Number(coherentInfo.type) - Number(palayBanalce.rt) : '0.0000' }} </div>
+                </div> -->
+                <div class="rounded pl-3 border border-gray-700 flex-1 py-1.5 text-sm ">
+                  餘額: {{ Number(item.amount).toFixed(4) }} RT </div>
+              </div>
             </div>
           </div>
         </div>
+        <div class="text-primary-color font-bold pl-4 text-sm mb-4" v-show="rtBind.length && rtBind.length !== 0">
+          * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
+        </div>
+        <div class="w-full flex justify-center items-center">
+          <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handlePopupConfirmBuy">
+            {{ $t('modalConfirm.confirm') }}
+          </div>
+        </div>
+      </div>
     </van-popup>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, getCurrentInstance, computed } from 'vue';
+import { FilterTime } from '@/utils/format';
+
 import { useRoute } from 'vue-router';
 import { ZeroAddress, isAddress } from 'ethers'
 import { showToast } from 'vant';
@@ -315,7 +324,7 @@ import { showToast } from 'vant';
 import coherents_list from '@/datas/coherents_list'
 import { FormatAmount, FilterAddress } from '@/utils/format'
 import { useI18n } from 'vue-i18n';
-import { buyCoherent, adequateBalance, addressLeg, checkReferrerAddress, joinTheThree, playersInfo, updataRTBalance, rtBalance, buyPackageToNext, checkAddressInTree } from '@/request/api'
+import { buyCoherent, adequateBalance, addressLeg, checkReferrerAddress, joinTheThree, playersInfo, updataRTBalance, rtBalance, buyPackageToNext, checkAddressInTree, rtBindBalance } from '@/request/api'
 import pmtContractApi from '@/request/pmt'
 import usdtContractApi from '@/request/usdt'
 import { config } from '@/const/config'
@@ -353,11 +362,12 @@ let propertiesList = computed(() => {
 let currentPoint = ref(null)
 let showReferrerAddressPopup = ref(false)
 let showLegAddressPopup = ref(false)
-let showConfirmPayPopup = ref(false)
+let showConfirmPayPopup = ref(true)
 let showPMTPopover = ref(false)
 let palayBanalce = ref({})
 let showNextPopup = ref(false)
 let preAddressUse = ref(t('coherents.invalidAddress'))
+let rtBind = ref([])
 onMounted(() => {
   // FormatAmount()
   console.log(route.params.type)
@@ -368,7 +378,19 @@ onMounted(() => {
   coherentInfo.value = targetCoherents[0]
   console.log(coherentInfo.value)
   getPlayersInfo(localStorage.getItem('address'))
+  getRTBalance()
 })
+//获取绑定rt列表
+function getRTBalance() {
+  rtBindBalance()
+    .then(res => {
+      console.log(res, '绑定rt余额')
+      rtBind.value = res.rt_locked
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
 //獲取玩家信息
 function getPlayersInfo(address) {
   playersInfo(address)

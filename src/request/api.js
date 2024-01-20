@@ -115,7 +115,12 @@ export function staticRecords(params) {
     params
   })
 }
-
+//获取绑定rt余额
+export function rtBindBalance() {
+  return request('/players/balances/rt', {
+    method: 'GET'
+  })
+}
 //查看rt餘額
 export function rtBalance(params) {
   return request('/players/rt-balance', {

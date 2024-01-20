@@ -45,7 +45,26 @@
         <van-popup v-model:show="showBuyPackageSelf" round position="bottom">
             <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
                 <div class="text-center mb-6 text-white">购买配套</div>
-                <div class="text-primary-color font-bold text-sm mb-2">
+                <div class="w-11/12 mr-auto ml-auto">
+                    <div v-show="rtBind.length && rtBind.length !== 0">
+                        <div v-for="(item, index) in rtBind" :key="index" class="mb-3">
+                            <div class="text-white text-xs flex justify-between items-baseline mb-1">
+                                <div class="text-base">{{ $t('order.bind') }}RT </div>
+                                <div class="text-primary-color font-bold pl-1"> 到期時間: {{ FilterTime(item.expire_date) }}
+                                </div>
+                            </div>
+                            <div class="w-full flex justify-between items-center">
+                                <!-- <div class="rounded pl-3 border border-gray-700 flex-1 py-1.5 text-sm ">
+                              {{ $t('order.needPay') }} {{ Number(palayBanalce.rt) - Number(coherentInfo.type) < 0 ?
+                                Number(coherentInfo.type) - Number(palayBanalce.rt) : '0.0000' }} </div>
+                            </div> -->
+                                <div class="rounded pl-3 border border-gray-700 flex-1 py-1.5 text-sm ">
+                                    餘額: {{ Number(item.amount).toFixed(4) }} RT </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-primary-color font-bold text-sm mb-2 w-11/12 mr-auto ml-auto">
                     * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
                 </div>
                 <div class="flex w-11/12 ml-auto mr-auto flex-wrap justify-between items-center mb-6">
@@ -138,9 +157,7 @@
                 </div>
                 <div class="text-gray-200 text-sm w-11/12 mb-1 ml-auto mr-auto">{{ $t('assistance.chooseCoherentBuy') }}
                 </div>
-                <div class="text-primary-color font-bold text-sm mb-2">
-                    * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
-                </div>
+
                 <div class="w-full flex justify-center items-center mb-4">
                     <div class="w-11/12 flex justify-between items-center">
                         <div v-for="(item, index) in coherentsList" @click="clickCurrentCoherent(item, index)"
@@ -149,6 +166,28 @@
                             {{ item.name }}
                         </div>
                     </div>
+                </div>
+                <div class="w-11/12 mr-auto ml-auto">
+                    <div v-show="rtBind.length && rtBind.length !== 0">
+                        <div v-for="(item, index) in rtBind" :key="index" class="mb-3">
+                            <div class="text-white text-xs flex justify-between items-baseline mb-1">
+                                <div class="text-base">{{ $t('order.bind') }}RT </div>
+                                <div class="text-primary-color font-bold pl-1"> 到期時間: {{ FilterTime(item.expire_date) }}
+                                </div>
+                            </div>
+                            <div class="w-full flex justify-between items-center">
+                                <!-- <div class="rounded pl-3 border border-gray-700 flex-1 py-1.5 text-sm ">
+                              {{ $t('order.needPay') }} {{ Number(palayBanalce.rt) - Number(coherentInfo.type) < 0 ?
+                                Number(coherentInfo.type) - Number(palayBanalce.rt) : '0.0000' }} </div>
+                            </div> -->
+                                <div class="rounded pl-3 border border-gray-700 flex-1 py-1.5 text-sm ">
+                                    餘額: {{ Number(item.amount).toFixed(4) }} RT </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-primary-color font-bold text-sm mb-2 w-11/12 ml-auto mr-auto">
+                    * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
                 </div>
                 <div class="flex justify-between items-center w-11/12 mr-auto ml-auto">
                     <!-- <div class="w-5/12 operating-button text-center py-2.5 rounded" @click="handleConfirmBuyForUSDTPOPUP"> -->
@@ -250,15 +289,36 @@
         <van-popup v-model:show="showPointCoherentInfo" round position="bottom">
             <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
                 <div class="text-center mb-6 text-white">{{ $t('assistance.buyCoherent') }}</div>
-                <div class="text-primary-color font-bold text-sm mb-2">
-                    * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
-                </div>
+
                 <div class="w-full flex flex-col items-center mb-2">
                     <div class="text-gray-300 text-sm text-left w-11/12 mb-1">{{ $t('assistance.currentPointAddress') }}
                     </div>
                     <div class="rounded w-11/12 h-11 border border-gray-700 mb-1 px-1 break-words leading-5">
                         {{ clickPointInfo.address }}
                     </div>
+                </div>
+
+                <div class="w-11/12 mr-auto ml-auto">
+                    <div v-show="rtBind.length && rtBind.length !== 0">
+                        <div v-for="(item, index) in rtBind" :key="index" class="mb-3">
+                            <div class="text-white text-xs flex justify-between items-baseline mb-1">
+                                <div class="text-base">{{ $t('order.bind') }}RT </div>
+                                <div class="text-primary-color font-bold pl-1"> 到期時間: {{ FilterTime(item.expire_date) }}
+                                </div>
+                            </div>
+                            <div class="w-full flex justify-between items-center">
+                                <!-- <div class="rounded pl-3 border border-gray-700 flex-1 py-1.5 text-sm ">
+                              {{ $t('order.needPay') }} {{ Number(palayBanalce.rt) - Number(coherentInfo.type) < 0 ?
+                                Number(coherentInfo.type) - Number(palayBanalce.rt) : '0.0000' }} </div>
+                            </div> -->
+                                <div class="rounded pl-3 border border-gray-700 flex-1 py-1.5 text-sm ">
+                                    餘額: {{ Number(item.amount).toFixed(4) }} RT </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-primary-color font-bold text-sm mb-2 w-11/12 mr-auto ml-auto">
+                    * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
                 </div>
                 <div class="text-gray-300 text-sm  w-11/12 mb-1 ml-auto mr-auto">{{ $t('assistance.chooseCoherent') }}</div>
                 <div class="w-11/12 mr-auto ml-auto flex justify-between items-center mb-4">
@@ -321,6 +381,8 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { ref, onMounted, computed, getCurrentInstance } from 'vue'
+import { FilterTime } from '@/utils/format';
+
 import QrcodeVue from 'qrcode.vue'
 import Point from './point.vue';
 import PointTwo from './pointTwo.vue';
@@ -334,7 +396,7 @@ import { useI18n } from 'vue-i18n';
 import { config } from '@/const/config'
 import usdtContractApi from '@/request/usdt'
 import pmtContractApi from '@/request/pmt'
-import { addressLeg, upInferiorPackage, staticRecords, buyCoherent, joinTheThree, buyPackageToNext, updataRTBalance, rtBalance } from '@/request/api'
+import { addressLeg, upInferiorPackage, staticRecords, buyCoherent, joinTheThree, buyPackageToNext, updataRTBalance, rtBalance, rtBindBalance } from '@/request/api'
 import { showToast } from 'vant'
 import { ZeroAddress, isAddress } from 'ethers'
 import Web3 from "web3";
@@ -384,13 +446,26 @@ let currentCoherent = ref(null)
 const coherentsList = ref(coherents_list)
 let directReferrals = ref({})
 let searchAddress = ref(null)
+let rtBind = ref([])
+
 onMounted(() => {
     // viewAddressPoint(window.ethereum.selectedAddress)
     // console.log('document.domain', document.domain)
     viewPointMap(localStorage.getItem('address'))
     getStaticRecords()
+    getRTBalance()
 })
-
+//获取绑定rt列表
+function getRTBalance() {
+    rtBindBalance()
+        .then(res => {
+            console.log(res, '绑定rt余额')
+            rtBind.value = res.rt_locked
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
 //输入我的地址
 function enterSelfAddress() {
     inviterAddressTwo.value = localStorage.getItem('address')
