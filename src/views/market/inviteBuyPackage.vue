@@ -423,10 +423,16 @@ async function handleConfirmBuyForUSDT() {
         showCancelButton: true,
         confirmText: '確定',
         onConfirm: async () => {
-            await pmtContractApi.purchasePackage(Number(coherentInfo.value.id - 1))
-            timer.value = setInterval(() => {
-                getPackageCount()
-            }, 5000);
+            try {
+                await pmtContractApi.purchasePackage(Number(coherentInfo.value.id - 1))
+                timer.value = setInterval(() => {
+                    getPackageCount()
+                }, 5000);
+            } catch (err) {
+                console.log(err)
+                proxy.$confirm.hide()
+                showToast('您已取消購買')
+            }
         },
         // onCancel: () => {
         //     proxy.$confirm.hide()
