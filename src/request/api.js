@@ -261,7 +261,13 @@ export function mtExchangeRecord(params) {
     params
   })
 }
-
+//usdt交易記錄
+export function usdtTransations(params) {
+  return request('records/transactions/usdt', {
+    method: 'GET',
+    params
+  })
+}
 //bt交易記錄
 export function btTransations(params) {
   return request('/records/transactions/bt', {
