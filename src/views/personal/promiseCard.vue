@@ -1,6 +1,15 @@
 <template>
-    <div>
-        <div class="flex flex-col justify-start items-center mt-20">
+    <div class="pt-16">
+        <div class="w-11/12 mr-auto ml-auto ">
+            <module-title titleWord="業績承諾卡" />
+        </div>
+        <van-tabs class="pt-2 bg-black " v-model:active="active" sticky shrink animated swipeable color="#e149ed"
+            title-inactive-color="#fff" title-active-color="#e149ed" background="#000" @click-tab="handleTabs">
+            <van-tab v-for="(item, index) in tabsList" :key="index" :title="item.title">
+
+            </van-tab>
+        </van-tabs>
+        <div class="flex flex-col justify-start items-center mt-6">
             <div class="w-11/12 mb-2" v-for="(item, index) in cardList" :key="index">
                 <div class="rounded overflow-hidden p-2 bg-card-content text-card-word text-sm" :key="index">
                     <div class="flex justify-between items-center mb-3">
@@ -19,8 +28,6 @@
                         <div>派獎情況:</div>
                         <div class="">{{ item.is_rewarded ? '已派獎' : '未派獎' }}</div>
                     </div>
-
-
                     <div v-show="item.showMore">
                         <!-- <div class="flex justify-between items-center mb-3">
                             <div>{{ $t('assistance.packageAmount') }}:</div>
@@ -46,16 +53,13 @@
 
                         <div class="flex justify-between items-center mb-3">
                             <div>到期時間:</div>
-                            <div class="">{{item.promise_card_valid_date }}</div>
+                            <div class="">{{ item.promise_card_valid_date }}</div>
                         </div>
 
                         <div class="flex justify-between items-center mb-3">
                             <div>派獎時間:</div>
                             <div class="">{{ item.reward_date ? FilterTime(item.reward_date) : '未派獎' }}</div>
                         </div>
-
-
-
                         <div class="flex justify-between items-center mb-3">
                             <div>规则介绍:</div>
                             <div class="">邀請2個購買{{ Number(item.max_package.price) }}配套或以上的新地址</div>
@@ -87,15 +91,8 @@
                                     <div class="">{{ _item.is_minted ? '已發放' : '未發放' }}</div>
                                 </div>
                             </div>
-                           
-
                         </div>
-                        <!-- <div class="flex justify-between items-center mb-3">
-                        <div>转账:</div>
-                        <div class="text-red-500 font-bold">22.00</div>
-                    </div> -->
                     </div>
-
                     <div class="flex justify-center items-center pt-1.5 pb-1 border-t border-gray-800 mt-2"
                         @click="item.showMore = !item.showMore">
                         <div class="icon iconfont icon-down1 transform ease-in-out duration-300"
@@ -113,17 +110,33 @@
 </template>
 
 <script setup>
-import { ref, onMounted, getCurrentInstance } from 'vue'
+import { ref, onMounted, computed, getCurrentInstance } from 'vue'
 import { staticRecords } from '@/request/api'
 import { FilterTime, FilterAddress } from '@/utils/format'
+import ModuleTitle from "@/components/ModuleTitle.vue";
 
 const { proxy } = getCurrentInstance()
 let cardList = ref([])
-
+let unusedList = ref([])
+let utilized = ref([])
+let active = ref(0)
+let tabsList = computed(() => {
+    return [
+        { title: '未使用', value: 0 },
+        { title: '已使用', value: 1 }
+    ]
+})
 onMounted(() => {
     getStaticRecords()
 })
-
+function handleTabs(tabs) {
+    console.log(tabs)
+    if (tabs.name == 0) {
+        cardList.value = unusedList.value
+    } else {
+        cardList.value = utilized.value
+    }
+}
 function getStaticRecords() {
     proxy.$loading.show()
     let params = { prize_type_id: 3, perPage: 100000 }
@@ -131,10 +144,19 @@ function getStaticRecords() {
         .then(res => {
             console.log(res)
             proxy.$loading.hide()
-            cardList.value = res.records
-            cardList.value.map(item => {
-                item.showMore = false
+            // cardList.value = res.records
+            res.records.map(item => {
+                if (!item.is_rewarded) {
+                    unusedList.value.push(item)
+                } else if (item.is_rewarded) {
+                    utilized.value.push(item)
+                }
             })
+            cardList.value = unusedList.value
+            // cardList.value.map(item => {
+            //     item.showMore = false
+            // })
+
         })
         .catch(err => {
             console.log(err)
