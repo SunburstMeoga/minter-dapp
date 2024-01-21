@@ -43,7 +43,7 @@
             </div>
         </div>
         <van-overlay :show="isPrized" z-index="20">
-            <div class="w-full h-full flex flex-col justify-center items-center">
+            <div class="w-full h-full flex flex-col justify-around items-center">
                 <div class="relative">
                     <div>
                         <img src="../../assets/images/prize.png" alt="">
