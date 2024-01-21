@@ -19,7 +19,7 @@
                 <div>{{ FilterTime(time) }}</div>
             </div>
             <div class="flex justify-between items-center mb-3" v-show="showAward">
-                <div>派獎情況:</div>
+                <div>派獎情況</div>
                 <div class="">{{ isRewarded ? '已派獎' : '未派獎' }}</div>
             </div>
             <div class="flex justify-between items-center" v-show="promiseCardValidDate">
