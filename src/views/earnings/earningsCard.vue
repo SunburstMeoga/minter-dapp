@@ -14,11 +14,14 @@
                 <div>Token ID</div>
                 <div># {{ tokenID }}</div>
             </div>
-            <div class="flex justify-between items-center mb-2">
+            <div class="flex justify-between items-center mb-2" v-show="time">
                 <div>{{ $t('assistance.releaseTime') }}</div>
                 <div>{{ FilterTime(time) }}</div>
             </div>
-
+            <div class="flex justify-between items-center mb-3" v-show="showAward">
+                <div>派獎情況:</div>
+                <div class="">{{ isRewarded ? '已派獎' : '未派獎' }}</div>
+            </div>
             <div class="flex justify-between items-center" v-show="promiseCardValidDate">
                 <div>到期時間</div>
                 <div>{{ FilterTime(promiseCardValidDate) }}</div>
@@ -103,6 +106,10 @@ defineProps({
         type: String,
         default: ''
     },
+    showAward: {
+        type: Boolean,
+        default: false
+    },
     address: {
         type: String,
         default: ''
@@ -156,6 +163,10 @@ defineProps({
         default: false
     },
     showExpire: {
+        type: Boolean,
+        default: false
+    },
+    isRewarded: {
         type: Boolean,
         default: false
     }
