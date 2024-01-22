@@ -21,7 +21,8 @@
                 </div>
             </van-list> -->
             <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in nftsDatas" :key="index">
-                <nft-card :nftImg="item.nftImg" :showCheckbox="false" :price="item.price" :tokenID="item.token_id" />
+                <nft-card :nftImg="item.nftImg" :showCheckbox="false" :price="item.price" :tokenID="item.token_id"
+                    showToken />
             </div>
         </div>
         <div v-if="nftsDatas.length == 0 && currentType == 0" class="text-white font-bold mt-20 text-center">
@@ -31,7 +32,7 @@
         <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap"
             v-show="currentType == 1 && listeds.length !== 0">
             <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in listeds" :key="index">
-                <nft-card :nftImg="item.nftImg" :price="item.price" :tokenID="item.token_id" showCancelButton
+                <nft-card :nftImg="item.nftImg" :price="item.price" :tokenID="item.token_id" showCancelButton showToken
                     @handleCancel="handleCancelList(item)" />
             </div>
         </div>
@@ -42,7 +43,7 @@
         <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap"
             v-show="currentType == 2 && saleables.length !== 0">
             <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in saleables" :key="index">
-                <nft-card :nftImg="item.nftImg" showListedButton :price="item.price" :tokenID="item.token_id"
+                <nft-card :nftImg="item.nftImg" showListedButton :price="item.price" :tokenID="item.token_id" showToken
                     @handleListed="handleListed(item)" />
             </div>
         </div>

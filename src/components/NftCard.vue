@@ -3,17 +3,20 @@
     <!-- <div class="text-white rounded-lg overflow-hidden border "
       :class="checkedStatus ? ' border-primary-color' : ' border-black'"> -->
     <div class="text-white rounded-lg overflow-hidden relative border border-nft-cover">
-      <div class="absolute left-0 top-10 w-full">
+      <!-- <div class="absolute left-0 top-10 w-full">
         <img :src="nftImg" alt="">
-      </div>
+      </div> -->
       <div class="p-2 bg-nft-cover">
-        <div class="flex justify-between items-cente mb-2">
+        <div class="flex justify-between items-cente mb-2" v-show="showToken">
           <!-- <div class="text-primary-color">Minter</div> -->
           <div class="text-xs text-gray-500"># {{ tokenID }}</div>
         </div>
-        <div class="flex justify-between items-cente mb-36">
+        <div class="flex justify-between items-cente mb-2">
           <div class="text-primary-color font-bold text-center w-full">Minter</div>
           <!-- <div class="text-xs text-gray-600"># {{ tokenID }}</div> -->
+        </div>
+        <div class="w-full">
+          <img :src="nftImg" alt="">
         </div>
         <div class="flex justify-center items-center text-center w-full" @click="$emit('handleBuyButton')">
           <div class="" v-show="showPrice">{{ Number(price).toFixed(4) }} MT</div>
@@ -102,6 +105,10 @@ const nftProps = defineProps({
     type: Number,
     default: null
   },
+  showToken: {
+    type: Boolean,
+    default: false
+  }
 })
 // function getNFTImage() {  
 //   if (nftProps.nftTokenType == 1) {
@@ -116,4 +123,5 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}</style>
+}
+</style>
