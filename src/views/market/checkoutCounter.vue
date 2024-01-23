@@ -12,7 +12,7 @@
             </div>
             <div class="text-red-500 font-bold">
               {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
-                              FormatAmount(coherentInfo.type).pointOffside }}</span>
+                FormatAmount(coherentInfo.type).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
@@ -21,7 +21,7 @@
             </div>
             <div class="text-red-500 font-bold">
               {{ FormatAmount(coherentInfo.limit * 2).pointPre }}.<span class="text-xs">{{
-                              FormatAmount(coherentInfo.limit * 2).pointOffside }}</span>
+                FormatAmount(coherentInfo.limit * 2).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
@@ -30,7 +30,7 @@
             </div>
             <div class="text-red-500 font-bold">
               {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-                              FormatAmount(coherentInfo.limit).pointOffside }}</span>
+                FormatAmount(coherentInfo.limit).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
@@ -39,7 +39,7 @@
             </div>
             <div class="text-red-500 font-bold">
               {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-                              FormatAmount(coherentInfo.limit).pointOffside }}</span>
+                FormatAmount(coherentInfo.limit).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
@@ -104,7 +104,7 @@
           USD3 {{ $t('invitePage.pay') }}
         </div> -->
         <div class="w-full operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForRT">
-          <!-- {{ $confirmText:t('modalConfirm.confirm'), }} {{ $t('coherents.buy') }} -->
+          <!-- {{ $t('modalConfirm.confirm') }} {{ $t('coherents.buy') }} -->
           RT {{ $t('invitePage.pay') }}
         </div>
 
@@ -143,7 +143,7 @@
 
         <div class="w-full flex justify-center items-center">
           <div class="w-11/12 text-center py-2.5 rounded-full operating-button" @click="handleConfirmReferrerAddress">
-            {{ $confirmText:t('modalConfirm.confirm'), }}
+            {{ $t('modalConfirm.confirm') }}
           </div>
         </div>
       </div>
@@ -182,7 +182,7 @@
         <div class="w-full flex justify-center items-center">
 
           <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmLegAddress">
-            {{ $confirmText:t('modalConfirm.confirm'), }}
+            {{ $t('modalConfirm.confirm') }}
           </div>
         </div>
       </div>
@@ -204,7 +204,7 @@
         </div>
         <div class="w-full flex justify-center items-center">
           <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmPoint">
-            {{ $confirmText:t('modalConfirm.confirm'), }}
+            {{ $t('modalConfirm.confirm') }}
           </div>
         </div>
       </div>
@@ -237,7 +237,7 @@
         </div>
         <div class="w-full flex justify-center items-center">
           <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmNextAddress">
-            {{ $confirmText:t('modalConfirm.confirm'), }}
+            {{ $t('modalConfirm.confirm') }}
           </div>
         </div>
       </div>
@@ -256,7 +256,7 @@
               </div>
               <div class="text-red-500 font-bold">
                 {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
-                                  FormatAmount(coherentInfo.type).pointOffside }}</span>
+                  FormatAmount(coherentInfo.type).pointOffside }}</span>
               </div>
             </div>
             <div class="flex justify-between items-center">
@@ -265,7 +265,7 @@
               </div>
               <div class="text-red-500 font-bold">
                 {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-                                  FormatAmount(coherentInfo.limit).pointOffside }}</span>
+                  FormatAmount(coherentInfo.limit).pointOffside }}</span>
               </div>
             </div>
 
@@ -279,7 +279,7 @@
           <div class="w-full mb-4 flex justify-between items-center">
             <div class="rounded pl-3 border border-gray-700 flex-1 py-1.5 text-sm ">
               {{ $t('order.needPay') }} {{ Number(palayBanalce.rt) - Number(coherentInfo.type) >= 0 ?
-                            Number(coherentInfo.type) : Number(palayBanalce.rt) }}
+                Number(coherentInfo.type) : Number(palayBanalce.rt) }}
             </div>
           </div>
           <div v-show="rtBind.length && rtBind.length !== 0">
@@ -305,7 +305,7 @@
         </div>
         <div class="w-full flex justify-center items-center">
           <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handlePopupConfirmBuy">
-            {{ $confirmText:t('modalConfirm.confirm'), }}
+            {{ $t('modalConfirm.confirm') }}
           </div>
         </div>
       </div>
@@ -466,7 +466,7 @@ async function handleCalibrationReferrer() {
         title: '提示',
         content: '邀請地址必須在您的點位圖中。',
         showCancelButton: false,
-        confirmText:t('modalConfirm.confirm'),
+        confirmText: t('modalConfirm.confirm'),
         onConfirm: () => {
           proxy.$loading.hide()
           proxy.$confirm.hide()
@@ -523,7 +523,7 @@ async function handleCalibrationLeg() {
         title: '提示',
         content: '對碰地址必須在您的點位圖中。',
         showCancelButton: false,
-        confirmText:t('modalConfirm.confirm'),
+        confirmText: t('modalConfirm.confirm'),
         onConfirm: () => {
           proxy.$loading.hide()
           proxy.$confirm.hide()
@@ -599,7 +599,7 @@ async function handleConfirmBuyForUSDT() {
         title: '餘額不足',
         content: `當前配套價格為 ${coherentInfo.value.type} USD3，您的 USD3 餘額不足。`,
         showCancelButton: false,
-        confirmText:t('modalConfirm.confirm'),
+        confirmText: t('modalConfirm.confirm'),
         onConfirm: () => {
           proxy.$confirm.hide()
         },
@@ -614,7 +614,7 @@ async function handleConfirmBuyForUSDT() {
       title: '錯誤',
       content: `獲取USD3餘額失敗，請重試`,
       showCancelButton: false,
-      confirmText:t('modalConfirm.confirm'),
+      confirmText: t('modalConfirm.confirm'),
       onConfirm: () => {
         proxy.$confirm.hide()
       },
@@ -667,7 +667,7 @@ async function handleConfirmBuyForUSDT() {
     title: '確認',
     content: `是否確認購買 ${coherentInfo.value.type} 配套`,
     showCancelButton: true,
-    confirmText:t('modalConfirm.confirm'),
+    confirmText: t('modalConfirm.confirm'),
     onConfirm: async () => {
       try {
         console.log(Number(coherentInfo.value.id))
@@ -677,7 +677,7 @@ async function handleConfirmBuyForUSDT() {
           title: '成功',
           content: `已成功購買 ${coherentInfo.value.type} 配套`,
           showCancelButton: false,
-          confirmText:t('modalConfirm.confirm'),
+          confirmText: t('modalConfirm.confirm'),
           onConfirm: () => {
             proxy.$confirm.hide()
             // toggleConfirmPayPopup()
@@ -699,7 +699,7 @@ async function handleConfirmBuyForUSDT() {
           title: '提示',
           content: '購買失敗，請重新購買。',
           showCancelButton: false,
-          confirmText:t('modalConfirm.confirm'),
+          confirmText: t('modalConfirm.confirm'),
           onConfirm: () => {
             proxy.$confirm.hide()
             // toggleConfirmPayPopup()
@@ -790,7 +790,7 @@ async function handlePopupConfirmBuy() {
     title: '提示',
     content: `是否確認購買 ${coherentInfo.value.type} 配套`,
     showCancelButton: true,
-    confirmText:t('modalConfirm.confirm'),
+    confirmText: t('modalConfirm.confirm'),
     onConfirm: async () => {
       let data = {
         package_id: coherentInfo.value.id,
@@ -809,7 +809,7 @@ async function handlePopupConfirmBuy() {
               title: '購買失敗',
               content: `${res.error}`,
               showCancelButton: false,
-              confirmText:t('modalConfirm.confirm'),
+              confirmText: t('modalConfirm.confirm'),
               onConfirm: () => {
                 proxy.$confirm.hide()
 
@@ -846,7 +846,7 @@ async function handlePopupConfirmBuy() {
               title: '購買失敗',
               content: `推薦人地址不存在`,
               showCancelButton: false,
-              confirmText:t('modalConfirm.confirm'),
+              confirmText: t('modalConfirm.confirm'),
               onConfirm: () => {
                 proxy.$confirm.hide()
 
@@ -861,7 +861,7 @@ async function handlePopupConfirmBuy() {
               title: '購買失敗',
               content: `對碰地址必須在上級地址的點位圖中`,
               showCancelButton: false,
-              confirmText:t('modalConfirm.confirm'),
+              confirmText: t('modalConfirm.confirm'),
               onConfirm: () => {
                 proxy.$confirm.hide()
 
@@ -877,7 +877,7 @@ async function handlePopupConfirmBuy() {
               title: '購買失敗',
               content: `购买失败：该地址已有上级`,
               showCancelButton: false,
-              confirmText:t('modalConfirm.confirm'),
+              confirmText: t('modalConfirm.confirm'),
               onConfirm: () => {
                 proxy.$confirm.hide()
               },
@@ -892,7 +892,7 @@ async function handlePopupConfirmBuy() {
                 title: '購買成功',
                 content: `已成功為下級購買 ${coherentInfo.value.type} 配套`,
                 showCancelButton: false,
-                confirmText:t('modalConfirm.confirm'),
+                confirmText: t('modalConfirm.confirm'),
                 onConfirm: () => {
                   proxy.$confirm.hide()
                   let data = {
@@ -927,7 +927,7 @@ async function handlePopupConfirmBuy() {
             title: '提示',
             content: '購買失敗，請重新購買。',
             showCancelButton: false,
-            confirmText:t('modalConfirm.confirm'),
+            confirmText: t('modalConfirm.confirm'),
             onConfirm: () => {
               proxy.$confirm.hide()
               toggleConfirmPayPopup()

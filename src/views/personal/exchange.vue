@@ -31,7 +31,7 @@
             <!--  -->
             <div class="operating-button rounded-full text-white font-bold text-center text-sm py-2"
                 @click="handleExchange">
-                {{ $confirmText: t('modalConfirm.confirm'), }}
+                {{ $t('modalConfirm.confirm') }}
             </div>
         </div>
     </div>

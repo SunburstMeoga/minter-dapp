@@ -231,7 +231,7 @@
                     </div>
                     <!--  -->
                     <div class="operating-button rounded-full text-white font-bold text-center text-sm py-3">
-                        {{ $confirmText: t('modalConfirm.confirm'), }}
+                        {{ $t('modalConfirm.confirm') }}
                     </div>
                 </div>
             </div>
@@ -263,7 +263,7 @@
                     </div>
                     <div class="operating-button rounded-full text-white font-bold text-center text-sm py-3"
                         @click="handleExchange">
-                        {{ $confirmText: t('modalConfirm.confirm'), }}
+                        {{ $t('modalConfirm.confirm') }}
                     </div>
                 </div>
             </div>

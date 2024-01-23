@@ -337,7 +337,7 @@
                         USD3 {{ $t('invitePage.pay') }}
                     </div> -->
                     <div class="rounded-full operating-button text-sm py-1 px-2 " @click="handleConfirmUpPackage">
-                        <!-- {{ $confirmText:t('modalConfirm.confirm'), }} -->
+                        <!-- {{ $t('modalConfirm.confirm') }} -->
                         RT {{ $t('invitePage.pay') }}
                     </div>
                 </div>
@@ -522,7 +522,7 @@ async function handleConfirmBuyForRTPOPUP() {
         title: '提示',
         content: `是否確認購買 ${coherentsList.value[currentCoherent.value].type} 配套`,
         showCancelButton: true,
-        confirmText:t('modalConfirm.confirm'),
+        confirmText: t('modalConfirm.confirm'),
         onConfirm: async () => {
             try {
                 proxy.$loading.hide()
@@ -535,7 +535,7 @@ async function handleConfirmBuyForRTPOPUP() {
                                 title: '購買失敗',
                                 content: `${res.error}`,
                                 showCancelButton: false,
-                                confirmText:t('modalConfirm.confirm'),
+                                confirmText: t('modalConfirm.confirm'),
                                 onConfirm: () => {
                                     proxy.$confirm.hide()
 
@@ -571,7 +571,7 @@ async function handleConfirmBuyForRTPOPUP() {
                                 title: '提示',
                                 content: `推薦人地址不存在`,
                                 showCancelButton: false,
-                                confirmText:t('modalConfirm.confirm'),
+                                confirmText: t('modalConfirm.confirm'),
                                 onConfirm: () => {
                                     proxy.$confirm.hide()
                                 },
@@ -584,7 +584,7 @@ async function handleConfirmBuyForRTPOPUP() {
                                 title: '購買失敗',
                                 content: `對碰地址必須在上級地址的點位圖中`,
                                 showCancelButton: false,
-                                confirmText:t('modalConfirm.confirm'),
+                                confirmText: t('modalConfirm.confirm'),
                                 onConfirm: () => {
                                     proxy.$confirm.hide()
 
@@ -598,7 +598,7 @@ async function handleConfirmBuyForRTPOPUP() {
                                 title: '購買失敗',
                                 content: `购买失败：该地址已有上级`,
                                 showCancelButton: false,
-                                confirmText:t('modalConfirm.confirm'),
+                                confirmText: t('modalConfirm.confirm'),
                                 onConfirm: () => {
                                     proxy.$confirm.hide()
                                 },
@@ -611,7 +611,7 @@ async function handleConfirmBuyForRTPOPUP() {
                                 title: '購買成功',
                                 content: `已成功為下級購買 ${coherentsList.value[currentCoherent.value].type} 配套`,
                                 showCancelButton: false,
-                                confirmText:t('modalConfirm.confirm'),
+                                confirmText: t('modalConfirm.confirm'),
                                 onConfirm: () => {
                                     proxy.$confirm.hide()
                                     proxy.$loading.show()
@@ -639,7 +639,7 @@ async function handleConfirmBuyForRTPOPUP() {
                             title: '購買失敗',
                             content: `購買 ${coherentsList.value[currentCoherent.value].type} 配套失敗，請重新購買。`,
                             showCancelButton: false,
-                            confirmText:t('modalConfirm.confirm'),
+                            confirmText: t('modalConfirm.confirm'),
                             onConfirm: () => {
                                 proxy.$confirm.hide()
                                 proxy.$loading.show()
@@ -698,7 +698,7 @@ async function handlePopupConfirmBuy() {
             title: '錯誤',
             content: `獲取RT餘額失敗，請重試`,
             showCancelButton: false,
-            confirmText:t('modalConfirm.confirm'),
+            confirmText: t('modalConfirm.confirm'),
             onConfirm: () => {
                 proxy.$confirm.hide()
             },
@@ -712,7 +712,7 @@ async function handlePopupConfirmBuy() {
         title: '提示',
         content: `是否確認購買 ${coherentsList.value[currentSelf.value].type} 配套`,
         showCancelButton: true,
-        confirmText:t('modalConfirm.confirm'),
+        confirmText: t('modalConfirm.confirm'),
         onConfirm: async () => {
             try {
                 let data = { package_id: coherentsList.value[currentSelf.value].id }
@@ -727,7 +727,7 @@ async function handlePopupConfirmBuy() {
                                     title: '購買失敗',
                                     content: `${res.error}`,
                                     showCancelButton: false,
-                                    confirmText:t('modalConfirm.confirm'),
+                                    confirmText: t('modalConfirm.confirm'),
                                     onConfirm: () => {
                                         proxy.$confirm.hide()
 
@@ -740,7 +740,7 @@ async function handlePopupConfirmBuy() {
                                 title: '提示',
                                 content: `成功購買購買 ${coherentsList.value[currentSelf.value].type} 配套`,
                                 showCancelButton: false,
-                                confirmText:t('modalConfirm.confirm'),
+                                confirmText: t('modalConfirm.confirm'),
                                 onConfirm: () => {
                                     proxy.$confirm.hide()
                                     updataRTBalance(localStorage.getItem('address'))
@@ -872,7 +872,7 @@ async function handleConfirmBuyForUSDT() {
                 title: '餘額不足',
                 content: `當前配套價格為 ${coherentsList.value[currentSelf.value].type} USD3，您的 USD3 餘額不足。`,
                 showCancelButton: false,
-                confirmText:t('modalConfirm.confirm'),
+                confirmText: t('modalConfirm.confirm'),
                 onConfirm: () => {
                     proxy.$confirm.hide()
                 },
@@ -887,7 +887,7 @@ async function handleConfirmBuyForUSDT() {
             title: '錯誤',
             content: `獲取USD3餘額失敗，請重試`,
             showCancelButton: false,
-            confirmText:t('modalConfirm.confirm'),
+            confirmText: t('modalConfirm.confirm'),
             onConfirm: () => {
                 proxy.$confirm.hide()
             },
@@ -940,7 +940,7 @@ async function handleConfirmBuyForUSDT() {
         title: '提示',
         content: `是否確認購買 ${coherentsList.value[currentSelf.value].type} 配套`,
         showCancelButton: true,
-        confirmText:t('modalConfirm.confirm'),
+        confirmText: t('modalConfirm.confirm'),
         onConfirm: async () => {
             try {
                 proxy.$loading.hide()
@@ -1005,7 +1005,7 @@ function viewPointMap(address) {
                     title: '提示',
                     content: `您無法查詢不在您點位圖內的地址信息`,
                     showCancelButton: false,
-                    confirmText:t('modalConfirm.confirm'),
+                    confirmText: t('modalConfirm.confirm'),
                     onConfirm: async () => {
                         proxy.$confirm.hide()
                     }
@@ -1020,7 +1020,7 @@ function viewPointMap(address) {
                     title: '提示',
                     content: `所檢示的地址不是自己的下級。`,
                     showCancelButton: false,
-                    confirmText:t('modalConfirm.confirm'),
+                    confirmText: t('modalConfirm.confirm'),
                     onConfirm: async () => {
                         proxy.$confirm.hide()
                     }
@@ -1050,7 +1050,7 @@ function handleConfirmUpPackage() {
         title: '提示',
         content: `是否確認将下级配套升级为 ${buyPackage.value.text} 配套`,
         showCancelButton: true,
-        confirmText:t('modalConfirm.confirm'),
+        confirmText: t('modalConfirm.confirm'),
         onConfirm: async () => {
 
             let params = { address: clickPointInfo.value.address, package_id: buyPackage.value.id }
@@ -1064,7 +1064,7 @@ function handleConfirmUpPackage() {
                             title: '購買失敗',
                             content: `${res.error}`,
                             showCancelButton: false,
-                            confirmText:t('modalConfirm.confirm'),
+                            confirmText: t('modalConfirm.confirm'),
                             onConfirm: () => {
                                 proxy.$confirm.hide()
 
@@ -1101,7 +1101,7 @@ function handleConfirmUpPackage() {
                             title: '成功',
                             content: `成功将下级配套升级为 ${buyPackage.value.text} 配套`,
                             showCancelButton: false,
-                            confirmText:t('modalConfirm.confirm'),
+                            confirmText: t('modalConfirm.confirm'),
                             onConfirm: () => {
                                 proxy.$confirm.hide()
                                 proxy.$loading.hide()
@@ -1118,7 +1118,7 @@ function handleConfirmUpPackage() {
                         title: '失败',
                         content: `将下级配套升级为 ${buyPackage.value.text} 配套失败，请重试`,
                         showCancelButton: false,
-                        confirmText:t('modalConfirm.confirm'),
+                        confirmText: t('modalConfirm.confirm'),
                         onConfirm: () => {
                             proxy.$confirm.hide()
 
