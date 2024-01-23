@@ -50,7 +50,7 @@
                         </div>
                         <div class="text-red-500 font-bold">
                             {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
-                                FormatAmount(coherentInfo.type).pointOffside }}</span>
+                                                            FormatAmount(coherentInfo.type).pointOffside }}</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
@@ -59,7 +59,7 @@
                         </div>
                         <div class="text-red-500 font-bold">
                             {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-                                FormatAmount(coherentInfo.limit).pointOffside }}</span>
+                                                            FormatAmount(coherentInfo.limit).pointOffside }}</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
@@ -80,7 +80,7 @@
                                 <div class="text-xs p-2 text-left text-gray-400">
                                     <!-- 购买成功之后即时释放{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT -->
                                     {{ $t('coherents.buyAfterReleased') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3)
-                                    }}PMT
+                                                                        }}PMT
                                 </div>
                                 <div class="text-xs p-2 text-left text-gray-400">
                                     {{ $t('coherents.24Released') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT
@@ -121,11 +121,11 @@
                 <div @click="handleConfirmBuyForUSDT"
                     class="w-5/12 mr-auto ml-auto border-primary-color active-white-color border-2 text-white py-2 text-center rounded-full">
                     USD3{{
-                        $t('invitePage.pay') }}</div>
+                                        $t('invitePage.pay') }}</div>
                 <div @click="handleConfirmBuyForRT"
                     class="w-5/12 mr-auto ml-auto border-2 active-white-color border-primary-color text-white py-2 text-center rounded-full">
                     RT{{
-                        $t('invitePage.pay') }}</div>
+                                        $t('invitePage.pay') }}</div>
             </div>
 
         </div>
@@ -278,7 +278,7 @@ async function handleConfirmBuyForRT() {
                 title: '餘額不足',
                 content: `當前配套價格為 ${coherentInfo.value.type} RT，您的 RT 餘額不足。`,
                 showCancelButton: false,
-                confirmText: '確定',
+                confirmText:t('modalConfirm.confirm'),
                 onConfirm: () => {
                     proxy.$confirm.hide()
                 },
@@ -293,7 +293,7 @@ async function handleConfirmBuyForRT() {
             title: '錯誤',
             content: `獲取RT餘額失敗，請重試`,
             showCancelButton: false,
-            confirmText: '確定',
+            confirmText:t('modalConfirm.confirm'),
             onConfirm: () => {
                 proxy.$confirm.hide()
             },
@@ -315,7 +315,7 @@ async function handleConfirmBuyForRT() {
                     title: '購買失敗',
                     content: `${res.error}`,
                     showCancelButton: false,
-                    confirmText: '確定',
+                    confirmText:t('modalConfirm.confirm'),
                     onConfirm: () => {
                         proxy.$confirm.hide()
 
@@ -354,7 +354,7 @@ async function handleConfirmBuyForUSDT() {
                 title: '餘額不足',
                 content: `當前配套價格為 ${coherentInfo.value.type} USD3，您的 USD3 餘額不足。`,
                 showCancelButton: false,
-                confirmText: '確定',
+                confirmText:t('modalConfirm.confirm'),
                 onConfirm: () => {
                     proxy.$confirm.hide()
                 },
@@ -369,7 +369,7 @@ async function handleConfirmBuyForUSDT() {
             title: '錯誤',
             content: `獲取USD3餘額失敗，請重試`,
             showCancelButton: false,
-            confirmText: '確定',
+            confirmText:t('modalConfirm.confirm'),
             onConfirm: () => {
                 proxy.$confirm.hide()
             },
@@ -421,7 +421,7 @@ async function handleConfirmBuyForUSDT() {
         title: '確認',
         content: '是否確認購買該配套。',
         showCancelButton: true,
-        confirmText: '確定',
+        confirmText:t('modalConfirm.confirm'),
         onConfirm: async () => {
             try {
                 await pmtContractApi.purchasePackage(Number(coherentInfo.value.id - 1))

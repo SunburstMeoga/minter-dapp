@@ -31,7 +31,7 @@
             <!--  -->
             <div class="operating-button rounded-full text-white font-bold text-center text-sm py-2"
                 @click="handleExchange">
-                {{ $t('modalConfirm.confirm') }}
+                {{ $confirmText: t('modalConfirm.confirm'), }}
             </div>
         </div>
     </div>
@@ -152,8 +152,8 @@ async function handleExchange() {
         title: '確認',
         content: `是否確認將 ${exchangeAmount.value} USD3兌換為 ${exchangeAmount.value} RT?`,
         showCancelButton: true,
-        confirmText: '確定',
-        cancelText: '取消',
+        confirmText: t('modalConfirm.confirm'),
+        confirmText: t('modalConfirm.cancel'),
         onConfirm: () => {
             // proxy.$confirm.hide()
             const WEB3 = new Web3(window.ethereum)

@@ -231,7 +231,7 @@
                     </div>
                     <!--  -->
                     <div class="operating-button rounded-full text-white font-bold text-center text-sm py-3">
-                        {{ $t('modalConfirm.confirm') }}
+                        {{ $confirmText: t('modalConfirm.confirm'), }}
                     </div>
                 </div>
             </div>
@@ -263,7 +263,7 @@
                     </div>
                     <div class="operating-button rounded-full text-white font-bold text-center text-sm py-3"
                         @click="handleExchange">
-                        {{ $t('modalConfirm.confirm') }}
+                        {{ $confirmText: t('modalConfirm.confirm'), }}
                     </div>
                 </div>
             </div>
@@ -465,8 +465,8 @@ function handleTransferRT() {
         title: '確認',
         content: `是否確認將${transferRTAmount.value}RT轉入到${transferRTAddress.value},該行為不可撤銷！`,
         showCancelButton: true,
-        confirmText: '確定',
-        cancelText: '取消',
+        confirmText: t('modalConfirm.confirm'),
+        confirmText: t('modalConfirm.cancel'),
         onConfirm: async () => {
             let data = { address: transferRTAddress.value, amount: transferRTAmount.value }
             console.log(data)
@@ -480,7 +480,7 @@ function handleTransferRT() {
                             title: '提示',
                             content: res.error,
                             showCancelButton: false,
-                            confirmText: '確定',
+                            confirmText: t('modalConfirm.confirm'),
                             onConfirm: () => {
                                 proxy.$confirm.hide()
                                 toggleTransferPopup()
@@ -496,7 +496,7 @@ function handleTransferRT() {
                             title: '提示',
                             content: `已成功轉賬 ${transferRTAmount.value} RT`,
                             showCancelButton: false,
-                            confirmText: '確定',
+                            confirmText: t('modalConfirm.confirm'),
                             onConfirm: async () => {
                                 try {
                                     getPlayersInfo(localStorage.getItem('address'))
@@ -519,7 +519,7 @@ function handleTransferRT() {
                         title: '提示',
                         content: `轉賬失敗，請重試`,
                         showCancelButton: false,
-                        confirmText: '確定',
+                        confirmText: t('modalConfirm.confirm'),
                         onConfirm: () => {
                             proxy.$confirm.hide()
                             toggleTransferPopup()
@@ -674,8 +674,8 @@ async function handleExchangeBT() {
         title: '確認',
         content: contentWord,
         showCancelButton: true,
-        confirmText: '確定',
-        cancelText: '取消',
+        confirmText: t('modalConfirm.confirm'),
+        confirmText: t('modalConfirm.cancel'),
         onConfirm: async () => {
             if (currentExchangeTypeBT.value == 0) {
                 btToUsdt(data)
@@ -687,7 +687,7 @@ async function handleExchangeBT() {
                                 title: '提示',
                                 content: res.error,
                                 showCancelButton: false,
-                                confirmText: '確定',
+                                confirmText: t('modalConfirm.confirm'),
                                 onConfirm: () => {
                                     proxy.$confirm.hide()
                                 },
@@ -714,7 +714,7 @@ async function handleExchangeBT() {
                                 title: '提示',
                                 content: res.error,
                                 showCancelButton: false,
-                                confirmText: '確定',
+                                confirmText: t('modalConfirm.confirm'),
                                 onConfirm: () => {
                                     proxy.$confirm.hide()
                                 },
@@ -800,8 +800,8 @@ async function handleExchange() {
         title: '確認',
         content: contentWord,
         showCancelButton: true,
-        confirmText: '確定',
-        cancelText: '取消',
+        confirmText: t('modalConfirm.confirm'),
+        confirmText: t('modalConfirm.cancel'),
         onConfirm: async () => {
             if (currentExchangeType.value == 0) {
                 try {

@@ -45,7 +45,7 @@ export default {
     description:
       "The Minter project is a marketing program developed on the basis of the HashAhead public chain as the underlying development of the marketing project. At the early stage of a public chain project launch, attracting users and building up an active user group is crucial to the success of the project. Therefore, the user attraction project is carried out with the aim of rapidly expanding the project's popularity, attracting more users to participate, and laying a solid foundation for the long-term development of the project.",
     tips: 'Definitions of terms can be found by clicking on the terms below.',
-    PMTDetails: 'Project tokens, released when the user purchases the package.',
+    PMTDetails: 'Project tokens, released when the user purchases the Mint.',
     MTDetails: 'NFTs that can be traded in the project.',
     RTDetails:
       'Project tokens, acquired through MT and Liquidity Reward token points, also known as Initial Funding Certificates.',
@@ -172,7 +172,7 @@ export default {
     sale: 'Selling',
     cancleSale: 'Cancel',
     gift: 'Gift',
-    coherent: 'Package',
+    coherent: 'Mint',
     staticIncome: 'Static income',
     dynamicIncome: 'Dynamic income',
     transfer: 'Transfer',
@@ -203,14 +203,14 @@ export default {
     inviterAddress: "Inviter's address",
     preAddress: 'Upgrade Address',
     nextAddress: 'Next Level Address',
-    chooseCoherentBuy: 'Select Package to Buy',
+    chooseCoherentBuy: 'Select Mint to Buy',
     createInviterLink: 'Generate Invitation Links',
     inviterLink: 'Invitation Links',
     saveQRcode: 'Save QR Code',
     copyLink: 'Copy Invitation Links',
-    buyCoherent: 'Purchase Package',
+    buyCoherent: 'Purchase Mint',
     currentPointAddress: 'Current Location',
-    chooseCoherent: 'Select Package',
+    chooseCoherent: 'Select Mint',
     left: 'Left ',
     right: 'Right ',
     remain: 'Remain',
@@ -223,12 +223,16 @@ export default {
     generationIncentive: 'Algebraic',
     awardAmount: 'Award Amount',
     releaseTime: 'Release Time',
-    packageAmount: 'Package Amount',
+    MintAmount: 'Mint Amount',
     proceed: 'Proceed',
     expiryTime: 'Expiry Time',
     acceleratorAward: 'Accelerator',
     dailyEarnings: 'Daily Earnings',
-    recommendedBenefits: 'Recommended Benefits'
+    recommendedBenefits: 'Recommended Benefits',
+    bonus: 'Bonus',
+    search: "Search",
+    searchAddress: "Search for an address",
+    toPre: "Return to previous level"
   },
   exchange: {
     title: 'Exchange',
@@ -239,7 +243,7 @@ export default {
     contribution: 'Contribution',
     title: 'Matching Transaction Information',
     price: 'Price',
-    coherentTitle: 'Package List',
+    coherentTitle: 'Mint List',
     earningsCap: 'NFT Earnings Cap',
     coherentCap: 'Cap',
     incentiveRate: 'Tier 1 Invitation Incentive Rate',
@@ -260,7 +264,9 @@ export default {
     paymenMethod: 'Payment Method',
     pleaseEnter: 'Please fill in ',
     invalidAddress: 'The address is invalid',
-    tips: 'If a user purchases Minter1 (i.e., a 200USDT Minter), then the maximum daily match bonus a user can earn is 200USDT; if user W purchases Minter1+Minter2 (i.e., 200USDT and 600USDT), then the maximum daily match bonus a user can earn is 200+600USDT=800; and so on.'
+    tips: 'If a user purchases Minter1 (i.e., a 200USD3 Minter), then the maximum daily match bonus a user can earn is 200USDT; if user W purchases Minter1+Minter2 (i.e., 200USD3 and 600USD3), then the maximum daily match bonus a user can earn is 200+600USDT=800; and so on.',
+    proAddress: "Proofreading Address",
+    canUse: "It is possible to use"
   },
   modalConfirm: {
     buySuccess: 'Purchase was successful',
@@ -300,9 +306,9 @@ export default {
     inviteAddress: "Inviter's address",
     preAddress: 'Upgrade Address',
     selfAddress: 'My address',
-    chooseCoherentTip: 'Please select a package',
-    chooseCoherent: 'Select Package',
+    chooseCoherentTip: 'Please select a Mint',
+    chooseCoherent: 'Select Mint',
     pay: ' Disbursement',
-    showMore: 'Show More Package'
+    showMore: 'Show More Mint'
   }
 }

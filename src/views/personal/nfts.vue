@@ -22,7 +22,9 @@
             </van-list> -->
             <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in nftsDatas" :key="index">
                 <nft-card :nftImg="item.nftImg" :showCheckbox="false" :price="item.price" :tokenID="item.token_id"
-                    showToken />
+                    :showOperting="item.showOperting" :showCancelButton="item.is_listed && !item.showOperting"
+                    :showListedButton="!item.is_listed && !item.showOperting" showToken
+                    @handleListed="handleListed(item, index)" @handleCancel="handleCancelList(item, index)" />
             </div>
         </div>
         <div v-if="nftsDatas.length == 0 && currentType == 0" class="text-white font-bold mt-20 text-center">
@@ -32,8 +34,10 @@
         <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap"
             v-show="currentType == 1 && listeds.length !== 0">
             <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in listeds" :key="index">
-                <nft-card :nftImg="item.nftImg" :price="item.price" :tokenID="item.token_id" showCancelButton showToken
-                    @handleCancel="handleCancelList(item)" />
+                <nft-card :nftImg="item.nftImg" :price="item.price" :tokenID="item.token_id" showToken
+                    @handleCancel="handleCancelList(item)" @handleListed="handleListed(item, index)"
+                    :showCancelButton="item.is_listed && !item.showOperting" :showOperting="item.showOperting"
+                    :showListedButton="!item.is_listed && !item.showOperting" />
             </div>
         </div>
         <div v-if="listeds.length == 0 && currentType == 1" class="text-white font-bold mt-20 text-center">
@@ -43,8 +47,10 @@
         <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap"
             v-show="currentType == 2 && saleables.length !== 0">
             <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in saleables" :key="index">
-                <nft-card :nftImg="item.nftImg" showListedButton :price="item.price" :tokenID="item.token_id" showToken
-                    @handleListed="handleListed(item)" />
+                <nft-card :nftImg="item.nftImg" :price="item.price" :tokenID="item.token_id" showToken
+                    @handleListed="handleListed(item, index)" @handleCancel="handleCancelList(item)"
+                    :showCancelButton="item.is_listed && !item.showOperting" :showOperting="item.showOperting"
+                    :showListedButton="!item.is_listed && !item.showOperting" />
             </div>
         </div>
         <div v-if="saleables.length == 0 && currentType == 2" class="text-white font-bold mt-20 text-center">
@@ -87,16 +93,16 @@ const list = ref([]);
 const loading = ref(false)
 const finished = ref(false)
 onMounted(() => {
-    getUserNFTs()
-    getUserCanSaleNFT()
     getAllNFT()
+    getUserCanSaleNFT()
+    getUserNFTs()
+
 })
 function onLoad() {
     setTimeout(() => {
         for (let i = 0; i < 10; i++) {
             list.value.push(list.value.length + 1);
         }
-
         // 加载状态结束
         loading.value = false;
 
@@ -106,38 +112,7 @@ function onLoad() {
         }
     }, 1000);
 }
-//用戶取得自己可出售的NFT
-function getUserCanSaleNFT() {
-    saleables.value = []
-    getCanSaleNFT()
-        .then(res => {
-            saleables.value = res.nft_token_ids
-            if (saleables.value.length !== 0) {
-                saleables.value.map(item => {
-                    if (item.token_type == 1) {
-                        item.nftImg = nftOne
-                    }
-                    if (item.token_type == 2) {
-                        item.nftImg = nftTwo
-                    }
-                    if (item.token_type == 3) {
-                        item.nftImg = nftThree
-                    }
-                    if (item.token_type == 4) {
-                        item.nftImg = nftFour
-                    }
-                    if (item.token_type == 5) {
-                        item.nftImg = nftFive
-                    }
-                })
-            }
-            console.log('可出售列表', saleables.value)
-        })
-        .catch(err => {
-            console.log(err)
-        })
-}
-
+//獲取用戶所有的NFT
 async function getAllNFT() {
     proxy.$loading.show()
     nftsDatas.value = []
@@ -148,7 +123,6 @@ async function getAllNFT() {
     } else if (status == 1) {
         params = { address: localStorage.getItem('address'), status: 1, perPage: 10000 }
     }
-    // let params = { address: localStorage.getItem('address'), status: 0, perPage: 10000 }
     userNFT(params)
         .then(res => {
             proxy.$loading.hide()
@@ -159,7 +133,7 @@ async function getAllNFT() {
                     // let time = await nftContractApi.sellOffPeriod(item.token_id)
                     // console.log('出售時間時間戳', Number(time))
                     // console.log('現在時間時間戳', parseInt(new Date().getTime() / 1000))
-
+                    item.showOperting = false
                     if (item.token_type == 1) {
                         item.nftImg = nftOne
                     }
@@ -189,7 +163,43 @@ async function getAllNFT() {
             console.log(err)
         })
 }
-
+//用戶取得自己可出售的NFT
+function getUserCanSaleNFT() {
+    proxy.$loading.show()
+    saleables.value = []
+    getCanSaleNFT()
+        .then(res => {
+            proxy.$loading.hide()
+            saleables.value = res.nft_token_ids
+            if (saleables.value.length !== 0) {
+                saleables.value.map(item => {
+                    item.is_listed = false
+                    item.showOperting = false
+                    if (item.token_type == 1) {
+                        item.nftImg = nftOne
+                    }
+                    if (item.token_type == 2) {
+                        item.nftImg = nftTwo
+                    }
+                    if (item.token_type == 3) {
+                        item.nftImg = nftThree
+                    }
+                    if (item.token_type == 4) {
+                        item.nftImg = nftFour
+                    }
+                    if (item.token_type == 5) {
+                        item.nftImg = nftFive
+                    }
+                })
+            }
+            console.log('可出售列表', saleables.value)
+        })
+        .catch(err => {
+            proxy.$loading.hide()
+            console.log(err)
+        })
+}
+//獲取用戶正在掛單的NFT
 function getUserNFTs() {
     proxy.$loading.show()
     listeds.value = []
@@ -219,6 +229,8 @@ function getUserNFTs() {
                                 if (_item.token_type == 5) {
                                     _item.nftImg = nftFive
                                 }
+                                _item.is_listed = true
+                                _item.showOperting = false
                             })
                         }
                     }
@@ -261,11 +273,8 @@ async function getListeds24h() { //每个地址每天最多挂单4张NFT
 }
 
 //掛單
-async function handleListed(item) {
-
-
+async function handleListed(item, index) {
     console.log(item)
-    // return
     proxy.$loading.show()
     let numListingsIn24Hours
     let totalListings
@@ -282,14 +291,13 @@ async function handleListed(item) {
         console.log('現正掛賣NFT數量', totalListings)
         console.log('由此時間開始計起24小時', lastListingTime)
         console.log('timestamp', timestamp)
-
         if (Number(totalListings) >= 4) {
             proxy.$confirm.hide()
             proxy.$confirm.show({
                 title: '提示',
                 content: `你当前已经挂单${totalListings}张NFT，賣掉一張後可繼續掛單，且20分鐘內只能掛單4張NFT。`,
                 showCancelButton: false,
-                confirmText: '確定',
+                confirmText: t('modalConfirm.confirm'),
                 onConfirm: () => {
                     proxy.$confirm.hide()
                     proxy.$loading.hide()
@@ -305,7 +313,7 @@ async function handleListed(item) {
                 title: '提示',
                 content: `20分鐘內一共只能買4張和同時掛單NFT，您當前已掛單或售賣${numListingsIn24Hours}張，${countDown(timestamp)}後可繼續掛單`,
                 showCancelButton: false,
-                confirmText: '確定',
+                confirmText: t('modalConfirm.confirm'),
                 onConfirm: () => {
                     proxy.$confirm.hide()
                     proxy.$loading.hide()
@@ -313,8 +321,6 @@ async function handleListed(item) {
             });
             return
         }
-
-
 
     } catch (err) {
         console.log(err)
@@ -338,7 +344,7 @@ async function handleListed(item) {
                 title: '提示',
                 content: `${countDown(Number(time))}後可出售`,
                 showCancelButton: false,
-                confirmText: '確定',
+                confirmText: t('modalConfirm.confirm'),
                 onConfirm: () => {
                     proxy.$confirm.hide()
                     proxy.$loading.hide()
@@ -346,7 +352,6 @@ async function handleListed(item) {
             });
             return
         }
-
     } catch (err) {
         proxy.$loading.hide()
         console.log(err)
@@ -363,7 +368,6 @@ async function handleListed(item) {
         showToast('檢查MT授權狀態失敗，請重試')
         console.log(err)
     }
-
     const transactionResponse = await nftContractApi.isApprovedAll(localStorage.getItem('address'), config.nfts_marketplace_addr)
     console.log(transactionResponse)
     if (!transactionResponse) { //當前領取方式未授權
@@ -414,7 +418,6 @@ async function handleListed(item) {
         console.log(err)
     }
     console.log('allowance', allowance)
-
     if (Number(allowance) == 0) { //當前領取方式未授權
         proxy.$loading.hide()
         proxy.$confirm.hide()
@@ -443,7 +446,6 @@ async function handleListed(item) {
         });
         return
     }
-
     console.log('isApprovedAll', isApprovedAll)
     if (Number(isApprovedAll) == 0) { //當前賬號未授權
         proxy.$loading.hide()
@@ -479,31 +481,36 @@ async function handleListed(item) {
         title: '確認',
         content: `是否確認將Token ID為 ${item.token_id} 的NFT進行掛單?`,
         showCancelButton: true,
-        confirmText: '確定',
+        confirmText: t('modalConfirm.confirm'),
         onConfirm: async () => {
             try { //listNFT
                 // proxy.$loading.show()
                 console.log(item.token_id)
-                await nftContractApi.listNFT(item.token_id)
                 proxy.$confirm.hide()
-
+                item.opertingType = "正在挂单..."
+                item.showOperting = true
+                await nftContractApi.listNFT(item.token_id)
+                // item.opertingType = "挂单成功"
+                item.showOperting = false
+                item.is_listed = true
+                // showToast(`已成功掛單Token ID為 ${item.token_id} 的NFT`)
                 // proxy.$loading.show()
-                proxy.$confirm.show({
-                    title: '成功',
-                    content: `已成功掛單Token ID為 ${item.token_id} 的NFT`,
-                    showCancelButton: false,
-                    confirmText: '確定',
-                    onConfirm: () => {
+                // proxy.$confirm.show({
+                //     title: '成功',
+                //     content: `已成功掛單Token ID為 ${item.token_id} 的NFT`,
+                //     showCancelButton: false,
+                //     confirmText: t('modalConfirm.confirm'),
+                //     onConfirm: () => {
 
-                        setTimeout(() => {
-                            // proxy.$loading.hide()
-                            proxy.$confirm.hide()
-                            getUserNFTs()
-                            getUserCanSaleNFT()
-                            getAllNFT()
-                        }, 3000)
-                    }
-                })
+                //         setTimeout(() => {
+                //             // proxy.$loading.hide()
+                //             proxy.$confirm.hide()
+                //             getUserNFTs()
+                //             getUserCanSaleNFT()
+                //             getAllNFT()
+                //         }, 3000)
+                //     }
+                // })
                 // setTimeout(() => {
                 //     proxy.$loading.hide()
                 //     showToast('掛單成功')
@@ -517,11 +524,13 @@ async function handleListed(item) {
             } catch (err) {
                 proxy.$confirm.hide()
                 proxy.$confirm.hide()
+                item.showOperting = false
+                item.is_listed = false
                 proxy.$confirm.show({
                     title: '提示',
-                    content: '掛單失敗，請重新掛單',
+                    content: `Token ID為 ${item.token_id} 的NFT挂单失败，请重新挂单`,
                     showCancelButton: false,
-                    confirmText: '確定',
+                    confirmText: t('modalConfirm.confirm'),
                     onConfirm: () => {
                         proxy.$confirm.hide()
                         // toggleConfirmPayPopup()
@@ -554,7 +563,7 @@ async function handleCancelList(item) {
             content: '需要進行NFT授權，請先完成授權。',
             showCancelButton: false,
             confirmText: '去授權',
-            onConfirm: () => {
+            onConfirm: async () => {
                 // proxy.$loading.show()
                 // pmt对nft授權
                 nftContractApi.setApprovalForAll(config.nfts_marketplace_addr)
@@ -581,31 +590,41 @@ async function handleCancelList(item) {
         title: '確認',
         content: `是否取消掛單Token ID為 ${item.token_id} 的NFT?`,
         showCancelButton: true,
-        confirmText: '確定',
+        confirmText: t('modalConfirm.confirm'),
         onConfirm: async () => {
             try { //unlistNFT
                 // proxy.$loading.show()
-                await nftContractApi.unlistNFT(item.token_id)
 
+                console.log(item.token_id)
                 proxy.$confirm.hide()
+                item.opertingType = "正在挂单..."
+                item.showOperting = true
+                await nftContractApi.unlistNFT(item.token_id)
+                // item.opertingType = "挂单成功"
+                item.showOperting = false
+                item.is_listed = false
+                // showToast(`已成功掛單Token ID為 ${item.token_id} 的NFT`)
 
+
+                // await nftContractApi.unlistNFT(item.token_id)
+                // proxy.$confirm.hide()
                 // proxy.$loading.show()
-                proxy.$confirm.show({
-                    title: '成功',
-                    content: `已成功取消Token ID為 ${item.token_id} 的NFT掛單`,
-                    showCancelButton: false,
-                    confirmText: '確定',
-                    onConfirm: () => {
+                // proxy.$confirm.show({
+                //     title: '成功',
+                //     content: `已成功取消Token ID為 ${item.token_id} 的NFT掛單`,
+                //     showCancelButton: false,
+                //     confirmText: t('modalConfirm.confirm'),
+                //     onConfirm: () => {
 
-                        setTimeout(() => {
-                            proxy.$loading.hide()
-                            proxy.$confirm.hide()
-                            getUserNFTs()
-                            getUserCanSaleNFT()
-                            getAllNFT()
-                        }, 3000)
-                    }
-                })
+                //         setTimeout(() => {
+                //             proxy.$loading.hide()
+                //             proxy.$confirm.hide()
+                //             getUserNFTs()
+                //             getUserCanSaleNFT()
+                //             getAllNFT()
+                //         }, 3000)
+                //     }
+                // })
 
                 // proxy.$loading.show()
                 // setTimeout(() => {
@@ -619,11 +638,13 @@ async function handleCancelList(item) {
             } catch (err) {
                 proxy.$loading.hide()
                 proxy.$confirm.hide()
+                item.showOperting = false
+                item.is_listed = true
                 proxy.$confirm.show({
                     title: '提示',
                     content: '取消掛單失敗，請重試',
                     showCancelButton: false,
-                    confirmText: '確定',
+                    confirmText: t('modalConfirm.confirm'),
                     onConfirm: () => {
                         proxy.$confirm.hide()
                         // toggleConfirmPayPopup()
@@ -677,8 +698,14 @@ function saleablesHasChange(item, index) {
 }
 function handleTypeItem(item, index) {
     currentType.value = index
-    // getUserNFTs()
-}
+    if (index == 0) {
+        getAllNFT()
+    } else if (index == 1) {
+        getUserNFTs()
+    } else if (index == 2) {
+        getUserCanSaleNFT()
+    }
+}   
 </script>
 
 <style></style>

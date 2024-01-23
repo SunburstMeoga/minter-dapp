@@ -180,10 +180,10 @@ onMounted(() => {
   initStar()
   animation()
   accountHasChanged()
-  if(localStorage.getItem('language')){
+  if (localStorage.getItem('language')) {
     proxy.$i18n.locale = localStorage.getItem('language')
   } else {
-    proxy.$i18n.locale  = 'en-us'
+    proxy.$i18n.locale = 'en-us'
   }
 })
 async function accountHasChanged() {
@@ -193,7 +193,7 @@ async function accountHasChanged() {
       title: '賬戶發生變化',
       content: '當前賬戶發生變化，請重新登錄',
       showCancelButton: false,
-      confirmText: '確定',
+      confirmText:t('modalConfirm.confirm'),
       onConfirm: () => {
         localStorage.removeItem('token')
         localStorage.removeItem('address')

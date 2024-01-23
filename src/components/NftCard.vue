@@ -47,6 +47,13 @@
             取消掛單
           </div>
         </div>
+        <div class="flex justify-center items-center mt-2 active-primary-color" v-show="showOperting"
+          @click="handleOperting">
+          <div class="disable-button w-full py-1 rounded-full text-center flex justify-center items-center">
+            <span class="icon iconfont icon-loading animate-spin mr-1"></span>
+            <!-- {{ opertingType }} -->
+          </div>
+        </div>
       </div>
     </div>
 
@@ -60,6 +67,7 @@ import nftTwo from '@/assets/images/600.png'
 import nftThree from '@/assets/images/2000.png'
 import nftFour from '@/assets/images/6000.png'
 import nftFive from '@/assets/images/20000.png'
+import { showToast } from 'vant'
 const nftProps = defineProps({
   canBuy: {
     type: Boolean,
@@ -84,6 +92,14 @@ const nftProps = defineProps({
   showCancelButton: {
     type: Boolean,
     default: false
+  },
+  showOperting: {
+    type: Boolean,
+    default: false
+  },
+  opertingType: {
+    type: String,
+    default: ''
   },
   price: {
     type: String,
@@ -110,6 +126,10 @@ const nftProps = defineProps({
     default: false
   }
 })
+function handleOperting() {
+  showToast('正在操作，请稍候')
+  return
+}
 // function getNFTImage() {  
 //   if (nftProps.nftTokenType == 1) {
 //     nftImg

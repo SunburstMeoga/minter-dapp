@@ -12,7 +12,7 @@
             </div>
             <div class="text-red-500 font-bold">
               {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
-                FormatAmount(coherentInfo.type).pointOffside }}</span>
+                              FormatAmount(coherentInfo.type).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
@@ -21,25 +21,25 @@
             </div>
             <div class="text-red-500 font-bold">
               {{ FormatAmount(coherentInfo.limit * 2).pointPre }}.<span class="text-xs">{{
-                FormatAmount(coherentInfo.limit * 2).pointOffside }}</span>
+                              FormatAmount(coherentInfo.limit * 2).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
             <div>
-              收益:
+              {{ $t('assistance.proceed') }}
             </div>
             <div class="text-red-500 font-bold">
               {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-                FormatAmount(coherentInfo.limit).pointOffside }}</span>
+                              FormatAmount(coherentInfo.limit).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
             <div>
-              獎金:
+              {{ $t('assistance.bonus') }}
             </div>
             <div class="text-red-500 font-bold">
               {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-                FormatAmount(coherentInfo.limit).pointOffside }}</span>
+                              FormatAmount(coherentInfo.limit).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
@@ -101,11 +101,11 @@
 
       <div class="w-11/12 flex justify-between items-center fixed bottom-3">
         <!-- <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForUSDT">
-          USD3支付
+          USD3 {{ $t('invitePage.pay') }}
         </div> -->
         <div class="w-full operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForRT">
-          <!-- {{ $t('modalConfirm.confirm') }} {{ $t('coherents.buy') }} -->
-          RT支付
+          <!-- {{ $confirmText:t('modalConfirm.confirm'), }} {{ $t('coherents.buy') }} -->
+          RT {{ $t('invitePage.pay') }}
         </div>
 
       </div>
@@ -127,14 +127,14 @@
                 <div class="w-4 mr-2" v-show="calibratingReferrer">
                   <img src="@/assets/images/calibration-loading.gif" alt="">
                 </div>
-                <div @click="handleCalibrationReferrer">校驗地址</div>
+                <div @click="handleCalibrationReferrer">{{ $t('coherents.proAddress') }}</div>
               </div>
               <div class="text-sm text-left animate__animated text-red-500" v-show="isErrReferrer"
                 :class="isErrReferrer ? 'animate__shakeX text-red-500' : ''">{{ $t('coherents.invalidAddress') }}
               </div>
               <div class="text-sm text-left animate__animated " v-show="canUseReferrer"
                 :class="canUseReferrer ? 'animate__heartBeat text-green-500' : ''">
-                可以使用該地址
+                {{ $t('coherents.canUse') }}
               </div>
             </div>
           </div>
@@ -143,7 +143,7 @@
 
         <div class="w-full flex justify-center items-center">
           <div class="w-11/12 text-center py-2.5 rounded-full operating-button" @click="handleConfirmReferrerAddress">
-            {{ $t('modalConfirm.confirm') }}
+            {{ $confirmText:t('modalConfirm.confirm'), }}
           </div>
         </div>
       </div>
@@ -165,14 +165,14 @@
                 <div class="w-4 mr-2" v-show="calibratingLeg">
                   <img src="@/assets/images/calibration-loading.gif" alt="">
                 </div>
-                <div @click="handleCalibrationLeg">校驗地址</div>
+                <div @click="handleCalibrationLeg">{{ $t('coherents.proAddress') }}</div>
               </div>
               <div v-show="isErrLeg" class="text-sm text-left animate__animated text-red-500"
                 :class="isErrLeg ? 'animate__shakeX text-red-500' : ''">{{ $t('coherents.invalidAddress') }}
               </div>
               <div class="text-sm text-left animate__animated " v-show="canUseLeg"
                 :class="canUseReferrer ? 'animate__heartBeat text-green-500' : ''">
-                可以使用該地址
+                {{ $t('coherents.canUse') }}
               </div>
             </div>
           </div>
@@ -182,7 +182,7 @@
         <div class="w-full flex justify-center items-center">
 
           <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmLegAddress">
-            {{ $t('modalConfirm.confirm') }}
+            {{ $confirmText:t('modalConfirm.confirm'), }}
           </div>
         </div>
       </div>
@@ -204,7 +204,7 @@
         </div>
         <div class="w-full flex justify-center items-center">
           <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmPoint">
-            {{ $t('modalConfirm.confirm') }}
+            {{ $confirmText:t('modalConfirm.confirm'), }}
           </div>
         </div>
       </div>
@@ -226,7 +226,7 @@
                 <div class="w-4 mr-2" v-show="calibratingLeg">
                   <img src="@/assets/images/calibration-loading.gif" alt="">
                 </div>
-                <div @click="handleCalibrationLeg">校驗地址</div>
+                <div @click="handleCalibrationLeg">{{ $t('coherents.proAddress') }}</div>
               </div>
               <div v-show="isErrLeg" class="text-sm text-left animate__animated text-red-500"
                 :class="isErrLeg ? 'animate__shakeX text-red-500' : ''">{{ $t('coherents.invalidAddress') }}
@@ -237,7 +237,7 @@
         </div>
         <div class="w-full flex justify-center items-center">
           <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmNextAddress">
-            {{ $t('modalConfirm.confirm') }}
+            {{ $confirmText:t('modalConfirm.confirm'), }}
           </div>
         </div>
       </div>
@@ -256,7 +256,7 @@
               </div>
               <div class="text-red-500 font-bold">
                 {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
-                  FormatAmount(coherentInfo.type).pointOffside }}</span>
+                                  FormatAmount(coherentInfo.type).pointOffside }}</span>
               </div>
             </div>
             <div class="flex justify-between items-center">
@@ -265,7 +265,7 @@
               </div>
               <div class="text-red-500 font-bold">
                 {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-                  FormatAmount(coherentInfo.limit).pointOffside }}</span>
+                                  FormatAmount(coherentInfo.limit).pointOffside }}</span>
               </div>
             </div>
 
@@ -279,7 +279,7 @@
           <div class="w-full mb-4 flex justify-between items-center">
             <div class="rounded pl-3 border border-gray-700 flex-1 py-1.5 text-sm ">
               {{ $t('order.needPay') }} {{ Number(palayBanalce.rt) - Number(coherentInfo.type) >= 0 ?
-                Number(coherentInfo.type) : Number(palayBanalce.rt) }}
+                            Number(coherentInfo.type) : Number(palayBanalce.rt) }}
             </div>
           </div>
           <div v-show="rtBind.length && rtBind.length !== 0">
@@ -301,11 +301,11 @@
           </div>
         </div>
         <div class="text-primary-color font-bold pl-4 text-sm mb-4" v-show="rtBind.length && rtBind.length !== 0">
-          * 請切記這個獎勵要在下個月7號前使用,過期則不可使用
+          * {{ $t('raffle.welfareTips') }}
         </div>
         <div class="w-full flex justify-center items-center">
           <div class="w-11/12 operating-button text-center py-2.5 rounded-full" @click="handlePopupConfirmBuy">
-            {{ $t('modalConfirm.confirm') }}
+            {{ $confirmText:t('modalConfirm.confirm'), }}
           </div>
         </div>
       </div>
@@ -352,11 +352,10 @@ let showPointPopup = ref(false)
 const pointList = ref([])
 let propertiesList = computed(() => {
   return [
-    { title: '邀請人地址', placeholder: t('coherents.pleaseEnter'), content: '' },
-    { title: '對碰地址', placeholder: t('coherents.pleaseEnter'), content: '' },
-    { title: '点位', placeholder: '請選擇', content: '' },
-    { title: t('下级地址'), placeholder: '請選擇', content: '' },
-
+    { title: t('invitePage.inviteAddress'), placeholder: t('coherents.pleaseEnter'), content: '' },
+    { title: t('coherents.collisionAddress'), placeholder: t('coherents.pleaseEnter'), content: '' },
+    { title: t('assistance.pointInfo'), placeholder: t('coherents.pleaseEnter'), content: '' },
+    { title: t('assistance.nextAddress'), placeholder: t('coherents.pleaseEnter'), content: '' },
   ]
 })
 let currentPoint = ref(null)
@@ -467,7 +466,7 @@ async function handleCalibrationReferrer() {
         title: '提示',
         content: '邀請地址必須在您的點位圖中。',
         showCancelButton: false,
-        confirmText: '確定',
+        confirmText:t('modalConfirm.confirm'),
         onConfirm: () => {
           proxy.$loading.hide()
           proxy.$confirm.hide()
@@ -524,7 +523,7 @@ async function handleCalibrationLeg() {
         title: '提示',
         content: '對碰地址必須在您的點位圖中。',
         showCancelButton: false,
-        confirmText: '確定',
+        confirmText:t('modalConfirm.confirm'),
         onConfirm: () => {
           proxy.$loading.hide()
           proxy.$confirm.hide()
@@ -555,7 +554,7 @@ async function handleCalibrationLeg() {
 //点击填写直接上级弹窗确认按钮
 function handleConfirmReferrerAddress() {
   if (calibratingReferrer.value) {
-    showToast('正在校驗地址，請稍後')
+    showToast('正在校驗，請稍後')
     return
   }
   if (!referrerAddress.value) {
@@ -600,7 +599,7 @@ async function handleConfirmBuyForUSDT() {
         title: '餘額不足',
         content: `當前配套價格為 ${coherentInfo.value.type} USD3，您的 USD3 餘額不足。`,
         showCancelButton: false,
-        confirmText: '確定',
+        confirmText:t('modalConfirm.confirm'),
         onConfirm: () => {
           proxy.$confirm.hide()
         },
@@ -615,7 +614,7 @@ async function handleConfirmBuyForUSDT() {
       title: '錯誤',
       content: `獲取USD3餘額失敗，請重試`,
       showCancelButton: false,
-      confirmText: '確定',
+      confirmText:t('modalConfirm.confirm'),
       onConfirm: () => {
         proxy.$confirm.hide()
       },
@@ -668,7 +667,7 @@ async function handleConfirmBuyForUSDT() {
     title: '確認',
     content: `是否確認購買 ${coherentInfo.value.type} 配套`,
     showCancelButton: true,
-    confirmText: '確定',
+    confirmText:t('modalConfirm.confirm'),
     onConfirm: async () => {
       try {
         console.log(Number(coherentInfo.value.id))
@@ -678,7 +677,7 @@ async function handleConfirmBuyForUSDT() {
           title: '成功',
           content: `已成功購買 ${coherentInfo.value.type} 配套`,
           showCancelButton: false,
-          confirmText: '確定',
+          confirmText:t('modalConfirm.confirm'),
           onConfirm: () => {
             proxy.$confirm.hide()
             // toggleConfirmPayPopup()
@@ -700,7 +699,7 @@ async function handleConfirmBuyForUSDT() {
           title: '提示',
           content: '購買失敗，請重新購買。',
           showCancelButton: false,
-          confirmText: '確定',
+          confirmText:t('modalConfirm.confirm'),
           onConfirm: () => {
             proxy.$confirm.hide()
             // toggleConfirmPayPopup()
@@ -791,7 +790,7 @@ async function handlePopupConfirmBuy() {
     title: '提示',
     content: `是否確認購買 ${coherentInfo.value.type} 配套`,
     showCancelButton: true,
-    confirmText: '確定',
+    confirmText:t('modalConfirm.confirm'),
     onConfirm: async () => {
       let data = {
         package_id: coherentInfo.value.id,
@@ -810,7 +809,7 @@ async function handlePopupConfirmBuy() {
               title: '購買失敗',
               content: `${res.error}`,
               showCancelButton: false,
-              confirmText: '確定',
+              confirmText:t('modalConfirm.confirm'),
               onConfirm: () => {
                 proxy.$confirm.hide()
 
@@ -847,7 +846,7 @@ async function handlePopupConfirmBuy() {
               title: '購買失敗',
               content: `推薦人地址不存在`,
               showCancelButton: false,
-              confirmText: '確定',
+              confirmText:t('modalConfirm.confirm'),
               onConfirm: () => {
                 proxy.$confirm.hide()
 
@@ -862,7 +861,7 @@ async function handlePopupConfirmBuy() {
               title: '購買失敗',
               content: `對碰地址必須在上級地址的點位圖中`,
               showCancelButton: false,
-              confirmText: '確定',
+              confirmText:t('modalConfirm.confirm'),
               onConfirm: () => {
                 proxy.$confirm.hide()
 
@@ -878,7 +877,7 @@ async function handlePopupConfirmBuy() {
               title: '購買失敗',
               content: `购买失败：该地址已有上级`,
               showCancelButton: false,
-              confirmText: '確定',
+              confirmText:t('modalConfirm.confirm'),
               onConfirm: () => {
                 proxy.$confirm.hide()
               },
@@ -893,7 +892,7 @@ async function handlePopupConfirmBuy() {
                 title: '購買成功',
                 content: `已成功為下級購買 ${coherentInfo.value.type} 配套`,
                 showCancelButton: false,
-                confirmText: '確定',
+                confirmText:t('modalConfirm.confirm'),
                 onConfirm: () => {
                   proxy.$confirm.hide()
                   let data = {
@@ -928,7 +927,7 @@ async function handlePopupConfirmBuy() {
             title: '提示',
             content: '購買失敗，請重新購買。',
             showCancelButton: false,
-            confirmText: '確定',
+            confirmText:t('modalConfirm.confirm'),
             onConfirm: () => {
               proxy.$confirm.hide()
               toggleConfirmPayPopup()

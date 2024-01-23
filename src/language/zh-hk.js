@@ -218,7 +218,11 @@ export default {
     expiryTime: '到期時間',
     acceleratorAward: '加速器',
     dailyEarnings: '每日收益',
-    recommendedBenefits: '推薦福利'
+    recommendedBenefits: '推薦福利',
+    bonus: '獎金',
+    search: "搜索",
+    searchAddress: "搜索地址",
+    toPre: "返回上一級"
   },
   exchange: {
     title: '兌換',
@@ -251,7 +255,8 @@ export default {
     pleaseEnter: '請填寫',
     invalidAddress: '該地址為無效地址',
     tips: '若用户购买了Minter1（即200USDT的Minter）则用户每日可获取的对碰奖金上限为200USDT；若用户W购买了Minter1+Minter2（即200USDT和600USDT）则用户每日可获取的对碰奖金上限为200+600USDT=800；以此类推',
-
+    proAddress: "校驗地址",
+    canUse: "{{ $t('coherents.canUse') }}"
   },
   modalConfirm: {
     buySuccess: '購買成功',

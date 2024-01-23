@@ -8,7 +8,7 @@ const defaultsOptions = {
   title: '提示',
   content: '内容',
   confirmText: '确定',
-  cancelText: '取消',
+  confirmText: '取消',
   confirmColor: '#E20F2A',
   isWaiting: false,
   showCancelButton: true,

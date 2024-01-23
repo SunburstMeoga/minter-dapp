@@ -149,7 +149,7 @@ async function handleReleased() {
         title: '確認',
         content: '是否確認釋放剩餘PMT',
         showCancelButton: true,
-        confirmText: '確定',
+        confirmText: t('modalConfirm.confirm'),
         onConfirm: async () => {
             try {
                 await pmtContractApi.releaseTokens(localStorage.getItem('address'))
@@ -159,7 +159,7 @@ async function handleReleased() {
                         title: '提示',
                         content: '已成功釋放PMT',
                         showCancelButton: false,
-                        confirmText: '確定',
+                        confirmText: t('modalConfirm.confirm'),
                         onConfirm: () => {
                             proxy.$confirm.hide()
                             location.reload()
@@ -173,7 +173,7 @@ async function handleReleased() {
                     title: '提示',
                     content: '釋放PMT失敗，請重試',
                     showCancelButton: false,
-                    confirmText: '確定',
+                    confirmText: t('modalConfirm.confirm'),
                     onConfirm: () => {
                         proxy.$confirm.hide()
                     },

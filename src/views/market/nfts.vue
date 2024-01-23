@@ -43,8 +43,9 @@
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageN" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
-                                    :showBuyButton="userInfo.address !== item.address"
-                                    :showCancelButton="userInfo.address == item.address"
+                                    :showBuyButton="(userInfo.address !== item.address) && !item.showOperting"
+                                    :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
+                                    :showOperting="item.showOperting"
                                     @handleBuyButton="handleBuyButton(item, packageID == 1)" :tokenID="item.token_id"
                                     @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 1" />
                             </div>
@@ -58,8 +59,9 @@
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageR" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
-                                    :showBuyButton="userInfo.address !== item.address"
-                                    :showCancelButton="userInfo.address == item.address"
+                                    :showBuyButton="(userInfo.address !== item.address) && !item.showOperting"
+                                    :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
+                                    :showOperting="item.showOperting"
                                     @handleBuyButton="handleBuyButton(item, packageID == 2)" :tokenID="item.token_id"
                                     @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 2" />
                             </div>
@@ -73,8 +75,9 @@
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageSR" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
-                                    :showBuyButton="userInfo.address !== item.address"
-                                    :showCancelButton="userInfo.address == item.address"
+                                    :showBuyButton="(userInfo.address !== item.address) && !item.showOperting"
+                                    :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
+                                    :showOperting="item.showOperting"
                                     @handleBuyButton="handleBuyButton(item, packageID == 3)" :tokenID="item.token_id"
                                     @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 3" />
                             </div>
@@ -87,8 +90,9 @@
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageSSR" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
-                                    :showBuyButton="userInfo.address !== item.address"
-                                    :showCancelButton="userInfo.address == item.address"
+                                    :showBuyButton="(userInfo.address !== item.address) && !item.showOperting"
+                                    :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
+                                    :showOperting="item.showOperting"
                                     @handleBuyButton="handleBuyButton(item, packageID == 4)" :tokenID="item.token_id"
                                     @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 4" />
                             </div>
@@ -101,8 +105,9 @@
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageUR" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
-                                    :showBuyButton="userInfo.address !== item.address"
-                                    :showCancelButton="userInfo.address == item.address"
+                                    :showBuyButton="(userInfo.address !== item.address) && !item.showOperting"
+                                    :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
+                                    :showOperting="item.showOperting"
                                     @handleBuyButton="handleBuyButton(item, packageID == 5)" :tokenID="item.token_id"
                                     @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 5" />
                             </div>
@@ -233,14 +238,20 @@ async function handleCancelList(item) {
     }
 
     try { //unlistNFT
-        proxy.$loading.show()
+        console.log(item.token_id)
+        proxy.$confirm.hide()
+        // item.opertingType = "正在挂单..."
+        item.showOperting = true
         await nftContractApi.unlistNFT(item.token_id)
-        proxy.$loading.hide()
-        showToast(t('toast.success'))
+        // item.opertingType = "挂单成功"
+        item.showOperting = false
+        item.is_listed = true
         // showToast(t('toast.success'))
     } catch (err) {
         proxy.$loading.hide()
         showToast('撤銷掛單失敗，請重試')
+        item.showOperting = false
+        item.is_listed = false
         console.log(err)
     }
 }
@@ -263,7 +274,7 @@ function getMarketplace(params) {
                     title: '提示',
                     content: '您當前沒有購買配套。',
                     showCancelButton: false,
-                    confirmText: '確定',
+                    confirmText: t('modalConfirm.confirm'),
                     onConfirm: () => {
                         // proxy.$loading.show()
                         window.history.go(-1);
@@ -273,6 +284,7 @@ function getMarketplace(params) {
             console.log('nft列表', res)
             nftsDatas.value = res.market_places
             res.market_places.map(item => {
+                item.showOperting = false
                 // console.log(Number(item.token_type), item.token_id)
                 if (item.token_type == 1) {
                     item.nftImg = nftOne
@@ -419,7 +431,7 @@ async function handleBuyButton(item, canBuy) {
                             title: '提示',
                             content: 'PMT授權失敗，請重新授權',
                             showCancelButton: false,
-                            confirmText: '確定',
+                            confirmText: t('modalConfirm.confirm'),
                             onConfirm: () => {
                                 proxy.$confirm.hide()
                                 // toggleConfirmPayPopup()
@@ -470,7 +482,7 @@ async function handleBuyButton(item, canBuy) {
                             title: '提示',
                             content: 'MT授權失敗，請重新授權',
                             showCancelButton: false,
-                            confirmText: '確定',
+                            confirmText: t('modalConfirm.confirm'),
                             onConfirm: () => {
                                 proxy.$confirm.hide()
                                 // toggleConfirmPayPopup()
@@ -487,7 +499,7 @@ async function handleBuyButton(item, canBuy) {
         title: '提示',
         content: `是否確認購買Token ID為${item.token_id}的NFT`,
         showCancelButton: true,
-        confirmText: '確定',
+        confirmText: t('modalConfirm.confirm'),
         onConfirm: async () => {
             try { //购买nft
                 // proxy.$loading.show()
@@ -509,7 +521,7 @@ async function handleBuyButton(item, canBuy) {
                         title: '提示',
                         content: '購買失敗，請重新購買。',
                         showCancelButton: false,
-                        confirmText: '確定',
+                        confirmText: t('modalConfirm.confirm'),
                         onConfirm: () => {
                             proxy.$confirm.hide()
                             // toggleConfirmPayPopup()
@@ -524,7 +536,7 @@ async function handleBuyButton(item, canBuy) {
                     title: '提示',
                     content: '購買失敗，請重新購買。',
                     showCancelButton: false,
-                    confirmText: '確定',
+                    confirmText: t('modalConfirm.confirm'),
                     onConfirm: () => {
                         proxy.$confirm.hide()
                         // toggleConfirmPayPopup()
@@ -599,5 +611,4 @@ async function handleBuyButton(item, canBuy) {
     background: transparent;
     padding-bottom: 20px;
     margin-top: 0.5px;
-}
-</style>
+}</style>
