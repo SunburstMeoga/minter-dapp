@@ -362,7 +362,7 @@ let propertiesList = computed(() => {
 let currentPoint = ref(null)
 let showReferrerAddressPopup = ref(false)
 let showLegAddressPopup = ref(false)
-let showConfirmPayPopup = ref(true)
+let showConfirmPayPopup = ref(false)
 let showPMTPopover = ref(false)
 let palayBanalce = ref({})
 let showNextPopup = ref(false)
