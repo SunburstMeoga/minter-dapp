@@ -48,7 +48,7 @@
           </div>
         </div>
         <div class="flex justify-center items-center mt-2 active-primary-color" v-show="showToRaffle"
-          @click="$emit(handleToRaffle)">
+          @click="$emit('handleToRaffle')">
           <div class="module-content w-full py-1 rounded-full text-center flex justify-center items-center">
             去抽獎
           </div>

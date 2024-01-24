@@ -365,6 +365,7 @@ async function isNotEnoughBalance(amount) {
 }
 //點擊去抽獎
 function handleToRaffle(item, index) {
+    console.log('去抽奖')
     router.push({
         path: '/market/raffle',
         query: {
@@ -372,6 +373,9 @@ function handleToRaffle(item, index) {
             nftPrice: nftPrice.value,
         }
     })
+    // router.push({
+    //     path: '/personal/exchange'
+    // })
 }
 // 點擊購買配套按鈕
 async function handleBuyButton(item, canBuy) {
