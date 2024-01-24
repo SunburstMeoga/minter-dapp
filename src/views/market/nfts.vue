@@ -43,11 +43,12 @@
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageN" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
-                                    :showBuyButton="(userInfo.address !== item.address) && !item.showOperting"
+                                    :showBuyButton="(userInfo.address !== item.address) && !item.showOperting && !item.showToRaffle"
                                     :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
-                                    :showOperting="item.showOperting"
+                                    :showOperting="item.showOperting" :showToRaffle="item.showToRaffle"
                                     @handleBuyButton="handleBuyButton(item, packageID == 1)" :tokenID="item.token_id"
-                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 1" />
+                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 1"
+                                    @handleToRaffle="handleToRaffle(item, index)" />
                             </div>
                             <div v-show="packageN.length == 0"
                                 class="text-white font-bold text-xl text-center mt-10 w-full">
@@ -59,11 +60,12 @@
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageR" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
-                                    :showBuyButton="(userInfo.address !== item.address) && !item.showOperting"
+                                    :showBuyButton="(userInfo.address !== item.address) && !item.showOperting && !item.showToRaffle"
                                     :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
                                     :showOperting="item.showOperting"
                                     @handleBuyButton="handleBuyButton(item, packageID == 2)" :tokenID="item.token_id"
-                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 2" />
+                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 2"
+                                    @handleToRaffle="handleToRaffle(item, index)" />
                             </div>
                             <div v-show="packageR.length == 0"
                                 class="text-white font-bold text-xl text-center mt-10 w-full">
@@ -75,11 +77,12 @@
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageSR" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
-                                    :showBuyButton="(userInfo.address !== item.address) && !item.showOperting"
+                                    :showBuyButton="(userInfo.address !== item.address) && !item.showOperting && !item.showToRaffle"
                                     :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
                                     :showOperting="item.showOperting"
                                     @handleBuyButton="handleBuyButton(item, packageID == 3)" :tokenID="item.token_id"
-                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 3" />
+                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 3"
+                                    @handleToRaffle="handleToRaffle(item, index)" />
                             </div>
                         </div>
                         <div v-show="packageSR.length == 0" class="text-white font-bold text-xl text-center mt-10 w-full">
@@ -90,11 +93,12 @@
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageSSR" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
-                                    :showBuyButton="(userInfo.address !== item.address) && !item.showOperting"
+                                    :showBuyButton="(userInfo.address !== item.address) && !item.showOperting && !item.showToRaffle"
                                     :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
                                     :showOperting="item.showOperting"
                                     @handleBuyButton="handleBuyButton(item, packageID == 4)" :tokenID="item.token_id"
-                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 4" />
+                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 4"
+                                    @handleToRaffle="handleToRaffle(item, index)" />
                             </div>
                         </div>
                         <div v-show="packageSSR.length == 0" class="text-white font-bold text-xl text-center mt-10 w-full">
@@ -105,11 +109,12 @@
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageUR" class="mb-2" style="width: 48%;" :key="index">
                                 <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
-                                    :showBuyButton="(userInfo.address !== item.address) && !item.showOperting"
+                                    :showBuyButton="(userInfo.address !== item.address) && !item.showOperting && !item.showToRaffle"
                                     :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
                                     :showOperting="item.showOperting"
                                     @handleBuyButton="handleBuyButton(item, packageID == 5)" :tokenID="item.token_id"
-                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 5" />
+                                    @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 5"
+                                    @handleToRaffle="handleToRaffle(item, index)" />
                             </div>
                         </div>
                         <div v-show="packageUR.length == 0" class="text-white font-bold text-xl text-center mt-10 w-full">
@@ -138,7 +143,7 @@ import nftTwo from '@/assets/images/600.png'
 import nftThree from '@/assets/images/2000.png'
 import nftFour from '@/assets/images/6000.png'
 import nftFive from '@/assets/images/20000.png'
-import Web3, { ContractOnceRequiresCallbackError } from "web3";
+import Web3 from "web3";
 import { userStore } from "@/stores/user";
 import pmtContractApi from '@/request/pmt'
 import mtContractApi from '@/request/mt'
@@ -160,6 +165,8 @@ let tokenID = ref(null)
 let timer = ref(null)
 let active = ref(0)
 let loading = ref(false)
+let prizeIndex = ref(null)
+let nftPrice = ref(null)
 let actions = ref([
     { text: '价格由高到低', value: true, index: 0 },
     { text: '价格由低到高', value: false, index: 1 }
@@ -285,6 +292,7 @@ function getMarketplace(params) {
             nftsDatas.value = res.market_places
             res.market_places.map(item => {
                 item.showOperting = false
+                item.showToRaffle = false
                 // console.log(Number(item.token_type), item.token_id)
                 if (item.token_type == 1) {
                     item.nftImg = nftOne
@@ -355,6 +363,16 @@ async function isNotEnoughBalance(amount) {
     console.log(balance, parseInt(amount))
     return balance < parseInt(amount)
 }
+//點擊去抽獎
+function handleToRaffle(item, index) {
+    router.push({
+        path: '/market/raffle',
+        query: {
+            prizeIndex: prizeIndex.value,
+            nftPrice: nftPrice.value,
+        }
+    })
+}
 // 點擊購買配套按鈕
 async function handleBuyButton(item, canBuy) {
     console.log(item, canBuy)
@@ -420,7 +438,6 @@ async function handleBuyButton(item, canBuy) {
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
                         showToast('授權成功')
-
                     })
                     .catch(err => {
                         console.log(err)
@@ -502,24 +519,39 @@ async function handleBuyButton(item, canBuy) {
         confirmText: t('modalConfirm.confirm'),
         onConfirm: async () => {
             try { //购买nft
-                // proxy.$loading.show()
+                proxy.$confirm.hide()
                 console.log('item', item)
                 tokenID.value = item.token_id
-                // return
-                let purchaseNFTInfo
-                let luckyResult
                 try {
-                    purchaseNFTInfo = await nftContractApi.purchaseNFT(item.token_id)
-                    timer.value = setInterval(() => {
-                        getLuckyRes()
-                    }, 5000);
+                    item.showOperting = true
+                    await nftContractApi.purchaseNFT(item.token_id)
+                    // clearInterval(timer.value)
+                    let timer = setInterval(async () => {
+                        // getLuckyRes()
+
+                        let raffleResult = await getLuckyDraw({ nft_token_id: item.token_id })
+                        console.log('抽獎結果', raffleResult)
+                        if (raffleResult.message == "已成功抽獎") {
+                            // console.log(res)
+                            item.showOperting = false
+                            item.showToRaffle = true
+                            prizeIndex.value = raffleResult.roulette_record.roulette_id
+                            nftPrice.value = raffleResult.roulette_record.nft_price
+                            console.log(prizeIndex.value, nftPrice.value)
+                            clearInterval(timer)
+                        }
+                    }, 2000);
 
 
                 } catch (err) {
+                    console.log(err)
                     proxy.$confirm.hide()
+                    item.showOperting = false
+                    item.showToRaffle = false
                     proxy.$confirm.show({
                         title: '提示',
                         content: '購買失敗，請重新購買。',
+                        // content: `Token ID為${item.token_id}的NFT購買失敗，請重新購買。`,
                         showCancelButton: false,
                         confirmText: t('modalConfirm.confirm'),
                         onConfirm: () => {
@@ -531,7 +563,8 @@ async function handleBuyButton(item, canBuy) {
             } catch (err) {
                 proxy.$loading.hide()
                 proxy.$confirm.hide()
-
+                item.showOperting = false
+                item.showToRaffle = false
                 proxy.$confirm.show({
                     title: '提示',
                     content: '購買失敗，請重新購買。',
@@ -611,4 +644,5 @@ async function handleBuyButton(item, canBuy) {
     background: transparent;
     padding-bottom: 20px;
     margin-top: 0.5px;
-}</style>
+}
+</style>

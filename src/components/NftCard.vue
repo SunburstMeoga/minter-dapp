@@ -47,6 +47,12 @@
             取消掛單
           </div>
         </div>
+        <div class="flex justify-center items-center mt-2 active-primary-color" v-show="showToRaffle"
+          @click="$emit(handleToRaffle)">
+          <div class="module-content w-full py-1 rounded-full text-center flex justify-center items-center">
+            去抽獎
+          </div>
+        </div>
         <div class="flex justify-center items-center mt-2 active-primary-color" v-show="showOperting"
           @click="handleOperting">
           <div class="disable-button w-full py-1 rounded-full text-center flex justify-center items-center">
@@ -90,6 +96,10 @@ const nftProps = defineProps({
     default: false
   },
   showCancelButton: {
+    type: Boolean,
+    default: false
+  },
+  showToRaffle: {
     type: Boolean,
     default: false
   },

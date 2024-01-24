@@ -193,7 +193,8 @@ async function accountHasChanged() {
       title: '賬戶發生變化',
       content: '當前賬戶發生變化，請重新登錄',
       showCancelButton: false,
-      confirmText:t('modalConfirm.confirm'),
+      // confirmText: t('modalConfirm.confirm'),
+      confirmText: "確認",
       onConfirm: () => {
         localStorage.removeItem('token')
         localStorage.removeItem('address')

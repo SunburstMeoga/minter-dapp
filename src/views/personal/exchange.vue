@@ -153,7 +153,7 @@ async function handleExchange() {
         content: `是否確認將 ${exchangeAmount.value} USD3兌換為 ${exchangeAmount.value} RT?`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
-        confirmText: t('modalConfirm.cancel'),
+        cancelText: t('modalConfirm.cancel'),
         onConfirm: () => {
             // proxy.$confirm.hide()
             const WEB3 = new Web3(window.ethereum)
