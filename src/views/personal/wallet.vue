@@ -466,7 +466,7 @@ function handleTransferRT() {
         content: `是否確認將${transferRTAmount.value}RT轉入到${transferRTAddress.value},該行為不可撤銷！`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
-        confirmText: t('modalConfirm.cancel'),
+        cancelText: t('modalConfirm.cancel'),
         onConfirm: async () => {
             let data = { address: transferRTAddress.value, amount: transferRTAmount.value }
             console.log(data)
@@ -675,7 +675,7 @@ async function handleExchangeBT() {
         content: contentWord,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
-        confirmText: t('modalConfirm.cancel'),
+        cancelText: t('modalConfirm.cancel'),
         onConfirm: async () => {
             if (currentExchangeTypeBT.value == 0) {
                 btToUsdt(data)
@@ -801,7 +801,7 @@ async function handleExchange() {
         content: contentWord,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
-        confirmText: t('modalConfirm.cancel'),
+        cancelText: t('modalConfirm.cancel'),
         onConfirm: async () => {
             if (currentExchangeType.value == 0) {
                 try {
