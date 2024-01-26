@@ -62,7 +62,7 @@
                                 <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
                                     :showBuyButton="(userInfo.address !== item.address) && !item.showOperting && !item.showToRaffle"
                                     :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
-                                    :showOperting="item.showOperting"
+                                    :showOperting="item.showOperting" :showToRaffle="item.showToRaffle"
                                     @handleBuyButton="handleBuyButton(item, packageID == 2)" :tokenID="item.token_id"
                                     @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 2"
                                     @handleToRaffle="handleToRaffle(item, index)" />
@@ -79,7 +79,7 @@
                                 <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
                                     :showBuyButton="(userInfo.address !== item.address) && !item.showOperting && !item.showToRaffle"
                                     :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
-                                    :showOperting="item.showOperting"
+                                    :showOperting="item.showOperting" :showToRaffle="item.showToRaffle"
                                     @handleBuyButton="handleBuyButton(item, packageID == 3)" :tokenID="item.token_id"
                                     @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 3"
                                     @handleToRaffle="handleToRaffle(item, index)" />
@@ -95,7 +95,7 @@
                                 <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
                                     :showBuyButton="(userInfo.address !== item.address) && !item.showOperting && !item.showToRaffle"
                                     :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
-                                    :showOperting="item.showOperting"
+                                    :showOperting="item.showOperting" :showToRaffle="item.showToRaffle"
                                     @handleBuyButton="handleBuyButton(item, packageID == 4)" :tokenID="item.token_id"
                                     @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 4"
                                     @handleToRaffle="handleToRaffle(item, index)" />
@@ -111,7 +111,7 @@
                                 <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
                                     :showBuyButton="(userInfo.address !== item.address) && !item.showOperting && !item.showToRaffle"
                                     :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
-                                    :showOperting="item.showOperting"
+                                    :showOperting="item.showOperting" :showToRaffle="item.showToRaffle"
                                     @handleBuyButton="handleBuyButton(item, packageID == 5)" :tokenID="item.token_id"
                                     @handleCancel="handleCancelList(item)" :price="item.price" :canBuy="packageID == 5"
                                     @handleToRaffle="handleToRaffle(item, index)" />
