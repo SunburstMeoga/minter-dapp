@@ -183,7 +183,7 @@ onMounted(() => {
   if (localStorage.getItem('language')) {
     proxy.$i18n.locale = localStorage.getItem('language')
   } else {
-    proxy.$i18n.locale = 'en-us'
+    proxy.$i18n.locale = 'zh-hk' //默认繁中
   }
 })
 async function accountHasChanged() {
