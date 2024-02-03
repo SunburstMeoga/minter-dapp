@@ -120,7 +120,7 @@ export default {
     homogenizationTitle: '同質化',
     homogenizationContent: '由於缺乏審核制度，很多NFT的價值難以被辨識',
 
-    hahTitle: '通過HashAhead我們可以',
+    hahTitle: '通過Minter我們可以',
     hahContentOne:
       'Minter藉助HashAhead公鏈平台，為創作者提供更多的創作工具和平台，使NFT成為技術與藝術相結合的完美產物。',
     hahContentTwo:
@@ -137,7 +137,7 @@ export default {
     exploratory: '探索'
   },
   footBar: {
-    copyright: '©2024 Minter. 版權所有',
+    copyright: '版權所有',
     connectUS: '聯繫我們',
     feedback: '反饋'
   },
@@ -217,7 +217,7 @@ export default {
     proceed: '收益',
     expiryTime: '到期時間',
     acceleratorAward: '加速器',
-    dailyEarnings: '每日收益',
+    dailyEarnings: '每次收益',
     recommendedBenefits: '推薦福利',
     bonus: '獎金',
     search: "搜索",
@@ -234,11 +234,11 @@ export default {
     title: '鑄造交易信息',
     price: '售價',
     coherentTitle: '鑄造列表',
-    earningsCap: 'NFT收益上限',
-    coherentCap: '收益上限',
+    earningsCap: '收益上限 （静态收益）',
+    coherentCap: '收益上限 （动态收益）',
     incentiveRate: '一級邀請獎勵利率',
     bonusLevel: '獎金等級',
-    level: '一級、三級',
+    level: '一級 三級',
     releaseTime: '首次釋放',
     secondReleaseTime: '第二次釋放',
     thirdReleaseTime: '第三次釋放',
@@ -256,7 +256,7 @@ export default {
     invalidAddress: '該地址為無效地址',
     tips: '若用户购买了Minter1（即200USDT的Minter）则用户每日可获取的对碰奖金上限为200USDT；若用户W购买了Minter1+Minter2（即200USDT和600USDT）则用户每日可获取的对碰奖金上限为200+600USDT=800；以此类推',
     proAddress: "校驗地址",
-    canUse: "{{ $t('coherents.canUse') }}"
+    canUse: "可以使用該地址"
   },
   modalConfirm: {
     buySuccess: '購買成功',
@@ -271,14 +271,14 @@ export default {
     earnings: '每日收益(0.5%～6%)',
     earningsContent: '附加收益在 NFT 价值上。72 小时后可 售 出 NFT，售额将即时入 账 MT 钱包。',
     promiseCard: '業績承諾卡(10%)',
-    promiseCardContent: '业绩承诺卡需於 30 天内邀请两个用户。购买>或=业绩承诺卡记录的鑄造(基于用户购买的最后价值的鑄造计算)，方能立刻获得业绩承诺卡所记录的鑄造的10% 的 RT。',
+    promiseCardContent: '无可转让的业绩承诺卡需於 30 天内邀请两个用户购买>或=业绩承诺卡记录的配套(基于 用户购买的最后价值的配套计算)，方能立刻获得业绩承诺卡所记录的最高配套的可转 账 10% RT。',
     welfare: '推薦福利(0.5%～12%)',
-    welfareContent: '绑定的RT，每个月推荐福利(绑定 RT)于次月 7 日 0 点清零，1-7 日产生的 RT 值在下个月的 7 日清零。可以配合正常 RT 一起使用去购买鑄造使用。',
+    welfareContent: '无可转让的上个月推荐福利(绑定 RT)于每月 7 日 0 点清零，1-7 日产生的 RT 值在下个月 的 7 日清零。可以配合正常 RT 一起使用去购买配套。',
     welfareTips: '請切記這個獎勵要在每個月7號前使用'
   },
   turntable: {
     title: '輪盤抽獎',
-    dailyEarnings: '每日收益',
+    dailyEarnings: '每次收益',
     recommendedBenefits: '推薦福利',
     performancePledge: '業績承諾',
     earningsAcceleration: '收益加速',

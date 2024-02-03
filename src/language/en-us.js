@@ -1,15 +1,15 @@
 export default {
   language: 'English',
   menu: {
-    home: 'Home',
+    home: 'Home page',
     introduction: 'Introduction',
     game: 'Game',
     news: 'News',
     vision: 'Vision',
     mission: 'Mission',
-    cultureAndSpirituality: 'Culture and Spirituality',
+    cultureAndSpirituality: 'Culture and Ethos',
     projectIntroduction: 'Project Introduction',
-    NFTRevolution: 'The NFT Revolution',
+    NFTRevolution: 'Revolution',
     partners: 'Partners',
     investor: 'Investor',
     feedback: 'Feedback',
@@ -17,60 +17,58 @@ export default {
     pledge: 'Pledge',
     contributionValue: 'Contribution Value',
     partnership: 'Partnership',
-    rank: 'Ranking',
-    casting: 'Casting',
+    rank: 'Ranking List',
+    casting: 'Minting',
     userCenter: 'User Center',
     wallet: 'Wallet',
-    coinBank: 'Coin Bank',
+    coinBank: 'Coin Box',
     promiseCard: 'Commitment Card',
 
     custodianship: 'Hosting',
     grandPrix: 'Grand Prix',
-    bag: 'My Bag',
-    synthesize: 'Combination',
+    bag: 'My Backpack',
+    synthesize: 'Affirmative Empowerment',
     operationRecord: 'Operation Log',
     helpHand: 'Help',
     setting: 'Setting',
     exchange: 'Exchange'
   },
   home: {
-    title: 'WELCOME TO',
-    contentOne: 'Minter welcomes all those interested in NFT to join us!',
-    contentTwo: 'Join us in creating a new world of endless possibilities!',
-    documentation: 'Documentation',
-    wallet: "Download Wallet"
+    title: 'Welcome to',
+    contentOne: 'Welcome all friends who are interested in Minter to join us',
+    contentTwo: 'Join us in creating a new world of countless possibilities',
+    documentation: 'View documentation',
+    wallet: "Wallet download"
   },
   present: {
-    title: 'Minter Project',
+    title: 'Project',
     description:
-      "The Minter project is a marketing program developed on the basis of the HashAhead public chain as the underlying development of the marketing project. At the early stage of a public chain project launch, attracting users and building up an active user group is crucial to the success of the project. Therefore, the user attraction project is carried out with the aim of rapidly expanding the project's popularity, attracting more users to participate, and laying a solid foundation for the long-term development of the project.",
-    tips: 'Definitions of terms can be found by clicking on the terms below.',
-    PMTDetails: 'Project tokens, released when the user purchases the Mint.',
-    MTDetails: 'NFTs that can be traded in the project.',
+      "The project is a marketing project developed with the HashAhead public chain as the underlying layer,Therefore, launching a user diversion project aims to quickly expand the popularity of the project, attract more users to participate, and lay a solid foundation for the long-term development of the project.",
+    tips: 'Click on the noun below to view the noun definition',
+    PMTDetails: 'Project tokens  Released when users purchase packages',
+    MTDetails: 'Tradable in the project',
     RTDetails:
-      'Project tokens, acquired through MT and Liquidity Reward token points, also known as Initial Funding Certificates.',
-    RTDetails:
-      'Project tokens, acquired through MT and Liquidity Reward token points, also known as Initial Funding Certificates.',
+      'Project tokens are only obtained through MT and liquidity reward token points, also known as initial fund certificates.',
+
     PVDetails: 'Performance Value',
-    MUSDTDetails: 'Platform Stable Coin'
+    MUSDTDetails: 'Platform Stablecoin'
   },
   vision: {
-    contentOne: 'Giving real value and meaning to NFT',
-    contentTwo: 'Leading the NFT Revolution on the Web 3.0 Circuit',
-    weBelieveTitle: "Minter's new definition of NFT",
-    weBelieveWord:
-      "We believe that NFT is more than just a digital representation of an asset, it should be a carrier of value, innovation, and culture, and Minter's goal is to create an NFT platform that truly serves both creators and users, focusing not only on the transaction of the asset, but also on the value and meaning behind it.",
-    inMinterEyesTitleTop: 'To give real value and meaning to NFT.',
-    inMinterEyesTitleBottom: 'Leading the NFT Revolution on the Web 3.0 Circuit',
+    contentOne: 'Assigning NFT a real value and meaning',
+    contentTwo: 'Leading the NFT revolution on the Web3.0 track',
+    weBelieveTitle: "A new definition of NFT",
+    weBelieveWord: "We believe that NFT is not just an asset represented by numbers, it should be a carrier of value, innovation and culture.Minter's goal is to create an NFT platform that truly serves creators and users. It not only focuses on the transaction of assets, but also focuses on the value and meaning behind it",
+    inMinterEyesTitleTop: 'Assigning NFT a real value and meaning',
+    inMinterEyesTitleBottom: 'Leading the NFT revolution on the Web3.0 track',
     inMinterEyesWord:
-      "In Minter's eyes, the future NFTs are not only collectors' items, but also important representatives of digital assets, and each NFT should have its own unique value and interests, and be able to bring real interests and values to its holders."
+      "In the eyes of Minter, future NFTs are not only collectibles, but also important representatives of digital assets. Each NFT should have its own unique value and rights and be able to bring actual rights and value to its holders."
   },
   mission: {
-    affirmative: 'Affirmative',
+    affirmative: 'Rights Confirmation',
     empower: 'Empowerment',
     introduction:
-      "By creating the world's largest NFT volume platform, each NFT is empowered and secured.",
-    presentTop: 'Minter believes that only true empowerment of the right',
+      "By creating the world‘s largest NFT platform in term of trading volume, every NFT is given rights confirmation and empowerment.",
+    presentTop: 'Minter believes that only with true rights confirmation and empowerment can NFT transform from a simple digital artwork into a real asset, providing users with long-term and stable value.',
     presentBottom:
       'NFT can be transformed from a simple digital artifact into a real asset, providing users with normal long-term, stable value.'
   },
@@ -80,36 +78,36 @@ export default {
     innovation: 'Innovation',
     popularize: 'Popularize',
     consensusDescription:
-      'We believe in the future of NFT, and we share this knowledge with NFT enthusiasts, creators, and users around the world to build a more prosperous and fair NFT ecosystem.',
+      'We believe in the future of NFT, and we share this consensus with NFT enthusiasts, creators, and users around the world to jointly create a more prosperous and fair NFT ecosystem.',
     loyaltyDescription:
-      'We value each and every one of our community members, partners and users, providing them with the highest quality of service and support to ensure that everyone finds their place in the Minter world!',
+      'We value every community member, partner and user, provide them with the highest quality service and support, and ensure that everyone can find their place in the world of Minter.',
     innovationDescription:
-      'Minter pursues cutting-edge innovation in all aspects of technology, applications and economic modeling. We believe that only through continuous innovation can we stay ahead of the curve and lead the industry.',
+      'Minter pursues cutting edge innovation in all aspects such as technology, applications, and economic models. We believe that only through continuous innovation can we stay ahead and lead the development of the entire industry.',
     popularizeDescription:
-      'We are committed to bringing the concepts, values and applications of NFT to a wider audience so that more people can know, understand and participate in this revolution.'
+      'We are committed to promoting the concept, value and application of NFT to a wider range of people, so that more people can know, understand and participate in this revolution.'
   },
   projectIntroduction: {
-    noahTitle: "Noah's Community",
+    noahTitle: "NOAH Community",
     noahContentOne:
-      'The NOAH community, founded in 2019 by blockchain enthusiasts, technologists and pioneers from around the world.',
+      'NOAH Community was jointly established in 2019 by blockchain enthusiasts, technical experts and pioneers from around the world.',
     noahContentTwo:
-      "Noah's Community is only a small discussion and sharing platform, but due to its high quality content sharing and in-depth industry insights, it has quickly attracted a large number of industry insiders and outsiders.",
+      "The NOAH Community started as a small discussion and sharing platform, but due to its high-quality content sharing and in-depth industry insights, it quickly attracted a large number of followers both inside and outside the industry.",
     noahContentThree:
-      'The goal of the community is to create a global ecosystem of openness, sharing, and continuous innovation, and is committed to promoting the arrival of the Web 3.0 era.',
+      "The community's goal is to create a global ecosystem that is open, shared, and continuously innovative, and is committed to promoting the advent of the Web 3.0 era.",
     leLouvre: 'Le Louvre Foundation',
     leLouvreContentOne:
-      'The Louvre Foundation, headquartered in the United States, was founded in 2018 by a group of entrepreneurs, scholars, and artists passionate about advancing the convergence of culture, art, and technology around the world',
+      'The Le Louvre Foundation, headquartered in the United States of America, was established in 2018 by a group of entrepreneurs, scholars and artists who are passionate about promoting the integration of global culture, art and technology.',
     leLouvreContentTwo:
       "The Foundation's core philosophy is to promote the innovative integration of culture and technology around the world by investing in and supporting cross-border projects. The Foundation's successful investments over the past five years include AI art creation, virtual reality museums and digital art trading platforms.",
     leLouvreContentThree:
-      'The cooperation with Minter is an important deployment of the Foundation for the NFT industry. The Louvre Foundation provides financial support, marketing resources and strategic guidance to help Minter become a global leader in the NFT industry.',
+      'Cooperation with Minter is an important layout of the foundation for the NFT industry. Le Louvre Foundation provides financial support, market resources and strategic guidance to help Minter become a leader in the global NFT industry.',
     communityDevelopmentTitle: 'Community Development',
     communityDevelopmentContentOne:
-      'Objective: NOAH Community is committed to building a platform for global users to exchange and cooperate with the latest technology information and industry trends. The community encourages innovation, experimentation and sharing, making it a trendsetter for the block blue industry.',
+      'Goal: NOAH Community is committed to building a platform that provides global users with the latest technical information, industry trends, communication and cooperation. The community encourages innovation, experimentation and sharing, making it a benchmark in the blockchain industry.',
     communityDevelopmentContentTwo:
-      "Values: Openness, Sharing, Innovation, Responsibility. Noah's community believes that only through continuous innovation and cooperation can we advance the development of the industry and bring real value to users around the world.",
+      "In the wave of digital assets, NFT has become a hot topic.",
     communityDevelopmentContentThree:
-      "Global Impact, Noah's community has established in-depth partnerships with a number of well-known technology companies, higher education institutions and research organizations around the world. The community is not only a platform for discussion and sharing, but also a bridge for cooperation and innovation in the global blockchain industry."
+      'The Minter project aims to completely redefine the value and meaning of NFT. We believe that an NFT that has not been authenticated or authorized is nothing more than a simple digital "JPG" picture.'
   },
   NFTRevolution: {
     contentTop: 'In the wave of digital assets, NFT has become a focal point of conversation',
@@ -117,62 +115,62 @@ export default {
       'The Minter project aims to radically re-establish the value and significance of the NFT, and we believe that an uncertified or unauthorized NFt is no different from a simple digital "JPG" picture.',
     contentThree:
       "Minter's core goal is to ensure that each NFT has its own unique value and benefits, to promote the further development of NFTs on the Web 3.0 race track, and to leverage AI technology to produce NFTs using big models",
-    challengeTitle: 'Current Market Challenges and Issues',
-    marketTooHotTitle: 'Overheated market',
-    marketTooHotContent: 'Massive influx of speculators leading to price bubbles',
-    highThresholdTitle: 'High threshold',
+    challengeTitle: 'Challenges and Issues in the Current NFT Market',
+    marketTooHotTitle: 'Overheated Market',
+    marketTooHotContent: 'A large number of speculators poured in, causing price bubbles.',
+    highThresholdTitle: 'High Technical Threshold',
     highThresholdContent:
-      'For the average user, creating and trading NFTs is still technically difficult.',
-    homogenizationTitle: 'Homogenization',
+      'For ordinary users, there is still a certain technical difficulty in creating and trading NFTs.',
+    homogenizationTitle: 'Too Much Homogeneity of Works',
     homogenizationContent:
-      'Due to the lack of an audit system, the value of many NFTs is difficult to recognize',
+      'Due to the lack of an audit system, the value of many NFTs is difficult to identify.',
 
-    hahTitle: 'With HashAhead we can',
+    hahTitle: 'Through Minter, we can',
     hahContentOne:
-      'By utilizing the HashAhead public chain platform, Minter provides creators with more creative tools and platforms, making NFT a perfect product that combines technology and art.',
+      'With the help of the HashAhead public chain platform, creators are provided with more creative tools and platforms, making NFT a perfect product that combines technology and art.',
     hahContentTwo:
-      'The HashAhead public chain platform is both ultra-fast and ultra-stable, and is capable of giving real certainty to every NFT, ensuring that it can be fairly utilized and recognized in any scenario.'
+      'The public chain platform is both ultra-fast and ultra-stable, and can give each NFT real rights, ensuring that it can be fairly utilized and recognized in any scenario.'
   },
   game: {
-    title: 'In development, stay tuned'
+    title: 'Under development, please stay tuned.'
   },
 
   news: {
-    title: 'The best user experience, the fastest speeds',
+    title: 'Best user experience, fastest speed.',
     // secondTitle: "Minter's no-brainer choice",
-    secondTitle: '',
+    secondTitle: 'The only choice',
 
     content:
-      'Minter chose HashAhead, one of the best public chain platforms in the world, as the carrier to achieve the best user experience and the fastest speed. It is the fastest and best project of its kind with the HashAhead platform.',
-    exploratory: 'Exploratory'
+      'We chose one of the best public chain platforms in the world as a carrier to achieve the best user experience and the fastest speed. We have achieved the fastest and best results among projects of the same type with the help of the platform.',
+    exploratory: 'Explore'
   },
   footBar: {
-    copyright: '©2024 Minter.',
+    copyright: 'All rights reserved',
     connectUS: 'Contact Us',
-    feedback: 'feedback'
+    feedback: 'Feedback'
   },
   toast: {
-    notYetOpen: 'Not yet open',
-    copySuccess: 'Copy Success',
-    error: 'Error，Try Again',
-    success: 'Success'
+    notYetOpen: 'Not open yet',
+    copySuccess: 'Copied successfully',
+    error: 'Error  Please try again',
+    success: 'Successful operation'
   },
   wallet: {
-    connectWallet: 'Connect',
-    connect: 'Connect MetaMask',
-    recharge: 'Recharge',
-    withdraw: 'Withdraw',
+    connectWallet: 'Connect wallet',
+    connect: 'Connect',
+    recharge: 'Top up',
+    withdraw: 'Withdraw cash',
     address: 'Address',
     balance: 'Balance',
     contract: 'Contract',
-    unanimous: 'Unanimous',
+    unanimous: 'Select all',
     promiseCard: 'Commitment Card',
-    onSale: 'on sale',
+    onSale: 'On sale',
     all: 'All',
-    sale: 'Selling',
-    cancleSale: 'Cancel',
-    gift: 'Gift',
-    coherent: 'Mint',
+    sale: 'Place sell order',
+    cancleSale: 'Cancel sell order',
+    gift: 'Give away',
+    coherent: 'Minting',
     staticIncome: 'Static income',
     dynamicIncome: 'Dynamic income',
     transfer: 'Transfer',
@@ -180,135 +178,136 @@ export default {
     release: "Release",
     register: "Register",
     title: 'Assets',
-    details: 'View Details',
-    transferAddress: 'Transfer Address',
-    transferAmount: 'Transfer Amount',
-    rechargeAmount: 'Top-up Amount',
-    withdrawableAmount: 'Withdrawable Amount',
-    withdrawAddress: 'Withdrawal Address',
-    withdrawAmount: 'Withdrawal Amount',
-    qrCode: 'Wallet Address QR Code',
-    view: 'Go to Browser',
-    or: ' or ',
-    copy: 'Replica Wallets Address',
+    details: 'View details',
+    transferAddress: 'Transfer address',
+    transferAmount: 'Transfer amount',
+    rechargeAmount: 'Top up amount',
+    withdrawableAmount: 'Available amount for cash withdrawal',
+    withdrawAddress: 'Withdrawal address',
+    withdrawAmount: 'Withdrawal amount',
+    qrCode: 'Wallet address code',
+    view: 'Go to browser for viewing',
+    or: ' Or ',
+    copy: 'Copy wallet address',
     account: 'Account',
     disconnect: 'Disconnect'
   },
   assistance: {
-    pointMap: 'Point map (dual-rail)',
-    organisationChart: 'Organisation Chart (Direct Recommendation)',
-    dynamicRewards: 'Dynamic Rewards',
-    commitmentCard: 'Commitment Card',
+    pointMap: 'Point map (Binary system)',
+    organisationChart: 'Hierarchy (Direct sponsoring)',
+    dynamicRewards: 'Dynamic rewards',
+    commitmentCard: 'Commitment card',
     invitation: 'Invitation Method',
     inviterAddress: "Inviter's address",
-    preAddress: 'Upgrade Address',
-    nextAddress: 'Next Level Address',
-    chooseCoherentBuy: 'Select Mint to Buy',
-    createInviterLink: 'Generate Invitation Links',
-    inviterLink: 'Invitation Links',
+    preAddress: "Upline's address",
+    nextAddress: "Downline's address",
+    chooseCoherentBuy: 'Select minting package to purchase',
+    createInviterLink: 'Generate invitation link',
+    inviterLink: 'Invitation link',
     saveQRcode: 'Save QR Code',
-    copyLink: 'Copy Invitation Links',
-    buyCoherent: 'Purchase Mint',
-    currentPointAddress: 'Current Location',
-    chooseCoherent: 'Select Mint',
+    copyLink: 'Copy invitation link',
+    buyCoherent: 'Purchase minting package',
+    currentPointAddress: 'Current point address',
+    chooseCoherent: 'Select minting package',
     left: 'Left ',
     right: 'Right ',
-    remain: 'Remain',
-    view: 'View',
-    buyDirect: 'Buy Direct',
-    pointInfo: 'Point Information',
-    buyTime: 'Purchase Time',
-    directMarketingAward: 'Direct Marketing',
-    matchReward: 'Collision',
-    generationIncentive: 'Algebraic',
-    awardAmount: 'Award Amount',
+    remain: 'Remaining',
+    view: 'Check',
+    buyDirect: 'Direct buy',
+    pointInfo: 'Point information',
+    buyTime: 'Purchase time',
+    directMarketingAward: 'Direct sponsor bonus',
+    matchReward: 'Pairing bonus',
+    generationIncentive: 'Matching bonus',
+    awardAmount: 'Bonus amount',
     releaseTime: 'Release Time',
-    MintAmount: 'Mint Amount',
-    proceed: 'Proceed',
-    expiryTime: 'Expiry Time',
-    acceleratorAward: 'Accelerator',
-    dailyEarnings: 'Daily Earnings',
-    recommendedBenefits: 'Recommended Benefits',
+    MintAmount: 'Minting amount',
+    proceed: 'Income',
+    expiryTime: 'Expiry time',
+    acceleratorAward: 'Income Accerelator',
+    dailyEarnings: 'MT Bonus',
+    recommendedBenefits: 'Referral Bonus',
     bonus: 'Bonus',
     search: "Search",
-    searchAddress: "Search for an address",
-    toPre: "Return to previous level"
+    searchAddress: "Search address",
+    toPre: "Back to previous level"
   },
   exchange: {
     title: 'Exchange',
-    exchangeQuantity: 'Redemption Quantity'
+    exchangeQuantity: 'Exchange quantity'
   },
   coherents: {
-    MatchingLevelBonusRate: 'Bonus Rate',
-    contribution: 'Contribution',
-    title: 'Matching Transaction Information',
-    price: 'Price',
-    coherentTitle: 'Mint List',
-    earningsCap: 'NFT Earnings Cap',
-    coherentCap: 'Cap',
-    incentiveRate: 'Tier 1 Invitation Incentive Rate',
+    MatchingLevelBonusRate: 'Minting direct sponsor bonus rate',
+    contribution: 'Amount of contribution value available',
+    title: 'Minting transaction information',
+    price: 'Selling price',
+    coherentTitle: 'Minting list',
+    earningsCap: 'Income cap (static income)',
+    coherentCap: 'Bonus cap (dynamic income)',
+    incentiveRate: 'Level 1 invitation bonus rate',
     bonusLevel: 'Bonus Level',
-    level: 'Level 1, Level 3',
-    releaseTime: 'First Release',
-    secondReleaseTime: 'Second Release',
-    thirdReleaseTime: 'Third Release',
-    buy: 'BUY',
+    level: 'Level 1   Level 3',
+    releaseTime: 'First release',
+    secondReleaseTime: 'Second release',
+    thirdReleaseTime: 'Third release',
+    buy: 'Buy',
     released: 'Released',
-    toBeReleased: 'To Be Released ',
-    totalReleased: 'Common Release ',
-    buyAfterReleased: 'Instant Release ',
-    '24Released': 'Release after 24 hours ',
-    '48Released': 'Release after 48 hours ',
-    directAddress: 'Direct address',
-    collisionAddress: 'Confrontation Address',
-    paymenMethod: 'Payment Method',
+    toBeReleased: 'To be released ',
+    totalReleased: 'Released in total ',
+    buyAfterReleased: 'Released immediately after successful buying ',
+    '24Released': 'Released after 24 hours',
+    '48Released': 'Released after 48 hours ',
+    directAddress: "Direct upline's address",
+    collisionAddress: "Pairing upline's address",
+    paymenMethod: 'Payment method',
     pleaseEnter: 'Please fill in ',
     invalidAddress: 'The address is invalid',
-    tips: 'If a user purchases Minter1 (i.e., a 200USD3 Minter), then the maximum daily match bonus a user can earn is 200USDT; if user W purchases Minter1+Minter2 (i.e., 200USD3 and 600USD3), then the maximum daily match bonus a user can earn is 200+600USDT=800; and so on.',
-    proAddress: "Proofreading Address",
+    tips: 'If user W purchases package 1 (i.e., the package of 200USDT), the daily cap of matching bonus that the user can obtain is 200USDT; if user W purchases package 1 + package 2 (i.e., 200USDT and 600USDT), the user can obtain the daily cap of matching bonus of 600USDT=600BT for the most costly package; and so on.',
+    proAddress: "Verification address",
     canUse: "It is possible to use"
   },
   modalConfirm: {
     buySuccess: 'Purchase was successful',
-    luckyDraw: 'Successful purchase of NFT card, please go to the carousel for lucky draw!',
+    luckyDraw: 'Already purchased NFT card   Please go to the roulette draw',
     confirm: 'Confirm',
     cancel: 'Cancel'
   },
   raffle: {
-    start: 'GO',
-    revenueGasPedal: 'Revenue Accelerator (12% to 36%)',
-    expediteContent: 'Get the corresponding NFT bonus right away, so that your earnings are rewarded far more than daily earnings',
-    earnings: 'Daily Earnings (0.5% to 6%)',
-    earningsContent: 'Raise the price of your NFTs so you get a higher return when you sell them',
-    promiseCard: 'Performance Promise Card (10%)',
-    welfare: "Referral Benefit (0.5%~12%)",
-    welfareContent: "Get more RT bonus without any handling fee,",
-    welfareTips: 'Please remember to use this bonus before the 7th of each month'
+    start: 'Start',
+    revenueGasPedal: 'Income Accelerator',
+    expediteContent: 'PMT is immediately distributed to the purchase address. The value of the NFT remains unchanged and can be sold after 72 hours. After the NFT is successfully sold, the sales amount will be immediately credited to the MT wallet.',
+    earnings: 'MT Bonus',
+    earningsContent: 'The additional bonus is based on the value of the NFT. The NFT can be sold after 72 hours, and the sales amount will be immediately credited to the MT wallet.',
+    promiseCard: 'Commitment Card (10%)',
+    promiseCardContent: 'Non-transferable Commitment Card (CC) need to invite 2 users within 30 days to purchase packages that are > or = the CC record (based on the value of the last package purchased by the user) to immediately obtain the 10% transferable RT based on the highest package value recorded in the CC record.',
+    welfare: "Referral Bonus (0.5%~12%)",
+    welfareContent: "The non-transferable Referral Bonus < RT (Bind)> of the previous month will be cleared at 0:00 on the 7th of each month, and the RT value generated from the 1st to the 7th will be cleared on the 7th of the next month. It can be used together with normal RT to purchase the package.",
+    welfareTips: 'Please remember that this reward must be used before the 7th of every month'
   },
   turntable: {
-    title: 'Raffle',
-    dailyEarnings: 'Daily Earnings',
-    recommendedBenefits: 'Recommended Benefits',
-    performancePledge: 'Performance Pledge',
-    earningsAcceleration: 'Earnings acceleration',
+    title: 'Roulette draw',
+    dailyEarnings: 'MT Bonus',
+    recommendedBenefits: 'Referral Bonus',
+    performancePledge: 'Commitment Card',
+    earningsAcceleration: 'Income Accelerator',
     congratulations: 'Congratulations!',
-    rewardsTips: 'You have won the following prizes',
-    rewardsContent: '1% Recommended return',
+    rewardsTips: 'You have won the following rewards',
+    rewardsContent: '1% Referral Bonus',
     rewardsDetails:
-      'You can get the RT value corresponding to the NFT value * yield when you sell the NFT after 3 days'
+      'You can get the corresponding RT value of NFT value * yield when you sell the NFT 3 days later.'
   },
   order: {
-    needPay: 'Payable',
-    bind: 'Bind',
+    needPay: 'Need to pay',
+    bind: 'Binding',
     balance: 'Balance'
   },
   invitePage: {
     inviteAddress: "Inviter's address",
-    preAddress: 'Upgrade Address',
-    selfAddress: 'My address',
-    chooseCoherentTip: 'Please select a Mint',
-    chooseCoherent: 'Select Mint',
-    pay: ' Disbursement',
-    showMore: 'Show More Mint'
+    preAddress: "Upline's address",
+    selfAddress: 'Own address',
+    chooseCoherentTip: 'Please select minting',
+    chooseCoherent: 'Select minting',
+    pay: ' Pay',
+    showMore: 'Show more minting'
   }
 }
