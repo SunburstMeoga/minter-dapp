@@ -398,7 +398,7 @@ async function handleListed(item, index) {
                     .catch(err => {
                         console.log(err)
                         proxy.$confirm.hide()
-                        showToast(t('modalConfirm.authorizeFail'))
+                        showToast(t('modalConfirm.authorizeFail', { type: 'NFT' }))
                     })
             },
         });
@@ -446,7 +446,7 @@ async function handleListed(item, index) {
                     .catch(err => {
                         console.log(err)
                         proxy.$confirm.hide()
-                        showToast(t('modalConfirm.authorizeFail'))
+                        showToast(t('modalConfirm.authorizeFail', { type: 'PMT' }))
                     })
             },
         });
@@ -475,7 +475,7 @@ async function handleListed(item, index) {
                     .catch(err => {
                         console.log(err)
                         proxy.$confirm.hide()
-                        showToast(t('modalConfirm.authorizeFail'))
+                        showToast(t('modalConfirm.authorizeFail', { type: 'MT' }))
                     })
             },
         });
@@ -585,7 +585,7 @@ async function handleCancelList(item) {
                     .catch(err => {
                         console.log(err)
                         proxy.$confirm.hide()
-                        showToast(t('modalConfirm.authorizeFail'))
+                        showToast(t('modalConfirm.authorizeFail', { type: 'NFT' }))
                     })
             },
         });

@@ -286,7 +286,8 @@
             <div v-for="(item, index) in rtBind" :key="index" class="mb-3">
               <div class="text-white text-xs flex justify-between items-baseline mb-1">
                 <div class="text-base">{{ $t('order.bind') }}RT </div>
-                <div class="text-primary-color font-bold pl-1"> 到期時間: {{ FilterTime(item.expire_date) }}
+                <div class="text-primary-color font-bold pl-1"> {{ $t('assistance.expiryTime') }}: {{
+                  FilterTime(item.expire_date) }}
                 </div>
               </div>
               <div class="w-full flex justify-between items-center">
@@ -419,7 +420,7 @@ function handlePoint(item, index) {
   if (!item.address) {
     currentPoint.value = index
   } else {
-    showToast('該點位已有地址')
+    showToast(t('modalConfirm.pointAddressHadAddress'))
   }
 }
 //點擊校驗直接上級地址
@@ -427,7 +428,7 @@ async function handleCalibrationReferrer() {
   console.log('referrerAddress', referrerAddress.value)
   console.log(referrerAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase())
   if (!referrerAddress.value) {
-    showToast('請輸入邀請地址')
+    showToast(t('modalConfirm.enterInvterAddress'))
     return
   }
   // if (referrerAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase()) {
@@ -436,7 +437,7 @@ async function handleCalibrationReferrer() {
   // }
   isErrLeg.value = false
   if (calibratingReferrer.value) {
-    showToast('正在校驗，請稍後')
+    showToast(t('modalConfirm.progress'))
     return
   }
 
@@ -464,7 +465,7 @@ async function handleCalibrationReferrer() {
       proxy.$confirm.hide()
       proxy.$confirm.show({
         title: t('modalConfirm.tips'),
-        content: '邀請地址必須在您的點位圖中。',
+        content: t('modalConfirm.addressTipsFour'),
         showCancelButton: false,
         confirmText: t('modalConfirm.confirm'),
         onConfirm: () => {
@@ -501,7 +502,7 @@ async function handleCalibrationLeg() {
   // }
   isErrReferrer.value = false
   if (calibratingLeg.value) {
-    showToast('正在校驗，請稍後')
+    showToast(t('modalConfirm.progress'))
     return
   }
   calibratingLeg.value = true
@@ -521,7 +522,7 @@ async function handleCalibrationLeg() {
       proxy.$confirm.hide()
       proxy.$confirm.show({
         title: t('modalConfirm.tips'),
-        content: '對碰地址必須在您的點位圖中。',
+        content: t('modalConfirm.addressTipsThree'),
         showCancelButton: false,
         confirmText: t('modalConfirm.confirm'),
         onConfirm: () => {
@@ -541,7 +542,7 @@ async function handleCalibrationLeg() {
     }
     canUseLeg.value = true
     console.log(legAddressInfo)
-    pointList.value = [{ title: '左点位', address: null }, { title: '右点位', address: null }]
+    pointList.value = [{ title: t('assistance.left'), address: null }, { title: t('assistance.right'), address: null }]
     pointList.value[0].address = legAddressInfo.directReferrals.left_leg
     pointList.value[1].address = legAddressInfo.directReferrals.right_leg
     calibratingLeg.value = false
@@ -554,7 +555,7 @@ async function handleCalibrationLeg() {
 //点击填写直接上级弹窗确认按钮
 function handleConfirmReferrerAddress() {
   if (calibratingReferrer.value) {
-    showToast('正在校驗，請稍後')
+    showToast(t('modalConfirm.progress'))
     return
   }
   if (!referrerAddress.value) {
@@ -596,8 +597,10 @@ async function handleConfirmBuyForUSDT() {
       proxy.$loading.hide()
       proxy.$confirm.hide()
       proxy.$confirm.show({
-        title: '餘額不足',
-        content: `當前配套價格為 ${coherentInfo.value.type} USD3，您的 USD3 餘額不足。`,
+        title: t('modalConfirm.notBalance'),
+        // content: `當前配套價格為 ${coherentInfo.value.type} USD3，您的 USD3 餘額不足。`,
+        content: `${t('modalConfirm.notEnoughBalance', { amount: coherentInfo.value.type, currency: 'USD3' })}`,
+
         showCancelButton: false,
         confirmText: t('modalConfirm.confirm'),
         onConfirm: () => {
@@ -611,8 +614,8 @@ async function handleConfirmBuyForUSDT() {
     proxy.$loading.hide()
     proxy.$confirm.hide()
     proxy.$confirm.show({
-      title: '錯誤',
-      content: `獲取USD3餘額失敗，請重試`,
+      title: t('modalConfirm.error'),
+      content: t('modalConfirm.getBalanceFail'),
       showCancelButton: false,
       confirmText: t('modalConfirm.confirm'),
       onConfirm: () => {
@@ -627,7 +630,7 @@ async function handleConfirmBuyForUSDT() {
     proxy.$loading.hide()
   } catch (err) {
     proxy.$loading.hide()
-    showToast('檢查USD3授權失敗，請重試')
+    showToast(`${t('modalConfirm.checkAuthFail', { type: 'USD3' })}`)
     console.log(err)
   }
   console.log('allowance', allowance)
@@ -654,7 +657,7 @@ async function handleConfirmBuyForUSDT() {
           .catch(err => {
             console.log(err)
             proxy.$confirm.hide()
-            showToast(t('modalConfirm.authorizeFail'))
+            showToast(t('modalConfirm.authorizeFail', { type: 'USD3' }))
           })
       },
     });
@@ -665,7 +668,8 @@ async function handleConfirmBuyForUSDT() {
   proxy.$confirm.hide()
   proxy.$confirm.show({
     title: t('modalConfirm.confirm'),
-    content: `是否確認購買 ${coherentInfo.value.type} 配套`,
+    // content: `是否確認購買 ${coherentInfo.value.type} 配套`,
+    content: `${t('modalConfirm.confirmBuyPackage', { package: coherentInfo.value.type })}`,
     showCancelButton: true,
     confirmText: t('modalConfirm.confirm'),
     onConfirm: async () => {
@@ -674,8 +678,8 @@ async function handleConfirmBuyForUSDT() {
         let purchase = await pmtContractApi.purchasePackage(Number(coherentInfo.value.id - 1))
         proxy.$confirm.hide()
         proxy.$confirm.show({
-          title: '成功',
-          content: `已成功購買 ${coherentInfo.value.type} 配套`,
+          title: t('modalConfirm.buySuccess'),
+          content: `${t('modalConfirm.successBuyPackage', { package: coherentInfo.value.type })}`,
           showCancelButton: false,
           confirmText: t('modalConfirm.confirm'),
           onConfirm: () => {
@@ -697,7 +701,7 @@ async function handleConfirmBuyForUSDT() {
         proxy.$confirm.hide()
         proxy.$confirm.show({
           title: t('modalConfirm.tips'),
-          content: '購買失敗，請重新購買。',
+          content: t('toast.error'),
           showCancelButton: false,
           confirmText: t('modalConfirm.confirm'),
           onConfirm: () => {
@@ -717,7 +721,7 @@ async function handleConfirmBuyForUSDT() {
 //點擊填寫下級彈窗確認按鈕
 async function handleConfirmNextAddress() {
   if (!helpNextAddress.value) {
-    showToast('請輸入下級地址')
+    showToast(t('toast.enterNextAddress'))
     // calibratingLeg.value = false
     return
   }
@@ -760,9 +764,10 @@ async function handlePopupConfirmBuy() {
       proxy.$loading.hide()
       proxy.$confirm.show({
         title: t('modalConfirm.tips'),
-        content: `RT餘額不足，無法購買 ${coherentInfo.value.type} 配套`,
+        // content: `RT餘額不足，無法購買 ${coherentInfo.value.type} 配套`,
+        content: `${t('modalConfirm.notEnoughBalance', { amount: coherentInfo.value.type, currency: 'RT' })}`,
         showCancelButton: true,
-        confirmText: '兌換',
+        confirmText: t('toast.exchangeTitle'),
         onConfirm: () => {
           proxy.$confirm.hide()
           proxy.$loading.hide()
@@ -780,7 +785,7 @@ async function handlePopupConfirmBuy() {
 
 
   } catch (err) {
-    showToast('獲取餘額失敗，請重試')
+    showToast(t('modalConfirm.getBalanceFail'),)
     proxy.$loading.hide()
     return
   }
@@ -788,7 +793,8 @@ async function handlePopupConfirmBuy() {
   proxy.$confirm.hide()
   proxy.$confirm.show({
     title: t('modalConfirm.tips'),
-    content: `是否確認購買 ${coherentInfo.value.type} 配套`,
+    // content: `是否確認購買 ${coherentInfo.value.type} 配套`,
+    content: `${t('modalConfirm.confirmBuyPackage', { package: coherentInfo.value.type })}`,
     showCancelButton: true,
     confirmText: t('modalConfirm.confirm'),
     onConfirm: async () => {
@@ -806,7 +812,7 @@ async function handlePopupConfirmBuy() {
           if (res.error) {
             proxy.$confirm.hide()
             proxy.$confirm.show({
-              title: '購買失敗',
+              title: t('toast.error'),
               content: `${res.error}`,
               showCancelButton: false,
               confirmText: t('modalConfirm.confirm'),
@@ -821,10 +827,11 @@ async function handlePopupConfirmBuy() {
             proxy.$loading.hide()
             proxy.$confirm.hide()
             proxy.$confirm.show({
-              title: '餘額不足',
-              content: `當前配套價格為 ${coherentInfo.value.type} RT，您的 RT 餘額不足。`,
+              title: t('modalConfirm.notBalance'),
+              // content: `當前配套價格為 ${coherentInfo.value.type} RT，您的 RT 餘額不足。`,
+              content: `${t('modalConfirm.notEnoughBalance', { amount: coherentInfo.value.type, currency: 'RT' })}`,
               showCancelButton: true,
-              confirmText: '兌換',
+              confirmText: t('exchange.title'),
               onConfirm: () => {
                 proxy.$confirm.hide()
                 proxy.$loading.hide()
@@ -843,8 +850,8 @@ async function handlePopupConfirmBuy() {
           if (res.message == "推薦人地址不存在") {
             proxy.$confirm.hide()
             proxy.$confirm.show({
-              title: '購買失敗',
-              content: `推薦人地址不存在`,
+              title: t('toast.error'),
+              content: t('modalConfirm.addressDoesNotExist'),
               showCancelButton: false,
               confirmText: t('modalConfirm.confirm'),
               onConfirm: () => {
@@ -858,8 +865,8 @@ async function handlePopupConfirmBuy() {
           if (res.message == "Address not found in leg tree") {
             proxy.$confirm.hide()
             proxy.$confirm.show({
-              title: '購買失敗',
-              content: `對碰地址必須在上級地址的點位圖中`,
+              title: t('toast.error'),
+              content: t('modalConfirm.addressTipsOne'),
               showCancelButton: false,
               confirmText: t('modalConfirm.confirm'),
               onConfirm: () => {
@@ -874,8 +881,8 @@ async function handlePopupConfirmBuy() {
           if (!res.player) {
             proxy.$confirm.hide()
             proxy.$confirm.show({
-              title: '購買失敗',
-              content: `购买失败：该地址已有上级`,
+              title: t('toast.error'),
+              content: t('modalConfirm.addressTipsTwo'),
               showCancelButton: false,
               confirmText: t('modalConfirm.confirm'),
               onConfirm: () => {
@@ -889,8 +896,9 @@ async function handlePopupConfirmBuy() {
             setTimeout(() => {
               proxy.$confirm.hide()
               proxy.$confirm.show({
-                title: '購買成功',
-                content: `已成功為下級購買 ${coherentInfo.value.type} 配套`,
+                title: t('modalConfirm.buySuccess'),
+                // content: `已成功為下級購買 ${coherentInfo.value.type} 配套`,
+                content: `${t('modalConfirm.successBuyPackage', { package: coherentInfo.value.type })}`,
                 showCancelButton: false,
                 confirmText: t('modalConfirm.confirm'),
                 onConfirm: () => {
@@ -925,7 +933,7 @@ async function handlePopupConfirmBuy() {
           proxy.$confirm.hide()
           proxy.$confirm.show({
             title: t('modalConfirm.tips'),
-            content: '購買失敗，請重新購買。',
+            content: t('toast.error'),
             showCancelButton: false,
             confirmText: t('modalConfirm.confirm'),
             onConfirm: () => {
@@ -991,7 +999,7 @@ async function handleConfirmBuyForRT() {
     return
   }
   if (helpNextAddress.value == null) {
-    showToast('請輸入下級地址')
+    showToast(t('toast.enterNextAddress'))
   }
   // proxy.$loading.show()
 

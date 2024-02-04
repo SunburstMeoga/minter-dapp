@@ -139,7 +139,7 @@ async function handleExchange() {
                     .catch(err => {
                         console.log(err)
                         proxy.$confirm.hide()
-                        showToast(t('modalConfirm.authorizeFail'))
+                        showToast(t('modalConfirm.authorizeFail', { type: 'USD3' }))
                     })
             },
         });

@@ -2,7 +2,7 @@
     <div class="mb-3 rounded overflow-hidden p-2 bg-card-content text-card-word text-sm">
         <div v-show="isEarning">
             <div class="flex justify-between items-center mb-2" v-show="showOutput">
-                <div>产出地址</div>
+                <div>{{ $t('opertingLog.outputAddress') }}</div>
                 <div class="text-red-500 font-bold">{{ FilterAddress(address) }}</div>
             </div>
 
@@ -19,21 +19,21 @@
                 <div>{{ FilterTime(time) }}</div>
             </div>
             <div class="flex justify-between items-center mb-3" v-show="showAward">
-                <div>派獎情況</div>
-                <div class="">{{ isRewarded ? '已派獎' : '未派獎' }}</div>
+                <div>{{ $t('opertingLog.distributionOfPrizes') }}</div>
+                <div class="">{{ isRewarded ? $t('opertingLog.awarded') : $t('opertingLog.noAward') }}</div>
             </div>
             <div class="flex justify-between items-center" v-show="promiseCardValidDate">
-                <div>到期時間</div>
+                <div>{{ $t('opertingLog.expiryTime') }}</div>
                 <div>{{ FilterTime(promiseCardValidDate) }}</div>
             </div>
             <div class="flex justify-between items-center" v-show="showExpire">
-                <div>清零時間</div>
+                <div>{{ $t('opertingLog.zeroingTime') }}</div>
                 <div>{{ expireDate }}</div>
             </div>
         </div>
         <div v-show="isNFT">
             <div class="flex justify-between items-center mb-2">
-                <div>購買金額</div>
+                <div>{{ $t('opertingLog.purchaseAmount') }}</div>
                 <div class="text-red-500 font-bold">{{ Number(price).toFixed(4) }} {{ symbol }}</div>
             </div>
             <div class="flex justify-between items-center mb-2">
@@ -41,18 +41,18 @@
                 <div># {{ tokenID }}</div>
             </div>
             <div class="flex justify-between items-center mb-2" v-show="operationType === true || operationType === false">
-                <div>操作類型</div>
-                <div>{{ operationType ? '掛單' : '取消掛單' }}</div>
+                <div>{{ $t('opertingLog.opertingType') }}</div>
+                <div>{{ operationType ? t('wallet.sale') : t('wallet.cancleSale') }}</div>
             </div>
             <div class="flex justify-between items-center ">
-                <div>时间</div>
+                <div>{{ $t('opertingLog.time') }}</div>
                 <div>{{ FilterTime(time) }}</div>
             </div>
 
         </div>
         <div v-show="isToken">
             <div class="flex justify-between items-center mb-2">
-                <div>操作地址</div>
+                <div>{{ $t('opertingLog.operatingAddr') }}</div>
                 <div class="text-red-500 font-bold">{{ FilterAddress(address) }}</div>
             </div>
             <!-- <div class="flex justify-between items-center mb-2">
@@ -60,19 +60,20 @@
                 <div class="text-red-500 font-bold">{{ currentType }}</div>
             </div> -->
             <div class="flex justify-between items-center mb-2">
-                <div>金額</div>
+                <div>{{ $t('opertingLog.amount') }}</div>
                 <div class="text-red-500 font-bold">{{ price }} {{ symbol }}</div>
             </div>
             <div class="flex justify-between items-center mb-2" v-show="remark && !transfer">
-                <div>兌換類型</div>
+                <div>{{ $t('opertingLog.exhangeType') }}</div>
+
                 <div class="text-red-500 font-bold">{{ remark }}</div>
             </div>
             <div class="flex justify-between items-center mb-2" v-show="transfer">
-                <div>交易類型</div>
+                <div>{{ $t('opertingLog.transType') }}</div>
                 <div class="text-red-500 font-bold">{{ transferType }}</div>
             </div>
             <div class="flex justify-between items-center mb-2">
-                <div>到賬時間</div>
+                <div>{{ $t('opertingLog.checkoutTime') }}</div>
                 <div class="text-red-500 font-bold">{{ FilterTime(time) }}</div>
             </div>
             <!-- <div class="flex justify-between items-center mb-2">
@@ -90,6 +91,9 @@
 <script setup>
 import { ref } from 'vue'
 import { FilterTime, FilterAddress } from '@/utils/format';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n()
+
 // let operationType = ref('兌換')
 // let currentType = ref('USD3 兌換成 RT')
 // let amount = ref('34.0000MT')

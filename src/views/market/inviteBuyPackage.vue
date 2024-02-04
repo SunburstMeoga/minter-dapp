@@ -275,7 +275,7 @@ async function handleConfirmBuyForRT() {
             proxy.$loading.hide()
             proxy.$confirm.hide()
             proxy.$confirm.show({
-                title: '餘額不足',
+                title: t('modalConfirm.notBalance'),
                 content: `當前配套價格為 ${coherentInfo.value.type} RT，您的 RT 餘額不足。`,
                 showCancelButton: false,
                 confirmText: t('modalConfirm.confirm'),
@@ -290,7 +290,7 @@ async function handleConfirmBuyForRT() {
         proxy.$loading.hide()
         proxy.$confirm.hide()
         proxy.$confirm.show({
-            title: '錯誤',
+            title: t('modalConfirm.error'),
             content: `獲取RT餘額失敗，請重試`,
             showCancelButton: false,
             confirmText: t('modalConfirm.confirm'),
@@ -351,7 +351,7 @@ async function handleConfirmBuyForUSDT() {
             proxy.$loading.hide()
             proxy.$confirm.hide()
             proxy.$confirm.show({
-                title: '餘額不足',
+                title: t('modalConfirm.notBalance'),
                 content: `當前配套價格為 ${coherentInfo.value.type} USD3，您的 USD3 餘額不足。`,
                 showCancelButton: false,
                 confirmText: t('modalConfirm.confirm'),
@@ -366,7 +366,7 @@ async function handleConfirmBuyForUSDT() {
         proxy.$loading.hide()
         proxy.$confirm.hide()
         proxy.$confirm.show({
-            title: '錯誤',
+            title: t('modalConfirm.error'),
             content: `獲取USD3餘額失敗，請重試`,
             showCancelButton: false,
             confirmText: t('modalConfirm.confirm'),
@@ -407,7 +407,7 @@ async function handleConfirmBuyForUSDT() {
                     .catch(err => {
                         console.log(err)
                         proxy.$confirm.hide()
-                        showToast(t('modalConfirm.authorizeFail'))
+                        showToast(t('modalConfirm.authorizeFail', { type: 'USD3' }))
                     })
 
             },

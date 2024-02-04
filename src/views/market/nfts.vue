@@ -243,7 +243,7 @@ async function handleCancelList(item) {
                     .catch(err => {
                         console.log(err)
                         proxy.$confirm.hide()
-                        showToast(t('modalConfirm.authorizeFail'))
+                        showToast(t('modalConfirm.authorizeFail', { type: 'NFT' }))
                     })
             },
         });
@@ -387,7 +387,7 @@ function handleToRaffle(item, index) {
 async function handleBuyButton(item, canBuy) {
     console.log(item, canBuy)
     if (!canBuy) {
-        showToast('您购买的配套等级不可购买该卡池NFT')
+        showToast(`${'modalConfirm.cantBuyNFTInPool'}`)
         return
     }
     proxy.$loading.show()
@@ -397,7 +397,7 @@ async function handleBuyButton(item, canBuy) {
             proxy.$confirm.hide()
             proxy.$confirm.show({
                 title: t('modalConfirm.tips'),
-                content: `您的PMT和MT餘額不足`,
+                content: t('modalConfirm.notEnougtMTAndPMT'),
                 showCancelButton: false,
                 onConfirm: () => {
                     proxy.$confirm.hide()
@@ -411,7 +411,7 @@ async function handleBuyButton(item, canBuy) {
         proxy.$confirm.hide()
         proxy.$confirm.show({
             title: t('modalConfirm.tips'),
-            content: `獲取PMT和MT餘額失敗，請重試`,
+            content: t('modalConfirm.getBalance'),
             showCancelButton: false,
             onConfirm: () => {
                 proxy.$confirm.hide()
@@ -425,7 +425,7 @@ async function handleBuyButton(item, canBuy) {
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
-        showToast('檢查PMT授權錯誤，請重試')
+        showToast(`${t('modalConfirm.checkAuthFail', { type: "PMT" })}`)
         console.log(err)
     }
     proxy.$loading.hide()
@@ -456,7 +456,7 @@ async function handleBuyButton(item, canBuy) {
                         console.log('err', err)
                         proxy.$confirm.show({
                             title: t('modalConfirm.tips'),
-                            content: 'PMT授權失敗，請重新授權',
+                            content: t('modalConfirm.authorizeFail', { type: 'PMT' }),
                             showCancelButton: false,
                             confirmText: t('modalConfirm.confirm'),
                             onConfirm: () => {
