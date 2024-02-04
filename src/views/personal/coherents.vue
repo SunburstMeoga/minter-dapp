@@ -18,7 +18,7 @@
                 </div>
                 <div class="pt-1 flex justify-between items-center">
                     <div>
-                        剩餘釋放量：
+                        {{ $t('coherents.remainingRelease') }}
                     </div>
                     <div>
                         {{ Number(remainingPMT).toFixed(4) }} PMT
@@ -26,7 +26,7 @@
                 </div>
                 <div class="pt-1 flex justify-between items-center mb-4">
                     <div>
-                        釋放倒計時：
+                        {{ $t('coherents.releaseCountdown') }}
                     </div>
                     <div>
                         {{ canReleasedTime }}
@@ -35,14 +35,14 @@
                 <div class="rounded-full py-1.5 text-center text-white mb-2"
                     :class="Number(remainingPMT) == 0 || isNotYet ? 'disable-button' : 'operating-button'"
                     @click="handleReleased">
-                    釋放
+                    {{ $t('coherents.releaseButton') }}
                 </div>
             </div>
             <div>
                 <div class="rounded border-card-content border p-2 mb-2 text-white">
                     <div class="pt-1 flex justify-between items-center">
                         <div>
-                            動態已提現總數：
+                            {{ $t('coherents.dynamicWithdrawedTotal') }}
                         </div>
                         <div>
                             {{ Number(totalBTWithdraw).toFixed(4) }} MT
@@ -50,7 +50,7 @@
                     </div>
                     <div class="pt-1 flex justify-between items-center">
                         <div>
-                            動態提現總數：
+                            {{ $t('coherents.dynamicWithdrawTotal') }}
                         </div>
                         <div>
                             {{ Number(totalBTReward).toFixed(4) }} MT
@@ -123,10 +123,10 @@ function countDown(time) {
     // console.log(day + "天" + hour + "时" + minute + "分" + second + "秒")
     if (time <= 0) {
         isNotYet.value = false
-        canReleasedTime.value = "可以釋放"
+        canReleasedTime.value = t("coherents.canRelease")
         return
     }
-    canReleasedTime.value = day + "天" + hour + "時" + minute + "分" + second + "秒"
+    canReleasedTime.value = day + ":" + hour + ":" + minute + ":" + second
     // return day + "天" + hour + "时" + minute + "分" + second + "秒"
 }
 //點擊復投按鈕
@@ -139,16 +139,17 @@ function toReVote(item) {
 async function handleReleased() {
     proxy.$loading.show()
     if (Number(remainingPMT.value) == 0 || isNotYet.value) {
-        showToast(remainingPMT.value == 0 ? '暫無可釋放PMT' : "未到釋放時間")
+        showToast(remainingPMT.value == 0 ? t('toast.haveNotCanReleasePMT') : t('toast.notTimeToRelease'))
         proxy.$loading.hide()
         return
     }
     proxy.$loading.hide()
     proxy.$confirm.hide()
     proxy.$confirm.show({
-        title: '確認',
-        content: '是否確認釋放剩餘PMT',
+        title: t('modalConfirm.tips'),
+        content: t('modalConfirm.confirmRelease'),
         showCancelButton: true,
+        cancelText: t('modalConfirm.cancel'),
         confirmText: t('modalConfirm.confirm'),
         onConfirm: async () => {
             try {
@@ -156,8 +157,8 @@ async function handleReleased() {
                 setTimeout(() => {
                     proxy.$confirm.hide()
                     proxy.$confirm.show({
-                        title: '提示',
-                        content: '已成功釋放PMT',
+                        title: t('modalConfirm.tips'),
+                        content: t('toast.releaseSuccess'),
                         showCancelButton: false,
                         confirmText: t('modalConfirm.confirm'),
                         onConfirm: () => {
@@ -170,8 +171,8 @@ async function handleReleased() {
                 console.log(err)
                 proxy.$confirm.hide()
                 proxy.$confirm.show({
-                    title: '提示',
-                    content: '釋放PMT失敗，請重試',
+                    title: t('modalConfirm.tips'),
+                    content: t('toast.releaseFail'),
                     showCancelButton: false,
                     confirmText: t('modalConfirm.confirm'),
                     onConfirm: () => {
@@ -205,7 +206,7 @@ async function getPNTRemainingLockupPeriod() {
         }, 1000)
     } else if ((Number(result) + (new Date().getTime() / 1000)) == new Date().getTime() / 1000) {
         isNotYet.value = false
-        canReleasedTime.value = "可以釋放"
+        canReleasedTime.value = t('coherents.canRelease')
     }
     // setInterval(() => {
     //     countDown(Number(1702712103))

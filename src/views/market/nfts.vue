@@ -52,7 +52,7 @@
                             </div>
                             <div v-show="packageN.length == 0"
                                 class="text-white font-bold text-xl text-center mt-10 w-full">
-                                暫無數據
+                                {{ $t('modalConfirm.notData') }}
                             </div>
                         </div>
                     </van-tab>
@@ -69,7 +69,7 @@
                             </div>
                             <div v-show="packageR.length == 0"
                                 class="text-white font-bold text-xl text-center mt-10 w-full">
-                                暫無數據
+                                {{ $t('modalConfirm.notData') }}
                             </div>
                         </div>
                     </van-tab>
@@ -86,7 +86,7 @@
                             </div>
                         </div>
                         <div v-show="packageSR.length == 0" class="text-white font-bold text-xl text-center mt-10 w-full">
-                            暫無數據
+                            {{ $t('modalConfirm.notData') }}
                         </div>
                     </van-tab>
                     <van-tab title="SSR">
@@ -102,7 +102,7 @@
                             </div>
                         </div>
                         <div v-show="packageSSR.length == 0" class="text-white font-bold text-xl text-center mt-10 w-full">
-                            暫無數據
+                            {{ $t('modalConfirm.notData') }}
                         </div>
                     </van-tab>
                     <van-tab title="UR">
@@ -118,7 +118,7 @@
                             </div>
                         </div>
                         <div v-show="packageUR.length == 0" class="text-white font-bold text-xl text-center mt-10 w-full">
-                            暫無數據
+                            {{ $t('modalConfirm.notData') }}
                         </div>
                     </van-tab>
                 </van-tabs>
@@ -167,11 +167,16 @@ let active = ref(0)
 let loading = ref(false)
 let prizeIndex = ref(null)
 let nftPrice = ref(null)
-let actions = ref([
-    { text: '价格由高到低', value: true, index: 0 },
-    { text: '价格由低到高', value: false, index: 1 }
-])
-
+// let actions = ref([
+//     { text: '价格由高到低', value: true, index: 0 },
+//     { text: '价格由低到高', value: false, index: 1 }
+// ])
+let actions = computed(() => {
+    return [
+        { text: t('wallet.highToLow'), value: true, index: 0 },
+        { text: t('wallet.lowToHigh'), value: false, index: 1 }
+    ]
+})
 const userInfo = userStore()
 
 
@@ -209,7 +214,8 @@ async function handleCancelList(item) {
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
-        showToast('檢查NFT授權錯誤，請重試')
+        // showToast('檢查NFT授權錯誤，請重試')
+        showToast(`${t('modalConfirm.checkAuthFail', { type: "NFT" })}`)
         console.log(err)
     }
     console.log('isApprovedAll', isApprovedAll)
@@ -219,10 +225,10 @@ async function handleCancelList(item) {
         proxy.$confirm.hide()
 
         proxy.$confirm.show({
-            title: '請授權',
-            content: '需要進行NFT授權，請先完成授權。',
+            title: t('modalConfirm.authorize'),
+            content: t('modalConfirm.pleaseAuthorize', { type: 'NFT' }),
             showCancelButton: false,
-            confirmText: '去授權',
+            confirmText: t('modalConfirm.toAuthorize'),
             onConfirm: () => {
                 // proxy.$loading.show()
                 // pmt对nft授權
@@ -231,13 +237,13 @@ async function handleCancelList(item) {
                         console.log(res)
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
-                        showToast('授權成功')
+                        showToast(t('modalConfirm.successAuthorize'))
 
                     })
                     .catch(err => {
                         console.log(err)
                         proxy.$confirm.hide()
-                        showToast('您取消了NFT授权')
+                        showToast(t('modalConfirm.authorizeFail'))
                     })
             },
         });
@@ -256,7 +262,7 @@ async function handleCancelList(item) {
         // showToast(t('toast.success'))
     } catch (err) {
         proxy.$loading.hide()
-        showToast('撤銷掛單失敗，請重試')
+        showToast(t('modalConfirm.cancelFail'))
         item.showOperting = false
         item.is_listed = false
         console.log(err)
@@ -278,8 +284,8 @@ function getMarketplace(params) {
                 proxy.$loading.hide()
                 proxy.$confirm.hide()
                 proxy.$confirm.show({
-                    title: '提示',
-                    content: '您當前沒有購買配套。',
+                    title: t('modalConfirm.tips'),
+                    content: t('modalConfirm.notPackage'),
                     showCancelButton: false,
                     confirmText: t('modalConfirm.confirm'),
                     onConfirm: () => {
@@ -390,7 +396,7 @@ async function handleBuyButton(item, canBuy) {
             proxy.$loading.hide()
             proxy.$confirm.hide()
             proxy.$confirm.show({
-                title: '提示',
+                title: t('modalConfirm.tips'),
                 content: `您的PMT和MT餘額不足`,
                 showCancelButton: false,
                 onConfirm: () => {
@@ -404,7 +410,7 @@ async function handleBuyButton(item, canBuy) {
         proxy.$loading.hide()
         proxy.$confirm.hide()
         proxy.$confirm.show({
-            title: '提示',
+            title: t('modalConfirm.tips'),
             content: `獲取PMT和MT餘額失敗，請重試`,
             showCancelButton: false,
             onConfirm: () => {
@@ -428,10 +434,10 @@ async function handleBuyButton(item, canBuy) {
         proxy.$loading.hide()
         proxy.$confirm.hide()
         proxy.$confirm.show({
-            title: '請授權',
-            content: '需要進行PMT授權，請先完成授權。',
+            title: t('modalConfirm.authorize'),
+            content: t('modalConfirm.pleaseAuthorize', { type: 'PMT' }),
             showCancelButton: false,
-            confirmText: '去授權',
+            confirmText: t('modalConfirm.toAuthorize'),
             onConfirm: () => {
                 // proxy.$loading.show()
                 // pmt对nft授權
@@ -441,7 +447,7 @@ async function handleBuyButton(item, canBuy) {
                         proxy.$loading.hide()
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
-                        showToast('授權成功')
+                        showToast(t('modalConfirm.successAuthorize'))
                     })
                     .catch(err => {
                         console.log(err)
@@ -449,7 +455,7 @@ async function handleBuyButton(item, canBuy) {
                         proxy.$confirm.hide()
                         console.log('err', err)
                         proxy.$confirm.show({
-                            title: '提示',
+                            title: t('modalConfirm.tips'),
                             content: 'PMT授權失敗，請重新授權',
                             showCancelButton: false,
                             confirmText: t('modalConfirm.confirm'),
@@ -470,7 +476,7 @@ async function handleBuyButton(item, canBuy) {
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
-        showToast('檢查MT授權狀態失敗，請重試')
+        showToast(`${t('modalConfirm.checkAuthFail', { type: 'MT' })}`)
         console.log(err)
     }
     proxy.$loading.hide()
@@ -478,10 +484,10 @@ async function handleBuyButton(item, canBuy) {
         proxy.$loading.hide()
         proxy.$confirm.hide()
         proxy.$confirm.show({
-            title: '請授權',
-            content: '需要進行MT授權，請先完成授權。',
+            title: t('modalConfirm.authorize'),
+            content: t('modalConfirm.pleaseAuthorize', { type: 'MT' }),
             showCancelButton: false,
-            confirmText: '去授權',
+            confirmText: t('modalConfirm.toAuthorize'),
             onConfirm: () => {
                 // proxy.$loading.show()
                 // pmt对nft授權
@@ -491,7 +497,7 @@ async function handleBuyButton(item, canBuy) {
                         proxy.$loading.hide()
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
-                        showToast('授權成功')
+                        showToast(t('modalConfirm.successAuthorize'))
 
                     })
                     .catch(err => {
@@ -500,7 +506,7 @@ async function handleBuyButton(item, canBuy) {
                         proxy.$confirm.hide()
                         console.log('err', err)
                         proxy.$confirm.show({
-                            title: '提示',
+                            title: t('modalConfirm.tips'),
                             content: 'MT授權失敗，請重新授權',
                             showCancelButton: false,
                             confirmText: t('modalConfirm.confirm'),
@@ -517,7 +523,7 @@ async function handleBuyButton(item, canBuy) {
     proxy.$loading.hide()
     proxy.$confirm.hide()
     proxy.$confirm.show({
-        title: '提示',
+        title: t('modalConfirm.tips'),
         content: `是否確認購買Token ID為${item.token_id}的NFT`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
@@ -553,7 +559,7 @@ async function handleBuyButton(item, canBuy) {
                     item.showOperting = false
                     item.showToRaffle = false
                     proxy.$confirm.show({
-                        title: '提示',
+                        title: t('modalConfirm.tips'),
                         content: '購買失敗，請重新購買。',
                         // content: `Token ID為${item.token_id}的NFT購買失敗，請重新購買。`,
                         showCancelButton: false,
@@ -570,7 +576,7 @@ async function handleBuyButton(item, canBuy) {
                 item.showOperting = false
                 item.showToRaffle = false
                 proxy.$confirm.show({
-                    title: '提示',
+                    title: t('modalConfirm.tips'),
                     content: '購買失敗，請重新購買。',
                     showCancelButton: false,
                     confirmText: t('modalConfirm.confirm'),

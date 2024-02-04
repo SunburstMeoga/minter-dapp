@@ -58,7 +58,7 @@
                             </div>
                         </div>
                         <div v-if="dataList.length == 0" class="text-white font-bold mt-16 text-center">
-                            暫無數據
+                            {{ $t('modalConfirm.notData') }}
                         </div>
                     </div>
                 </div>

@@ -38,19 +38,19 @@
         <div class="flex justify-center items-center mt-2 active-primary-color" v-show="showListedButton"
           @click="$emit('handleListed')">
           <div class="operating-button w-full py-1 rounded-full text-center">
-            掛單
+            {{ $t('wallet.sale') }}
           </div>
         </div>
         <div class="flex justify-center items-center mt-2 active-primary-color" v-show="showCancelButton"
           @click="$emit('handleCancel')">
           <div class="module-content w-full py-1 rounded-full text-center">
-            取消掛單
+            {{ $t('wallet.cancleSale') }}
           </div>
         </div>
         <div class="flex justify-center items-center mt-2 active-primary-color" v-show="showToRaffle"
           @click="$emit('handleToRaffle')">
           <div class="module-content w-full py-1 rounded-full text-center flex justify-center items-center">
-            去抽獎
+            {{ $t('wallet.toLottery') }}
           </div>
         </div>
         <div class="flex justify-center items-center mt-2 active-primary-color" v-show="showOperting"
@@ -74,6 +74,8 @@ import nftThree from '@/assets/images/2000.png'
 import nftFour from '@/assets/images/6000.png'
 import nftFive from '@/assets/images/20000.png'
 import { showToast } from 'vant'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const nftProps = defineProps({
   canBuy: {
     type: Boolean,

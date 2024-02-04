@@ -11,7 +11,7 @@
                 </div>
                 <div class="bg-page-content w-9/12 h-screen overflow-scroll pt-2">
                     <!-- <div v-show="dataList.length == 0">
-                        <van-empty description="暫無數據" />
+                        <van-empty description="{{ $t('modalConfirm.notData') }}" />
                     </div> -->
                     <div class="w-11/12 ml-auto mr-auto mb-3 rounded overflow-hidden p-2 bg-black text-card-word text-sm"
                         v-for="(item, index) in dataList" :key="index">
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <div v-if="dataList.length == 0" class="text-white font-bold mt-16 text-center">
-                        暫無數據
+                        {{ $t('modalConfirm.notData') }}
                     </div>
                 </div>
             </div>

@@ -48,9 +48,9 @@
                             class="relative disable-button text-sm text-center py-2 flex-1 rounded-full text-white">
                             <div class="flex justify-center items-center">
                                 <div class="icon iconfont icon-loading animate-spin"></div>
-                                <div class="pl-2">
+                                <!-- <div class="pl-2">
                                     請稍候...
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

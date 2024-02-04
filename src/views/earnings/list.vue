@@ -13,7 +13,8 @@
                                 :symbol="item.token && item.token.symbol" />
                         </div>
                     </div>
-                    <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">暫無數據</div>
+                    <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">{{
+                        $t('modalConfirm.notData') }}</div>
                 </van-tab>
                 <van-tab :title="$t('assistance.matchReward')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
@@ -22,7 +23,8 @@
                                 :symbol="item.token && item.token.symbol" />
                         </div>
                     </div>
-                    <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">暫無數據</div>
+                    <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">{{
+                        $t('modalConfirm.notData') }}</div>
                 </van-tab>
                 <van-tab :title="$t('assistance.generationIncentive')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
@@ -31,7 +33,8 @@
                                 :symbol="item.token && item.token.symbol" />
                         </div>
                     </div>
-                    <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">暫無數據</div>
+                    <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">{{
+                        $t('modalConfirm.notData') }}</div>
                 </van-tab>
                 <van-tab :title="$t('assistance.acceleratorAward')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
@@ -40,7 +43,8 @@
                                 :symbol="item.token && item.token.symbol" />
                         </div>
                     </div>
-                    <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">暫無數據</div>
+                    <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">{{
+                        $t('modalConfirm.notData') }}</div>
                 </van-tab>
                 <van-tab :title="$t('assistance.commitmentCard')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
@@ -49,7 +53,8 @@
                                 :symbol="item.token && item.token.symbol" />
                         </div>
                     </div>
-                    <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">暫無數據</div>
+                    <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">{{
+                        $t('modalConfirm.notData') }}</div>
                 </van-tab>
                 <van-tab :title="$t('assistance.dailyEarnings')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
@@ -58,7 +63,8 @@
                                 :symbol="item.token && item.token.symbol" />
                         </div>
                     </div>
-                    <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">暫無數據</div>
+                    <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">{{
+                        $t('modalConfirm.notData') }}</div>
                 </van-tab>
                 <van-tab :title="$t('assistance.recommendedBenefits')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
@@ -66,7 +72,8 @@
                             <earnings-card isEarning :time="item.updated_at" :price="item.reward_amount" />
                         </div>
                     </div>
-                    <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">暫無數據</div>
+                    <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">{{
+                        $t('modalConfirm.notData') }}</div>
                 </van-tab>
             </van-tabs>
         </div>
@@ -83,7 +90,8 @@ import { ref, getCurrentInstance, onMounted } from 'vue'
 import ModuleTitle from "@/components/ModuleTitle.vue";
 import EarningsCard from "./earningsCard.vue";
 import { dynamicRecords, staticRecords } from '@/request/api'
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n()
 const { proxy } = getCurrentInstance()
 let dataList = ref([])
 
@@ -162,5 +170,4 @@ function getDynamicRecords(typeID) {
     background: transparent;
     padding-bottom: 20px;
     margin-top: 0.5px;
-}
-</style>
+}</style>

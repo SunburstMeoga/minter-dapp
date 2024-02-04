@@ -104,7 +104,7 @@
             </div>
         </div>
         <div v-if="cardList.length == 0" class="text-white font-bold mt-20 text-center">
-            暫無數據
+            {{ $t('modalConfirm.notData') }}
         </div>
     </div>
 </template>

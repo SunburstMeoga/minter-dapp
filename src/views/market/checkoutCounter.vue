@@ -463,7 +463,7 @@ async function handleCalibrationReferrer() {
 
       proxy.$confirm.hide()
       proxy.$confirm.show({
-        title: '提示',
+        title: t('modalConfirm.tips'),
         content: '邀請地址必須在您的點位圖中。',
         showCancelButton: false,
         confirmText: t('modalConfirm.confirm'),
@@ -520,7 +520,7 @@ async function handleCalibrationLeg() {
       calibratingReferrer.value = false
       proxy.$confirm.hide()
       proxy.$confirm.show({
-        title: '提示',
+        title: t('modalConfirm.tips'),
         content: '對碰地址必須在您的點位圖中。',
         showCancelButton: false,
         confirmText: t('modalConfirm.confirm'),
@@ -636,10 +636,10 @@ async function handleConfirmBuyForUSDT() {
     proxy.$loading.hide()
     proxy.$confirm.hide()
     proxy.$confirm.show({
-      title: '請授權',
-      content: '需要進行USD3授權，請先完成授權。',
+      title: t('modalConfirm.authorize'),
+      content: t('modalConfirm.pleaseAuthorize', { type: 'USD3' }),
       showCancelButton: false,
-      confirmText: '去授權',
+      confirmText: t('modalConfirm.toAuthorize'),
       onConfirm: () => {
         // proxy.$loading.show()
         // usdt对pmt授權
@@ -648,13 +648,13 @@ async function handleConfirmBuyForUSDT() {
             console.log(res)
             proxy.$confirm.hide()
             // proxy.$loading.hide()
-            showToast('授權成功')
+            showToast(t('modalConfirm.successAuthorize'))
 
           })
           .catch(err => {
             console.log(err)
             proxy.$confirm.hide()
-            showToast('授權失敗，請重新授權')
+            showToast(t('modalConfirm.authorizeFail'))
           })
       },
     });
@@ -664,7 +664,7 @@ async function handleConfirmBuyForUSDT() {
   proxy.$loading.hide()
   proxy.$confirm.hide()
   proxy.$confirm.show({
-    title: '確認',
+    title: t('modalConfirm.confirm'),
     content: `是否確認購買 ${coherentInfo.value.type} 配套`,
     showCancelButton: true,
     confirmText: t('modalConfirm.confirm'),
@@ -696,7 +696,7 @@ async function handleConfirmBuyForUSDT() {
         proxy.$confirm.hide()
         proxy.$confirm.hide()
         proxy.$confirm.show({
-          title: '提示',
+          title: t('modalConfirm.tips'),
           content: '購買失敗，請重新購買。',
           showCancelButton: false,
           confirmText: t('modalConfirm.confirm'),
@@ -759,7 +759,7 @@ async function handlePopupConfirmBuy() {
     if (isAdequateBalance.message == "RT餘額不足") {
       proxy.$loading.hide()
       proxy.$confirm.show({
-        title: '提示',
+        title: t('modalConfirm.tips'),
         content: `RT餘額不足，無法購買 ${coherentInfo.value.type} 配套`,
         showCancelButton: true,
         confirmText: '兌換',
@@ -787,7 +787,7 @@ async function handlePopupConfirmBuy() {
   proxy.$loading.hide()
   proxy.$confirm.hide()
   proxy.$confirm.show({
-    title: '提示',
+    title: t('modalConfirm.tips'),
     content: `是否確認購買 ${coherentInfo.value.type} 配套`,
     showCancelButton: true,
     confirmText: t('modalConfirm.confirm'),
@@ -924,7 +924,7 @@ async function handlePopupConfirmBuy() {
         .catch(err => {
           proxy.$confirm.hide()
           proxy.$confirm.show({
-            title: '提示',
+            title: t('modalConfirm.tips'),
             content: '購買失敗，請重新購買。',
             showCancelButton: false,
             confirmText: t('modalConfirm.confirm'),

@@ -28,7 +28,7 @@
             </div>
         </div>
         <div v-if="nftsDatas.length == 0 && currentType == 0" class="text-white font-bold mt-20 text-center">
-            暫無數據
+            {{ $t('modalConfirm.notData') }}
         </div>
         <!-- 正在掛單 -->
         <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap"
@@ -41,7 +41,7 @@
             </div>
         </div>
         <div v-if="listeds.length == 0 && currentType == 1" class="text-white font-bold mt-20 text-center">
-            暫無數據
+            {{ $t('modalConfirm.notData') }}
         </div>
         <!-- 可出售 -->
         <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap"
@@ -54,7 +54,7 @@
             </div>
         </div>
         <div v-if="saleables.length == 0 && currentType == 2" class="text-white font-bold mt-20 text-center">
-            暫無數據
+            {{ $t('modalConfirm.notData') }}
         </div>
     </div>
 </template>
@@ -77,7 +77,7 @@ const { t } = useI18n()
 const { proxy } = getCurrentInstance()
 import { config } from '@/const/config'
 let nftsStatusList = computed(() => {
-    return [{ title: '全部' }, { title: '正在掛單' }, { title: '可出售' }]
+    return [{ title: t('wallet.all') }, { title: t('wallet.onSale') }, { title: t('wallet.canSale') }]
 })
 // let listeds = ref([{ nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }])
 // let saleables = ref([{ nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }, { nftImg: nftOne, checkedStatus: false }])
@@ -257,7 +257,7 @@ function countDown(time) {
     minute = minute < 10 ? "0" + minute : minute
     var second = Math.floor(time % 60);
     second = second < 10 ? "0" + second : second
-    return day + "天" + hour + "時" + minute + "分" + second + "秒"
+    return day + ":" + hour + ":" + minute + ":" + second
 }
 //獲取24小時內掛單的nft數量
 async function getListeds24h() { //每个地址每天最多挂单4张NFT
@@ -294,8 +294,9 @@ async function handleListed(item, index) {
         if (Number(totalListings) >= 4) {
             proxy.$confirm.hide()
             proxy.$confirm.show({
-                title: '提示',
-                content: `你当前已经挂单${totalListings}张NFT，賣掉一張後可繼續掛單，且20分鐘內只能掛單4張NFT。`,
+                title: t('modalConfirm.tips'),
+                // content: `你当前已经挂单${totalListings}张NFT，賣掉一張後可繼續掛單，且20分鐘內只能掛單4張NFT。`,
+                content: `${t('modalConfirm.saleLimit', { count: totalListings })}`,
                 showCancelButton: false,
                 confirmText: t('modalConfirm.confirm'),
                 onConfirm: () => {
@@ -310,8 +311,9 @@ async function handleListed(item, index) {
         if (Number(numListingsIn24Hours) >= 4 && timestamp * 1000 > new Date().getTime()) {
             proxy.$confirm.hide()
             proxy.$confirm.show({
-                title: '提示',
-                content: `20分鐘內一共只能買4張和同時掛單NFT，您當前已掛單或售賣${numListingsIn24Hours}張，${countDown(timestamp)}後可繼續掛單`,
+                title: t('modalConfirm.tips'),
+                // content: `20分鐘內一共只能買4張和同時掛單NFT，您當前已掛單或售賣${numListingsIn24Hours}張，${countDown(timestamp)}後可繼續掛單`,
+                content: `${t('modalConfirm.cantSale', { count: numListingsIn24Hours, time: countDown(timestamp) })}`,
                 showCancelButton: false,
                 confirmText: t('modalConfirm.confirm'),
                 onConfirm: () => {
@@ -326,7 +328,7 @@ async function handleListed(item, index) {
         console.log(err)
         proxy.$confirm.hide()
         proxy.$loading.hide()
-        showToast('获取挂单状态失败，请重试')
+        showToast(t('toast.error'))
         return
     }
     let time
@@ -341,8 +343,10 @@ async function handleListed(item, index) {
             // return
             proxy.$confirm.hide()
             proxy.$confirm.show({
-                title: '提示',
-                content: `${countDown(Number(time))}後可出售`,
+                title: t('modalConfirm.tips'),
+                // content: `${countDown(Number(time))}後可出售`,
+                content: `${t('modalConfirm.postSale', { time: countDown(Number(time)) })}`,
+
                 showCancelButton: false,
                 confirmText: t('modalConfirm.confirm'),
                 onConfirm: () => {
@@ -355,7 +359,8 @@ async function handleListed(item, index) {
     } catch (err) {
         proxy.$loading.hide()
         console.log(err)
-        showToast('獲取禁售期失敗，請重試')
+        // showToast('獲取禁售期失敗，請重試')
+        showToast(t('toast.error'))
         return
     }
     // return
@@ -365,7 +370,8 @@ async function handleListed(item, index) {
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
-        showToast('檢查MT授權狀態失敗，請重試')
+        // showToast(`${t('modalConfirm.checkAuthFail', {type: 'MT'})}`)
+        showToast(`${t('modalConfirm.checkAuthFail', { type: 'MT' })}`)
         console.log(err)
     }
     const transactionResponse = await nftContractApi.isApprovedAll(localStorage.getItem('address'), config.nfts_marketplace_addr)
@@ -374,10 +380,10 @@ async function handleListed(item, index) {
         proxy.$loading.hide()
         proxy.$confirm.hide()
         proxy.$confirm.show({
-            title: '請授權',
-            content: '需要進行NFT授權，請先完成授權。',
+            title: t('modalConfirm.authorize'),
+            content: t('modalConfirm.pleaseAuthorize', { type: 'NFT' }),
             showCancelButton: false,
-            confirmText: '去授權',
+            confirmText: t('modalConfirm.toAuthorize'),
             onConfirm: () => {
                 // proxy.$loading.show()
                 // usdt对pmt授權
@@ -386,13 +392,13 @@ async function handleListed(item, index) {
                         console.log(res)
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
-                        showToast('授權成功')
+                        showToast(t('modalConfirm.successAuthorize'))
 
                     })
                     .catch(err => {
                         console.log(err)
                         proxy.$confirm.hide()
-                        showToast('授權失敗，請重新授權')
+                        showToast(t('modalConfirm.authorizeFail'))
                     })
             },
         });
@@ -414,7 +420,7 @@ async function handleListed(item, index) {
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
-        showToast('檢查授權狀態失敗，請重試')
+        showToast(t('modalConfirm.checkAuthFail'))
         console.log(err)
     }
     console.log('allowance', allowance)
@@ -422,10 +428,10 @@ async function handleListed(item, index) {
         proxy.$loading.hide()
         proxy.$confirm.hide()
         proxy.$confirm.show({
-            title: '請授權',
-            content: '需要進行PMT授權，請先完成授權。',
+            title: t('modalConfirm.authorize'),
+            content: t('modalConfirm.pleaseAuthorize', { type: 'PMT' }),
             showCancelButton: false,
-            confirmText: '去授權',
+            confirmText: t('modalConfirm.toAuthorize'),
             onConfirm: () => {
                 // proxy.$loading.show()
                 // usdt对pmt授權
@@ -434,13 +440,13 @@ async function handleListed(item, index) {
                         console.log(res)
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
-                        showToast('授權成功')
+                        showToast(t('modalConfirm.successAuthorize'))
 
                     })
                     .catch(err => {
                         console.log(err)
                         proxy.$confirm.hide()
-                        showToast('授權失敗，請重新授權')
+                        showToast(t('modalConfirm.authorizeFail'))
                     })
             },
         });
@@ -451,10 +457,10 @@ async function handleListed(item, index) {
         proxy.$loading.hide()
         proxy.$confirm.hide()
         proxy.$confirm.show({
-            title: '請授權',
-            content: '需要進行MT授權，請先完成授權。',
+            title: t('modalConfirm.authorize'),
+            content: t('modalConfirm.pleaseAuthorize', { type: 'MT' }),
             showCancelButton: false,
-            confirmText: '去授權',
+            confirmText: t('modalConfirm.toAuthorize'),
             onConfirm: () => {
                 // proxy.$loading.show()
                 // pmt对nft授權
@@ -463,13 +469,13 @@ async function handleListed(item, index) {
                         console.log(res)
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
-                        showToast('授權成功')
+                        showToast(t('modalConfirm.successAuthorize'))
 
                     })
                     .catch(err => {
                         console.log(err)
                         proxy.$confirm.hide()
-                        showToast('授權失敗，請重新授權')
+                        showToast(t('modalConfirm.authorizeFail'))
                     })
             },
         });
@@ -478,8 +484,9 @@ async function handleListed(item, index) {
     proxy.$loading.hide()
     proxy.$confirm.hide()
     proxy.$confirm.show({
-        title: '確認',
-        content: `是否確認將Token ID為 ${item.token_id} 的NFT進行掛單?`,
+        title: t('modalConfirm.confirm'),
+        // content: `是否確認將Token ID為 ${item.token_id} 的NFT進行掛單?`,
+        content: `${t('modalConfirm.confirmSaleNFT', { tokenID: item.token_id })}`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
         onConfirm: async () => {
@@ -487,7 +494,7 @@ async function handleListed(item, index) {
                 // proxy.$loading.show()
                 console.log(item.token_id)
                 proxy.$confirm.hide()
-                item.opertingType = "正在挂单..."
+                item.opertingType = t('modalConfirm.onSale')
                 item.showOperting = true
                 await nftContractApi.listNFT(item.token_id)
                 // item.opertingType = "挂单成功"
@@ -527,8 +534,9 @@ async function handleListed(item, index) {
                 item.showOperting = false
                 item.is_listed = false
                 proxy.$confirm.show({
-                    title: '提示',
-                    content: `Token ID為 ${item.token_id} 的NFT挂单失败，请重新挂单`,
+                    title: t('modalConfirm.tips'),
+                    // content: `Token ID為 ${item.token_id} 的NFT挂单失败，请重新挂单`,
+                    content: `${t('modalConfirm.saleNFTFail', { tokenID: item.token_id })}`,
                     showCancelButton: false,
                     confirmText: t('modalConfirm.confirm'),
                     onConfirm: () => {
@@ -550,7 +558,7 @@ async function handleCancelList(item) {
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
-        showToast('檢查授權狀態失敗，請重試')
+        showToast(t('modalConfirm.checkAuthFail'))
         console.log(err)
     }
     console.log('isApprovedAll', isApprovedAll)
@@ -559,10 +567,10 @@ async function handleCancelList(item) {
         proxy.$loading.hide()
         proxy.$confirm.hide()
         proxy.$confirm.show({
-            title: '請授權',
-            content: '需要進行NFT授權，請先完成授權。',
+            title: t('modalConfirm.authorize'),
+            content: t('modalConfirm.pleaseAuthorize', { type: 'NFT' }),
             showCancelButton: false,
-            confirmText: '去授權',
+            confirmText: t('modalConfirm.toAuthorize'),
             onConfirm: async () => {
                 // proxy.$loading.show()
                 // pmt对nft授權
@@ -571,13 +579,13 @@ async function handleCancelList(item) {
                         console.log(res)
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
-                        showToast('授權成功')
+                        showToast(t('modalConfirm.successAuthorize'))
 
                     })
                     .catch(err => {
                         console.log(err)
                         proxy.$confirm.hide()
-                        showToast('授權失敗，請重新授權')
+                        showToast(t('modalConfirm.authorizeFail'))
                     })
             },
         });
@@ -587,8 +595,9 @@ async function handleCancelList(item) {
     proxy.$loading.hide()
     proxy.$confirm.hide()
     proxy.$confirm.show({
-        title: '確認',
-        content: `是否取消掛單Token ID為 ${item.token_id} 的NFT?`,
+        title: t('modalConfirm.confirm'),
+        // content: `是否取消掛單Token ID為 ${item.token_id} 的NFT?`,
+        content: `${t('modalConfirm.confirmCancelSale', { tokenID: item.token_id })}`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
         onConfirm: async () => {
@@ -597,8 +606,8 @@ async function handleCancelList(item) {
 
                 console.log(item.token_id)
                 proxy.$confirm.hide()
-                item.opertingType = "正在挂单..."
-                item.showOperting = true
+                item.opertingType = t('modalConfirm.canceling'),
+                    item.showOperting = true
                 await nftContractApi.unlistNFT(item.token_id)
                 // item.opertingType = "挂单成功"
                 item.showOperting = false
@@ -641,8 +650,8 @@ async function handleCancelList(item) {
                 item.showOperting = false
                 item.is_listed = true
                 proxy.$confirm.show({
-                    title: '提示',
-                    content: '取消掛單失敗，請重試',
+                    title: t('modalConfirm.tips'),
+                    content: t('modalConfirm.cancelFail'),
                     showCancelButton: false,
                     confirmText: t('modalConfirm.confirm'),
                     onConfirm: () => {

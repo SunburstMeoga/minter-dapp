@@ -519,7 +519,7 @@ async function handleConfirmBuyForRTPOPUP() {
     proxy.$confirm.hide()
 
     proxy.$confirm.show({
-        title: '提示',
+        title: t('modalConfirm.tips'),
         content: `是否確認購買 ${coherentsList.value[currentCoherent.value].type} 配套`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
@@ -568,7 +568,7 @@ async function handleConfirmBuyForRTPOPUP() {
                         if (res.message == "推薦人地址不存在") {
                             proxy.$confirm.hide()
                             proxy.$confirm.show({
-                                title: '提示',
+                                title: t('modalConfirm.tips'),
                                 content: `推薦人地址不存在`,
                                 showCancelButton: false,
                                 confirmText: t('modalConfirm.confirm'),
@@ -709,7 +709,7 @@ async function handlePopupConfirmBuy() {
     proxy.$loading.hide()
     proxy.$confirm.hide()
     proxy.$confirm.show({
-        title: '提示',
+        title: t('modalConfirm.tips'),
         content: `是否確認購買 ${coherentsList.value[currentSelf.value].type} 配套`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
@@ -737,7 +737,7 @@ async function handlePopupConfirmBuy() {
                             }
                             proxy.$confirm.hide()
                             proxy.$confirm.show({
-                                title: '提示',
+                                title: t('modalConfirm.tips'),
                                 content: `成功購買購買 ${coherentsList.value[currentSelf.value].type} 配套`,
                                 showCancelButton: false,
                                 confirmText: t('modalConfirm.confirm'),
@@ -798,10 +798,10 @@ async function handleConfirmBuyForUSDTPOPUP() {
         proxy.$loading.hide()
         proxy.$confirm.hide()
         proxy.$confirm.show({
-            title: '請授權',
-            content: '需要進行USD3授權，請先完成授權。',
+            title: t('modalConfirm.authorize'),
+            content: t('modalConfirm.pleaseAuthorize', { type: 'USD3' }),
             showCancelButton: false,
-            confirmText: '去授權',
+            confirmText: t('modalConfirm.toAuthorize'),
             onConfirm: () => {
                 proxy.$loading.show()
                 // usdt对pmt授權
@@ -910,10 +910,10 @@ async function handleConfirmBuyForUSDT() {
         proxy.$loading.hide()
         proxy.$confirm.hide()
         proxy.$confirm.show({
-            title: '請授權',
-            content: '需要進行USD3授權，請先完成授權。',
+            title: t('modalConfirm.authorize'),
+            content: t('modalConfirm.pleaseAuthorize', { type: 'USD3' }),
             showCancelButton: false,
-            confirmText: '去授權',
+            confirmText: t('modalConfirm.toAuthorize'),
             onConfirm: () => {
                 proxy.$loading.show()
                 // usdt对pmt授權
@@ -937,7 +937,7 @@ async function handleConfirmBuyForUSDT() {
     proxy.$loading.hide()
     proxy.$confirm.hide()
     proxy.$confirm.show({
-        title: '提示',
+        title: t('modalConfirm.tips'),
         content: `是否確認購買 ${coherentsList.value[currentSelf.value].type} 配套`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
@@ -1002,7 +1002,7 @@ function viewPointMap(address) {
                 proxy.$confirm.hide()
                 isFinishPoint.value = true
                 proxy.$confirm.show({
-                    title: '提示',
+                    title: t('modalConfirm.tips'),
                     content: `您無法查詢不在您點位圖內的地址信息`,
                     showCancelButton: false,
                     confirmText: t('modalConfirm.confirm'),
@@ -1017,7 +1017,7 @@ function viewPointMap(address) {
                 proxy.$confirm.hide()
                 isFinishPoint.value = true
                 proxy.$confirm.show({
-                    title: '提示',
+                    title: t('modalConfirm.tips'),
                     content: `所檢示的地址不是自己的下級。`,
                     showCancelButton: false,
                     confirmText: t('modalConfirm.confirm'),
@@ -1047,7 +1047,7 @@ function handleConfirmUpPackage() {
     }
     proxy.$confirm.hide()
     proxy.$confirm.show({
-        title: '提示',
+        title: t('modalConfirm.tips'),
         content: `是否確認将下级配套升级为 ${buyPackage.value.text} 配套`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),

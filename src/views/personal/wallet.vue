@@ -101,14 +101,16 @@
                         </div>
                     </div>
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
-                        <div class="text-base"> 請輸入兌換金額 </div>
-                        <div class="text-primary-color text-xs pl-1"> (需要收取{{ currentExchangeTypeBT == 0 ? ' 10% ' : ' 0% '
-                        }}手續費)</div>
+                        <div class="text-base"> {{ $t('toast.enterExchangeAmount') }} </div>
+                        <div class="text-primary-color text-xs pl-1"> {{ $t('toast.handlingFee', {
+                            handlingFee:
+                                currentExchangeTypeBT == 0 ? ' 10% ' : ' 0% '
+                        }) }}</div>
                     </div>
                     <div class="w-full flex justify-between items-center mb-10">
                         <div class="rounded  flex-1 ">
-                            <input type="text" placeholder="兌換金額" class="w-full py-2 bg-transparent rounded pl-1"
-                                v-model="exchangeAmountBT">
+                            <input type="text" :placeholder="$t('toast.exchangeAmount')"
+                                class="w-full py-2 bg-transparent rounded pl-1" v-model="exchangeAmountBT">
                         </div>
                     </div>
                     <div class="operating-button rounded-full text-white font-bold text-center text-sm py-3"
@@ -240,7 +242,7 @@
             <div class="bg-black text-white py-4 flex flex-col justify-center">
                 <div class="w-11/12 mr-auto ml-auto">
                     <div class="text-center font-bold text-white mb-6">
-                        兌換
+                        {{ $t('toast.exchangeTitle') }}
                     </div>
                     <div class="flex justify-start items-center mb-10">
                         <div class="border-b-4 border-transparent px-2 py-1.5 ml-4" v-for="(item, index) in exhangeTypes"
@@ -251,14 +253,16 @@
                         </div>
                     </div>
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
-                        <div class="text-base"> 請輸入兌換金額 </div>
-                        <div class="text-primary-color text-xs pl-1"> (需要收取{{ currentExchangeType == 0 ? ' 10% ' : ' 5% '
-                        }}手續費)</div>
+                        <div class="text-base"> {{ $t('toast.enterExchangeAmount') }} </div>
+                        <div class="text-primary-color text-xs pl-1"> {{ $t('toast.handlingFee', {
+                            handlingFee:
+                                currentExchangeType == 0 ? ' 10% ' : ' 5% '
+                        }) }} </div>
                     </div>
                     <div class="w-full flex justify-between items-center mb-10">
                         <div class="rounded  flex-1 ">
-                            <input type="text" placeholder="兌換金額" class="w-full py-2 bg-transparent rounded pl-1"
-                                v-model="exchangeAmount">
+                            <input type="text" :placeholder="$t('toast.exchangeAmount')"
+                                class="w-full py-2 bg-transparent rounded pl-1" v-model="exchangeAmount">
                         </div>
                     </div>
                     <div class="operating-button rounded-full text-white font-bold text-center text-sm py-3"
@@ -333,8 +337,11 @@ let showRechargePopup = ref(false)
 let showExchangePopupBT = ref(false)
 let exchangeAmount = ref('')
 let exchangeAmountBT = ref('')
-let exhangeTypes = ref([{ title: 'MT 兌換 USDT', type: 0 }, { title: 'MT 兌換 RT', type: 1 }])
-let exhangeTypesBT = ref([{ title: 'BT 兌換 USDT', type: 0 }, { title: 'BT 兌換 RT', type: 1 }])
+// let exhangeTypes = ref([{ title: 'MT 兌換 USDT', type: 0 }, { title: 'MT 兌換 RT', type: 1 }])
+// let exhangeTypesBT = ref([{ title: 'BT 兌換 USDT', type: 0 }, { title: 'BT 兌換 RT', type: 1 }])
+let exhangeTypes = computed(() => {
+    return [{ title: `MT ${t('toast.exchangeTitle')} USDT`, type: 0 }, { title: `MT ${t('toast.exchangeTitle')} RT`, type: 1 }]
+})
 let currentExchangeType = ref(0)
 let currentExchangeTypeBT = ref(0)
 let usdtBalance = ref('')
@@ -371,7 +378,7 @@ function getTime(time) {
     second = second < 10 ? "0" + second : second
     // console.log(day + "天" + hour + "时" + minute + "分" + second + "秒")
 
-    return day + "天" + hour + "時" + minute + "分" + second + "秒"
+    return day + ":" + hour + ":" + minute + ":" + second
     // return day + "天" + hour + "时" + minute + "分" + second + "秒"
 }
 //獲取pmt鎖定期
@@ -395,8 +402,8 @@ async function handleWalletCardReleases() {
         time = Number(result) + (new Date().getTime() / 1000)
         proxy.$confirm.hide()
         proxy.$confirm.show({
-            title: "提示",
-            content: `${getTime(time)}後可釋放`,
+            title: t('modalConfirm.tips'),
+            content: `${t('modalConfirm.postRelease', { time: getTime(time) })}`,
             showCancelButton: false,
             onConfirm: () => {
                 proxy.$confirm.hide()
@@ -410,8 +417,8 @@ async function handleWalletCardReleases() {
     if (Number(pmtNumber) == 0) {
         proxy.$confirm.hide()
         proxy.$confirm.show({
-            title: "提示",
-            content: `當前暫無可釋放PMT`,
+            title: t('modalConfirm.tips'),
+            content: t('toast.haveNotCanReleasePMT'),
             showCancelButton: false,
             onConfirm: () => {
                 proxy.$confirm.hide()
@@ -421,8 +428,8 @@ async function handleWalletCardReleases() {
     }
     proxy.$confirm.hide()
     proxy.$confirm.show({
-        title: "提示",
-        content: `是否確認釋放剩餘PMT`,
+        title: t('modalConfirm.tips'),
+        content: t('modalConfirm.confirmRelease'),
         showCancelButton: false,
         onConfirm: async () => {
             try {
@@ -438,7 +445,7 @@ async function handleWalletCardReleases() {
                 console.log(err)
                 proxy.$loading.hide()
                 proxy.$confirm.hide()
-                showToast('釋放PMT失敗，請重試')
+                showToast(t('toast.releaseFail'))
             }
         }
     })
@@ -446,15 +453,15 @@ async function handleWalletCardReleases() {
 //rt轉賬
 function handleTransferRT() {
     if (!transferRTAmount.value) {
-        showToast('請輸入轉賬金額')
+        showToast(t('toast.enterTransferAmount'))
         return
     }
     if (!transferRTAddress.value) {
-        showToast('請輸入轉賬地址')
+        showToast(t('toast.enterTransferAddress'))
         return
     }
     if (transferRTAddress.value == ZeroAddress || !isAddress(transferRTAddress.value)) {
-        showToast('請輸入有效地址')
+        showToast(t('toast.enterValidaddress'))
         return
     }
     toggleTransferPopup()
@@ -462,8 +469,9 @@ function handleTransferRT() {
     proxy.$confirm.hide()
     proxy.$confirm.hide()
     proxy.$confirm.show({
-        title: '確認',
-        content: `是否確認將${transferRTAmount.value}RT轉入到${transferRTAddress.value},該行為不可撤銷！`,
+        title: t('modalConfirm.confirm'),
+        // content: `是否確認將${transferRTAmount.value}RT轉入到${transferRTAddress.value},該行為不可撤銷！`,
+        content: `${t('modalConfirm.confirmTransferRT', { amount: transferRTAmount.value, address: transferRTAddress.value })}`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
         cancelText: t('modalConfirm.cancel'),
@@ -472,12 +480,11 @@ function handleTransferRT() {
             console.log(data)
             transfersRT(data)
                 .then(res => {
-
                     console.log(res)
                     if (res.error) {
                         proxy.$confirm.hide()
                         proxy.$confirm.show({
-                            title: '提示',
+                            title: t('modalConfirm.confirm'),
                             content: res.error,
                             showCancelButton: false,
                             confirmText: t('modalConfirm.confirm'),
@@ -488,13 +495,13 @@ function handleTransferRT() {
                         });
                         return
                     }
-
-
                     setTimeout(() => {
                         proxy.$confirm.hide()
                         proxy.$confirm.show({
-                            title: '提示',
-                            content: `已成功轉賬 ${transferRTAmount.value} RT`,
+                            title: t('modalConfirm.tips'),
+                            // content: `已成功轉賬 ${transferRTAmount.value} RT`,
+                            content: `${t('modalConfirm.successTransferRT', { amount: transferRTAmount.value })}`,
+
                             showCancelButton: false,
                             confirmText: t('modalConfirm.confirm'),
                             onConfirm: async () => {
@@ -508,16 +515,14 @@ function handleTransferRT() {
                             },
                         });
                     }, 8000);
-
                     // showToast('轉賬成功')
-
                 })
                 .catch(err => {
                     console.log('err', err)
                     proxy.$confirm.hide()
                     proxy.$confirm.show({
-                        title: '提示',
-                        content: `轉賬失敗，請重試`,
+                        title: t('modalConfirm.tips'),
+                        content: t('modalConfirm.transferFail'),
                         showCancelButton: false,
                         confirmText: t('modalConfirm.confirm'),
                         onConfirm: () => {
@@ -655,23 +660,25 @@ function viewPromiseCard() {
 async function handleExchangeBT() {
 
     if (!exchangeAmountBT.value) {
-        showToast('請輸入兌換金額')
+        showToast(t('toast.enterExchangeAmount'))
         return
     }
     toggleExchangePopupBT()
 
     let contentWord
     if (currentExchangeTypeBT.value == 0) {
-        contentWord = `是否確認將 ${exchangeAmountBT.value} BT 兌換為 ${exchangeAmountBT.value * 0.9} USD3， 已扣除10% (${exchangeAmountBT.value * 0.1} BT) 手續費。 `
+        // contentWord = `是否確認將 ${exchangeAmountBT.value} BT 兌換為 ${exchangeAmountBT.value * 0.9} USD3， 已扣除10% (${exchangeAmountBT.value * 0.1} BT) 手續費。 `
+        contentWord = `${t('modalConfirm.confirmExchangeBTToUSD3', { amount: exchangeAmountBT.value, usd3: exchangeAmountBT.value * 0.9, handlingFee: exchangeAmountBT.value * 0.1 })}`
     } else {
-        contentWord = `是否確認將 ${exchangeAmountBT.value} BT 兌換為 ${exchangeAmountBT.value} RT。 `
+        // contentWord = `是否確認將 ${exchangeAmountBT.value} BT 兌換為 ${exchangeAmountBT.value} RT。 `
+        contentWord = `${t('modalConfirm.confirmExchangeBTToBT', { amount: exchangeAmountBT.value, RT: exchangeAmountBT })}`
     }
     let data = {
         amount: exchangeAmountBT.value
     }
     proxy.$confirm.hide()
     proxy.$confirm.show({
-        title: '確認',
+        title: t('modalConfirm.confirm'),
         content: contentWord,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
@@ -684,7 +691,7 @@ async function handleExchangeBT() {
                         if (res.error) {
                             proxy.$confirm.hide()
                             proxy.$confirm.show({
-                                title: '提示',
+                                title: t('modalConfirm.tips'),
                                 content: res.error,
                                 showCancelButton: false,
                                 confirmText: t('modalConfirm.confirm'),
@@ -696,12 +703,13 @@ async function handleExchangeBT() {
                         }
                         getUSDTBalance()
                         getPlayersInfo(localStorage.getItem('address'))
-                        showToast(`已成功兌換 ${exchangeAmountBT.value * 0.9} USD3`)
+                        // showToast(`已成功兌換 ${exchangeAmountBT.value * 0.9} USD3`)
+                        showToast(`${t('modalConfirm.successExchangeUSD3', { amount: exchangeAmountBT.value })}`)
                         console.log(res)
                     })
                     .catch(err => {
                         proxy.$confirm.hide()
-                        showToast('兌換失敗，請重試')
+                        showToast(t('modalConfirm.exchangeFail'))
                         console.log(err)
                     })
             } else {
@@ -711,7 +719,7 @@ async function handleExchangeBT() {
                         if (res.error) {
                             proxy.$confirm.hide()
                             proxy.$confirm.show({
-                                title: '提示',
+                                title: t('modalConfirm.tips'),
                                 content: res.error,
                                 showCancelButton: false,
                                 confirmText: t('modalConfirm.confirm'),
@@ -722,12 +730,13 @@ async function handleExchangeBT() {
                             return
                         }
                         getPlayersInfo(localStorage.getItem('address'))
-                        showToast(`已成功兌換 ${exchangeAmountBT.value} RT`)
+                        // showToast(`已成功兌換 ${exchangeAmountBT.value} RT`)
+                        showToast(`${t('modalConfirm/successExchangeRT', { amount: exchangeAmountBT.value })}`)
                         console.log(res)
                     })
                     .catch(err => {
                         proxy.$confirm.hide()
-                        showToast('兌換失敗，請重試')
+                        showToast(t('modalConfirm.exchangeFail'))
                         console.log(err)
                     })
             }
@@ -740,7 +749,7 @@ async function handleExchangeBT() {
 //點擊兌換彈窗兌換按鈕
 async function handleExchange() {
     if (!exchangeAmount.value) {
-        showToast('請輸入兌換金額')
+        showToast(t('toast.enterExchangeAmount'))
         return
     }
     toggleExchangePopup()
@@ -752,7 +761,7 @@ async function handleExchange() {
         allowance = await minterContractApi.allowance(localStorage.getItem('address'), config.swap_addr)
         proxy.$loading.hide()
     } catch (err) {
-        showToast('錯誤，請重試')
+        showToast(t('toast.error'))
         proxy.$loading.hide()
         toggleExchangePopup()
     }
@@ -761,10 +770,12 @@ async function handleExchange() {
         proxy.$loading.hide()
         proxy.$confirm.hide()
         proxy.$confirm.show({
-            title: '請授權',
-            content: '需要進行MT授權，請先完成授權。',
+            // title: t('modalConfirm.authorize'),
+            title: t('modalConfirm.authorize'),
+            // content: t('modalConfirm.pleaseAuthorize', { type: 'MT' }),
+            content: t('modalConfirm.pleaseAuthorize', { type: 'MT' }),
             showCancelButton: false,
-            confirmText: '去授權',
+            confirmText: t('modalConfirm.toAuthorize'),
             onConfirm: () => {
                 // proxy.$loading.show()
                 // usdt和mt授權
@@ -773,13 +784,14 @@ async function handleExchange() {
                         console.log(res)
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
-                        showToast('授權成功')
+                        // showToast(t('modalConfirm.successAuthorize'))
+                        showToast(t('modalConfirm.successAuthorize'))
 
                     })
                     .catch(err => {
                         console.log(err)
                         proxy.$confirm.hide()
-                        showToast('授權失敗，請重新授權')
+                        showToast(t('modalConfirm.authorizeFail'))
                     })
 
             },
@@ -790,14 +802,16 @@ async function handleExchange() {
     let amount = WEB3.utils.toWei((exchangeAmount.value).toString(), 'ether')
     let contentWord
     if (currentExchangeType.value == 0) {
-        contentWord = `是否確認將 ${exchangeAmount.value} MT 兌換為 ${exchangeAmount.value * 0.9} USD3， 已扣除10% (${exchangeAmount.value * 0.1} MT) 手續費。 `
+        // contentWord = `是否確認將 ${exchangeAmount.value} MT 兌換為 ${exchangeAmount.value * 0.9} USD3， 已扣除10% (${exchangeAmount.value * 0.1} MT) 手續費。 `
+        contentWord = `${t('modalConfirm.confirmExchangeMTToUSD3', { amount: exchangeAmount.value, usd3: exchangeAmount.value * 0.9, handlingFee: exchangeAmount.value * 0.1 })}`
     } else {
-        contentWord = `是否確認將 ${exchangeAmount.value} MT 兌換為 ${exchangeAmount.value * 0.95} RT， 已扣除5% (${exchangeAmount.value * 0.05} MT) 手續費。`
+        // contentWord = `是否確認將 ${exchangeAmount.value} MT 兌換為 ${exchangeAmount.value * 0.95} RT， 已扣除5% (${exchangeAmount.value * 0.05} MT) 手續費。`
+        contentWord = `${t('modalConfirm.confirmExchangeMTToRT', { amount: exchangeAmount.value, rt: exchangeAmount.value * 0.95, handlingFee: exchangeAmount.value * 0.05 })}`
     }
     proxy.$loading.hide()
     proxy.$confirm.hide()
     proxy.$confirm.show({
-        title: '確認',
+        title: t('modalConfirm.confirm'),
         content: contentWord,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
@@ -809,11 +823,12 @@ async function handleExchange() {
                     proxy.$confirm.hide()
                     getMTBalance()
                     getUSDTBalance()
-                    showToast(`已成功兌換 ${exchangeAmount.value * 0.9} USD3`)
+                    // showToast(`已成功兌換 ${exchangeAmount.value * 0.9} USD3`)
+                    showToast(`${t('modalConfirm.successExchangeUSD3', { amount: exchangeAmount.value * 0.9 })}`)
                 } catch (err) {
                     console.log(err)
                     proxy.$loading.hide()
-                    showToast('兌換失敗，請重試')
+                    showToast(t('modalConfirm.exchangeFail'))
                 }
             } else {
                 try {
@@ -822,11 +837,13 @@ async function handleExchange() {
                     proxy.$confirm.hide()
                     getMTBalance()
                     getPlayersInfo(localStorage.getItem('address'))
-                    showToast(`已成功兌換 ${exchangeAmount.value * 0.95} RT`)
+                    // showToast(`已成功兌換 ${exchangeAmount.value * 0.95} RT`)
+                    showToast(`${t('modalConfirm.successExchangeRT', { amount: exchangeAmount.value * 0.95 })}`)
+
                 } catch (err) {
                     console.log(err)
                     proxy.$confirm.hide()
-                    showToast('兌換失敗，請重試')
+                    showToast(t('modalConfirm.exchangeFail'))
                 }
             }
         },
@@ -859,14 +876,14 @@ function handleWalletCardWithdraw() {
 function handleWalletCardTransfer() {
     console.log(palayBanalce.value.rt)
     if (Number(palayBanalce.value.rt) <= 0) {
-        showToast('RT餘額不足，不能進行转账操作。')
+        showToast(`${t('modalConfirm.cantTransfer', { type: "RT" })}`)
         return
     }
     toggleTransferPopup()
 }
 function handleWalletCardExchangeBT() {
     if (Number(palayBanalce.value.bt) <= 0) {
-        showToast('BT餘額不足，不能進行劃轉操作。')
+        showToast(`${t('modalConfirm.cantTransfer', { type: "BT" })}`)
         return
     }
     toggleExchangePopupBT()
@@ -874,7 +891,7 @@ function handleWalletCardExchangeBT() {
 //點擊錢包卡片兌換按鈕
 function handleWalletCardExchange() {
     if (Number(mtBalance.value).toFixed(4) <= 0) {
-        showToast('MT餘額不足，不能進行劃轉操作。')
+        showToast(`${t('modalConfirm.cantTransfer', { type: "MT" })}`)
         return
     }
     toggleExchangePopup()

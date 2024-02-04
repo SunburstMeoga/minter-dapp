@@ -23,7 +23,8 @@
 <script setup>
 import { ref, onMounted, getCurrentInstance } from 'vue'
 import { useRoute } from "vue-router"
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n()
 const route = useRoute()
 // let Star = ref({
 //   orbitRadius: number,
@@ -190,11 +191,10 @@ async function accountHasChanged() {
   window.ethereum.on('accountsChanged', (accounts) => {
     proxy.$confirm.hide()
     proxy.$confirm.show({
-      title: '賬戶發生變化',
-      content: '當前賬戶發生變化，請重新登錄',
+      title: t('modalConfirm.accountChanageTitle'),
+      content: t('modalConfirm.accountChanageContent'),
       showCancelButton: false,
-      // confirmText: t('modalConfirm.confirm'),
-      confirmText: "確認",
+      confirmText: t('modalConfirm.confirm'),
       onConfirm: () => {
         localStorage.removeItem('token')
         localStorage.removeItem('address')

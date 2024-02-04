@@ -103,7 +103,7 @@ async function getUSDTBalance() {
 }
 async function handleExchange() {
     if (!exchangeAmount.value) {
-        showToast('請輸入兌換金額')
+        showToast(t('toast.enterExchangeAmount'))
         return
     }
     proxy.$loading.show()
@@ -121,10 +121,10 @@ async function handleExchange() {
         proxy.$loading.hide()
         proxy.$confirm.hide()
         proxy.$confirm.show({
-            title: '請授權',
-            content: '需要進行USD3授權，請先完成授權。',
+            title: t('modalConfirm.authorize'),
+            content: t('modalConfirm.pleaseAuthorize', { type: 'USD3' }),
             showCancelButton: false,
-            confirmText: '去授權',
+            confirmText: t('modalConfirm.toAuthorize'),
             onConfirm: () => {
                 // proxy.$loading.show()
                 // usdt对pmt授權
@@ -133,13 +133,13 @@ async function handleExchange() {
                         console.log(res)
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
-                        showToast('授權成功')
+                        showToast(t('modalConfirm.successAuthorize'))
 
                     })
                     .catch(err => {
                         console.log(err)
                         proxy.$confirm.hide()
-                        showToast('授權失敗，請重新授權')
+                        showToast(t('modalConfirm.authorizeFail'))
                     })
             },
         });
@@ -149,7 +149,7 @@ async function handleExchange() {
     proxy.$loading.hide()
     proxy.$confirm.hide()
     proxy.$confirm.show({
-        title: '確認',
+        title: t('modalConfirm.confirm'),
         content: `是否確認將 ${exchangeAmount.value} USD3兌換為 ${exchangeAmount.value} RT?`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
