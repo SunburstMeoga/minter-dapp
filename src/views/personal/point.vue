@@ -329,7 +329,7 @@ function openDetails(address, left_pv, right_leg, left_pv_remain, right_pv_remai
             text: FilterAddress(address, 4, 5)
         },
         {
-            text: '全部pv:' + parseInt(left_pv) + ' - ' + parseInt(right_leg)
+            text: t('wallet.all') + ' PV:' + parseInt(left_pv) + ' - ' + parseInt(right_leg)
         },
         // {
         //     text: '剩餘pv:' + left_pv_remain + ' - ' + right_pv_remain

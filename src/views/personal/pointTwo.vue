@@ -2,7 +2,7 @@
     <div>
         <div class="text-white bg-transparent w-full">
             <div v-show="dataList.length == 0" class="pt-10 font-bold text-xl text-center">
-                暂无数据
+                {{ $t('modalConfirm.notData') }}
             </div>
             <div class="w-full h-full flex flex-col items-center justify-start mt-4">
                 <div class="rounded bg-transparent border border-gray-600 text-gray-200 w-11/12 p-2 text-sm mb-2"
@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
-                        <div>綁定關係時間:</div>
+                        <div>{{ $t('modalConfirm.bindRelationshipTime') }}</div>
                         <div>{{ item.first_package_time || null }}</div>
                     </div>
                 </div>

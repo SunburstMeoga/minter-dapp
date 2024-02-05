@@ -308,7 +308,7 @@ export default {
     exchangeFail: "兌換失敗，請重試",
     successExchangeRT: "已成功兌換 {amount} RT",
     authorize: "請授權",
-    pleaseAuthorize: "需要進行{type}，請先完成授權",
+    pleaseAuthorize: "需要進行{type}授權，請先完成授權",
     toAuthorize: "去授權",
     successAuthorize: "授權成功",
     authorizeFail: "{type}授權失敗，請重新授權",
@@ -350,7 +350,9 @@ export default {
     enterSearchUseAddr: "請輸入有效的下級地址",
     addressTipsFive: "您無法查詢不在你點位圖內的地址信息",
     addressTipsSix: "所檢示的地址不是自己的下級",
-    addressTipsSeven: "請先將點位佈置在上一級"
+    addressTipsSeven: "請先將點位佈置在上一級",
+    confirmExchangeUSD3ToRT: "是否確認將 {usd3} USD3兌換為 {rt}",
+    bindRelationshipTime: "綁定關係時間"
   },
   raffle: {
     start: 'Start',

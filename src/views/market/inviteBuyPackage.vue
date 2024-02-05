@@ -237,7 +237,7 @@ function getPackageCount() {
         .then(res => {
             if (res.message == '你已經購買配套。') {
                 clearInterval(timer.value)
-                showToast('購買成功')
+                showToast(t('modalConfirm.buySuccess'))
                 proxy.$confirm.hide()
                 proxy.$loading.show()
                 joinTree()
@@ -276,7 +276,8 @@ async function handleConfirmBuyForRT() {
             proxy.$confirm.hide()
             proxy.$confirm.show({
                 title: t('modalConfirm.notBalance'),
-                content: `當前配套價格為 ${coherentInfo.value.type} RT，您的 RT 餘額不足。`,
+                // content: `當前配套價格為 ${coherentInfo.value.type} RT，您的 RT 餘額不足。`,
+                content: `${t('modalConfirm.notEnoughBalance', { amount: coherentInfo.value.type, currency: 'RT' })}`,
                 showCancelButton: false,
                 confirmText: t('modalConfirm.confirm'),
                 onConfirm: () => {
@@ -291,7 +292,7 @@ async function handleConfirmBuyForRT() {
         proxy.$confirm.hide()
         proxy.$confirm.show({
             title: t('modalConfirm.error'),
-            content: `獲取RT餘額失敗，請重試`,
+            content: t('modalConfirm.getBalanceFail'),
             showCancelButton: false,
             confirmText: t('modalConfirm.confirm'),
             onConfirm: () => {
@@ -312,7 +313,7 @@ async function handleConfirmBuyForRT() {
             if (res.error) {
                 proxy.$confirm.hide()
                 proxy.$confirm.show({
-                    title: '購買失敗',
+                    title: t('toast.error'),
                     content: `${res.error}`,
                     showCancelButton: false,
                     confirmText: t('modalConfirm.confirm'),
@@ -336,7 +337,7 @@ async function handleConfirmBuyForRT() {
         .catch(err => {
             proxy.$loading.hide()
             console.log('購買失敗', err)
-            showToast('購買失敗')
+            showToast(t('modalConfirm.error'))
             toggleConfirmPayPopup()
 
         })
@@ -352,7 +353,7 @@ async function handleConfirmBuyForUSDT() {
             proxy.$confirm.hide()
             proxy.$confirm.show({
                 title: t('modalConfirm.notBalance'),
-                content: `當前配套價格為 ${coherentInfo.value.type} USD3，您的 USD3 餘額不足。`,
+                content: `${t('modalConfirm.notEnoughBalance', { amount: buyPackage.value.text, currency: 'USD3' })}`,
                 showCancelButton: false,
                 confirmText: t('modalConfirm.confirm'),
                 onConfirm: () => {
@@ -367,7 +368,7 @@ async function handleConfirmBuyForUSDT() {
         proxy.$confirm.hide()
         proxy.$confirm.show({
             title: t('modalConfirm.error'),
-            content: `獲取USD3餘額失敗，請重試`,
+            content: t('modalConfirm.getBalanceFail'),
             showCancelButton: false,
             confirmText: t('modalConfirm.confirm'),
             onConfirm: () => {
@@ -382,7 +383,7 @@ async function handleConfirmBuyForUSDT() {
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
-        showToast('获取授权状态错误，请重试。')
+        showToast(`${t('modalConfirm.checkAuthFail')}`)
         console.log(err)
     }
     console.log('allowance', allowance)
@@ -419,7 +420,7 @@ async function handleConfirmBuyForUSDT() {
     proxy.$confirm.hide()
     proxy.$confirm.show({
         title: t('modalConfirm.confirm'),
-        content: '是否確認購買該配套。',
+        content: `${t('modalConfirm.confirmBuyPackage')}`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
         onConfirm: async () => {
@@ -431,7 +432,7 @@ async function handleConfirmBuyForUSDT() {
             } catch (err) {
                 console.log(err)
                 proxy.$confirm.hide()
-                showToast('您已取消購買')
+                showToast(t('toast.error'))
             }
         },
         // onCancel: () => {
@@ -467,7 +468,7 @@ async function addressSign() {
         params = { randomString: randomString, signature: signature }
     } catch (err) {
         proxy.$loading.hide()
-        showToast('簽名失敗，請重試')
+        showToast(t('modalConfirm.error'))
         return
     }
 
@@ -489,7 +490,7 @@ async function addressSign() {
         console.log()
     } catch (err) {
         proxy.$loading.hide()
-        showToast('登錄失敗，請重新登登錄')
+        showToast(t('modalConfirm.error'))
         console.log(err)
     }
 

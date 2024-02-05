@@ -88,7 +88,7 @@ async function getPlayersInfo(address) {
         .catch(err => {
             proxy.$loading.hide()
             console.log('err', err)
-            showToast('更新RT餘額失敗，請刷新頁面')
+            // showToast('更新RT餘額失敗，請刷新頁面')
 
         })
 }
@@ -113,7 +113,7 @@ async function handleExchange() {
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
-        showToast('檢查USD3授權失敗，請重試')
+        showToast(`${t('modalConfirm.checkAuthFail', { type: "USD3" })}`)
         console.log(err)
     }
 
@@ -150,7 +150,8 @@ async function handleExchange() {
     proxy.$confirm.hide()
     proxy.$confirm.show({
         title: t('modalConfirm.confirm'),
-        content: `是否確認將 ${exchangeAmount.value} USD3兌換為 ${exchangeAmount.value} RT?`,
+        // content: `是否確認將 ${exchangeAmount.value} USD3兌換為 ${exchangeAmount.value} RT?`,
+        content: `${t('modalConfirm.confirmExchangeUSD3ToRT', { usd3: exchangeAmount.value, rt: exchangeAmount.value })}`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
         cancelText: t('modalConfirm.cancel'),
@@ -163,7 +164,8 @@ async function handleExchange() {
                     setTimeout(() => {
                         console.log(res)
                         proxy.$confirm.hide()
-                        showToast('兌換成功')
+                        // showToast('兌換成功')
+                        showToast(`${t('modalConfirm/successExchangeRT', { amount: exchangeAmount.value })}`)
                         getUSDTBalance()
                         getPlayersInfo(localStorage.getItem('address'))
                     }, 5000)
@@ -171,8 +173,7 @@ async function handleExchange() {
                 })
                 .catch(err => {
                     proxy.$confirm.hide()
-                    showToast('您已取消兌換')
-
+                    showToast(t('modalConfirm.exchangeFail'))
                     console.log(err)
                 })
         },

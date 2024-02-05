@@ -845,8 +845,8 @@ async function handleConfirmBuyForUSDTPOPUP() {
         showToast(t('toast.success'))
     } catch (err) {
         proxy.$loading.hide()
-        content: t('toast.error'),
-            toggleBuyPackageSelf()
+        showToast(t('toast.error'))
+        toggleBuyPackageSelf()
         console.log(err)
     }
 }
