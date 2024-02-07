@@ -58,7 +58,8 @@
 
                         <div class="flex justify-between items-center mb-3">
                             <div>{{ $t('promiseCard.distributionTime') }}:</div>
-                            <div class="">{{ item.reward_date ? FilterTime(item.reward_date) : '未派獎' }}</div>
+                            <div class="">{{ item.reward_date ? FilterTime(item.reward_date) : $t('opertingLog.noAward') }}
+                            </div>
                         </div>
                         <div class="flex justify-between items-center mb-3">
                             <div>{{ $t('promiseCard.rules') }}:</div>
@@ -89,9 +90,8 @@
                                 </div>
                                 <div class="flex justify-between items-center mb-1">
                                     <div>{{ $t('promiseCard.isRelease') }}:</div>
-                                    <div class="">{{ _item.is_minted ? {{
-                                        $t('promiseCard.released') }} :
-                                        {{ $t('promiseCard.unpublished') }} }}</div>
+                                    <div class="">{{ _item.is_minted ? $t('promiseCard.released') :
+                                        $t('promiseCard.unpublished') }}</div>
                                 </div>
                             </div>
                         </div>
