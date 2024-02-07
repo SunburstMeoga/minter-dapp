@@ -103,9 +103,9 @@
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
                         <div class="text-base"> {{ $t('toast.enterExchangeAmount') }} </div>
                         <div class="text-primary-color text-xs pl-1"> {{ $t('toast.handlingFee', {
-                            handlingFee:
-                                currentExchangeTypeBT == 0 ? ' 10% ' : ' 0% '
-                        }) }}</div>
+                                                    handlingFee:
+                                                    currentExchangeTypeBT == 0 ? ' 10% ' : ' 0% '
+                                                    }) }}</div>
                     </div>
                     <div class="w-full flex justify-between items-center mb-10">
                         <div class="rounded  flex-1 ">
@@ -255,9 +255,9 @@
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
                         <div class="text-base"> {{ $t('toast.enterExchangeAmount') }} </div>
                         <div class="text-primary-color text-xs pl-1"> {{ $t('toast.handlingFee', {
-                            handlingFee:
-                                currentExchangeType == 0 ? ' 10% ' : ' 5% '
-                        }) }} </div>
+                                                    handlingFee:
+                                                    currentExchangeType == 0 ? ' 10% ' : ' 5% '
+                                                    }) }} </div>
                     </div>
                     <div class="w-full flex justify-between items-center mb-10">
                         <div class="rounded  flex-1 ">
@@ -376,7 +376,7 @@ function getTime(time) {
     minute = minute < 10 ? "0" + minute : minute
     var second = Math.floor(time % 60);
     second = second < 10 ? "0" + second : second
-    // console.log(day + "天" + hour + "时" + minute + "分" + second + "秒")
+    // //console.log(day + "天" + hour + "时" + minute + "分" + second + "秒")
 
     return day + ":" + hour + ":" + minute + ":" + second
     // return day + "天" + hour + "时" + minute + "分" + second + "秒"
@@ -442,7 +442,7 @@ async function handleWalletCardReleases() {
                 // getPNTRemainingLockupPeriod()
                 // getPMTLockedAmount()
             } catch (err) {
-                console.log(err)
+                //console.log(err)
                 proxy.$loading.hide()
                 proxy.$confirm.hide()
                 showToast(t('toast.releaseFail'))
@@ -477,10 +477,10 @@ function handleTransferRT() {
         cancelText: t('modalConfirm.cancel'),
         onConfirm: async () => {
             let data = { address: transferRTAddress.value, amount: transferRTAmount.value }
-            console.log(data)
+            //console.log(data)
             transfersRT(data)
                 .then(res => {
-                    console.log(res)
+                    //console.log(res)
                     if (res.error) {
                         proxy.$confirm.hide()
                         proxy.$confirm.show({
@@ -509,7 +509,7 @@ function handleTransferRT() {
                                     getPlayersInfo(localStorage.getItem('address'))
                                     proxy.$confirm.hide()
                                 } catch (err) {
-                                    console.log(err)
+                                    //console.log(err)
                                 }
                                 // toggleTransferPopup()
                             },
@@ -518,7 +518,7 @@ function handleTransferRT() {
                     // showToast('轉賬成功')
                 })
                 .catch(err => {
-                    console.log('err', err)
+                    //console.log('err', err)
                     proxy.$confirm.hide()
                     proxy.$confirm.show({
                         title: t('modalConfirm.tips'),
@@ -548,7 +548,7 @@ function handleTransferRT() {
 function getPlayersInfo(address) {
     playersInfo(address)
         .then(res => {
-            console.log('res', res)
+            //console.log('res', res)
             packageCount.value = res.player.package_transactions.length
             palayBanalce.value.bt = res.player.bt
             palayBanalce.value.rt = res.player.rt
@@ -556,7 +556,7 @@ function getPlayersInfo(address) {
             hasPackage.value = res.player.package_transactions.length !== 0
         })
         .catch(err => {
-            console.log('err', err)
+            //console.log('err', err)
         })
 }
 
@@ -564,7 +564,7 @@ async function getHAHBalance() {
     let WEB3 = new Web3(window.ethereum)
     let result = await WEB3.eth.getBalance(localStorage.getItem('address'))
     hahBalance.value = WEB3.utils.fromWei(result.toString(), 'ether')
-    // console.log(result)
+    // //console.log(result)
 }
 
 // const chartData = ref([1, 2, 3, 4, 5])   
@@ -572,7 +572,7 @@ async function getMSTBalance() {
     let balance = await mstContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
-    console.log('mst', result)
+    //console.log('mst', result)
     mstBalance.value = result
     return balance
 }
@@ -580,7 +580,7 @@ async function getUSDTBalance() {
     let balance = await usdtContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
-    console.log('usdt', result)
+    //console.log('usdt', result)
     usdtBalance.value = result
     return balance
 }
@@ -588,7 +588,7 @@ async function getPMTBalance() {
     let balance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
-    console.log('pmt', result)
+    //console.log('pmt', result)
     pmtBalance.value = result
     return balance
 }
@@ -596,7 +596,7 @@ async function getMTBalance() {
     let balance = await mtContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
-    console.log('mt', result)
+    //console.log('mt', result)
     mtBalance.value = result
     return balance
 }
@@ -607,11 +607,11 @@ function getStaticRecords() {
     let params = { prize_type_id: 3, perPage: 100000 }
     staticRecords(params)
         .then(res => {
-            console.log(res)
+            //console.log(res)
             promiseCardCount.value = res.records.length
         })
         .catch(err => {
-            console.log(err)
+            //console.log(err)
             proxy.$loading.hide()
 
         })
@@ -624,11 +624,11 @@ function getUserNFTs() {
         .then(res => {
             proxy.$loading.hide()
             nftsCount.value = res.nft_token_ids.length
-            console.log('res', res)
+            //console.log('res', res)
         })
         .catch(err => {
             proxy.$loading.hide()
-            console.log(err)
+            //console.log(err)
         })
 }
 //查看配套
@@ -705,12 +705,12 @@ async function handleExchangeBT() {
                         getPlayersInfo(localStorage.getItem('address'))
                         // showToast(`已成功兌換 ${exchangeAmountBT.value * 0.9} USD3`)
                         showToast(`${t('modalConfirm.successExchangeUSD3', { amount: exchangeAmountBT.value })}`)
-                        console.log(res)
+                        //console.log(res)
                     })
                     .catch(err => {
                         proxy.$confirm.hide()
                         showToast(t('modalConfirm.exchangeFail'))
-                        console.log(err)
+                        //console.log(err)
                     })
             } else {
                 btToRt(data)
@@ -731,13 +731,13 @@ async function handleExchangeBT() {
                         }
                         getPlayersInfo(localStorage.getItem('address'))
                         // showToast(`已成功兌換 ${exchangeAmountBT.value} RT`)
-                        showToast(`${t('modalConfirm/successExchangeRT', { amount: exchangeAmountBT.value })}`)
-                        console.log(res)
+                        showToast(`${t('modalConfirm.successExchangeRT', { amount: exchangeAmountBT.value })}`)
+                        //console.log(res)
                     })
                     .catch(err => {
                         proxy.$confirm.hide()
                         showToast(t('modalConfirm.exchangeFail'))
-                        console.log(err)
+                        //console.log(err)
                     })
             }
         },
@@ -754,7 +754,7 @@ async function handleExchange() {
     }
     toggleExchangePopup()
     proxy.$loading.show()
-    console.log('點擊handleExchange', localStorage.getItem('address'), config.swap_addr)
+    //console.log('點擊handleExchange', localStorage.getItem('address'), config.swap_addr)
     // 检查mt或者usdt对swap的授权状态
     let allowance
     try {
@@ -765,7 +765,7 @@ async function handleExchange() {
         proxy.$loading.hide()
         toggleExchangePopup()
     }
-    console.log('allowance', allowance)
+    //console.log('allowance', allowance)
     if (Number(allowance) == 0) { //當前領取方式未授權
         proxy.$loading.hide()
         proxy.$confirm.hide()
@@ -781,7 +781,7 @@ async function handleExchange() {
                 // usdt和mt授權
                 minterContractApi.approve(config.swap_addr)
                     .then(res => {
-                        console.log(res)
+                        //console.log(res)
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
                         // showToast(t('modalConfirm.successAuthorize'))
@@ -789,7 +789,7 @@ async function handleExchange() {
 
                     })
                     .catch(err => {
-                        console.log(err)
+                        //console.log(err)
                         proxy.$confirm.hide()
                         showToast(t('modalConfirm.authorizeFail', { type: 'MT' }))
                     })
@@ -826,7 +826,7 @@ async function handleExchange() {
                     // showToast(`已成功兌換 ${exchangeAmount.value * 0.9} USD3`)
                     showToast(`${t('modalConfirm.successExchangeUSD3', { amount: exchangeAmount.value * 0.9 })}`)
                 } catch (err) {
-                    console.log(err)
+                    //console.log(err)
                     proxy.$loading.hide()
                     showToast(t('modalConfirm.exchangeFail'))
                 }
@@ -841,7 +841,7 @@ async function handleExchange() {
                     showToast(`${t('modalConfirm.successExchangeRT', { amount: exchangeAmount.value * 0.95 })}`)
 
                 } catch (err) {
-                    console.log(err)
+                    //console.log(err)
                     proxy.$confirm.hide()
                     showToast(t('modalConfirm.exchangeFail'))
                 }
@@ -874,7 +874,7 @@ function handleWalletCardWithdraw() {
 }
 //点击钱包卡片转账按钮
 function handleWalletCardTransfer() {
-    console.log(palayBanalce.value.rt)
+    //console.log(palayBanalce.value.rt)
     if (Number(palayBanalce.value.rt) <= 0) {
         showToast(`${t('modalConfirm.cantTransfer', { type: "RT" })}`)
         return

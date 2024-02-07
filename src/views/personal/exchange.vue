@@ -68,7 +68,7 @@ async function getPlayersInfo(address) {
     proxy.$loading.show()
     // try {
     //     let result = await rtBalance(address)
-    //     console.log(result)
+    //     //console.log(result)
     //     playInfo.value = result
     //     rtBalance.value = result.rt
     //     proxy.$loading.hide()
@@ -80,24 +80,24 @@ async function getPlayersInfo(address) {
 
     rtBalance({ address: localStorage.getItem('address') })
         .then(res => {
-            console.log('res', res)
+            //console.log('res', res)
             playInfo.value = res
             rtBalanceNum.value = res.player.rt
             proxy.$loading.hide()
         })
         .catch(err => {
             proxy.$loading.hide()
-            console.log('err', err)
+            //console.log('err', err)
             // showToast('更新RT餘額失敗，請刷新頁面')
 
         })
 }
 async function getUSDTBalance() {
-    console.log('userInfo.address', userInfo.address)
+    //console.log('userInfo.address', userInfo.address)
     let balance = await usdtContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
-    console.log('usdt', result)
+    //console.log('usdt', result)
     usdtBalance.value = result
     return balance
 }
@@ -114,7 +114,7 @@ async function handleExchange() {
     } catch (err) {
         proxy.$loading.hide()
         showToast(`${t('modalConfirm.checkAuthFail', { type: "USD3" })}`)
-        console.log(err)
+        //console.log(err)
     }
 
     if (Number(allowance) == 0) { //當前領取方式未授權
@@ -130,14 +130,14 @@ async function handleExchange() {
                 // usdt对pmt授權
                 usdtContractApi.approve(config.swap_addr)
                     .then(res => {
-                        console.log(res)
+                        //console.log(res)
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
                         showToast(t('modalConfirm.successAuthorize'))
 
                     })
                     .catch(err => {
-                        console.log(err)
+                        //console.log(err)
                         proxy.$confirm.hide()
                         showToast(t('modalConfirm.authorizeFail', { type: 'USD3' }))
                     })
@@ -162,10 +162,10 @@ async function handleExchange() {
             swapContractApi.swapUSDTForRT(amount)
                 .then(res => {
                     setTimeout(() => {
-                        console.log(res)
+                        //console.log(res)
                         proxy.$confirm.hide()
                         // showToast('兌換成功')
-                        showToast(`${t('modalConfirm/successExchangeRT', { amount: exchangeAmount.value })}`)
+                        showToast(`${t('modalConfirm.successExchangeRT', { amount: exchangeAmount.value })}`)
                         getUSDTBalance()
                         getPlayersInfo(localStorage.getItem('address'))
                     }, 5000)
@@ -174,7 +174,7 @@ async function handleExchange() {
                 .catch(err => {
                     proxy.$confirm.hide()
                     showToast(t('modalConfirm.exchangeFail'))
-                    console.log(err)
+                    //console.log(err)
                 })
         },
         // onCancel: () => {
@@ -188,7 +188,7 @@ async function handleExchange() {
     //     const WEB3 = new Web3(window.ethereum)
     //     let amount = WEB3.utils.toWei((exchangeAmount.value).toString(), 'ether')
     //     let changeInfo = await swapContractApi.swapUSDTForRT(amount)
-    //     console.log(changeInfo)
+    //     //console.log(changeInfo)
     //     proxy.$loading.hide()
     //     showToast(t('toast.success'))
     //     getUSDTBalance()
@@ -197,7 +197,7 @@ async function handleExchange() {
     // } catch (err) {
     //     proxy.$loading.hide()
     //     showToast(t('toast.error'))
-    //     console.log(err)
+    //     //console.log(err)
     // }
 }
 

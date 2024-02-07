@@ -50,7 +50,7 @@
                         </div>
                         <div class="text-red-500 font-bold">
                             {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
-                                FormatAmount(coherentInfo.type).pointOffside }}</span>
+                                                            FormatAmount(coherentInfo.type).pointOffside }}</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
@@ -59,7 +59,7 @@
                         </div>
                         <div class="text-red-500 font-bold">
                             {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-                                FormatAmount(coherentInfo.limit).pointOffside }}</span>
+                                                            FormatAmount(coherentInfo.limit).pointOffside }}</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
@@ -80,7 +80,7 @@
                                 <div class="text-xs p-2 text-left text-gray-400">
                                     <!-- 购买成功之后即时释放{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT -->
                                     {{ $t('coherents.buyAfterReleased') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3)
-                                    }}PMT
+                                                                        }}PMT
                                 </div>
                                 <div class="text-xs p-2 text-left text-gray-400">
                                     {{ $t('coherents.24Released') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT
@@ -121,11 +121,11 @@
                 <div @click="handleConfirmBuyForUSDT"
                     class="w-5/12 mr-auto ml-auto border-primary-color active-white-color border-2 text-white py-2 text-center rounded-full">
                     USD3{{
-                        $t('invitePage.pay') }}</div>
+                                        $t('invitePage.pay') }}</div>
                 <div @click="handleConfirmBuyForRT"
                     class="w-5/12 mr-auto ml-auto border-2 active-white-color border-primary-color text-white py-2 text-center rounded-full">
                     RT{{
-                        $t('invitePage.pay') }}</div>
+                                        $t('invitePage.pay') }}</div>
             </div>
 
         </div>
@@ -179,7 +179,7 @@ let coherentInfo = ref({})
 let hasPackage = ref(false)
 let timer = ref(null)
 onMounted(() => {
-    console.log(route.query)
+    //console.log(route.query)
     inviterAddress.value = route.query.inviter
     preAddress.value = route.query.pre
     point.value = route.query.point
@@ -189,7 +189,7 @@ onMounted(() => {
         return item.type == '200'
     })
     coherentInfo.value = targetCoherents[0]
-    console.log(coherentInfo.value)
+    //console.log(coherentInfo.value)
     // getPlayersInfo(window.ethereum.selectedAddress)
     if (!localStorage.getItem('token')) {
         addressSign()
@@ -208,7 +208,7 @@ async function isSufficientUSD3(amount) {
     let WEB3 = new Web3(window.ethereum)
     balance = WEB3.utils.fromWei(balance.toString(), 'ether')
     balance = parseInt(balance)
-    console.log(amount, balance)
+    //console.log(amount, balance)
     return Number(amount).toFixed(0) <= balance
 }
 
@@ -245,7 +245,7 @@ function getPackageCount() {
             }
         })
         .catch(err => {
-            console.log('err', err)
+            //console.log('err', err)
             proxy.$loading.hide()
         })
 }
@@ -259,7 +259,7 @@ function handlePackage(packageInfo) {
         return item.type == packageInfo.type
     })
     coherentInfo.value = targetCoherents[0]
-    console.log(coherentInfo.value)
+    //console.log(coherentInfo.value)
     togglePackagePopup()
 }
 function togglePackagePopup() {
@@ -306,7 +306,7 @@ async function handleConfirmBuyForRT() {
     buyCoherent(data)
         .then(res => {
             proxy.$loading.hide()
-            console.log('購買成功', res)
+            //console.log('購買成功', res)
             // if (res.message == 'RT餘額不足') {
             //     showToast('RT餘額不足')
             // }
@@ -327,16 +327,16 @@ async function handleConfirmBuyForRT() {
             showToast(res.message)
             updataRTBalance(localStorage.getItem('address'))
                 .then(res => {
-                    console.log('更新rt餘額', res)
+                    //console.log('更新rt餘額', res)
 
                 })
                 .catch(err => {
-                    console.log('更新rt餘額失敗', err)
+                    //console.log('更新rt餘額失敗', err)
                 })
         })
         .catch(err => {
             proxy.$loading.hide()
-            console.log('購買失敗', err)
+            //console.log('購買失敗', err)
             showToast(t('modalConfirm.error'))
             toggleConfirmPayPopup()
 
@@ -345,7 +345,7 @@ async function handleConfirmBuyForRT() {
 
 //使用usdt購買package
 async function handleConfirmBuyForUSDT() {
-    console.log(coherentInfo.value.type)
+    //console.log(coherentInfo.value.type)
     proxy.$loading.show()
     try {
         if (!await isSufficientUSD3(coherentInfo.value.type)) {
@@ -384,9 +384,9 @@ async function handleConfirmBuyForUSDT() {
     } catch (err) {
         proxy.$loading.hide()
         showToast(`${t('modalConfirm.checkAuthFail')}`)
-        console.log(err)
+        //console.log(err)
     }
-    console.log('allowance', allowance)
+    //console.log('allowance', allowance)
 
     if (Number(allowance) == 0) { //當前領取方式未授權
         proxy.$loading.hide()
@@ -399,14 +399,14 @@ async function handleConfirmBuyForUSDT() {
             onConfirm: () => {
                 usdtContractApi.approve(config.pmt_purchase_addr)
                     .then(res => {
-                        console.log(res)
+                        //console.log(res)
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
                         showToast(t('modalConfirm.successAuthorize'))
 
                     })
                     .catch(err => {
-                        console.log(err)
+                        //console.log(err)
                         proxy.$confirm.hide()
                         showToast(t('modalConfirm.authorizeFail', { type: 'USD3' }))
                     })
@@ -430,7 +430,7 @@ async function handleConfirmBuyForUSDT() {
                     getPackageCount()
                 }, 5000);
             } catch (err) {
-                console.log(err)
+                //console.log(err)
                 proxy.$confirm.hide()
                 showToast(t('toast.error'))
             }
@@ -441,7 +441,7 @@ async function handleConfirmBuyForUSDT() {
     });
 
     // try {
-    //     console.log(coherentInfo.value.type)
+    //     //console.log(coherentInfo.value.type)
     //     proxy.$loading.show()
     //     await pmtContractApi.purchasePackage(Number(coherentInfo.value.id - 1))
     //     timer.value = setInterval(() => {
@@ -450,7 +450,7 @@ async function handleConfirmBuyForUSDT() {
     // } catch (err) {
     //     proxy.$loading.hide()
     //     showToast(t('toast.error'))
-    //     console.log(err)
+    //     //console.log(err)
     // }
 }
 //签名
@@ -487,18 +487,18 @@ async function addressSign() {
             }
             await joinTheThree(data)
         }
-        console.log()
+        //console.log()
     } catch (err) {
         proxy.$loading.hide()
         showToast(t('modalConfirm.error'))
-        console.log(err)
+        //console.log(err)
     }
 
     proxy.$loading.hide()
 
     // login(params)
     //     .then(res => {
-    //         console.log(res)
+    //         //console.log(res)
     //         localStorage.setItem('token', res.access_token)
     //         localStorage.setItem('address', res.address)
     //         userInfo.changeAddress(res.address)
@@ -508,9 +508,9 @@ async function addressSign() {
     //     .catch(err => {
     //         proxy.$loading.hide()
     //         showToast(t('toast.error'))
-    //         console.log(err)
+    //         //console.log(err)
     //     })
-    // console.log(signature)
+    // //console.log(signature)
 
 }
 

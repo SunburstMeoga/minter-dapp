@@ -58,16 +58,16 @@ function getDynamicRecords() {
     proxy.$loading.show()
     // dynamic_earning_type_id=1&sortBy=created_at&sortDesc=true&perPage=10&page=1
     let params = { dynamic_earning_type_id: currentType.value + 1, perPage: 100000 }
-    console.log(params)
+    //console.log(params)
     dynamicRecords(params)
         .then(res => {
-            console.log('獲取動態收益記錄', res)
+            //console.log('獲取動態收益記錄', res)
             dataList.value = res.records
             proxy.$loading.hide()
 
         })
         .catch(err => {
-            console.log(err)
+            //console.log(err)
             proxy.$loading.hide()
 
         })
@@ -78,10 +78,10 @@ function getDynamicEarningTypes() {
 
     dynamicEarningTypes()
         .then(res => {
-            console.log('動態收益種類', res)
+            //console.log('動態收益種類', res)
         })
         .catch(err => {
-            console.log(err)
+            //console.log(err)
         })
 }
 

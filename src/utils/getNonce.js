@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 export function generateNonce() {
   const uuidValue = uuidv4()
-  // console.log('uuidValue', uuidValue)
+  // //console.log('uuidValue', uuidValue)
   // Remove hyphens from the UUID value and convert to lowercase
   const uuidWithoutHyphens = uuidValue.replace(/-/g, '').toLowerCase()
   // Generate 4 random bytes and convert to hexadecimal

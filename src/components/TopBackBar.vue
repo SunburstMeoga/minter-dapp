@@ -13,7 +13,7 @@
 export default {
     methods: {
         goBack() {
-            console.log(window.history.length)
+            //console.log(window.history.length)
             // return
             if (window.history.length <= 1) {
                 this.$router.push({ path: '/' })

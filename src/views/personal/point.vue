@@ -18,13 +18,13 @@
             </div>
             <div class="text-center text-xs">
                 {{ $t('wallet.all') }} PV: {{ directReferrals && directReferrals.left_leg && directReferrals.left_leg.pv ||
-                    0 }}
+                                0 }}
                 - {{ directReferrals && directReferrals.right_leg && directReferrals.right_leg.pv || 0 }}
             </div>
             <div class="text-center text-xs mb-1">
                 {{ $t('assistance.remain') }} PV: {{ (directReferrals && directReferrals.left_pv) - (directReferrals &&
-                    directReferrals.pv_used) }} - {{
-        (directReferrals && directReferrals.right_pv) - (directReferrals && directReferrals.pv_used) }}
+                                directReferrals.pv_used) }} - {{
+                                (directReferrals && directReferrals.right_pv) - (directReferrals && directReferrals.pv_used) }}
             </div>
             <div class="w-1 h-10 border-l border-primary-color" />
             <div class="w-6/12 h-10 border-t border-l border-r border-primary-color" />
@@ -51,18 +51,18 @@
                     <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.address">
                         <div class="text-center text-xs flex items-center">
                             {{ $t('wallet.address') }}:{{
-                                FilterAddress(directReferrals && directReferrals.left_leg && directReferrals.left_leg.address)
-                            }}
+                                                        FilterAddress(directReferrals && directReferrals.left_leg && directReferrals.left_leg.address)
+                                                        }}
                             <div style="font-size: 12px;" class="icon iconfont icon-copy mr-2 active-white-color"
                                 @click="handleCopy(directReferrals && directReferrals.left_leg && directReferrals.left_leg.address)">
                             </div>
                         </div>
                         <div class="text-center text-xs">
                             {{ $t('wallet.all') }} PV:{{ parseInt(directReferrals && directReferrals.left_leg &&
-                                directReferrals.left_leg.left_pv) || 0
-                            }} - {{ parseInt(directReferrals && directReferrals.left_leg &&
-    directReferrals.left_leg.right_pv) || 0
-}}
+                                                        directReferrals.left_leg.left_pv) || 0
+                                                        }} - {{ parseInt(directReferrals && directReferrals.left_leg &&
+                                                        directReferrals.left_leg.right_pv) || 0
+                                                        }}
                         </div>
                         <!-- <div class="text-center text-xs mb-1">
                             {{ $t('assistance.remain') }} PV:{{ (directReferrals && directReferrals.left_leg &&
@@ -99,7 +99,7 @@
                                 <template #reference>
                                     <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.left_leg && directReferrals.left_leg.left_leg.address"
                                         class="operating-button text-center text-white rounded text-xs px-3">{{
-                                            $t('assistance.view') }}</div>
+                                                                                $t('assistance.view') }}</div>
                                 </template>
                             </van-popover>
                         </div>
@@ -127,7 +127,7 @@
                                 <template #reference>
                                     <div v-if="directReferrals && directReferrals.left_leg && directReferrals.left_leg.right_leg && directReferrals.left_leg.right_leg.address"
                                         class="operating-button text-center text-white rounded text-xs px-3">{{
-                                            $t('assistance.view') }}</div>
+                                                                                $t('assistance.view') }}</div>
                                 </template>
                             </van-popover>
 
@@ -155,19 +155,19 @@
                     <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.address">
                         <div class="text-center text-xs flex items-center">
                             {{ $t('wallet.address') }}:{{
-                                FilterAddress(directReferrals && directReferrals.right_leg && directReferrals.right_leg.address)
-                            }}
+                                                        FilterAddress(directReferrals && directReferrals.right_leg && directReferrals.right_leg.address)
+                                                        }}
                             <div style="font-size: 12px;" class="icon iconfont icon-copy mr-2 active-white-color"
                                 @click="handleCopy(directReferrals && directReferrals.right_leg && directReferrals.right_leg.address)">
                             </div>
                         </div>
                         <div class="text-center text-xs">
                             {{ $t('wallet.all') }} PV:{{
-                                parseInt(directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_pv) || 0
-                            }} -
+                                                        parseInt(directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_pv) || 0
+                                                        }} -
                             {{
-                                parseInt(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_pv) ||
-                                0 }}
+                                                        parseInt(directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_pv) ||
+                                                        0 }}
                         </div>
                         <!-- <div class="text-center text-xs mb-1">
                             {{ $t('assistance.remain') }} PV:{{ (directReferrals && directReferrals.right_leg &&
@@ -207,7 +207,7 @@
                                 <template #reference>
                                     <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.left_leg && directReferrals.right_leg.left_leg.address"
                                         class="operating-button text-center text-white rounded text-xs px-3">{{
-                                            $t('assistance.view') }}</div>
+                                                                                $t('assistance.view') }}</div>
                                 </template>
                             </van-popover>
                         </div>
@@ -235,7 +235,7 @@
                                 <template #reference>
                                     <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address"
                                         class="operating-button text-center text-white rounded text-xs px-3">{{
-                                            $t('assistance.view') }}</div>
+                                                                                $t('assistance.view') }}</div>
                                 </template>
                             </van-popover>
                         </div>
@@ -339,7 +339,7 @@ function openDetails(address, left_pv, right_leg, left_pv_remain, right_pv_remai
 
 //點解點位
 function clickPoint(address, allPV, remainPV, preAddress, point, isSelf) {
-    console.log('address', address)
+    //console.log('address', address)
     let pointInfo
     // pointInfo = {
     //     address: address,

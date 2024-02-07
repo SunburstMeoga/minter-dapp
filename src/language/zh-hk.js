@@ -349,7 +349,7 @@ export default {
     addressTipsFive: "您無法查詢不在你點位圖內的地址信息",
     addressTipsSix: "所檢示的地址不是自己的下級",
     addressTipsSeven: "請先將點位佈置在上一級",
-    confirmExchangeUSD3ToRT: "是否確認將 {usd3} USD3兌換為 {rt}",
+    confirmExchangeUSD3ToRT: "是否確認將 {usd3} USD3兌換為 {rt} RT",
     bindRelationshipTime: "綁定關係時間"
   },
   raffle: {

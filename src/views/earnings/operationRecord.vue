@@ -137,7 +137,7 @@ function getExpireData(value) {
     // return timestamp
 }
 function onSelect(select) {
-    console.log(select)
+    //console.log(select)
     let params = { address: localStorage.getItem('address'), perPage: 10000, sortBy: 'created_at', sortDesc: true }
     currentFilter.value = select.index
     if (currentType.value == 0) {
@@ -172,12 +172,12 @@ function getUSDTTransations(params) {
     dataList.value = []
     usdtTransations(params)
         .then(res => {
-            console.log('bt交易記錄', res)
+            //console.log('bt交易記錄', res)
             dataList.value = res.transactions
             proxy.$loading.hide()
         })
         .catch(err => {
-            console.log('err', err)
+            //console.log('err', err)
             proxy.$loading.hide()
         })
 }
@@ -187,12 +187,12 @@ function getBTTransations(params) {
     dataList.value = []
     btTransations(params)
         .then(res => {
-            console.log('bt交易記錄', res)
+            //console.log('bt交易記錄', res)
             dataList.value = res.transactions
             proxy.$loading.hide()
         })
         .catch(err => {
-            console.log('err', err)
+            //console.log('err', err)
             proxy.$loading.hide()
         })
 }
@@ -202,13 +202,13 @@ function getMTTransations(params) {
     dataList.value = []
     mtTransations(params)
         .then(res => {
-            console.log('mt交易記錄', res)
+            //console.log('mt交易記錄', res)
             dataList.value = res.nft_transactions
-            console.log(dataList.value.length)
+            //console.log(dataList.value.length)
             proxy.$loading.hide()
         })
         .catch(err => {
-            console.log('err', err)
+            //console.log('err', err)
             proxy.$loading.hide()
         })
 }
@@ -218,12 +218,12 @@ function getRTTransations(params) {
     dataList.value = []
     rtTransations(params)
         .then(res => {
-            console.log('rt交易記錄', res)
+            //console.log('rt交易記錄', res)
             dataList.value = res.transactions
             proxy.$loading.hide()
         })
         .catch(err => {
-            console.log('err', err)
+            //console.log('err', err)
             proxy.$loading.hide()
         })
 }
@@ -234,13 +234,13 @@ function getPMTTransations(params) {
     dataList.value = []
     pmtTransations(params)
         .then(res => {
-            console.log('mt交易記錄', res)
+            //console.log('mt交易記錄', res)
             dataList.value = res.nft_transactions
-            console.log(dataList.value.length)
+            //console.log(dataList.value.length)
             proxy.$loading.hide()
         })
         .catch(err => {
-            console.log('err', err)
+            //console.log('err', err)
             proxy.$loading.hide()
         })
 }
@@ -250,12 +250,12 @@ function getUSDTExchangeRecord(params) {
     dataList.value = []
     usdtExchangeRecord(params)
         .then(res => {
-            console.log('usdt兌換記錄', res)
+            //console.log('usdt兌換記錄', res)
             dataList.value = res.transactions
             proxy.$loading.hide()
         })
         .catch(err => {
-            console.log('err', err)
+            //console.log('err', err)
             proxy.$loading.hide()
         })
 }
@@ -265,12 +265,12 @@ function getBTExchangeRecord(params) {
     dataList.value = []
     btExchangeRecord(params)
         .then(res => {
-            console.log('bt兌換記錄', res)
+            //console.log('bt兌換記錄', res)
             dataList.value = res.transactions
             proxy.$loading.hide()
         })
         .catch(err => {
-            console.log('err', err)
+            //console.log('err', err)
             proxy.$loading.hide()
         })
 }
@@ -280,12 +280,12 @@ function getMTExchangeRecord(params) {
     dataList.value = []
     mtExchangeRecord(params)
         .then(res => {
-            console.log('mt兌換記錄', res)
+            //console.log('mt兌換記錄', res)
             dataList.value = res.transactions
             proxy.$loading.hide()
         })
         .catch(err => {
-            console.log('err', err)
+            //console.log('err', err)
             proxy.$loading.hide()
         })
 }
@@ -296,12 +296,12 @@ function nftBuyList() {
     let params = { perPage: 10000, sortBy: 'created_at', sortDesc: true }
     nftTransaction(params)
         .then(res => {
-            console.log('nft購買記錄', res)
+            //console.log('nft購買記錄', res)
             dataList.value = res.nft_transactions
             proxy.$loading.hide()
         })
         .catch(err => {
-            console.log(err)
+            //console.log(err)
             proxy.$loading.hide()
         })
 }
@@ -313,7 +313,7 @@ function nftPendList() {
     let params = { perPage: 10000, sortBy: 'created_at', sortDesc: true }
     nftMarketplace(params)
         .then(res => {
-            console.log('nft掛單記錄', res)
+            //console.log('nft掛單記錄', res)
             // res.nft_transaction_logs.map(item => {
             //     if (item.status !== 2) {
             //         dataList.value.push(item)
@@ -323,7 +323,7 @@ function nftPendList() {
             proxy.$loading.hide()
         })
         .catch(err => {
-            console.log(err)
+            //console.log(err)
             proxy.$loading.hide()
         })
 }
@@ -335,12 +335,12 @@ function nftSaleList() {
     let params = { perPage: 10000, sortBy: 'created_at', sortDesc: true }
     nftSale(params)
         .then(res => {
-            console.log('nft出售', res)
+            //console.log('nft出售', res)
             dataList.value = res.nft_transactions
             proxy.$loading.hide()
         })
         .catch(err => {
-            console.log(err)
+            //console.log(err)
             proxy.$loading.hide()
         })
 }
@@ -351,17 +351,17 @@ function getDynamicRecords(typeID) { //typeID：1直推 2对碰 3代数
     dataList.value = []
     // dynamic_earning_type_id=1&sortBy=created_at&sortDesc=true&perPage=10&page=1
     let params = { dynamic_earning_type_id: typeID, perPage: 100000, sortBy: 'created_at', sortDesc: true }
-    console.log(params)
+    //console.log(params)
     dynamicRecords(params)
         .then(res => {
-            console.log('獲取動態收益記錄', res)
+            //console.log('獲取動態收益記錄', res)
             dataList.value = res.records
-            console.log('dataList', dataList.value)
+            //console.log('dataList', dataList.value)
             proxy.$loading.hide()
 
         })
         .catch(err => {
-            console.log(err)
+            //console.log(err)
             proxy.$loading.hide()
 
         })
@@ -424,7 +424,7 @@ function handleTabs(tabs) {
     // }
     // getStaticRecords(type)
     // }
-    console.log(tabs, typeList.value)
+    //console.log(tabs, typeList.value)
 }
 
 function getStaticRecords(typeID) {
@@ -433,14 +433,14 @@ function getStaticRecords(typeID) {
     let params = { prize_type_id: typeID, perPage: 100000, sortBy: 'created_at', sortDesc: true }
     staticRecords(params)
         .then(res => {
-            console.log(res)
+            //console.log(res)
             // promiseCardCount.value = res.records.length
             dataList.value = res.records
             proxy.$loading.hide()
-            console.log('dataList', dataList.value)
+            //console.log('dataList', dataList.value)
         })
         .catch(err => {
-            console.log(err)
+            //console.log(err)
             proxy.$loading.hide()
         })
 }
@@ -448,7 +448,7 @@ function getStaticRecords(typeID) {
 
 function handleType(item, index) {
     currentType.value = index
-    console.log(currentType.value, item, index)
+    //console.log(currentType.value, item, index)
     dataList.value = []
     if (currentTab.value == 0) {
         getDynamicRecords(index + 1)

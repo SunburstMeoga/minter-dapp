@@ -19,26 +19,26 @@ onMounted(() => {
 })
 async function userGetWithdrawalAmount() { //
     let result = await pmtContractApi.getWithdrawalAmount(localStorage.getItem('address'))
-    console.log(result)
+    //console.log(result)
 }
 async function userGetWithdrawalAmountLimit() {
     let result = await pmtContractApi.getWithdrawalAmountLimit(localStorage.getItem('address'))
-    console.log(result)
+    //console.log(result)
 }
 async function userGetRewardAmount() {
     let result = await pmtContractApi.getRewardAmount(localStorage.getItem('address'))
-    console.log(result)
+    //console.log(result)
 }
 async function userGetRewardAmountLimit() {
     let result = await pmtContractApi.getRewardAmountLimit(localStorage.getItem('address'))
-    console.log(result)
+    //console.log(result)
 }
 // async function getPMTBalance() {
-//     console.log('userInfo.address', userInfo.address)
+//     //console.log('userInfo.address', userInfo.address)
 //     let balance = await pmtContractApi.balanceOf(userInfo.address)
 //     let WEB3 = new Web3(window.ethereum)
 //     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
-//     console.log('pmt', result)
+//     //console.log('pmt', result)
 //     pmtBalance.value = result
 //     return balance
 // }
@@ -74,7 +74,7 @@ async function getStaticIncomeInfo() {
 
         //最新配套金额
         let result = await playersInfo(localStorage.getItem('address'))
-        console.log('result', result)
+        //console.log('result', result)
         let max = Number(result.player.max_package.price) * 2
         let min = Number(result.player.max_package.price) * 0.6 //最高金額的package釋放數量
         let eraningAmount = Number(result.player.package_transactions[0].amount) * 0.6 / 3 * (3 - getReleaseCount)  //pmt釋放量
@@ -92,16 +92,16 @@ async function getStaticIncomeInfo() {
         //     point = Number((income / trueLimit) * 100).toFixed(1) + '%'
         // }
 
-        console.log('pmt', pmtBalance)
+        //console.log('pmt', pmtBalance)
 
-        console.log('现时已提取總數 ', withdrawalAmount)
-        console.log('可提取上限 ', withdrawalAmountLimit)
-        console.log('現時收益總數 ', rewardAmount)
-        console.log('收益上限 ', rewardAmountLimit)
-        console.log('锁定期的pmt数量 ', getLockedAmount)
-        console.log('獲取PMT的釋放次數 ', getReleaseCount)
-        console.log('package總釋放數量 ', min)
-        console.log('package的釋放量', eraningAmount)
+        //console.log('现时已提取總數 ', withdrawalAmount)
+        //console.log('可提取上限 ', withdrawalAmountLimit)
+        //console.log('現時收益總數 ', rewardAmount)
+        //console.log('收益上限 ', rewardAmountLimit)
+        //console.log('锁定期的pmt数量 ', getLockedAmount)
+        //console.log('獲取PMT的釋放次數 ', getReleaseCount)
+        //console.log('package總釋放數量 ', min)
+        //console.log('package的釋放量', eraningAmount)
 
 
         let myChart = echarts.init(document.getElementById("staticEarnings"));
@@ -168,7 +168,7 @@ async function getStaticIncomeInfo() {
         proxy.$loading.hide()
 
     } catch (err) {
-        console.log(err)
+        //console.log(err)
         proxy.$loading.hide()
     }
 }

@@ -126,13 +126,13 @@ async function getAllNFT() {
     userNFT(params)
         .then(res => {
             proxy.$loading.hide()
-            console.log(res)
+            //console.log(res)
             nftsDatas.value = res.nft_token_ids
             if (nftsDatas.value.length !== 0) {
                 nftsDatas.value.map(async item => {
                     // let time = await nftContractApi.sellOffPeriod(item.token_id)
-                    // console.log('出售時間時間戳', Number(time))
-                    // console.log('現在時間時間戳', parseInt(new Date().getTime() / 1000))
+                    // //console.log('出售時間時間戳', Number(time))
+                    // //console.log('現在時間時間戳', parseInt(new Date().getTime() / 1000))
                     item.showOperting = false
                     if (item.token_type == 1) {
                         item.nftImg = nftOne
@@ -156,11 +156,11 @@ async function getAllNFT() {
                     // }
                 })
             }
-            console.log('全部', res)
+            //console.log('全部', res)
         })
         .catch(err => {
             proxy.$loading.hide()
-            console.log(err)
+            //console.log(err)
         })
 }
 //用戶取得自己可出售的NFT
@@ -192,11 +192,11 @@ function getUserCanSaleNFT() {
                     }
                 })
             }
-            console.log('可出售列表', saleables.value)
+            //console.log('可出售列表', saleables.value)
         })
         .catch(err => {
             proxy.$loading.hide()
-            console.log(err)
+            //console.log(err)
         })
 }
 //獲取用戶正在掛單的NFT
@@ -236,12 +236,12 @@ function getUserNFTs() {
                     }
                 })
             }
-            console.log('正在掛單', res)
+            //console.log('正在掛單', res)
         })
         .catch(err => {
             proxy.$loading.hide()
 
-            console.log(err)
+            //console.log(err)
         })
 }
 function countDown(time) {
@@ -268,13 +268,13 @@ async function getListeds24h() { //每个地址每天最多挂单4张NFT
             listedsList.push(item)
         }
     })
-    // console.log(listedsList)
+    // //console.log(listedsList)
     return listedsList.length
 }
 
 //掛單
 async function handleListed(item, index) {
-    console.log(item)
+    //console.log(item)
     proxy.$loading.show()
     let numListingsIn24Hours
     let totalListings
@@ -287,10 +287,10 @@ async function handleListed(item, index) {
         // lastListingTime = 1704271082
         timestamp = Number(lastListingTime) + Number(60 * 20)
         // timestamp = new Date(timestamp).getTime()
-        console.log('20分鐘內一共多小張NFT正在掛賣或已經賣出', numListingsIn24Hours)
-        console.log('現正掛賣NFT數量', totalListings)
-        console.log('由此時間開始計起24小時', lastListingTime)
-        console.log('timestamp', timestamp)
+        //console.log('20分鐘內一共多小張NFT正在掛賣或已經賣出', numListingsIn24Hours)
+        //console.log('現正掛賣NFT數量', totalListings)
+        //console.log('由此時間開始計起24小時', lastListingTime)
+        //console.log('timestamp', timestamp)
         if (Number(totalListings) >= 4) {
             proxy.$confirm.hide()
             proxy.$confirm.show({
@@ -307,7 +307,7 @@ async function handleListed(item, index) {
             return
         }
         proxy.$confirm.hide()
-        console.log(timestamp * 1000 > new Date().getTime(), timestamp * 1000, new Date().getTime())
+        //console.log(timestamp * 1000 > new Date().getTime(), timestamp * 1000, new Date().getTime())
         if (Number(numListingsIn24Hours) >= 4 && timestamp * 1000 > new Date().getTime()) {
             proxy.$confirm.hide()
             proxy.$confirm.show({
@@ -325,7 +325,7 @@ async function handleListed(item, index) {
         }
 
     } catch (err) {
-        console.log(err)
+        //console.log(err)
         proxy.$confirm.hide()
         proxy.$loading.hide()
         showToast(t('toast.error'))
@@ -334,8 +334,8 @@ async function handleListed(item, index) {
     let time
     try { //禁售期
         time = await nftContractApi.sellOffPeriod(item.token_id)
-        console.log('出售時間時間戳', Number(time))
-        console.log('現在時間時間戳', parseInt(new Date().getTime() / 1000))
+        //console.log('出售時間時間戳', Number(time))
+        //console.log('現在時間時間戳', parseInt(new Date().getTime() / 1000))
         if (Number(time) > parseInt(new Date().getTime() / 1000)) {
             // let timeAll = Number(time) + (new Date().getTime() / 1000)
             // showToast(countDown(Number(time)) + '後可出售')
@@ -358,7 +358,7 @@ async function handleListed(item, index) {
         }
     } catch (err) {
         proxy.$loading.hide()
-        console.log(err)
+        //console.log(err)
         // showToast('獲取禁售期失敗，請重試')
         showToast(t('toast.error'))
         return
@@ -372,10 +372,10 @@ async function handleListed(item, index) {
         proxy.$loading.hide()
         // showToast(`${t('modalConfirm.checkAuthFail', {type: 'MT'})}`)
         showToast(`${t('modalConfirm.checkAuthFail', { type: 'MT' })}`)
-        console.log(err)
+        //console.log(err)
     }
     const transactionResponse = await nftContractApi.isApprovedAll(localStorage.getItem('address'), config.nfts_marketplace_addr)
-    console.log(transactionResponse)
+    //console.log(transactionResponse)
     if (!transactionResponse) { //當前領取方式未授權
         proxy.$loading.hide()
         proxy.$confirm.hide()
@@ -389,14 +389,14 @@ async function handleListed(item, index) {
                 // usdt对pmt授權
                 nftContractApi.setApprovalForAll(config.nfts_marketplace_addr)
                     .then(res => {
-                        console.log(res)
+                        //console.log(res)
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
                         showToast(t('modalConfirm.successAuthorize'))
 
                     })
                     .catch(err => {
-                        console.log(err)
+                        //console.log(err)
                         proxy.$confirm.hide()
                         showToast(t('modalConfirm.authorizeFail', { type: 'NFT' }))
                     })
@@ -408,10 +408,10 @@ async function handleListed(item, index) {
 
     // Transaction is confirmed. You can now check the receipt.
     // if (transactionReceipt.status === 1) {
-    //     console.log("Transaction successful:", transactionReceipt, transactionResponse);
+    //     //console.log("Transaction successful:", transactionReceipt, transactionResponse);
     //     proxy.$loading.hide()
     // } else {
-    //     console.log("Transaction failed:", transactionReceipt, transactionResponse);
+    //     //console.log("Transaction failed:", transactionReceipt, transactionResponse);
     // }
 
     let allowance
@@ -421,9 +421,9 @@ async function handleListed(item, index) {
     } catch (err) {
         proxy.$loading.hide()
         showToast(t('modalConfirm.checkAuthFail'))
-        console.log(err)
+        //console.log(err)
     }
-    console.log('allowance', allowance)
+    //console.log('allowance', allowance)
     if (Number(allowance) == 0) { //當前領取方式未授權
         proxy.$loading.hide()
         proxy.$confirm.hide()
@@ -437,14 +437,14 @@ async function handleListed(item, index) {
                 // usdt对pmt授權
                 nftContractApi.approve(config.nfts_marketplace_addr)
                     .then(res => {
-                        console.log(res)
+                        //console.log(res)
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
                         showToast(t('modalConfirm.successAuthorize'))
 
                     })
                     .catch(err => {
-                        console.log(err)
+                        //console.log(err)
                         proxy.$confirm.hide()
                         showToast(t('modalConfirm.authorizeFail', { type: 'PMT' }))
                     })
@@ -452,7 +452,7 @@ async function handleListed(item, index) {
         });
         return
     }
-    console.log('isApprovedAll', isApprovedAll)
+    //console.log('isApprovedAll', isApprovedAll)
     if (Number(isApprovedAll) == 0) { //當前賬號未授權
         proxy.$loading.hide()
         proxy.$confirm.hide()
@@ -466,14 +466,14 @@ async function handleListed(item, index) {
                 // pmt对nft授權
                 minterContractApi.approve(config.nfts_marketplace_addr)
                     .then(res => {
-                        console.log(res)
+                        //console.log(res)
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
                         showToast(t('modalConfirm.successAuthorize'))
 
                     })
                     .catch(err => {
-                        console.log(err)
+                        //console.log(err)
                         proxy.$confirm.hide()
                         showToast(t('modalConfirm.authorizeFail', { type: 'MT' }))
                     })
@@ -492,7 +492,7 @@ async function handleListed(item, index) {
         onConfirm: async () => {
             try { //listNFT
                 // proxy.$loading.show()
-                console.log(item.token_id)
+                //console.log(item.token_id)
                 proxy.$confirm.hide()
                 item.opertingType = t('modalConfirm.onSale')
                 item.showOperting = true
@@ -559,9 +559,9 @@ async function handleCancelList(item) {
     } catch (err) {
         proxy.$loading.hide()
         showToast(t('modalConfirm.checkAuthFail'))
-        console.log(err)
+        //console.log(err)
     }
-    console.log('isApprovedAll', isApprovedAll)
+    //console.log('isApprovedAll', isApprovedAll)
 
     if (Number(isApprovedAll) == 0) { //當前賬號未授權
         proxy.$loading.hide()
@@ -576,14 +576,14 @@ async function handleCancelList(item) {
                 // pmt对nft授權
                 nftContractApi.setApprovalForAll(config.nfts_marketplace_addr)
                     .then(res => {
-                        console.log(res)
+                        //console.log(res)
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
                         showToast(t('modalConfirm.successAuthorize'))
 
                     })
                     .catch(err => {
-                        console.log(err)
+                        //console.log(err)
                         proxy.$confirm.hide()
                         showToast(t('modalConfirm.authorizeFail', { type: 'NFT' }))
                     })
@@ -604,7 +604,7 @@ async function handleCancelList(item) {
             try { //unlistNFT
                 // proxy.$loading.show()
 
-                console.log(item.token_id)
+                //console.log(item.token_id)
                 proxy.$confirm.hide()
                 item.opertingType = t('modalConfirm.canceling'),
                     item.showOperting = true
@@ -689,12 +689,12 @@ function checkedAllListed(isChecked) {
 // 點擊正在掛單卡片的選擇框
 function listedsHasChange(item, index) {
     item.checkedStatus = !item.checkedStatus
-    console.log('checkedStatus', index + 1, item.checkedStatus)
+    //console.log('checkedStatus', index + 1, item.checkedStatus)
     checkedListeds.value = listeds.value.filter(item => {
         return item.checkedStatus == true
     })
     isAllListed.value = listeds.value.length == checkedListeds.value.length
-    console.log('全選正在掛單卡片', listeds.value.length, checkedListeds.value.length)
+    //console.log('全選正在掛單卡片', listeds.value.length, checkedListeds.value.length)
 }
 // 點擊可售賣卡片的選擇框
 function saleablesHasChange(item, index) {
@@ -703,7 +703,7 @@ function saleablesHasChange(item, index) {
         return item.checkedStatus == true
     })
     isAllSale.value = saleables.value.length == checkedSaleables.value.length
-    console.log('全選可售賣卡片', saleables.value.length, checkedSaleables.value.length)
+    //console.log('全選可售賣卡片', saleables.value.length, checkedSaleables.value.length)
 }
 function handleTypeItem(item, index) {
     currentType.value = index

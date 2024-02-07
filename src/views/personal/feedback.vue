@@ -74,7 +74,7 @@ let actions = ref([
 ])
 let currentFilter = ref(0)
 function onSelect(select) {
-    console.log(select.index)
+    //console.log(select.index)
     currentFilter.value = select.index
 }
 let showLanguagePopover = ref(false)
@@ -84,7 +84,7 @@ let actionsLanguage = ref([
 ])
 let currentLanguage = ref(0)
 function onSelectLanguage(select) {
-    console.log(select.index)
+    //console.log(select.index)
     currentLanguage.value = select.index
 }
 </script>

@@ -37,7 +37,7 @@ const route = useRoute()
 let active = ref('2')
 
 onMounted(() => {
-    console.log(route.query.target)
+    //console.log(route.query.target)
     active.value = route.query.target
 })
 </script>

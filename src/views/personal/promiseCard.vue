@@ -91,7 +91,7 @@
                                 <div class="flex justify-between items-center mb-1">
                                     <div>{{ $t('promiseCard.isRelease') }}:</div>
                                     <div class="">{{ _item.is_minted ? $t('promiseCard.released') :
-                                        $t('promiseCard.unpublished') }}</div>
+                                                                            $t('promiseCard.unpublished') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +135,7 @@ onMounted(() => {
     getStaticRecords()
 })
 function handleTabs(tabs) {
-    console.log(tabs)
+    //console.log(tabs)
     if (tabs.name == 0) {
         cardList.value = unusedList.value
     } else {
@@ -147,7 +147,7 @@ function getStaticRecords() {
     let params = { prize_type_id: 3, perPage: 100000 }
     staticRecords(params)
         .then(res => {
-            console.log(res)
+            //console.log(res)
             proxy.$loading.hide()
             // cardList.value = res.records
             res.records.map(item => {
@@ -164,7 +164,7 @@ function getStaticRecords() {
 
         })
         .catch(err => {
-            console.log(err)
+            //console.log(err)
             proxy.$loading.hide()
 
         })

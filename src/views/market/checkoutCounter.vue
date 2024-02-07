@@ -370,13 +370,13 @@ let preAddressUse = ref(t('coherents.invalidAddress'))
 let rtBind = ref([])
 onMounted(() => {
   // FormatAmount()
-  console.log(route.params.type)
-  console.log(coherents_list)
+  //console.log(route.params.type)
+  //console.log(coherents_list)
   let targetCoherents = coherents_list.filter(item => {
     return item.type == route.params.type
   })
   coherentInfo.value = targetCoherents[0]
-  console.log(coherentInfo.value)
+  //console.log(coherentInfo.value)
   getPlayersInfo(localStorage.getItem('address'))
   getRTBalance()
 })
@@ -384,23 +384,23 @@ onMounted(() => {
 function getRTBalance() {
   rtBindBalance()
     .then(res => {
-      console.log(res, '绑定rt余额')
+      //console.log(res, '绑定rt余额')
       rtBind.value = res.rt_locked
     })
     .catch(err => {
-      console.log(err)
+      //console.log(err)
     })
 }
 //獲取玩家信息
 function getPlayersInfo(address) {
   playersInfo(address)
     .then(res => {
-      console.log('res', res)
+      //console.log('res', res)
       palayBanalce.value.rt = res.player.rt
       palayBanalce.value.rtLocked = res.player.rt_locked
     })
     .catch(err => {
-      console.log('err', err)
+      //console.log('err', err)
     })
 }
 function togglePointPopup() {
@@ -411,7 +411,7 @@ function toggleNextPopup() {
 }
 //點擊點位選擇彈窗確認按鈕
 function handleConfirmPoint() {
-  console.log(pointList.value[currentPoint.value])
+  //console.log(pointList.value[currentPoint.value])
   propertiesList.value[2].content = pointList.value[currentPoint.value].title
   togglePointPopup()
 }
@@ -425,8 +425,8 @@ function handlePoint(item, index) {
 }
 //點擊校驗直接上級地址
 async function handleCalibrationReferrer() {
-  console.log('referrerAddress', referrerAddress.value)
-  console.log(referrerAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase())
+  //console.log('referrerAddress', referrerAddress.value)
+  //console.log(referrerAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase())
   if (!referrerAddress.value) {
     showToast(t('modalConfirm.enterInvterAddress'))
     return
@@ -448,7 +448,7 @@ async function handleCalibrationReferrer() {
     return
   }
   if (referrerAddress.value == ZeroAddress || !isAddress(referrerAddress.value)) {
-    console.log('无效地址')
+    //console.log('无效地址')
     calibratingReferrer.value = false
     isErrReferrer.value = true
 
@@ -458,7 +458,7 @@ async function handleCalibrationReferrer() {
   let isSelfNext
   try {
     isSelfNext = await checkAddressInTree(referrerAddress.value)
-    console.log(isSelfNext)
+    //console.log(isSelfNext)
     if (isSelfNext.message == '所檢示的地址不是自己的下級。') {
       calibratingReferrer.value = false
 
@@ -485,10 +485,10 @@ async function handleCalibrationReferrer() {
       isErrReferrer.value = true
       calibratingReferrer.value = false
     }
-    console.log('isValidAddress', isValidAddress)
+    //console.log('isValidAddress', isValidAddress)
 
   } catch (err) {
-    console.log(err)
+    //console.log(err)
     canUseReferrer.value = false
     calibratingReferrer.value = false
     return
@@ -507,7 +507,7 @@ async function handleCalibrationLeg() {
   }
   calibratingLeg.value = true
   if (legAddress.value == ZeroAddress || !isAddress(legAddress.value)) {
-    console.log('无效地址')
+    //console.log('无效地址')
     isErrLeg.value = true
     calibratingLeg.value = false
     return
@@ -516,7 +516,7 @@ async function handleCalibrationLeg() {
     let legAddressInfo
     let isSelfNext
     isSelfNext = await checkAddressInTree(referrerAddress.value)
-    console.log(isSelfNext)
+    //console.log(isSelfNext)
     if (isSelfNext.message == '所檢示的地址不是自己的下級。') {
       calibratingReferrer.value = false
       proxy.$confirm.hide()
@@ -532,7 +532,7 @@ async function handleCalibrationLeg() {
       });
       return
     }
-    console.log(addressLeg)
+    //console.log(addressLeg)
     legAddressInfo = await addressLeg(legAddress.value)
     if (legAddressInfo.message == '該地址沒有購買配套記錄，不是有效地址。') {
       isErrLeg.value = true
@@ -541,13 +541,13 @@ async function handleCalibrationLeg() {
       return
     }
     canUseLeg.value = true
-    console.log(legAddressInfo)
+    //console.log(legAddressInfo)
     pointList.value = [{ title: t('assistance.left'), address: null }, { title: t('assistance.right'), address: null }]
     pointList.value[0].address = legAddressInfo.directReferrals.left_leg
     pointList.value[1].address = legAddressInfo.directReferrals.right_leg
     calibratingLeg.value = false
   } catch (err) {
-    console.log(err)
+    //console.log(err)
     proxy.$loading.hide()
 
   }
@@ -572,11 +572,11 @@ async function isSufficientRT(amount) {
     // balance = parseInt(balance)
     balance = balance.player
     balance = balance.rt
-    console.log('rt餘額', balance)
-    console.log('rt餘額', parseInt(balance))
+    //console.log('rt餘額', balance)
+    //console.log('rt餘額', parseInt(balance))
     return Number(amount).toFixed(0) <= parseInt(balance)
   } catch (err) {
-    console.log(err)
+    //console.log(err)
   }
 }
 
@@ -586,7 +586,7 @@ async function isSufficientUSD3(amount) {
   let WEB3 = new Web3(window.ethereum)
   balance = WEB3.utils.fromWei(balance.toString(), 'ether')
   balance = parseInt(balance)
-  console.log('u餘額', balance)
+  //console.log('u餘額', balance)
   return Number(amount).toFixed(0) <= balance
 }
 //使用usdt購買package
@@ -631,9 +631,9 @@ async function handleConfirmBuyForUSDT() {
   } catch (err) {
     proxy.$loading.hide()
     showToast(`${t('modalConfirm.checkAuthFail', { type: 'USD3' })}`)
-    console.log(err)
+    //console.log(err)
   }
-  console.log('allowance', allowance)
+  //console.log('allowance', allowance)
 
   if (Number(allowance) == 0) { //當前領取方式未授權
     proxy.$loading.hide()
@@ -648,14 +648,14 @@ async function handleConfirmBuyForUSDT() {
         // usdt对pmt授權
         usdtContractApi.approve(config.pmt_purchase_addr)
           .then(res => {
-            console.log(res)
+            //console.log(res)
             proxy.$confirm.hide()
             // proxy.$loading.hide()
             showToast(t('modalConfirm.successAuthorize'))
 
           })
           .catch(err => {
-            console.log(err)
+            //console.log(err)
             proxy.$confirm.hide()
             showToast(t('modalConfirm.authorizeFail', { type: 'USD3' }))
           })
@@ -674,12 +674,12 @@ async function handleConfirmBuyForUSDT() {
     confirmText: t('modalConfirm.confirm'),
     onConfirm: async () => {
       try {
-        console.log(Number(coherentInfo.value.id))
+        //console.log(Number(coherentInfo.value.id))
         let purchase = await pmtContractApi.purchasePackage(Number(coherentInfo.value.id - 1))
         proxy.$confirm.hide()
         proxy.$confirm.show({
           title: t('modalConfirm.buySuccess'),
-          content: `${t('modalConfirm.successBuyPackage', { package: coherentInfo.value.type })}`,
+          content: `${t('modalConfirm.successBuyPackage', { package: coherentInfo.value.name })}`,
           showCancelButton: false,
           confirmText: t('modalConfirm.confirm'),
           onConfirm: () => {
@@ -687,7 +687,7 @@ async function handleConfirmBuyForUSDT() {
             // toggleConfirmPayPopup()
           },
         });
-        console.log(purchase)
+        //console.log(purchase)
         let data = {
           address: referrerAddress.value,
           leg_address: legAddress.value,
@@ -710,7 +710,7 @@ async function handleConfirmBuyForUSDT() {
           },
         });
         // showToast('購買失敗，請重試')
-        // console.log(err)
+        // //console.log(err)
       }
     },
     // onCancel: () => {
@@ -758,7 +758,7 @@ async function handlePopupConfirmBuy() {
   let isAdequateBalance
   try {
     isAdequateBalance = await adequateBalance({ package_id: coherentInfo.value.id })
-    console.log('isAdequateBalance', isAdequateBalance)
+    //console.log('isAdequateBalance', isAdequateBalance)
     proxy.$loading.hide()
     if (isAdequateBalance.message == "RT餘額不足") {
       proxy.$loading.hide()
@@ -805,10 +805,10 @@ async function handlePopupConfirmBuy() {
         legSide: currentPoint.value == 0 ? 'left' : 'right',
         referrer_address: referrerAddress.value
       }
-      console.log(data)
+      //console.log(data)
       buyPackageToNext(data)
         .then(res => {
-          console.log('購買', res)
+          //console.log('購買', res)
           if (res.error) {
             proxy.$confirm.hide()
             proxy.$confirm.show({
@@ -898,7 +898,7 @@ async function handlePopupConfirmBuy() {
               proxy.$confirm.show({
                 title: t('modalConfirm.buySuccess'),
                 // content: `已成功為下級購買 ${coherentInfo.value.type} 配套`,
-                content: `${t('modalConfirm.successBuyPackage', { package: coherentInfo.value.type })}`,
+                content: `${t('modalConfirm.successBuyPackage', { package: coherentInfo.value.name })}`,
                 showCancelButton: false,
                 confirmText: t('modalConfirm.confirm'),
                 onConfirm: () => {
@@ -912,14 +912,14 @@ async function handlePopupConfirmBuy() {
                   updataRTBalance(localStorage.getItem('address'))
                     .then(result => {
                       proxy.$loading.hide()
-                      console.log('購買成功', result)
+                      //console.log('購買成功', result)
                       // showToast(res.message)
                       proxy.$confirm.hide()
                       // clearTimeout(timer)
                     })
                     .catch(err => {
                       proxy.$loading.hide()
-                      console.log('更新rt餘額失敗', err)
+                      //console.log('更新rt餘額失敗', err)
                       proxy.$confirm.hide()
                     })
                 },
@@ -955,7 +955,7 @@ async function handlePopupConfirmBuy() {
 
 //選擇購買配套地址相應屬性
 function handlePropertiesItem(item, index) {
-  console.log(item, index)
+  //console.log(item, index)
   if (index == 0) {
     toggleReferrerAddressPopup()
   } else if (index == 1) {
@@ -986,7 +986,7 @@ function handlePropertiesItem(item, index) {
 //检查erc20授权状态
 async function checkERC20ApproveState(walletAddress) {
   // let approveState = currentPayWay == 1 ? await MUSDTERC20AllowanceState(walletAddress) : await RTERC20AllowanceState(walletAddress) //根据支付方式返回该币种erc20授权状态
-  // console.log(`${payWays.value[currentPayWay.value].title}授权状态`, approveState)
+  // //console.log(`${payWays.value[currentPayWay.value].title}授权状态`, approveState)
   return true
 }
 async function handleConfirmBuyForRT() {

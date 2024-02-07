@@ -193,7 +193,7 @@ function refreshData() {
 }
 
 function onSelect(select) {
-    console.log(select)
+    //console.log(select)
     currentFilter.value = select.index
     let params = { perPage: 100000, status: 1, sortBy: 'price', sortDesc: select.value }
     getMarketplace(params)
@@ -201,10 +201,10 @@ function onSelect(select) {
 //獲取當前最高配套
 async function getMaxPackage() {
     let result = await playersInfo(localStorage.getItem('address'))
-    console.log(result)
+    //console.log(result)
     packageID.value = result.player.max_package_id
     active.value = result.player.max_package_id - 1
-    // console.log(active.value)
+    // //console.log(active.value)
 }
 //取消掛單
 async function handleCancelList(item) {
@@ -216,9 +216,9 @@ async function handleCancelList(item) {
         proxy.$loading.hide()
         // showToast('檢查NFT授權錯誤，請重試')
         showToast(`${t('modalConfirm.checkAuthFail', { type: "NFT" })}`)
-        console.log(err)
+        //console.log(err)
     }
-    console.log('isApprovedAll', isApprovedAll)
+    //console.log('isApprovedAll', isApprovedAll)
 
     if (Number(isApprovedAll) == 0) { //當前賬號未授權
         proxy.$loading.hide()
@@ -234,14 +234,14 @@ async function handleCancelList(item) {
                 // pmt对nft授權
                 nftContractApi.setApprovalForAll(config.nfts_marketplace_addr)
                     .then(res => {
-                        console.log(res)
+                        //console.log(res)
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
                         showToast(t('modalConfirm.successAuthorize'))
 
                     })
                     .catch(err => {
-                        console.log(err)
+                        //console.log(err)
                         proxy.$confirm.hide()
                         showToast(t('modalConfirm.authorizeFail', { type: 'NFT' }))
                     })
@@ -251,7 +251,7 @@ async function handleCancelList(item) {
     }
 
     try { //unlistNFT
-        console.log(item.token_id)
+        //console.log(item.token_id)
         proxy.$confirm.hide()
         // item.opertingType = "正在挂单..."
         item.showOperting = true
@@ -265,7 +265,7 @@ async function handleCancelList(item) {
         showToast(t('modalConfirm.cancelFail'))
         item.showOperting = false
         item.is_listed = false
-        console.log(err)
+        //console.log(err)
     }
 }
 
@@ -294,12 +294,12 @@ function getMarketplace(params) {
                     },
                 });
             }
-            console.log('nft列表', res)
+            //console.log('nft列表', res)
             nftsDatas.value = res.market_places
             res.market_places.map(item => {
                 item.showOperting = false
                 item.showToRaffle = false
-                // console.log(Number(item.token_type), item.token_id)
+                // //console.log(Number(item.token_type), item.token_id)
                 if (item.token_type == 1) {
                     item.nftImg = nftOne
                 }
@@ -335,7 +335,7 @@ function getMarketplace(params) {
             proxy.$loading.hide()
         })
         .catch(err => {
-            console.log(err)
+            //console.log(err)
             proxy.$loading.hide()
             loading.value = false
 
@@ -346,7 +346,7 @@ function getMarketplace(params) {
 //     let balance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
 //     let WEB3 = new Web3(window.ethereum)
 //     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
-//     console.log('pmt', result)
+//     //console.log('pmt', result)
 //     pmtBalance.value = result
 //     return balance
 // }
@@ -354,7 +354,7 @@ function getMarketplace(params) {
 //     let balance = await mtContractApi.balanceOf(localStorage.getItem('address'))
 //     let WEB3 = new Web3(window.ethereum)
 //     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
-//     console.log('mt', result)
+//     //console.log('mt', result)
 //     mtBalance.value = result
 //     return balance
 // }
@@ -366,12 +366,12 @@ async function isNotEnoughBalance(amount) {
     let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
     pmtBalance = WEB3.utils.fromWei(pmtBalance.toString(), 'ether')
     let balance = parseInt(parseInt(mtBalance) + parseInt(pmtBalance))
-    console.log(balance, parseInt(amount))
+    //console.log(balance, parseInt(amount))
     return balance < parseInt(amount)
 }
 //點擊去抽獎
 function handleToRaffle(item, index) {
-    console.log('去抽奖')
+    //console.log('去抽奖')
     router.push({
         path: '/market/raffle',
         query: {
@@ -385,7 +385,7 @@ function handleToRaffle(item, index) {
 }
 // 點擊購買配套按鈕
 async function handleBuyButton(item, canBuy) {
-    console.log(item, canBuy)
+    //console.log(item, canBuy)
     if (!canBuy) {
         showToast(`${'modalConfirm.cantBuyNFTInPool'}`)
         return
@@ -406,7 +406,7 @@ async function handleBuyButton(item, canBuy) {
             return
         }
     } catch (err) {
-        console.log(err)
+        //console.log(err)
         proxy.$loading.hide()
         proxy.$confirm.hide()
         proxy.$confirm.show({
@@ -426,10 +426,10 @@ async function handleBuyButton(item, canBuy) {
     } catch (err) {
         proxy.$loading.hide()
         showToast(`${t('modalConfirm.checkAuthFail', { type: "PMT" })}`)
-        console.log(err)
+        //console.log(err)
     }
     proxy.$loading.hide()
-    console.log('allowance', allowance)
+    //console.log('allowance', allowance)
     if (Number(allowance) == 0) { //當前賬號未授權
         proxy.$loading.hide()
         proxy.$confirm.hide()
@@ -443,17 +443,17 @@ async function handleBuyButton(item, canBuy) {
                 // pmt对nft授權
                 nftContractApi.approve(config.nfts_marketplace_addr)
                     .then(res => {
-                        console.log(res)
+                        //console.log(res)
                         proxy.$loading.hide()
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
                         showToast(t('modalConfirm.successAuthorize'))
                     })
                     .catch(err => {
-                        console.log(err)
+                        //console.log(err)
                         proxy.$loading.hide()
                         proxy.$confirm.hide()
-                        console.log('err', err)
+                        //console.log('err', err)
                         proxy.$confirm.show({
                             title: t('modalConfirm.tips'),
                             content: t('modalConfirm.authorizeFail', { type: 'PMT' }),
@@ -477,7 +477,7 @@ async function handleBuyButton(item, canBuy) {
     } catch (err) {
         proxy.$loading.hide()
         showToast(`${t('modalConfirm.checkAuthFail', { type: 'MT' })}`)
-        console.log(err)
+        //console.log(err)
     }
     proxy.$loading.hide()
     if (Number(isApprovedAll) == 0) { //當前賬號未授權
@@ -493,7 +493,7 @@ async function handleBuyButton(item, canBuy) {
                 // pmt对nft授權
                 minterContractApi.approve(config.nfts_marketplace_addr)
                     .then(res => {
-                        console.log(res)
+                        //console.log(res)
                         proxy.$loading.hide()
                         proxy.$confirm.hide()
                         // proxy.$loading.hide()
@@ -501,10 +501,10 @@ async function handleBuyButton(item, canBuy) {
 
                     })
                     .catch(err => {
-                        console.log(err)
+                        //console.log(err)
                         proxy.$loading.hide()
                         proxy.$confirm.hide()
-                        console.log('err', err)
+                        //console.log('err', err)
                         proxy.$confirm.show({
                             title: t('modalConfirm.tips'),
                             content: 'MT授權失敗，請重新授權',
@@ -530,7 +530,7 @@ async function handleBuyButton(item, canBuy) {
         onConfirm: async () => {
             try { //购买nft
                 proxy.$confirm.hide()
-                console.log('item', item)
+                //console.log('item', item)
                 tokenID.value = item.token_id
                 try {
                     item.showOperting = true
@@ -540,21 +540,21 @@ async function handleBuyButton(item, canBuy) {
                         // getLuckyRes()
 
                         let raffleResult = await getLuckyDraw({ nft_token_id: item.token_id })
-                        console.log('抽獎結果', raffleResult)
+                        //console.log('抽獎結果', raffleResult)
                         if (raffleResult.message == "已成功抽獎") {
-                            // console.log(res)
+                            // //console.log(res)
                             item.showOperting = false
                             item.showToRaffle = true
                             prizeIndex.value = raffleResult.roulette_record.roulette_id
                             nftPrice.value = raffleResult.roulette_record.nft_price
-                            console.log(prizeIndex.value, nftPrice.value)
+                            //console.log(prizeIndex.value, nftPrice.value)
                             clearInterval(timer)
                         }
                     }, 2000);
 
 
                 } catch (err) {
-                    console.log(err)
+                    //console.log(err)
                     proxy.$confirm.hide()
                     item.showOperting = false
                     item.showToRaffle = false
@@ -597,7 +597,7 @@ async function handleBuyButton(item, canBuy) {
         getLuckyDraw({ nft_token_id: tokenID.value })
             .then(res => {
                 if (res.message == "已成功抽獎") {
-                    // console.log(res)
+                    // //console.log(res)
                     proxy.$confirm.hide()
                     clearInterval(timer.value)
                     if (!res.is_shown) {
@@ -622,7 +622,7 @@ async function handleBuyButton(item, canBuy) {
             .catch(err => {
                 proxy.$loading.hide()
                 // showToast('購買失敗，請重試')
-                console.log(err)
+                //console.log(err)
             })
     }
 

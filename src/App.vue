@@ -153,7 +153,7 @@ const initStar = () => {
   h.value = container.value?.clientHeight
   canvas.value.width = container.value?.clientWidth || 1000
   canvas.value.height = container.value?.clientHeight || 800
-  // console.log(`画布的宽高是: ${w.value} ======== ${h.value}`)
+  // //console.log(`画布的宽高是: ${w.value} ======== ${h.value}`)
   canvas2.value = document.createElement('canvas')
   ctx2.value = canvas2.value.getContext('2d')
   canvas2.value.width = 100
@@ -172,7 +172,7 @@ const initStar = () => {
     const star = generateStar()
     stars.value.push(star)
   }
-  // console.log(stars.value)
+  // //console.log(stars.value)
 }
 
 
@@ -225,7 +225,7 @@ async function accountHasChanged() {
 
 //     login(params)
 //         .then(res => {
-//             console.log(res)
+//             //console.log(res)
 //             localStorage.setItem('token', res.access_token)
 //             localStorage.setItem('address', res.address)
 //             userInfo.changeAddress(res.address)
@@ -235,9 +235,9 @@ async function accountHasChanged() {
 //         .catch(err => {
 //             proxy.$loading.hide()
 //             showToast('登录失败，请重试')
-//             console.log(err)
+//             //console.log(err)
 //         })
-//     // console.log(signature)
+//     // //console.log(signature)
 
 // }
 </script>

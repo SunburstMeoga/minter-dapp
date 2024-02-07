@@ -309,11 +309,11 @@ async function handleCopy() {
 function getPlayersInfo(address) {
     playersInfo(address)
         .then(res => {
-            console.log('res', res)
+            //console.log('res', res)
             hasPackage.value = res.player.package_transactions.length !== 0
         })
         .catch(err => {
-            console.log('err', err)
+            //console.log('err', err)
         })
 }
 //钱包地址签名
@@ -343,7 +343,7 @@ async function addressSign() {
 
     login(params)
         .then(res => {
-            console.log(res)
+            //console.log(res)
             localStorage.setItem('token', res.access_token)
             localStorage.setItem('address', res.address)
             userInfo.changeAddress(res.address)
@@ -354,9 +354,9 @@ async function addressSign() {
         .catch(err => {
             proxy.$loading.hide()
             showToast('登录失败，请重试')
-            console.log(err)
+            //console.log(err)
         })
-    // console.log(signature)
+    // //console.log(signature)
 
 }
 //点击连接钱包按钮
@@ -377,28 +377,28 @@ async function initWallet() {
     localStorage.setItem('address', newAccounts[0])
     userInfo.changeAddress(newAccounts[0])
     showLoginPopup.value = false
-    console.log(userInfo.address)
+    //console.log(userInfo.address)
     toggleUserInfoPopup()
     showToast('Success')
 }
 
 async function disconnectWallet() {
     await ethereum.on('disconnect', (err, payload) => {
-        console.log(err, payload)
+        //console.log(err, payload)
     })
     localStorage.removeItem('address')
     localStorage.removeItem('token')
     userInfo.changeAddress('')
     toggleUserInfoPopup()
-    console.log('已断开连接')
+    //console.log('已断开连接')
 }
 
 // let $emit = defineEmits(['handleHomeChild'])
 const { proxy } = getCurrentInstance()
 function changeLanguage(actions) {
-    console.log(actions)
+    //console.log(actions)
     proxy.$i18n.locale = actions.locale
-    console.log(proxy.$i18n.locale)
+    //console.log(proxy.$i18n.locale)
     localStorage.setItem('language', actions.locale)
     // if (proxy.$i18n.locale == "zh-hk") {
     //     proxy.$i18n.locale = "en-us";
@@ -422,7 +422,7 @@ function handleHomeChild(menuItem, item, index) {
     router.push({
         path: '/'
     })
-    console.log(menuItem, item, index)
+    //console.log(menuItem, item, index)
     swiperStore.changeIndex(index)
     // $emit(menuItem, item, index)
 
@@ -500,7 +500,7 @@ function notYetOpen() {
 
 function toMarket(index) {
     // showToast(t('toast.notYetOpen'));
-    console.log(index)
+    //console.log(index)
     // return;
     router.push({
         path: index == 0 ? '/market/nfts' : '/market/coherent',

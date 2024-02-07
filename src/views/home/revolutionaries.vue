@@ -173,9 +173,9 @@ function toContactsPage(item) {
 }
 
 function changeLanguage(actions) {
-    console.log(actions)
+    //console.log(actions)
     proxy.$i18n.locale = actions.locale
-    console.log(proxy.$i18n.locale)
+    //console.log(proxy.$i18n.locale)
     localStorage.setItem('language', actions.locale)
     // if (proxy.$i18n.locale == "zh-hk") {
     //     proxy.$i18n.locale = "en-us";
@@ -196,4 +196,5 @@ img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}</style>
+}
+</style>

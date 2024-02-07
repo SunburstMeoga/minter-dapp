@@ -72,11 +72,11 @@ function checkPoint(address) {
 function getRefferMap() {
     referrerMap(localStorage.getItem('address'))
         .then(res => {
-            // console.log('直推关系图', res)
+            // //console.log('直推关系图', res)
             dataList.value = res.directReferrals
         })
         .catch(err => {
-            console.log('err', err)
+            //console.log('err', err)
         })
 }
 

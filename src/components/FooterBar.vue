@@ -34,13 +34,13 @@ import { ref, getCurrentInstance } from 'vue'
 const officialMedias = ref([{ icon: 'icon-tuite', url: '' }, { icon: 'icon-telegram1', url: '' }, { icon: 'icon-medium', url: '' }, { icon: 'icon-discord', url: '' }])
 const { proxy } = getCurrentInstance()
 function changeLanguage() {
-  console.log(proxy.$i18n.locale)
+  //console.log(proxy.$i18n.locale)
   if (proxy.$i18n.locale == "zh-hk") {
     proxy.$i18n.locale = "en-us";
   } else if (proxy.$i18n.locale == "en-us") {
     proxy.$i18n.locale = "zh-hk"
   }
-  console.log(proxy);
+  //console.log(proxy);
 };
 </script>
 

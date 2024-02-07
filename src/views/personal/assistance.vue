@@ -74,7 +74,7 @@
                         class="border border-primary-color rounded px-2 py-1"
                         :class="currentSelf == index ? 'bg-primary-color text-white' : 'text-primary-color'"
                         @click="handleBuyPackageSelf(item, index)">
-                        {{ item.type }}
+                        {{ item.name }}
                     </div>
                 </div>
                 <div class="w-11/12 mr-auto ml-auto flex justify-between items-center">
@@ -437,16 +437,16 @@ let addressOperating = computed(() => {
 })
 let showCoherentList = ref(false)
 const actions = ref([
-    { text: '200', id: 1 },
-    { text: '600', id: 2 },
-    { text: '2000', id: 3 },
+    { text: 'N', id: 1, type: '205' },
+    { text: 'R', id: 2, type: '605' },
+    { text: 'SR', id: 3, type: '2005' },
     // { text: '6000', id: 4 },
     // { text: '20000', id: 5 },
 ])
-// const buyPackage = ref({ text: '請選擇配套' })
-let buyPackage = computed(() => {
-    return t('modalConfirm.choosePackage')
-})
+const buyPackage = ref({ text: 'N', id: 1, type: '205' })
+// let buyPackage = computed(() => {
+//     return { text: t('modalConfirm.choosePackage'),id: 1 }
+// })
 // const pointLsit = ref([{ title: '左' }, { title: '右' }])
 let pointLsit = computed(() => {
     return [{ title: t('assistance.left') }, { title: t('assistance.right') }]
@@ -460,7 +460,7 @@ let rtBind = ref([])
 
 onMounted(() => {
     // viewAddressPoint(window.ethereum.selectedAddress)
-    // console.log('document.domain', document.domain)
+    // //console.log('document.domain', document.domain)
     viewPointMap(localStorage.getItem('address'))
     getStaticRecords()
     getRTBalance()
@@ -469,11 +469,11 @@ onMounted(() => {
 function getRTBalance() {
     rtBindBalance()
         .then(res => {
-            console.log(res, '绑定rt余额')
+            //console.log(res, '绑定rt余额')
             rtBind.value = res.rt_locked
         })
         .catch(err => {
-            console.log(err)
+            //console.log(err)
         })
 }
 //输入我的地址
@@ -512,7 +512,7 @@ function clickCurrentCoherent(item, index) {
 async function handleConfirmBuyForRTPOPUP() {
     //   toggleConfirmPayPopup()
     //判斷rt餘額是否充足
-    console.log('用rt幫下級購買package')
+    //console.log('用rt幫下級購買package')
     // return
     if (currentCoherent.value == null) {
         showToast(t('modalConfirm.choosePackage'))
@@ -522,7 +522,7 @@ async function handleConfirmBuyForRTPOPUP() {
     proxy.$loading.show()
 
     let data = { package_id: coherentsList.value[currentCoherent.value].id, address: helpNextAddress.value, legSide: clickPointInfo.value.point, leg_address: clickPointInfo.value.preAddress, referrer_address: inviterAddressTwo.value }
-    console.log('幫助購買的下級地址', data, data.address)
+    //console.log('幫助購買的下級地址', data, data.address)
 
     proxy.$loading.hide()
     proxy.$confirm.hide()
@@ -538,7 +538,7 @@ async function handleConfirmBuyForRTPOPUP() {
                 proxy.$loading.hide()
                 buyPackageToNext(data)
                     .then(res => {
-                        console.log('購買成功', res)
+                        //console.log('購買成功', res)
                         if (res.error) {
                             proxy.$confirm.hide()
                             proxy.$confirm.show({
@@ -621,7 +621,7 @@ async function handleConfirmBuyForRTPOPUP() {
                             proxy.$confirm.show({
                                 title: t('modalConfirm.buySuccess'),
                                 // content: `已成功為下級購買 ${coherentsList.value[currentCoherent.value].type} 配套`,
-                                content: `${t('modalConfirm.successBuyPackage', { package: coherentsList.value[currentCoherent.value].type })}`,
+                                content: `${t('modalConfirm.successBuyPackage', { package: coherentsList.value[currentCoherent.value].name })}`,
                                 showCancelButton: false,
                                 confirmText: t('modalConfirm.confirm'),
                                 onConfirm: () => {
@@ -663,7 +663,7 @@ async function handleConfirmBuyForRTPOPUP() {
                 proxy.$loading.hide()
                 showToast(t('toast.error'))
                 toggleBuyPackageSelf()
-                console.log(err)
+                //console.log(err)
                 proxy.$confirm.hide()
             }
         },
@@ -678,7 +678,7 @@ async function handlePopupConfirmBuy() {
     //判斷rt餘額是否充足
     toggleBuyPackageSelf()
     proxy.$loading.show()
-    // console.log('是否余额不足', await isSufficientRT(coherentsList.value[currentSelf.value].type))
+    // //console.log('是否余额不足', await isSufficientRT(coherentsList.value[currentSelf.value].type))
     try {
         if (!await isSufficientRT(coherentsList.value[currentSelf.value].type)) {
             proxy.$loading.hide()
@@ -732,7 +732,7 @@ async function handlePopupConfirmBuy() {
                 let data = { package_id: coherentsList.value[currentSelf.value].id }
                 buyCoherent(data)
                     .then(res => {
-                        console.log(res)
+                        //console.log(res)
                         setTimeout(() => {
                             // showToast(res.message)
                             if (res.error) {
@@ -753,21 +753,21 @@ async function handlePopupConfirmBuy() {
                             proxy.$confirm.show({
                                 title: t('modalConfirm.tips'),
                                 // content: `成功購買購買 ${coherentsList.value[currentSelf.value].type} 配套`,
-                                content: `${t('modalConfirm.successBuyPackage', { package: coherentsList.value[currentSelf.value].type })}`,
+                                content: `${t('modalConfirm.successBuyPackage', { package: coherentsList.value[currentSelf.value].name })}`,
                                 showCancelButton: false,
                                 confirmText: t('modalConfirm.confirm'),
                                 onConfirm: () => {
                                     proxy.$confirm.hide()
                                     updataRTBalance(localStorage.getItem('address'))
                                         .then(_res => {
-                                            console.log('更新rt餘額', _res)
-                                            // console.log('購買成功', _res)
+                                            //console.log('更新rt餘額', _res)
+                                            // //console.log('購買成功', _res)
                                             proxy.$loading.hide()
                                             proxy.$confirm.hide()
                                             // showToast('購買成功')
                                         })
                                         .catch(err => {
-                                            console.log('更新rt餘額失敗', err)
+                                            //console.log('更新rt餘額失敗', err)
                                         })
                                 }
                             })
@@ -776,7 +776,7 @@ async function handlePopupConfirmBuy() {
                     .catch(err => {
                         proxy.$confirm.hide()
                         proxy.$loading.hide()
-                        console.log('購買失敗', err)
+                        //console.log('購買失敗', err)
                         showToast(t('modalConfirm.error'))
                         toggleBuyPackageSelf()
 
@@ -785,7 +785,7 @@ async function handlePopupConfirmBuy() {
                 proxy.$loading.hide()
                 showToast(t('modalConfirm.error'))
                 toggleBuyPackageSelf()
-                console.log(err)
+                //console.log(err)
                 proxy.$confirm.hide()
             }
         },
@@ -795,7 +795,7 @@ async function handlePopupConfirmBuy() {
 
 async function handleConfirmBuyForUSDTPOPUP() {
     toggleBuyPopup()
-    console.log('用usd3幫下級購買package')
+    //console.log('用usd3幫下級購買package')
     proxy.$loading.show()
     // let data = { package_id: coherentsList.value[currentCoherent.value].id }
     let allowance
@@ -805,9 +805,9 @@ async function handleConfirmBuyForUSDTPOPUP() {
     } catch (err) {
         proxy.$loading.hide()
         showToast(`${t('modalConfirm.checkAuthFail', { type: 'USD3' })}`)
-        console.log(err)
+        //console.log(err)
     }
-    console.log('allowance', allowance)
+    //console.log('allowance', allowance)
 
     if (Number(allowance) == 0) { //當前領取方式未授權
         proxy.$loading.hide()
@@ -822,12 +822,12 @@ async function handleConfirmBuyForUSDTPOPUP() {
                 // usdt对pmt授權
                 usdtContractApi.approve(config.pmt_purchase_addr)
                     .then(res => {
-                        console.log(res)
+                        //console.log(res)
                         proxy.$loading.hide()
                         showToast(t('toast.success'))
                     })
                     .catch(err => {
-                        console.log(err)
+                        //console.log(err)
                         proxy.$loading.hide()
                         showToast(t('modalConfirm.authorizeFail', { type: 'USD3' }))
                     })
@@ -847,7 +847,7 @@ async function handleConfirmBuyForUSDTPOPUP() {
         proxy.$loading.hide()
         showToast(t('toast.error'))
         toggleBuyPackageSelf()
-        console.log(err)
+        //console.log(err)
     }
 }
 
@@ -858,11 +858,11 @@ async function isSufficientRT(amount) {
         // balance = parseInt(balance)
         balance = balance.player
         balance = balance.rt
-        console.log('rt餘額', balance)
-        console.log('rt餘額', parseInt(balance))
+        //console.log('rt餘額', balance)
+        //console.log('rt餘額', parseInt(balance))
         return Number(amount).toFixed(0) <= parseInt(balance)
     } catch (err) {
-        console.log(err)
+        //console.log(err)
     }
 }
 
@@ -872,7 +872,7 @@ async function isSufficientUSD3(amount) {
     let WEB3 = new Web3(window.ethereum)
     balance = WEB3.utils.fromWei(balance.toString(), 'ether')
     balance = parseInt(balance)
-    console.log('u餘額', balance)
+    //console.log('u餘額', balance)
     return Number(amount).toFixed(0) <= balance
 }
 
@@ -918,9 +918,9 @@ async function handleConfirmBuyForUSDT() {
     } catch (err) {
         proxy.$loading.hide()
         showToast(`${t('modalConfirm.checkAuthFail', { type: 'USD3' })}`)
-        console.log(err)
+        //console.log(err)
     }
-    console.log('allowance', allowance)
+    //console.log('allowance', allowance)
 
     if (Number(allowance) == 0) { //當前領取方式未授權
         proxy.$loading.hide()
@@ -935,13 +935,13 @@ async function handleConfirmBuyForUSDT() {
                 // usdt对pmt授權
                 usdtContractApi.approve(config.pmt_purchase_addr)
                     .then(res => {
-                        console.log(res)
+                        //console.log(res)
                         proxy.$loading.hide()
                         proxy.$confirm.hide()
                         showToast(t('toast.success'))
                     })
                     .catch(err => {
-                        console.log(err)
+                        //console.log(err)
                         proxy.$loading.hide()
                         proxy.$confirm.hide()
                         showToast(t('modalConfirm.authorizeFail', { type: 'USD3' }))
@@ -970,7 +970,7 @@ async function handleConfirmBuyForUSDT() {
                 proxy.$loading.hide()
                 showToast(t('modalConfirm.error'))
                 toggleBuyPackageSelf()
-                console.log(err)
+                //console.log(err)
                 proxy.$confirm.hide()
             }
         },
@@ -995,7 +995,7 @@ function getStaticRecords() {
     let params = { prize_type_id: 3, perPage: 100000 }
     staticRecords(params)
         .then(res => {
-            console.log(res)
+            //console.log(res)
             proxy.$loading.hide()
             cardList.value = res.records
             cardList.value.map(item => {
@@ -1003,7 +1003,7 @@ function getStaticRecords() {
             })
         })
         .catch(err => {
-            console.log(err)
+            //console.log(err)
             proxy.$loading.hide()
 
         })
@@ -1013,7 +1013,7 @@ function viewPointMap(address) {
     proxy.$loading.show()
     addressLeg(address)
         .then(res => {
-            console.log('點位圖', res)
+            //console.log('點位圖', res)
             if (res.message.address && res.message.address.length == 1) {
                 proxy.$loading.hide()
                 proxy.$confirm.hide()
@@ -1052,12 +1052,12 @@ function viewPointMap(address) {
         .catch(err => {
             proxy.$loading.hide()
             isFinishPoint.value = true
-            console.log(err)
+            //console.log(err)
         })
 }
 //點擊幫下級升級配套按鈕
 function handleConfirmUpPackage() {
-    console.log(buyPackage.value)
+    //console.log(buyPackage.value)
     if (!buyPackage.value.id) {
         showToast(t('modalConfirm.choosePackage'))
         return
@@ -1066,7 +1066,7 @@ function handleConfirmUpPackage() {
     proxy.$confirm.show({
         title: t('modalConfirm.tips'),
         // content: `是否確認将下级配套升级为 ${buyPackage.value.text} 配套`,
-        content: `${t('modalConfirm.confirmBuyPackage', { package: buyPackage.value.text })}`,
+        content: `${t('modalConfirm.confirmBuyPackage', { package: buyPackage.value.type })}`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
         onConfirm: async () => {
@@ -1155,14 +1155,14 @@ function handleConfirmUpPackage() {
 }
 //选择配套
 function selectPackage(action) {
-    console.log(action)
+    //console.log(action)
     buyPackage.value = action
 }
 //点击保存二维码按钮
 function handleSaveQRCode() {
     let qrcode = document.getElementById("qrcode")//获取到页面的元素
     let imgBASE64 = qrcode.toDataURL('image/png')
-    console.log(qrcode.toDataURL('image/png'))
+    //console.log(qrcode.toDataURL('image/png'))
     // canvas.toDataURL(type, encoderOptions);
     DownloadImage(imgBASE64, t('assistance.inviterLink'))
     toggleLinkPopup()
@@ -1175,9 +1175,9 @@ async function handleCopyLink() {
 }
 //点击生成邀请链接按钮
 function handleCreateInvitationLink() {
-    console.log(clickPointInfo.value)
+    //console.log(clickPointInfo.value)
     let shareLinkStr = `${window.location.origin}/market/invite-buy-package?inviter=${invitationAddress.value}&pre=${clickPointInfo.value.preAddress}&point=${clickPointInfo.value.point}`
-    console.log(shareLinkStr)
+    //console.log(shareLinkStr)
 
     // return
     shareLink.value = shareLinkStr
@@ -1239,13 +1239,13 @@ function checkPoint(address) {
 function clickPoint(pointInfo) {
     // toggleAttendPopup()
     clickPointInfo.value = pointInfo
-    console.log('點位信息', pointInfo)
+    //console.log('點位信息', pointInfo)
     if (!pointInfo.preAddress && pointInfo.address !== localStorage.getItem('address') && !pointInfo.address) {
         showToast(t('modalConfirm.addressTipsSeven'))
         return
     }
     if (pointInfo.address == localStorage.getItem('address')) {
-        console.log('自己')
+        //console.log('自己')
         toggleBuyPackageSelf()
         return
     }
@@ -1265,17 +1265,17 @@ function toggleAttendPopup() {
 // function viewAddressPoint(walletAddress) {
 //     viewSpreads(walletAddress)
 //         .then(res => {
-//             console.log('res', res)
+//             //console.log('res', res)
 //         })
 //         .catch(err => {
-//             console.log('err', err)
+//             //console.log('err', err)
 //         })
 // }
 
 //顯示更多
 function toggleShowMore(item, index) {
     item.showMore = !item.showMore
-    console.log(item, index)
+    //console.log(item, index)
 }
 </script>
 

@@ -57,12 +57,12 @@ onMounted(() => {
 //     let params = { prize_type_id: 3, perPage: 100000 }
 //     staticRecords(params)
 //         .then(res => {
-//             console.log(res)
+//             //console.log(res)
 //             proxy.$loading.hide()
 
 //         })
 //         .catch(err => {
-//             console.log(err)
+//             //console.log(err)
 //             proxy.$loading.hide()
 
 //         })

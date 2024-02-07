@@ -36,13 +36,13 @@
                     </div>
                     <div class="flex justify-end text-sm items-center text-yellow-300 active-color">
                         <div v-if="isRecharge" class="active-white-color" @click="$emit('recharge')">{{
-                            $t('wallet.recharge') }}
+                                                    $t('wallet.recharge') }}
                         </div>
                         <div v-if="isWithdraw" class="pl-4 active-white-color" @click="$emit('withdraw')">{{
-                            $t('wallet.withdraw') }}
+                                                    $t('wallet.withdraw') }}
                         </div>
                         <div v-if="isTrasfer" class="pl-4 active-white-color" @click="$emit('transfer')">{{
-                            $t('wallet.transfer') }}
+                                                    $t('wallet.transfer') }}
                         </div>
                         <div v-if="isExchange" class="pl-4 active-white-color" @click="$emit('exchange')">
                             {{ $t('exchange.title') }}
@@ -59,8 +59,8 @@
                 <div class="flex justify-between items-center text-menu-word text-sm mb-2">
                     <div class="">{{ $t('wallet.balance') }}</div>
                     <div class="flex justify-end items-center"><span class="text-lg pr-1 font-bold text-red-500">{{
-                        Number(balance).toFixed(4)
-                    }} {{ currency }}</span> </div>
+                                                Number(balance).toFixed(4)
+                                                }} {{ currency }}</span> </div>
                 </div>
                 <!-- <div class="flex justify-between items-center text-menu-word text-sm mb-2">
                     <div class="">可用</div>
@@ -136,7 +136,7 @@ const cardProps = defineProps({
 })
 async function handleAddToken(contranct) {
 
-    console.log(config, cardProps)
+    //console.log(config, cardProps)
     proxy.$loading.show()
     try {
         let addToken = await window.ethereum.request({
@@ -151,9 +151,9 @@ async function handleAddToken(contranct) {
             },
         })
         proxy.$loading.hide()
-        console.log('addToken', addToken)
+        //console.log('addToken', addToken)
     } catch (err) {
-        console.log(err)
+        //console.log(err)
         proxy.$loading.hide()
         if (err.code == 4001) {
             showToast(`您已取消添加代幣：${cardProps.currency}`,)

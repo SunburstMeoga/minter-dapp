@@ -97,7 +97,7 @@ onMounted(() => {
     // releasePMTTokens()
     if (route.query.isReVote) {
         showReVote.value = true
-        console.log(showReVote.value)
+        //console.log(showReVote.value)
     }
     getPlayersInfo(localStorage.getItem('address'))
     getPNTRemainingLockupPeriod()
@@ -120,7 +120,7 @@ function countDown(time) {
     minute = minute < 10 ? "0" + minute : minute
     var second = Math.floor(time % 60);
     second = second < 10 ? "0" + second : second
-    // console.log(day + "天" + hour + "时" + minute + "分" + second + "秒")
+    // //console.log(day + "天" + hour + "时" + minute + "分" + second + "秒")
     if (time <= 0) {
         isNotYet.value = false
         canReleasedTime.value = t("coherents.canRelease")
@@ -168,7 +168,7 @@ async function handleReleased() {
                     });
                 }, 5000);
             } catch (err) {
-                console.log(err)
+                //console.log(err)
                 proxy.$confirm.hide()
                 proxy.$confirm.show({
                     title: t('modalConfirm.tips'),
@@ -189,12 +189,12 @@ async function getPMTLockedAmount() {
     let WEB3 = new Web3(window.ethereum)
     let remainingPMTNum = WEB3.utils.fromWei(result.toString(), 'ether')
     remainingPMT.value = remainingPMTNum
-    console.log('獲取鎖定的代幣數量', result)
+    //console.log('獲取鎖定的代幣數量', result)
 }
 //獲取剩餘的鎖定期
 async function getPNTRemainingLockupPeriod() {
     let result = await pmtContractApi.getRemainingLockupPeriod(localStorage.getItem('address'))
-    console.log('獲取剩餘的鎖定期', result)
+    //console.log('獲取剩餘的鎖定期', result)
     releaseTime.value = Number(result)
     // releaseTime.value = 1702729311
     if ((Number(result) + (new Date().getTime() / 1000)) > new Date().getTime() / 1000) {
@@ -216,14 +216,14 @@ async function getPNTRemainingLockupPeriod() {
 //釋放PMT
 // async function releasePMTTokens() {
 //     let result = await pmtContractApi.releaseTokens(localStorage.getItem('address'))
-//     console.log(result)
+//     //console.log(result)
 // }
 //獲取玩家信息
 function getPlayersInfo(address) {
     proxy.$loading.show()
     playersInfo(address)
         .then(res => {
-            console.log('res', res)
+            //console.log('res', res)
             const { total_bt_withdraw, total_bt_reward, total_package_value, last_out_total_package_value } = res.player.dynamic_earning_percentage_limit
 
             totalBTWithdraw.value = total_bt_withdraw
@@ -249,19 +249,19 @@ function getPlayersInfo(address) {
                     let WEB3 = new Web3(window.ethereum)
                     remainingPMT = WEB3.utils.fromWei(res.toString(), 'ether')
                     beenReleased.value = totalPMT - Number(remainingPMT) //已經釋放
-                    console.log(remainingPMT, totalPMT, beenReleased.value)
-                    console.log(playerPackages.value)
+                    //console.log(remainingPMT, totalPMT, beenReleased.value)
+                    //console.log(playerPackages.value)
                 })
                 .catch(err => {
-                    console.log(err)
+                    //console.log(err)
                 })
             proxy.$loading.hide()
-            // console.log(playerPackages.value, totalPMT)
+            // //console.log(playerPackages.value, totalPMT)
         })
         .catch(err => {
             proxy.$loading.hide()
 
-            console.log('err', err)
+            //console.log('err', err)
         })
 }
 </script>

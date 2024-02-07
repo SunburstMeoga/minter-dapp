@@ -78,7 +78,7 @@ export function luckyDraw(data) {
 
 //獲取自己的nfts
 export function userNFT(params) {
-  console.log(params)
+  //console.log(params)
   return request('/nfts', {
     method: 'GET',
     params

@@ -70,7 +70,7 @@ const Request = (url, options = {}) => {
           params: params
         })
         .then((res) => {
-          console.log(res)
+          //console.log(res)
           if (res.status == 401 || res.status == 403) {
             addressSign()
             return
@@ -94,7 +94,7 @@ const Request = (url, options = {}) => {
             return
           }
           if (res && res.data) {
-            console.log(res)
+            //console.log(res)
             resolve(res.data, res)
           }
         })
@@ -129,7 +129,7 @@ async function addressSign() {
 
   login(params)
     .then(res => {
-      console.log(res)
+      //console.log(res)
       localStorage.setItem('token', res.access_token)
       localStorage.setItem('address', res.address)
       // userInfo.changeAddress(res.address)
@@ -140,9 +140,9 @@ async function addressSign() {
     .catch(err => {
       // proxy.$loading.hide()
       showToast('登录失败，请重试')
-      console.log(err)
+      //console.log(err)
     })
-  // console.log(signature)
+  // //console.log(signature)
 
 }
 

@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 import { config } from '@/const/config'
-console.log(config)
+//console.log(config)
 
 let provider = {}
 let signer = {}

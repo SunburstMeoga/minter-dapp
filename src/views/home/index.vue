@@ -10,8 +10,8 @@
       </div>
       <div>
         <swiper :direction="'vertical'" @swiper="setSwiperRef" @slideChange="swiperChange" :pagination="{
-          clickable: true,
-        }" :modules="modules" class="mySwiper">
+                  clickable: true,
+                }" :modules="modules" class="mySwiper">
           <swiper-slide>
             <welcome :hasChange="currentSwiper == 0" />
           </swiper-slide>
@@ -71,13 +71,13 @@ let swiperRef = ref(null)
 let currentSwiper = ref(0)
 onMounted(() => {
   // changeSwiper()
-  // console.log(swiperStore.index)
+  // //console.log(swiperStore.index)
 })
 
 watch(
   () => swiperStore.index,
   (newValue, oldValue) => {
-    console.log("新值:" + newValue + "旧值:" + oldValue)
+    //console.log("新值:" + newValue + "旧值:" + oldValue)
     changeSwiper(newValue)
   },
   {
@@ -86,14 +86,14 @@ watch(
 )
 
 function swiperChange(swiper) {
-  // console.log('發生了變化', swiper)
+  // //console.log('發生了變化', swiper)
   currentSwiper.value = swiper.activeIndex
   window.scroll(0, 0);
 
 }
 
 function setSwiperRef(swiper) {
-  // console.log(swiper)
+  // //console.log(swiper)
   swiperRef = swiper
 }
 

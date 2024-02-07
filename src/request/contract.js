@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 import { config } from '@/const/config'
-console.log('config', config)
+//console.log('config', config)
 
 // const p = new ethers.JsonRpcProvider(config.rpc)
 // const MUSDT = new ethers.Contract(config.musdt_addr, config.erc20, p)
@@ -119,7 +119,7 @@ export async function buyNFT(tokenId, isPMT) {
 
 //分享樹查詢
 export async function viewSpreads(walletAddr) {
-  console.log('walletAddr', walletAddr)
+  //console.log('walletAddr', walletAddr)
   const result = await GAME.spreads(walletAddr)
   return result
 }

@@ -24,7 +24,7 @@ function notYetOpen() {
 function FilterTimeNext(value, time) {
     var timestamp = new Date(value).getTime()
     let date = new Date(parseInt(timestamp + time * 1000))
-    // console.log(timestamp, time, timestamp + )
+    // //console.log(timestamp, time, timestamp + )
     let Year = date.getFullYear()
     let Moth = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
     let Day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()

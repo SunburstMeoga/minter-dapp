@@ -14,7 +14,7 @@
                         </div>
                     </div>
                     <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">{{
-                        $t('modalConfirm.notData') }}</div>
+                                            $t('modalConfirm.notData') }}</div>
                 </van-tab>
                 <van-tab :title="$t('assistance.matchReward')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">{{
-                        $t('modalConfirm.notData') }}</div>
+                                            $t('modalConfirm.notData') }}</div>
                 </van-tab>
                 <van-tab :title="$t('assistance.generationIncentive')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">{{
-                        $t('modalConfirm.notData') }}</div>
+                                            $t('modalConfirm.notData') }}</div>
                 </van-tab>
                 <van-tab :title="$t('assistance.acceleratorAward')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">{{
-                        $t('modalConfirm.notData') }}</div>
+                                            $t('modalConfirm.notData') }}</div>
                 </van-tab>
                 <van-tab :title="$t('assistance.commitmentCard')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                     <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">{{
-                        $t('modalConfirm.notData') }}</div>
+                                            $t('modalConfirm.notData') }}</div>
                 </van-tab>
                 <van-tab :title="$t('assistance.dailyEarnings')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">{{
-                        $t('modalConfirm.notData') }}</div>
+                                            $t('modalConfirm.notData') }}</div>
                 </van-tab>
                 <van-tab :title="$t('assistance.recommendedBenefits')">
                     <div class="w-11/12 mr-auto ml-auto pt-4 ">
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div v-if="dataList.length == 0" class="font-bold text-white mt-10 text-center">{{
-                        $t('modalConfirm.notData') }}</div>
+                                            $t('modalConfirm.notData') }}</div>
                 </van-tab>
             </van-tabs>
         </div>
@@ -101,7 +101,7 @@ onMounted(() => {
 })
 
 function onChange(item) {
-    console.log(item)
+    //console.log(item)
     dataList.value = []
     if (item.name <= 2) {
         getDynamicRecords(item.name + 1)
@@ -128,14 +128,14 @@ function getStaticRecords(typeID) {
     let params = { prize_type_id: typeID, perPage: 100000 }
     staticRecords(params)
         .then(res => {
-            console.log(res)
+            //console.log(res)
             // promiseCardCount.value = res.records.length
             dataList.value = res.records
             proxy.$loading.hide()
-            console.log('dataList', dataList.value)
+            //console.log('dataList', dataList.value)
         })
         .catch(err => {
-            console.log(err)
+            //console.log(err)
             proxy.$loading.hide()
         })
 }
@@ -144,17 +144,17 @@ function getDynamicRecords(typeID) {
     proxy.$loading.show()
     // dynamic_earning_type_id=1&sortBy=created_at&sortDesc=true&perPage=10&page=1
     let params = { dynamic_earning_type_id: typeID, perPage: 100000 }
-    console.log(params)
+    //console.log(params)
     dynamicRecords(params)
         .then(res => {
-            console.log('獲取動態收益記錄', res)
+            //console.log('獲取動態收益記錄', res)
             dataList.value = res.records
-            console.log('dataList', dataList.value)
+            //console.log('dataList', dataList.value)
             proxy.$loading.hide()
 
         })
         .catch(err => {
-            console.log(err)
+            //console.log(err)
             proxy.$loading.hide()
 
         })
@@ -170,4 +170,5 @@ function getDynamicRecords(typeID) {
     background: transparent;
     padding-bottom: 20px;
     margin-top: 0.5px;
-}</style>
+}
+</style>

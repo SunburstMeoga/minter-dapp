@@ -29,7 +29,7 @@ const { t } = useI18n()
 const coherentsList = ref(coherents_list)
 
 async function handleBuy(item) {
-    console.log('click button', item.type)
+    //console.log('click button', item.type)
     if (!item.isSale) {
         showToast(t('toast.notYetOpen'))
         return

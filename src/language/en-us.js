@@ -357,7 +357,7 @@ export default {
     addressTipsFive: "您無法查詢不在你點位圖內的地址信息",
     addressTipsSix: "所檢示的地址不是自己的下級",
     addressTipsSeven: "請先將點位佈置在上一級",
-    confirmExchangeUSD3ToRT: "是否確認將 {usd3} USD3兌換為 {rt}",
+    confirmExchangeUSD3ToRT: "是否確認將 {usd3} USD3兌換為 {rt} RT",
     bindRelationshipTime: "綁定關係時間"
   },
   raffle: {
@@ -415,21 +415,22 @@ export default {
     noAward: "未派獎"
   },
   promiseCard: {
-    awardAmount: "獎勵金額",
-    packagePrice: "配套價格",
-    getTime: "獲得時間",
-    expiryTime: "到期時間",
-    distributionTime: "派獎時間",
-    rules: "規則介紹",
-    rulesContent: "邀請2個購買{package}配套或以上的新地址",
-    numberOfInvited: "已邀請數量",
-    invitedAddr: "邀請地址",
-    address: "地址",
-    invitedTime: "推薦時間",
-    isRelease: "是否已發放",
-    released: "已發放",
-    unpublished: "未發放",
-    utilized: '已使用',
-    unused: '未使用'
+    awardAmount: "Reward amount",
+    packagePrice: "Package price",
+    getTime: "Get time",
+    expiryTime: "Expiry time",
+    distributionTime: "Prize distribution time",
+    rules: "Rules introduction",
+    // rulesContent: "邀請2個購買{package}配套或以上的新地址",
+    rulesContent: "Invite 2 new addresses who purchase packages of {package} or more",
+    numberOfInvited: "Number of invited",
+    invitedAddr: "Invitation address",
+    address: "Address",
+    invitedTime: "Sponsoring time",
+    isRelease: "Has it been issued",
+    released: "Has it been issued",
+    unpublished: "Not issued",
+    utilized: 'Used',
+    unused: 'Unused'
   }
 }

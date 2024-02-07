@@ -38,8 +38,8 @@
                 v-for="(item, index) in prizeDescription" :key="index">
                 <div class="font-bold text-center text-gray-400 mb-2">{{ item.title }}</div>
                 <div class="text-center leading-4"> {{ item.content }} <span v-show="item.tips" class="text-red-500">{{
-                    item.tips
-                }}</span></div>
+                                        item.tips
+                                        }}</span></div>
             </div>
         </div>
         <van-overlay :show="isPrized" z-index="20">
@@ -223,27 +223,27 @@ onMounted(() => {
     prizeIndex.value = route.query.prizeIndex
     nftPrice.value = route.query.nftPrice
     // getRoulettes()
-    console.log(nftPrice.value)
+    //console.log(nftPrice.value)
     initRoulette()
 })
 
 
 function wheelStartedCallback(evt) {
-    console.log(evt)
+    //console.log(evt)
 }
 
 function wheelEndedCallback(evt) {
-    console.log(evt.typeId, prizeDescription.value)
-    console.log(items)
-    console.log(wheelSettings.wheelResultIndex)
+    //console.log(evt.typeId, prizeDescription.value)
+    //console.log(items)
+    //console.log(wheelSettings.wheelResultIndex)
     if (evt) {
-        console.log(evt)
+        //console.log(evt)
         isPrized.value = true
         prizeContent.value = items[wheelSettings.wheelResultIndex.value].name
         // prizeDetails.value = prizeDescription.value[evt.typeId - 1].content
         let typeId = evt.typeId
-        console.log(evt.rewardPercentage)
-        console.log(nftPrice.value)
+        //console.log(evt.rewardPercentage)
+        //console.log(nftPrice.value)
         switch (typeId) {
             case 1: prizeDetails.value = `恭喜获得【PMT收益加速】,奖励NFT的${evt.rewardPercentage}%,即${Number(nftPrice.value) * (Number(evt.rewardPercentage) / 100)}PMT，加速回本`
                 break;
@@ -261,7 +261,7 @@ function wheelEndedCallback(evt) {
 async function initRoulette() {
     proxy.$loading.show()
     const res = await roulettes()
-    console.log('輪盤參數', res.roulettes)
+    //console.log('輪盤參數', res.roulettes)
     let obj = []
     res.roulettes.map((item, index) => {
         let modifiedName = item.name.match(/.{1,3}/g).join('<br/>');
@@ -296,15 +296,15 @@ async function initRoulette() {
         items[randomIndex] = items[i];
         items[i] = temp;
     }
-    console.log(prizeIndex.value)
+    //console.log(prizeIndex.value)
     let resultIndex = items.findIndex((item) => {
-        // console.log(item.id, parseInt(prizeIndex.value))
+        // //console.log(item.id, parseInt(prizeIndex.value))
         return item.id == parseInt(prizeIndex.value)
     })
     // resultIndex = resultIndex + 2
     wheelSettings.wheelResultIndex.value = resultIndex
 
-    console.log('prizesCanvas', items)
+    //console.log('prizesCanvas', items)
     proxy.$forceUpdate()
     proxy.$loading.hide()
 }
@@ -313,7 +313,7 @@ async function initRoulette() {
 //     proxy.$loading.show()
 //     roulettes()
 //         .then(res => {
-//             console.log('輪盤參數', res)
+//             //console.log('輪盤參數', res)
 //             res.roulettes.map(item => {
 //                 let obj = {}
 //                 let objChild = {}
@@ -332,10 +332,10 @@ async function initRoulette() {
 //                 index % 2 == 0 ? item.background = '#CC6DED' : item.background = '#2C4FB0'
 //             })
 //             proxy.$loading.hide()
-//             console.log(prizes.value)
+//             //console.log(prizes.value)
 //         })
 //         .catch(err => {
-//             console.log('err', err)
+//             //console.log('err', err)
 //             proxy.$loading.hide()
 //         })
 // }
@@ -350,20 +350,20 @@ function startCallback() {
     myLucky.value.play()
     // 模拟调用接口异步抽奖
     // const index = Math.floor(Math.random() * 4)
-    console.log(nftInfo.value)
+    //console.log(nftInfo.value)
 
     // prizeID
 
     // luckyDraw(nftInfo.value)
     //     .then(res => {
-    //         console.log('抽獎成功', res)
+    //         //console.log('抽獎成功', res)
     //         myLucky.value.stop(res.selectedRoulette.id - 1)
     //         currentPrize.value = res.selectedRoulette.id
-    //         console.log('currentPrize', currentPrize,)
+    //         //console.log('currentPrize', currentPrize,)
     //         prizeContent.value = res.selectedRoulette.name
     //     })
     //     .catch(err => {
-    //         console.log('err', err)
+    //         //console.log('err', err)
     //     })
     setTimeout(() => {
         // 假设后端返回的中奖索引是0
@@ -378,7 +378,7 @@ function startCallback() {
 }
 // 抽奖结束会触发end回调
 function endCallback(prize) {
-    console.log(prize)
+    //console.log(prize)
     isPrized.value = true
 }
 function togglePrizePopup() {
