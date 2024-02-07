@@ -45,7 +45,7 @@
                             {{ $t('coherents.dynamicWithdrawedTotal') }}
                         </div>
                         <div>
-                            {{ Number(totalBTWithdraw).toFixed(4) }} MT
+                            {{ Number(totalBTWithdraw).toFixed(4) }} BT
                         </div>
                     </div>
                     <div class="pt-1 flex justify-between items-center">
@@ -53,7 +53,7 @@
                             {{ $t('coherents.dynamicWithdrawTotal') }}
                         </div>
                         <div>
-                            {{ Number(totalBTReward).toFixed(4) }} MT
+                            {{ Number(totalBTReward).toFixed(4) }} BT
                         </div>
                     </div>
                 </div>

@@ -206,7 +206,13 @@ export default {
     toLottery: "去抽獎",
     canSale: "可出售",
     highToLow: "價格由高到低",
-    lowToHigh: "價格由低到高"
+    lowToHigh: "價格由低到高",
+    nftTradLog: "NFT Trading Log",
+    tokenTradLog: "Token Trading Log",
+    tokenExchange: "Token Exchange",
+    tokenTrad: "Token Trading",
+    purchased: "Purchased",
+    sold: "Sold"
   },
   assistance: {
     pointMap: 'Point map (Binary system)',

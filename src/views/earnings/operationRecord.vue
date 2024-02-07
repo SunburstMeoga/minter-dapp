@@ -13,7 +13,7 @@
             <div class="flex justify-start items-start overflow-hidden">
                 <div class="mt-4 relative flex justify-end items-start w-full max-h-full overflow-hidden">
                     <div class="absolute top-0 left-0 w-3/12 h-screen overflow-hidden">
-                        <div v-for="(item, index) in typeList" class="text-center w-full py-4 text-white bg-black"
+                        <div v-for="(item, index) in typeList" class="text-center w-full py-4 text-white bg-black px-0.5"
                             :key="index" :class="currentType == index ? 'bg-page-content text-primary-color font-bold' : ''"
                             @click="handleType(item, index)">
                             {{ item.title }}
@@ -42,11 +42,11 @@
                                         :isRewarded="item.is_rewarded"
                                         :time="(currentTab == 1 && currentType == 3) ? item.reward_date : item.created_at"
                                         :operationType="item.is_listed"
-                                        :remark="item.remark ? item.remark : `${actions[currentFilter].text}兌換${item.token && item.token.symbol}`"
+                                        :remark="item.remark ? item.remark : `${actions[currentFilter].text} ${$t('exchange.title')} ${item.token && item.token.symbol}`"
                                         :address="item.address" :isEarning="currentTab == 0 || currentTab == 1"
                                         :isNFT="currentTab == 2" :isToken="currentTab == 3"
                                         :price="item.amount || item.reward_amount || item.price"
-                                        :symbol="item.token && item.token.symbol + (item.transaction && item.transaction.locked ? '(綁定版)' : '')"
+                                        :symbol="item.token && item.token.symbol + (item.transaction && item.transaction.locked ? `(${$t('order.bind')})` : '')"
                                         :showExpire="currentTab == 1 && currentType == 3"
                                         :expireDate="getExpireData(item.created_at)"
                                         :promiseCardValidDate="item.promise_card_valid_date"
@@ -78,7 +78,7 @@ import EarningsCard from "./earningsCard.vue";
 
 const { t } = useI18n()
 const { proxy } = getCurrentInstance()
-const typeList = ref([{ title: '直推奖励' }, { title: '对碰奖励' }, { title: '代数奖励' }])
+const typeList = ref([{ title: t('assistance.directMarketingAward') }, { title: t('assistance.matchReward') }, { title: t('assistance.generationIncentive') }])
 // let actions = ref([
 //     { text: 'USD3', value: true, index: 0 },
 //     { text: 'BT', value: false, index: 1 },
@@ -106,10 +106,10 @@ let showFilterPopover = ref(false)
 
 let tabsList = computed(() => {
     return [
-        { title: '動態收益', value: 0 },
-        { title: '靜態收益', value: 0 },
-        { title: 'NFT交易記錄', value: 0 },
-        { title: '貨幣交易記錄', value: 0 }
+        { title: t('wallet.dynamicIncome'), value: 0 },
+        { title: t('wallet.staticIncome'), value: 0 },
+        { title: t('wallet.nftTradLog'), value: 0 },
+        { title: t('wallet.tokenTradLog'), value: 0 }
     ]
 })
 onMounted(() => {
@@ -380,11 +380,11 @@ function handleTabs(tabs) {
         case 1: typeList.value = [{ title: t('assistance.acceleratorAward') }, { title: t('assistance.dailyEarnings') }, { title: t('assistance.commitmentCard') }, { title: t('assistance.recommendedBenefits') }];
             getStaticRecords(1);
             break;
-        case 2: typeList.value = [{ title: '已購買' }, { title: '掛單' }, { title: '已售出' }];
+        case 2: typeList.value = [{ title: t('wallet.purchased') }, { title: t('wallet.sale') }, { title: t('wallet.sold') }];
             nftBuyList();
             break;
         // case 3: typeList.value = [{ title: 'USD3' }, { title: 'BT' }, { title: 'MT' }, { title: 'RT' }, { title: '綁定RT' }, { title: 'PMT' }];
-        case 3: typeList.value = [{ title: '貨幣兌換' }, { title: '貨幣交易' }];
+        case 3: typeList.value = [{ title: t('wallet.tokenExchange') }, { title: t('wallet.tokenTrad') }];
             let params = { address: localStorage.getItem('address'), sortBy: 'created_at', sortDesc: true }
             getUSDTExchangeRecord(params)
 

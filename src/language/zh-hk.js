@@ -198,7 +198,13 @@ export default {
     toLottery: "去抽獎",
     canSale: "可出售",
     highToLow: "價格由高到低",
-    lowToHigh: "價格由低到高"
+    lowToHigh: "價格由低到高",
+    nftTradLog: "NFT交易記錄",
+    tokenTradLog: "代幣交易記錄",
+    tokenExchange: "代幣兌換",
+    tokenTrad: "代幣交易",
+    purchased: "已購買",
+    sold: "已售出"
   },
   assistance: {
     pointMap: '點位圖(雙軌製)',
