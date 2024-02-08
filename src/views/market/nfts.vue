@@ -365,10 +365,10 @@ async function isNotEnoughBalance(amount) {
     mtBalance = WEB3.utils.fromWei(mtBalance.toString(), 'ether')
     let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
     pmtBalance = WEB3.utils.fromWei(pmtBalance.toString(), 'ether')
-    let mtLockBalance = await nftContractApi.getLockedAmount(localStorage.getItem('address'))
-    mtLockBalance = WEB3.utils.fromWei(mtLockBalance.toString(), 'ether')
+    // let mtLockBalance = await nftContractApi.getLockedAmount(localStorage.getItem('address'))
+    // mtLockBalance = WEB3.utils.fromWei(mtLockBalance.toString(), 'ether')
     // let balance = parseInt(parseInt(mtBalance) + parseInt(pmtBalance)) 
-    let balance = parseInt(parseInt(mtBalance) - parseInt(mtLockBalance))
+    let balance = parseInt(parseInt(mtBalance))
     console.log(balance, parseInt(amount), parseInt(mtLockBalance))
     return balance < parseInt(amount)
 }
@@ -410,12 +410,12 @@ async function handleBuyButton(item, canBuy) {
             return
         }
     } catch (err) {
-        //console.log(err)
+        console.log(err)
         proxy.$loading.hide()
         proxy.$confirm.hide()
         proxy.$confirm.show({
             title: t('modalConfirm.tips'),
-            content: t('modalConfirm.getBalance'),
+            content: t('modalConfirm.getBalanceFail'),
             showCancelButton: false,
             onConfirm: () => {
                 proxy.$confirm.hide()
