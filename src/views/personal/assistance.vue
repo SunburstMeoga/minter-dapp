@@ -1270,8 +1270,10 @@ function clickOperatingItem(item, index) {
         toggleAddressOfPoint()
         // viewAddressPoint()
     } else {
-        showPointCoherentInfo.value = !showPointCoherentInfo.value
-        toggleAddressOfPoint()
+        showToast(`${t('toast.notYetOpen')}`)
+        return
+        // showPointCoherentInfo.value = !showPointCoherentInfo.value
+        // toggleAddressOfPoint()
     }
 }
 //显示隐藏当前点位配套信息
