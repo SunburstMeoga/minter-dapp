@@ -28,9 +28,9 @@ export default {
     grandPrix: 'Grand Prix',
     bag: 'My Backpack',
     synthesize: 'Affirmative Empowerment',
-    operationRecord: 'Operation Log',
+    operationRecord: 'Operation Logs',
     helpHand: 'Help',
-    setting: 'Setting',
+    setting: 'Settings',
     exchange: 'Exchange'
   },
   home: {
