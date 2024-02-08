@@ -365,8 +365,8 @@ async function isNotEnoughBalance(amount) {
     mtBalance = WEB3.utils.fromWei(mtBalance.toString(), 'ether')
     let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
     pmtBalance = WEB3.utils.fromWei(pmtBalance.toString(), 'ether')
-    // let balance = parseInt(parseInt(mtBalance) + parseInt(pmtBalance)) //mt加上PMT的餘額
-    let balance = parseInt(parseInt(mtBalance)) //mt加上PMT的餘額
+    let balance = parseInt(parseInt(mtBalance) + parseInt(pmtBalance)) //mt加上PMT的餘額
+    // let balance = parseInt(parseInt(mtBalance)) //mt加上PMT的餘額
     //console.log(balance, parseInt(amount))
     return balance < parseInt(amount)
 }
@@ -509,7 +509,8 @@ async function handleBuyButton(item, canBuy) {
                         //console.log('err', err)
                         proxy.$confirm.show({
                             title: t('modalConfirm.tips'),
-                            content: 'MT授權失敗，請重新授權',
+                            // content: 'MT授權失敗，請重新授權',
+                            content: `${t('modalConfirm.authorizeFail', { type: 'MT' })}`,
                             showCancelButton: false,
                             confirmText: t('modalConfirm.confirm'),
                             onConfirm: () => {
