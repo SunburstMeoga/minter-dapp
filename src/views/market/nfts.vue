@@ -365,9 +365,9 @@ async function isNotEnoughBalance(amount) {
     mtBalance = WEB3.utils.fromWei(mtBalance.toString(), 'ether')
     let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
     pmtBalance = WEB3.utils.fromWei(pmtBalance.toString(), 'ether')
-    let balance = parseInt(parseInt(mtBalance) + parseInt(pmtBalance)) //mt加上PMT的餘額
-    // let balance = parseInt(parseInt(mtBalance)) //mt加上PMT的餘額
-    //console.log(balance, parseInt(amount))
+    // let balance = parseInt(parseInt(mtBalance) + parseInt(pmtBalance)) //mt加上PMT的餘額
+    let balance = parseInt(parseInt(mtBalance)) //mt的餘額
+    console.log(balance, parseInt(amount))
     return balance < parseInt(amount)
 }
 //點擊去抽獎
@@ -388,7 +388,7 @@ function handleToRaffle(item, index) {
 async function handleBuyButton(item, canBuy) {
     //console.log(item, canBuy)
     if (!canBuy) {
-        showToast(`${'modalConfirm.cantBuyNFTInPool'}`)
+        showToast(`${t('modalConfirm.cantBuyNFTInPool')}`)
         return
     }
     proxy.$loading.show()
