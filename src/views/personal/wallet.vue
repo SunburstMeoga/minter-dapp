@@ -27,8 +27,9 @@
                     isReleases @buy="handleWalletCardBuy" @releases="handleWalletCardReleases" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="MT" :tokenImg="mtImg" :balance="mtBalance" :contranct="config.mt_addr" isExchange
-                    isBuy @buy="handleWalletCardBuy" @exchange="handleWalletCardExchange" />
+                <wallet-card currency="MT" :tokenImg="mtImg" :balance="mtBalance" :contranct="config.mt_addr"
+                    showLockBalance isExchange isBuy @buy="handleWalletCardBuy" @exchange="handleWalletCardExchange"
+                    :lockMT="lockMT" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card currency="BT" :tokenImg="btImg" isExchange @exchange="handleWalletCardExchangeBT"
@@ -320,6 +321,7 @@ onMounted(() => {
     getUSDTBalance()
     getPMTBalance()
     getMTBalance()
+    getLockMTBalance()
     getMSTBalance()
     getPlayersInfo(localStorage.getItem('address'))
     getUserNFTs()
@@ -350,6 +352,7 @@ let currentExchangeTypeBT = ref(0)
 let usdtBalance = ref('')
 let pmtBalance = ref('')
 let mtBalance = ref('')
+let lockMT = ref('')
 let mstBalance = ref('')
 let hahBalance = ref('')
 let packageCount = ref(0)
@@ -603,7 +606,14 @@ async function getMTBalance() {
     mtBalance.value = result
     return balance
 }
-
+async function getLockMTBalance() {
+    let balance = await minterContractApi.getLockedAmount(localStorage.getItem('address'))
+    let WEB3 = new Web3(window.ethereum)
+    let result = WEB3.utils.fromWei(balance.toString(), 'ether')
+    //console.log('mt', result)
+    lockMT.value = result
+    return balance
+}
 //承諾卡數量
 function getStaticRecords() {
     proxy.$loading.show()

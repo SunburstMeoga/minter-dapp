@@ -36,13 +36,13 @@
                     </div>
                     <div class="flex justify-end text-sm items-center text-yellow-300 active-color">
                         <div v-if="isRecharge" class="active-white-color" @click="$emit('recharge')">{{
-                                                    $t('wallet.recharge') }}
+                            $t('wallet.recharge') }}
                         </div>
                         <div v-if="isWithdraw" class="pl-4 active-white-color" @click="$emit('withdraw')">{{
-                                                    $t('wallet.withdraw') }}
+                            $t('wallet.withdraw') }}
                         </div>
                         <div v-if="isTrasfer" class="pl-4 active-white-color" @click="$emit('transfer')">{{
-                                                    $t('wallet.transfer') }}
+                            $t('wallet.transfer') }}
                         </div>
                         <div v-if="isExchange" class="pl-4 active-white-color" @click="$emit('exchange')">
                             {{ $t('exchange.title') }}
@@ -59,8 +59,14 @@
                 <div class="flex justify-between items-center text-menu-word text-sm mb-2">
                     <div class="">{{ $t('wallet.balance') }}</div>
                     <div class="flex justify-end items-center"><span class="text-lg pr-1 font-bold text-red-500">{{
-                                                Number(balance).toFixed(4)
-                                                }} {{ currency }}</span> </div>
+                        Number(balance).toFixed(4)
+                    }} {{ currency }}</span> </div>
+                </div>
+                <div class="flex justify-between items-center text-menu-word text-sm mb-2" v-show="showLockBalance">
+                    <div class="">凍結餘額</div>
+                    <div class="flex justify-end items-center"><span class="text-lg pr-1 font-bold text-red-500">{{
+                        Number(lockMT).toFixed(4)
+                    }} {{ currency }}</span> </div>
                 </div>
                 <!-- <div class="flex justify-between items-center text-menu-word text-sm mb-2">
                     <div class="">可用</div>
@@ -132,7 +138,15 @@ const cardProps = defineProps({
     currency: {
         type: String,
         default: ''
-    }
+    },
+    showLockBalance: {
+        type: Boolean,
+        default: false
+    },
+    lockMT: {
+        type: String,
+        default: ''
+    },
 })
 async function handleAddToken(contranct) {
 
