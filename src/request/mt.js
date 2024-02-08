@@ -27,7 +27,8 @@ if (window.ethereum) {
     balanceOf: async function (walletAddr) {
       const result = await MT.balanceOf(walletAddr)
       return result
-    }
+    },
+
   }
 }
 

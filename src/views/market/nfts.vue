@@ -365,11 +365,11 @@ async function isNotEnoughBalance(amount) {
     mtBalance = WEB3.utils.fromWei(mtBalance.toString(), 'ether')
     let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
     pmtBalance = WEB3.utils.fromWei(pmtBalance.toString(), 'ether')
-    let mtLockBalance = await nftContractApi.getLockedAmount(localStorage.getItem('address'))
+    let mtLockBalance = await minterContractApi.getLockedAmount(localStorage.getItem('address'))
     mtLockBalance = WEB3.utils.fromWei(mtLockBalance.toString(), 'ether')
     // let balance = parseInt(parseInt(mtBalance) + parseInt(pmtBalance)) 
     let balance = parseInt(parseInt(mtBalance) - parseInt(mtLockBalance))
-    console.log(balance, parseInt(amount), parseInt(mtLockBalance))
+    console.log(balance, parseInt(amount), parseInt(mtBalance), parseInt(mtLockBalance))
     return balance < parseInt(amount)
 }
 //點擊去抽獎
@@ -410,7 +410,7 @@ async function handleBuyButton(item, canBuy) {
             return
         }
     } catch (err) {
-        //console.log(err)
+        console.log(err)
         proxy.$loading.hide()
         proxy.$confirm.hide()
         proxy.$confirm.show({

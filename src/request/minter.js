@@ -24,6 +24,11 @@ if (window.ethereum) {
       const tx = await MTTRADE.approve(contractAddress, value)
       const result = tx.wait()
       return result
+    },
+    //獲取當前凍結的MT餘額
+    getLockedAmount: async function (address) {
+      const result = await MTTRADE.getLockedAmount(address)
+      return result
     }
   }
 }
