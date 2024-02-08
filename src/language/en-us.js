@@ -365,7 +365,8 @@ export default {
     addressTipsSix: "The address checked is not its own downline",
     addressTipsSeven: "Please arrange the points at the upper level first",
     confirmExchangeUSD3ToRT: "Confirm to exchange {usd3} USD3 for {rt} RT",
-    bindRelationshipTime: "Binding relationship time"
+    bindRelationshipTime: "Binding relationship time",
+    confirmBuyNFT: "Confirm to purchase the NFT?",
   },
   raffle: {
     start: 'Start',

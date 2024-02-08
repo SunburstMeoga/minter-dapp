@@ -60,7 +60,7 @@ async function getInfor() {
                 data: [
                     {
                         value: totalBTReward,
-                        name: `剩餘量: ${residual}BT`
+                        name: `剩餘量: ${residual} BT`
                     }
                 ],
                 radius: '90%',

@@ -398,6 +398,7 @@ async function handleBuyButton(item, canBuy) {
             proxy.$confirm.show({
                 title: t('modalConfirm.tips'),
                 content: t('modalConfirm.notEnougtMTAndPMT'),
+                confirmText: t('modalConfirm.confirm'),
                 showCancelButton: false,
                 onConfirm: () => {
                     proxy.$confirm.hide()
@@ -524,9 +525,11 @@ async function handleBuyButton(item, canBuy) {
     proxy.$confirm.hide()
     proxy.$confirm.show({
         title: t('modalConfirm.tips'),
-        content: `是否確認購買Token ID為${item.token_id}的NFT`,
+        // content: `是否確認購買Token ID為${item.token_id}的NFT`,
+        content: t('modalConfirm.confirmBuyNFT'),
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
+        cancelText: t('modalConfirm.cancel'),
         onConfirm: async () => {
             try { //购买nft
                 proxy.$confirm.hide()
