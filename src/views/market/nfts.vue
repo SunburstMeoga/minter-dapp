@@ -370,7 +370,7 @@ async function isNotEnoughBalance(amount) {
     // let balance = parseInt(parseInt(mtBalance) + parseInt(pmtBalance)) 
     let balance = parseInt(parseInt(mtBalance) - parseInt(mtLockBalance))
     console.log(balance, parseInt(amount), parseInt(mtBalance), parseInt(mtLockBalance), parseInt(pmtBalance))
-    if (parseInt(mtBalance == 0)) {
+    if (parseInt(mtBalance) - parseInt(mtLockBalance) == 0) {
         balance < parseInt(pmtBalance)
     }
     return balance < parseInt(amount)
