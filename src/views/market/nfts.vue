@@ -367,11 +367,12 @@ async function isNotEnoughBalance(amount) {
     pmtBalance = WEB3.utils.fromWei(pmtBalance.toString(), 'ether')
     let mtLockBalance = await minterContractApi.getLockedAmount(localStorage.getItem('address'))
     mtLockBalance = WEB3.utils.fromWei(mtLockBalance.toString(), 'ether')
-    // let balance = parseInt(parseInt(mtBalance) + parseInt(pmtBalance)) 
-    let balance = parseInt(parseInt(mtBalance) - parseInt(mtLockBalance))
+    let pmtLockBalance = await pmtContractApi.getLockedAmount(localStorage.getItem('address'))
+    pmtLockBalance = WEB3.utils.fromWei(pmtLockBalance.toString(), 'ether')
+    let balance = (parseInt(parseInt(mtBalance) - parseInt(mtLockBalance))) + (parseInt(pmtBalance) + parseInt(pmtLockBalance))
     console.log(balance, parseInt(amount), parseInt(mtBalance), parseInt(mtLockBalance), parseInt(pmtBalance))
     if (parseInt(mtBalance) - parseInt(mtLockBalance) == 0) {
-        balance < parseInt(pmtBalance)
+        (parseInt(pmtBalance) + parseInt(pmtLockBalance)) < parseInt(amount)
     }
     return balance < parseInt(amount)
 }
