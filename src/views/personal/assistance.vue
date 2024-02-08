@@ -400,7 +400,7 @@ import { useI18n } from 'vue-i18n';
 import { config } from '@/const/config'
 import usdtContractApi from '@/request/usdt'
 import pmtContractApi from '@/request/pmt'
-import { addressLeg, upInferiorPackage, staticRecords, buyCoherent, joinTheThree, buyPackageToNext, updataRTBalance, rtBalance, rtBindBalance } from '@/request/api'
+import { addressLeg, upInferiorPackage, staticRecords, buyCoherent, joinTheThree, buyPackageToNext, updataRTBalance, rtBalance, rtBindBalance, userNFT } from '@/request/api'
 import { showToast } from 'vant'
 import { ZeroAddress, isAddress } from 'ethers'
 import Web3 from "web3";
@@ -680,6 +680,35 @@ async function handlePopupConfirmBuy() {
     //判斷rt餘額是否充足
     toggleBuyPackageSelf()
     proxy.$loading.show()
+    try {
+        if (await getUserNFTCount() !== 0) {
+            proxy.$loading.hide()
+            proxy.$confirm.hide()
+            proxy.$confirm.show({
+                title: t('modalConfirm.tips'),
+                content: `必須賣出所有的NFT才可以購買新的配套`,
+                showCancelButton: false,
+                confirmText: t('modalConfirm.confirm'),
+                onConfirm: () => {
+                    proxy.$confirm.hide()
+                },
+            });
+            return
+        }
+    } catch (error) {
+        proxy.$loading.hide()
+        proxy.$confirm.hide()
+        proxy.$confirm.show({
+            title: t('modalConfirm.error'),
+            content: t('modalConfirm.getBalanceFail'),
+            showCancelButton: false,
+            confirmText: t('modalConfirm.confirm'),
+            onConfirm: () => {
+                proxy.$confirm.hide()
+            },
+        });
+        return
+    }
     // //console.log('是否余额不足', await isSufficientRT(coherentsList.value[currentSelf.value].type))
     try {
         if (!await isSufficientRT(coherentsList.value[currentSelf.value].type)) {
@@ -879,10 +908,50 @@ async function isSufficientUSD3(amount) {
     return Number(amount).toFixed(0) <= balance
 }
 
+async function getUserNFTCount() {
+    let params = { status: 1 }
+    let result = await userNFT(params)
+    let count = result.nft_token_ids.length
+    // console.log(result)
+    // console.log(count)
+    return count
+}
+
 async function handleConfirmBuyForUSDT() {
     toggleBuyPackageSelf()
     proxy.$loading.show()
+
     try {
+        if (await getUserNFTCount() !== 0) {
+            proxy.$loading.hide()
+            proxy.$confirm.hide()
+            proxy.$confirm.show({
+                title: t('modalConfirm.tips'),
+                content: `必須賣出所有的NFT才可以購買新的配套`,
+                showCancelButton: false,
+                confirmText: t('modalConfirm.confirm'),
+                onConfirm: () => {
+                    proxy.$confirm.hide()
+                },
+            });
+            return
+        }
+    } catch (error) {
+        proxy.$loading.hide()
+        proxy.$confirm.hide()
+        proxy.$confirm.show({
+            title: t('modalConfirm.error'),
+            content: t('modalConfirm.getBalanceFail'),
+            showCancelButton: false,
+            confirmText: t('modalConfirm.confirm'),
+            onConfirm: () => {
+                proxy.$confirm.hide()
+            },
+        });
+        return
+    }
+
+    try { //USD3餘額是否充足
         if (!await isSufficientUSD3(coherentsList.value[currentSelf.value].type)) {
             proxy.$loading.hide()
             proxy.$confirm.hide()

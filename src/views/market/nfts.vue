@@ -365,7 +365,8 @@ async function isNotEnoughBalance(amount) {
     mtBalance = WEB3.utils.fromWei(mtBalance.toString(), 'ether')
     let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
     pmtBalance = WEB3.utils.fromWei(pmtBalance.toString(), 'ether')
-    let balance = parseInt(parseInt(mtBalance) + parseInt(pmtBalance))
+    // let balance = parseInt(parseInt(mtBalance) + parseInt(pmtBalance)) //mt加上PMT的餘額
+    let balance = parseInt(parseInt(mtBalance)) //mt加上PMT的餘額
     //console.log(balance, parseInt(amount))
     return balance < parseInt(amount)
 }

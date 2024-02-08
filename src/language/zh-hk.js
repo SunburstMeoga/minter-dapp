@@ -294,7 +294,7 @@ export default {
     accountChanageTitle: "賬戶發生變化",
     accountChanageContent: "當前賬戶發生變化，請重新登錄",
     tips: "提示",
-    notEnougtMTAndPMT: "您的PMT和MT餘額不足",
+    notEnougtMTAndPMT: "您的MT餘額不足",
     notData: "暫無數據",
     confirmRelease: "是否確認釋放剩餘PMT",
     confirmTransferRT: "是否確認將{amount}RT轉入到{address},該行為不可撤銷!",

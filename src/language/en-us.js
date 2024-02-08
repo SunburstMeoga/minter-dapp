@@ -302,7 +302,7 @@ export default {
     accountChanageTitle: "Account changes",
     accountChanageContent: "The current account has changed, please log in again",
     tips: "Hint",
-    notEnougtMTAndPMT: "Your PMT and MT balances are insufficient",
+    notEnougtMTAndPMT: "Your MT balances are insufficient",
     notData: "No data yet",
     confirmRelease: "Confirm to release the remaining PMT?",
     // confirmTransferRT: "是否確認將{amount}RT轉入到{address},該行為不可撤銷!",
