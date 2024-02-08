@@ -50,7 +50,7 @@
                         </div>
                         <div class="text-red-500 font-bold">
                             {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
-                                                            FormatAmount(coherentInfo.type).pointOffside }}</span>
+                                FormatAmount(coherentInfo.type).pointOffside }}</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
@@ -59,7 +59,7 @@
                         </div>
                         <div class="text-red-500 font-bold">
                             {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-                                                            FormatAmount(coherentInfo.limit).pointOffside }}</span>
+                                FormatAmount(coherentInfo.limit).pointOffside }}</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
@@ -80,7 +80,7 @@
                                 <div class="text-xs p-2 text-left text-gray-400">
                                     <!-- 购买成功之后即时释放{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT -->
                                     {{ $t('coherents.buyAfterReleased') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3)
-                                                                        }}PMT
+                                    }}PMT
                                 </div>
                                 <div class="text-xs p-2 text-left text-gray-400">
                                     {{ $t('coherents.24Released') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT
@@ -121,11 +121,11 @@
                 <div @click="handleConfirmBuyForUSDT"
                     class="w-5/12 mr-auto ml-auto border-primary-color active-white-color border-2 text-white py-2 text-center rounded-full">
                     USD3{{
-                                        $t('invitePage.pay') }}</div>
+                        $t('invitePage.pay') }}</div>
                 <div @click="handleConfirmBuyForRT"
                     class="w-5/12 mr-auto ml-auto border-2 active-white-color border-primary-color text-white py-2 text-center rounded-full">
                     RT{{
-                                        $t('invitePage.pay') }}</div>
+                        $t('invitePage.pay') }}</div>
             </div>
 
         </div>
@@ -186,7 +186,7 @@ onMounted(() => {
 
     selfAddress.value = window.ethereum.selectedAddress
     let targetCoherents = coherents_list.filter(item => {
-        return item.type == '200'
+        return item.type == '205'
     })
     coherentInfo.value = targetCoherents[0]
     //console.log(coherentInfo.value)
@@ -423,6 +423,7 @@ async function handleConfirmBuyForUSDT() {
         content: `${t('modalConfirm.confirmBuyPackage')}`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
+        cancelText: t('modalConfirm.cancel'),
         onConfirm: async () => {
             try {
                 await pmtContractApi.purchasePackage(Number(coherentInfo.value.id - 1))

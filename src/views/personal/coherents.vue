@@ -149,6 +149,7 @@ async function handleReleased() {
         title: t('modalConfirm.tips'),
         content: t('modalConfirm.confirmRelease'),
         showCancelButton: true,
+
         cancelText: t('modalConfirm.cancel'),
         confirmText: t('modalConfirm.confirm'),
         onConfirm: async () => {

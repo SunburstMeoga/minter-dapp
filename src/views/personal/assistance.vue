@@ -532,6 +532,7 @@ async function handleConfirmBuyForRTPOPUP() {
         // content: `是否確認購買 ${coherentsList.value[currentCoherent.value].type} 配套`,
         content: `${t('modalConfirm.confirmBuyPackage', { package: coherentsList.value[currentCoherent.value].type })}`,
         showCancelButton: true,
+        cancelText: t('modalConfirm.cancel'),
         confirmText: t('modalConfirm.confirm'),
         onConfirm: async () => {
             try {
@@ -561,6 +562,7 @@ async function handleConfirmBuyForRTPOPUP() {
                                 // content: `當前配套價格為 ${coherentsList.value[currentCoherent.value].type} RT，您的 RT 餘額不足。`,
                                 content: `${t('modalConfirm.notEnoughBalance', { amount: coherentsList.value[currentCoherent.value].type, currency: 'RT' })}`,
                                 showCancelButton: true,
+                                cancelText: t('modalConfirm.cancel'),
                                 confirmText: t('exchange.title'),
                                 onConfirm: () => {
                                     proxy.$confirm.hide()
@@ -727,6 +729,7 @@ async function handlePopupConfirmBuy() {
         content: `${t('modalConfirm.confirmBuyPackage', { package: coherentsList.value[currentSelf.value].type })}`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
+        cancelText: t('modalConfirm.cancel'),
         onConfirm: async () => {
             try {
                 let data = { package_id: coherentsList.value[currentSelf.value].id }
@@ -958,6 +961,7 @@ async function handleConfirmBuyForUSDT() {
         content: `${t('modalConfirm.confirmBuyPackage', { package: coherentsList.value[currentSelf.value].type })}`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
+        cancelText: t('modalConfirm.cancel'),
         onConfirm: async () => {
             try {
                 proxy.$loading.hide()
@@ -1069,6 +1073,7 @@ function handleConfirmUpPackage() {
         content: `${t('modalConfirm.confirmBuyPackage', { package: buyPackage.value.type })}`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
+        cancelText: t('modalConfirm.cancel'),
         onConfirm: async () => {
 
             let params = { address: clickPointInfo.value.address, package_id: buyPackage.value.id }
@@ -1098,6 +1103,7 @@ function handleConfirmUpPackage() {
                             // content: `RT餘額不足，無法購買 ${buyPackage.value.text} 配套`,
                             content: `${t('modalConfirm.notEnoughBalance', { amount: buyPackage.value.text, currency: 'RT' })}`,
                             showCancelButton: true,
+                            cancelText: t('modalConfirm.cancel'),
                             confirmText: t('toast.exchangeTitle'),
                             onConfirm: () => {
                                 proxy.$confirm.hide()

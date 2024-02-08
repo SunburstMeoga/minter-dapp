@@ -672,6 +672,7 @@ async function handleConfirmBuyForUSDT() {
     content: `${t('modalConfirm.confirmBuyPackage', { package: coherentInfo.value.type })}`,
     showCancelButton: true,
     confirmText: t('modalConfirm.confirm'),
+    cancelText: t('modalConfirm.cancel'),
     onConfirm: async () => {
       try {
         //console.log(Number(coherentInfo.value.id))
@@ -767,6 +768,7 @@ async function handlePopupConfirmBuy() {
         // content: `RT餘額不足，無法購買 ${coherentInfo.value.type} 配套`,
         content: `${t('modalConfirm.notEnoughBalance', { amount: coherentInfo.value.type, currency: 'RT' })}`,
         showCancelButton: true,
+        cancelText: t('modalConfirm.cancel'),
         confirmText: t('toast.exchangeTitle'),
         onConfirm: () => {
           proxy.$confirm.hide()
@@ -797,6 +799,7 @@ async function handlePopupConfirmBuy() {
     content: `${t('modalConfirm.confirmBuyPackage', { package: coherentInfo.value.type })}`,
     showCancelButton: true,
     confirmText: t('modalConfirm.confirm'),
+    cancelText: t('modalConfirm.cancel'),
     onConfirm: async () => {
       let data = {
         package_id: coherentInfo.value.id,

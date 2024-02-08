@@ -4,7 +4,7 @@
             <div class="absolute  left-2 active-primary-color" @click="goBack">
                 <div class="icon iconfont icon-left" style="font-size: 20px;"></div>
             </div>
-            <div> {{ pageTitle }}</div>
+            <!-- <div> {{ pageTitle }}</div> -->
         </div>
     </div>
 </template>

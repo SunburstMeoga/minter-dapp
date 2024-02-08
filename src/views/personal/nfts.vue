@@ -489,6 +489,7 @@ async function handleListed(item, index) {
         content: `${t('modalConfirm.confirmSaleNFT', { tokenID: item.token_id })}`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
+        cancelText: t('modalConfirm.cancel'),
         onConfirm: async () => {
             try { //listNFT
                 // proxy.$loading.show()
@@ -600,6 +601,7 @@ async function handleCancelList(item) {
         content: `${t('modalConfirm.confirmCancelSale', { tokenID: item.token_id })}`,
         showCancelButton: true,
         confirmText: t('modalConfirm.confirm'),
+        cancelText: t('modalConfirm.cancel'),
         onConfirm: async () => {
             try { //unlistNFT
                 // proxy.$loading.show()
