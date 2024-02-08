@@ -99,6 +99,11 @@ if (window.ethereum) {
     sellOffPeriod: async function (tokenID) {
       const result = await MTCOLLECTION.nonTradableUntil(tokenID)
       return result
+    },
+    //獲取當前凍結的MT餘額
+    getLockedAmount: async function (address) {
+      const result = await MTCOLLECTION.getLockedAmount(address)
+      return result
     }
   }
 }

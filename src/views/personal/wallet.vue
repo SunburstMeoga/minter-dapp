@@ -674,7 +674,7 @@ async function handleExchangeBT() {
         contentWord = `${t('modalConfirm.confirmExchangeBTToUSD3', { amount: exchangeAmountBT.value, usd3: exchangeAmountBT.value * 0.9, handlingFee: exchangeAmountBT.value * 0.1 })}`
     } else {
         // contentWord = `是否確認將 ${exchangeAmountBT.value} BT 兌換為 ${exchangeAmountBT.value} RT。 `
-        contentWord = `${t('modalConfirm.confirmExchangeBTToBT', { amount: exchangeAmountBT.value, RT: exchangeAmountBT })}`
+        contentWord = `${t('modalConfirm.confirmExchangeBTToBT', { amount: exchangeAmountBT.value, RT: exchangeAmountBT.value })}`
     }
     let data = {
         amount: exchangeAmountBT.value

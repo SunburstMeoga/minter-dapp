@@ -365,9 +365,11 @@ async function isNotEnoughBalance(amount) {
     mtBalance = WEB3.utils.fromWei(mtBalance.toString(), 'ether')
     let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
     pmtBalance = WEB3.utils.fromWei(pmtBalance.toString(), 'ether')
-    // let balance = parseInt(parseInt(mtBalance) + parseInt(pmtBalance)) //mt加上PMT的餘額
-    let balance = parseInt(parseInt(mtBalance)) //mt的餘額
-    console.log(balance, parseInt(amount))
+    let mtLockBalance = await nftContractApi.getLockedAmount(localStorage.getItem('address'))
+    mtLockBalance = WEB3.utils.fromWei(mtLockBalance.toString(), 'ether')
+    // let balance = parseInt(parseInt(mtBalance) + parseInt(pmtBalance)) 
+    let balance = parseInt(parseInt(mtBalance) - parseInt(mtLockBalance))
+    console.log(balance, parseInt(amount), parseInt(mtLockBalance))
     return balance < parseInt(amount)
 }
 //點擊去抽獎
