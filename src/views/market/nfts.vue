@@ -369,7 +369,10 @@ async function isNotEnoughBalance(amount) {
     mtLockBalance = WEB3.utils.fromWei(mtLockBalance.toString(), 'ether')
     // let balance = parseInt(parseInt(mtBalance) + parseInt(pmtBalance)) 
     let balance = parseInt(parseInt(mtBalance) - parseInt(mtLockBalance))
-    console.log(balance, parseInt(amount), parseInt(mtBalance), parseInt(mtLockBalance))
+    console.log(balance, parseInt(amount), parseInt(mtBalance), parseInt(mtLockBalance), parseInt(pmtBalance))
+    if (parseInt(mtBalance == 0)) {
+        balance < parseInt(pmtBalance)
+    }
     return balance < parseInt(amount)
 }
 //點擊去抽獎
