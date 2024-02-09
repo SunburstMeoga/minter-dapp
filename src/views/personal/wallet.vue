@@ -840,6 +840,7 @@ async function handleExchange() {
                     showToast(`${t('modalConfirm.successExchangeUSD3', { amount: exchangeAmount.value * 0.9 })}`)
                 } catch (err) {
                     //console.log(err)
+                    proxy.$confirm.hide()
                     proxy.$loading.hide()
                     showToast(t('modalConfirm.exchangeFail'))
                 }
@@ -855,6 +856,7 @@ async function handleExchange() {
 
                 } catch (err) {
                     //console.log(err)
+
                     proxy.$confirm.hide()
                     showToast(t('modalConfirm.exchangeFail'))
                 }
