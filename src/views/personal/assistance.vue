@@ -578,6 +578,20 @@ async function handleConfirmBuyForRTPOPUP() {
                             });
                             return
                         }
+                        if (res.message == '你已經擁有NFT，不能購買配套，請先出售所有nft才能繼續購買。') {
+                            proxy.$loading.hide()
+                            proxy.$confirm.hide()
+                            proxy.$confirm.show({
+                                title: t('modalConfirm.tips'),
+                                content: `該地址必須賣出所有的NFT才可以購買新的配套`,
+                                showCancelButton: false,
+                                confirmText: t('modalConfirm.confirm'),
+                                onConfirm: () => {
+                                    proxy.$confirm.hide()
+                                },
+                            });
+                            return
+                        }
                         if (res.message == "推薦人地址不存在") {
                             proxy.$confirm.hide()
                             proxy.$confirm.show({
@@ -1270,10 +1284,10 @@ function clickOperatingItem(item, index) {
         toggleAddressOfPoint()
         // viewAddressPoint()
     } else {
-        showToast(`${t('toast.notYetOpen')}`)
-        return
-        // showPointCoherentInfo.value = !showPointCoherentInfo.value
-        // toggleAddressOfPoint()
+        // showToast(`${t('toast.notYetOpen')}`)
+        // return
+        showPointCoherentInfo.value = !showPointCoherentInfo.value
+        toggleAddressOfPoint()
     }
 }
 //显示隐藏当前点位配套信息
