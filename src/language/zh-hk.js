@@ -248,6 +248,7 @@ export default {
   },
   exchange: {
     title: '兌換',
+    for: "兌換",
     exchangeQuantity: '兌換數量'
   },
   coherents: {

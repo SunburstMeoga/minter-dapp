@@ -36,7 +36,7 @@
                     :balance="palayBanalce.bt" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card :currency="'RT' + '(' + $t('order.bind') + ')'" :tokenImg="rtImg"
+                <wallet-card :currency="'RT' + ' (' + $t('order.bind') + ')'" :tokenImg="rtImg"
                     :balance="palayBanalce.rtLocked" isRegister @register="handleRegister" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
@@ -410,6 +410,7 @@ async function handleWalletCardReleases() {
         proxy.$confirm.show({
             title: t('modalConfirm.tips'),
             content: `${t('modalConfirm.postRelease', { time: getTime(time) })}`,
+            confirmText: t('modalConfirm.confirm'),
             showCancelButton: false,
             onConfirm: () => {
                 proxy.$confirm.hide()
@@ -425,6 +426,7 @@ async function handleWalletCardReleases() {
         proxy.$confirm.show({
             title: t('modalConfirm.tips'),
             content: t('toast.haveNotCanReleasePMT'),
+            confirmText: t('modalConfirm.confirm'),
             showCancelButton: false,
             onConfirm: () => {
                 proxy.$confirm.hide()
@@ -436,6 +438,7 @@ async function handleWalletCardReleases() {
     proxy.$confirm.show({
         title: t('modalConfirm.tips'),
         content: t('modalConfirm.confirmRelease'),
+        confirmText: t('modalConfirm.confirm'),
         showCancelButton: false,
         onConfirm: async () => {
             try {

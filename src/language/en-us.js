@@ -36,7 +36,7 @@ export default {
   home: {
     title: 'Welcome to',
     contentOne: 'Welcome all friends who are interested in Minter to join us',
-    contentTwo: 'Join us in creating a new world of countless possibilities',
+    contentTwo: 'in creating a new world of countless possibilities',
     documentation: 'View documentation',
     wallet: "Wallet download"
   },
@@ -177,14 +177,14 @@ export default {
     contract: 'Contract',
     unanimous: 'Select all',
     promiseCard: 'Commitment Card',
-    onSale: 'On sale',
+    onSale: 'On Sale',
     all: 'All',
     sale: 'Place sell order',
     cancleSale: 'Cancel sell order',
     gift: 'Give away',
     coherent: 'Minting',
-    staticIncome: 'Static income',
-    dynamicIncome: 'Dynamic income',
+    staticIncome: 'Static Income',
+    dynamicIncome: 'Dynamic Income',
     transfer: 'Transfer',
     market: 'Market',
     release: "Release",
@@ -204,7 +204,7 @@ export default {
     account: 'Account',
     disconnect: 'Disconnect',
     toLottery: "To draw a prize",
-    canSale: "Available for sale",
+    canSale: "Available for Sale",
     highToLow: "Price from high to low",
     lowToHigh: "Price from low to high",
     nftTradLog: "NFT Trading Log",
@@ -215,8 +215,8 @@ export default {
     sold: "Sold"
   },
   assistance: {
-    pointMap: 'Point map (Binary system)',
-    organisationChart: 'Hierarchy (Direct sponsoring)',
+    pointMap: 'Point Map (Binary System)',
+    organisationChart: 'Hierarchy (Direct Sponsoring)',
     dynamicRewards: 'Dynamic rewards',
     commitmentCard: 'Commitment card',
     invitation: 'Invitation Method',
@@ -256,12 +256,13 @@ export default {
   },
   exchange: {
     title: 'Exchange',
-    exchangeQuantity: 'Exchange quantity'
+    for: "Exchange for",
+    exchangeQuantity: 'Exchange Quantity'
   },
   coherents: {
     MatchingLevelBonusRate: 'Minting direct sponsor bonus rate',
     contribution: 'Amount of contribution value available',
-    title: 'Minting transaction information',
+    title: 'Minting Transaction Information',
     price: 'Selling price',
     coherentTitle: 'Minting list',
     earningsCap: 'Income cap (static income)',
@@ -355,7 +356,7 @@ export default {
     progress: "Verifying, please wait.",
     pointAddressHadAddress: "This point already has an address",
     enterInvterAddress: "Please enter the invitation address",
-    buyPackage: "Purchase package",
+    buyPackage: "Purchase Package",
     enterPreAddress: "Type in upline address",
     enterMyAddress: 'Type in my address',
     choosePackage: "Please select a package",
@@ -394,7 +395,7 @@ export default {
   },
   order: {
     needPay: 'Need to pay',
-    bind: 'Binding',
+    bind: 'Binding ',
     balance: 'Balance'
   },
   invitePage: {
