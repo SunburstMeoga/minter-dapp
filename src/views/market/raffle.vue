@@ -37,9 +37,11 @@
             <div class="rounded border border-gray-400 mb-2 p-2 text-sm text-gray-200"
                 v-for="(item, index) in prizeDescription" :key="index">
                 <div class="font-bold text-center text-gray-400 mb-2">{{ item.title }}</div>
-                <div class="text-center leading-4"> {{ item.content }} <span v-show="item.tips" class="text-red-500">{{
-                                        item.tips
-                                        }}</span></div>
+                <div class="leading-4 pl-2 border-l-2 border-primary-color mb-3"
+                    :class="_index == item.content.length - 1 ? 'text-red-500' : ''"
+                    v-for="(_item, _index) in item.content">
+                    {{ _item }}
+                </div>
             </div>
         </div>
         <van-overlay :show="isPrized" z-index="20">
@@ -61,7 +63,7 @@
                 </div>
                 <div class="rounded-full text-gray-200 text-center flex justify-center items-center text-lg w-11/12 py-2 mr-auto ml-auto operating-button"
                     @click="$router.go(-1)">
-                    開心收下
+                    {{ $t('raffle.takeIt') }}
                     <!-- <div class="icon iconfont icon-close" style="font-size: 30px;" @click="$router.go(-1)"></div> -->
                 </div>
             </div>
@@ -110,18 +112,49 @@ import { Roulette } from 'vue3-roulette'
 let prizeDescription = computed(() => {
     return [{
         title: t('raffle.revenueGasPedal'),
-        content: t('raffle.expediteContent'),
-    }, {
+        content: [
+            t('raffle.particleGasPedalOne'),
+            t('raffle.particleGasPedalTwo'),
+            t('raffle.particleGasPedalThree'),
+            t('raffle.particleGasPedalFour'),
+        ]
+        // content: t('raffle.expediteContent'),
+    },
+    {
         title: t('raffle.earnings'),
-        content: t('raffle.earningsContent'),
+        content: [
+            t('raffle.MTBonusOne'),
+            t('raffle.MTBonusTwo'),
+            t('raffle.MTBonusThree'),
+            t('raffle.MTBonusFour'),
+        ]
+        // content: t('raffle.earningsContent'),
     }, {
         title: t('raffle.promiseCard'),
-        content: t('raffle.promiseCardContent'),
+        content: [
+            t('raffle.commitCardOne'),
+            t('raffle.commitCardTwo'),
+            t('raffle.commitCardThree'),
+            t('raffle.commitCardFour'),
+            t('raffle.commitCardFive'),
+            t('raffle.commitCardSix'),
+
+        ]
+        // content: t('raffle.promiseCardContent'),
     }, {
         title: t('raffle.welfare'),
-        content: t('raffle.welfareContent'),
-        tips: t('raffle.welfareTips'),
-    }]
+        // content: t('raffle.welfareContent'),
+        content: [
+            t('raffle.referralBonusOne'),
+            t('raffle.referralBonusTwo'),
+            t('raffle.referralBonusThree'),
+            t('raffle.referralBonusFour'),
+            t('raffle.referralBonusFive'),
+
+        ]
+        // tips: t('raffle.welfareTips'),
+    }
+    ]
 })
 const wheel = ref(null);
 let prizeDetails = ref('')

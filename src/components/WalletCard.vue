@@ -63,7 +63,7 @@
                     }} {{ currency }}</span> </div>
                 </div>
                 <div class="flex justify-between items-center text-menu-word text-sm mb-2" v-show="showLockBalance">
-                    <div class="">凍結餘額</div>
+                    <div class="">{{ $t('wallet.frezeBalance') }}</div>
                     <div class="flex justify-end items-center"><span class="text-lg pr-1 font-bold text-red-500">{{
                         Number(lockMT).toFixed(4)
                     }} {{ currency }}</span> </div>

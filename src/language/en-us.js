@@ -169,6 +169,7 @@ export default {
   },
   wallet: {
     connectWallet: 'Connect wallet',
+    frezeBalance: "Freze Balance",
     connect: 'Connect',
     recharge: 'Top up',
     withdraw: 'Withdraw cash',
@@ -371,15 +372,39 @@ export default {
   },
   raffle: {
     start: 'Start',
-    revenueGasPedal: 'Income Accelerator',
+    revenueGasPedal: 'Income Accelerator (12%~36%)',
     expediteContent: 'PMT is immediately distributed to the purchase address. The value of the NFT remains unchanged and can be sold after 72 hours. After the NFT is successfully sold, the sales amount will be immediately credited to the MT wallet.',
-    earnings: 'MT Bonus',
+    earnings: 'MT Bonus (0.5%~6%)',
     earningsContent: 'The additional bonus is based on the value of the NFT. The NFT can be sold after 72 hours, and the sales amount will be immediately credited to the MT wallet.',
     promiseCard: 'Commitment Card (10%)',
     promiseCardContent: 'Non-transferable Commitment Card (CC) need to invite 2 users within 30 days to purchase packages that are > or = the CC record (based on the value of the last package purchased by the user) to immediately obtain the 10% transferable RT based on the highest package value recorded in the CC record.',
     welfare: "Referral Bonus (0.5%~12%)",
     welfareContent: "The non-transferable Referral Bonus < RT (Bind)> of the previous month will be cleared at 0:00 on the 7th of each month, and the RT value generated from the 1st to the 7th will be cleared on the 7th of the next month. It can be used together with normal RT to purchase the package.",
-    welfareTips: 'Please remember that this reward must be used before the 7th of every month'
+    welfareTips: 'Please remember that this reward must be used before the 7th of every month',
+    takeIt: "Take it happily.",
+
+    particleGasPedalOne: "The value of the NFT remains unchanged when the user draws, and the user sells the NFT after 72 hours to obtain the corresponding NFT value.",
+    particleGasPedalTwo: "When the user draws the income, the PMT corresponding to the acceleration ratio in the income accelerator (NFT value * acceleration ratio) will be immediately distributed to the purchase address.",
+    particleGasPedalThree: "The acceleration ratio values of the income accelerator are: 12%, 24%, 36%",
+    particleGasPedalFour: "Immediately after drawing, it will be calculated into the income cap limit.",
+
+    MTBonusOne: "Users can decide the total income they can get in the next 3 days by purchasing NFT",
+    MTBonusTwo: "When the user draws the income, the value corresponding to each income drawn (NFT value * the proportion of income that should be added) is added to the NFT value immediately. After 72 hours, the NFT is listed for sale and the sales proceeds will be deposited into the MT wallet.",
+    MTBonusThree: "The yields are: 0.5%, 1%, 2%, 3%, 4%, 5%, 6%.",
+    MTBonusFour: "Immediately after drawing, it will be calculated into the income cap limit.",
+
+    commitCardOne: "When a user draws a commitment card, he needs to invite two users, and the invited user needs to purchase a package that is greater than or equal to the Commitment Card record. Only the user who sends the invitation can get the corresponding reward",
+    commitCardTwo: "When the user successfully invites 2 new users, after purchasing the package, he will immediately receive 10% RT of the package recorded on the Commitment Card (the RT is transferable)",
+    commitCardThree: "If the user purchases multiple packages, the reward for the Commitment Card will be calculated based on the package with the highest value purchased by the user.",
+    commitCardFour: "It will take effect from the drawing, and the highest value package of the drawn user will be recorded, and the income will be locked at 10% RT of the highest package of the drawn user.",
+    commitCardFive: "Valid for 30 days, transfers to sidelines are not allowed, only transfers to uplines and downlines are allowed.",
+    commitCardSix: "Not included in the income cap limit.",
+
+    referralBonusOne: "Referral Bonus RT yields are: 0.5%, 1%, 3%, 6%, 12%.",
+    referralBonusTwo: "Referral Bonus is directly bound to the current address and cannot be transferred to other users.",
+    referralBonusThree: "The RT(Bind) of the previous month is cleared at 0:00 on the 7th of each month, and the RT values generated from the 1st to the 7th are cleared on the 7th of the next month.",
+    referralBonusFour: "Users can use MUSD and ordinary RT (RT that is not bound to an address and can transfer money) to purchase packages.",
+    referralBonusFive: "Not included in the income cap limit.",
   },
   turntable: {
     title: 'Roulette draw',

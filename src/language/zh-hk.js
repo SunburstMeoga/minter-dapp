@@ -161,6 +161,7 @@ export default {
   },
   wallet: {
     connectWallet: '連接錢包',
+    frezeBalance: "凍結餘額",
     connect: '連接MetaMask',
     recharge: '充值',
     withdraw: '提現',
@@ -358,13 +359,37 @@ export default {
     start: '開始',
     revenueGasPedal: '收益加速器(12%～36%)',
     expediteContent: '即时发放PMT 到购买地址。NFT 的价值不变。72 小时后可售出NFT，成功售出 NFT 后，售额将即时入账MT钱包',
-    earnings: '每日收益(0.5%～6%)',
+    earnings: '每次收益(0.5%～6%)',
     earningsContent: '附加收益在 NFT 价值上。72 小时后可 售 出 NFT，售额将即时入 账 MT 钱包。',
     promiseCard: '業績承諾卡(10%)',
     promiseCardContent: '无可转让的业绩承诺卡需於 30 天内邀请两个用户购买>或=业绩承诺卡记录的配套(基于 用户购买的最后价值的配套计算)，方能立刻获得业绩承诺卡所记录的最高配套的可转 账 10% RT。',
     welfare: '推薦福利(0.5%～12%)',
     welfareContent: '无可转让的上个月推荐福利(绑定 RT)于每月 7 日 0 点清零，1-7 日产生的 RT 值在下个月 的 7 日清零。可以配合正常 RT 一起使用去购买配套。',
-    welfareTips: '請切記這個獎勵要在每個月7號前使用'
+    welfareTips: '請切記這個獎勵要在每個月7號前使用',
+    takeIt: "開心收下",
+
+    particleGasPedalOne: "用戶抽中時 NFT的價值不變， 在 72 小時後出售 NFT 獲得對應的 NFT 價值。",
+    particleGasPedalTwo: "用戶抽到該收益的時候，馬上發放抽中收益加速器中相對應加速比率的 PMT（NFT 價值*加速比例 ）到購買地址",
+    particleGasPedalThree: "收益加速器的加速比率值為：12%，24%，36%",
+    particleGasPedalFour: "抽中後立即計算進收益上限內",
+
+    MTBonusOne: "用戶可以通過購買NFT決定接下來3天總共能獲得的收益",
+    MTBonusTwo: "用戶抽到該收益的時候，馬上增加抽中每次收益相對應加的價值（NFT價值*應收益比例）在NFT價值上。72小時後掛賣NFT，售額將存入MT錢包。",
+    MTBonusThree: "收益率分別為：0.5%，1%，2%，3%，4%，5%，6%。",
+    MTBonusFour: "抽中後立即計算進收益上限內",
+
+    commitCardOne: "用戶在抽取到業績承諾卡的時候，需要邀請兩個用戶，並且被邀請的用戶需要購買大於或等於業績承諾卡記錄的配套，發起邀請的用戶才可以獲取到相應的獎勵",
+    commitCardTwo: "當用戶成功邀請2個新用戶後，在購買配套後，將立即獲得業績承諾卡所記錄配套的10%RT（該RT可以轉賬）",
+    commitCardThree: "如果該用戶購買了多個配套，那麼業績承諾卡的獎勵基於用戶購買的最後價值的配套計算。",
+    commitCardFour: "從抽中開始生效，記錄抽中用戶的最高價值配套，收益將鎖定為抽中用戶最高配套的10%RT。",
+    commitCardFive: "有效期30天，不允許轉賬。",
+    commitCardSix: "不計算進收益上限內。",
+
+    referralBonusOne: "推薦福利RT收益率為：0.5%，1%，3%，6%，12%。",
+    referralBonusTwo: "推薦福利直接綁定到當前地址，不能轉給其他用戶",
+    referralBonusThree: "每月7日0點清零上個月的綁定RT，1-7日產生的RT值在下個月的7日清零。",
+    referralBonusFour: "用戶可以配合正常RT一起購買配套。",
+    referralBonusFive: "不計算進收益上限內。",
   },
   turntable: {
     title: '輪盤抽獎',
