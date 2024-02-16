@@ -539,7 +539,6 @@ async function handleConfirmBuyForRTPOPUP() {
                 proxy.$loading.hide()
                 buyPackageToNext(data)
                     .then(res => {
-                        //console.log('購買成功', res)
                         if (res.error) {
                             proxy.$confirm.hide()
                             proxy.$confirm.show({
@@ -1199,6 +1198,21 @@ function handleConfirmUpPackage() {
                                 proxy.$confirm.hide()
                                 proxy.$loading.hide()
                             }
+                        });
+                        return
+                    }
+
+                    if (res.message == '你已經擁有NFT，不能購買配套，請先出售所有nft才能繼續購買。') {
+                        proxy.$loading.hide()
+                        proxy.$confirm.hide()
+                        proxy.$confirm.show({
+                            title: t('modalConfirm.tips'),
+                            content: `該地址必須賣出所有的NFT才可以購買新的配套`,
+                            showCancelButton: false,
+                            confirmText: t('modalConfirm.confirm'),
+                            onConfirm: () => {
+                                proxy.$confirm.hide()
+                            },
                         });
                         return
                     }
