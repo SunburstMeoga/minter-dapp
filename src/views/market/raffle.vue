@@ -37,7 +37,7 @@
             <div class="rounded border border-gray-400 mb-2 p-2 text-sm text-gray-200"
                 v-for="(item, index) in prizeDescription" :key="index">
                 <div class="font-bold text-center text-gray-400 mb-2">{{ item.title }}</div>
-                <div class="leading-4 pl-2 border-l-2 border-primary-color mb-3"
+                <div class="leading-4 pl-2 border-l-4 border-primary-color mb-3"
                     :class="_index == item.content.length - 1 ? 'text-red-500' : ''"
                     v-for="(_item, _index) in item.content">
                     {{ _item }}
@@ -251,12 +251,9 @@ let buttons = computed(() => {
 
 onMounted(() => {
     nftInfo.value.address = route.query.address
-    // nftPrice.value = route.query.nft_price
     nftInfo.value.nft_token_id = route.query.nft_token_id
     prizeIndex.value = route.query.prizeIndex
     nftPrice.value = route.query.nftPrice
-    // getRoulettes()
-    //console.log(nftPrice.value)
     initRoulette()
 })
 
@@ -266,17 +263,10 @@ function wheelStartedCallback(evt) {
 }
 
 function wheelEndedCallback(evt) {
-    //console.log(evt.typeId, prizeDescription.value)
-    //console.log(items)
-    //console.log(wheelSettings.wheelResultIndex)
     if (evt) {
-        //console.log(evt)
         isPrized.value = true
         prizeContent.value = items[wheelSettings.wheelResultIndex.value].name
-        // prizeDetails.value = prizeDescription.value[evt.typeId - 1].content
         let typeId = evt.typeId
-        //console.log(evt.rewardPercentage)
-        //console.log(nftPrice.value)
         switch (typeId) {
             case 1: prizeDetails.value = `恭喜获得【PMT收益加速】,奖励NFT的${evt.rewardPercentage}%,即${Number(nftPrice.value) * (Number(evt.rewardPercentage) / 100)}PMT，加速回本`
                 break;
@@ -297,7 +287,7 @@ async function initRoulette() {
     //console.log('輪盤參數', res.roulettes)
     let obj = []
     res.roulettes.map((item, index) => {
-        let modifiedName = item.name.match(/.{1,3}/g).join('<br/>');
+        let modifiedName = localStorage.getItem('language') == 'zh-hk' ? item.name.match(/.{1,3}/g).join('<br/>') : item.name_en.match(/.{2,4}/g).join('<br/>')
         let backgroundColor
         if (item.prize_type_id == 1) {
             backgroundColor = `linear-gradient(180deg, rgba(9,72,121,1) 0%, rgba(0,212,255,1) 100%)`
@@ -316,7 +306,6 @@ async function initRoulette() {
             typeId: item.prize_type_id,
             rewardPercentage: item.reward_percentage
         })
-
     })
     items = obj
 
@@ -342,81 +331,6 @@ async function initRoulette() {
     proxy.$loading.hide()
 }
 
-// function getRoulettes() {
-//     proxy.$loading.show()
-//     roulettes()
-//         .then(res => {
-//             //console.log('輪盤參數', res)
-//             res.roulettes.map(item => {
-//                 let obj = {}
-//                 let objChild = {}
-//                 let fonts = []
-//                 objChild.text = item.name
-//                 objChild.id = item.id
-//                 objChild.top = '10%'
-//                 objChild.fontSize = '12px'
-//                 objChild.fontColor = '#fff'
-//                 obj.objChild
-//                 fonts.push(objChild)
-//                 obj.fonts = fonts
-//                 prizes.value.push(obj)
-//             })
-//             prizes.value.map((item, index) => {
-//                 index % 2 == 0 ? item.background = '#CC6DED' : item.background = '#2C4FB0'
-//             })
-//             proxy.$loading.hide()
-//             //console.log(prizes.value)
-//         })
-//         .catch(err => {
-//             //console.log('err', err)
-//             proxy.$loading.hide()
-//         })
-// }
-
-function viewPrizeDetaisl() {
-    showPrizeDetails.value = true
-}
-
-function startCallback() {
-    // 调用抽奖组件的play方法开始游戏
-    isPrized.value = false
-    myLucky.value.play()
-    // 模拟调用接口异步抽奖
-    // const index = Math.floor(Math.random() * 4)
-    //console.log(nftInfo.value)
-
-    // prizeID
-
-    // luckyDraw(nftInfo.value)
-    //     .then(res => {
-    //         //console.log('抽獎成功', res)
-    //         myLucky.value.stop(res.selectedRoulette.id - 1)
-    //         currentPrize.value = res.selectedRoulette.id
-    //         //console.log('currentPrize', currentPrize,)
-    //         prizeContent.value = res.selectedRoulette.name
-    //     })
-    //     .catch(err => {
-    //         //console.log('err', err)
-    //     })
-    setTimeout(() => {
-        // 假设后端返回的中奖索引是0
-
-        // 调用stop停止旋转并传递中奖索引
-        myLucky.value.stop(prizeIndex.value - 1)
-        // currentPrize.value = prizeID.value
-        prizeContent.value = prizes.value[prizeIndex.value - 1].fonts[0].text
-
-    }, 3000);
-
-}
-// 抽奖结束会触发end回调
-function endCallback(prize) {
-    //console.log(prize)
-    isPrized.value = true
-}
-function togglePrizePopup() {
-    showPrizePopup.value = !showPrizePopup.value
-}
 
 </script>
 
