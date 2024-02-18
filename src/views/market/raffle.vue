@@ -267,14 +267,23 @@ function wheelEndedCallback(evt) {
         isPrized.value = true
         prizeContent.value = items[wheelSettings.wheelResultIndex.value].name
         let typeId = evt.typeId
+        // switch (typeId) {
+        //     case 1: prizeDetails.value = `恭喜获得【PMT收益加速】,奖励NFT的${evt.rewardPercentage}%,即${Number(nftPrice.value) * (Number(evt.rewardPercentage) / 100)}PMT，加速回本`
+        //         break;
+        //     case 2: prizeDetails.value = `【NFT增值奖励】挂售NFT可增值${evt.rewardPercentage}%, 即${Number(nftPrice.value) * (Number(evt.rewardPercentage) / 100)}收益 *NFT72小时可挂售`
+        //         break;
+        //     case 3: prizeDetails.value = `恭喜获得【额外${evt.rewardPercentage}%直推奖金】,必须30天内直推大于等于自身配套的2个账户赚取配套10%。`
+        //         break;
+        //     case 4: prizeDetails.value = `恭喜获得【个人推荐绑定RT】,获得${evt.rewardPercentage}%,即${Number(nftPrice.value) * (Number(evt.rewardPercentage) / 100)}RT *每月7号0点截止（绑定RT）`
+        // }
         switch (typeId) {
-            case 1: prizeDetails.value = `恭喜获得【PMT收益加速】,奖励NFT的${evt.rewardPercentage}%,即${Number(nftPrice.value) * (Number(evt.rewardPercentage) / 100)}PMT，加速回本`
+            case 1: prizeDetails.value = `${t('raffle.prizeOne', { point: evt.rewardPercentage, amount: Number(nftPrice.value) * (Number(evt.rewardPercentage) / 100) })} `
                 break;
-            case 2: prizeDetails.value = `【NFT增值奖励】挂售NFT可增值${evt.rewardPercentage}%, 即${Number(nftPrice.value) * (Number(evt.rewardPercentage) / 100)}收益 *NFT72小时可挂售`
+            case 2: prizeDetails.value = `${t('raffle.prizeTwo', { point: evt.rewardPercentage, amount: Number(nftPrice.value) * (Number(evt.rewardPercentage) / 100) })}`
                 break;
-            case 3: prizeDetails.value = `恭喜获得【额外${evt.rewardPercentage}%直推奖金】,必须30天内直推大于等于自身配套的2个账户赚取配套10%。`
+            case 3: prizeDetails.value = `${t('raffle.prizeThree', { point: evt.rewardPercentage })}`
                 break;
-            case 4: prizeDetails.value = `恭喜获得【个人推荐绑定RT】,获得${evt.rewardPercentage}%,即${Number(nftPrice.value) * (Number(evt.rewardPercentage) / 100)}RT *每月7号0点截止（绑定RT）`
+            case 4: prizeDetails.value = `${t('raffle.prizeThree', { point: evt.rewardPercentage, amount: Number(nftPrice.value) * (Number(evt.rewardPercentage) / 100) })} `
         }
     }
 
@@ -300,7 +309,7 @@ async function initRoulette() {
         }
         obj.push({
             id: item.id,
-            name: item.name,
+            name: localStorage.getItem('language') == 'zh-hk' ? item.name : item.name_en,
             htmlContent: modifiedName,
             background: backgroundColor,
             typeId: item.prize_type_id,

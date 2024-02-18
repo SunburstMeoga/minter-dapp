@@ -157,7 +157,8 @@ export default {
     enterTransferAmount: '請輸入轉賬金額',
     enterTransferAddress: '請輸入轉賬地址',
     enterValidaddress: "請輸入有效地址",
-    enterNextAddress: "請輸入下級地址"
+    enterNextAddress: "請輸入下級地址",
+    operating: "正在操作，請稍候"
   },
   wallet: {
     connectWallet: '連接錢包',
@@ -240,7 +241,7 @@ export default {
     proceed: '收益',
     expiryTime: '到期時間',
     acceleratorAward: '加速器',
-    dailyEarnings: '每次收益',
+    dailyEarnings: '收益',
     recommendedBenefits: '推薦福利',
     bonus: '獎金',
     search: "搜索",
@@ -359,7 +360,7 @@ export default {
     start: '開始',
     revenueGasPedal: '收益加速器(12%～36%)',
     expediteContent: '即时发放PMT 到购买地址。NFT 的价值不变。72 小时后可售出NFT，成功售出 NFT 后，售额将即时入账MT钱包',
-    earnings: '每次收益(0.5%～6%)',
+    earnings: '收益(0.5%～6%)',
     earningsContent: '附加收益在 NFT 价值上。72 小时后可 售 出 NFT，售额将即时入 账 MT 钱包。',
     promiseCard: '業績承諾卡(10%)',
     promiseCardContent: '无可转让的业绩承诺卡需於 30 天内邀请两个用户购买>或=业绩承诺卡记录的配套(基于 用户购买的最后价值的配套计算)，方能立刻获得业绩承诺卡所记录的最高配套的可转 账 10% RT。',
@@ -390,10 +391,15 @@ export default {
     referralBonusThree: "每月7日0點清零上個月的綁定RT，1-7日產生的RT值在下個月的7日清零。",
     referralBonusFour: "用戶可以配合正常RT一起購買配套。",
     referralBonusFive: "不計算進收益上限內。",
+
+    prizeOne: "恭喜獲得【PMT收益加速】，獎勵NFT的{point}%，即{amount}PMT。加速回本。",
+    prizeTwo: "【NFT增值獎勵】掛售NFT可增值{point}%，即{amount}收益。 *NFT72小時候可掛售。",
+    prizeThree: "恭喜獲得【額外{point}%直推獎金】，必須30天內直推大於或等於自身配套的2個賬戶來賺取自身配套金額的10%。",
+    prizeFour: "恭喜獲得【個人推薦綁定RT】，獲得{point}%，即{amount}綁定RT。 *每月7號0點截止",
   },
   turntable: {
     title: '輪盤抽獎',
-    dailyEarnings: '每次收益',
+    dailyEarnings: '收益',
     recommendedBenefits: '推薦福利',
     performancePledge: '業績承諾',
     earningsAcceleration: '收益加速',

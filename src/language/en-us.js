@@ -165,7 +165,8 @@ export default {
     enterTransferAmount: 'Please enter the transfer amount',
     enterTransferAddress: 'Please enter transfer address',
     enterValidaddress: "Please enter a valid address",
-    enterNextAddress: "Please enter the downline address"
+    enterNextAddress: "Please enter the downline address",
+    operating: "In operation, please wait."
   },
   wallet: {
     connectWallet: 'Connect wallet',
@@ -405,6 +406,13 @@ export default {
     referralBonusThree: "The RT(Bind) of the previous month is cleared at 0:00 on the 7th of each month, and the RT values generated from the 1st to the 7th are cleared on the 7th of the next month.",
     referralBonusFour: "Users can use MUSD and ordinary RT (RT that is not bound to an address and can transfer money) to purchase packages.",
     referralBonusFive: "Not included in the income cap limit.",
+
+    prizeOne: "Congratulations on getting [PMT Income Accelerator], {point}% of the NFT will be rewarded, i.e.{amount}PMT, to accelerate the return of capital.",
+    prizeTwo: "[NFT Value-added Reward] NFT listed for sale can increase in value by {point}%, i.e {amount} income *NFT can be listed for sale after 72 hours.",
+    prizeThree: "Congratulations on getting the [Extra {point}% Direct Sponsoring Bonus]. You must directly promote 2 accounts that are greater than or equal to your own package within 30 days to earn 10% of your own  package amount.",
+    prizeFour: "Congratulations on getting the [Personal Direct Sponsoring Binding RT], you will get {point}%, i.e.{amount} Binding RT *Expires on 0:00 hour on the 7th of every month.",
+
+
   },
   turntable: {
     title: 'Roulette draw',

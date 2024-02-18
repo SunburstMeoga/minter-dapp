@@ -139,7 +139,7 @@ const nftProps = defineProps({
   }
 })
 function handleOperting() {
-  showToast('正在操作，请稍候')
+  showToast(t('toast.operating'))
   return
 }
 // function getNFTImage() {  
