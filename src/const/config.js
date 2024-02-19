@@ -12,13 +12,13 @@ import pmt_abi from './PreMintToken.json'
 
 const config = {
   USDToken_addr: '0xA6afb1F4dbC92C1019bd612D15b164AfD3caEf72',
-  pmt_addr: '0x509519Db157030e330C827407BC21946EFC54537',
-  mt_addr: '0x43D06515B683A4e72966f1920a893D64130f306c',
-  mst_addr: '0xF822af49B5ff380E7202457cffB5b93656496519',
-  pmt_purchase_addr: '0x6feaAc4B850fa4fC0556e0a4991436AABfcE95C1',
-  nfts_marketplace_addr: '0x5E5AEf518e6c6C15Dd03949425b472045b5cdE6A',
-  swap_addr: '0x115a960F0Cf85C6FC9E1b6180ce7a2F5364efe52',
-  minter_collection: '0x9ce9Bb719BF9784c384a9C5dc1AFb5dA285cAD1e',
+  pmt_addr: '0xa8dBf4d790FD348aA4d26aA129B92bC5086059bC',
+  mt_addr: '0x70d1850F4Bde88065e7De5DF3e41c3aa1DFAc2Ef',
+  mst_addr: '0x7a1baBa2D4aE66c39Fe9CD4C78E85D5E61730bA4',
+  pmt_purchase_addr: '0x60d3E08f69D347b62F0A21CCfb0dF83952a6A004',
+  nfts_marketplace_addr: '0xdf31600DA7FE6A62370E5506d8e57064893Ea50A',
+  swap_addr: '0xFfa489f992066E54c68C787F112767FE0cdD5010',
+  minter_collection: '0x22Fc986D42F0277c10A4DB22E76850c8397e60AD',
 
   nfts_collection_addr: '0x3848027E5728Fd927791c065b68684e2EBf4fc2a',
 
