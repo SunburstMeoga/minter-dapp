@@ -282,7 +282,8 @@
 
                 </div>
                 <div class="w-full flex justify-center items-center">
-                    <div class="w-11/12 operating-button text-center py-2.5 rounded" @click="showAttendPopup = false">
+                    <div class="w-11/12 operating-button text-center py-2.5 rounded"
+                        @click="showPointOperatingPopup = false">
                         {{ $t('modalConfirm.cancel') }}
                     </div>
                 </div>
