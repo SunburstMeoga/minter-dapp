@@ -908,7 +908,7 @@ function handleWalletCardExchangeBT() {
 }
 //點擊錢包卡片兌換按鈕
 function handleWalletCardExchange() {
-    if (Number(mtBalance.value).toFixed(4) <= 0) {
+    if (Number(mtBalance.value).toFixed(4) <= 0 && Number(lockMT.value).toFixed(4) <= 0) {
         showToast(`${t('modalConfirm.cantTransfer', { type: "MT" })}`)
         return
     }
