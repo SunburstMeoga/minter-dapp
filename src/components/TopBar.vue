@@ -400,6 +400,9 @@ function changeLanguage(actions) {
     proxy.$i18n.locale = actions.locale
     //console.log(proxy.$i18n.locale)
     localStorage.setItem('language', actions.locale)
+    if (router.currentRoute.value.fullPath == '/personal/wallet') {
+        location.reload()
+    }
     // if (proxy.$i18n.locale == "zh-hk") {
     //     proxy.$i18n.locale = "en-us";
 

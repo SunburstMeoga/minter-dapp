@@ -7,6 +7,9 @@
 import { ref, onMounted } from "vue";
 import * as echarts from 'echarts'
 import { playersInfo } from '@/request/api'
+import { useI18n } from "vue-i18n";
+const { t } = useI18n()
+
 let point = ref("")
 async function getInfor() {
     let playInfo = await playersInfo(localStorage.getItem('address'))
@@ -60,7 +63,7 @@ async function getInfor() {
                 data: [
                     {
                         value: totalBTReward,
-                        name: `剩餘量: ${residual} BT`
+                        name: `${t('assistance.remain')}: ${residual} BT`
                     }
                 ],
                 radius: '90%',

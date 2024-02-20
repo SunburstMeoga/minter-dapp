@@ -9,6 +9,8 @@ import pmtContractApi from '@/request/pmt'
 import * as echarts from 'echarts'
 import { Web3 } from 'web3'
 import { playersInfo } from '@/request/api'
+import { useI18n } from "vue-i18n";
+const { t } = useI18n()
 const { proxy } = getCurrentInstance()
 let maxPackage = ref('')
 let point = ref('')
@@ -142,7 +144,7 @@ async function getStaticIncomeInfo() {
                     data: [
                         {
                             value: (rewardAmount - eraningAmount) >= 0 ? (rewardAmount - eraningAmount) : 0,
-                            name: `剩餘量: ${rewardAmountLimit - rewardAmount + Number(eraningAmount)} MT`
+                            name: `${t('assistance.remain')}: ${rewardAmountLimit - rewardAmount + Number(eraningAmount)} MT`
                             // name: '剩余量:' + rewardAmountLimit - rewardAmount + ' MT',
                         }
                     ],
