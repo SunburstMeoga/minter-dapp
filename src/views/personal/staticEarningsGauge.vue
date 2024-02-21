@@ -64,7 +64,7 @@ async function getStaticIncomeInfo() {
         //收益上限
         let rewardAmountLimit = await pmtContractApi.getRewardAmountLimit(localStorage.getItem('address'))
         rewardAmountLimit = WEB3.utils.fromWei(rewardAmountLimit.toString(), 'ether')
-        rewardAmountLimit = Number(rewardAmountLimit).toFixed(0)
+        rewardAmountLimit = Number(rewardAmountLimit).toFixed(2)
         //锁定期的pmt数量
         let getLockedAmount = await pmtContractApi.getLockedAmount(localStorage.getItem('address'))
         getLockedAmount = WEB3.utils.fromWei(getLockedAmount.toString(), 'ether')
@@ -87,7 +87,7 @@ async function getStaticIncomeInfo() {
         let income = pmtBalance - min
         let trueLimit = max - min
         // let point
-        point.value = Number(((rewardAmount - eraningAmount) / rewardAmountLimit) * 100).toFixed(1) + '%'
+        point.value = Number(((rewardAmount - eraningAmount) / rewardAmountLimit) * 100).toFixed(2) + '%'
         // if (income >= trueLimit) {
         //     point = '100%'
         // } else {
