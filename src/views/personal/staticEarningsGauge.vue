@@ -60,7 +60,7 @@ async function getStaticIncomeInfo() {
         //現時收益總數
         let rewardAmount = await pmtContractApi.getRewardAmount(localStorage.getItem('address'))
         rewardAmount = WEB3.utils.fromWei(rewardAmount.toString(), 'ether')
-        rewardAmount = Number(rewardAmount).toFixed(0)
+        rewardAmount = Number(rewardAmount).toFixed(2)
         //收益上限
         let rewardAmountLimit = await pmtContractApi.getRewardAmountLimit(localStorage.getItem('address'))
         rewardAmountLimit = WEB3.utils.fromWei(rewardAmountLimit.toString(), 'ether')
@@ -143,7 +143,7 @@ async function getStaticIncomeInfo() {
                     },
                     data: [
                         {
-                            value: (rewardAmount - eraningAmount) >= 0 ? (rewardAmount - eraningAmount) : 0,
+                            value: (rewardAmount - eraningAmount) >= 0 ? Number(rewardAmount - eraningAmount).toFixed(2) : 0,
                             name: `${t('assistance.remain')}: ${rewardAmountLimit - rewardAmount + Number(eraningAmount)} MT`
                             // name: '剩余量:' + rewardAmountLimit - rewardAmount + ' MT',
                         }
