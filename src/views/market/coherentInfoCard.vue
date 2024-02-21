@@ -16,7 +16,7 @@
                 <div class="font-bold text-red-500">{{ Number(type) }} USD3 / RT</div>
             </div>
             <div class="flex justify-between items-center ">
-                <div>{{ $t('coherents.coherentCap') }}</div>
+                <div>{{ $t('coherents.coherentCapTwo') }}</div>
                 <div>{{ Number(limit) * 2 }} </div>
             </div>
         </div>

@@ -13,8 +13,9 @@
             <div class="flex justify-start items-start overflow-hidden">
                 <div class="mt-4 relative flex justify-end items-start w-full max-h-full overflow-hidden">
                     <div class="absolute top-0 left-0 w-3/12 h-screen overflow-hidden">
-                        <div v-for="(item, index) in typeList" class="text-center w-full py-4 text-white bg-black px-0.5"
-                            :key="index" :class="currentType == index ? 'bg-page-content text-primary-color font-bold' : ''"
+                        <div v-for="(item, index) in typeList"
+                            class="text-center w-full py-4 text-white bg-black px-0.5 text-xs" :key="index"
+                            :class="currentType == index ? 'bg-page-content text-primary-color font-bold' : ''"
                             @click="handleType(item, index)">
                             {{ item.title }}
                         </div>
