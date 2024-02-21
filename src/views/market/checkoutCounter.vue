@@ -285,7 +285,7 @@
           <div v-show="rtBind.length && rtBind.length !== 0">
             <div v-for="(item, index) in rtBind" :key="index" class="mb-3">
               <div class="text-white text-xs flex justify-between items-baseline mb-1">
-                <div class="text-base">{{ $t('order.bind') }}RT </div>
+                <div class="text-base">{{ $t('order.bind') + ' ' }}RT </div>
                 <div class="text-primary-color font-bold pl-1"> {{ $t('assistance.expiryTime') }}: {{
                   FilterTime(item.expire_date) }}
                 </div>

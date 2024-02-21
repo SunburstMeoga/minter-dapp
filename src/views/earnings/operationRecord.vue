@@ -46,7 +46,7 @@
                                         :address="item.address" :isEarning="currentTab == 0 || currentTab == 1"
                                         :isNFT="currentTab == 2" :isToken="currentTab == 3"
                                         :price="item.amount || item.reward_amount || item.price"
-                                        :symbol="item.token && item.token.symbol + (item.transaction && item.transaction.locked ? `(${$t('order.bind')})` : '')"
+                                        :symbol="item.token && item.token.symbol + (item.transaction && item.transaction.locked ? ` (${$t('order.bind')})` : '')"
                                         :showExpire="currentTab == 1 && currentType == 3"
                                         :expireDate="getExpireData(item.created_at)"
                                         :promiseCardValidDate="item.promise_card_valid_date"

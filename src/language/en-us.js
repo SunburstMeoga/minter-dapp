@@ -170,7 +170,7 @@ export default {
   },
   wallet: {
     connectWallet: 'Connect wallet',
-    frezeBalance: "Freze Balance",
+    frezeBalance: "Frozen Balance",
     connect: 'Connect',
     recharge: 'Top up',
     withdraw: 'Withdraw cash',
@@ -428,7 +428,7 @@ export default {
   },
   order: {
     needPay: 'Need to pay',
-    bind: 'Binding ',
+    bind: 'Binding',
     balance: 'Balance'
   },
   invitePage: {
