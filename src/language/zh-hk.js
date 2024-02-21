@@ -393,7 +393,7 @@ export default {
     referralBonusFive: "不計算進收益上限內。",
 
     prizeOne: "恭喜獲得【PMT收益加速】，獎勵NFT的{point}%，即{amount}PMT。加速回本。",
-    prizeTwo: "【NFT增值獎勵】掛售NFT可增值{point}%，即{amount}收益。 *NFT72小時候可掛售。",
+    prizeTwo: "【NFT增值獎勵】掛售NFT可增值{point}%，即{amount}收益。 *NFT72小時後可掛售。",
     prizeThree: "恭喜獲得【額外{point}%直推獎金】，必須30天內直推大於或等於自身配套的2個賬戶來賺取自身配套金額的10%。",
     prizeFour: "恭喜獲得【個人推薦綁定RT】，獲得{point}%，即{amount}綁定RT。 *每月7號0點截止",
   },
