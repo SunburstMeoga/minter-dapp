@@ -342,10 +342,10 @@ let exchangeAmountBT = ref('')
 // let exhangeTypes = ref([{ title: 'MT 兌換 USDT', type: 0 }, { title: 'MT 兌換 RT', type: 1 }])
 // let exhangeTypesBT = ref([{ title: 'BT 兌換 USDT', type: 0 }, { title: 'BT 兌換 RT', type: 1 }])
 let exhangeTypes = computed(() => {
-    return [{ title: `MT ${t('toast.exchangeTitle')} USDT`, type: 0 }, { title: `MT ${t('toast.exchangeTitle')} RT`, type: 1 }]
+    return [{ title: `MT ${t('toast.exchangeTitle')} USD3`, type: 0 }, { title: `MT ${t('toast.exchangeTitle')} RT`, type: 1 }]
 })
 let exhangeTypesBT = computed(() => {
-    return [{ title: `BT ${t('toast.exchangeTitle')} USDT`, type: 0 }, { title: `BT ${t('toast.exchangeTitle')} RT`, type: 1 }]
+    return [{ title: `BT ${t('toast.exchangeTitle')} USD3`, type: 0 }, { title: `BT ${t('toast.exchangeTitle')} RT`, type: 1 }]
 })
 let currentExchangeType = ref(0)
 let currentExchangeTypeBT = ref(0)
