@@ -260,7 +260,7 @@ export default {
     price: '售價',
     coherentTitle: '鑄造列表',
     earningsCap: '收益上限 （静态收益）',
-    coherentCap: '收益上限 （动态收益）',
+    coherentCap: '收益上限',
     coherentCapTwo: '收益上限',
     incentiveRate: '一級邀請獎勵利率',
     bonusLevel: '獎金等級',

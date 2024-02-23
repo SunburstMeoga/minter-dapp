@@ -283,7 +283,7 @@ function wheelEndedCallback(evt) {
                 break;
             case 3: prizeDetails.value = `${t('raffle.prizeThree', { point: evt.rewardPercentage })}`
                 break;
-            case 4: prizeDetails.value = `${t('raffle.prizeThree', { point: evt.rewardPercentage, amount: Number(nftPrice.value) * (Number(evt.rewardPercentage) / 100) })} `
+            case 4: prizeDetails.value = `${t('raffle.prizeFour', { point: evt.rewardPercentage, amount: Number(nftPrice.value) * (Number(evt.rewardPercentage) / 100) })} `
         }
     }
 

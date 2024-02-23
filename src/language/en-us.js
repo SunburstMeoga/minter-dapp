@@ -268,7 +268,7 @@ export default {
     price: 'Selling price',
     coherentTitle: 'Minting list',
     earningsCap: 'Income cap (static income)',
-    coherentCap: 'Bonus cap (dynamic income)',
+    coherentCap: 'Bonus cap',
     coherentCapTwo: 'Bonus cap',
     incentiveRate: 'Level 1 invitation bonus rate',
     bonusLevel: 'Bonus Level',

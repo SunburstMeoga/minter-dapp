@@ -17,7 +17,7 @@
           </div>
           <div class="flex justify-between items-center">
             <div>
-              {{ $t('coherents.coherentCap') }}:
+              {{ $t('coherents.coherentCap') }}
             </div>
             <div class="text-red-500 font-bold">
               {{ FormatAmount(coherentInfo.limit * 2).pointPre }}.<span class="text-xs">{{
@@ -44,7 +44,7 @@
           </div>
           <div class="flex justify-between items-center">
             <div>
-              {{ $t('coherents.contribution') }}:
+              {{ $t('coherents.contribution') }}
             </div>
             <div>
               {{ coherentInfo.shareholdings }}
@@ -53,7 +53,7 @@
 
           <div class="flex justify-between items-center">
             <div>
-              {{ $t('coherents.MatchingLevelBonusRate') }}:
+              {{ $t('coherents.MatchingLevelBonusRate') }}
             </div>
             <div>
               {{ coherentInfo.incentiveRate * 100 + '%' }}

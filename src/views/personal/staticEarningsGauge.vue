@@ -144,7 +144,7 @@ async function getStaticIncomeInfo() {
                     data: [
                         {
                             value: (rewardAmount - eraningAmount) >= 0 ? Number(rewardAmount - eraningAmount).toFixed(2) : 0,
-                            name: `${t('assistance.remain')}: ${rewardAmountLimit - rewardAmount + Number(eraningAmount)} MT`
+                            name: `${t('assistance.remain')}: ${Number(rewardAmountLimit - rewardAmount + Number(eraningAmount)).toFixed(2)} MT`
                             // name: '剩余量:' + rewardAmountLimit - rewardAmount + ' MT',
                         }
                     ],
