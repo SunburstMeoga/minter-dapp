@@ -5,7 +5,6 @@
                 <div>
                     <module-title titleWord="NFTs" />
                 </div>
-
             </div>
             <div class="w-11/12 mr-auto ml-auto flex justify-end">
                 <div>
@@ -370,7 +369,7 @@ async function isNotEnoughBalance(amount) {
     let pmtLockBalance = await pmtContractApi.getLockedAmount(localStorage.getItem('address'))
     pmtLockBalance = WEB3.utils.fromWei(pmtLockBalance.toString(), 'ether')
     let balance = (parseInt(parseInt(mtBalance) - parseInt(mtLockBalance))) + (parseInt(pmtBalance) + parseInt(pmtLockBalance))
-    console.log(balance, parseInt(amount), parseInt(mtBalance), parseInt(mtLockBalance), parseInt(pmtBalance))
+    // console.log(balance, parseInt(amount), parseInt(mtBalance), parseInt(mtLockBalance), parseInt(pmtBalance))
     if (parseInt(mtBalance) - parseInt(mtLockBalance) == 0) {
         (parseInt(pmtBalance) + parseInt(pmtLockBalance)) < parseInt(amount)
     }

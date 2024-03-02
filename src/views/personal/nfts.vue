@@ -283,9 +283,11 @@ async function handleListed(item, index) {
     try {
         numListingsIn24Hours = await nftContractApi.getNumListingsIn24Hours(localStorage.getItem('address')) //24小時內一共多少張NFT正在掛賣或已經賣出
         totalListings = await nftContractApi.getTotalListings(localStorage.getItem('address')) //現正掛賣NFT數量
-        lastListingTime = await nftContractApi.getLastListingTime(localStorage.getItem('address')) //由此時間開始計起24小時 
+        lastListingTime = await nftContractApi.getLastListingTime(localStorage.getItem('address')) //由此時間開始計起24小時後可出售NFT
         // lastListingTime = 1704271082
         timestamp = Number(lastListingTime) + Number(60 * 20)
+        // timestamp = Number(lastListingTime) + Number(60 * 60 * 24)
+
         // timestamp = new Date(timestamp).getTime()
         //console.log('20分鐘內一共多小張NFT正在掛賣或已經賣出', numListingsIn24Hours)
         //console.log('現正掛賣NFT數量', totalListings)
