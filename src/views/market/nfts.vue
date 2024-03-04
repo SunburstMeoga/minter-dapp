@@ -10,7 +10,8 @@
                 <div>
                     <div class="text-gray-500 mr-5 rounded flex justify-center items-center h-8 w-8 border active-primary-color border-gray-500"
                         @click="refreshData">
-                        <div class="icon iconfont icon-shuaxin icon-refresh" :class="loading ? 'animate-spin' : ''"></div>
+                        <div class="icon iconfont icon-shuaxin icon-refresh" :class="loading ? 'animate-spin' : ''">
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -37,11 +38,12 @@
             </div> -->
             <div class="border-b border-gray-700">
                 <van-tabs class="pt-2" v-model:active="active" animated swipeable color="#e149ed"
-                    title-inactive-color="#fff" title-active-color="#e149ed" background="transparent">
+                    title-inactive-color="#fff" title-active-color="#e149ed" background="transparent"
+                    @click-tab="clickTab">
                     <van-tab title="N">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageN" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
+                                <nft-card :nftTokenType="item.token_type" :nftImg="nftOne" :showCheckbox="false"
                                     :showBuyButton="(userInfo.address !== item.address) && !item.showOperting && !item.showToRaffle"
                                     :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
                                     :showOperting="item.showOperting" :showToRaffle="item.showToRaffle"
@@ -58,7 +60,7 @@
                     <van-tab title="R">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageR" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
+                                <nft-card :nftTokenType="item.token_type" :nftImg="nftTwo" :showCheckbox="false"
                                     :showBuyButton="(userInfo.address !== item.address) && !item.showOperting && !item.showToRaffle"
                                     :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
                                     :showOperting="item.showOperting" :showToRaffle="item.showToRaffle"
@@ -75,7 +77,7 @@
                     <van-tab title="SR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageSR" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
+                                <nft-card :nftTokenType="item.token_type" :nftImg="nftThree" :showCheckbox="false"
                                     :showBuyButton="(userInfo.address !== item.address) && !item.showOperting && !item.showToRaffle"
                                     :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
                                     :showOperting="item.showOperting" :showToRaffle="item.showToRaffle"
@@ -84,14 +86,15 @@
                                     @handleToRaffle="handleToRaffle(item, index)" />
                             </div>
                         </div>
-                        <div v-show="packageSR.length == 0" class="text-white font-bold text-xl text-center mt-10 w-full">
+                        <div v-show="packageSR.length == 0"
+                            class="text-white font-bold text-xl text-center mt-10 w-full">
                             {{ $t('modalConfirm.notData') }}
                         </div>
                     </van-tab>
                     <van-tab title="SSR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageSSR" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
+                                <nft-card :nftTokenType="item.token_type" :nftImg="nftFour" :showCheckbox="false"
                                     :showBuyButton="(userInfo.address !== item.address) && !item.showOperting && !item.showToRaffle"
                                     :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
                                     :showOperting="item.showOperting" :showToRaffle="item.showToRaffle"
@@ -100,14 +103,15 @@
                                     @handleToRaffle="handleToRaffle(item, index)" />
                             </div>
                         </div>
-                        <div v-show="packageSSR.length == 0" class="text-white font-bold text-xl text-center mt-10 w-full">
+                        <div v-show="packageSSR.length == 0"
+                            class="text-white font-bold text-xl text-center mt-10 w-full">
                             {{ $t('modalConfirm.notData') }}
                         </div>
                     </van-tab>
                     <van-tab title="UR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageUR" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
+                                <nft-card :nftTokenType="item.token_type" :nftImg="nftFive" :showCheckbox="false"
                                     :showBuyButton="(userInfo.address !== item.address) && !item.showOperting && !item.showToRaffle"
                                     :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
                                     :showOperting="item.showOperting" :showToRaffle="item.showToRaffle"
@@ -116,7 +120,8 @@
                                     @handleToRaffle="handleToRaffle(item, index)" />
                             </div>
                         </div>
-                        <div v-show="packageUR.length == 0" class="text-white font-bold text-xl text-center mt-10 w-full">
+                        <div v-show="packageUR.length == 0"
+                            class="text-white font-bold text-xl text-center mt-10 w-full">
                             {{ $t('modalConfirm.notData') }}
                         </div>
                     </van-tab>
@@ -166,6 +171,7 @@ let active = ref(0)
 let loading = ref(false)
 let prizeIndex = ref(null)
 let nftPrice = ref(null)
+let sortDesc = ref(null)
 // let actions = ref([
 //     { text: '价格由高到低', value: true, index: 0 },
 //     { text: '价格由低到高', value: false, index: 1 }
@@ -180,29 +186,38 @@ const userInfo = userStore()
 
 
 onMounted(() => {
-    let params = { perPage: 100000, status: 1 }
-    getMarketplace(params)
     getMaxPackage()
 })
+
+//点击tab栏
+function clickTab(tab) {
+    // console.log(tab.name)
+    let params = { perPage: 100000, status: 1, package_id: tab.name + 1 }
+    getMarketplace(params)
+}
 //刷新
 function refreshData() {
     loading.value = true
-    let params = { perPage: 100000, status: 1 }
+    let params = { perPage: 100000, status: 1, package_id: packageID.value }
     getMarketplace(params)
 }
 
 function onSelect(select) {
-    //console.log(select)
+    console.log(select)
     currentFilter.value = select.index
-    let params = { perPage: 100000, status: 1, sortBy: 'price', sortDesc: select.value }
+    sortDesc.value = select.value
+    let params = { perPage: 100000, status: 1, sortBy: 'price', sortDesc: select.value, package_id: packageID.value }
     getMarketplace(params)
 }
 //獲取當前最高配套
 async function getMaxPackage() {
+    proxy.$loading.show()
     let result = await playersInfo(localStorage.getItem('address'))
     //console.log(result)
     packageID.value = result.player.max_package_id
     active.value = result.player.max_package_id - 1
+    let params = { perPage: 100000, status: 1, package_id: packageID.value }
+    getMarketplace(params)
     // //console.log(active.value)
 }
 //取消掛單
@@ -293,40 +308,27 @@ function getMarketplace(params) {
                     },
                 });
             }
-            //console.log('nft列表', res)
+            // console.log('nft列表', res)
+            // console.log(' active.value', active.value)
             nftsDatas.value = res.market_places
             res.market_places.map(item => {
                 item.showOperting = false
                 item.showToRaffle = false
                 // //console.log(Number(item.token_type), item.token_id)
-                if (item.token_type == 1) {
-                    item.nftImg = nftOne
-                }
-                if (item.token_type == 2) {
-                    item.nftImg = nftTwo
-                }
-                if (item.token_type == 3) {
-                    item.nftImg = nftThree
-                }
-                if (item.token_type == 4) {
-                    item.nftImg = nftFour
-                }
-                if (item.token_type == 5) {
-                    item.nftImg = nftFive
-                }
-                if (item.token_type == 1) {
+
+                if (active.value == 0) {
                     packageN.value.push(item)
                 }
-                if (item.token_type == 2) {
+                if (active.value == 1) {
                     packageR.value.push(item)
                 }
-                if (item.token_type == 3) {
+                if (active.value == 2) {
                     packageSR.value.push(item)
                 }
-                if (item.token_type == 4) {
+                if (active.value == 3) {
                     packageSSR.value.push(item)
                 }
-                if (item.token_type == 5) {
+                if (active.value == 4) {
                     packageUR.value.push(item)
                 }
                 loading.value = false
@@ -654,6 +656,7 @@ async function handleBuyButton(item, canBuy) {
     width: 48%;
 }
 </style>
+
 <style>
 .van-tabs,
 .van-tabs--line {
