@@ -43,7 +43,7 @@
                     <van-tab title="N">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageN" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftTokenType="item.token_type" :nftImg="nftOne" :showCheckbox="false"
+                                <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
                                     :showBuyButton="(userInfo.address !== item.address) && !item.showOperting && !item.showToRaffle"
                                     :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
                                     :showOperting="item.showOperting" :showToRaffle="item.showToRaffle"
@@ -60,7 +60,7 @@
                     <van-tab title="R">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageR" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftTokenType="item.token_type" :nftImg="nftTwo" :showCheckbox="false"
+                                <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
                                     :showBuyButton="(userInfo.address !== item.address) && !item.showOperting && !item.showToRaffle"
                                     :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
                                     :showOperting="item.showOperting" :showToRaffle="item.showToRaffle"
@@ -77,7 +77,7 @@
                     <van-tab title="SR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageSR" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftTokenType="item.token_type" :nftImg="nftThree" :showCheckbox="false"
+                                <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
                                     :showBuyButton="(userInfo.address !== item.address) && !item.showOperting && !item.showToRaffle"
                                     :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
                                     :showOperting="item.showOperting" :showToRaffle="item.showToRaffle"
@@ -94,7 +94,7 @@
                     <van-tab title="SSR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageSSR" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftTokenType="item.token_type" :nftImg="nftFour" :showCheckbox="false"
+                                <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
                                     :showBuyButton="(userInfo.address !== item.address) && !item.showOperting && !item.showToRaffle"
                                     :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
                                     :showOperting="item.showOperting" :showToRaffle="item.showToRaffle"
@@ -111,7 +111,7 @@
                     <van-tab title="UR">
                         <div class="w-11/12 mr-auto ml-auto pt-4 flex justify-between items-center flex-wrap">
                             <div v-for="(item, index) in packageUR" class="mb-2" style="width: 48%;" :key="index">
-                                <nft-card :nftTokenType="item.token_type" :nftImg="nftFive" :showCheckbox="false"
+                                <nft-card :nftTokenType="item.token_type" :nftImg="item.nftImg" :showCheckbox="false"
                                     :showBuyButton="(userInfo.address !== item.address) && !item.showOperting && !item.showToRaffle"
                                     :showCancelButton="(userInfo.address == item.address) && !item.showOperting"
                                     :showOperting="item.showOperting" :showToRaffle="item.showToRaffle"
@@ -315,7 +315,21 @@ function getMarketplace(params) {
                 item.showOperting = false
                 item.showToRaffle = false
                 // //console.log(Number(item.token_type), item.token_id)
-
+                if (item.token_type == 1) {
+                    item.nftImg = nftOne
+                }
+                if (item.token_type == 2) {
+                    item.nftImg = nftTwo
+                }
+                if (item.token_type == 3) {
+                    item.nftImg = nftThree
+                }
+                if (item.token_type == 4) {
+                    item.nftImg = nftFour
+                }
+                if (item.token_type == 5) {
+                    item.nftImg = nftFive
+                }
                 if (active.value == 0) {
                     packageN.value.push(item)
                 }
