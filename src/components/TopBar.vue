@@ -87,8 +87,8 @@
                             </div>
                         </div>
                         <div v-show="showMoreDAO" class="">
-                            <div class="py-1.5 pl-4 mr-4 rounded text-menu-word active-primary-color" @click="notYetOpen"
-                                v-for="(item, index) in DAOChilds" :key="index">
+                            <div class="py-1.5 pl-4 mr-4 rounded text-menu-word active-primary-color"
+                                @click="notYetOpen" v-for="(item, index) in DAOChilds" :key="index">
                                 {{ item.title }}
                             </div>
 
@@ -185,7 +185,8 @@
                 <div class="mb-6 text-sm">
                     {{ $t('wallet.account') }}: {{ FilterAddress(userInfo.address) }}
                 </div>
-                <div class="w-10/12 py-1.5 text-white operating-button text-center rounded mb-8" @click="disconnectWallet">
+                <div class="w-10/12 py-1.5 text-white operating-button text-center rounded mb-8"
+                    @click="disconnectWallet">
                     {{ $t('wallet.disconnect') }}
                 </div>
                 <div class="absolute bottom-4 w-full flex justify-center items-center">
