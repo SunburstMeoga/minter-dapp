@@ -296,7 +296,9 @@ export default {
     releaseCountdown: "Release countdown",
     releaseButton: "Release",
     dynamicWithdrawedTotal: "Total number of dynamic bonus withdrawn:",
-    dynamicWithdrawTotal: "Total number of dynamic bonuses that can be withdrawn:"
+    dynamicWithdrawTotal: "Total number of dynamic bonuses that can be withdrawn:",
+    package: "Package",
+    pbcc: "Public Chain COIN"
   },
   modalConfirm: {
     buySuccess: 'Purchase was successful',

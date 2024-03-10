@@ -12,7 +12,25 @@
             </div>
             <div class="text-red-500 font-bold">
               {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
-                FormatAmount(coherentInfo.type).pointOffside }}</span>
+            FormatAmount(coherentInfo.type).pointOffside }}</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+              {{ $t('coherents.package') }}:
+            </div>
+            <div class="text-red-500 font-bold">
+              {{ FormatAmount(coherentInfo.type - 5).pointPre }}.<span class="text-xs">{{
+            FormatAmount(coherentInfo.type - 5).pointOffside }}</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+              {{ $t('coherents.pbcc') }}:
+            </div>
+            <div class="text-red-500 font-bold">
+              {{ FormatAmount(5).pointPre }}.<span class="text-xs">{{
+            FormatAmount(5).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
@@ -21,7 +39,7 @@
             </div>
             <div class="text-red-500 font-bold">
               {{ FormatAmount(coherentInfo.limit * 2).pointPre }}.<span class="text-xs">{{
-                FormatAmount(coherentInfo.limit * 2).pointOffside }}</span>
+            FormatAmount(coherentInfo.limit * 2).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
@@ -30,7 +48,7 @@
             </div>
             <div class="text-red-500 font-bold">
               {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-                FormatAmount(coherentInfo.limit).pointOffside }}</span>
+            FormatAmount(coherentInfo.limit).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
@@ -39,7 +57,7 @@
             </div>
             <div class="text-red-500 font-bold">
               {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-                FormatAmount(coherentInfo.limit).pointOffside }}</span>
+            FormatAmount(coherentInfo.limit).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
@@ -70,6 +88,7 @@
               <div class="text-xs p-2 text-left text-gray-400">
                 {{ $t('coherents.totalReleased') }}{{ Number(coherentInfo.type) * (6 / 10) }}PMT
               </div>
+
               <div class="text-xs p-2 text-left text-gray-400">
                 <!-- 购买成功之后即时释放{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT -->
                 {{ $t('coherents.buyAfterReleased') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT
@@ -80,6 +99,7 @@
               <div class="text-xs p-2 text-left text-gray-400">
                 {{ $t('coherents.48Released') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT
               </div>
+
               <template #reference>
                 <span class="icon iconfont icon-wenzishuoming_wenzishuoming active-white-color"></span>
               </template>
@@ -256,7 +276,7 @@
               </div>
               <div class="text-red-500 font-bold">
                 {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
-                  FormatAmount(coherentInfo.type).pointOffside }}</span>
+            FormatAmount(coherentInfo.type).pointOffside }}</span>
               </div>
             </div>
             <div class="flex justify-between items-center">
@@ -265,7 +285,7 @@
               </div>
               <div class="text-red-500 font-bold">
                 {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-                  FormatAmount(coherentInfo.limit).pointOffside }}</span>
+            FormatAmount(coherentInfo.limit).pointOffside }}</span>
               </div>
             </div>
 
@@ -279,7 +299,7 @@
           <div class="w-full mb-4 flex justify-between items-center">
             <div class="rounded pl-3 border border-gray-700 flex-1 py-1.5 text-sm ">
               {{ $t('order.needPay') }} {{ Number(palayBanalce.rt) - Number(coherentInfo.type) >= 0 ?
-                Number(coherentInfo.type) : Number(palayBanalce.rt) }}
+            Number(coherentInfo.type) : Number(palayBanalce.rt) }}
             </div>
           </div>
           <div v-show="rtBind.length && rtBind.length !== 0">
@@ -287,7 +307,7 @@
               <div class="text-white text-xs flex justify-between items-baseline mb-1">
                 <div class="text-base">{{ $t('order.bind') + ' ' }}RT </div>
                 <div class="text-primary-color font-bold pl-1"> {{ $t('assistance.expiryTime') }}: {{
-                  FilterTime(item.expire_date) }}
+            FilterTime(item.expire_date) }}
                 </div>
               </div>
               <div class="w-full flex justify-between items-center">
@@ -370,13 +390,13 @@ let preAddressUse = ref(t('coherents.invalidAddress'))
 let rtBind = ref([])
 onMounted(() => {
   // FormatAmount()
-  //console.log(route.params.type)
+  // console.log(route.params.type)
   //console.log(coherents_list)
   let targetCoherents = coherents_list.filter(item => {
     return item.type == route.params.type
   })
   coherentInfo.value = targetCoherents[0]
-  //console.log(coherentInfo.value)
+  console.log(coherentInfo.value)
   getPlayersInfo(localStorage.getItem('address'))
   getRTBalance()
 })

@@ -288,7 +288,9 @@ export default {
     releaseCountdown: "釋放倒計時",
     releaseButton: "釋放",
     dynamicWithdrawedTotal: "動態已提現總數：",
-    dynamicWithdrawTotal: "動態奖金可提現總数："
+    dynamicWithdrawTotal: "動態奖金可提現總数：",
+    package: "配套",
+    pbcc: "公鏈COIN"
   },
   modalConfirm: {
     buySuccess: '購買成功',
