@@ -1,6 +1,7 @@
 <template>
     <div class="text-gray-400 pt-20">
-        <div class="w-11/12 ml-auto mr-auto rounded-lg bg-card-content flex flex-col justify-start items-center py-2 mb-4">
+        <div
+            class="w-11/12 ml-auto mr-auto rounded-lg bg-card-content flex flex-col justify-start items-center py-2 mb-4">
             <div class="w-11/12">
                 <div class="mb-1">
                     {{ $t('invitePage.inviteAddress') }}
@@ -10,7 +11,8 @@
                 </div>
             </div>
         </div>
-        <div class="w-11/12 ml-auto mr-auto rounded-lg bg-card-content flex flex-col justify-start items-center py-2 mb-4">
+        <div
+            class="w-11/12 ml-auto mr-auto rounded-lg bg-card-content flex flex-col justify-start items-center py-2 mb-4">
 
             <div class="w-11/12">
                 <div class="mb-1">
@@ -21,7 +23,8 @@
                 </div>
             </div>
         </div>
-        <div class="w-11/12 ml-auto mr-auto rounded-lg bg-card-content flex flex-col justify-start items-center py-2 mb-4">
+        <div
+            class="w-11/12 ml-auto mr-auto rounded-lg bg-card-content flex flex-col justify-start items-center py-2 mb-4">
 
             <div class="w-11/12">
                 <div class="mb-1">
@@ -50,7 +53,7 @@
                         </div>
                         <div class="text-red-500 font-bold">
                             {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
-                                FormatAmount(coherentInfo.type).pointOffside }}</span>
+                        FormatAmount(coherentInfo.type).pointOffside }}</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
@@ -58,8 +61,8 @@
                             {{ $t('coherents.coherentCap') }}:
                         </div>
                         <div class="text-red-500 font-bold">
-                            {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-                                FormatAmount(coherentInfo.limit).pointOffside }}</span>
+                            {{ FormatAmount(coherentInfo.limit * 2).pointPre }}.<span class="text-xs">{{
+                        FormatAmount(coherentInfo.limit * 2).pointOffside }}</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
@@ -79,14 +82,17 @@
                                 </div>
                                 <div class="text-xs p-2 text-left text-gray-400">
                                     <!-- 购买成功之后即时释放{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT -->
-                                    {{ $t('coherents.buyAfterReleased') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3)
+                                    {{ $t('coherents.buyAfterReleased') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 /
+                        3)
                                     }}PMT
                                 </div>
                                 <div class="text-xs p-2 text-left text-gray-400">
-                                    {{ $t('coherents.24Released') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT
+                                    {{ $t('coherents.24Released') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3)
+                                    }}PMT
                                 </div>
                                 <div class="text-xs p-2 text-left text-gray-400">
-                                    {{ $t('coherents.48Released') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT
+                                    {{ $t('coherents.48Released') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3)
+                                    }}PMT
                                 </div>
                                 <template #reference>
                                     <span class="icon iconfont icon-wenzishuoming_wenzishuoming"></span>
