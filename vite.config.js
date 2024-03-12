@@ -15,6 +15,7 @@ export default defineConfig({
       plugins: [tailwindcss]
     }
   },
+  publicPath: './',
   plugins: [
     vue(),
     vueJsx(),
