@@ -446,12 +446,12 @@ function handlePoint(item, index) {
 //點擊校驗直接上級地址
 async function handleCalibrationReferrer() {
   //console.log('referrerAddress', referrerAddress.value)
-  //console.log(referrerAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase().toLowerCase())
+  //console.log(referrerAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase())
   if (!referrerAddress.value) {
     showToast(t('modalConfirm.enterInvterAddress'))
     return
   }
-  // if (referrerAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase().toLowerCase()) {
+  // if (referrerAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase()) {
   //   showToast('自己的地址不能作為自己的直接上級')
   //   return
   // }
@@ -516,7 +516,7 @@ async function handleCalibrationReferrer() {
 }
 //點擊校驗對碰上級地址
 async function handleCalibrationLeg() {
-  // if (legAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase().toLowerCase()) {
+  // if (legAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase()) {
   //   showToast('自己的地址不能作為自己的對碰上級')
   //   return
   // }
