@@ -2,7 +2,7 @@ const coherents_list = [
   {
     name: 'N', //配套名字
     id: 1,
-    levelImg: '../../src/assets/images/200_500m.gif',
+    levelImg: '/images/200_500m.gif',
     type: '205', //配套價格
     releasePMT: '120', //釋放的pmt數量
     limit: '400', //收益上限
@@ -13,7 +13,7 @@ const coherents_list = [
   {
     name: 'R',
     id: 2,
-    levelImg: '../../src/assets/images/600_500m.gif',
+    levelImg: '/images/600_500m.gif',
     type: '605',
     releasePMT: '360',
     limit: '1200',
@@ -24,7 +24,7 @@ const coherents_list = [
   {
     name: 'SR',
     id: 3,
-    levelImg: '../../src/assets/images/2000_500m.gif',
+    levelImg: '/images/2000_500m.gif',
     type: '2005',
     releasePMT: '1200',
     limit: '4000',
@@ -35,7 +35,7 @@ const coherents_list = [
   {
     name: 'SSR',
     id: 4,
-    levelImg: '../../src/assets/images/6000_500m.gif',
+    levelImg: '/images/6000_500m.gif',
     type: '6005',
     releasePMT: '3600',
     limit: '12000',
@@ -46,7 +46,7 @@ const coherents_list = [
   {
     name: 'UR',
     id: 5,
-    levelImg: '../../src/assets/images/20000_500m.gif',
+    levelImg: '/images/20000_500m.gif',
     type: '20005',
     releasePMT: '12000',
     limit: '40000',
