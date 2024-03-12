@@ -282,10 +282,10 @@ onMounted(() => {
     if (localStorage.getItem('language')) {
         proxy.$i18n.locale = localStorage.getItem('language')
     }
-    if (localStorage.getItem('address').toLowerCase()) {
-        userInfo.changeAddress(localStorage.getItem('address').toLowerCase())
+    if (localStorage.getItem('address')) {
+        userInfo.changeAddress(localStorage.getItem('address'))
     }
-    getPlayersInfo(localStorage.getItem('address').toLowerCase())
+    getPlayersInfo(localStorage.getItem('address'))
 })
 async function handleCopy() {
     await CopyText(userInfo.address)
@@ -329,11 +329,11 @@ async function addressSign() {
     let params = {}
     const randomString =
         "Welcome to Minter\n\nPlease click to sign in and accept the Minter Terms of Service.\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nWallet address:\n" +
-        localStorage.getItem('address').toLowerCase() +
+        localStorage.getItem('address') +
         "\n\nNonece:\n" +
         generateNonce();
     try {
-        const signature = await web3.eth.personal.sign(randomString, localStorage.getItem('address').toLowerCase(), '')
+        const signature = await web3.eth.personal.sign(randomString, localStorage.getItem('address'), '')
         params = { randomString: randomString, signature: signature }
     } catch (err) {
         proxy.$loading.hide()
@@ -362,15 +362,15 @@ async function addressSign() {
 }
 //点击连接钱包按钮
 async function handleConnect() {
-    if (localStorage.getItem('address').toLowerCase() && localStorage.getItem('token')) {
+    if (localStorage.getItem('address') && localStorage.getItem('token')) {
         toggleUserInfoPopup()
     } else {
         addressSign()
     }
 }
 async function initWallet() {
-    // if (localStorage.getItem('address').toLowerCase()) {
-    //     userStore.changeAddress(localStorage.getItem('address').toLowerCase())
+    // if (localStorage.getItem('address')) {
+    //     userStore.changeAddress(localStorage.getItem('address'))
     // }
     const newAccounts = await ethereum.request({
         method: 'eth_requestAccounts',

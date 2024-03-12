@@ -70,7 +70,7 @@ function checkPoint(address) {
 }
 //获取直推关系图
 function getRefferMap() {
-    referrerMap(localStorage.getItem('address').toLowerCase())
+    referrerMap(localStorage.getItem('address'))
         .then(res => {
             // //console.log('直推关系图', res)
             dataList.value = res.directReferrals

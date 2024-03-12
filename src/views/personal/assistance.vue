@@ -465,7 +465,7 @@ let rtBind = ref([])
 onMounted(() => {
     // viewAddressPoint(window.ethereum.selectedAddress)
     // //console.log('document.domain', document.domain)
-    viewPointMap(localStorage.getItem('address').toLowerCase())
+    viewPointMap(localStorage.getItem('address'))
     getStaticRecords()
     getRTBalance()
 })
@@ -482,7 +482,7 @@ function getRTBalance() {
 }
 //输入我的地址
 function enterSelfAddress() {
-    inviterAddressTwo.value = localStorage.getItem('address').toLowerCase()
+    inviterAddressTwo.value = localStorage.getItem('address')
 }
 //输入上级地址
 function enterPreAddress() {
@@ -504,7 +504,7 @@ async function handleSearchAddress() {
 
 async function handleBackPreAddress() {
     isFinishPoint.value = false
-    viewPointMap(localStorage.getItem('address').toLowerCase())
+    viewPointMap(localStorage.getItem('address'))
 }
 function clickCurrentCoherent(item, index) {
     if (!item.isSale) {
@@ -656,7 +656,7 @@ async function handleConfirmBuyForRTPOPUP() {
                                         joinTheThree(data)
                                             .then(_res => {
                                                 isFinishPoint.value = false
-                                                viewPointMap(localStorage.getItem('address').toLowerCase())
+                                                viewPointMap(localStorage.getItem('address'))
                                             })
                                     }, 3000)
                                 },
@@ -807,7 +807,7 @@ async function handlePopupConfirmBuy() {
                                 confirmText: t('modalConfirm.confirm'),
                                 onConfirm: () => {
                                     proxy.$confirm.hide()
-                                    updataRTBalance(localStorage.getItem('address').toLowerCase())
+                                    updataRTBalance(localStorage.getItem('address'))
                                         .then(_res => {
                                             //console.log('更新rt餘額', _res)
                                             // //console.log('購買成功', _res)
@@ -849,7 +849,7 @@ async function handleConfirmBuyForUSDTPOPUP() {
     // let data = { package_id: coherentsList.value[currentCoherent.value].id }
     let allowance
     try { //检查usdt对pmt_purchase的授权状态
-        allowance = await usdtContractApi.allowance(localStorage.getItem('address').toLowerCase(), config.pmt_purchase_addr)
+        allowance = await usdtContractApi.allowance(localStorage.getItem('address'), config.pmt_purchase_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
@@ -888,7 +888,7 @@ async function handleConfirmBuyForUSDTPOPUP() {
         proxy.$loading.show()
         isFinishPoint.value = false
         await pmtContractApi.purchasePackage(coherentsList.value[currentCoherent.value].id - 1)
-        viewPointMap(localStorage.getItem('address').toLowerCase())
+        viewPointMap(localStorage.getItem('address'))
         // await joinTheThree(data)
         proxy.$loading.hide()
         showToast(t('toast.success'))
@@ -903,7 +903,7 @@ async function handleConfirmBuyForUSDTPOPUP() {
 //判断rt余额是否充足
 async function isSufficientRT(amount) {
     try {
-        let balance = await rtBalance({ address: localStorage.getItem('address').toLowerCase() })
+        let balance = await rtBalance({ address: localStorage.getItem('address') })
         // balance = parseInt(balance)
         balance = balance.player
         balance = balance.rt
@@ -917,7 +917,7 @@ async function isSufficientRT(amount) {
 
 //判斷usdt餘額是否充足
 async function isSufficientUSD3(amount) {
-    let balance = await usdtContractApi.balanceOf(localStorage.getItem('address').toLowerCase())
+    let balance = await usdtContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     balance = WEB3.utils.fromWei(balance.toString(), 'ether')
     balance = parseInt(balance)
@@ -1002,7 +1002,7 @@ async function handleConfirmBuyForUSDT() {
 
     let allowance
     try { //检查usdt对pmt_purchase的授权状态
-        allowance = await usdtContractApi.allowance(localStorage.getItem('address').toLowerCase(), config.pmt_purchase_addr)
+        allowance = await usdtContractApi.allowance(localStorage.getItem('address'), config.pmt_purchase_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
@@ -1053,7 +1053,7 @@ async function handleConfirmBuyForUSDT() {
                 proxy.$loading.hide()
                 isFinishPoint.value = false
                 await pmtContractApi.purchasePackage(coherentsList.value[currentSelf.value].id - 1)
-                viewPointMap(localStorage.getItem('address').toLowerCase())
+                viewPointMap(localStorage.getItem('address'))
                 proxy.$confirm.hide()
                 showToast(t('modalConfirm.buySuccess'),)
             } catch (err) {
@@ -1349,11 +1349,11 @@ function clickPoint(pointInfo) {
     // toggleAttendPopup()
     clickPointInfo.value = pointInfo
     //console.log('點位信息', pointInfo)
-    if (!pointInfo.preAddress && pointInfo.address !== localStorage.getItem('address').toLowerCase() && !pointInfo.address) {
+    if (!pointInfo.preAddress && pointInfo.address !== localStorage.getItem('address') && !pointInfo.address) {
         showToast(t('modalConfirm.addressTipsSeven'))
         return
     }
-    if (pointInfo.address == localStorage.getItem('address').toLowerCase()) {
+    if (pointInfo.address == localStorage.getItem('address')) {
         //console.log('自己')
         toggleBuyPackageSelf()
         return

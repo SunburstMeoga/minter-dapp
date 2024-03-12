@@ -212,7 +212,7 @@ function onSelect(select) {
 //獲取當前最高配套
 async function getMaxPackage() {
     proxy.$loading.show()
-    let result = await playersInfo(localStorage.getItem('address').toLowerCase())
+    let result = await playersInfo(localStorage.getItem('address'))
     //console.log(result)
     packageID.value = result.player.max_package_id
     active.value = result.player.max_package_id - 1
@@ -224,7 +224,7 @@ async function getMaxPackage() {
 async function handleCancelList(item) {
     let isApprovedAll
     try { //检查pmt对pmt_purchase的授权状态
-        isApprovedAll = await nftContractApi.isApprovedAll(localStorage.getItem('address').toLowerCase(), config.nfts_marketplace_addr)
+        isApprovedAll = await nftContractApi.isApprovedAll(localStorage.getItem('address'), config.nfts_marketplace_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
@@ -358,7 +358,7 @@ function getMarketplace(params) {
 }
 
 // async function getPMTBalance() {
-//     let balance = await pmtContractApi.balanceOf(localStorage.getItem('address').toLowerCase())
+//     let balance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
 //     let WEB3 = new Web3(window.ethereum)
 //     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
 //     //console.log('pmt', result)
@@ -366,7 +366,7 @@ function getMarketplace(params) {
 //     return balance
 // }
 // async function getMTBalance() {
-//     let balance = await mtContractApi.balanceOf(localStorage.getItem('address').toLowerCase())
+//     let balance = await mtContractApi.balanceOf(localStorage.getItem('address'))
 //     let WEB3 = new Web3(window.ethereum)
 //     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
 //     //console.log('mt', result)
@@ -376,13 +376,13 @@ function getMarketplace(params) {
 
 async function isNotEnoughBalance(amount) {
     let WEB3 = new Web3(window.ethereum)
-    let mtBalance = await mtContractApi.balanceOf(localStorage.getItem('address').toLowerCase())
+    let mtBalance = await mtContractApi.balanceOf(localStorage.getItem('address'))
     mtBalance = WEB3.utils.fromWei(mtBalance.toString(), 'ether')
-    let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address').toLowerCase())
+    let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
     pmtBalance = WEB3.utils.fromWei(pmtBalance.toString(), 'ether')
-    let mtLockBalance = await minterContractApi.getLockedAmount(localStorage.getItem('address').toLowerCase())
+    let mtLockBalance = await minterContractApi.getLockedAmount(localStorage.getItem('address'))
     mtLockBalance = WEB3.utils.fromWei(mtLockBalance.toString(), 'ether')
-    let pmtLockBalance = await pmtContractApi.getLockedAmount(localStorage.getItem('address').toLowerCase())
+    let pmtLockBalance = await pmtContractApi.getLockedAmount(localStorage.getItem('address'))
     pmtLockBalance = WEB3.utils.fromWei(pmtLockBalance.toString(), 'ether')
     let balance = (parseInt(parseInt(mtBalance) - parseInt(mtLockBalance))) + (parseInt(pmtBalance) + parseInt(pmtLockBalance))
     // console.log(balance, parseInt(amount), parseInt(mtBalance), parseInt(mtLockBalance), parseInt(pmtBalance))
@@ -444,7 +444,7 @@ async function handleBuyButton(item, canBuy) {
     }
     let allowance
     try { //检查pmt对pmt_purchase的授权状态
-        allowance = await nftContractApi.allowance(localStorage.getItem('address').toLowerCase(), config.nfts_marketplace_addr)
+        allowance = await nftContractApi.allowance(localStorage.getItem('address'), config.nfts_marketplace_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
@@ -495,7 +495,7 @@ async function handleBuyButton(item, canBuy) {
 
     let isApprovedAll
     try { //检查pmt对pmt_purchase的授权状态
-        isApprovedAll = await minterContractApi.allowance(localStorage.getItem('address').toLowerCase(), config.nfts_marketplace_addr)
+        isApprovedAll = await minterContractApi.allowance(localStorage.getItem('address'), config.nfts_marketplace_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()

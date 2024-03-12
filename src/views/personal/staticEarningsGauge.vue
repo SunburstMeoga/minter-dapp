@@ -16,23 +16,23 @@ let maxPackage = ref('')
 let point = ref('')
 onMounted(() => {
     getStaticIncomeInfo()
-    // getPlayersInfo(localStorage.getItem('address').toLowerCase())
+    // getPlayersInfo(localStorage.getItem('address'))
 
 })
 async function userGetWithdrawalAmount() { //
-    let result = await pmtContractApi.getWithdrawalAmount(localStorage.getItem('address').toLowerCase())
+    let result = await pmtContractApi.getWithdrawalAmount(localStorage.getItem('address'))
     //console.log(result)
 }
 async function userGetWithdrawalAmountLimit() {
-    let result = await pmtContractApi.getWithdrawalAmountLimit(localStorage.getItem('address').toLowerCase())
+    let result = await pmtContractApi.getWithdrawalAmountLimit(localStorage.getItem('address'))
     //console.log(result)
 }
 async function userGetRewardAmount() {
-    let result = await pmtContractApi.getRewardAmount(localStorage.getItem('address').toLowerCase())
+    let result = await pmtContractApi.getRewardAmount(localStorage.getItem('address'))
     //console.log(result)
 }
 async function userGetRewardAmountLimit() {
-    let result = await pmtContractApi.getRewardAmountLimit(localStorage.getItem('address').toLowerCase())
+    let result = await pmtContractApi.getRewardAmountLimit(localStorage.getItem('address'))
     //console.log(result)
 }
 // async function getPMTBalance() {
@@ -50,37 +50,37 @@ async function getStaticIncomeInfo() {
         proxy.$loading.show()
         let WEB3 = new Web3(window.ethereum)
         //現時已提現總數
-        let withdrawalAmount = await pmtContractApi.getWithdrawalAmount(localStorage.getItem('address').toLowerCase())
+        let withdrawalAmount = await pmtContractApi.getWithdrawalAmount(localStorage.getItem('address'))
         withdrawalAmount = WEB3.utils.fromWei(withdrawalAmount.toString(), 'ether')
         withdrawalAmount = Number(withdrawalAmount).toFixed(0)
         //可提現上線
-        let withdrawalAmountLimit = await pmtContractApi.getWithdrawalAmountLimit(localStorage.getItem('address').toLowerCase())
+        let withdrawalAmountLimit = await pmtContractApi.getWithdrawalAmountLimit(localStorage.getItem('address'))
         withdrawalAmountLimit = WEB3.utils.fromWei(withdrawalAmountLimit.toString(), 'ether')
         withdrawalAmountLimit = Number(withdrawalAmountLimit).toFixed(0)
         //現時收益總數
-        let rewardAmount = await pmtContractApi.getRewardAmount(localStorage.getItem('address').toLowerCase())
+        let rewardAmount = await pmtContractApi.getRewardAmount(localStorage.getItem('address'))
         rewardAmount = WEB3.utils.fromWei(rewardAmount.toString(), 'ether')
         rewardAmount = Number(rewardAmount).toFixed(2)
         //收益上限
-        let rewardAmountLimit = await pmtContractApi.getRewardAmountLimit(localStorage.getItem('address').toLowerCase())
+        let rewardAmountLimit = await pmtContractApi.getRewardAmountLimit(localStorage.getItem('address'))
         rewardAmountLimit = WEB3.utils.fromWei(rewardAmountLimit.toString(), 'ether')
         rewardAmountLimit = Number(rewardAmountLimit).toFixed(2)
         //锁定期的pmt数量
-        let getLockedAmount = await pmtContractApi.getLockedAmount(localStorage.getItem('address').toLowerCase())
+        let getLockedAmount = await pmtContractApi.getLockedAmount(localStorage.getItem('address'))
         getLockedAmount = WEB3.utils.fromWei(getLockedAmount.toString(), 'ether')
         getLockedAmount = Number(getLockedAmount).toFixed(0)
         //獲取PMT的釋放次數
-        let getReleaseCount = await pmtContractApi.getReleaseCount(localStorage.getItem('address').toLowerCase())
+        let getReleaseCount = await pmtContractApi.getReleaseCount(localStorage.getItem('address'))
         // getReleaseCount = WEB3.utils.fromWei(getReleaseCount.toString(), 'ether')
         getReleaseCount = Number(getReleaseCount).toFixed(0)
 
         //最新配套金额
-        let result = await playersInfo(localStorage.getItem('address').toLowerCase())
+        let result = await playersInfo(localStorage.getItem('address'))
         //console.log('result', result)
         let max = Number(result.player.max_package.price) * 2
         let min = Number(result.player.max_package.price) * 0.6 //最高金額的package釋放數量
         let eraningAmount = Number(result.player.package_transactions[0].amount) * 0.6 / 3 * (3 - getReleaseCount)  //pmt釋放量
-        let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address').toLowerCase())
+        let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
 
         pmtBalance = WEB3.utils.fromWei(pmtBalance.toString(), 'ether')
         pmtBalance = Number(pmtBalance)

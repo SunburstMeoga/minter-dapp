@@ -397,7 +397,7 @@ onMounted(() => {
   })
   coherentInfo.value = targetCoherents[0]
   console.log(coherentInfo.value)
-  getPlayersInfo(localStorage.getItem('address').toLowerCase())
+  getPlayersInfo(localStorage.getItem('address'))
   getRTBalance()
 })
 //获取绑定rt列表
@@ -446,12 +446,12 @@ function handlePoint(item, index) {
 //點擊校驗直接上級地址
 async function handleCalibrationReferrer() {
   //console.log('referrerAddress', referrerAddress.value)
-  //console.log(referrerAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase())
+  //console.log(referrerAddress.value.toLowerCase() == localStorage.getItem('address'))
   if (!referrerAddress.value) {
     showToast(t('modalConfirm.enterInvterAddress'))
     return
   }
-  // if (referrerAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase()) {
+  // if (referrerAddress.value.toLowerCase() == localStorage.getItem('address')) {
   //   showToast('自己的地址不能作為自己的直接上級')
   //   return
   // }
@@ -516,7 +516,7 @@ async function handleCalibrationReferrer() {
 }
 //點擊校驗對碰上級地址
 async function handleCalibrationLeg() {
-  // if (legAddress.value.toLowerCase() == localStorage.getItem('address').toLowerCase()) {
+  // if (legAddress.value.toLowerCase() == localStorage.getItem('address')) {
   //   showToast('自己的地址不能作為自己的對碰上級')
   //   return
   // }
@@ -588,7 +588,7 @@ function handleConfirmReferrerAddress() {
 //判断rt余额是否充足
 async function isSufficientRT(amount) {
   try {
-    let balance = await rtBalance({ address: localStorage.getItem('address').toLowerCase() })
+    let balance = await rtBalance({ address: localStorage.getItem('address') })
     // balance = parseInt(balance)
     balance = balance.player
     balance = balance.rt
@@ -602,7 +602,7 @@ async function isSufficientRT(amount) {
 
 //判斷usdt餘額是否充足
 async function isSufficientUSD3(amount) {
-  let balance = await usdtContractApi.balanceOf(localStorage.getItem('address').toLowerCase())
+  let balance = await usdtContractApi.balanceOf(localStorage.getItem('address'))
   let WEB3 = new Web3(window.ethereum)
   balance = WEB3.utils.fromWei(balance.toString(), 'ether')
   balance = parseInt(balance)
@@ -646,7 +646,7 @@ async function handleConfirmBuyForUSDT() {
   }
   let allowance
   try { //检查usdt对pmt_purchase的授权状态
-    allowance = await usdtContractApi.allowance(localStorage.getItem('address').toLowerCase(), config.pmt_purchase_addr)
+    allowance = await usdtContractApi.allowance(localStorage.getItem('address'), config.pmt_purchase_addr)
     proxy.$loading.hide()
   } catch (err) {
     proxy.$loading.hide()
@@ -946,7 +946,7 @@ async function handlePopupConfirmBuy() {
                     legSide: currentPoint.value == 0 ? 'left' : 'right',
                   }
                   joinTheThree(data)
-                  updataRTBalance(localStorage.getItem('address').toLowerCase())
+                  updataRTBalance(localStorage.getItem('address'))
                     .then(result => {
                       proxy.$loading.hide()
                       //console.log('購買成功', result)

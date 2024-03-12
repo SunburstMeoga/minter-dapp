@@ -241,7 +241,7 @@
                                 <template #reference>
                                     <div v-if="directReferrals && directReferrals.right_leg && directReferrals.right_leg.right_leg && directReferrals.right_leg.right_leg.address"
                                         class="operating-button text-center text-white rounded text-xs px-3">{{
-                    $t('assistance.view') }}</div>
+                                        $t('assistance.view') }}</div>
                                 </template>
                             </van-popover>
                         </div>
@@ -309,7 +309,7 @@ async function handleCopy(address) {
 }
 
 onMounted(() => {
-    // getMaxPackage(localStorage.getItem('address').toLowerCase())
+    // getMaxPackage(localStorage.getItem('address'))
 })
 
 //獲取點位圖地址當前最高的配套圖片

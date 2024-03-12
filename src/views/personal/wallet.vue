@@ -325,7 +325,7 @@ onMounted(() => {
     getMTBalance()
     getLockMTBalance()
     getMSTBalance()
-    getPlayersInfo(localStorage.getItem('address').toLowerCase())
+    getPlayersInfo(localStorage.getItem('address'))
     getUserNFTs()
     getStaticRecords()
     getHAHBalance()
@@ -403,7 +403,7 @@ async function getRemainingLockupPeriod() {
 //點擊pmt卡片釋放按鈕
 async function handleWalletCardReleases() {
     proxy.$loading.show()
-    let result = await pmtContractApi.getRemainingLockupPeriod(localStorage.getItem('address').toLowerCase())
+    let result = await pmtContractApi.getRemainingLockupPeriod(localStorage.getItem('address'))
     proxy.$loading.hide()
     let time
     if ((Number(result) + (new Date().getTime() / 1000)) > new Date().getTime() / 1000) {
@@ -421,7 +421,7 @@ async function handleWalletCardReleases() {
         return
     }
     proxy.$loading.show()
-    let pmtNumber = await pmtContractApi.getLockedAmount(localStorage.getItem('address').toLowerCase())
+    let pmtNumber = await pmtContractApi.getLockedAmount(localStorage.getItem('address'))
     proxy.$loading.hide()
     if (Number(pmtNumber) == 0) {
         proxy.$confirm.hide()
@@ -444,12 +444,12 @@ async function handleWalletCardReleases() {
         showCancelButton: false,
         onConfirm: async () => {
             try {
-                await pmtContractApi.releaseTokens(localStorage.getItem('address').toLowerCase())
+                await pmtContractApi.releaseTokens(localStorage.getItem('address'))
                 proxy.$loading.hide()
                 proxy.$confirm.hide()
                 showToast(t('toast.success'))
                 location.reload()
-                // getPlayersInfo(localStorage.getItem('address').toLowerCase())
+                // getPlayersInfo(localStorage.getItem('address'))
                 // getPNTRemainingLockupPeriod()
                 // getPMTLockedAmount()
             } catch (err) {
@@ -517,7 +517,7 @@ function handleTransferRT() {
                             confirmText: t('modalConfirm.confirm'),
                             onConfirm: async () => {
                                 try {
-                                    getPlayersInfo(localStorage.getItem('address').toLowerCase())
+                                    getPlayersInfo(localStorage.getItem('address'))
                                     proxy.$confirm.hide()
                                 } catch (err) {
                                     //console.log(err)
@@ -573,14 +573,14 @@ function getPlayersInfo(address) {
 
 async function getHAHBalance() {
     let WEB3 = new Web3(window.ethereum)
-    let result = await WEB3.eth.getBalance(localStorage.getItem('address').toLowerCase())
+    let result = await WEB3.eth.getBalance(localStorage.getItem('address'))
     hahBalance.value = WEB3.utils.fromWei(result.toString(), 'ether')
     // //console.log(result)
 }
 
 // const chartData = ref([1, 2, 3, 4, 5])   
 async function getMSTBalance() {
-    let balance = await mstContractApi.balanceOf(localStorage.getItem('address').toLowerCase())
+    let balance = await mstContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
     //console.log('mst', result)
@@ -588,7 +588,7 @@ async function getMSTBalance() {
     return balance
 }
 async function getUSDTBalance() {
-    let balance = await usdtContractApi.balanceOf(localStorage.getItem('address').toLowerCase())
+    let balance = await usdtContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
     //console.log('usdt', result)
@@ -596,7 +596,7 @@ async function getUSDTBalance() {
     return balance
 }
 async function getPMTBalance() {
-    let balance = await pmtContractApi.balanceOf(localStorage.getItem('address').toLowerCase())
+    let balance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
     //console.log('pmt', result)
@@ -604,7 +604,7 @@ async function getPMTBalance() {
     return balance
 }
 async function getMTBalance() {
-    let balance = await mtContractApi.balanceOf(localStorage.getItem('address').toLowerCase())
+    let balance = await mtContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
     //console.log('mt', result)
@@ -612,7 +612,7 @@ async function getMTBalance() {
     return balance
 }
 async function getLockMTBalance() {
-    let balance = await minterContractApi.getLockedAmount(localStorage.getItem('address').toLowerCase())
+    let balance = await minterContractApi.getLockedAmount(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
     //console.log('mt', result)
@@ -720,7 +720,7 @@ async function handleExchangeBT() {
                             return
                         }
                         getUSDTBalance()
-                        getPlayersInfo(localStorage.getItem('address').toLowerCase())
+                        getPlayersInfo(localStorage.getItem('address'))
                         // showToast(`已成功兌換 ${exchangeAmountBT.value * 0.9} USD3`)
                         showToast(`${t('modalConfirm.successExchangeUSD3', { amount: exchangeAmountBT.value })}`)
                         //console.log(res)
@@ -747,7 +747,7 @@ async function handleExchangeBT() {
                             });
                             return
                         }
-                        getPlayersInfo(localStorage.getItem('address').toLowerCase())
+                        getPlayersInfo(localStorage.getItem('address'))
                         // showToast(`已成功兌換 ${exchangeAmountBT.value} RT`)
                         showToast(`${t('modalConfirm.successExchangeRT', { amount: exchangeAmountBT.value })}`)
                         //console.log(res)
@@ -772,11 +772,11 @@ async function handleExchange() {
     }
     toggleExchangePopup()
     proxy.$loading.show()
-    //console.log('點擊handleExchange', localStorage.getItem('address').toLowerCase(), config.swap_addr)
+    //console.log('點擊handleExchange', localStorage.getItem('address'), config.swap_addr)
     // 检查mt或者usdt对swap的授权状态
     let allowance
     try {
-        allowance = await minterContractApi.allowance(localStorage.getItem('address').toLowerCase(), config.swap_addr)
+        allowance = await minterContractApi.allowance(localStorage.getItem('address'), config.swap_addr)
         proxy.$loading.hide()
     } catch (err) {
         showToast(t('toast.error'))
@@ -852,10 +852,10 @@ async function handleExchange() {
             } else {
                 try {
                     await swapContractApi.swapMTForRT(amount)
-                    // await rtBalance(localStorage.getItem('address').toLowerCase())
+                    // await rtBalance(localStorage.getItem('address'))
                     proxy.$confirm.hide()
                     getMTBalance()
-                    getPlayersInfo(localStorage.getItem('address').toLowerCase())
+                    getPlayersInfo(localStorage.getItem('address'))
                     // showToast(`已成功兌換 ${exchangeAmount.value * 0.95} RT`)
                     showToast(`${t('modalConfirm.successExchangeRT', { amount: exchangeAmount.value * 0.95 })}`)
 
