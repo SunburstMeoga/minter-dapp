@@ -20,7 +20,8 @@
                     </div>
                 </div>
             </van-list> -->
-            <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in nftsDatas" :key="index">
+            <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in nftsDatas"
+                :key="index">
                 <nft-card :nftImg="item.nftImg" :showCheckbox="false" :price="item.price" :tokenID="item.token_id"
                     :showOperting="item.showOperting" :showCancelButton="item.is_listed && !item.showOperting"
                     :showListedButton="!item.is_listed && !item.showOperting" showToken
@@ -46,7 +47,8 @@
         <!-- 可出售 -->
         <div class="w-11/12 mr-auto ml-auto flex justify-between items-center flex-wrap"
             v-show="currentType == 2 && saleables.length !== 0">
-            <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in saleables" :key="index">
+            <div class="rounded overflow-hidden mb-3" style="width: 48%;" v-for="(item, index) in saleables"
+                :key="index">
                 <nft-card :nftImg="item.nftImg" :price="item.price" :tokenID="item.token_id" showToken
                     @handleListed="handleListed(item, index)" @handleCancel="handleCancelList(item)"
                     :showCancelButton="item.is_listed && !item.showOperting" :showOperting="item.showOperting"
@@ -119,9 +121,9 @@ async function getAllNFT() {
     let status = currentType.value
     let params = {}
     if (status == 0) {
-        params = { address: localStorage.getItem('address'), perPage: 10000 }
+        params = { address: localStorage.getItem('address').toLowerCase(), perPage: 10000 }
     } else if (status == 1) {
-        params = { address: localStorage.getItem('address'), status: 1, perPage: 10000 }
+        params = { address: localStorage.getItem('address').toLowerCase(), status: 1, perPage: 10000 }
     }
     userNFT(params)
         .then(res => {
@@ -203,14 +205,14 @@ function getUserCanSaleNFT() {
 function getUserNFTs() {
     proxy.$loading.show()
     listeds.value = []
-    let params = { address: localStorage.getItem('address'), status: 1, perPage: 10000 }
+    let params = { address: localStorage.getItem('address').toLowerCase(), status: 1, perPage: 10000 }
     marketplace(params)
         .then(res => {
             proxy.$loading.hide()
             // saleables 可出售 listeds//正在掛單
             if (res.market_places.length !== 0) {
                 res.market_places.map(item => {
-                    if (item.address == localStorage.getItem('address')) {
+                    if (item.address == localStorage.getItem('address').toLowerCase()) {
                         listeds.value.push(item)
                         if (listeds.value.length !== 0) {
                             listeds.value.map(_item => {
@@ -281,9 +283,9 @@ async function handleListed(item, index) {
     let lastListingTime
     let timestamp
     try {
-        numListingsIn24Hours = await nftContractApi.getNumListingsIn24Hours(localStorage.getItem('address')) //24小時內一共多少張NFT正在掛賣或已經賣出
-        totalListings = await nftContractApi.getTotalListings(localStorage.getItem('address')) //現正掛賣NFT數量
-        lastListingTime = await nftContractApi.getLastListingTime(localStorage.getItem('address')) //由此時間開始計起24小時後可出售NFT
+        numListingsIn24Hours = await nftContractApi.getNumListingsIn24Hours(localStorage.getItem('address').toLowerCase()) //24小時內一共多少張NFT正在掛賣或已經賣出
+        totalListings = await nftContractApi.getTotalListings(localStorage.getItem('address').toLowerCase()) //現正掛賣NFT數量
+        lastListingTime = await nftContractApi.getLastListingTime(localStorage.getItem('address').toLowerCase()) //由此時間開始計起24小時後可出售NFT
         // lastListingTime = 1704271082
         timestamp = Number(lastListingTime) + Number(60 * 20)
         // timestamp = Number(lastListingTime) + Number(60 * 60 * 24)
@@ -368,7 +370,7 @@ async function handleListed(item, index) {
     // return
     let isApprovedAll
     try { //检查pmt对pmt_purchase的授权状态
-        isApprovedAll = await minterContractApi.allowance(localStorage.getItem('address'), config.nfts_marketplace_addr)
+        isApprovedAll = await minterContractApi.allowance(localStorage.getItem('address').toLowerCase(), config.nfts_marketplace_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
@@ -376,7 +378,7 @@ async function handleListed(item, index) {
         showToast(`${t('modalConfirm.checkAuthFail', { type: 'MT' })}`)
         //console.log(err)
     }
-    const transactionResponse = await nftContractApi.isApprovedAll(localStorage.getItem('address'), config.nfts_marketplace_addr)
+    const transactionResponse = await nftContractApi.isApprovedAll(localStorage.getItem('address').toLowerCase(), config.nfts_marketplace_addr)
     //console.log(transactionResponse)
     if (!transactionResponse) { //當前領取方式未授權
         proxy.$loading.hide()
@@ -418,7 +420,7 @@ async function handleListed(item, index) {
 
     let allowance
     try { //检查usdt对pmt_purchase的授权状态
-        allowance = await nftContractApi.allowance(localStorage.getItem('address'), config.nfts_marketplace_addr)
+        allowance = await nftContractApi.allowance(localStorage.getItem('address').toLowerCase(), config.nfts_marketplace_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
@@ -557,7 +559,7 @@ async function handleCancelList(item) {
 
     let isApprovedAll
     try { //检查pmt对pmt_purchase的授权状态
-        isApprovedAll = await nftContractApi.isApprovedAll(localStorage.getItem('address'), config.nfts_marketplace_addr)
+        isApprovedAll = await nftContractApi.isApprovedAll(localStorage.getItem('address').toLowerCase(), config.nfts_marketplace_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()

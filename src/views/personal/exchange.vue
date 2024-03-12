@@ -60,7 +60,7 @@ let playInfo = ref({})
 const router = useRouter()
 onMounted(() => {
     getUSDTBalance()
-    getPlayersInfo(localStorage.getItem('address'))
+    getPlayersInfo(localStorage.getItem('address').toLowerCase())
 })
 
 //獲取玩家信息
@@ -78,7 +78,7 @@ async function getPlayersInfo(address) {
     // }
     // const {} = res.player
 
-    rtBalance({ address: localStorage.getItem('address') })
+    rtBalance({ address: localStorage.getItem('address').toLowerCase() })
         .then(res => {
             //console.log('res', res)
             playInfo.value = res
@@ -94,7 +94,7 @@ async function getPlayersInfo(address) {
 }
 async function getUSDTBalance() {
     //console.log('userInfo.address', userInfo.address)
-    let balance = await usdtContractApi.balanceOf(localStorage.getItem('address'))
+    let balance = await usdtContractApi.balanceOf(localStorage.getItem('address').toLowerCase())
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
     //console.log('usdt', result)
@@ -109,7 +109,7 @@ async function handleExchange() {
     proxy.$loading.show()
     let allowance
     try { //检查usdt对pmt_purchase的授权状态
-        allowance = await usdtContractApi.allowance(localStorage.getItem('address'), config.swap_addr)
+        allowance = await usdtContractApi.allowance(localStorage.getItem('address').toLowerCase(), config.swap_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
@@ -167,7 +167,7 @@ async function handleExchange() {
                         // showToast('兌換成功')
                         showToast(`${t('modalConfirm.successExchangeRT', { amount: exchangeAmount.value })}`)
                         getUSDTBalance()
-                        getPlayersInfo(localStorage.getItem('address'))
+                        getPlayersInfo(localStorage.getItem('address').toLowerCase())
                     }, 5000)
                     // location.reload()
                 })
@@ -192,7 +192,7 @@ async function handleExchange() {
     //     proxy.$loading.hide()
     //     showToast(t('toast.success'))
     //     getUSDTBalance()
-    //     getPlayersInfo(localStorage.getItem('address'))
+    //     getPlayersInfo(localStorage.getItem('address').toLowerCase())
     //     location.reload()
     // } catch (err) {
     //     proxy.$loading.hide()

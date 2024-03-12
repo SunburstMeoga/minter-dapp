@@ -115,11 +115,11 @@ async function addressSign() {
   let params = {}
   const randomString =
     "Welcome to Minter\n\nPlease click to sign in and accept the Minter Terms of Service.\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nWallet address:\n" +
-    localStorage.getItem('address') +
+    localStorage.getItem('address').toLowerCase() +
     "\n\nNonece:\n" +
     generateNonce();
   try {
-    const signature = await web3.eth.personal.sign(randomString, localStorage.getItem('address'), '')
+    const signature = await web3.eth.personal.sign(randomString, localStorage.getItem('address').toLowerCase(), '')
     params = { randomString: randomString, signature: signature }
   } catch (err) {
     showToast('签名失败，请重试')

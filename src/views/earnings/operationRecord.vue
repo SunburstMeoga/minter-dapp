@@ -139,7 +139,7 @@ function getExpireData(value) {
 }
 function onSelect(select) {
     //console.log(select)
-    let params = { address: localStorage.getItem('address'), perPage: 10000, sortBy: 'created_at', sortDesc: true }
+    let params = { address: localStorage.getItem('address').toLowerCase(), perPage: 10000, sortBy: 'created_at', sortDesc: true }
     currentFilter.value = select.index
     if (currentType.value == 0) {
         if (currentFilter.value == 0) {
@@ -386,7 +386,7 @@ function handleTabs(tabs) {
             break;
         // case 3: typeList.value = [{ title: 'USD3' }, { title: 'BT' }, { title: 'MT' }, { title: 'RT' }, { title: '綁定RT' }, { title: 'PMT' }];
         case 3: typeList.value = [{ title: t('wallet.tokenExchange') }, { title: t('wallet.tokenTrad') }];
-            let params = { address: localStorage.getItem('address'), sortBy: 'created_at', sortDesc: true }
+            let params = { address: localStorage.getItem('address').toLowerCase(), sortBy: 'created_at', sortDesc: true }
             getUSDTExchangeRecord(params)
 
             // dataList.value = [{
@@ -473,7 +473,7 @@ function handleType(item, index) {
                 // { text: '綁定RT', value: false, index: 4 },
                 //     { text: 'PMT', value: false, index: 5 }
             ]
-            let params = { address: localStorage.getItem('address'), sortBy: 'created_at', sortDesc: true }
+            let params = { address: localStorage.getItem('address').toLowerCase(), sortBy: 'created_at', sortDesc: true }
             getUSDTExchangeRecord(params)
         } else if (currentType.value == 1) {
             actions.value = [{ text: 'USD3', value: true, index: 0 },

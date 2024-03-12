@@ -40,8 +40,9 @@
                     :balance="palayBanalce.rtLocked" isRegister @register="handleRegister" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="RT" :balance="palayBanalce.rt" :tokenImg="rtImg" @transfer="handleWalletCardTransfer"
-                    @exchange="handleExchangeRT" isExchange isTrasfer isRegister @register="handleRegister" />
+                <wallet-card currency="RT" :balance="palayBanalce.rt" :tokenImg="rtImg"
+                    @transfer="handleWalletCardTransfer" @exchange="handleExchangeRT" isExchange isTrasfer isRegister
+                    @register="handleRegister" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card :currency="$t('menu.contributionValue')" :balance="mstBalance" />
@@ -94,8 +95,8 @@
                         {{ $t('exchange.title') }}
                     </div>
                     <div class="flex justify-start items-center mb-10">
-                        <div class="border-b-4 border-transparent px-2 py-1.5 ml-4" v-for="(item, index) in exhangeTypesBT"
-                            :key="index"
+                        <div class="border-b-4 border-transparent px-2 py-1.5 ml-4"
+                            v-for="(item, index) in exhangeTypesBT" :key="index"
                             :class="currentExchangeTypeBT == index ? 'border-primary-color text-white font-bold' : 'text-gray-700'"
                             @click="currentExchangeTypeBT = index">
                             {{ item.title }}
@@ -104,9 +105,9 @@
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
                         <div class="text-base"> {{ $t('toast.enterExchangeAmount') }} </div>
                         <div class="text-primary-color text-xs pl-1"> {{ $t('toast.handlingFee', {
-                            handlingFee:
-                                currentExchangeTypeBT == 0 ? ' 10% ' : ' 0% '
-                        }) }}</div>
+                handlingFee:
+                    currentExchangeTypeBT == 0 ? ' 10% ' : ' 0% '
+            }) }}</div>
                     </div>
                     <div class="w-full flex justify-between items-center mb-10">
                         <div class="rounded  flex-1 ">
@@ -130,7 +131,8 @@
 
                     <div class="text-white text-base flex justify-between items-center mb-3">
                         <div>RT {{ $t('wallet.balance') }}: </div>
-                        <div class="text-red-500 font-bold">{{ Number(palayBanalce.rt).toFixed(4) || '0.0000' }} RT </div>
+                        <div class="text-red-500 font-bold">{{ Number(palayBanalce.rt).toFixed(4) || '0.0000' }} RT
+                        </div>
                         <!-- <div class="text-primary-color text-xs pl-1"> (当前1USD3可兑换2RT)</div> -->
                     </div>
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
@@ -246,8 +248,8 @@
                         {{ $t('toast.exchangeTitle') }}
                     </div>
                     <div class="flex justify-start items-center mb-10">
-                        <div class="border-b-4 border-transparent px-2 py-1.5 ml-4" v-for="(item, index) in exhangeTypes"
-                            :key="index"
+                        <div class="border-b-4 border-transparent px-2 py-1.5 ml-4"
+                            v-for="(item, index) in exhangeTypes" :key="index"
                             :class="currentExchangeType == index ? 'border-primary-color text-white font-bold' : 'text-gray-700'"
                             @click="currentExchangeType = index">
                             {{ item.title }}
@@ -256,9 +258,9 @@
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
                         <div class="text-base"> {{ $t('toast.enterExchangeAmount') }} </div>
                         <div class="text-primary-color text-xs pl-1"> {{ $t('toast.handlingFee', {
-                            handlingFee:
-                                currentExchangeType == 0 ? ' 10% ' : ' 5% '
-                        }) }} </div>
+                handlingFee:
+                    currentExchangeType == 0 ? ' 10% ' : ' 5% '
+            }) }} </div>
                     </div>
                     <div class="w-full flex justify-between items-center mb-10">
                         <div class="rounded  flex-1 ">
@@ -323,7 +325,7 @@ onMounted(() => {
     getMTBalance()
     getLockMTBalance()
     getMSTBalance()
-    getPlayersInfo(localStorage.getItem('address'))
+    getPlayersInfo(localStorage.getItem('address').toLowerCase())
     getUserNFTs()
     getStaticRecords()
     getHAHBalance()
@@ -401,7 +403,7 @@ async function getRemainingLockupPeriod() {
 //點擊pmt卡片釋放按鈕
 async function handleWalletCardReleases() {
     proxy.$loading.show()
-    let result = await pmtContractApi.getRemainingLockupPeriod(localStorage.getItem('address'))
+    let result = await pmtContractApi.getRemainingLockupPeriod(localStorage.getItem('address').toLowerCase())
     proxy.$loading.hide()
     let time
     if ((Number(result) + (new Date().getTime() / 1000)) > new Date().getTime() / 1000) {
@@ -419,7 +421,7 @@ async function handleWalletCardReleases() {
         return
     }
     proxy.$loading.show()
-    let pmtNumber = await pmtContractApi.getLockedAmount(localStorage.getItem('address'))
+    let pmtNumber = await pmtContractApi.getLockedAmount(localStorage.getItem('address').toLowerCase())
     proxy.$loading.hide()
     if (Number(pmtNumber) == 0) {
         proxy.$confirm.hide()
@@ -442,12 +444,12 @@ async function handleWalletCardReleases() {
         showCancelButton: false,
         onConfirm: async () => {
             try {
-                await pmtContractApi.releaseTokens(localStorage.getItem('address'))
+                await pmtContractApi.releaseTokens(localStorage.getItem('address').toLowerCase())
                 proxy.$loading.hide()
                 proxy.$confirm.hide()
                 showToast(t('toast.success'))
                 location.reload()
-                // getPlayersInfo(localStorage.getItem('address'))
+                // getPlayersInfo(localStorage.getItem('address').toLowerCase())
                 // getPNTRemainingLockupPeriod()
                 // getPMTLockedAmount()
             } catch (err) {
@@ -515,7 +517,7 @@ function handleTransferRT() {
                             confirmText: t('modalConfirm.confirm'),
                             onConfirm: async () => {
                                 try {
-                                    getPlayersInfo(localStorage.getItem('address'))
+                                    getPlayersInfo(localStorage.getItem('address').toLowerCase())
                                     proxy.$confirm.hide()
                                 } catch (err) {
                                     //console.log(err)
@@ -571,14 +573,14 @@ function getPlayersInfo(address) {
 
 async function getHAHBalance() {
     let WEB3 = new Web3(window.ethereum)
-    let result = await WEB3.eth.getBalance(localStorage.getItem('address'))
+    let result = await WEB3.eth.getBalance(localStorage.getItem('address').toLowerCase())
     hahBalance.value = WEB3.utils.fromWei(result.toString(), 'ether')
     // //console.log(result)
 }
 
 // const chartData = ref([1, 2, 3, 4, 5])   
 async function getMSTBalance() {
-    let balance = await mstContractApi.balanceOf(localStorage.getItem('address'))
+    let balance = await mstContractApi.balanceOf(localStorage.getItem('address').toLowerCase())
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
     //console.log('mst', result)
@@ -586,7 +588,7 @@ async function getMSTBalance() {
     return balance
 }
 async function getUSDTBalance() {
-    let balance = await usdtContractApi.balanceOf(localStorage.getItem('address'))
+    let balance = await usdtContractApi.balanceOf(localStorage.getItem('address').toLowerCase())
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
     //console.log('usdt', result)
@@ -594,7 +596,7 @@ async function getUSDTBalance() {
     return balance
 }
 async function getPMTBalance() {
-    let balance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
+    let balance = await pmtContractApi.balanceOf(localStorage.getItem('address').toLowerCase())
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
     //console.log('pmt', result)
@@ -602,7 +604,7 @@ async function getPMTBalance() {
     return balance
 }
 async function getMTBalance() {
-    let balance = await mtContractApi.balanceOf(localStorage.getItem('address'))
+    let balance = await mtContractApi.balanceOf(localStorage.getItem('address').toLowerCase())
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
     //console.log('mt', result)
@@ -610,7 +612,7 @@ async function getMTBalance() {
     return balance
 }
 async function getLockMTBalance() {
-    let balance = await minterContractApi.getLockedAmount(localStorage.getItem('address'))
+    let balance = await minterContractApi.getLockedAmount(localStorage.getItem('address').toLowerCase())
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
     //console.log('mt', result)
@@ -718,7 +720,7 @@ async function handleExchangeBT() {
                             return
                         }
                         getUSDTBalance()
-                        getPlayersInfo(localStorage.getItem('address'))
+                        getPlayersInfo(localStorage.getItem('address').toLowerCase())
                         // showToast(`已成功兌換 ${exchangeAmountBT.value * 0.9} USD3`)
                         showToast(`${t('modalConfirm.successExchangeUSD3', { amount: exchangeAmountBT.value })}`)
                         //console.log(res)
@@ -745,7 +747,7 @@ async function handleExchangeBT() {
                             });
                             return
                         }
-                        getPlayersInfo(localStorage.getItem('address'))
+                        getPlayersInfo(localStorage.getItem('address').toLowerCase())
                         // showToast(`已成功兌換 ${exchangeAmountBT.value} RT`)
                         showToast(`${t('modalConfirm.successExchangeRT', { amount: exchangeAmountBT.value })}`)
                         //console.log(res)
@@ -770,11 +772,11 @@ async function handleExchange() {
     }
     toggleExchangePopup()
     proxy.$loading.show()
-    //console.log('點擊handleExchange', localStorage.getItem('address'), config.swap_addr)
+    //console.log('點擊handleExchange', localStorage.getItem('address').toLowerCase(), config.swap_addr)
     // 检查mt或者usdt对swap的授权状态
     let allowance
     try {
-        allowance = await minterContractApi.allowance(localStorage.getItem('address'), config.swap_addr)
+        allowance = await minterContractApi.allowance(localStorage.getItem('address').toLowerCase(), config.swap_addr)
         proxy.$loading.hide()
     } catch (err) {
         showToast(t('toast.error'))
@@ -850,10 +852,10 @@ async function handleExchange() {
             } else {
                 try {
                     await swapContractApi.swapMTForRT(amount)
-                    // await rtBalance(localStorage.getItem('address'))
+                    // await rtBalance(localStorage.getItem('address').toLowerCase())
                     proxy.$confirm.hide()
                     getMTBalance()
-                    getPlayersInfo(localStorage.getItem('address'))
+                    getPlayersInfo(localStorage.getItem('address').toLowerCase())
                     // showToast(`已成功兌換 ${exchangeAmount.value * 0.95} RT`)
                     showToast(`${t('modalConfirm.successExchangeRT', { amount: exchangeAmount.value * 0.95 })}`)
 

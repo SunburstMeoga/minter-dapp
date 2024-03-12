@@ -99,7 +99,7 @@ onMounted(() => {
         showReVote.value = true
         //console.log(showReVote.value)
     }
-    getPlayersInfo(localStorage.getItem('address'))
+    getPlayersInfo(localStorage.getItem('address').toLowerCase())
     getPNTRemainingLockupPeriod()
     getPMTLockedAmount()
     // countDown(1702712103000)
@@ -154,7 +154,7 @@ async function handleReleased() {
         confirmText: t('modalConfirm.confirm'),
         onConfirm: async () => {
             try {
-                await pmtContractApi.releaseTokens(localStorage.getItem('address'))
+                await pmtContractApi.releaseTokens(localStorage.getItem('address').toLowerCase())
                 setTimeout(() => {
                     proxy.$confirm.hide()
                     proxy.$confirm.show({
@@ -186,7 +186,7 @@ async function handleReleased() {
 }
 //獲取鎖定的代幣數量
 async function getPMTLockedAmount() {
-    let result = await pmtContractApi.getLockedAmount(localStorage.getItem('address'))
+    let result = await pmtContractApi.getLockedAmount(localStorage.getItem('address').toLowerCase())
     let WEB3 = new Web3(window.ethereum)
     let remainingPMTNum = WEB3.utils.fromWei(result.toString(), 'ether')
     remainingPMT.value = remainingPMTNum
@@ -194,7 +194,7 @@ async function getPMTLockedAmount() {
 }
 //獲取剩餘的鎖定期
 async function getPNTRemainingLockupPeriod() {
-    let result = await pmtContractApi.getRemainingLockupPeriod(localStorage.getItem('address'))
+    let result = await pmtContractApi.getRemainingLockupPeriod(localStorage.getItem('address').toLowerCase())
     //console.log('獲取剩餘的鎖定期', result)
     releaseTime.value = Number(result)
     // releaseTime.value = 1702729311
@@ -216,7 +216,7 @@ async function getPNTRemainingLockupPeriod() {
 }
 //釋放PMT
 // async function releasePMTTokens() {
-//     let result = await pmtContractApi.releaseTokens(localStorage.getItem('address'))
+//     let result = await pmtContractApi.releaseTokens(localStorage.getItem('address').toLowerCase())
 //     //console.log(result)
 // }
 //獲取玩家信息
@@ -245,7 +245,7 @@ function getPlayersInfo(address) {
             })
             let remainingPMT
             let totalPMT = playerPackages.value.reduce((sum, e) => sum + Number(e.pmt || 0), 0)
-            pmtContractApi.getLockedAmount(localStorage.getItem('address'))
+            pmtContractApi.getLockedAmount(localStorage.getItem('address').toLowerCase())
                 .then(res => {
                     let WEB3 = new Web3(window.ethereum)
                     remainingPMT = WEB3.utils.fromWei(res.toString(), 'ether')

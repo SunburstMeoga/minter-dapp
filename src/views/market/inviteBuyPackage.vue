@@ -203,14 +203,14 @@ onMounted(() => {
 })
 //判断rt余额是否充足
 async function isSufficientRT(amount) {
-    let balance = await rtBalance({ address: localStorage.getItem('address') })
+    let balance = await rtBalance({ address: localStorage.getItem('address').toLowerCase() })
     balance = parseInt(balance.player.rt)
     return Number(amount).toFixed(0) <= balance
 }
 
 //判斷usdt餘額是否充足
 async function isSufficientUSD3(amount) {
-    let balance = await usdtContractApi.balanceOf(localStorage.getItem('address'))
+    let balance = await usdtContractApi.balanceOf(localStorage.getItem('address').toLowerCase())
     let WEB3 = new Web3(window.ethereum)
     balance = WEB3.utils.fromWei(balance.toString(), 'ether')
     balance = parseInt(balance)
@@ -331,7 +331,7 @@ async function handleConfirmBuyForRT() {
                 return
             }
             showToast(res.message)
-            updataRTBalance(localStorage.getItem('address'))
+            updataRTBalance(localStorage.getItem('address').toLowerCase())
                 .then(res => {
                     //console.log('更新rt餘額', res)
 
@@ -385,7 +385,7 @@ async function handleConfirmBuyForUSDT() {
     }
     let allowance
     try { //检查usdt对pmt_purchase的授权状态
-        allowance = await usdtContractApi.allowance(localStorage.getItem('address'), config.pmt_purchase_addr)
+        allowance = await usdtContractApi.allowance(localStorage.getItem('address').toLowerCase(), config.pmt_purchase_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()

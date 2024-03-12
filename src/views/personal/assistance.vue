@@ -52,7 +52,7 @@
                             <div class="text-white text-xs flex justify-between items-baseline mb-1">
                                 <div class="text-base">{{ $t('order.bind') }}RT </div>
                                 <div class="text-primary-color font-bold pl-1"> {{ $t('opertingLog.expiryTime') }}: {{
-                                    FilterTime(item.expire_date) }}
+            FilterTime(item.expire_date) }}
                                 </div>
                             </div>
                             <div class="w-full flex justify-between items-center">
@@ -78,7 +78,8 @@
                     </div>
                 </div>
                 <div class="w-11/12 mr-auto ml-auto flex justify-between items-center">
-                    <div class="w-5/12 operating-button text-center py-2.5 rounded-full" @click="handleConfirmBuyForUSDT">
+                    <div class="w-5/12 operating-button text-center py-2.5 rounded-full"
+                        @click="handleConfirmBuyForUSDT">
                         <!-- {{ $t('wallet.cancleSale') }} -->
                         USD3 {{ $t('invitePage.pay') }}
                     </div>
@@ -93,8 +94,8 @@
             <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
                 <div class="text-center mb-6 text-white">{{ $t('assistance.invitation') }}</div>
                 <div class="flex justify-start items-center mb-6">
-                    <div class="flex flex-col justify-start items-center mr-3 w-11/12" v-for="(item, index) in attendWays"
-                        :key="index" @click="handleAttendItem(item, index)">
+                    <div class="flex flex-col justify-start items-center mr-3 w-11/12"
+                        v-for="(item, index) in attendWays" :key="index" @click="handleAttendItem(item, index)">
                         <div class="flex justify-center items-center">
                             <div
                                 class="rounded-full w-14 h-14 flex justify-center items-center bg-primary-color text-white mb-1">
@@ -175,7 +176,7 @@
                             <div class="text-white text-xs flex justify-between items-baseline mb-1">
                                 <div class="text-base">{{ $t('order.bind') + ' ' }}RT </div>
                                 <div class="text-primary-color font-bold pl-1"> {{ $t('opertingLog.expiryTime') }}: {{
-                                    FilterTime(item.expire_date) }}
+            FilterTime(item.expire_date) }}
                                 </div>
                             </div>
                             <div class="w-full flex justify-between items-center">
@@ -209,7 +210,8 @@
             <div class="bg-bottom-content text-white py-4 flex flex-col justify-center">
                 <!-- <div class="text-center mb-6 text-white">请输入上级地址</div> -->
                 <div class="w-full flex flex-col items-center mb-2">
-                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1"> {{ $t('assistance.inviterAddress') }}</div>
+                    <div class="text-gray-200 text-sm text-left w-11/12 mb-1"> {{ $t('assistance.inviterAddress') }}
+                    </div>
                     <div class="rounded overflow-hidden w-11/12 h-11 border border-gray-700 mb-1">
                         <input type="text" v-model="invitationAddress" :placeholder="$t('assistance.inviterAddress')"
                             class="w-full h-full bg-bottom-content rounded">
@@ -250,8 +252,8 @@
                     {{ $t('assistance.inviterLink') }}
                 </div>
                 <div class="mb-6 bg-white">
-                    <qrcode-vue :value="shareLink" logoSrc='../../assets/images/minter-logo-cro.png' :size="size" level="H"
-                        id="qrcode" margin="2" />
+                    <qrcode-vue :value="shareLink" logoSrc='../../assets/images/minter-logo-cro.png' :size="size"
+                        level="H" id="qrcode" margin="2" />
                 </div>
                 <div class="w-full flex justify-between items-center text-sm">
                     <div class="w-5/12 operating-button text-center py-2.5 rounded" @click="handleSaveQRCode">
@@ -308,7 +310,7 @@
                             <div class="text-white text-xs flex justify-between items-baseline mb-1">
                                 <div class="text-base">{{ $t('order.bind') + ' ' }}RT </div>
                                 <div class="text-primary-color font-bold pl-1"> {{ $t('opertingLog.expiryTime') }}: {{
-                                    FilterTime(item.expire_date) }}
+            FilterTime(item.expire_date) }}
                                 </div>
                             </div>
                             <div class="w-full flex justify-between items-center">
@@ -325,11 +327,12 @@
                 <div class="text-primary-color font-bold text-sm mb-2 w-11/12 mr-auto ml-auto">
                     * {{ $t('raffle.welfareTips') }}
                 </div>
-                <div class="text-gray-300 text-sm  w-11/12 mb-1 ml-auto mr-auto">{{ $t('assistance.chooseCoherent') }}</div>
+                <div class="text-gray-300 text-sm  w-11/12 mb-1 ml-auto mr-auto">{{ $t('assistance.chooseCoherent') }}
+                </div>
                 <div class="w-11/12 mr-auto ml-auto flex justify-between items-center mb-4">
                     <div class="flex-1 pr-2 flex items-center">
-                        <van-popover v-model:show="showCoherentList" theme="dark" @select="selectPackage" :actions="actions"
-                            placement="bottom">
+                        <van-popover v-model:show="showCoherentList" theme="dark" @select="selectPackage"
+                            :actions="actions" placement="bottom">
                             <template #reference>
                                 <div class="rounded w-full h-8 border border-gray-700 mb-1 px-10 break-words leading-7">
                                     {{ buyPackage.text }}
@@ -462,7 +465,7 @@ let rtBind = ref([])
 onMounted(() => {
     // viewAddressPoint(window.ethereum.selectedAddress)
     // //console.log('document.domain', document.domain)
-    viewPointMap(localStorage.getItem('address'))
+    viewPointMap(localStorage.getItem('address').toLowerCase())
     getStaticRecords()
     getRTBalance()
 })
@@ -479,7 +482,7 @@ function getRTBalance() {
 }
 //输入我的地址
 function enterSelfAddress() {
-    inviterAddressTwo.value = localStorage.getItem('address')
+    inviterAddressTwo.value = localStorage.getItem('address').toLowerCase()
 }
 //输入上级地址
 function enterPreAddress() {
@@ -501,7 +504,7 @@ async function handleSearchAddress() {
 
 async function handleBackPreAddress() {
     isFinishPoint.value = false
-    viewPointMap(localStorage.getItem('address'))
+    viewPointMap(localStorage.getItem('address').toLowerCase())
 }
 function clickCurrentCoherent(item, index) {
     if (!item.isSale) {
@@ -653,7 +656,7 @@ async function handleConfirmBuyForRTPOPUP() {
                                         joinTheThree(data)
                                             .then(_res => {
                                                 isFinishPoint.value = false
-                                                viewPointMap(localStorage.getItem('address'))
+                                                viewPointMap(localStorage.getItem('address').toLowerCase())
                                             })
                                     }, 3000)
                                 },
@@ -804,7 +807,7 @@ async function handlePopupConfirmBuy() {
                                 confirmText: t('modalConfirm.confirm'),
                                 onConfirm: () => {
                                     proxy.$confirm.hide()
-                                    updataRTBalance(localStorage.getItem('address'))
+                                    updataRTBalance(localStorage.getItem('address').toLowerCase())
                                         .then(_res => {
                                             //console.log('更新rt餘額', _res)
                                             // //console.log('購買成功', _res)
@@ -846,7 +849,7 @@ async function handleConfirmBuyForUSDTPOPUP() {
     // let data = { package_id: coherentsList.value[currentCoherent.value].id }
     let allowance
     try { //检查usdt对pmt_purchase的授权状态
-        allowance = await usdtContractApi.allowance(localStorage.getItem('address'), config.pmt_purchase_addr)
+        allowance = await usdtContractApi.allowance(localStorage.getItem('address').toLowerCase(), config.pmt_purchase_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
@@ -885,7 +888,7 @@ async function handleConfirmBuyForUSDTPOPUP() {
         proxy.$loading.show()
         isFinishPoint.value = false
         await pmtContractApi.purchasePackage(coherentsList.value[currentCoherent.value].id - 1)
-        viewPointMap(localStorage.getItem('address'))
+        viewPointMap(localStorage.getItem('address').toLowerCase())
         // await joinTheThree(data)
         proxy.$loading.hide()
         showToast(t('toast.success'))
@@ -900,7 +903,7 @@ async function handleConfirmBuyForUSDTPOPUP() {
 //判断rt余额是否充足
 async function isSufficientRT(amount) {
     try {
-        let balance = await rtBalance({ address: localStorage.getItem('address') })
+        let balance = await rtBalance({ address: localStorage.getItem('address').toLowerCase() })
         // balance = parseInt(balance)
         balance = balance.player
         balance = balance.rt
@@ -914,7 +917,7 @@ async function isSufficientRT(amount) {
 
 //判斷usdt餘額是否充足
 async function isSufficientUSD3(amount) {
-    let balance = await usdtContractApi.balanceOf(localStorage.getItem('address'))
+    let balance = await usdtContractApi.balanceOf(localStorage.getItem('address').toLowerCase())
     let WEB3 = new Web3(window.ethereum)
     balance = WEB3.utils.fromWei(balance.toString(), 'ether')
     balance = parseInt(balance)
@@ -999,7 +1002,7 @@ async function handleConfirmBuyForUSDT() {
 
     let allowance
     try { //检查usdt对pmt_purchase的授权状态
-        allowance = await usdtContractApi.allowance(localStorage.getItem('address'), config.pmt_purchase_addr)
+        allowance = await usdtContractApi.allowance(localStorage.getItem('address').toLowerCase(), config.pmt_purchase_addr)
         proxy.$loading.hide()
     } catch (err) {
         proxy.$loading.hide()
@@ -1050,7 +1053,7 @@ async function handleConfirmBuyForUSDT() {
                 proxy.$loading.hide()
                 isFinishPoint.value = false
                 await pmtContractApi.purchasePackage(coherentsList.value[currentSelf.value].id - 1)
-                viewPointMap(localStorage.getItem('address'))
+                viewPointMap(localStorage.getItem('address').toLowerCase())
                 proxy.$confirm.hide()
                 showToast(t('modalConfirm.buySuccess'),)
             } catch (err) {
@@ -1346,11 +1349,11 @@ function clickPoint(pointInfo) {
     // toggleAttendPopup()
     clickPointInfo.value = pointInfo
     //console.log('點位信息', pointInfo)
-    if (!pointInfo.preAddress && pointInfo.address !== localStorage.getItem('address') && !pointInfo.address) {
+    if (!pointInfo.preAddress && pointInfo.address !== localStorage.getItem('address').toLowerCase() && !pointInfo.address) {
         showToast(t('modalConfirm.addressTipsSeven'))
         return
     }
-    if (pointInfo.address == localStorage.getItem('address')) {
+    if (pointInfo.address == localStorage.getItem('address').toLowerCase()) {
         //console.log('自己')
         toggleBuyPackageSelf()
         return
