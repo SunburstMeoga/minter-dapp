@@ -184,7 +184,7 @@ onMounted(() => {
   if (localStorage.getItem('language')) {
     proxy.$i18n.locale = localStorage.getItem('language')
   } else {
-    proxy.$i18n.locale = 'zh-hk' //默认繁中
+    proxy.$i18n.locale = 'en-us' //默认英文
   }
 })
 async function accountHasChanged() {
@@ -254,7 +254,7 @@ canvas {
   font-family: din-regular !important;
 }
 </style>
-<style  scoped>
+<style scoped>
 img {
   width: 100%;
   height: 100%;
