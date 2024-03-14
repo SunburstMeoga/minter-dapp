@@ -309,7 +309,7 @@ async function handleCopy(address) {
 }
 
 onMounted(() => {
-    // getMaxPackage(localStorage.getItem('address'))
+    getMaxPackage(localStorage.getItem('address'))
 })
 
 //獲取點位圖地址當前最高的配套圖片
