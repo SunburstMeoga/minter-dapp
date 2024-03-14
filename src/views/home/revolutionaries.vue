@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-full flex flex-col items-center justify-between text-primary-color pt-12">
+    <div class="w-full h-full flex flex-col items-center justify-between text-primary-color pt-12 overflow-scroll">
         <div class=" flex flex-col items-center justify-start">
             <div class="w-11/12 mb-8 animate__animated " :class="hasChange ? 'animate__fadeInLeft' : ''">
                 <module-title :titleWord="$t('menu.NFTRevolution')" />
@@ -75,7 +75,8 @@
                 <div class="flex justify-end items-center">
                     <div class="flex justify-end items-center text-gray-400">
                         <div v-for="(item, index) in socialMedia" :key="index">
-                            <div class="icon iconfont ml-4 active-white-color" :class="item.icon" style="font-size: 20px;">
+                            <div class="icon iconfont ml-4 active-white-color" :class="item.icon"
+                                style="font-size: 20px;">
                             </div>
                         </div>
                     </div>
@@ -131,13 +132,13 @@ defineProps({
 let contacts = computed(() => {
     return [
         {
-        title: t('footBar.connectUS'),
+            title: t('footBar.connectUS'),
 
-    },
-    {
-        title: t('footBar.feedback'),
-        router: '/personal/feedback'
-    },
+        },
+        {
+            title: t('footBar.feedback'),
+            router: '/personal/feedback'
+        },
     ]
 })
 let socialMedia = ref([{
