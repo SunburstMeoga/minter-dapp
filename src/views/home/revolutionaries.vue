@@ -74,7 +74,7 @@
                 </div>
                 <div class="flex justify-end items-center">
                     <div class="flex justify-end items-center text-gray-400">
-                        <div v-for="(item, index) in socialMedia" :key="index">
+                        <div v-for="(item, index) in socialMedia" :key="index" @click="toSocialMedia(item)">
                             <div class="icon iconfont ml-4 active-white-color" :class="item.icon"
                                 style="font-size: 20px;">
                             </div>
@@ -143,16 +143,16 @@ let contacts = computed(() => {
 })
 let socialMedia = ref([{
     icon: 'icon-discord',
-    url: ''
+    url: ' https://discord.gg/Dw5xUdEj'
 }, {
     icon: 'icon-telegram1',
-    url: ''
+    url: 'https://web.telegram.org/k/#@MinterXdao'
 }, {
     icon: 'icon-medium',
     url: ''
 }, {
-    icon: 'icon-tuite',
-    url: ''
+    icon: 'icon-tuite1',
+    url: 'https://x.com/Minter_XDao'
 }])
 let questionList = computed(() => {
     return [
@@ -165,6 +165,11 @@ const actions = ref([
     { text: '繁体中文', locale: 'zh-hk' },
     { text: 'English', locale: 'en-us' }
 ])
+
+function toSocialMedia(item) {
+    if (!item.url) return
+    window.open(item.url)
+}
 
 function toContactsPage(item) {
     if (!item.router) return

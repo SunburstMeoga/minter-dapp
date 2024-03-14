@@ -1,10 +1,10 @@
 @font-face {
   font-family: "iconfont";
   /* Project id 4089165 */
-  src: url('//at.alicdn.com/t/c/font_4089165_vutiark7jph.woff2?t=1705513174773') format('woff2'),
-    url('//at.alicdn.com/t/c/font_4089165_vutiark7jph.woff?t=1705513174773') format('woff'),
-    url('//at.alicdn.com/t/c/font_4089165_vutiark7jph.ttf?t=1705513174773') format('truetype'),
-    url('//at.alicdn.com/t/c/font_4089165_vutiark7jph.svg?t=1705513174773#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/c/font_4089165_zyyi9qja3gm.woff2?t=1710393455252') format('woff2'),
+    url('//at.alicdn.com/t/c/font_4089165_zyyi9qja3gm.woff?t=1710393455252') format('woff'),
+    url('//at.alicdn.com/t/c/font_4089165_zyyi9qja3gm.ttf?t=1710393455252') format('truetype'),
+    url('//at.alicdn.com/t/c/font_4089165_zyyi9qja3gm.svg?t=1710393455252#iconfont') format('svg');
 }
 
 .iconfont {
@@ -13,6 +13,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-tuite1:before {
+  content: "\e79c";
+}
+
+.icon-logo-google:before {
+  content: "\e9e0";
 }
 
 .icon-Refresh:before {
