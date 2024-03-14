@@ -29,7 +29,8 @@
                         <div class="w-6" v-if="tokenImg">
                             <img :src="tokenImg" alt="">
                         </div>
-                        <div v-else class="icon iconfont icon-yingyongshichang text-primary-color" style="font-size: 24px;">
+                        <div v-else class="icon iconfont icon-yingyongshichang text-primary-color"
+                            style="font-size: 24px;">
                         </div>
 
                         <div class="font-bold text-lg pl-2">{{ currency }}</div>
@@ -47,7 +48,8 @@
                         <div v-if="isExchange" class="pl-4 active-white-color" @click="$emit('exchange')">
                             {{ $t('exchange.title') }}
                         </div>
-                        <div v-if="isBuy" class="pl-4 active-white-color" @click="$emit('buy')">{{ $t('wallet.market') }}
+                        <div v-if="isBuy" class="pl-4 active-white-color" @click="$emit('buy')">{{ $t('wallet.market')
+                            }}
                         </div>
                         <div v-if="isRegister" class="pl-4 active-white-color" @click="$emit('register')">
                             {{ $t('wallet.register') }}
@@ -57,16 +59,23 @@
                     </div>
                 </div>
                 <div class="flex justify-between items-center text-menu-word text-sm mb-2">
-                    <div class="">{{ $t('wallet.balance') }}</div>
+                    <div class="flex justify-start items-center">
+                        <div class="mr-2">
+                            {{ $t('wallet.balance') }}
+                        </div>
+                        <div class="icon iconfont icon-shuaxin icon-refresh" v-if="showRefresh"
+                            @click="$emit('refreshBalance')" :class="loading ? 'animate-spin' : ''">
+                        </div>
+                    </div>
                     <div class="flex justify-end items-center"><span class="text-lg pr-1 font-bold text-red-500">{{
-                        Number(balance).toFixed(4)
-                    }} {{ currency }}</span> </div>
+                            Number(balance).toFixed(4)
+                        }} {{ currency }}</span> </div>
                 </div>
                 <div class="flex justify-between items-center text-menu-word text-sm mb-2" v-show="showLockBalance">
                     <div class="">{{ $t('wallet.frezeBalance') }}</div>
                     <div class="flex justify-end items-center"><span class="text-lg pr-1 font-bold text-red-500">{{
-                        Number(lockMT).toFixed(4)
-                    }} {{ currency }}</span> </div>
+                            Number(lockMT).toFixed(4)
+                        }} {{ currency }}</span> </div>
                 </div>
                 <!-- <div class="flex justify-between items-center text-menu-word text-sm mb-2">
                     <div class="">可用</div>
@@ -75,7 +84,8 @@
                 <div class="flex justify-between items-center text-menu-word text-sm" v-show="contranct">
                     <div class="">{{ $t('wallet.contract') }}</div>
                     <div class="flex justify-end items-center"> {{ FilterAddress(contranct) }} <span
-                            @click="handleAddToken(contranct)" class="icon iconfont icon-jiesuan ml-2 active-white-color">
+                            @click="handleAddToken(contranct)"
+                            class="icon iconfont icon-jiesuan ml-2 active-white-color">
                         </span></div>
                 </div>
             </div>
@@ -147,6 +157,14 @@ const cardProps = defineProps({
         type: String,
         default: ''
     },
+    showRefresh: {
+        type: Boolean,
+        default: false
+    },
+    loading: {
+        type: Boolean,
+        default: false
+    }
 })
 async function handleAddToken(contranct) {
 

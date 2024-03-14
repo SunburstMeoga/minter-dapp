@@ -13,7 +13,7 @@ const { t } = useI18n()
 let point = ref("")
 async function getInfor() {
     let playInfo = await playersInfo(localStorage.getItem('address'))
-    console.log(localStorage.getItem('address'))
+    // console.log(localStorage.getItem('address'))
 
     const { total_bt_withdraw, total_package_value, total_bt_reward, dynamic_earning_percentage_limit, last_out_total_package_value } = playInfo.player.dynamic_earning_percentage_limit
     // let incomeLimit = playInfo.player.dynamic_earning_percentage_limit.dynamic_earning_percentage_limit

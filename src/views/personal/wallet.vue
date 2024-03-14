@@ -32,8 +32,8 @@
                     :lockMT="lockMT" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="BT" :tokenImg="btImg" isExchange @exchange="handleWalletCardExchangeBT"
-                    :balance="palayBanalce.bt" />
+                <wallet-card currency="BT" showRefresh :loading="loadingBTBalance" @refreshBalance="refreshBalance"
+                    :tokenImg="btImg" isExchange @exchange="handleWalletCardExchangeBT" :balance="palayBanalce.bt" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card :currency="'RT' + ' (' + $t('order.bind') + ')'" :tokenImg="rtImg"
@@ -294,7 +294,7 @@ import usdtContractApi from '@/request/usdt'
 import pmtContractApi from '@/request/pmt'
 import mtContractApi from '@/request/mt'
 import mstContractApi from '@/request/mst'
-import { playersInfo, userNFT, staticRecords, btToUsdt, btToRt, rtBalance, transfersRT } from '@/request/api'
+import { playersInfo, userNFT, staticRecords, btToUsdt, btToRt, rtBalance, transfersRT, btBalance } from '@/request/api'
 import { config } from '@/const/config'
 import { showToast } from 'vant';
 import { number } from 'echarts';
@@ -364,6 +364,23 @@ let palayBanalce = ref({})
 let hasPackage = ref(false)
 let transferRTAmount = ref(null)
 let transferRTAddress = ref(null)
+let loadingBTBalance = ref(false)
+
+function refreshBalance() { //手动刷新BT余额
+    loadingBTBalance.value = true
+    btBalance({ address: localStorage.getItem('address') })
+        .then(res => {
+            loadingBTBalance.value = false
+            // console.log(res)
+            palayBanalce.value.bt = res.player.bt
+            showToast(t('toast.success'))
+        })
+        .catch(err => {
+            loadingBTBalance.value = false
+            // console.log(err)
+            showToast(t('toast.error'))
+        })
+}
 function handleExchangeRT() {
     router.push({
         path: '/personal/exchange'
