@@ -106,7 +106,7 @@
                         <div class="text-base"> {{ $t('toast.enterExchangeAmount') }} </div>
                         <div class="text-primary-color text-xs pl-1"> {{ $t('toast.handlingFee', {
                 handlingFee:
-                    currentExchangeTypeBT == 0 ? ' 10% ' : ' 0% '
+                    currentExchangeTypeBT == 1 ? ' 10% ' : ' 0% '
             }) }}</div>
                     </div>
                     <div class="w-full flex justify-between items-center mb-10">
@@ -259,7 +259,7 @@
                         <div class="text-base"> {{ $t('toast.enterExchangeAmount') }} </div>
                         <div class="text-primary-color text-xs pl-1"> {{ $t('toast.handlingFee', {
                 handlingFee:
-                    currentExchangeType == 0 ? ' 10% ' : ' 5% '
+                    currentExchangeType == 1 ? ' 10% ' : ' 5% '
             }) }} </div>
                     </div>
                     <div class="w-full flex justify-between items-center mb-10">
@@ -344,10 +344,10 @@ let exchangeAmountBT = ref('')
 // let exhangeTypes = ref([{ title: 'MT 兌換 USDT', type: 0 }, { title: 'MT 兌換 RT', type: 1 }])
 // let exhangeTypesBT = ref([{ title: 'BT 兌換 USDT', type: 0 }, { title: 'BT 兌換 RT', type: 1 }])
 let exhangeTypes = computed(() => {
-    return [{ title: `MT ${t('toast.exchangeTitle')} USD3`, type: 0 }, { title: `MT ${t('toast.exchangeTitle')} RT`, type: 1 }]
+    return [{ title: `MT ${t('toast.exchangeTitle')} RT`, type: 1 }, { title: `MT ${t('toast.exchangeTitle')} USD3`, type: 0 }]
 })
 let exhangeTypesBT = computed(() => {
-    return [{ title: `BT ${t('toast.exchangeTitle')} USD3`, type: 0 }, { title: `BT ${t('toast.exchangeTitle')} RT`, type: 1 }]
+    return [{ title: `BT ${t('toast.exchangeTitle')} RT`, type: 1 }, { title: `BT ${t('toast.exchangeTitle')} USD3`, type: 0 }]
 })
 let currentExchangeType = ref(0)
 let currentExchangeTypeBT = ref(0)
@@ -701,7 +701,7 @@ async function handleExchangeBT() {
     toggleExchangePopupBT()
 
     let contentWord
-    if (currentExchangeTypeBT.value == 0) {
+    if (currentExchangeTypeBT.value == 1) {
         // contentWord = `是否確認將 ${exchangeAmountBT.value} BT 兌換為 ${exchangeAmountBT.value * 0.9} USD3， 已扣除10% (${exchangeAmountBT.value * 0.1} BT) 手續費。 `
         contentWord = `${t('modalConfirm.confirmExchangeBTToUSD3', { amount: exchangeAmountBT.value, usd3: exchangeAmountBT.value * 0.9, handlingFee: exchangeAmountBT.value * 0.1 })}`
     } else {
@@ -719,7 +719,7 @@ async function handleExchangeBT() {
         confirmText: t('modalConfirm.confirm'),
         cancelText: t('modalConfirm.cancel'),
         onConfirm: async () => {
-            if (currentExchangeTypeBT.value == 0) {
+            if (currentExchangeTypeBT.value == 1) {
                 btToUsdt(data)
                     .then(res => {
                         proxy.$confirm.hide()
@@ -836,7 +836,7 @@ async function handleExchange() {
     const WEB3 = new Web3(window.ethereum)
     let amount = WEB3.utils.toWei((exchangeAmount.value).toString(), 'ether')
     let contentWord
-    if (currentExchangeType.value == 0) {
+    if (currentExchangeType.value == 1) {
         // contentWord = `是否確認將 ${exchangeAmount.value} MT 兌換為 ${exchangeAmount.value * 0.9} USD3， 已扣除10% (${exchangeAmount.value * 0.1} MT) 手續費。 `
         contentWord = `${t('modalConfirm.confirmExchangeMTToUSD3', { amount: exchangeAmount.value, usd3: exchangeAmount.value * 0.9, handlingFee: exchangeAmount.value * 0.1 })}`
     } else {
@@ -852,7 +852,7 @@ async function handleExchange() {
         confirmText: t('modalConfirm.confirm'),
         cancelText: t('modalConfirm.cancel'),
         onConfirm: async () => {
-            if (currentExchangeType.value == 0) {
+            if (currentExchangeType.value == 1) {
                 try {
                     await swapContractApi.swapMTForUSDT(amount)
                     proxy.$confirm.hide()
