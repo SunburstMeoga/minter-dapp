@@ -213,7 +213,7 @@ function onSelect(select) {
 async function getMaxPackage() {
     proxy.$loading.show()
     let result = await playersInfo(localStorage.getItem('address'))
-    //console.log(result)
+    // console.log(result)
     packageID.value = result.player.max_package_id
     active.value = result.player.max_package_id - 1
     let params = { perPage: 100000, status: 1, package_id: packageID.value }
@@ -384,12 +384,18 @@ async function isNotEnoughBalance(amount) {
     mtLockBalance = WEB3.utils.fromWei(mtLockBalance.toString(), 'ether')
     let pmtLockBalance = await pmtContractApi.getLockedAmount(localStorage.getItem('address'))
     pmtLockBalance = WEB3.utils.fromWei(pmtLockBalance.toString(), 'ether')
-    let balance = (parseInt(parseInt(mtBalance) - parseInt(mtLockBalance))) + (parseInt(pmtBalance) + parseInt(pmtLockBalance))
-    // console.log(balance, parseInt(amount), parseInt(mtBalance), parseInt(mtLockBalance), parseInt(pmtBalance))
-    if (parseInt(mtBalance) - parseInt(mtLockBalance) == 0) {
-        (parseInt(pmtBalance) + parseInt(pmtLockBalance)) < parseInt(amount)
-    }
-    return balance < parseInt(amount)
+    let balance = Number(mtBalance) - Number(mtLockBalance) + Number(pmtBalance) + Number(pmtLockBalance)
+    // console.log(balance,)
+    // console.log(Number(amount))
+    // console.log(Number(mtBalance))
+    // console.log(Number(mtLockBalance))
+    // console.log(Number(pmtBalance))
+    // console.log(Number(pmtLockBalance))
+    // console.log(balance < Number(amount))
+    // if (parseInt(mtBalance) - parseInt(mtLockBalance) == 0) {
+    //     (parseInt(pmtBalance) + parseInt(pmtLockBalance)) < parseInt(amount)
+    // }
+    return balance < Number(amount)
 }
 //點擊去抽獎
 function handleToRaffle(item, index) {
