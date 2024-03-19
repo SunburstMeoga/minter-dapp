@@ -461,7 +461,8 @@ const coherentsList = ref(coherents_list)
 let directReferrals = ref({})
 let searchAddress = ref(null)
 let rtBind = ref([])
-
+let parentAddress = ref(null)
+let topAddress = ref(localStorage.getItem('address'))
 onMounted(() => {
     // viewAddressPoint(window.ethereum.selectedAddress)
     // //console.log('document.domain', document.domain)
@@ -503,7 +504,10 @@ async function handleSearchAddress() {
 }
 
 async function handleBackPreAddress() {
+    // console.log(topAddress.value.toLowerCase(), (localStorage.getItem('address')).toLowerCase())
+    if (topAddress.value.toLowerCase() == (localStorage.getItem('address')).toLowerCase()) return
     isFinishPoint.value = false
+    // viewPointMap(parentAddress.value)
     viewPointMap(localStorage.getItem('address'))
 }
 function clickCurrentCoherent(item, index) {
@@ -1103,7 +1107,7 @@ function viewPointMap(address) {
     proxy.$loading.show()
     addressLeg(address)
         .then(res => {
-            //console.log('點位圖', res)
+            // console.log('點位圖', res)
             if (res.message.address && res.message.address.length == 1) {
                 proxy.$loading.hide()
                 proxy.$confirm.hide()
@@ -1136,6 +1140,9 @@ function viewPointMap(address) {
             }
 
             directReferrals.value = res.directReferrals
+            parentAddress.value = res.directReferrals.upper_address
+            topAddress.value = res.directReferrals.address
+            console.log(parentAddress.value, topAddress.value)
             proxy.$loading.hide()
             isFinishPoint.value = true
         })
