@@ -24,6 +24,13 @@
 import { ref, onMounted, getCurrentInstance } from 'vue'
 import { useRoute } from "vue-router"
 import { useI18n } from 'vue-i18n';
+import Web3 from "web3";
+import { generateNonce } from '@/utils/getNonce'
+import { login } from '@/request/api'
+import { showToast } from 'vant';
+import { userStore } from "@/stores/user";
+const userInfo = userStore()
+
 const { t } = useI18n()
 const route = useRoute()
 // let Star = ref({
@@ -189,6 +196,7 @@ onMounted(() => {
 })
 async function accountHasChanged() {
   window.ethereum.on('accountsChanged', (accounts) => {
+    console.log('account changed')
     proxy.$confirm.hide()
     proxy.$confirm.show({
       title: t('modalConfirm.accountChanageTitle'),
@@ -198,48 +206,55 @@ async function accountHasChanged() {
       onConfirm: () => {
         localStorage.removeItem('token')
         localStorage.removeItem('address')
-        location.reload()
+        proxy.$confirm.hide()
+        addressSign()
+        // location.reload()
       },
     })
   })
 }
 //钱包地址签名
-// async function addressSign() {
-//     proxy.$loading.show()
-//     const web3 = new Web3(window.ethereum)
-//     let params = {}
-//     const randomString =
-//         "Welcome to Minter\n\nPlease click to sign in and accept the Minter Terms of Service.\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nWallet address:\n" +
-//         window.ethereum.selectedAddress +
-//         "\n\nNonece:\n" +
-//         generateNonce()
-//     try {
-//         const signature = await web3.eth.personal.sign(randomString, window.ethereum.selectedAddress, '')
-//         params = { randomString: randomString, signature: signature }
-//     } catch (err) {
-//         proxy.$loading.hide()
-//         showToast('签名失败，请重试')
-//         return
-//     }
+async function addressSign() {
+  proxy.$loading.show()
+  const web3 = new Web3(window.ethereum)
+  let params = {}
+  const randomString =
+    "Welcome to Minter\n\nPlease click to sign in and accept the Minter Terms of Service.\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nWallet address:\n" +
+    window.ethereum.selectedAddress +
+    "\n\nNonece:\n" +
+    generateNonce()
+  try {
+    const signature = await web3.eth.personal.sign(randomString, window.ethereum.selectedAddress, '')
+    params = { randomString: randomString, signature: signature }
+    // console.log(signature)
+    proxy.$loading.hide()
+  } catch (err) {
+    proxy.$loading.hide()
+    console.log(err)
+    showToast('签名失败，请重试')
+    return
+  }
 
 
-//     login(params)
-//         .then(res => {
-//             //console.log(res)
-//             localStorage.setItem('token', res.access_token)
-//             localStorage.setItem('address', res.address)
-//             userInfo.changeAddress(res.address)
-//             proxy.$loading.hide()
-//             // showToast('已登录')
-//         })
-//         .catch(err => {
-//             proxy.$loading.hide()
-//             showToast('登录失败，请重试')
-//             //console.log(err)
-//         })
-//     // //console.log(signature)
+  login(params)
+    .then(res => {
+      // console.log(res)
+      localStorage.setItem('token', res.access_token)
+      localStorage.setItem('address', res.address)
+      userInfo.changeAddress(res.address)
+      proxy.$loading.hide()
+      location.reload()
+      // showToast('已登录')
+    })
+    .catch(err => {
+      console.log(err)
+      proxy.$loading.hide()
+      showToast('登录失败，请重试')
+      //console.log(err)
+    })
+  // //console.log(signature)
 
-// }
+}
 </script>
 <style>
 body {
