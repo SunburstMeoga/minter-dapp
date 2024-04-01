@@ -86,18 +86,18 @@
             {{ $t('coherents.totalReleased') }} <van-popover v-model:show="showPMTPopover" theme="dark"
               placement="bottom-start">
               <div class="text-xs p-2 text-left text-gray-400">
-                {{ $t('coherents.totalReleased') }}{{ Number(coherentInfo.type) * (6 / 10) }}PMT
+                {{ $t('coherents.totalReleased') }}{{ Number(coherentInfo.type - 5) * (6 / 10) }}PMT
               </div>
 
               <div class="text-xs p-2 text-left text-gray-400">
                 <!-- 购买成功之后即时释放{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT -->
-                {{ $t('coherents.buyAfterReleased') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT
+                {{ $t('coherents.buyAfterReleased') }}{{ Number(coherentInfo.type - 5) * (6 / 10) * (1 / 3) }}PMT
               </div>
               <div class="text-xs p-2 text-left text-gray-400">
-                {{ $t('coherents.24Released') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT
+                {{ $t('coherents.24Released') }}{{ Number(coherentInfo.type - 5) * (6 / 10) * (1 / 3) }}PMT
               </div>
               <div class="text-xs p-2 text-left text-gray-400">
-                {{ $t('coherents.48Released') }}{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT
+                {{ $t('coherents.48Released') }}{{ Number(coherentInfo.type - 5) * (6 / 10) * (1 / 3) }}PMT
               </div>
 
               <template #reference>
