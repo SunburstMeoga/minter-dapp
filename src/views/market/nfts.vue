@@ -151,6 +151,8 @@ import Web3 from "web3";
 import { userStore } from "@/stores/user";
 import pmtContractApi from '@/request/pmt'
 import mtContractApi from '@/request/mt'
+import { CopyText } from '@/utils/copyText'
+
 
 const { t } = useI18n()
 const router = useRouter()
