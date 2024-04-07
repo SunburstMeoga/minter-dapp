@@ -615,8 +615,15 @@ async function handleBuyButton(item, canBuy) {
                 proxy.$confirm.show({
                     title: t('modalConfirm.tips'),
                     content: '購買失敗，請重新購買。',
-                    showCancelButton: false,
+                    showCancelButton: true,
                     confirmText: t('modalConfirm.confirm'),
+                    cancelText: '複製錯誤信息',
+                    onCancel: async () => {
+                        console.log(err)
+                        await CopyText(JSON.stringify(err))
+                        proxy.$confirm.hide()
+                        showToast(t('toast.copySuccess'))
+                    },
                     onConfirm: () => {
                         proxy.$confirm.hide()
                         // toggleConfirmPayPopup()
