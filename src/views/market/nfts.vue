@@ -596,14 +596,18 @@ async function handleBuyButton(item, canBuy) {
                         title: t('modalConfirm.tips'),
                         content: '購買失敗，請重新購買。',
                         // content: `Token ID為${item.token_id}的NFT購買失敗，請重新購買。`,
-                        showCancelButton: true,
+                        showCancelButton: false,
                         confirmText: t('modalConfirm.confirm'),
-                        cancelText: '複製錯誤信息',
-                        onCancel: async () => {
-                            console.log(err)
-                            await CopyText(JSON.stringify(err))
+                        // cancelText: '複製錯誤信息',
+                        // onCancel: async () => {
+                        //     console.log(err)
+                        //     await CopyText(JSON.stringify(err))
+                        //     proxy.$confirm.hide()
+                        //     showToast(t('toast.copySuccess'))
+                        // },
+                        onConfirm: () => {
                             proxy.$confirm.hide()
-                            showToast(t('toast.copySuccess'))
+                            // toggleConfirmPayPopup()
                         },
                     });
                 }
@@ -615,15 +619,15 @@ async function handleBuyButton(item, canBuy) {
                 proxy.$confirm.show({
                     title: t('modalConfirm.tips'),
                     content: '購買失敗，請重新購買。',
-                    showCancelButton: true,
+                    showCancelButton: false,
                     confirmText: t('modalConfirm.confirm'),
-                    cancelText: '複製錯誤信息',
-                    onCancel: async () => {
-                        console.log(err)
-                        await CopyText(JSON.stringify(err))
-                        proxy.$confirm.hide()
-                        showToast(t('toast.copySuccess'))
-                    },
+                    // cancelText: '複製錯誤信息',
+                    // onCancel: async () => {
+                    //     console.log(err)
+                    //     await CopyText(JSON.stringify(err))
+                    //     proxy.$confirm.hide()
+                    //     showToast(t('toast.copySuccess'))
+                    // },
                     onConfirm: () => {
                         proxy.$confirm.hide()
                         // toggleConfirmPayPopup()
