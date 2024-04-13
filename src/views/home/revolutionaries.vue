@@ -163,7 +163,8 @@ let questionList = computed(() => {
 })
 const actions = ref([
     { text: '繁体中文', locale: 'zh-hk' },
-    { text: 'English', locale: 'en-us' }
+    { text: 'English', locale: 'en-us' },
+    { text: '한국어 번역', locale: 'co-so' }
 ])
 
 function toSocialMedia(item) {

@@ -22,8 +22,9 @@
                         :horizontal-content="wheelSettings.horizontalContent" :base-display="wheelSettings.baseDisplay"
                         :base-size="wheelSettings.baseSize" :base-display-indicator="wheelSettings.baseDisplayIndicator"
                         :base-display-shadow="wheelSettings.baseDisplayShadow"
-                        :base-background="wheelSettings.baseBackground" :wheel-result-index="wheelSettings.wheelResultIndex"
-                        @click="launchWheel" @wheel-end="wheelEndedCallback" @wheel-start="wheelStartedCallback">
+                        :base-background="wheelSettings.baseBackground"
+                        :wheel-result-index="wheelSettings.wheelResultIndex" @click="launchWheel"
+                        @wheel-end="wheelEndedCallback" @wheel-start="wheelStartedCallback">
                         <template #baseContent>
                             <div class="arrow-roullete" v-html="wheelSettings.baseHtmlContent" />
                         </template>
@@ -266,6 +267,7 @@ function wheelEndedCallback(evt) {
     if (evt) {
         isPrized.value = true
         prizeContent.value = items[wheelSettings.wheelResultIndex.value].name
+        console.log(items[wheelSettings.wheelResultIndex.value])
         let typeId = evt.typeId
         // switch (typeId) {
         //     case 1: prizeDetails.value = `恭喜获得【PMT收益加速】,奖励NFT的${evt.rewardPercentage}%,即${Number(nftPrice.value) * (Number(evt.rewardPercentage) / 100)}PMT，加速回本`
@@ -296,7 +298,15 @@ async function initRoulette() {
     //console.log('輪盤參數', res.roulettes)
     let obj = []
     res.roulettes.map((item, index) => {
-        let modifiedName = localStorage.getItem('language') == 'zh-hk' ? item.name.match(/.{1,3}/g).join('<br/>') : item.name_en.match(/.{2,4}/g).join('<br/>')
+        let modifiedName
+        switch (localStorage.getItem('language')) {
+            case 'zh-hk': modifiedName = item.name.match(/.{1,3}/g).join('<br/>')
+                break;
+            case 'en-us': modifiedName = item.name_en.match(/.{2,4}/g).join('<br/>')
+                break;
+            case 'co-so': modifiedName = item.name_ko.match(/.{2,4}/g).join('<br/>')
+                break;
+        }
         let backgroundColor
         if (item.prize_type_id == 1) {
             backgroundColor = `linear-gradient(180deg, rgba(9,72,121,1) 0%, rgba(0,212,255,1) 100%)`
@@ -307,9 +317,18 @@ async function initRoulette() {
         } else if (item.prize_type_id == 4) {
             backgroundColor = `linear-gradient(180deg, rgba(55,145,83,1) 0%, rgba(102,215,201,1) 79%)`
         }
+        let objName
+        switch (localStorage.getItem('language')) {
+            case 'zh-hk': objName = item.name
+                break;
+            case 'en-us': objName = item.name_en
+                break;
+            case 'co-so': objName = item.name_ko
+                break;
+        }
         obj.push({
             id: item.id,
-            name: localStorage.getItem('language') == 'zh-hk' ? item.name : item.name_en,
+            name: objName,
             htmlContent: modifiedName,
             background: backgroundColor,
             typeId: item.prize_type_id,

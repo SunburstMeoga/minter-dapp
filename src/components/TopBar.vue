@@ -231,7 +231,8 @@ const value = ref('')
 const size = ref(240)
 const actions = ref([
     { text: '繁体中文', locale: 'zh-hk' },
-    { text: 'English', locale: 'en-us' }
+    { text: 'English', locale: 'en-us' },
+    { text: '한국어 번역', locale: 'co-so' }
 ])
 
 
@@ -399,7 +400,7 @@ const { proxy } = getCurrentInstance()
 function changeLanguage(actions) {
     //console.log(actions)
     proxy.$i18n.locale = actions.locale
-    //console.log(proxy.$i18n.locale)
+    console.log(proxy.$i18n.locale)
     localStorage.setItem('language', actions.locale)
     if (router.currentRoute.value.fullPath == '/personal/wallet') {
         location.reload()
