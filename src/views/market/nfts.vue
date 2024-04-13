@@ -151,6 +151,8 @@ import Web3 from "web3";
 import { userStore } from "@/stores/user";
 import pmtContractApi from '@/request/pmt'
 import mtContractApi from '@/request/mt'
+import { CopyText } from '@/utils/copyText'
+
 
 const { t } = useI18n()
 const router = useRouter()
@@ -500,7 +502,7 @@ async function handleBuyButton(item, canBuy) {
     }
 
     let isApprovedAll
-    try { //检查pmt对pmt_purchase的授权状态
+    try { //检查mt对pmt_purchase的授权状态
         isApprovedAll = await minterContractApi.allowance(localStorage.getItem('address'), config.nfts_marketplace_addr)
         proxy.$loading.hide()
     } catch (err) {
@@ -550,6 +552,54 @@ async function handleBuyButton(item, canBuy) {
         });
         return
     }
+    if (Number(isApprovedAll) !== 0) { //當前金額授權金額不足
+        let WEB3 = new Web3(window.ethereum)
+        // let MTApprovedAmount = await mtContractApi.balanceOf(localStorage.getItem('address'))
+        let MTApprovedAmount = WEB3.utils.fromWei(isApprovedAll.toString(), 'ether')
+        // console.log(isApprovedAll)
+        // console.log(Number(MTApprovedAmount) < Number(item.price))
+        if (Number(MTApprovedAmount) < Number(item.price)) {
+
+            proxy.$confirm.show({
+                title: "授权金额不足",
+                content: t('modalConfirm.pleaseAuthorize', { type: 'MT' }),
+                showCancelButton: false,
+                confirmText: t('modalConfirm.toAuthorize'),
+                onConfirm: () => {
+                    // proxy.$loading.show()
+                    // pmt对nft授權
+                    minterContractApi.approve(config.nfts_marketplace_addr)
+                        .then(res => {
+                            //console.log(res)
+                            proxy.$loading.hide()
+                            proxy.$confirm.hide()
+                            // proxy.$loading.hide()
+                            showToast(t('modalConfirm.successAuthorize'))
+
+                        })
+                        .catch(err => {
+                            //console.log(err)
+                            proxy.$loading.hide()
+                            proxy.$confirm.hide()
+                            //console.log('err', err)
+                            proxy.$confirm.show({
+                                title: t('modalConfirm.tips'),
+                                // content: 'MT授權失敗，請重新授權',
+                                content: `${t('modalConfirm.authorizeFail', { type: 'MT' })}`,
+                                showCancelButton: false,
+                                confirmText: t('modalConfirm.confirm'),
+                                onConfirm: () => {
+                                    proxy.$confirm.hide()
+                                    // toggleConfirmPayPopup()
+                                },
+                            });
+                        })
+                },
+            });
+            return
+        }
+        // return
+    }
     proxy.$loading.hide()
     proxy.$confirm.hide()
     proxy.$confirm.show({
@@ -596,6 +646,13 @@ async function handleBuyButton(item, canBuy) {
                         // content: `Token ID為${item.token_id}的NFT購買失敗，請重新購買。`,
                         showCancelButton: false,
                         confirmText: t('modalConfirm.confirm'),
+                        // cancelText: '複製錯誤信息',
+                        // onCancel: async () => {
+                        //     console.log(err)
+                        //     await CopyText(JSON.stringify(err))
+                        //     proxy.$confirm.hide()
+                        //     showToast(t('toast.copySuccess'))
+                        // },
                         onConfirm: () => {
                             proxy.$confirm.hide()
                             // toggleConfirmPayPopup()
@@ -612,6 +669,13 @@ async function handleBuyButton(item, canBuy) {
                     content: '購買失敗，請重新購買。',
                     showCancelButton: false,
                     confirmText: t('modalConfirm.confirm'),
+                    // cancelText: '複製錯誤信息',
+                    // onCancel: async () => {
+                    //     console.log(err)
+                    //     await CopyText(JSON.stringify(err))
+                    //     proxy.$confirm.hide()
+                    //     showToast(t('toast.copySuccess'))
+                    // },
                     onConfirm: () => {
                         proxy.$confirm.hide()
                         // toggleConfirmPayPopup()
