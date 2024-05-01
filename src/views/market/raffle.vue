@@ -308,6 +308,8 @@ async function initRoulette() {
                 break;
             case 'ja': modifiedName = item.name_ja.match(/.{2,4}/g).join('<br/>')
                 break;
+            default:
+                modifiedName = item.name_en.match(/.{2,4}/g).join('<br/>')
         }
         let backgroundColor
         if (item.prize_type_id == 1) {
@@ -329,6 +331,8 @@ async function initRoulette() {
                 break;
             case 'ja': objName = item.name_ja
                 break;
+            default:
+                objName = item.name_en
         }
         obj.push({
             id: item.id,
