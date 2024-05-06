@@ -391,7 +391,7 @@ export default {
 
     referralBonusOne: "推薦福利RT收益率為：0.5%，1%，3%，6%，12%。",
     referralBonusTwo: "推薦福利直接綁定到當前地址，不能轉給其他用戶",
-    referralBonusThree: "每月7日0點清零上個月的綁定RT，1-7日產生的RT值在下個月的7日清零。",
+    referralBonusThree: "每月7日0點(UTC時間)清零上個月的綁定RT，1-7日產生的RT值在下個月的7日清零。",
     referralBonusFour: "用戶可以配合正常RT一起購買配套。",
     referralBonusFive: "不計算進收益上限內。",
 

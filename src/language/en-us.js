@@ -406,7 +406,7 @@ export default {
 
     referralBonusOne: "Referral Bonus RT yields are: 0.5%, 1%, 3%, 6%, 12%.",
     referralBonusTwo: "Referral Bonus is directly bound to the current address and cannot be transferred to other users.",
-    referralBonusThree: "The RT(Bind) of the previous month is cleared at 0:00 on the 7th of each month, and the RT values generated from the 1st to the 7th are cleared on the 7th of the next month.",
+    referralBonusThree: "The RT(Bind) of the previous month is cleared at 0:00 (UTC time) on the 7th of each month, and the RT values generated from the 1st to the 7th are cleared on the 7th of the next month.",
     referralBonusFour: "Users can use MUSD and ordinary RT (RT that is not bound to an address and can transfer money) to purchase packages.",
     referralBonusFive: "Not included in the income cap limit.",
 

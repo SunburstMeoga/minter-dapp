@@ -391,7 +391,7 @@ export default {
 
         referralBonusOne: "권장 복지 RT 수익률은 0.5%, 1%, 3%, 6%, 12%입니다.",
         referralBonusTwo: "추천 혜택은 현재 주소에 직접 귀속되며, 다른 사용자에게 양도할 수 없습니다.",
-        referralBonusThree: "전월 바운드 RT는 매월 7일 0시에 클리어되며, 1일부터 7일까지 생성된 RT값은 다음달 7일 클리어됩니다.",
+        referralBonusThree: "전월 바운드 RT는 매월 7일 0시에 클리어되며, 1일부터 7일까지(UTC 시간) 생성된 RT값은 다음달 7일 클리어됩니다.",
         referralBonusFour: "사용자는 일반 RT와 함께 패키지를 구매할 수 있습니다.",
         referralBonusFive: "소득한도에 포함되지 않습니다.",
 

@@ -391,7 +391,7 @@ export default {
 
         referralBonusOne: "推奨される福祉 RT 利回りは、0.5%、1%、3%、6%、12% です。",
         referralBonusTwo: "推奨特典は現在のアドレスに直接関連付けられており、他のユーザーに譲渡することはできません。",
-        referralBonusThree: "前月の拘束RTは毎月7日0時にクリアされ、1日から7日までに生成されたRT値は翌月7日にクリアされます。",
+        referralBonusThree: "前月の拘束RTは毎月7日0時（UTC時間）にクリアされ、1日から7日までに生成されたRT値は翌月7日にクリアされます。",
         referralBonusFour: "ユーザーは通常のRTと合わせてパッケージを購入することができます。",
         referralBonusFive: "所得制限には含まれません。",
 
