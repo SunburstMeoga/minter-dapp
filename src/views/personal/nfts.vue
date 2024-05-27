@@ -52,7 +52,7 @@
                 <nft-card :nftImg="item.nftImg" :price="item.price" :tokenID="item.token_id" showToken
                     @handleListed="handleListed(item, index)" @handleCancel="handleCancelList(item)"
                     :showCancelButton="item.is_listed && !item.showOperting" :showOperting="item.showOperting"
-                    :showListedButton="!item.is_listed && !item.showOperting" />
+                    :showListedButton="!item.is_listed && !item.showOperting && item.isSellOffPeriod" :showCountDown="!item.isSellOffPeriod" :seconds="item.seconds"    @timeUp="handleTimeUp(item)"/>
             </div>
         </div>
         <div v-if="saleables.length == 0 && currentType == 2" class="text-white font-bold mt-20 text-center">
@@ -182,7 +182,9 @@ function getUserCanSaleNFT() {
             proxy.$loading.hide()
             saleables.value = res.nft_token_ids
             if (saleables.value.length !== 0) {
-                saleables.value.map(item => {
+                saleables.value.map(async item => {
+                    let time = await nftContractApi.sellOffPeriod(item.token_id)
+                    item.seconds = time
                     item.is_listed = false
                     item.showOperting = false
                     if (item.token_type == 1) {
@@ -200,6 +202,13 @@ function getUserCanSaleNFT() {
                     if (item.token_type == 5) {
                         item.nftImg = nftFive
                     }
+                    if (Number(time) > parseInt(new Date().getTime() / 1000)) {
+                        item.isSellOffPeriod = false
+                    } else {
+                        item.isSellOffPeriod = true
+                        // time = Number(time) > parseInt(new Date().getTime() / 1000)
+                    }
+                    console.log(item.isSellOffPeriod)
                 })
             }
             //console.log('可出售列表', saleables.value)
