@@ -173,7 +173,7 @@ export default {
     promiseCard: '承諾卡',
     onSale: '正在掛單',
     all: '全部',
-    sale: '掛單',
+    sale: '可掛單',
     cancleSale: '取消掛單',
     gift: '贈送',
     coherent: '鑄造',
