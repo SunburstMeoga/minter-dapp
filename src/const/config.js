@@ -41,14 +41,14 @@ import pmt_abi from './PreMintToken.json'
 // }
 
 const config = { // pre-pro
-  USDToken_addr: '0xA6afb1F4dbC92C1019bd612D15b164AfD3caEf72',
-  pmt_addr: '0xafb580053E0c6CE5A40397EFA233D7D7ec14Ed3D',
-  mt_addr: '0xA2fd1BDA015e528c073eCB839536D4075826f717',
-  mst_addr: '0xeb888048De96a814617954C30f2Ec176EBf34F86',
-  pmt_purchase_addr: '0x61ABC490543842E151C82633399e0ffb3C6B37B9',
-  minter_collection: '0x3A17ADd06C53A2e9a100211A93d18E6432Bb5bB4',
-  nfts_marketplace_addr: '0x9576d7b31e1F4F0e8020f4D05Eed595798E0859e',
-  swap_addr: '0x5C84f9D0cCB9360dc4064e95fF8447FE81E3fEd6',
+  USDToken_addr: '0xCD0e0d91f99E1A74E7d6ab9652c1c85e08DcBCD7',
+  pmt_addr: '0xd7Cf97E9D881D225012eC648aaF8238708DCcca6',
+  mt_addr: '0xBFeEE7dD4e4bDEEa3e9586d7ead478333E5e88b6',
+  mst_addr: '0xc5d7bEE94cB70c2eD02Dcf16805483351F4F7C2b',
+  pmt_purchase_addr: '0x9D1913e02486000de8e58b0b370a88134a3a67d9',
+  minter_collection: '0x4194CFeFaEa7406CF75ed14ac91e767eAa4fea97',
+  nfts_marketplace_addr: '0x9123eD263aB2AE24D26c7be68838Df0589D3a334',
+  swap_addr: '0x1BabeDaaAD9Aa67989E3F1B6a593130CDfb92132',
 
   nfts_collection_addr: '0x3848027E5728Fd927791c065b68684e2EBf4fc2a',
 
