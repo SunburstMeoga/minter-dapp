@@ -60,6 +60,13 @@
             <!-- {{ opertingType }} -->
           </div>
         </div>
+
+        <div class="flex justify-center items-center mt-2 active-primary-color" v-show="showCountDown"
+          @click="$emit('handleBuyButton')">
+          <div class="w-full py-1 rounded-full text-center disable-button">
+            {{ timeContent }}
+          </div>
+        </div>
       </div>
     </div>
 
@@ -75,11 +82,17 @@ import nftFour from '@/assets/images/6000.png'
 import nftFive from '@/assets/images/20000.png'
 import { showToast } from 'vant'
 import { useI18n } from 'vue-i18n'
+import { onMounted,onUnmounted,defineEmits,defineProps } from 'vue'
 const { t } = useI18n()
+
 const nftProps = defineProps({
   canBuy: {
     type: Boolean,
     default: true
+  },
+  showCountDown: {
+    type: Boolean,
+    default: false
   },
   showPrice: {
     type: Boolean,
@@ -136,12 +149,50 @@ const nftProps = defineProps({
   showToken: {
     type: Boolean,
     default: false
+  },
+  seconds: {
+    type: BigInt,
+    default: parseInt(new Date().getTime() / 1000)
   }
 })
+let timeContent = ref('-:-:-:-')
+let timer;
+const emits = defineEmits(['timeUp']);
 function handleOperting() {
   showToast(t('toast.operating'))
   return
 }
+function countDown() {
+  let time = Number(nftProps.seconds) - parseInt(new Date().getTime() / 1000)
+  // console.log(time)
+  let count = ''
+  if (time > 0) {
+    let d = parseInt(time / (24 * 60 * 60))
+    d = d < 10 ? "0" + d : d
+    let h = parseInt(time / (60 * 60) % 24);
+    h = h < 10 ? "0" + h : h
+    let m = parseInt(time / 60 % 60);
+    m = m < 10 ? "0" + m : m
+    let s = parseInt(time % 60);
+    s = s < 10 ? "0" + s : s
+    count = d + ':' + h + ':' + m + ':' + s
+  } else {
+    clearInterval(timer);
+      emits('timeUp'); // 触发 timeUp 事件通知父组件
+  }
+  timeContent.value = count
+  // console.log(timeContent.value)
+}
+onMounted(() => {
+  timer = setInterval(() => {
+    // timeContent.value++;
+    countDown()
+  }, 1000);
+})
+onUnmounted(() => {
+  // 在组件卸载时清除定时器
+  clearInterval(timer);
+});
 // function getNFTImage() {  
 //   if (nftProps.nftTokenType == 1) {
 //     nftImg

@@ -24,7 +24,7 @@
                 :key="index">
                 <nft-card :nftImg="item.nftImg" :showCheckbox="false" :price="item.price" :tokenID="item.token_id"
                     :showOperting="item.showOperting" :showCancelButton="item.is_listed && !item.showOperting"
-                    :showListedButton="!item.is_listed && !item.showOperting" showToken
+                    :showListedButton="!item.is_listed && !item.showOperting && item.isSellOffPeriod" showToken :showCountDown="!item.isSellOffPeriod" :seconds="item.seconds"    @timeUp="handleTimeUp(item)"
                     @handleListed="handleListed(item, index)" @handleCancel="handleCancelList(item, index)" />
             </div>
         </div>
@@ -114,6 +114,11 @@ function onLoad() {
         }
     }, 1000);
 }
+//倒计时结束
+function handleTimeUp(item) {
+    item.isSellOffPeriod = true
+    // console.log('倒计时结束',item)
+}
 //獲取用戶所有的NFT
 async function getAllNFT() {
     proxy.$loading.show()
@@ -132,9 +137,10 @@ async function getAllNFT() {
             nftsDatas.value = res.nft_token_ids
             if (nftsDatas.value.length !== 0) {
                 nftsDatas.value.map(async item => {
-                    // let time = await nftContractApi.sellOffPeriod(item.token_id)
-                    // //console.log('出售時間時間戳', Number(time))
-                    // //console.log('現在時間時間戳', parseInt(new Date().getTime() / 1000))
+                    let time = await nftContractApi.sellOffPeriod(item.token_id)
+                    item.seconds = time
+                    // console.log('出售時間時間戳', Number(time))
+                    // console.log('現在時間時間戳', parseInt(new Date().getTime() / 1000))
                     item.showOperting = false
                     if (item.token_type == 1) {
                         item.nftImg = nftOne
@@ -151,14 +157,16 @@ async function getAllNFT() {
                     if (item.token_type == 5) {
                         item.nftImg = nftFive
                     }
-                    // if (Number(time) > parseInt(new Date().getTime() / 1000)) {
-                    //     item.isSellOffPeriod = true
-                    // } else {
-                    //     item.isSellOffPeriod = false
-                    // }
+                    if (Number(time) > parseInt(new Date().getTime() / 1000)) {
+                        item.isSellOffPeriod = false
+                    } else {
+                        item.isSellOffPeriod = true
+                        // time = Number(time) > parseInt(new Date().getTime() / 1000)
+                    }
+                    console.log(item.isSellOffPeriod)
                 })
             }
-            //console.log('全部', res)
+            console.log('全部', res)
         })
         .catch(err => {
             proxy.$loading.hide()
