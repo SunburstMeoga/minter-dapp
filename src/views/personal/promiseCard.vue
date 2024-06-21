@@ -26,7 +26,8 @@
                     </div>
                     <div class="flex justify-between items-center mb-3">
                         <div>{{ $t('opertingLog.distributionOfPrizes') }}:</div>
-                        <div class="">{{ item.is_rewarded ? $t('opertingLog.awarded') : $t('opertingLog.noAward') }}</div>
+                        <div class="">{{ item.is_rewarded ? $t('opertingLog.awarded') : $t('opertingLog.noAward') }}
+                        </div>
                     </div>
                     <div v-show="item.showMore">
                         <!-- <div class="flex justify-between items-center mb-3">
@@ -58,12 +59,14 @@
 
                         <div class="flex justify-between items-center mb-3">
                             <div>{{ $t('promiseCard.distributionTime') }}:</div>
-                            <div class="">{{ item.reward_date ? FilterTime(item.reward_date) : $t('opertingLog.noAward') }}
+                            <div class="">{{ item.reward_date ? FilterTime(item.reward_date) : $t('opertingLog.noAward')
+                                }}
                             </div>
                         </div>
                         <div class="flex justify-between items-center mb-3">
                             <div>{{ $t('promiseCard.rules') }}:</div>
-                            <div class="">{{ $t('promiseCard.rulesContent', { package: Number(item.max_package.price) }) }}
+                            <div class="">{{ $t('promiseCard.rulesContent', { package: Number(item.max_package.price) })
+                                }}
                             </div>
                         </div>
                         <div class="flex justify-between items-center mb-3">
@@ -91,7 +94,7 @@
                                 <div class="flex justify-between items-center mb-1">
                                     <div>{{ $t('promiseCard.isRelease') }}:</div>
                                     <div class="">{{ _item.is_minted ? $t('promiseCard.released') :
-                                                                            $t('promiseCard.unpublished') }}</div>
+                $t('promiseCard.unpublished') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -124,11 +127,13 @@ const { proxy } = getCurrentInstance()
 let cardList = ref([])
 let unusedList = ref([])
 let utilized = ref([])
+let expired = ref([])
 let active = ref(0)
 let tabsList = computed(() => {
     return [
         { title: t('promiseCard.unused'), value: 0 },
-        { title: t('promiseCard.utilized'), value: 1 }
+        { title: t('promiseCard.utilized'), value: 1 },
+        { title: t('promiseCard.expired'), value: 2 },
     ]
 })
 onMounted(() => {
@@ -147,14 +152,27 @@ function getStaticRecords() {
     let params = { prize_type_id: 3, perPage: 100000 }
     staticRecords(params)
         .then(res => {
-            //console.log(res)
+            console.log(res)
             proxy.$loading.hide()
             // cardList.value = res.records
+            const currentDate = new Date();
+            // 获取 Unix 时间戳（毫秒）
+            const currentTimestampMilliseconds = currentDate.getTime();
+            // 转换为 Unix 时间戳（秒）
+            const currentTimestampSeconds = Math.floor(currentTimestampMilliseconds / 1000);
+            console.log(currentTimestampSeconds);
             res.records.map(item => {
+
+                const date = new Date(item.promise_card_valid_date)
+                const timestampMilliseconds = date.getTime();
+                const timestampSeconds = Math.floor(timestampMilliseconds / 1000);
+                console.log(timestampSeconds)
                 if (!item.is_rewarded) {
                     unusedList.value.push(item)
-                } else if (item.is_rewarded) {
+                } else if (item.is_rewarded && timestampSeconds > currentTimestampSeconds) {
                     utilized.value.push(item)
+                } else if(!item.is_rewarded && timestampSeconds < currentTimestampSeconds) {
+                    expired.value.push(item)
                 }
             })
             cardList.value = unusedList.value
