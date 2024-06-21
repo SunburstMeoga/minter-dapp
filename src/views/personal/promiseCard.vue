@@ -169,7 +169,7 @@ function getStaticRecords() {
                 const timestampMilliseconds = date.getTime();
                 const timestampSeconds = Math.floor(timestampMilliseconds / 1000);
                 console.log(!item.is_rewarded && timestampSeconds < currentTimestampSeconds)
-                if (!item.is_rewarded) {
+                if (!item.is_rewarded && timestampSeconds > currentTimestampSeconds) {
                     unusedList.value.push(item)
                 }
                 if (item.is_rewarded && timestampSeconds > currentTimestampSeconds) {
