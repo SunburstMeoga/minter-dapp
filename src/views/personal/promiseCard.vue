@@ -143,8 +143,10 @@ function handleTabs(tabs) {
     //console.log(tabs)
     if (tabs.name == 0) {
         cardList.value = unusedList.value
-    } else {
+    } else if(tabs.name == 1) {
         cardList.value = utilized.value
+    } else if(tabs.name == 2) {
+        cardList.value = expired.value
     }
 }
 function getStaticRecords() {
@@ -166,14 +168,17 @@ function getStaticRecords() {
                 const date = new Date(item.promise_card_valid_date)
                 const timestampMilliseconds = date.getTime();
                 const timestampSeconds = Math.floor(timestampMilliseconds / 1000);
-                console.log(timestampSeconds)
+                console.log(!item.is_rewarded && timestampSeconds < currentTimestampSeconds)
                 if (!item.is_rewarded) {
                     unusedList.value.push(item)
-                } else if (item.is_rewarded && timestampSeconds > currentTimestampSeconds) {
+                }
+                if (item.is_rewarded && timestampSeconds > currentTimestampSeconds) {
                     utilized.value.push(item)
-                } else if(!item.is_rewarded && timestampSeconds < currentTimestampSeconds) {
+                }
+                if (!item.is_rewarded && timestampSeconds < currentTimestampSeconds) {
                     expired.value.push(item)
                 }
+                console.log(expired.value)
             })
             cardList.value = unusedList.value
             // cardList.value.map(item => {
