@@ -172,7 +172,7 @@ function getStaticRecords() {
                 if (!item.is_rewarded && timestampSeconds > currentTimestampSeconds) {
                     unusedList.value.push(item)
                 }
-                if (item.is_rewarded && timestampSeconds > currentTimestampSeconds) {
+                if (item.is_rewarded) {
                     utilized.value.push(item)
                 }
                 if (!item.is_rewarded && timestampSeconds < currentTimestampSeconds) {
