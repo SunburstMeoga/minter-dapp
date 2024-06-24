@@ -1,7 +1,8 @@
 <template>
     <div class="text-primary-color pt-12">
         <div class="pt-2">
-            <div class="w-11/12 mr-auto ml-auto text-right text-gray-500 ">{{$t('wallet.balance')}}(PMT:{{pmtBalance}}, MT:{{mtBalance}})</div>
+            <div class="w-11/12 mr-auto ml-auto text-right text-red-500 ">{{ $t('wallet.balance') }}(PMT:{{ pmtBalance }},
+                MT:{{ mtBalance }})</div>
             <div class="w-11/12 mr-auto ml-auto mt-4 flex justify-between items-center">
                 <div>
                     <module-title titleWord="NFTs" />

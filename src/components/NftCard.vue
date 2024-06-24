@@ -9,7 +9,7 @@
       <div class="p-2 bg-nft-cover">
         <div class="flex justify-between items-cente mb-2" v-show="showToken">
           <!-- <div class="text-primary-color">Minter</div> -->
-          <div class="text-xs text-gray-500"># {{ tokenID }}</div>
+          <div class="text-xs text-red-500"># {{ tokenID }}</div>
         </div>
         <div class="flex justify-between items-cente mb-2">
           <div class="text-primary-color font-bold text-center w-full">Minter</div>
@@ -82,7 +82,7 @@ import nftFour from '@/assets/images/6000.png'
 import nftFive from '@/assets/images/20000.png'
 import { showToast } from 'vant'
 import { useI18n } from 'vue-i18n'
-import { onMounted,onUnmounted,defineEmits,defineProps } from 'vue'
+import { onMounted, onUnmounted, defineEmits, defineProps } from 'vue'
 const { t } = useI18n()
 
 const nftProps = defineProps({
@@ -178,7 +178,7 @@ function countDown() {
     count = d + ':' + h + ':' + m + ':' + s
   } else {
     clearInterval(timer);
-      emits('timeUp'); // 触发 timeUp 事件通知父组件
+    emits('timeUp'); // 触发 timeUp 事件通知父组件
   }
   timeContent.value = count
   // console.log(timeContent.value)
