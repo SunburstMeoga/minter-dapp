@@ -457,6 +457,7 @@ export default {
     released: "已發放",
     unpublished: "未發放",
     utilized: '已使用',
-    unused: '未使用'
+    unused: '未使用',
+    expired: '已过期',
   }
 }

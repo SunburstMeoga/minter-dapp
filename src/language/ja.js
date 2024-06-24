@@ -457,6 +457,7 @@ export default {
         released: "発行されました",
         unpublished: "発行されまん",
         utilized: '使用済み',
-        unused: '未使用'
+        unused: '未使用',
+        expired: '期限切れ',
     }
 }

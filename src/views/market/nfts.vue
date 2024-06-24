@@ -1,6 +1,20 @@
 <template>
     <div class="text-primary-color pt-12">
         <div class="pt-2">
+            <div
+                class="w-11/12 mr-auto ml-auto text-right text-red-500 font-bold text-xs flex justify-end items-center">
+
+                {{ $t('wallet.balance')
+                }} PMT:{{ pmtBalance }} <br>
+                MT:{{ mtBalance }}
+                <div>
+                    <div class="ml-2 flex justify-center items-center active-primary-color" @click="refreshBalance">
+                        <div class="icon iconfont icon-shuaxin icon-refresh"
+                            :class="loadingBalance ? 'animate-spin' : ''">
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="w-11/12 mr-auto ml-auto mt-4 flex justify-between items-center">
                 <div>
                     <module-title titleWord="NFTs" />
@@ -171,9 +185,12 @@ let tokenID = ref(null)
 let timer = ref(null)
 let active = ref(0)
 let loading = ref(false)
+let loadingBalance = ref(false)
 let prizeIndex = ref(null)
 let nftPrice = ref(null)
 let sortDesc = ref(null)
+let pmtBalance = ref('')
+let mtBalance = ref('')
 // let actions = ref([
 //     { text: '价格由高到低', value: true, index: 0 },
 //     { text: '价格由低到高', value: false, index: 1 }
@@ -189,8 +206,35 @@ const userInfo = userStore()
 
 onMounted(() => {
     getMaxPackage()
+    getPMTBalance()
+    getMTBalance()
 })
 
+async function getPMTBalance() {
+    let balance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
+    let WEB3 = new Web3(window.ethereum)
+    let result = WEB3.utils.fromWei(balance.toString(), 'ether')
+    console.log('pmt', result)
+    pmtBalance.value = Number(result).toFixed(4)
+    loadingBalance.value = false
+    // return balance
+}
+async function getMTBalance() {
+    let balance = await mtContractApi.balanceOf(localStorage.getItem('address'))
+    let WEB3 = new Web3(window.ethereum)
+    let result = WEB3.utils.fromWei(balance.toString(), 'ether')
+    //console.log('mt', result)
+    mtBalance.value = Number(result).toFixed(4)
+    loadingBalance.value = false
+    // return balance
+}
+
+
+function refreshBalance() {
+    loadingBalance.value = true
+    getPMTBalance()
+    getMTBalance()
+}
 //点击tab栏
 function clickTab(tab) {
     // console.log(tab.name)
@@ -629,6 +673,8 @@ async function handleBuyButton(item, canBuy) {
                             item.showToRaffle = true
                             prizeIndex.value = raffleResult.roulette_record.roulette_id
                             nftPrice.value = raffleResult.roulette_record.nft_price
+                            getPMTBalance()
+                            getMTBalance()
                             //console.log(prizeIndex.value, nftPrice.value)
                             clearInterval(timer)
                         }
