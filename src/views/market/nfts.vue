@@ -1,8 +1,20 @@
 <template>
     <div class="text-primary-color pt-12">
         <div class="pt-2">
-            <div class="w-11/12 mr-auto ml-auto text-right text-red-500 ">{{ $t('wallet.balance') }}(PMT:{{ pmtBalance }},
-                MT:{{ mtBalance }})</div>
+            <div
+                class="w-11/12 mr-auto ml-auto text-right text-red-500 font-bold text-xs flex justify-end items-center">
+                <div>
+                    <div class="mr-2 flex justify-center items-center active-primary-color" @click="refreshBalance">
+                        <div class="icon iconfont icon-shuaxin icon-refresh"
+                            :class="loadingBalance ? 'animate-spin' : ''">
+                        </div>
+                    </div>
+                </div>
+                {{ $t('wallet.balance')
+                }}(PMT:{{
+                        pmtBalance }},
+                MT:{{ mtBalance }})
+            </div>
             <div class="w-11/12 mr-auto ml-auto mt-4 flex justify-between items-center">
                 <div>
                     <module-title titleWord="NFTs" />
@@ -173,6 +185,7 @@ let tokenID = ref(null)
 let timer = ref(null)
 let active = ref(0)
 let loading = ref(false)
+let loadingBalance = ref(false)
 let prizeIndex = ref(null)
 let nftPrice = ref(null)
 let sortDesc = ref(null)
@@ -203,6 +216,7 @@ async function getPMTBalance() {
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
     console.log('pmt', result)
     pmtBalance.value = Number(result).toFixed(4)
+    loadingBalance.value = false
     // return balance
 }
 async function getMTBalance() {
@@ -211,9 +225,16 @@ async function getMTBalance() {
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
     //console.log('mt', result)
     mtBalance.value = result
+    loadingBalance.value = false
     // return balance
 }
 
+
+function refreshBalance() {
+    loadingBalance.value = true
+    getPMTBalance()
+    getMTBalance()
+}
 //点击tab栏
 function clickTab(tab) {
     // console.log(tab.name)
