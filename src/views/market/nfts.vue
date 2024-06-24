@@ -1,6 +1,7 @@
 <template>
     <div class="text-primary-color pt-12">
         <div class="pt-2">
+            <div class="w-11/12 mr-auto ml-auto text-right text-gray-500 ">{{$t('wallet.balance')}}(PMT:{{pmtBalance}}, MT:{{mtBalance}})</div>
             <div class="w-11/12 mr-auto ml-auto mt-4 flex justify-between items-center">
                 <div>
                     <module-title titleWord="NFTs" />
@@ -174,6 +175,8 @@ let loading = ref(false)
 let prizeIndex = ref(null)
 let nftPrice = ref(null)
 let sortDesc = ref(null)
+let pmtBalance = ref('')
+let mtBalance = ref('')
 // let actions = ref([
 //     { text: '价格由高到低', value: true, index: 0 },
 //     { text: '价格由低到高', value: false, index: 1 }
@@ -189,7 +192,26 @@ const userInfo = userStore()
 
 onMounted(() => {
     getMaxPackage()
+    getPMTBalance()
+    getMTBalance()
 })
+
+async function getPMTBalance() {
+    let balance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
+    let WEB3 = new Web3(window.ethereum)
+    let result = WEB3.utils.fromWei(balance.toString(), 'ether')
+    console.log('pmt', result)
+    pmtBalance.value = Number(result).toFixed(4)
+    // return balance
+}
+async function getMTBalance() {
+    let balance = await mtContractApi.balanceOf(localStorage.getItem('address'))
+    let WEB3 = new Web3(window.ethereum)
+    let result = WEB3.utils.fromWei(balance.toString(), 'ether')
+    //console.log('mt', result)
+    mtBalance.value = result
+    // return balance
+}
 
 //点击tab栏
 function clickTab(tab) {
