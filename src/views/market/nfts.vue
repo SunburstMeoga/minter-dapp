@@ -673,6 +673,8 @@ async function handleBuyButton(item, canBuy) {
                             item.showToRaffle = true
                             prizeIndex.value = raffleResult.roulette_record.roulette_id
                             nftPrice.value = raffleResult.roulette_record.nft_price
+                            getPMTBalance()
+                            getMTBalance()
                             //console.log(prizeIndex.value, nftPrice.value)
                             clearInterval(timer)
                         }
