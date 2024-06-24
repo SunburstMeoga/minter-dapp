@@ -7,11 +7,11 @@
         <img :src="nftImg" alt="">
       </div> -->
       <div class="p-2 bg-nft-cover">
-        <div class="flex justify-between items-cente mb-2" v-show="showToken">
+        <div class="flex justify-between items-center mb-2" v-show="showToken">
           <!-- <div class="text-primary-color">Minter</div> -->
           <div class="text-xs text-red-500"># {{ tokenID }}</div>
         </div>
-        <div class="flex justify-between items-cente mb-2">
+        <div class="flex justify-between items-center mb-2">
           <div class="text-primary-color font-bold text-center w-full">Minter</div>
           <!-- <div class="text-xs text-gray-600"># {{ tokenID }}</div> -->
         </div>
