@@ -3,17 +3,17 @@
         <div class="pt-2">
             <div
                 class="w-11/12 mr-auto ml-auto text-right text-red-500 font-bold text-xs flex justify-end items-center">
+
+                {{ $t('wallet.balance')
+                }} PMT:{{ pmtBalance }} <br>
+                MT:{{ mtBalance }}
                 <div>
-                    <div class="mr-2 flex justify-center items-center active-primary-color" @click="refreshBalance">
+                    <div class="ml-2 flex justify-center items-center active-primary-color" @click="refreshBalance">
                         <div class="icon iconfont icon-shuaxin icon-refresh"
                             :class="loadingBalance ? 'animate-spin' : ''">
                         </div>
                     </div>
                 </div>
-                {{ $t('wallet.balance')
-                }}(PMT:{{
-                        pmtBalance }},
-                MT:{{ mtBalance }})
             </div>
             <div class="w-11/12 mr-auto ml-auto mt-4 flex justify-between items-center">
                 <div>
@@ -224,7 +224,7 @@ async function getMTBalance() {
     let WEB3 = new Web3(window.ethereum)
     let result = WEB3.utils.fromWei(balance.toString(), 'ether')
     //console.log('mt', result)
-    mtBalance.value = result
+    mtBalance.value = Number(result).toFixed(4)
     loadingBalance.value = false
     // return balance
 }
