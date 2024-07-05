@@ -191,6 +191,7 @@ let nftPrice = ref(null)
 let sortDesc = ref(null)
 let pmtBalance = ref('')
 let mtBalance = ref('')
+let preLotteryId = ref(null)
 // let actions = ref([
 //     { text: '价格由高到低', value: true, index: 0 },
 //     { text: '价格由低到高', value: false, index: 1 }
@@ -660,25 +661,51 @@ async function handleBuyButton(item, canBuy) {
                 tokenID.value = item.token_id
                 try {
                     item.showOperting = true
-                    await nftContractApi.purchaseNFT(item.token_id)
-                    // clearInterval(timer.value)
-                    let timer = setInterval(async () => {
-                        // getLuckyRes()
+                    let luckyidResult = await getLuckyDraw({ nft_token_id: item.token_id });
+                    if (luckyidResult.message === "没有抽獎記錄") {
+                        // preLotteryId.value = luckyidResult.roulette_record.id
+                        await nftContractApi.purchaseNFT(item.token_id)
+                        // clearInterval(timer.value)
+                        let timer = setInterval(async () => {
+                            // getLuckyRes()
 
-                        let raffleResult = await getLuckyDraw({ nft_token_id: item.token_id })
-                        //console.log('抽獎結果', raffleResult)
-                        if (raffleResult.message == "已成功抽獎") {
-                            // //console.log(res)
-                            item.showOperting = false
-                            item.showToRaffle = true
-                            prizeIndex.value = raffleResult.roulette_record.roulette_id
-                            nftPrice.value = raffleResult.roulette_record.nft_price
-                            getPMTBalance()
-                            getMTBalance()
-                            //console.log(prizeIndex.value, nftPrice.value)
-                            clearInterval(timer)
-                        }
-                    }, 2000);
+                            let raffleResult = await getLuckyDraw({ nft_token_id: item.token_id })
+                            //console.log('抽獎結果', raffleResult)
+                            if (raffleResult.message == "已成功抽獎") {
+                                // console.log(res)
+                                item.showOperting = false
+                                item.showToRaffle = true
+                                prizeIndex.value = raffleResult.roulette_record.roulette_id
+                                nftPrice.value = raffleResult.roulette_record.nft_price
+                                getPMTBalance()
+                                getMTBalance()
+                                //console.log(prizeIndex.value, nftPrice.value)
+                                clearInterval(timer)
+                            }
+                        }, 2000);
+                    } else {
+                        preLotteryId.value = luckyidResult.roulette_record.id
+                        await nftContractApi.purchaseNFT(item.token_id)
+                        // clearInterval(timer.value)
+                        let timer = setInterval(async () => {
+                            // getLuckyRes()
+
+                            let raffleResult = await getLuckyDraw({ nft_token_id: item.token_id })
+                            //console.log('抽獎結果', raffleResult)
+                            if (raffleResult.message == "已成功抽獎" && preLotteryId.value !== raffleResult.id) {
+                                // //console.log(res)
+                                item.showOperting = false
+                                item.showToRaffle = true
+                                prizeIndex.value = raffleResult.roulette_record.roulette_id
+                                nftPrice.value = raffleResult.roulette_record.nft_price
+                                getPMTBalance()
+                                getMTBalance()
+                                //console.log(prizeIndex.value, nftPrice.value)
+                                clearInterval(timer)
+                            }
+                        }, 2000);
+                    }
+
 
 
                 } catch (err) {
