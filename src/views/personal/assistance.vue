@@ -910,10 +910,10 @@ async function isSufficientRT(amount) {
         let balance = await rtBalance({ address: localStorage.getItem('address') })
         // balance = parseInt(balance)
         balance = balance.player
-        balance = balance.rt
-        //console.log('rt餘額', balance)
-        //console.log('rt餘額', parseInt(balance))
-        return Number(amount).toFixed(0) <= parseInt(balance)
+        balance = parseFloat(balance.rt) + parseFloat(balance.rt_locked)
+        // console.log('rt餘額', balance)
+        // console.log(amount, balance)
+        return Number(amount) <= parseInt(balance)
     } catch (err) {
         //console.log(err)
     }
