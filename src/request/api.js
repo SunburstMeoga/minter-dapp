@@ -313,3 +313,23 @@ export const socialsList = () => {
     method: 'GET'
   })
 }
+//feedback类型
+export const feedbackType = () => {
+  return request('/feedback-types', {
+    method: 'GET'
+  })
+}
+//反馈回复语言类型
+export const feedbackLanguage = () => {
+  return request('/languages', {
+    method: 'GET'
+  })
+}
+//提交反馈内容接口
+export const feedbacks = (params) => {
+  console.log(params)
+  return request('/feedbacks', {
+    method: 'POST',
+    params
+  })
+}
