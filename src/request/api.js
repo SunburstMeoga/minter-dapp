@@ -307,3 +307,9 @@ export function checkAddressInTree(address) {
     method: 'GET'
   })
 }
+//获取社交媒体接口
+export const socialsList = () => {
+  return request('/socials', {
+    method: 'GET'
+  })
+}

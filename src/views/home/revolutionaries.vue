@@ -111,9 +111,9 @@
 </template>
 
 <script setup>
-import { ref, computed, getCurrentInstance } from 'vue'
+import { ref, computed, getCurrentInstance, onMounted } from 'vue'
 import { useRouter } from "vue-router";
-
+import { socialsList } from '@/request/api'
 import ModuleTitle from '@/components/ModuleTitle.vue'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
@@ -121,6 +121,31 @@ const { proxy } = getCurrentInstance()
 let showLangePopover = ref(false)
 const router = useRouter()
 
+onMounted(() => {
+    console.log('footerbar on mounted')
+    getSocialsList()
+});
+let getSocialsList = () => {
+    socialsList().then(res => {
+        console.log(res)
+        socialMedia.value = [{
+            icon: 'icon-discord',
+            url: res.socials.discord
+        }, {
+            icon: 'icon-telegram1',
+            url: res.socials.telegram
+        }, {
+            icon: 'icon-medium',
+            url: res.socials.medium
+        }, {
+            icon: 'icon-tuite1',
+            url: res.socials.twitter
+        }]
+    })
+        .catch(err => {
+            console.log(err)
+        })
+}
 
 defineProps({
     hasChange: {
@@ -141,19 +166,7 @@ let contacts = computed(() => {
         },
     ]
 })
-let socialMedia = ref([{
-    icon: 'icon-discord',
-    url: ' https://discord.gg/Dw5xUdEj'
-}, {
-    icon: 'icon-telegram1',
-    url: 'https://web.telegram.org/k/#@MinterXdao'
-}, {
-    icon: 'icon-medium',
-    url: ''
-}, {
-    icon: 'icon-tuite1',
-    url: 'https://x.com/Minter_XDao'
-}])
+let socialMedia = ref([])
 let questionList = computed(() => {
     return [
         { title: t('NFTRevolution.marketTooHotTitle'), icon: 'icon-shujuzzhang', content: t('NFTRevolution.marketTooHotContent') },

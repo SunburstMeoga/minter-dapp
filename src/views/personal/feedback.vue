@@ -43,8 +43,8 @@
             選擇回復的語言類型
         </div>
         <div class="w-11/12 mr-auto ml-auto flex justify-start mb-4">
-            <van-popover v-model:show="showLanguagePopover" theme="dark" placement="bottom-start" :actions="actionsLanguage"
-                @select="onSelectLanguage">
+            <van-popover v-model:show="showLanguagePopover" theme="dark" placement="bottom-start"
+                :actions="actionsLanguage" @select="onSelectLanguage">
                 <template #reference>
                     <div
                         class="flex justify-center items-center text-gray-500 border text-xs border-gray-500 rounded px-3 py-1">
@@ -63,8 +63,9 @@
     </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import ModuleTitle from "@/components/ModuleTitle.vue";
+import { socialsList } from '@/request/api'
 let showFilterPopover = ref(false)
 let actions = ref([
     { text: '遊戲bug', value: true, index: 0 },
@@ -72,7 +73,9 @@ let actions = ref([
     { text: '反饋', value: true, index: 0 },
     { text: '其它', value: false, index: 1 }
 ])
+
 let currentFilter = ref(0)
+
 function onSelect(select) {
     //console.log(select.index)
     currentFilter.value = select.index

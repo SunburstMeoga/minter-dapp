@@ -30,9 +30,11 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
-import { ref, getCurrentInstance } from 'vue'
+
+import { ref, getCurrentInstance, onMounted } from 'vue'
 const officialMedias = ref([{ icon: 'icon-tuite', url: '' }, { icon: 'icon-telegram1', url: '' }, { icon: 'icon-medium', url: '' }, { icon: 'icon-discord', url: '' }])
 const { proxy } = getCurrentInstance()
+
 function changeLanguage() {
   //console.log(proxy.$i18n.locale)
   if (proxy.$i18n.locale == "zh-hk") {
