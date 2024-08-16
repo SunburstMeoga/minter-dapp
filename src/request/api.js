@@ -326,10 +326,9 @@ export const feedbackLanguage = () => {
   })
 }
 //提交反馈内容接口
-export const feedbacks = (params) => {
-  console.log(params)
+export const feedbacks = (data) => {
   return request('/feedbacks', {
     method: 'POST',
-    params
+    data
   })
 }
