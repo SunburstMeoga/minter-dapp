@@ -332,3 +332,10 @@ export const feedbacks = (data) => {
     data
   })
 }
+//更新nft取消挂单时间
+export const cancelListing = (data) => {
+  return request('/nfts/cancel-listing', {
+    method: 'POST',
+    data
+  })
+}

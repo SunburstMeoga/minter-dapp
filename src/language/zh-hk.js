@@ -358,6 +358,7 @@ export default {
     confirmExchangeUSD3ToRT: "是否確認將 {usd3} USD3兌換為 {rt} RT",
     bindRelationshipTime: "綁定關係時間",
     confirmBuyNFT: "是否確認購買NFT",
+    preCancelTime: "再次掛單時間須與上次取消掛單時間間隔10分鐘以上。"
   },
   raffle: {
     start: '開始',
