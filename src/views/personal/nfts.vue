@@ -24,7 +24,8 @@
                 :key="index">
                 <nft-card :nftImg="item.nftImg" :showCheckbox="false" :price="item.price" :tokenID="item.token_id"
                     :showOperting="item.showOperting" :showCancelButton="item.is_listed && !item.showOperting"
-                    :showListedButton="!item.is_listed && !item.showOperting && item.isSellOffPeriod" showToken :showCountDown="!item.isSellOffPeriod" :seconds="item.seconds"    @timeUp="handleTimeUp(item)"
+                    :showListedButton="!item.is_listed && !item.showOperting && item.isSellOffPeriod" showToken
+                    :showCountDown="!item.isSellOffPeriod" :seconds="item.seconds" @timeUp="handleTimeUp(item)"
                     @handleListed="handleListed(item, index)" @handleCancel="handleCancelList(item, index)" />
             </div>
         </div>
@@ -52,7 +53,8 @@
                 <nft-card :nftImg="item.nftImg" :price="item.price" :tokenID="item.token_id" showToken
                     @handleListed="handleListed(item, index)" @handleCancel="handleCancelList(item)"
                     :showCancelButton="item.is_listed && !item.showOperting" :showOperting="item.showOperting"
-                    :showListedButton="!item.is_listed && !item.showOperting && item.isSellOffPeriod" :showCountDown="!item.isSellOffPeriod" :seconds="item.seconds"    @timeUp="handleTimeUp(item)"/>
+                    :showListedButton="!item.is_listed && !item.showOperting && item.isSellOffPeriod"
+                    :showCountDown="!item.isSellOffPeriod" :seconds="item.seconds" @timeUp="handleTimeUp(item)" />
             </div>
         </div>
         <div v-if="saleables.length == 0 && currentType == 2" class="text-white font-bold mt-20 text-center">
@@ -69,7 +71,7 @@ import nftTwo from '@/assets/images/600.png'
 import nftThree from '@/assets/images/2000.png'
 import nftFour from '@/assets/images/6000.png'
 import nftFive from '@/assets/images/20000.png'
-import { userNFT, marketplace, getCanSaleNFT } from '@/request/api'
+import { userNFT, marketplace, getCanSaleNFT, cancelListing } from '@/request/api'
 import nftContractApi from '@/request/nft'
 import minterContractApi from '@/request/minter'
 import { showToast } from 'vant'
@@ -290,10 +292,35 @@ async function getListeds24h() { //每个地址每天最多挂单4张NFT
     // //console.log(listedsList)
     return listedsList.length
 }
-
+//判断上次取消挂单的时间与当前时间是否超过10分钟
+function isOverTenMinutes(utcTime) {
+    if (!utcTime) return true
+    const utcDate = new Date(utcTime)
+    const currentDate = new Date()
+    const diffInMinutes = (currentDate - utcDate) / (1000 * 60);
+    console.log(diffInMinutes)
+    return diffInMinutes > 10
+}
 //掛單
 async function handleListed(item, index) {
-    //console.log(item)
+    // console.log(item)
+    // let testTime = isOverTenMinutes(item.cancelled_at)
+    console.log(!isOverTenMinutes(item.cancelled_at))
+    if (!isOverTenMinutes(item.cancelled_at)) {
+        proxy.$confirm.hide()
+        proxy.$confirm.show({
+            title: t('modalConfirm.tips'),
+            // content: `你当前已经挂单${totalListings}张NFT，賣掉一張後可繼續掛單，且20分鐘內只能掛單4張NFT。`,
+            content: `${t('modalConfirm.preCancelTime')}`,
+            showCancelButton: false,
+            confirmText: t('modalConfirm.confirm'),
+            onConfirm: () => {
+                proxy.$confirm.hide()
+                proxy.$loading.hide()
+            },
+        });
+        return
+    }
     proxy.$loading.show()
     let numListingsIn24Hours
     let totalListings
@@ -346,7 +373,7 @@ async function handleListed(item, index) {
         }
 
     } catch (err) {
-        //console.log(err)
+        console.log(err)
         proxy.$confirm.hide()
         proxy.$loading.hide()
         showToast(t('toast.error'))
@@ -551,6 +578,7 @@ async function handleListed(item, index) {
 
                 // showToast(t('toast.success'))
             } catch (err) {
+                console.log(err)
                 proxy.$confirm.hide()
                 proxy.$confirm.hide()
                 item.showOperting = false
@@ -632,6 +660,8 @@ async function handleCancelList(item) {
                 item.opertingType = t('modalConfirm.canceling'),
                     item.showOperting = true
                 await nftContractApi.unlistNFT(item.token_id)
+                await cancelListing({ token_id: item.token_id })
+                window.location.reload()
                 // item.opertingType = "挂单成功"
                 item.showOperting = false
                 item.is_listed = false
@@ -668,6 +698,7 @@ async function handleCancelList(item) {
                 // }, 8000)
                 // showToast(t('toast.success'))
             } catch (err) {
+                console.log(err)
                 proxy.$loading.hide()
                 proxy.$confirm.hide()
                 item.showOperting = false

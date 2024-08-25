@@ -373,6 +373,7 @@ export default {
     confirmExchangeUSD3ToRT: "Confirm to exchange {usd3} USD3 for {rt} RT",
     bindRelationshipTime: "Binding relationship time",
     confirmBuyNFT: "Confirm to purchase the NFT?",
+    preCancelTime: "The next order must be placed at least 10 minutes after the last order cancellation time."
   },
   raffle: {
     start: 'Start',

@@ -307,3 +307,35 @@ export function checkAddressInTree(address) {
     method: 'GET'
   })
 }
+//获取社交媒体接口
+export const socialsList = () => {
+  return request('/socials', {
+    method: 'GET'
+  })
+}
+//feedback类型
+export const feedbackType = () => {
+  return request('/feedback-types', {
+    method: 'GET'
+  })
+}
+//反馈回复语言类型
+export const feedbackLanguage = () => {
+  return request('/languages', {
+    method: 'GET'
+  })
+}
+//提交反馈内容接口
+export const feedbacks = (data) => {
+  return request('/feedbacks', {
+    method: 'POST',
+    data
+  })
+}
+//更新nft取消挂单时间
+export const cancelListing = (data) => {
+  return request('/nfts/cancel-listing', {
+    method: 'POST',
+    data
+  })
+}

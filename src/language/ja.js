@@ -357,7 +357,8 @@ export default {
         addressTipsSeven: "まず、上位レベルにポイントを配置してください。",
         confirmExchangeUSD3ToRT: "{usd3}USD3を{rt}RTに交換することを確認してください。",
         bindRelationshipTime: "関係時間の指定",
-        confirmBuyNFT: "是否確認購買NFT",
+        confirmBuyNFT: "NFTを購入してもよろしいですか?",
+        preCancelTime: "最後に注文をキャンセルしてから、再度注文するまでの時間は 10 分以上空ける必要があります。"
     },
     raffle: {
         start: 'スタート',
