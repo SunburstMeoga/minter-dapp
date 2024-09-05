@@ -68,8 +68,8 @@
                         </div>
                     </div>
                     <div class="flex justify-end items-center"><span class="text-lg pr-1 font-bold text-red-500">{{
-                            Number(balance).toFixed(4)
-                        }} {{ currency }}</span> </div>
+                            balance < 0.000001 ? '＞0.0001' : Number(balance).toFixed(4) }} {{ currency }}</span>
+                    </div>
                 </div>
                 <div class="flex justify-between items-center text-menu-word text-sm mb-2" v-show="showLockBalance">
                     <div class="">{{ $t('wallet.frezeBalance') }}</div>
