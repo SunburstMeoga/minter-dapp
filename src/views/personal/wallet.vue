@@ -579,11 +579,11 @@ function getPlayersInfo(address) {
             console.log('res', res)
             packageCount.value = res.player.package_transactions.length
             palayBanalce.value.bt = res.player.bt
-            palayBanalce.value.rt = res.player.rt <= 0.0000001 ? '<= 0.0000001' : res.player.rt
+            palayBanalce.value.rt = res.player.rt
             palayBanalce.value.rtLocked = res.player.rt_locked
             hasPackage.value = res.player.package_transactions.length !== 0
-            // let testNumebr = '0.0000001'
-            // console.log(testNumebr <= 0.0000001)
+            // let testNumebr = '0.000001'
+            // console.log(testNumebr <= 0.000001)
         })
         .catch(err => {
             //console.log('err', err)
