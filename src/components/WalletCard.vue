@@ -68,7 +68,7 @@
                         </div>
                     </div>
                     <div class="flex justify-end items-center"><span class="text-lg pr-1 font-bold text-red-500">{{
-                            balance === '0.000000' ? '0.0000' : (balance < 0.0001 ? '＞0.0001' :
+                            (balance === '0.000000' || balance === '0.') ? '0.0000' : (balance < 0.0001 ? '＞0.0001' :
                                 Number(balance).toFixed(5).slice(0, -1)) }} {{ currency }}</span>
                     </div>
                 </div>
