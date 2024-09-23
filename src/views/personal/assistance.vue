@@ -528,11 +528,11 @@ async function handleConfirmBuyForRTPOPUP() {
     }
     // helpNextAddress
     // inviterAddressTwo
-    if (helpNextAddress.value == ZeroAddress || !isAddress(searchAddress.value)) {
+    if (helpNextAddress.value == ZeroAddress || !isAddress(helpNextAddress.value)) {
         showToast(t('modalConfirm.enterSearchUseAddr'))
         return
     }
-    if (inviterAddressTwo.value == ZeroAddress || !isAddress(searchAddress.value)) {
+    if (inviterAddressTwo.value == ZeroAddress || !isAddress(inviterAddressTwo.value)) {
         showToast(t('modalConfirm.enterSearchUseAddr'))
         return
     }
@@ -1300,6 +1300,10 @@ async function handleCopyLink() {
 //点击生成邀请链接按钮
 function handleCreateInvitationLink() {
     //console.log(clickPointInfo.value)
+    if (invitationAddress.value == ZeroAddress || !isAddress(invitationAddress.value)) {
+        showToast(t('modalConfirm.enterSearchUseAddr'))
+        return
+    }
     let shareLinkStr = `${window.location.origin}/market/invite-buy-package?inviter=${invitationAddress.value}&pre=${clickPointInfo.value.preAddress}&point=${clickPointInfo.value.point}`
     //console.log(shareLinkStr)
 
