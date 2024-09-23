@@ -526,6 +526,16 @@ async function handleConfirmBuyForRTPOPUP() {
         showToast(t('modalConfirm.choosePackage'))
         return
     }
+    // helpNextAddress
+    // inviterAddressTwo
+    if (helpNextAddress.value == ZeroAddress || !isAddress(searchAddress.value)) {
+        showToast(t('modalConfirm.enterSearchUseAddr'))
+        return
+    }
+    if (inviterAddressTwo.value == ZeroAddress || !isAddress(searchAddress.value)) {
+        showToast(t('modalConfirm.enterSearchUseAddr'))
+        return
+    }
     toggleBuyPopup()
     proxy.$loading.show()
 
