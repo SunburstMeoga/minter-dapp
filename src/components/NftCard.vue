@@ -19,7 +19,9 @@
           <img :src="nftImg" alt="">
         </div>
         <div class="flex justify-center items-center text-center w-full" @click="$emit('handleBuyButton')">
-          <div class="" v-show="showPrice">{{ Number(price).toFixed(4) }} MT</div>
+          <!-- <div class="" v-show="showPrice">{{ Number(price).toFixed(4) }} MT</div> -->
+          <div class="" v-show="showPrice">{{ (Math.round(Number(price) * 10000) / 10000).toFixed(4) }} MT</div>
+
           <!-- <div v-show="showCheckbox" class="border  rounded w-5 h-5 flex justify-center items-center"
             :class="checkedStatus ? 'border-primary-color bg-primary-color' : 'border-gray-200'"
             @click="$emit('checkedStatusHasChange')">

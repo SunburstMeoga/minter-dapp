@@ -19,15 +19,15 @@
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
                 <wallet-card isUSD3 :tokenImg="usdImg" currency="USD3" :balance="usdtBalance"
-                    :contranct="config.USDToken_addr" @recharge="handleWalletCardRecharge"
+                    :contract="config.USDToken_addr" @recharge="handleWalletCardRecharge"
                     @withdraw="handleWalletCardWithdraw" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="PMT" :tokenImg="pmtImg" :balance="pmtBalance" :contranct="config.pmt_addr" isBuy
+                <wallet-card currency="PMT" :tokenImg="pmtImg" :balance="pmtBalance" :contract="config.pmt_addr" isBuy
                     isReleases @buy="handleWalletCardBuy" @releases="handleWalletCardReleases" />
             </div>
             <div class="w-11/12 mr-auto ml-auto mb-3">
-                <wallet-card currency="MT" :tokenImg="mtImg" :balance="mtBalance" :contranct="config.mt_addr"
+                <wallet-card currency="MT" :tokenImg="mtImg" :balance="mtBalance" :contract="config.mt_addr"
                     showLockBalance isExchange isBuy @buy="handleWalletCardBuy" @exchange="handleWalletCardExchange"
                     :lockMT="lockMT" />
             </div>

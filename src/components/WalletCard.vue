@@ -83,10 +83,10 @@
                     <div class="">可用</div>
                     <div class="flex justify-end items-center"><span class="text-white pr-1">0 </span> (≈ $ 0.00)</div>
                 </div> -->
-                <div class="flex justify-between items-center text-menu-word text-sm" v-show="contranct">
+                <div class="flex justify-between items-center text-menu-word text-sm" v-show="contract">
                     <div class="">{{ $t('wallet.contract') }}</div>
-                    <div class="flex justify-end items-center"> {{ FilterAddress(contranct) }} <span
-                            @click="handleAddToken(contranct)"
+                    <div class="flex justify-end items-center"> {{ FilterAddress(contract) }} <span
+                            @click="handleAddToken(contract)"
                             class="icon iconfont icon-jiesuan ml-2 active-white-color">
                         </span></div>
                 </div>
@@ -111,7 +111,7 @@ const cardProps = defineProps({
         type: String,
         default: ''
     },
-    contranct: {
+    contract: {
         type: String,
         default: ''
     },
@@ -168,7 +168,7 @@ const cardProps = defineProps({
         default: false
     }
 })
-async function handleAddToken(contranct) {
+async function handleAddToken(contract) {
 
     //console.log(config, cardProps)
     proxy.$loading.show()
@@ -178,7 +178,7 @@ async function handleAddToken(contranct) {
             params: {
                 type: 'ERC20',
                 options: {
-                    address: contranct,
+                    address: contract,
                     symbol: cardProps.currency,
                     decimals: config.decimals,
                 },
