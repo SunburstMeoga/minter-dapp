@@ -11,7 +11,7 @@ const service = axios.create({
   // baseURL: 'https://api-live.minter-x.com/api',
   baseURL: 'https://api.minter-x.com/api',
   // 超时时间暂定5s
-  timeout: 5000
+  timeout: 50000
 })
 
 // 请求拦截器
