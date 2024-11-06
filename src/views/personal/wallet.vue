@@ -371,7 +371,7 @@ function refreshBalance() { //手动刷新BT余额
     btBalance({ address: localStorage.getItem('address') })
         .then(res => {
             loadingBTBalance.value = false
-            // console.log(res)
+            // console.log('余额', res)
             palayBanalce.value.bt = res.player.bt
             showToast(t('toast.success'))
         })
@@ -574,9 +574,11 @@ function handleTransferRT() {
 
 //獲取玩家信息
 function getPlayersInfo(address) {
+
     playersInfo(address)
         .then(res => {
             console.log('res', res)
+            console.log('玩家信息', res)
             packageCount.value = res.player.package_transactions.length
             palayBanalce.value.bt = res.player.bt
             palayBanalce.value.rt = res.player.rt
