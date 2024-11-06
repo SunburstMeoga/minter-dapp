@@ -1,6 +1,13 @@
 <template>
-  <div class="h-screen relative">
-    <div class="w-full top-2 left-0 z-40 shadow-xl sticky" v-if="route.meta.showLogo">
+  <div class="h-screen relative bg-black">
+    <div class="w-full mt-8-0"> <img
+        src="https://gd-hbimg.huaban.com/d5f6e9084191a84eb0b6c6a21be666825a7767b320e1d-V0qf4A_fw658webp" alt="">
+    </div>
+    <div class="text-primary-color w-full text-center font-bold text-4-0">
+      <h1>系统正在维护中</h1>
+    </div>
+
+    <!-- <div class="w-full top-2 left-0 z-40 shadow-xl sticky" v-if="route.meta.showLogo">
       <top-bar :pageTitle="pageTitle" showLogo></top-bar>
     </div>
     <div class="fixed  w-full top-0 left-0 z-40 shadow-xl" v-if="route.meta.showBack">
@@ -14,9 +21,10 @@
       <div ref="container" class="container relative" style="border: 1px solid black;">
         <canvas id="canvas" class="w-screen h-screen fixed left-0 top-0" ref="canvas" />
         <div class="w-screen h-screen fixed left-0 top-0 bg-black opacity-70" />
+
       </div>
 
-    </div>
+    </div> -->
   </div>
 </template>
 
