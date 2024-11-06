@@ -8,12 +8,12 @@ import market from './market'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    // ...home,
-    // ...recommend,
-    // ...coherent,
-    // ...earnings,
-    // ...personal,
-    // ...market
+    ...home,
+    ...recommend,
+    ...coherent,
+    ...earnings,
+    ...personal,
+    ...market
   ]
 })
 
