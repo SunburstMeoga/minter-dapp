@@ -5,7 +5,7 @@
         </div>
         <div class="w-11/12 rounded-lg border border-top-content px-2 py-4">
             <div class="text-center font-bold text-white mb-6">
-                {{ $t('exchange.title') }}
+                USD3 {{ $t('exchange.title') }} RT
             </div>
             <div class="text-white text-base flex justify-between items-center mb-6">
                 <div>USD3 {{ $t('order.balance') }}: </div>
