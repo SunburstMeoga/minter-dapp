@@ -195,13 +195,16 @@ const { proxy } = getCurrentInstance()
 onMounted(() => {
   initStar()
   animation()
+  getChainId()
   accountHasChanged()
+  networkHasChanged()
   if (localStorage.getItem('language')) {
     proxy.$i18n.locale = localStorage.getItem('language')
   } else {
     proxy.$i18n.locale = 'en-us' //默认英文
   }
 })
+//账户发生变化
 async function accountHasChanged() {
   window.ethereum.on('accountsChanged', (accounts) => {
     console.log('account changed')
@@ -216,10 +219,91 @@ async function accountHasChanged() {
         localStorage.removeItem('address')
         proxy.$confirm.hide()
         addressSign()
-        // location.reload()
+
       },
     })
   })
+}
+//獲取當前連接的鏈id
+let getChainId = async () => {
+  const { ethereum } = window;
+  try {
+    const chainId = await ethereum.request({
+      method: "eth_chainId"
+    });
+    console.log('当前链id', chainId)
+    if (chainId !== import.meta.env.VITE_APP_CHAIN_ID) {
+      proxy.$confirm.hide()
+      proxy.$confirm.show({
+        title: '請檢查您的網路',
+        content: '目前此頁面僅在HAH中受支持，如果切換網絡失敗，請手動切換網絡',
+        showCancelButton: false,
+        confirmText: '確 認',
+        onConfirm: () => {
+          switchNetWork()
+
+        },
+      })
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+let networkHasChanged = async () => {
+  console.log(import.meta.env.VITE_APP_CHAIN_ID)
+  window.ethereum.on('chainChanged', (chainChanged) => {
+    console.log('当前链id', chainChanged)
+    if (chainChanged !== import.meta.env.VITE_APP_CHAIN_ID) {
+      proxy.$confirm.hide()
+      proxy.$confirm.show({
+        title: '請檢查您的網路',
+        content: '目前此頁面僅在HAH中受支持，如果切換網絡失敗，請手動切換網絡',
+        showCancelButton: false,
+        confirmText: '確 認',
+        onConfirm: () => {
+          switchNetWork()
+          // location.reload()
+        },
+      })
+    }
+  })
+}
+//切換網絡
+let switchNetWork = async () => {
+  try {
+    await window.ethereum.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: import.meta.env.VITE_APP_CHAIN_ID }],
+    })
+    location.reload()
+  } catch (err) {
+    console.error(err)
+    if (err.code === 4902) {
+      try {
+        await ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [
+            {
+              chainId: import.meta.env.VITE_APP_CHAIN_ID,
+              chainName: import.meta.env.VITE_APP_CHAIN_NAME,
+              rpcUrls: [import.meta.env.VITE_APP_CHAIN_VITE_APP_CHAIN_RPC],
+              iconUrls: ['https://testnet.hashahead.org/logo.png'],
+              blockExplorerUrls: [import.meta.env.VITE_APP_CHAIN_EXPLORER],
+              nativeCurrency: {
+                name: 'HAH',
+                symbol: 'HAH',
+                decimals: 18
+              }
+            },
+          ],
+        });
+        location.reload()
+      } catch (addError) {
+        console.log(addError)
+      }
+
+    }
+  }
 }
 //钱包地址签名
 async function addressSign() {
