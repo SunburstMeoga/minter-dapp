@@ -193,6 +193,9 @@ const initStar = () => {
 
 const { proxy } = getCurrentInstance()
 onMounted(() => {
+  console.log('支持的网络', import.meta.env.VITE_APP_CHAIN_ID)
+  console.log('支持的网络RPC', import.meta.env.VITE_APP_CHAIN_RPC)
+
   initStar()
   animation()
   getChainId()
