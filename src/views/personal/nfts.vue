@@ -586,8 +586,8 @@ async function handleListed(item, index) {
                 proxy.$confirm.show({
                     title: t('modalConfirm.tips'),
                     // content: `Token ID為 ${item.token_id} 的NFT挂单失败，请重新挂单`,
-                    // content: `${t('modalConfirm.saleNFTFail', { tokenID: item.token_id })}`,
-                    content: `${err.toString()}`,
+                    content: `${t('modalConfirm.saleNFTFail', { tokenID: item.token_id })}`,
+                    // content: `${err.toString()}`,
                     showCancelButton: false,
                     confirmText: t('modalConfirm.confirm'),
                     onConfirm: () => {
