@@ -1,6 +1,7 @@
 /**
  * 错误处理工具函数
  */
+import { isErrorReportingEnabled, shouldShowErrorReport, logError } from '@/config/errorReporting'
 
 /**
  * 显示错误报告弹窗
@@ -9,6 +10,13 @@
  * @param {Object} options - 配置选项
  */
 export function showErrorReport(proxy, error, options = {}) {
+  // 检查是否启用了错误报告功能
+  if (!isErrorReportingEnabled()) {
+    // 如果未启用，只记录错误到控制台
+    logError('ErrorReport (Disabled)', error)
+    return
+  }
+
   const defaultOptions = {
     title: '操作失败',
     description: '操作失败，请复制以下错误信息并反馈给开发人员以便快速定位问题',
@@ -54,7 +62,12 @@ export function showErrorReport(proxy, error, options = {}) {
  * @param {Error} error - 错误对象
  */
 export function handleStaticGaugeError(proxy, error) {
-  console.error('Static gauge error:', error)
+  logError('Static gauge error', error)
+
+  // 检查是否应该显示错误报告
+  if (!shouldShowErrorReport('staticGauge')) {
+    return
+  }
 
   showErrorReport(proxy, error, {
     title: '静态收益仪表盘加载失败',
@@ -75,7 +88,12 @@ export function handleStaticGaugeError(proxy, error) {
  * @param {Function} retryCallback - 重试回调函数
  */
 export function handleNFTPurchaseError(proxy, error, retryCallback = null) {
-  console.error('NFT purchase error:', error)
+  logError('NFT purchase error', error)
+
+  // 检查是否应该显示错误报告
+  if (!shouldShowErrorReport('nftPurchase')) {
+    return
+  }
 
   showErrorReport(proxy, error, {
     title: 'NFT购买失败',
@@ -96,7 +114,12 @@ export function handleNFTPurchaseError(proxy, error, retryCallback = null) {
  * @param {Error} error - 错误对象
  */
 export function handleWalletError(proxy, error) {
-  console.error('Wallet error:', error)
+  logError('Wallet error', error)
+
+  // 钱包错误总是显示（如果错误报告功能启用）
+  if (!isErrorReportingEnabled()) {
+    return
+  }
 
   showErrorReport(proxy, error, {
     title: '钱包操作失败',
@@ -112,7 +135,12 @@ export function handleWalletError(proxy, error) {
  * @param {String} contractName - 合约名称
  */
 export function handleContractError(proxy, error, contractName = '合约') {
-  console.error(`${contractName} contract error:`, error)
+  logError(`${contractName} contract error`, error)
+
+  // 合约错误总是显示（如果错误报告功能启用）
+  if (!isErrorReportingEnabled()) {
+    return
+  }
 
   showErrorReport(proxy, error, {
     title: `${contractName}调用失败`,

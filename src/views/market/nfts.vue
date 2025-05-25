@@ -167,6 +167,7 @@ import pmtContractApi from '@/request/pmt'
 import mtContractApi from '@/request/mt'
 import { CopyText } from '@/utils/copyText'
 import { handleNFTPurchaseError } from '@/utils/errorHandler'
+import { isErrorReportingEnabled } from '@/config/errorReporting'
 
 
 const { t } = useI18n()
@@ -506,22 +507,23 @@ async function handleBuyButton(item, canBuy) {
         console.log(err)
         proxy.$loading.hide()
         proxy.$confirm.hide()
-        // 保持原有的错误处理逻辑
+        // 保持原有的错误处理逻辑，根据错误报告功能状态决定是否显示复制选项
+        const showErrorReportOption = isErrorReportingEnabled()
         proxy.$confirm.show({
             title: t('modalConfirm.tips'),
             content: t('modalConfirm.getBalanceFail'),
-            showCancelButton: true,
+            showCancelButton: showErrorReportOption,
             confirmText: t('modalConfirm.confirm'),
-            cancelText: '复制错误信息',
+            cancelText: showErrorReportOption ? '复制错误信息' : '',
             onConfirm: () => {
                 proxy.$confirm.hide()
             },
-            onCancel: () => {
+            onCancel: showErrorReportOption ? () => {
                 // 只有用户主动选择时才显示详细错误信息
                 handleNFTPurchaseError(proxy, err, () => {
                     handleBuyButton(item, canBuy)
                 })
-            }
+            } : undefined
         })
         return
     }
@@ -743,22 +745,23 @@ async function handleBuyButton(item, canBuy) {
                     proxy.$confirm.hide()
                     item.showOperting = false
                     item.showToRaffle = false
-                    // 保持原有的错误处理，但提供复制错误信息的选项
+                    // 保持原有的错误处理，根据错误报告功能状态决定是否显示复制选项
+                    const showErrorReportOption = isErrorReportingEnabled()
                     proxy.$confirm.show({
                         title: t('modalConfirm.tips'),
                         content: '購買失敗，請重新購買。',
-                        showCancelButton: true,
+                        showCancelButton: showErrorReportOption,
                         confirmText: t('modalConfirm.confirm'),
-                        cancelText: '复制错误信息',
+                        cancelText: showErrorReportOption ? '复制错误信息' : '',
                         onConfirm: () => {
                             proxy.$confirm.hide()
                         },
-                        onCancel: () => {
+                        onCancel: showErrorReportOption ? () => {
                             // 只有用户主动选择时才显示详细错误信息
                             handleNFTPurchaseError(proxy, err, () => {
                                 handleBuyButton(item, canBuy)
                             })
-                        }
+                        } : undefined
                     });
                 }
             } catch (err) {
@@ -766,22 +769,23 @@ async function handleBuyButton(item, canBuy) {
                 proxy.$confirm.hide()
                 item.showOperting = false
                 item.showToRaffle = false
-                // 保持原有的错误处理，但提供复制错误信息的选项
+                // 保持原有的错误处理，根据错误报告功能状态决定是否显示复制选项
+                const showErrorReportOption = isErrorReportingEnabled()
                 proxy.$confirm.show({
                     title: t('modalConfirm.tips'),
                     content: '購買失敗，請重新購買。',
-                    showCancelButton: true,
+                    showCancelButton: showErrorReportOption,
                     confirmText: t('modalConfirm.confirm'),
-                    cancelText: '复制错误信息',
+                    cancelText: showErrorReportOption ? '复制错误信息' : '',
                     onConfirm: () => {
                         proxy.$confirm.hide()
                     },
-                    onCancel: () => {
+                    onCancel: showErrorReportOption ? () => {
                         // 只有用户主动选择时才显示详细错误信息
                         handleNFTPurchaseError(proxy, err, () => {
                             handleBuyButton(item, canBuy)
                         })
-                    }
+                    } : undefined
                 });
             }
 
