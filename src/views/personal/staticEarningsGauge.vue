@@ -10,6 +10,7 @@ import * as echarts from 'echarts'
 import { Web3 } from 'web3'
 import { playersInfo } from '@/request/api'
 import { useI18n } from "vue-i18n";
+import { handleStaticGaugeError } from '@/utils/errorHandler';
 const { t } = useI18n()
 const { proxy } = getCurrentInstance()
 let maxPackage = ref('')
@@ -77,6 +78,20 @@ async function getStaticIncomeInfo() {
         //最新配套金额
         let result = await playersInfo(localStorage.getItem('address'))
         //console.log('result', result)
+
+        // 安全检查：确保必要的数据存在
+        if (!result || !result.player) {
+            throw new Error('玩家信息获取失败：返回数据为空')
+        }
+
+        if (!result.player.max_package || result.player.max_package.price == null) {
+            throw new Error('玩家配套信息获取失败：max_package为空或price为空')
+        }
+
+        if (!result.player.package_transactions || result.player.package_transactions.length === 0 || !result.player.package_transactions[0]) {
+            throw new Error('玩家交易记录获取失败：package_transactions为空')
+        }
+
         let max = Number(result.player.max_package.price) * 2
         let min = Number(result.player.max_package.price) * 0.6 //最高金額的package釋放數量
         let eraningAmount = Number(result.player.package_transactions[0].amount) * 0.6 / 3 * (3 - getReleaseCount)  //pmt釋放量
@@ -172,6 +187,12 @@ async function getStaticIncomeInfo() {
     } catch (err) {
         //console.log(err)
         proxy.$loading.hide()
+        // 只有在确实发生错误时才显示错误报告，保持原有的静默处理
+        // 用户可以通过刷新页面重试，如果持续失败才需要错误报告
+        console.error('Static gauge error:', err)
+
+        // 可选：显示详细错误信息供用户复制（取消注释下面这行来启用）
+        // handleStaticGaugeError(proxy, err)
     }
 }
 

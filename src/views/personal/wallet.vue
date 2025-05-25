@@ -579,16 +579,34 @@ function getPlayersInfo(address) {
         .then(res => {
             console.log('res', res)
             console.log('玩家信息', res)
-            packageCount.value = res.player.package_transactions.length
-            palayBanalce.value.bt = res.player.bt
-            palayBanalce.value.rt = res.player.rt
-            palayBanalce.value.rtLocked = res.player.rt_locked
-            hasPackage.value = res.player.package_transactions.length !== 0
+
+            // 安全检查：确保必要的数据存在
+            if (!res || !res.player) {
+                console.error('玩家信息获取失败：返回数据为空')
+                return
+            }
+
+            // 安全访问 package_transactions
+            const packageTransactions = res.player.package_transactions || []
+            packageCount.value = packageTransactions.length
+            hasPackage.value = packageTransactions.length !== 0
+
+            // 安全访问其他属性
+            palayBanalce.value.bt = res.player.bt || 0
+            palayBanalce.value.rt = res.player.rt || 0
+            palayBanalce.value.rtLocked = res.player.rt_locked || 0
+
             // let testNumebr = '0.000001'
             // console.log(testNumebr <= 0.000001)
         })
         .catch(err => {
-            //console.log('err', err)
+            console.error('获取玩家信息失败:', err)
+            // 设置默认值
+            packageCount.value = 0
+            hasPackage.value = false
+            palayBanalce.value.bt = 0
+            palayBanalce.value.rt = 0
+            palayBanalce.value.rtLocked = 0
         })
 }
 
@@ -599,7 +617,7 @@ async function getHAHBalance() {
     // //console.log(result)
 }
 
-// const chartData = ref([1, 2, 3, 4, 5])   
+// const chartData = ref([1, 2, 3, 4, 5])
 async function getMSTBalance() {
     let balance = await mstContractApi.balanceOf(localStorage.getItem('address'))
     let WEB3 = new Web3(window.ethereum)

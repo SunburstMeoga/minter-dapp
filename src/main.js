@@ -7,6 +7,7 @@ import 'animate.css'
 import i18n from './language/index.js'
 import loading from '@/components/loading'
 import confirm from '@/components/confirm'
+import errorReport from '@/components/errorReport'
 import VueLuckyCanvas from '@lucky-canvas/vue'
 import './assets/css/fonts.css'
 
@@ -82,6 +83,7 @@ app.use(List)
 
 app.use(loading)
 app.use(confirm)
+app.use(errorReport)
 app.use(i18n)
 app.use(VueLuckyCanvas)
 

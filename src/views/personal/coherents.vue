@@ -225,14 +225,25 @@ function getPlayersInfo(address) {
     playersInfo(address)
         .then(res => {
             //console.log('res', res)
-            const { total_bt_withdraw, total_bt_reward, total_package_value, last_out_total_package_value } = res.player.dynamic_earning_percentage_limit
+
+            // 安全检查：确保必要的数据存在
+            if (!res || !res.player) {
+                console.error('玩家信息获取失败：返回数据为空')
+                proxy.$loading.hide()
+                return
+            }
+
+            // 安全访问 dynamic_earning_percentage_limit
+            const dynamicEarningLimit = res.player.dynamic_earning_percentage_limit || {}
+            const { total_bt_withdraw = 0, total_bt_reward = 0, total_package_value = 0, last_out_total_package_value = 0 } = dynamicEarningLimit
 
             totalBTWithdraw.value = total_bt_withdraw
             // totalBTReward.value = total_bt_reward
             totalBTReward.value = Number(total_package_value * 2 - last_out_total_package_value).toFixed()
 
-
-            res.player.package_transactions.map(item => {
+            // 安全访问 package_transactions
+            const packageTransactions = res.player.package_transactions || []
+            packageTransactions.map(item => {
                 coherentsList.value.map(_item => {
                     let obj = {}
                     if (item.package_id == _item.id) {

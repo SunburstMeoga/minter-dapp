@@ -166,6 +166,7 @@ import { userStore } from "@/stores/user";
 import pmtContractApi from '@/request/pmt'
 import mtContractApi from '@/request/mt'
 import { CopyText } from '@/utils/copyText'
+import { handleNFTPurchaseError } from '@/utils/errorHandler'
 
 
 const { t } = useI18n()
@@ -259,13 +260,33 @@ function onSelect(select) {
 //獲取當前最高配套
 async function getMaxPackage() {
     proxy.$loading.show()
-    let result = await playersInfo(localStorage.getItem('address'))
-    // console.log(result)
-    packageID.value = result.player.max_package_id
-    active.value = result.player.max_package_id - 1
-    let params = { perPage: 100000, status: 1, package_id: packageID.value }
-    getMarketplace(params)
-    // //console.log(active.value)
+    try {
+        let result = await playersInfo(localStorage.getItem('address'))
+        // console.log(result)
+
+        // 安全检查：确保必要的数据存在
+        if (!result || !result.player) {
+            throw new Error('玩家信息获取失败：返回数据为空')
+        }
+
+        if (result.player.max_package_id == null) {
+            throw new Error('玩家配套ID获取失败：max_package_id为空')
+        }
+
+        packageID.value = result.player.max_package_id
+        active.value = result.player.max_package_id - 1
+        let params = { perPage: 100000, status: 1, package_id: packageID.value }
+        getMarketplace(params)
+        // //console.log(active.value)
+    } catch (err) {
+        console.error('获取最高配套失败:', err)
+        proxy.$loading.hide()
+        // 设置默认值
+        packageID.value = 1
+        active.value = 0
+        let params = { perPage: 100000, status: 1, package_id: 1 }
+        getMarketplace(params)
+    }
 }
 //取消掛單
 async function handleCancelList(item) {
@@ -485,12 +506,21 @@ async function handleBuyButton(item, canBuy) {
         console.log(err)
         proxy.$loading.hide()
         proxy.$confirm.hide()
+        // 保持原有的错误处理逻辑
         proxy.$confirm.show({
             title: t('modalConfirm.tips'),
             content: t('modalConfirm.getBalanceFail'),
-            showCancelButton: false,
+            showCancelButton: true,
+            confirmText: t('modalConfirm.confirm'),
+            cancelText: '复制错误信息',
             onConfirm: () => {
                 proxy.$confirm.hide()
+            },
+            onCancel: () => {
+                // 只有用户主动选择时才显示详细错误信息
+                handleNFTPurchaseError(proxy, err, () => {
+                    handleBuyButton(item, canBuy)
+                })
             }
         })
         return
@@ -713,23 +743,22 @@ async function handleBuyButton(item, canBuy) {
                     proxy.$confirm.hide()
                     item.showOperting = false
                     item.showToRaffle = false
+                    // 保持原有的错误处理，但提供复制错误信息的选项
                     proxy.$confirm.show({
                         title: t('modalConfirm.tips'),
                         content: '購買失敗，請重新購買。',
-                        // content: `Token ID為${item.token_id}的NFT購買失敗，請重新購買。`,
-                        showCancelButton: false,
+                        showCancelButton: true,
                         confirmText: t('modalConfirm.confirm'),
-                        // cancelText: '複製錯誤信息',
-                        // onCancel: async () => {
-                        //     console.log(err)
-                        //     await CopyText(JSON.stringify(err))
-                        //     proxy.$confirm.hide()
-                        //     showToast(t('toast.copySuccess'))
-                        // },
+                        cancelText: '复制错误信息',
                         onConfirm: () => {
                             proxy.$confirm.hide()
-                            // toggleConfirmPayPopup()
                         },
+                        onCancel: () => {
+                            // 只有用户主动选择时才显示详细错误信息
+                            handleNFTPurchaseError(proxy, err, () => {
+                                handleBuyButton(item, canBuy)
+                            })
+                        }
                     });
                 }
             } catch (err) {
@@ -737,22 +766,22 @@ async function handleBuyButton(item, canBuy) {
                 proxy.$confirm.hide()
                 item.showOperting = false
                 item.showToRaffle = false
+                // 保持原有的错误处理，但提供复制错误信息的选项
                 proxy.$confirm.show({
                     title: t('modalConfirm.tips'),
                     content: '購買失敗，請重新購買。',
-                    showCancelButton: false,
+                    showCancelButton: true,
                     confirmText: t('modalConfirm.confirm'),
-                    // cancelText: '複製錯誤信息',
-                    // onCancel: async () => {
-                    //     console.log(err)
-                    //     await CopyText(JSON.stringify(err))
-                    //     proxy.$confirm.hide()
-                    //     showToast(t('toast.copySuccess'))
-                    // },
+                    cancelText: '复制错误信息',
                     onConfirm: () => {
                         proxy.$confirm.hide()
-                        // toggleConfirmPayPopup()
                     },
+                    onCancel: () => {
+                        // 只有用户主动选择时才显示详细错误信息
+                        handleNFTPurchaseError(proxy, err, () => {
+                            handleBuyButton(item, canBuy)
+                        })
+                    }
                 });
             }
 

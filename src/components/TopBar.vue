@@ -313,10 +313,21 @@ function getPlayersInfo(address) {
     playersInfo(address)
         .then(res => {
             //console.log('res', res)
-            hasPackage.value = res.player.package_transactions.length !== 0
+
+            // 安全检查：确保必要的数据存在
+            if (!res || !res.player) {
+                console.error('玩家信息获取失败：返回数据为空')
+                hasPackage.value = false
+                return
+            }
+
+            // 安全访问 package_transactions
+            const packageTransactions = res.player.package_transactions || []
+            hasPackage.value = packageTransactions.length !== 0
         })
         .catch(err => {
-            //console.log('err', err)
+            console.error('获取玩家信息失败:', err)
+            hasPackage.value = false
         })
 }
 //钱包地址签名

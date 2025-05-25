@@ -41,7 +41,7 @@
 
                         <div class="flex justify-between items-center mb-3">
                             <div>{{ $t('promiseCard.packagePrice') }}:</div>
-                            <div class="text-red-500 font-bold">{{ Number(item.max_package.price).toFixed(4) }}</div>
+                            <div class="text-red-500 font-bold">{{ item.max_package && item.max_package.price ? Number(item.max_package.price).toFixed(4) : '0.0000' }}</div>
                         </div>
                         <!-- <div class="flex justify-between items-center mb-3">
                             <div>發放時間:</div>
@@ -65,7 +65,7 @@
                         </div>
                         <div class="flex justify-between items-center mb-3">
                             <div>{{ $t('promiseCard.rules') }}:</div>
-                            <div class="">{{ $t('promiseCard.rulesContent', { package: Number(item.max_package.price) })
+                            <div class="">{{ $t('promiseCard.rulesContent', { package: item.max_package && item.max_package.price ? Number(item.max_package.price) : 0 })
                                 }}
                             </div>
                         </div>

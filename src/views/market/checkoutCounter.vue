@@ -416,11 +416,22 @@ function getPlayersInfo(address) {
   playersInfo(address)
     .then(res => {
       //console.log('res', res)
-      palayBanalce.value.rt = res.player.rt
-      palayBanalce.value.rtLocked = res.player.rt_locked
+
+      // 安全检查：确保必要的数据存在
+      if (!res || !res.player) {
+        console.error('玩家信息获取失败：返回数据为空')
+        palayBanalce.value.rt = 0
+        palayBanalce.value.rtLocked = 0
+        return
+      }
+
+      palayBanalce.value.rt = res.player.rt || 0
+      palayBanalce.value.rtLocked = res.player.rt_locked || 0
     })
     .catch(err => {
-      //console.log('err', err)
+      console.error('获取玩家信息失败:', err)
+      palayBanalce.value.rt = 0
+      palayBanalce.value.rtLocked = 0
     })
 }
 function togglePointPopup() {
@@ -589,14 +600,20 @@ function handleConfirmReferrerAddress() {
 async function isSufficientRT(amount) {
   try {
     let balance = await rtBalance({ address: localStorage.getItem('address') })
-    // balance = parseInt(balance)
-    balance = balance.player
-    balance = balance.rt
-    //console.log('rt餘額', balance)
-    //console.log('rt餘額', parseInt(balance))
-    return Number(amount).toFixed(0) <= parseInt(balance)
+
+    // 安全检查：确保必要的数据存在
+    if (!balance || !balance.player) {
+      console.error('RT余额获取失败：返回数据为空')
+      return false
+    }
+
+    const rtAmount = balance.player.rt || 0
+    //console.log('rt餘額', rtAmount)
+    //console.log('rt餘額', parseInt(rtAmount))
+    return Number(amount).toFixed(0) <= parseInt(rtAmount)
   } catch (err) {
-    //console.log(err)
+    console.error('检查RT余额失败:', err)
+    return false
   }
 }
 

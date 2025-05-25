@@ -81,13 +81,23 @@ async function getPlayersInfo(address) {
     rtBalance({ address: localStorage.getItem('address') })
         .then(res => {
             //console.log('res', res)
+
+            // 安全检查：确保必要的数据存在
+            if (!res || !res.player) {
+                console.error('RT余额获取失败：返回数据为空')
+                rtBalanceNum.value = 0
+                proxy.$loading.hide()
+                return
+            }
+
             playInfo.value = res
-            rtBalanceNum.value = res.player.rt
+            rtBalanceNum.value = res.player.rt || 0
             proxy.$loading.hide()
         })
         .catch(err => {
             proxy.$loading.hide()
-            //console.log('err', err)
+            console.error('获取RT余额失败:', err)
+            rtBalanceNum.value = 0
             // showToast('更新RT餘額失敗，請刷新頁面')
 
         })

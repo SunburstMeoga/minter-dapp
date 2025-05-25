@@ -12,8 +12,20 @@ const { t } = useI18n()
 
 let point = ref("")
 async function getInfor() {
-    let playInfo = await playersInfo(localStorage.getItem('address'))
-    // console.log(localStorage.getItem('address'))
+    try {
+        let playInfo = await playersInfo(localStorage.getItem('address'))
+        // console.log(localStorage.getItem('address'))
+
+        // 安全检查：确保必要的数据存在
+        if (!playInfo || !playInfo.player) {
+            console.error('玩家信息获取失败：返回数据为空')
+            return
+        }
+
+        if (!playInfo.player.dynamic_earning_percentage_limit) {
+            console.error('动态收益信息获取失败：dynamic_earning_percentage_limit为空')
+            return
+        }
 
     const { total_bt_withdraw, total_package_value, total_bt_reward, dynamic_earning_percentage_limit, last_out_total_package_value } = playInfo.player.dynamic_earning_percentage_limit
     // let incomeLimit = playInfo.player.dynamic_earning_percentage_limit.dynamic_earning_percentage_limit
@@ -79,6 +91,10 @@ async function getInfor() {
     window.onresize = function () {
         myChart.resize();
     };
+    } catch (err) {
+        console.error('Dynamic gauge error:', err)
+        // 可以在这里添加错误处理，比如显示默认图表或错误信息
+    }
 }
 onMounted(() => {
     getInfor()
