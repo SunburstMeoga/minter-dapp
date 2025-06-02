@@ -12,7 +12,7 @@
             </div>
             <div class="text-red-500 font-bold">
               {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
-            FormatAmount(coherentInfo.type).pointOffside }}</span>
+                FormatAmount(coherentInfo.type).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
@@ -21,7 +21,7 @@
             </div>
             <div class="text-red-500 font-bold">
               {{ FormatAmount(coherentInfo.type - 5).pointPre }}.<span class="text-xs">{{
-            FormatAmount(coherentInfo.type - 5).pointOffside }}</span>
+                FormatAmount(coherentInfo.type - 5).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
@@ -30,7 +30,7 @@
             </div>
             <div class="text-red-500 font-bold">
               {{ FormatAmount(5).pointPre }}.<span class="text-xs">{{
-            FormatAmount(5).pointOffside }}</span>
+                FormatAmount(5).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
@@ -39,7 +39,7 @@
             </div>
             <div class="text-red-500 font-bold">
               {{ FormatAmount(coherentInfo.limit * 2).pointPre }}.<span class="text-xs">{{
-            FormatAmount(coherentInfo.limit * 2).pointOffside }}</span>
+                FormatAmount(coherentInfo.limit * 2).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
@@ -48,7 +48,7 @@
             </div>
             <div class="text-red-500 font-bold">
               {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-            FormatAmount(coherentInfo.limit).pointOffside }}</span>
+                FormatAmount(coherentInfo.limit).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
@@ -57,7 +57,7 @@
             </div>
             <div class="text-red-500 font-bold">
               {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-            FormatAmount(coherentInfo.limit).pointOffside }}</span>
+                FormatAmount(coherentInfo.limit).pointOffside }}</span>
             </div>
           </div>
           <div class="flex justify-between items-center">
@@ -276,7 +276,7 @@
               </div>
               <div class="text-red-500 font-bold">
                 {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
-            FormatAmount(coherentInfo.type).pointOffside }}</span>
+                  FormatAmount(coherentInfo.type).pointOffside }}</span>
               </div>
             </div>
             <div class="flex justify-between items-center">
@@ -285,7 +285,7 @@
               </div>
               <div class="text-red-500 font-bold">
                 {{ FormatAmount(coherentInfo.limit).pointPre }}.<span class="text-xs">{{
-            FormatAmount(coherentInfo.limit).pointOffside }}</span>
+                  FormatAmount(coherentInfo.limit).pointOffside }}</span>
               </div>
             </div>
 
@@ -299,7 +299,7 @@
           <div class="w-full mb-4 flex justify-between items-center">
             <div class="rounded pl-3 border border-gray-700 flex-1 py-1.5 text-sm ">
               {{ $t('order.needPay') }} {{ Number(palayBanalce.rt) - Number(coherentInfo.type) >= 0 ?
-            Number(coherentInfo.type) : Number(palayBanalce.rt) }}
+                Number(coherentInfo.type) : Number(palayBanalce.rt) }}
             </div>
           </div>
           <div v-show="rtBind.length && rtBind.length !== 0">
@@ -307,7 +307,7 @@
               <div class="text-white text-xs flex justify-between items-baseline mb-1">
                 <div class="text-base">{{ $t('order.bind') + ' ' }}RT </div>
                 <div class="text-primary-color font-bold pl-1"> {{ $t('assistance.expiryTime') }}: {{
-            FilterTime(item.expire_date) }}
+                  FilterTime(item.expire_date) }}
                 </div>
               </div>
               <div class="w-full flex justify-between items-center">

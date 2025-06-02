@@ -4,7 +4,7 @@
     <div class="text-gray-500 text-center text-base -mt-20"> {{ point }}</div>
 </template>
 <script setup>
-import { ref, onMounted, getCurrentInstance } from "vue";
+import { ref, onMounted, getCurrentInstance, nextTick } from "vue";
 import pmtContractApi from '@/request/pmt'
 import * as echarts from 'echarts'
 import { Web3 } from 'web3'
@@ -15,10 +15,140 @@ const { t } = useI18n()
 const { proxy } = getCurrentInstance()
 let maxPackage = ref('')
 let point = ref('')
-onMounted(() => {
-    getStaticIncomeInfo()
-    // getPlayersInfo(localStorage.getItem('address'))
+let chartInstance = ref(null)
+let retryCount = ref(0)
+const maxRetries = 5
 
+// 检查容器是否可见且有尺寸
+function checkContainerReady() {
+    const container = document.getElementById("staticEarnings")
+    if (!container) return false
+
+    const rect = container.getBoundingClientRect()
+    const isVisible = container.offsetParent !== null
+    const hasSize = rect.width > 0 && rect.height > 0
+
+    return isVisible && hasSize
+}
+
+// 初始化图表
+function initChart(data) {
+    try {
+        const { rewardAmount, eraningAmount, rewardAmountLimit } = data
+
+        // 销毁已存在的图表实例
+        if (chartInstance.value) {
+            chartInstance.value.dispose()
+            chartInstance.value = null
+        }
+
+        const container = document.getElementById("staticEarnings")
+        if (!container) {
+            console.error('静态仪表盘容器未找到')
+            return
+        }
+
+        // 再次检查容器尺寸
+        if (!checkContainerReady()) {
+            console.warn('静态仪表盘容器尺寸为0，延迟重试')
+            retryInitChart(data)
+            return
+        }
+
+        chartInstance.value = echarts.init(container)
+        chartInstance.value.setOption({
+            tooltip: {
+                // formatter: '{a} <br/>{b} : {c}%'
+            },
+            series: [
+                {
+                    // name: '已产出',
+                    type: 'gauge',
+                    // min: rewardAmount,
+                    min: 0,
+                    max: rewardAmountLimit,
+                    progress: {
+                        show: true,
+                        overlap: true,
+                        width: 10,
+                        roundCap: false,
+                        clip: true
+                    },
+                    detail: {
+                        valueAnimation: true,
+                        formatter: '{value} MT',
+                        fontSize: '20px',
+                        color: '#fff',
+                        borderColor: '#e149ed',
+                    },
+                    axisLabel: {
+                        distance: 16,
+                        color: '#999',
+                        fontSize: 12
+                    },
+                    data: [
+                        {
+                            value: (rewardAmount - eraningAmount) >= 0 ? Number(rewardAmount - eraningAmount).toFixed(2) : 0,
+                            name: `${t('assistance.remain')}: ${Number(rewardAmountLimit - rewardAmount + Number(eraningAmount)).toFixed(2)} MT`
+                        }
+                    ],
+                    radius: '90%',
+                    title: {
+                        color: '#fff',
+                        fontWeight: 'small'
+                    },
+                    color: '#e149ed',
+                    gradientColor: [
+                        "e149ed",
+                        "e149ed",
+                        "e149ed"
+                    ]
+                }
+            ]
+        })
+
+        // 窗口大小改变时重新调整图表
+        window.onresize = function () {
+            if (chartInstance.value) {
+                chartInstance.value.resize()
+            }
+        }
+
+        console.log('静态仪表盘初始化成功')
+
+    } catch (error) {
+        console.error('静态仪表盘初始化失败:', error)
+        // 如果初始化失败，尝试重试
+        if (retryCount.value < maxRetries) {
+            retryInitChart(data)
+        }
+    }
+}
+
+// 延迟重试初始化图表
+function retryInitChart(data) {
+    if (retryCount.value >= maxRetries) {
+        console.warn('静态仪表盘初始化失败：超过最大重试次数')
+        return
+    }
+
+    retryCount.value++
+    setTimeout(() => {
+        if (checkContainerReady()) {
+            initChart(data)
+        } else {
+            retryInitChart(data)
+        }
+    }, 200 * retryCount.value) // 递增延迟
+}
+
+onMounted(() => {
+    // 延迟执行，确保父组件状态已更新
+    nextTick(() => {
+        setTimeout(() => {
+            getStaticIncomeInfo()
+        }, 100)
+    })
 })
 async function userGetWithdrawalAmount() { //
     let result = await pmtContractApi.getWithdrawalAmount(localStorage.getItem('address'))
@@ -113,75 +243,27 @@ async function getStaticIncomeInfo() {
 
         //console.log('现时已提取總數 ', withdrawalAmount)
         //console.log('可提取上限 ', withdrawalAmountLimit)
-        //console.log('現時收益總數 ', rewardAmount)
-        //console.log('收益上限 ', rewardAmountLimit)
+        console.log('現時收益總數 ', rewardAmount)
+        console.log('收益上限 ', rewardAmountLimit)
         //console.log('锁定期的pmt数量 ', getLockedAmount)
         //console.log('獲取PMT的釋放次數 ', getReleaseCount)
         //console.log('package總釋放數量 ', min)
-        //console.log('package的釋放量', eraningAmount)
+        console.log('package的釋放量', eraningAmount)
 
+        // 准备图表数据
+        const chartData = {
+            rewardAmount,
+            eraningAmount,
+            rewardAmountLimit
+        }
 
-        let myChart = echarts.init(document.getElementById("staticEarnings"));
-        myChart.setOption({
-            tooltip: {
-                // formatter: '{a} <br/>{b} : {c}%'
-            },
-            series: [
-                {
-                    // name: '已产出',
-                    type: 'gauge',
-                    // min: rewardAmount,
-                    min: 0,
-                    max: rewardAmountLimit,
-                    progress: {
-                        show: true,
-                        overlap: true,
-                        width: 10,
-                        roundCap: false,
-                        clip: true
-                    },
-                    detail: {
-                        valueAnimation: true,
-                        formatter: '{value} MT',
-                        fontSize: '20px',
-                        color: '#fff',
-                        borderColor: '#e149ed',
-
-                        // width: 100,
-                        // height: 40
-
-                    },
-                    axisLabel: {
-                        distance: 16,
-                        color: '#999',
-                        fontSize: 12
-                    },
-                    data: [
-                        {
-                            value: (rewardAmount - eraningAmount) >= 0 ? Number(rewardAmount - eraningAmount).toFixed(2) : 0,
-                            name: `${t('assistance.remain')}: ${Number(rewardAmountLimit - rewardAmount + Number(eraningAmount)).toFixed(2)} MT`
-                            // name: '剩余量:' + rewardAmountLimit - rewardAmount + ' MT',
-                        }
-                    ],
-                    radius: '90%',
-                    title: {
-                        // fontSize: '2px',
-                        color: '#fff',
-                        fontWeight: 'small'
-                    },
-                    color: '#e149ed',
-                    gradientColor: [
-                        "e149ed",
-                        "e149ed",
-                        "e149ed"
-
-                    ]
-                }
-            ]
-        });
-        window.onresize = function () {
-            myChart.resize();
-        };
+        // 检查容器是否准备好，如果没有则重试
+        if (checkContainerReady()) {
+            initChart(chartData)
+        } else {
+            console.log('静态仪表盘容器未准备好，开始重试...')
+            retryInitChart(chartData)
+        }
         proxy.$loading.hide()
 
     } catch (err) {

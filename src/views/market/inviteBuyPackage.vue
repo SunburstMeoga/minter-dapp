@@ -53,7 +53,7 @@
                         </div>
                         <div class="text-red-500 font-bold">
                             {{ FormatAmount(coherentInfo.type).pointPre }}.<span class="text-xs">{{
-                        FormatAmount(coherentInfo.type).pointOffside }}</span>
+                                FormatAmount(coherentInfo.type).pointOffside }}</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
@@ -62,7 +62,7 @@
                         </div>
                         <div class="text-red-500 font-bold">
                             {{ FormatAmount(coherentInfo.limit * 2).pointPre }}.<span class="text-xs">{{
-                        FormatAmount(coherentInfo.limit * 2).pointOffside }}</span>
+                                FormatAmount(coherentInfo.limit * 2).pointOffside }}</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
@@ -83,18 +83,18 @@
                                 <div class="text-xs p-2 text-left text-gray-400">
                                     <!-- 购买成功之后即时释放{{ Number(coherentInfo.type) * (6 / 10) * (1 / 3) }}PMT -->
                                     {{ $t('coherents.buyAfterReleased') }}{{ Number(coherentInfo.type - 5) * (6 / 10) *
-                        (1 /
-                            3)
+                                        (1 /
+                                            3)
                                     }}PMT
                                 </div>
                                 <div class="text-xs p-2 text-left text-gray-400">
                                     {{ $t('coherents.24Released') }}{{ Number(coherentInfo.type - 5) * (6 / 10) * (1 /
-                        3)
+                                        3)
                                     }}PMT
                                 </div>
                                 <div class="text-xs p-2 text-left text-gray-400">
                                     {{ $t('coherents.48Released') }}{{ Number(coherentInfo.type - 5) * (6 / 10) * (1 /
-                        3)
+                                        3)
                                     }}PMT
                                 </div>
                                 <template #reference>

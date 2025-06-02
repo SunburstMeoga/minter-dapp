@@ -3,7 +3,8 @@
         <transition name="fade">
             <div class="w-full h-full flex justify-center items-center fixed top-0 left-0 bottom-0 z-50 bg-popup-cover"
                 v-if="visible" @touchmove.prevent>
-                <div class="bg-gray-bottom p-4 rounded-lg w-11/12 max-w-md flex flex-col items-center z-50 relative max-h-4/5">
+                <div
+                    class="bg-gray-bottom p-4 rounded-lg w-11/12 max-w-md flex flex-col items-center z-50 relative max-h-4/5">
                     <div class="text-gray-200 font-bold text-lg border-b text-center border-gray-500 w-full pb-2">
                         {{ title }}
                     </div>
@@ -23,23 +24,19 @@
 
                     <!-- 操作按钮 -->
                     <div class="w-full flex flex-col gap-2">
-                        <button
-                            @click="copyError"
+                        <button @click="copyError"
                             class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded text-sm font-medium transition-colors"
                             :disabled="copying">
                             {{ copying ? (copyText || '复制中...') : (copyText || '复制错误信息') }}
                         </button>
 
                         <div class="flex gap-2 w-full">
-                            <button
-                                @click="handleRetry"
-                                v-if="showRetryButton"
+                            <button @click="handleRetry" v-if="showRetryButton"
                                 class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded text-sm font-medium transition-colors">
                                 {{ retryText || '重试' }}
                             </button>
 
-                            <button
-                                @click="handleClose"
+                            <button @click="handleClose"
                                 class="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded text-sm font-medium transition-colors">
                                 {{ closeText || '关闭' }}
                             </button>
@@ -169,10 +166,13 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
     transition: opacity 0.3s;
 }
-.fade-enter-from, .fade-leave-to {
+
+.fade-enter-from,
+.fade-leave-to {
     opacity: 0;
 }
 

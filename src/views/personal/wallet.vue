@@ -105,9 +105,9 @@
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
                         <div class="text-base"> {{ $t('toast.enterExchangeAmount') }} </div>
                         <div class="text-primary-color text-xs pl-1"> {{ $t('toast.handlingFee', {
-                handlingFee:
-                    currentExchangeTypeBT == 1 ? ' 10% ' : ' 0% '
-            }) }}</div>
+                            handlingFee:
+                                currentExchangeTypeBT == 1 ? ' 10% ' : ' 0% '
+                        }) }}</div>
                     </div>
                     <div class="w-full flex justify-between items-center mb-10">
                         <div class="rounded  flex-1 ">
@@ -258,9 +258,9 @@
                     <div class="text-white text-xs flex justify-start items-baseline mb-1">
                         <div class="text-base"> {{ $t('toast.enterExchangeAmount') }} </div>
                         <div class="text-primary-color text-xs pl-1"> {{ $t('toast.handlingFee', {
-                handlingFee:
-                    currentExchangeType == 1 ? ' 10% ' : ' 5% '
-            }) }} </div>
+                            handlingFee:
+                                currentExchangeType == 1 ? ' 10% ' : ' 5% '
+                        }) }} </div>
                     </div>
                     <div class="w-full flex justify-between items-center mb-10">
                         <div class="rounded  flex-1 ">

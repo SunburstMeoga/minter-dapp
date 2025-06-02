@@ -52,7 +52,7 @@
                             <div class="text-white text-xs flex justify-between items-baseline mb-1">
                                 <div class="text-base">{{ $t('order.bind') }}RT </div>
                                 <div class="text-primary-color font-bold pl-1"> {{ $t('opertingLog.expiryTime') }}: {{
-            FilterTime(item.expire_date) }}
+                                    FilterTime(item.expire_date) }}
                                 </div>
                             </div>
                             <div class="w-full flex justify-between items-center">
@@ -176,7 +176,7 @@
                             <div class="text-white text-xs flex justify-between items-baseline mb-1">
                                 <div class="text-base">{{ $t('order.bind') + ' ' }}RT </div>
                                 <div class="text-primary-color font-bold pl-1"> {{ $t('opertingLog.expiryTime') }}: {{
-            FilterTime(item.expire_date) }}
+                                    FilterTime(item.expire_date) }}
                                 </div>
                             </div>
                             <div class="w-full flex justify-between items-center">
@@ -310,7 +310,7 @@
                             <div class="text-white text-xs flex justify-between items-baseline mb-1">
                                 <div class="text-base">{{ $t('order.bind') + ' ' }}RT </div>
                                 <div class="text-primary-color font-bold pl-1"> {{ $t('opertingLog.expiryTime') }}: {{
-            FilterTime(item.expire_date) }}
+                                    FilterTime(item.expire_date) }}
                                 </div>
                             </div>
                             <div class="w-full flex justify-between items-center">
