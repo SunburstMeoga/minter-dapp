@@ -109,6 +109,33 @@ export function handleNFTPurchaseError(proxy, error, retryCallback = null) {
 }
 
 /**
+ * 处理NFT挂单错误
+ * @param {Object} proxy - Vue组件实例的proxy
+ * @param {Error} error - 错误对象
+ * @param {Function} retryCallback - 重试回调函数
+ */
+export function handleNFTListingError(proxy, error, retryCallback = null) {
+  logError('NFT listing error', error)
+
+  // NFT挂单错误使用主开关控制（与购买和静态仪表盘一样）
+  if (!isErrorReportingEnabled()) {
+    return
+  }
+
+  showErrorReport(proxy, error, {
+    title: 'NFT挂单失败',
+    description: 'NFT挂单失败，请复制以下错误信息并反馈给开发人员以便快速定位问题',
+    showRetryButton: !!retryCallback,
+    onRetry: () => {
+      proxy.$errorReport.hide()
+      if (retryCallback && typeof retryCallback === 'function') {
+        retryCallback()
+      }
+    }
+  })
+}
+
+/**
  * 处理钱包相关错误
  * @param {Object} proxy - Vue组件实例的proxy
  * @param {Error} error - 错误对象

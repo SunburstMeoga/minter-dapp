@@ -166,7 +166,7 @@ import { userStore } from "@/stores/user";
 import pmtContractApi from '@/request/pmt'
 import mtContractApi from '@/request/mt'
 import { CopyText } from '@/utils/copyText'
-import { handleNFTPurchaseError } from '@/utils/errorHandler'
+import { handleNFTPurchaseError, handleNFTListingError } from '@/utils/errorHandler'
 import { isErrorReportingEnabled } from '@/config/errorReporting'
 
 
@@ -345,10 +345,28 @@ async function handleCancelList(item) {
         // showToast(t('toast.success'))
     } catch (err) {
         proxy.$loading.hide()
-        showToast(t('modalConfirm.cancelFail'))
         item.showOperting = false
         item.is_listed = false
         //console.log(err)
+
+        // 根据错误报告功能状态决定是否显示复制选项
+        const showErrorReportOption = isErrorReportingEnabled()
+        proxy.$confirm.show({
+            title: t('modalConfirm.tips'),
+            content: t('modalConfirm.cancelFail'),
+            showCancelButton: showErrorReportOption,
+            confirmText: t('modalConfirm.confirm'),
+            cancelText: showErrorReportOption ? '复制错误信息' : '',
+            onConfirm: () => {
+                proxy.$confirm.hide()
+            },
+            onCancel: showErrorReportOption ? () => {
+                // 只有用户主动选择时才显示详细错误信息
+                handleNFTListingError(proxy, err, () => {
+                    handleCancelList(item)
+                })
+            } : undefined
+        })
     }
 }
 

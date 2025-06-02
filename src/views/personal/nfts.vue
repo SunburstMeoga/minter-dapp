@@ -76,6 +76,8 @@ import nftContractApi from '@/request/nft'
 import minterContractApi from '@/request/minter'
 import { showToast } from 'vant'
 import { useI18n } from 'vue-i18n';
+import { handleNFTListingError } from '@/utils/errorHandler'
+import { isErrorReportingEnabled } from '@/config/errorReporting'
 const { t } = useI18n()
 
 const { proxy } = getCurrentInstance()
@@ -583,17 +585,26 @@ async function handleListed(item, index) {
                 proxy.$confirm.hide()
                 item.showOperting = false
                 item.is_listed = false
+                // 根据错误报告功能状态决定是否显示复制选项
+                const showErrorReportOption = isErrorReportingEnabled()
                 proxy.$confirm.show({
                     title: t('modalConfirm.tips'),
                     // content: `Token ID為 ${item.token_id} 的NFT挂单失败，请重新挂单`,
                     content: `${t('modalConfirm.saleNFTFail', { tokenID: item.token_id })}`,
                     // content: `${err.toString()}`,
-                    showCancelButton: false,
+                    showCancelButton: showErrorReportOption,
                     confirmText: t('modalConfirm.confirm'),
+                    cancelText: showErrorReportOption ? '复制错误信息' : '',
                     onConfirm: () => {
                         proxy.$confirm.hide()
                         // toggleConfirmPayPopup()
                     },
+                    onCancel: showErrorReportOption ? () => {
+                        // 只有用户主动选择时才显示详细错误信息
+                        handleNFTListingError(proxy, err, () => {
+                            handleListed(item, index)
+                        })
+                    } : undefined
                 });
             }
         },
@@ -704,15 +715,24 @@ async function handleCancelList(item) {
                 proxy.$confirm.hide()
                 item.showOperting = false
                 item.is_listed = true
+                // 根据错误报告功能状态决定是否显示复制选项
+                const showErrorReportOption = isErrorReportingEnabled()
                 proxy.$confirm.show({
                     title: t('modalConfirm.tips'),
                     content: t('modalConfirm.cancelFail'),
-                    showCancelButton: false,
+                    showCancelButton: showErrorReportOption,
                     confirmText: t('modalConfirm.confirm'),
+                    cancelText: showErrorReportOption ? '复制错误信息' : '',
                     onConfirm: () => {
                         proxy.$confirm.hide()
                         // toggleConfirmPayPopup()
                     },
+                    onCancel: showErrorReportOption ? () => {
+                        // 只有用户主动选择时才显示详细错误信息
+                        handleNFTListingError(proxy, err, () => {
+                            handleCancelList(item)
+                        })
+                    } : undefined
                 });
             }
         },
@@ -769,7 +789,7 @@ function handleTypeItem(item, index) {
     } else if (index == 2) {
         getUserCanSaleNFT()
     }
-}   
+}
 </script>
 
 <style></style>
