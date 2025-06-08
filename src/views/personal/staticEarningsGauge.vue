@@ -55,18 +55,29 @@ function initChart(data) {
             return
         }
 
+        // 安全地转换数值，确保都是有效数字
+        const safeRewardAmount = Number(rewardAmount) || 0
+        const safeEraningAmount = Number(eraningAmount) || 0
+        const safeRewardAmountLimit = Number(rewardAmountLimit) || 100
+
+        // 计算当前值，确保不为负数
+        const currentValue = Math.max(0, safeRewardAmount - safeEraningAmount)
+
+        // 计算剩余值，确保不为负数
+        const remainingValue = Math.max(0, safeRewardAmountLimit - safeRewardAmount + safeEraningAmount)
+
         chartInstance.value = echarts.init(container)
         chartInstance.value.setOption({
             tooltip: {
-                // formatter: '{a} <br/>{b} : {c}%'
+                formatter: function(params) {
+                    return `当前收益: ${currentValue.toFixed(2)} MT<br/>剩余额度: ${remainingValue.toFixed(2)} MT`
+                }
             },
             series: [
                 {
-                    // name: '已产出',
                     type: 'gauge',
-                    // min: rewardAmount,
                     min: 0,
-                    max: rewardAmountLimit,
+                    max: safeRewardAmountLimit,
                     progress: {
                         show: true,
                         overlap: true,
@@ -76,7 +87,13 @@ function initChart(data) {
                     },
                     detail: {
                         valueAnimation: true,
-                        formatter: '{value} MT',
+                        formatter: function(value) {
+                            // 如果是错误状态，显示特殊文本
+                            if (point.value === '数据加载失败') {
+                                return '加载失败'
+                            }
+                            return `${Number(value).toFixed(2)} MT`
+                        },
                         fontSize: '20px',
                         color: '#fff',
                         borderColor: '#e149ed',
@@ -84,12 +101,15 @@ function initChart(data) {
                     axisLabel: {
                         distance: 16,
                         color: '#999',
-                        fontSize: 12
+                        fontSize: 12,
+                        formatter: function(value) {
+                            return Number(value).toFixed(0)
+                        }
                     },
                     data: [
                         {
-                            value: (rewardAmount - eraningAmount) >= 0 ? Number(rewardAmount - eraningAmount).toFixed(2) : 0,
-                            name: `${t('assistance.remain')}: ${Number(rewardAmountLimit - rewardAmount + Number(eraningAmount)).toFixed(2)} MT`
+                            value: currentValue,
+                            name: `${t('assistance.remain')}: ${remainingValue.toFixed(2)} MT`
                         }
                     ],
                     radius: '90%',
@@ -97,11 +117,11 @@ function initChart(data) {
                         color: '#fff',
                         fontWeight: 'small'
                     },
-                    color: '#e149ed',
+                    color: point.value === '数据加载失败' ? '#666' : '#e149ed',
                     gradientColor: [
-                        "e149ed",
-                        "e149ed",
-                        "e149ed"
+                        point.value === '数据加载失败' ? '#666' : '#e149ed',
+                        point.value === '数据加载失败' ? '#666' : '#e149ed',
+                        point.value === '数据加载失败' ? '#666' : '#e149ed'
                     ]
                 }
             ]
@@ -114,13 +134,29 @@ function initChart(data) {
             }
         }
 
-        console.log('静态仪表盘初始化成功')
+        console.log('静态仪表盘初始化成功', {
+            currentValue,
+            remainingValue,
+            rewardAmountLimit: safeRewardAmountLimit
+        })
 
     } catch (error) {
         console.error('静态仪表盘初始化失败:', error)
         // 如果初始化失败，尝试重试
         if (retryCount.value < maxRetries) {
             retryInitChart(data)
+        } else {
+            // 最后的降级处理：显示简单的错误信息
+            const container = document.getElementById("staticEarnings")
+            if (container) {
+                container.innerHTML = `
+                    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; color: #999;">
+                        <div style="font-size: 18px; margin-bottom: 10px;">📊</div>
+                        <div style="font-size: 14px;">图表加载失败</div>
+                        <div style="font-size: 12px; margin-top: 5px;">请刷新页面重试</div>
+                    </div>
+                `
+            }
         }
     }
 }
@@ -176,85 +212,146 @@ async function userGetRewardAmountLimit() {
 //     return balance
 // }
 
+// 安全的合约调用函数，带有默认值和错误处理
+async function safeContractCall(contractMethod, defaultValue = 0) {
+    try {
+        const result = await contractMethod
+        return result || defaultValue
+    } catch (error) {
+        console.warn('合约调用失败，使用默认值:', error.message)
+        return defaultValue
+    }
+}
+
+// 安全的数值转换函数
+function safeNumberConversion(value, decimals = 'ether', defaultValue = 0) {
+    try {
+        if (!value || value.toString() === '0') return defaultValue
+        const WEB3 = new Web3(window.ethereum)
+        const converted = WEB3.utils.fromWei(value.toString(), decimals)
+        return Number(converted) || defaultValue
+    } catch (error) {
+        console.warn('数值转换失败，使用默认值:', error.message)
+        return defaultValue
+    }
+}
+
 async function getStaticIncomeInfo() {
     try {
         proxy.$loading.show()
-        let WEB3 = new Web3(window.ethereum)
-        //現時已提現總數
-        let withdrawalAmount = await pmtContractApi.getWithdrawalAmount(localStorage.getItem('address'))
-        withdrawalAmount = WEB3.utils.fromWei(withdrawalAmount.toString(), 'ether')
-        withdrawalAmount = Number(withdrawalAmount).toFixed(0)
-        //可提現上線
-        let withdrawalAmountLimit = await pmtContractApi.getWithdrawalAmountLimit(localStorage.getItem('address'))
-        withdrawalAmountLimit = WEB3.utils.fromWei(withdrawalAmountLimit.toString(), 'ether')
-        withdrawalAmountLimit = Number(withdrawalAmountLimit).toFixed(0)
-        //現時收益總數
-        let rewardAmount = await pmtContractApi.getRewardAmount(localStorage.getItem('address'))
-        rewardAmount = WEB3.utils.fromWei(rewardAmount.toString(), 'ether')
-        rewardAmount = Number(rewardAmount).toFixed(2)
-        //收益上限
-        let rewardAmountLimit = await pmtContractApi.getRewardAmountLimit(localStorage.getItem('address'))
-        rewardAmountLimit = WEB3.utils.fromWei(rewardAmountLimit.toString(), 'ether')
-        rewardAmountLimit = Number(rewardAmountLimit).toFixed(2)
-        //锁定期的pmt数量
-        let getLockedAmount = await pmtContractApi.getLockedAmount(localStorage.getItem('address'))
-        getLockedAmount = WEB3.utils.fromWei(getLockedAmount.toString(), 'ether')
-        getLockedAmount = Number(getLockedAmount).toFixed(0)
-        //獲取PMT的釋放次數
-        let getReleaseCount = await pmtContractApi.getReleaseCount(localStorage.getItem('address'))
-        // getReleaseCount = WEB3.utils.fromWei(getReleaseCount.toString(), 'ether')
-        getReleaseCount = Number(getReleaseCount).toFixed(0)
+        const userAddress = localStorage.getItem('address')
 
-        //最新配套金额
-        let result = await playersInfo(localStorage.getItem('address'))
-        //console.log('result', result)
-
-        // 安全检查：确保必要的数据存在
-        if (!result || !result.player) {
-            throw new Error('玩家信息获取失败：返回数据为空')
+        if (!userAddress) {
+            throw new Error('用户地址未找到，请重新连接钱包')
         }
 
-        if (!result.player.max_package || result.player.max_package.price == null) {
-            throw new Error('玩家配套信息获取失败：max_package为空或price为空')
+        // 首先检查用户是否购买了package
+        let playerInfo
+        try {
+            playerInfo = await playersInfo(userAddress)
+        } catch (apiError) {
+            console.error('API调用失败:', apiError)
+            throw new Error('无法获取用户信息，请检查网络连接')
         }
 
-        if (!result.player.package_transactions || result.player.package_transactions.length === 0 || !result.player.package_transactions[0]) {
-            throw new Error('玩家交易记录获取失败：package_transactions为空')
+        // 检查用户是否有购买记录
+        if (!playerInfo || !playerInfo.player) {
+            throw new Error('用户信息不存在')
         }
 
-        let max = Number(result.player.max_package.price) * 2
-        let min = Number(result.player.max_package.price) * 0.6 //最高金額的package釋放數量
-        let eraningAmount = Number(result.player.package_transactions[0].amount) * 0.6 / 3 * (3 - getReleaseCount)  //pmt釋放量
-        let pmtBalance = await pmtContractApi.balanceOf(localStorage.getItem('address'))
+        // 如果用户没有购买过package，显示默认状态
+        if (!playerInfo.player.max_package || !playerInfo.player.package_transactions ||
+            playerInfo.player.package_transactions.length === 0) {
+            console.log('用户尚未购买package，显示默认状态')
 
-        pmtBalance = WEB3.utils.fromWei(pmtBalance.toString(), 'ether')
-        pmtBalance = Number(pmtBalance)
-        let income = pmtBalance - min
-        let trueLimit = max - min
-        // let point
-        point.value = Number(((rewardAmount - eraningAmount) / rewardAmountLimit) * 100).toFixed(2) + '%'
-        // if (income >= trueLimit) {
-        //     point = '100%'
-        // } else {
-        //     point = Number((income / trueLimit) * 100).toFixed(1) + '%'
-        // }
+            // 显示默认的空状态图表
+            const defaultChartData = {
+                rewardAmount: 0,
+                eraningAmount: 0,
+                rewardAmountLimit: 100 // 默认上限
+            }
 
-        //console.log('pmt', pmtBalance)
+            point.value = '0.00%'
 
-        //console.log('现时已提取總數 ', withdrawalAmount)
-        //console.log('可提取上限 ', withdrawalAmountLimit)
-        console.log('現時收益總數 ', rewardAmount)
-        console.log('收益上限 ', rewardAmountLimit)
-        //console.log('锁定期的pmt数量 ', getLockedAmount)
-        //console.log('獲取PMT的釋放次數 ', getReleaseCount)
-        //console.log('package總釋放數量 ', min)
-        console.log('package的釋放量', eraningAmount)
+            if (checkContainerReady()) {
+                initChart(defaultChartData)
+            } else {
+                retryInitChart(defaultChartData)
+            }
+
+            proxy.$loading.hide()
+            return
+        }
+
+        // 安全地获取合约数据，使用默认值处理失败情况
+        const [
+            withdrawalAmountRaw,
+            withdrawalAmountLimitRaw,
+            rewardAmountRaw,
+            rewardAmountLimitRaw,
+            getLockedAmountRaw,
+            getReleaseCountRaw,
+            pmtBalanceRaw
+        ] = await Promise.allSettled([
+            safeContractCall(pmtContractApi.getWithdrawalAmount(userAddress), 0),
+            safeContractCall(pmtContractApi.getWithdrawalAmountLimit(userAddress), 0),
+            safeContractCall(pmtContractApi.getRewardAmount(userAddress), 0),
+            safeContractCall(pmtContractApi.getRewardAmountLimit(userAddress), 0),
+            safeContractCall(pmtContractApi.getLockedAmount(userAddress), 0),
+            safeContractCall(pmtContractApi.getReleaseCount(userAddress), 0),
+            safeContractCall(pmtContractApi.balanceOf(userAddress), 0)
+        ])
+
+        // 处理Promise.allSettled的结果
+        const withdrawalAmount = safeNumberConversion(
+            withdrawalAmountRaw.status === 'fulfilled' ? withdrawalAmountRaw.value : 0
+        )
+        const withdrawalAmountLimit = safeNumberConversion(
+            withdrawalAmountLimitRaw.status === 'fulfilled' ? withdrawalAmountLimitRaw.value : 0
+        )
+        const rewardAmount = safeNumberConversion(
+            rewardAmountRaw.status === 'fulfilled' ? rewardAmountRaw.value : 0
+        )
+        const rewardAmountLimit = safeNumberConversion(
+            rewardAmountLimitRaw.status === 'fulfilled' ? rewardAmountLimitRaw.value : 100
+        )
+        const getLockedAmount = safeNumberConversion(
+            getLockedAmountRaw.status === 'fulfilled' ? getLockedAmountRaw.value : 0
+        )
+        const getReleaseCount = getReleaseCountRaw.status === 'fulfilled' ?
+            Number(getReleaseCountRaw.value || 0) : 0
+        const pmtBalance = safeNumberConversion(
+            pmtBalanceRaw.status === 'fulfilled' ? pmtBalanceRaw.value : 0
+        )
+
+        // 安全地计算package相关数据
+        const packagePrice = Number(playerInfo.player.max_package?.price || 0)
+        const transactionAmount = Number(playerInfo.player.package_transactions[0]?.amount || packagePrice)
+
+        const max = packagePrice * 2
+        const min = packagePrice * 0.6 // 最高金額的package釋放數量
+        const eraningAmount = transactionAmount * 0.6 / 3 * (3 - getReleaseCount) // pmt釋放量
+
+        // 安全地计算百分比
+        let pointValue = 0
+        if (rewardAmountLimit > 0) {
+            pointValue = ((rewardAmount - eraningAmount) / rewardAmountLimit) * 100
+            pointValue = Math.max(0, Math.min(100, pointValue)) // 限制在0-100之间
+        }
+        point.value = Number(pointValue).toFixed(2) + '%'
+
+        console.log('=== 静态收益数据 ===')
+        console.log('PMT余额:', pmtBalance)
+        console.log('现时收益总数:', rewardAmount)
+        console.log('收益上限:', rewardAmountLimit)
+        console.log('package释放量:', eraningAmount)
+        console.log('进度百分比:', point.value)
 
         // 准备图表数据
         const chartData = {
-            rewardAmount,
-            eraningAmount,
-            rewardAmountLimit
+            rewardAmount: Number(rewardAmount).toFixed(2),
+            eraningAmount: Number(eraningAmount).toFixed(2),
+            rewardAmountLimit: Number(rewardAmountLimit).toFixed(2)
         }
 
         // 检查容器是否准备好，如果没有则重试
@@ -267,14 +364,36 @@ async function getStaticIncomeInfo() {
         proxy.$loading.hide()
 
     } catch (err) {
-        //console.log(err)
-        proxy.$loading.hide()
-        // 只有在确实发生错误时才显示错误报告，保持原有的静默处理
-        // 用户可以通过刷新页面重试，如果持续失败才需要错误报告
         console.error('Static gauge error:', err)
+        proxy.$loading.hide()
 
-        // 可选：显示详细错误信息供用户复制（取消注释下面这行来启用）
-        // handleStaticGaugeError(proxy, err)
+        // 显示用户友好的错误状态
+        const errorChartData = {
+            rewardAmount: 0,
+            eraningAmount: 0,
+            rewardAmountLimit: 100
+        }
+
+        point.value = '数据加载失败'
+
+        // 尝试显示错误状态的图表
+        try {
+            if (checkContainerReady()) {
+                initChart(errorChartData)
+            } else {
+                retryInitChart(errorChartData)
+            }
+        } catch (chartError) {
+            console.error('图表初始化也失败了:', chartError)
+        }
+
+        // 根据错误类型显示不同的提示
+        if (err.message.includes('用户尚未购买') || err.message.includes('package_transactions为空')) {
+            console.log('用户尚未购买package，这是正常情况')
+        } else {
+            // 可选：显示详细错误信息供用户复制（取消注释下面这行来启用）
+            // handleStaticGaugeError(proxy, err)
+        }
     }
 }
 
