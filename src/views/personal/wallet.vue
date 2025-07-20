@@ -329,6 +329,7 @@ onMounted(() => {
     getUserNFTs()
     getStaticRecords()
     getHAHBalance()
+    getStaticRewardData() // 获取静态收益数据
 
 })
 let currentCoherent = ref(null)
@@ -344,9 +345,12 @@ let exchangeAmountBT = ref('')
 // let exhangeTypes = ref([{ title: 'MT 兌換 USDT', type: 0 }, { title: 'MT 兌換 RT', type: 1 }])
 // let exhangeTypesBT = ref([{ title: 'BT 兌換 USDT', type: 0 }, { title: 'BT 兌換 RT', type: 1 }])
 let exhangeTypes = computed(() => {
+    // 判断是否出局：现时收益总数 >= 收益上限
+    const isPlayerOut = staticRewardAmount.value >= staticRewardAmountLimit.value
+
     // 如果玩家出局了，显示两个选项：MT兑换RT 和 MT兑换USD3
     // 如果玩家没有出局，只显示MT兑换RT
-    const types = playerIsOut.value
+    const types = isPlayerOut
         ? [{ title: `MT ${t('toast.exchangeTitle')} RT`, type: 1 }, { title: `MT ${t('toast.exchangeTitle')} USD3`, type: 0 }]
         : [{ title: `MT ${t('toast.exchangeTitle')} RT`, type: 1 }]
 
@@ -376,7 +380,9 @@ let hasPackage = ref(false)
 let transferRTAmount = ref(null)
 let transferRTAddress = ref(null)
 let loadingBTBalance = ref(false)
-let playerIsOut = ref(false) // 添加玩家是否出局的状态
+// 静态收益相关数据
+let staticRewardAmount = ref(0) // 现时收益总数
+let staticRewardAmountLimit = ref(0) // 收益上限
 
 function refreshBalance() { //手动刷新BT余额
     loadingBTBalance.value = true
@@ -608,9 +614,6 @@ function getPlayersInfo(address) {
             palayBanalce.value.rt = res.player.rt || 0
             palayBanalce.value.rtLocked = res.player.rt_locked || 0
 
-            // 获取玩家是否出局的状态
-            playerIsOut.value = res.player.is_out || false
-
             // let testNumebr = '0.000001'
             // console.log(testNumebr <= 0.000001)
         })
@@ -622,8 +625,53 @@ function getPlayersInfo(address) {
             palayBanalce.value.bt = 0
             palayBanalce.value.rt = 0
             palayBanalce.value.rtLocked = 0
-            playerIsOut.value = false // 默认设置为未出局
         })
+}
+
+// 获取静态收益数据
+async function getStaticRewardData() {
+    try {
+        const userAddress = localStorage.getItem('address')
+        if (!userAddress) {
+            console.warn('用户地址未找到')
+            return
+        }
+
+        // 获取现时收益总数和收益上限
+        const [rewardAmountRaw, rewardAmountLimitRaw] = await Promise.allSettled([
+            pmtContractApi.getRewardAmount(userAddress),
+            pmtContractApi.getRewardAmountLimit(userAddress)
+        ])
+
+        // 安全地转换数值
+        const WEB3 = new Web3(window.ethereum)
+
+        let rewardAmount = 0
+        if (rewardAmountRaw.status === 'fulfilled' && rewardAmountRaw.value) {
+            rewardAmount = Number(WEB3.utils.fromWei(rewardAmountRaw.value.toString(), 'ether')) || 0
+        }
+
+        let rewardAmountLimit = 0
+        if (rewardAmountLimitRaw.status === 'fulfilled' && rewardAmountLimitRaw.value) {
+            rewardAmountLimit = Number(WEB3.utils.fromWei(rewardAmountLimitRaw.value.toString(), 'ether')) || 0
+        }
+
+        // 更新状态
+        staticRewardAmount.value = rewardAmount
+        staticRewardAmountLimit.value = rewardAmountLimit
+
+        console.log('静态收益数据更新:', {
+            rewardAmount,
+            rewardAmountLimit,
+            isOut: rewardAmount >= rewardAmountLimit
+        })
+
+    } catch (error) {
+        console.error('获取静态收益数据失败:', error)
+        // 设置默认值
+        staticRewardAmount.value = 0
+        staticRewardAmountLimit.value = 0
+    }
 }
 
 async function getHAHBalance() {
