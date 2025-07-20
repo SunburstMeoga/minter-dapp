@@ -344,7 +344,18 @@ let exchangeAmountBT = ref('')
 // let exhangeTypes = ref([{ title: 'MT 兌換 USDT', type: 0 }, { title: 'MT 兌換 RT', type: 1 }])
 // let exhangeTypesBT = ref([{ title: 'BT 兌換 USDT', type: 0 }, { title: 'BT 兌換 RT', type: 1 }])
 let exhangeTypes = computed(() => {
-    return [{ title: `MT ${t('toast.exchangeTitle')} RT`, type: 1 }, { title: `MT ${t('toast.exchangeTitle')} USD3`, type: 0 }]
+    // 如果玩家出局了，显示两个选项：MT兑换RT 和 MT兑换USD3
+    // 如果玩家没有出局，只显示MT兑换RT
+    const types = playerIsOut.value
+        ? [{ title: `MT ${t('toast.exchangeTitle')} RT`, type: 1 }, { title: `MT ${t('toast.exchangeTitle')} USD3`, type: 0 }]
+        : [{ title: `MT ${t('toast.exchangeTitle')} RT`, type: 1 }]
+
+    // 确保当前选中的类型在可用范围内
+    if (currentExchangeType.value >= types.length) {
+        currentExchangeType.value = 0
+    }
+
+    return types
 })
 let exhangeTypesBT = computed(() => {
     return [{ title: `BT ${t('toast.exchangeTitle')} RT`, type: 1 }, { title: `BT ${t('toast.exchangeTitle')} USD3`, type: 0 }]
@@ -365,6 +376,7 @@ let hasPackage = ref(false)
 let transferRTAmount = ref(null)
 let transferRTAddress = ref(null)
 let loadingBTBalance = ref(false)
+let playerIsOut = ref(false) // 添加玩家是否出局的状态
 
 function refreshBalance() { //手动刷新BT余额
     loadingBTBalance.value = true
@@ -596,6 +608,9 @@ function getPlayersInfo(address) {
             palayBanalce.value.rt = res.player.rt || 0
             palayBanalce.value.rtLocked = res.player.rt_locked || 0
 
+            // 获取玩家是否出局的状态
+            playerIsOut.value = res.player.is_out || false
+
             // let testNumebr = '0.000001'
             // console.log(testNumebr <= 0.000001)
         })
@@ -607,6 +622,7 @@ function getPlayersInfo(address) {
             palayBanalce.value.bt = 0
             palayBanalce.value.rt = 0
             palayBanalce.value.rtLocked = 0
+            playerIsOut.value = false // 默认设置为未出局
         })
 }
 
